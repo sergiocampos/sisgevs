@@ -1,0 +1,663 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>SISGEVS - Detalhes de Caso</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+  <script src="https://code.highcharts.com/highcharts.src.js"></script>
+
+  <style>
+  .fakeimg {
+    height: 200px;
+    background: #aaa;
+  }
+</style>
+
+<link rel="shortcut icon" href="https://docs.google.com/uc?id=1h8jgyPDlDWWinD_VP50nqKXnmdCHEKH3" type="image/x-icon" />
+
+<style>
+  #num_oficio_id,
+  #btn_desfaz_id,
+  #lb_data_encaminhado_id,
+  #lb_data_recebido_id,
+  #lb_data_conferido_id,
+  #lb_data_devolucao_id,
+  #lb_data_retorno_unidade_id,
+  #lb_data_envio_gabinete_id,
+  #lb_data_encaminhado_sead_id{
+    display: none;
+  }
+</style>
+<script>
+  $(function() {
+    $(document).on('click','#lb_check_recebido', function (e) {
+      if ($(this).is(":checked")) {
+        $("#lb_data_recebido_id").show();
+      } else {
+        $("#lb_data_recebido_id").hide();
+        $("#data_recebido_id").val("");
+      }
+    });
+  });
+
+  $(function() {
+    $(document).on('click','#lb_check_conferido', function (e) {
+      if ($(this).is(":checked")) {
+        $("#lb_data_conferido_id").show();
+      } else {
+        $("#lb_data_conferido_id").hide();
+        $("#data_conferido_id").val("");
+      }
+    });
+  });
+
+  $(function() {
+    $(document).on('click','#lb_check_encaminhado', function (e) {
+      if ($(this).is(":checked")) {
+        $("#lb_data_encaminhado_id").show();
+      } else {
+        $("#lb_data_encaminhado_id").hide();
+        $("#data_encaminhado_id").val("");
+      }
+    });
+  });
+
+  $(function() {
+    $(document).on('click','#lb_check_devolvido', function (e) {
+      if ($(this).is(":checked")) {
+        $("#lb_data_devolucao_id").show();
+      } else {
+        $("#lb_data_devolucao_id").hide();
+        $("#data_devolucao_id").val("");
+      }
+    });
+  });
+
+  $(function() {
+    $(document).on('click','#lb_check_retorno_unidade', function (e) {
+      if ($(this).is(":checked")) {
+        $("#lb_data_retorno_unidade_id").show();
+      } else {
+        $("#lb_data_retorno_unidade_id").hide();
+        $("#data_retorno_unidade_id").val("");
+      }
+    });
+  });
+
+  $(function() {
+    $(document).on('click','#lb_check_gabinete', function (e) {
+      if ($(this).is(":checked")) {
+        $("#lb_data_envio_gabinete_id").show();
+      } else {
+        $("#lb_data_envio_gabinete_id").hide();
+        $("#data_envio_gabinete_id").val("");
+      }
+    });
+  });
+
+  $(function() {
+    $(document).on('click','#lb_check_encaminhado_sead', function (e) {
+      if ($(this).is(":checked")) {
+        $("#lb_data_encaminhado_sead_id").show();
+      } else {
+        $("#lb_data_encaminhado_sead_id").hide();
+        $("#data_encaminhado_sead_id").val("");
+      }
+    });
+  });
+
+
+  function active_num_oficio(){
+
+    $("#lb_data_encaminhado_id").show();
+    
+    if (document.getElementById('lb_check_encaminhado').checked == true){
+      $("#num_oficio_id").show();
+    }
+    if (document.getElementById('lb_check_encaminhado').checked == false){
+      $("#num_oficio_id").hide();
+      $("#val_num_oficio").val("");
+    }
+  }
+
+  function desactive_check(){
+    $("#num_oficio_id").hide();
+    $("#val_num_oficio").val("");
+    $("#lb_check_recebido").prop("checked", false);
+    $("#lb_check_conferido").prop("checked", false);
+    $("#lb_check_encaminhado").prop("checked", false);
+    $("#btn_desfaz_id").hide();
+  }
+
+  function active_btn_desfaz(){
+    $("#btn_desfaz_id").show();
+  }
+</script>
+
+</head>
+<body>
+
+  <nav class="navbar navbar-expand-sm bg-info navbar-light" style="background-color: #e6e6e6;">
+  <ul class="navbar-nav">
+    <li class="nav-item active">
+      <a class="nav-link" href="#"></a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="#"></a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="#"></a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link disabled" href="#"></a>
+    </li>
+  </ul>
+</nav>
+
+  <div class="" style="background-color: #e6e6e6;">
+    <div class="row">
+      
+      <div class="col-sm-3">
+        <!--
+        <img src="https://docs.google.com/uc?id=1gDXBrx2Nq6k_Whfk6E4IpkvcyDypJPxY" alt="" width="50%">
+      -->
+      </div>
+      <div class="col-sm-4" style="margin-top: 10px; text-align: center;">
+        <h4>SECRETARIA DE ESTADO DA SAÚDE</h4>
+        <h6>SISGEVS - Sistema de Informação em Saúde da GEVS</h6>
+        <h6><b>----</b></h6>
+      </div>
+      <div class="col-sm-3">
+        <img src="{% static "gerencia-administrativa/nova-marca-governo-01.png" %}" alt="" width="50%">
+        <!--
+        <img src="https://docs.google.com/uc?id=1tLThSsCUOFKg-1fphY-Y9hrC_XFnHdOr" alt="" width="50%">
+      -->
+      </div>
+    </div>
+  </div>
+
+  <nav class="navbar navbar-expand-sm bg-secondary navbar-dark">
+    <a class="navbar-brand" href="#"></a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="collapsibleNavbar">
+      <ul class="navbar-nav">
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#">Localizar Notificação</a>
+          <div class="dropdown-menu">
+            <a class="dropdown-item" href="/localizar_paciente_nome/">Nome Paciente</a>
+            <a class="dropdown-item" href="/localizar_paciente_cpf/">CPF</a>
+            <a class="dropdown-item" href="/localizar_paciente_phone/">Telefone</a></div>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Menu</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Menu</a>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#">Acompanhar Resultados</a>
+          <div class="dropdown-menu">
+            <a class="dropdown-item" href="#">Por Unidade</a>
+            <a class="dropdown-item" href="#">Por Macro</a>
+            <a class="dropdown-item" href="#">Por Gerência</a></div>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active" href="">Informar Dados de Ficha</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/logout/">Sair</a>
+        </li>    
+      </ul>
+    </div>
+    <div>
+      <b style="color: white;">Logged: </b><i style="color: white;">{{user.get_username}}</i>
+    </div>  
+  </nav>
+
+  <div class="container" style="margin-top:30px" id="container">
+
+    <div class="row">
+      <div class="col-sm-12">
+        <div class="alert alert-primary" style="text-align: center;">
+          <strong style="align-items: center;">Dados da Notificação</strong>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-sm-11">
+        
+
+      </div>
+      <div class="col-sm-1">
+        <button type="button" class="btn btn-primary btn-sm" onclick="goBack()">Voltar</button>
+      </div>
+    </div>
+    <script>
+    function goBack() {
+      window.history.back();
+    }
+    </script>
+
+
+    <form enctype="multipart/form-data" action="submit" method="POST">{% csrf_token %}
+    <br>
+    <!-- Nav tabs -->
+    <ul class="nav nav-tabs" role="tablist">
+      <li class="nav-item">
+        <a class="nav-link active" data-toggle="tab" href="#home">Dados Gerais</a>
+      </li>
+      
+      <li class="nav-item">
+        <a class="nav-link" data-toggle="tab" href="#menu1">Dados de Residência</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" data-toggle="tab" href="#menu2">Notificação Individual</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" data-toggle="tab" href="#menu3">Antecedêntes Epidemiológicos</a>
+      </li>
+   
+    </ul>
+
+    <!-- Tab panes -->
+    <div class="tab-content">
+      <div id="home" class="container tab-pane active"><br>
+        <h3></h3><br>
+        
+        <div class="row">
+            
+            <div class="col-md-10"><b>Paciente</b>
+              <div class="form-group">
+                <select class="form-control" name="utb" id="">
+                  {% if servidor.utb %}
+                  <option value="{{servidor.utb}}" selected>{{servidor.utb}}</option>
+                  {% for r in relacao_all %}
+                  <option value="{{r.utb}}">{{r.utb}}</option>
+                  {% endfor %}
+                  {%endif%}
+                </select>
+              </div>
+            </div>
+            <div class="col-md-2"><b>Cidade</b>
+              <div class="form-group">
+                <select class="form-control" name="unidade" id="">
+                  {% if servidor.unidade %}
+                  <option value="{{servidor.unidade}}" selected>{{servidor.unidade}}</option>
+                  {% for r in relacao_all %}
+                  <option value="{{r.unidade}}">{{r.unidade}}</option>
+                  {% endfor %}
+                  {%endif%}
+                </select> 
+              </div>              
+            </div>
+            
+        </div>
+        
+        <div class="row">
+            <div class="col-md-2">
+              <div class="form-group"><b>Idade</b>
+                <input class="form-control" type="text" name="matricula" placeholder="Matrícula" value="{{servidor.matricula}}">
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group"><b>Nome</b>
+                <input class="form-control" type="text" name="nome" placeholder="Nome" value="{{servidor.nome}}">
+              </div>
+            </div>
+            <div class="col-md-2">
+              <div class="form-group"><b>Sexo</b>
+                <select class="form-control" name="sexo" id="">
+                  {% if servidor.sexo %}
+                  <option value="{{servidor.sexo}}" selected>{{servidor.sexo}}</option>
+                  <option value="M">Masculino</option>
+                  <option value="F">Feminino</option>
+                  {% else %}
+                  <option value=""></option>
+                  <option value="M">Masculino</option>
+                  <option value="F">Feminino</option>
+                  {%endif%}
+                </select>
+              </div>
+            </div>
+            <div class="col-md-2">
+              <div class="form-group"><b>Data Nasc</b>
+                {% if servidor.data_nasc %}
+                <input class="form-control" type="text" name="data_nasc_text" placeholder="" value="{{servidor.data_nasc}}">
+                {%else%}
+                <input class="form-control" type="date" name="data_nasc" placeholder="" value="">
+                {%endif%}
+              </div>
+            </div>
+            
+        </div>
+        <div class="row">
+          <div class="col-md-6">
+              <div class="form-group"><b>Endereço</b>
+                <input class="form-control" type="text" name="cargo" placeholder="Cargo" value="{{servidor.cargo}}">
+              </div>              
+            </div>
+            <div class="col-md-5"><b>Profissão</b>
+              <div class="form-group">
+                <input class="form-control" type="text" name="funcao" placeholder="Função" value="{{servidor.funcao}}">
+              </div>              
+            </div>
+            
+        </div>
+        <div class="row">
+          <div class="col-md-3">
+              <div class="form-group"><b>CPF</b>
+                <input class="form-control" type="text" name="cpf" placeholder="CPF" value="{{servidor.cpf}}">
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="form-group"><b>Sintomas</b>
+                <input class="form-control" type="text" name="produtividade" placeholder="Nível" value="{{servidor.produtividade}}">
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="form-group"><b>Medicação</b>
+                <input class="form-control" type="text" name="regime" placeholder="Regime" value="{{servidor.regime}}">
+              </div>
+            </div>
+        </div>
+        <div class="row">
+          <div class="col-md-3">
+              <div class="form-group"><b>Data Inicío Sintomas</b>
+                {% if servidor.data_admissao %}
+                <input class="form-control" type="text" name="data_admissao_text" value="{{servidor.data_admissao}}">
+                {%else%}
+                <input class="form-control" type="date" name="data_admissao" value="">
+                {%endif%}
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="form-group"><b>Data Fim dos Sintomas</b>
+                {% if servidor.data_demissao %}
+                <input class="form-control" type="text" name="data_demissao_text" value="{{servidor.data_demissao}}">
+                {%else%}
+                <input class="form-control" type="date" name="data_demissao" value="">
+                {%endif%}
+              </div>
+            </div>
+            <div class="col-md-4">
+              
+            </div>
+        </div>
+
+      </div>
+      <div id="menu1" class="container tab-pane fade"><br>
+        
+        <div class="row">
+          <div class="col-md-3">
+              <!--
+              <div class="form-check">
+                <label class="form-check-label" for="radio1">
+                  <input type="checkbox" class="custom-control-input" id="lb_check_recebido" name="recebido" value="recebido" onclick="active_btn_desfaz()">Recebido
+                </label>
+              </div>
+            
+              <div class="custom-control custom-checkbox mb-3">
+                {% if servidor.status_recebido %}
+                <input type="checkbox" class="custom-control-input" id="lb_check_recebido" name="recebido" value="recebido" onclick="active_lb_data_recebido()" checked>
+                {% else %}
+                <input type="checkbox" class="custom-control-input" id="lb_check_recebido" name="recebido" value="recebido" onclick="active_lb_data_recebido()">
+                {% endif %}
+                <label class="custom-control-label" for="lb_check_recebido">Recebido</label>
+              </div>-->
+            </div>
+            <div class="col-md-3">
+              <!--
+              <div class="form-check">
+                <label class="form-check-label" for="radio1">
+                  <input type="radio" class="form-check-input" id="lb_check_conferido" name="conferido" value="conferido">Conferido
+                </label>
+              </div>
+            
+              <div class="custom-control custom-checkbox mb-3">
+                {% if servidor.status_conferido %}
+                <input type="checkbox" class="custom-control-input" id="lb_check_conferido" name="conferido" value="conferido" onclick="active_lb_data_conferido()" checked>
+                {%else%}
+                <input type="checkbox" class="custom-control-input" id="lb_check_conferido" name="conferido" value="conferido" onclick="active_lb_data_conferido()">
+                {%endif%}
+                <label class="custom-control-label" for="lb_check_conferido">Conferido</label>
+              </div>-->
+
+            </div>
+            <div class="col-md-3">
+              <!--
+              <div class="form-check">
+                <label class="form-check-label" for="radio1">
+                  <input type="radio" class="form-check-input" id="lb_check_encaminhado" name="encaminhado" value="encaminhado" onclick="active_num_oficio()">Encaminhado SEAD
+                </label>
+              </div>
+              
+              <div class="custom-control custom-checkbox mb-3">
+                {% if servidor.status_encaminhado_sead %}
+                <input type="checkbox" class="custom-control-input" id="lb_check_encaminhado" name="encaminhado" value="encaminhado" onclick="active_num_oficio()" checked>
+                {% else %}
+                <input type="checkbox" class="custom-control-input" id="lb_check_encaminhado" name="encaminhado" value="encaminhado" onclick="active_num_oficio()">
+                {%endif%}
+                <label class="custom-control-label" for="lb_check_encaminhado">Encaminhado SEAD</label>
+              </div>-->
+            </div>
+            {% if servidor.num_oficio_encaminhado_sead %}
+            <div class="col-md-2" id="">
+              <div class="form-group">
+                
+                <input class="form-control form-control-sm" id="val_num_oficio" type="text" name="" placeholder="Número Ofício" value="{{servidor.num_oficio_encaminhado_sead}}">
+                
+              </div>
+            </div>
+            {%else%}
+            <div class="col-md-2" id="num_oficio_id">
+              <div class="form-group">
+                                
+                <input class="form-control form-control-sm" id="val_num_oficio" type="text" name="" placeholder="Número Ofício" >
+               
+              </div>
+            </div>
+
+            {%endif%}
+            <!--
+            <div class="col-md-3" id="btn_desfaz_id">
+              <div class="form-group">
+                <button type="button" class="btn btn-primary btn-sm" onclick="desactive_check()"><b style="color: white;">Desfazer Seleção?</b>
+                </button>
+              </div>
+            </div>
+            -->
+        </div>
+
+        <div class="row">
+          <div class="col-md-3">
+            {% if servidor.data_status_recebido %}
+            <div class="form-check-inline" id="">
+                <label class="form-check-label" for="radio1">Data:</label>
+                  <input type="text" class="form-control form-control-sm" id="" name="data_recebido" value="{{servidor.data_status_recebido}}">                  
+              </div>
+            {%else%}
+            <div class="form-check-inline" id="lb_data_recebido_id">
+                <label class="form-check-label" for="radio1">Data:</label>
+                                    
+                  <input type="date" class="form-control form-control-sm" id="data_recebido_id" name="data_recebido" value="">
+                  
+              </div>
+            {%endif%}
+              
+            </div>
+
+            <div class="col-md-3">
+              {% if servidor.data_status_conferido %}
+              <div class="form-check-inline" id="">
+                <label class="form-check-label" for="radio1">Data:</label>
+                  <input type="date" class="form-control form-control-sm" id="" name="data_conferido" value="{{servidor.data_status_conferido}}">
+              </div>
+              {%else%}
+              <div class="form-check-inline" id="lb_data_conferido_id">
+                <label class="form-check-label" for="radio1">Data:</label>
+                  <input type="date" class="form-control form-control-sm" id="data_conferido_id" name="data_conferido" value="">
+              </div>
+              {%endif%}
+            </div>
+            <div class="col-md-3">
+              {% if servidor.data_status_encaminhado_sead %}
+              <div class="form-check-inline" id="">
+                <label class="form-check-label" for="radio1">Data:</label>
+                  <input type="date" class="form-control form-control-sm" id="" name="data_encaminhado" value="{{servidor.data_status_encaminhado_sead}}">
+              </div>
+              {%else%}
+              <div class="form-check-inline" id="lb_data_encaminhado_id">
+                <label class="form-check-label" for="radio1">Data:</label>
+                  <input type="date" class="form-control form-control-sm" id="data_encaminhado_id" name="data_encaminhado" value="">
+              </div>
+              {%endif%}
+            </div>
+        </div>
+
+      </div>
+      <div id="menu2" class="container tab-pane fade"><br>
+        
+        <div class="row">
+          <div class="col-md-2">
+              <!--
+              <div class="form-check">
+                <label class="form-check-label" for="radio1">
+                  <input type="radio" class="form-check-input" id="lb_check_devolvido" name="devolvido" value="devolvido">Devolvido
+                </label>
+              </div>
+            -->
+
+              <div class="custom-control custom-checkbox mb-3">
+                <input type="checkbox" class="custom-control-input" id="lb_check_devolvido" name="devolvido" value="devolvido">
+                <label class="custom-control-label" for="lb_check_devolvido">Devolvido</label>
+              </div>
+
+
+            </div>
+            <div class="col-md-2">
+              <div class="form-group">
+                <select class="form-control form-control-sm" name="" id="">
+                  <option value="">escolha opção...</option>
+                  <option value="contrato">Contrato</option>
+                  <option value="acumulo">Acumulo</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="col-md-1">
+              <div class="form-group">
+                <label class="form-check-label" for="radio1">
+                  Unidade:
+                </label>
+              </div>
+            </div>
+            
+            <div class="col-md-4">
+              <div class="form-group">
+                <select class="form-control form-control-sm" name="" id="">Unidade
+                  <option value="">escolha Unidade</option>
+                  <option value="">1</option>
+                  <option value="">2</option>
+                </select>
+              </div>
+            </div>
+            
+        </div>
+
+        <div class="row">
+          <div class="col-md-3">
+              <div class="form-check-inline" id="lb_data_devolucao_id">
+                <label class="form-check-label" for="radio1">Data:</label>
+                  <input type="date" class="form-control form-control-sm" id="data_devolucao_id" name="data_devolucao" value="">
+              </div>
+            </div>
+
+            <div class="col-md-3">
+              
+            </div>
+            <div class="col-md-3">
+              
+            </div>
+        </div>
+
+      </div>
+
+      <div id="menu3" class="container tab-pane fade"><br>
+        
+        <div class="row">
+          <div class="col-md-4">
+              <div class="custom-control custom-checkbox mb-3">
+                <input type="checkbox" class="custom-control-input" id="lb_check_retorno_unidade" name="retorno_unidade" value="retorno_unidade">
+                <label class="custom-control-label" for="lb_check_retorno_unidade">Retorno</label>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="custom-control custom-checkbox mb-3">
+                <input type="checkbox" class="custom-control-input" id="lb_check_gabinete" name="gabinete" value="gabinete">
+                <label class="custom-control-label" for="lb_check_gabinete">Gabinete Secretário</label>
+              </div>
+            </div>
+
+            <div class="col-md-4">
+              <div class="custom-control custom-checkbox mb-3">
+                <input type="checkbox" class="custom-control-input" id="lb_check_encaminhado_sead" name="encaminhado_sead" value="encaminhado_sead">
+                <label class="custom-control-label" for="lb_check_encaminhado_sead">Encaminhado SEAD</label>
+              </div>
+            </div>
+                        
+        </div>
+
+        <div class="row">
+          <div class="col-md-4">
+              <div class="form-check-inline" id="lb_data_retorno_unidade_id">
+                <label class="form-check-label" for="radio1">Data:</label>
+                  <input type="date" class="form-control form-control-sm" id="data_retorno_unidade_id" name="data_retorno_unidade" value="">
+              </div>
+            </div>
+
+            <div class="col-md-4">
+              <div class="form-check-inline" id="lb_data_envio_gabinete_id">
+                <label class="form-check-label" for="radio1">Data:</label>
+                  <input type="date" class="form-control form-control-sm" id="data_envio_gabinete_id" name="data_envio_gabinete" value="">
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="form-check-inline" id="lb_data_encaminhado_sead_id">
+                <label class="form-check-label" for="radio1">Data:</label>
+                  <input type="date" class="form-control form-control-sm" id="data_encaminhado_sead_id" name="data_encaminhado_sead" value="">
+              </div>
+            </div>
+        </div>
+
+      </div>
+    </div>
+
+    <hr>
+
+    <div class="container-fluid" style="text-align: center;">
+      <button type="submit" class="btn btn-primary" style="align-items: center;" id="btn_cadastrar_amostra">Atualizar</button>  
+    </div>
+  </form>
+
+  </div>
+  <br><br>
+
+
+  <div class="jumbotron text-center" style="margin-bottom:0">
+    <p>Footer</p>
+    <i class="fa">&#xf1f9;</i>
+  </div>
+  <br>
+
+</body>
+</html>

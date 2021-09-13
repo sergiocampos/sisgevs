@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>GADM</title>
+  <title>SISGEVS - Resultado:</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -54,7 +54,7 @@
       </div>
       <div class="col-sm-4" style="margin-top: 10px; text-align: center;">
         <h4>SECRETARIA DE ESTADO DA SAÚDE</h4>
-        <h6>GERÊNCIA ADMINISTRATIVA</h6>
+        <h6>SISGEVS - Sistema de Informação em Saúde da GEVS</h6>
         <h6><b>----</b></h6>
       </div>
       <div class="col-sm-3">
@@ -105,25 +105,109 @@
     <div class="row">
       <div class="col-sm-12">
         <div class="alert alert-primary" style="text-align: center;">
-          <strong style="align-items: center;">Pesquisar por CPF</strong>
+          <strong style="align-items: center;">Resultado de Busca de Notificações por Nome</strong>
         </div>
       </div>
     </div>
     <hr>
 
     <div class="row">
-      <div class="col-sm-2"></div>
-      <div class="col-sm-10">
-
-        <form class="form-inline" enctype="multipart/form-data" action="submit" method="POST">{% csrf_token %}
-          <label for="">Informe Nome:</label>
-          <input type="text" class="form-control" name="nome" id="" placeholder="Nome ou parte">
-            
-          <button type="submit" class="btn btn-primary">Localizar Funcionário</button>
-        </form>
+      <div class="col-sm-11">
+        
 
       </div>
+      <div class="col-sm-1">
+        <button type="button" class="btn btn-primary btn-sm" onclick="goBack()">Voltar</button>
+      </div>
     </div>
+    <script>
+    function goBack() {
+      window.history.back();
+    }
+    </script>
+    <br>
+    
+    <table class="table table-hover">
+    <thead>
+      <tr>
+        <th>Data Notificação</th>
+        <th>Nome Paciente</th>
+        <th>Idade</th>
+        <th>Cidade</th>
+        <th>Notificante</th>
+        <th></th>
+
+      </tr>
+    </thead>
+    <tbody>
+      
+      <tr>
+        <td>12-05-2020</td>
+        <td>TEste TEste</td>
+        <td>22</td>
+        <td>Bayeux</td>
+        <td>João</td>
+        <td align="center">
+          
+          <a href="/caso_view/"><button type="button" class="btn btn-info btn-sm">Editar
+          </button></a>
+          
+          <a href="/caso_view_detail/"><button type="button" class="btn btn-info btn-sm">Ver
+          </button></a>
+          
+        </td>
+      </tr>
+      <tr>
+        <td>12-05-2020</td>
+        <td>TEste TEste</td>
+        <td>22</td>
+        <td>Bayeux</td>
+        <td>João</td>
+        <td align="center">
+          
+          <a href="/caso_view/"><button type="button" class="btn btn-info btn-sm">Editar
+          </button></a>
+          
+          <a href="/caso_view_detail/"><button type="button" class="btn btn-info btn-sm">Ver
+          </button></a>
+          
+        </td>
+      </tr>
+      <tr>
+        <td>16-08-2021</td>
+        <td>TEste3 TEste3</td>
+        <td>55</td>
+        <td>Santa Rita</td>
+        <td>XXxxx</td>
+        <td align="center">
+          
+          <a href="/caso_view/"><button type="button" class="btn btn-info btn-sm">Editar
+          </button></a>
+          
+          <a href="/caso_view_detail/"><button type="button" class="btn btn-info btn-sm">Ver
+          </button></a>
+          
+        </td>
+      </tr>
+      <tr>
+        <td>14-05-2021</td>
+        <td>TEste 4TEste4</td>
+        <td>28</td>
+        <td>Conde</td>
+        <td>João</td>
+        <td align="center">
+          
+          <a href="/caso_view/"><button type="button" class="btn btn-info btn-sm">Editar
+          </button></a>
+          
+          <a href="/caso_view_detail/"><button type="button" class="btn btn-info btn-sm">Ver
+          </button></a>
+          
+        </td>
+      </tr>
+      
+    </tbody>
+  </table>
 
   </div>
 

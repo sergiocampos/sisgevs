@@ -24,4 +24,8 @@ urlpatterns = [
     path('login/submit', views.set_login_page),
     path('informar_dados_ficha/', views.informar_dados_ficha, name='informar_dados_ficha'),
     path('localizar_paciente_nome/', views.localizar_paciente_nome, name='localizar_paciente_nome'),
+    path('localizar_paciente_nome/submit', views.set_localizar_paciente_nome),
+
+    path('caso_view/', views.caso_view, name='caso_view'),
+    path('caso_view_detail/', views.caso_view_detail, name='caso_view_detail'),
 ]
