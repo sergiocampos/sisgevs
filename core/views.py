@@ -14,6 +14,14 @@ def index(request):
 	return render(request, 'index.html')
 
 
+def main(request):
+	return render(request, 'main.html')
+
+
+def all_forms(request):
+	return render(request, 'all_forms.html')
+
+
 def informar_dados_ficha(request):
 	return render(request, 'informar_dados_ficha.html')
 
