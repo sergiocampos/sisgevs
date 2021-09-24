@@ -25,6 +25,8 @@ urlpatterns = [
 
     path('all_forms/', views.all_forms, name='all_forms'),
 
+    path('caso_esporotricose_create/', views.caso_esporotricose_create, name='caso_esporotricose_create'),
+
 
     path('login/',views.login_page, name='login_page'),
     path('login/submit', views.set_login_page),

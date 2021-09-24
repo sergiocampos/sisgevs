@@ -36,3 +36,6 @@ def caso_view(request):
 
 def caso_view_detail(request):
 	return render(request, 'caso_view_detail.html')
+
+def caso_esporotricose_create(request):
+	return render(request, 'caso_esporotricose_create.html')
