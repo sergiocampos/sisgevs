@@ -1061,9 +1061,18 @@ cidades : [
                   <div class="col-md-3">
                       <div class="custom-control custom-checkbox mb-3">
                         <input type="checkbox" class="custom-control-input" id="prof_saude_id" name="prof_saude">
-                        <label class="custom-control-label" for="prof_saude_id">Profissional de Saúde</label>
+                        <label class="custom-control-label" for="prof_saude_id">Profissional de Saúde
+                          <a href="" data-toggle="tooltip" data-placement="right" title="Veterinário, Enfermeiro, Tratador de Animal em Clínicas!">(*)</a>
+                        </label>
                       </div>
                   </div>
+
+                  <script>
+                  $(document).ready(function(){
+                    $('[data-toggle="tooltip"]').tooltip();   
+                  });
+                  </script>
+
                   <div class="col-md-2">
                       <div class="custom-control custom-checkbox mb-3">
                         <input type="checkbox" class="custom-control-input" id="abrigo_id" name="abrigo">
@@ -1079,13 +1088,281 @@ cidades : [
                   </div>
                                     
                 </div>
+                <br>
+                <div class="row">
+                  <div class="col-sm-7"><b>Exerce atividade que Resulte em CONTATO CONSTANTE COM PLANTAS?</b>
+                    <a href="" data-toggle="tooltip" data-placement="right" title="Jardineiros, Agricultores, Horticultores, Exploradores de Madeira, Trabalhadores Rurais!">(*)</a>
+
+                  </div>
+                  <div class="col-sm-5"><hr></div>
+                </div><br>
+
+                <div class="row">
+                  <div class="col-md-1">
+                      <div class="custom-control custom-checkbox mb-3">
+                        <input type="checkbox" class="custom-control-input" id="plantas_cont_sim_id" name="plantas_cont_sim">
+                        <label class="custom-control-label" for="plantas_cont_sim_id">Sim</label>
+                      </div>
+                  </div>
+                  
+                  <div class="col-md-1">
+                      <div class="custom-control custom-checkbox mb-3">
+                        <input type="checkbox" class="custom-control-input" id="plantas_cont_nao_id" name="plantas_cont_nao">
+                        <label class="custom-control-label" for="plantas_cont_nao_id">Não</label>
+                      </div>
+                  </div>
+                  <div class="col-md-3">
+                      <div class="custom-control custom-checkbox mb-3">
+                        <input type="checkbox" class="custom-control-input" id="plantas_cont_ignorado_id" name="plantas_cont_ignorado">
+                        <label class="custom-control-label" for="plantas_cont_ignorado_id">Ignorado
+                          
+                        </label>
+                      </div>
+                  </div>
+
+                  <script>
+                  $(document).ready(function(){
+                    $('[data-toggle="tooltip"]').tooltip();   
+                  });
+                  </script>                                    
+                </div>
+                <br>
+                <div class="row">
+                  <div class="col-sm-12"><b>História de Corte, Lesão ou Trauma durante o manuseio de Plantas ou Material Orgânico SUSPEITO DE CONTAMINAÇÃO PELO FUNGO?</b>
+                    <a href="" data-toggle="tooltip" data-placement="right" title="Tábuas Úmidas de Madeira, Solo, Palha, Farpas, Espinhos, Vegetais!">(*)</a>
+
+                  </div>
+                  
+                </div><br>
+
+                <div class="row">
+                  <div class="col-md-1">
+                      <div class="custom-control custom-checkbox mb-3">
+                        <input type="checkbox" class="custom-control-input" id="manuseio_sim_id" name="manuseio_sim">
+                        <label class="custom-control-label" for="manuseio_sim_id">Sim</label>
+                      </div>
+                  </div>
+                  
+                  <div class="col-md-1">
+                      <div class="custom-control custom-checkbox mb-3">
+                        <input type="checkbox" class="custom-control-input" id="manuseio_nao_id" name="manuseio_nao">
+                        <label class="custom-control-label" for="manuseio_nao_id">Não</label>
+                      </div>
+                  </div>
+                  <div class="col-md-3">
+                      <div class="custom-control custom-checkbox mb-3">
+                        <input type="checkbox" class="custom-control-input" id="manuseio_ignorado_id" name="manuseio_ignorado">
+                        <label class="custom-control-label" for="manuseio_ignorado_id">Ignorado
+                          
+                        </label>
+                      </div>
+                  </div>
+
+                  <script>
+                  $(document).ready(function(){
+                    $('[data-toggle="tooltip"]').tooltip();   
+                  });
+                  </script>                                    
+                </div>
 
 
               </div>
 
               <div id="menu3" class="container tab-pane fade"><br>
 
+                <div class="row">
+                  <div class="col-sm-3"><b>Presença de Lesão na Pele</b></div>
+                  <div class="col-md-1">
+                      <div class="custom-control custom-checkbox mb-3">
+                        <input type="checkbox" class="custom-control-input" id="lesao_pele_sim_id" name="lesao_pele_sim">
+                        <label class="custom-control-label" for="lesao_pele_sim_id">Sim</label>
+                      </div>
+                  </div>
+                  
+                  <div class="col-md-1">
+                      <div class="custom-control custom-checkbox mb-3">
+                        <input type="checkbox" class="custom-control-input" id="lesao_pele_nao_id" name="lesao_pele_nao">
+                        <label class="custom-control-label" for="lesao_pele_nao_id">Não</label>
+                      </div>
+                  </div>
+                  <div class="col-md-1">
+                      <div class="custom-control custom-checkbox mb-3">
+                        <input type="checkbox" class="custom-control-input" id="lesao_pele_ignorado_id" name="lesao_pele_ignorado">
+                        <label class="custom-control-label" for="lesao_pele_ignorado_id">Ignorado
+                          
+                        </label>
+                      </div>
+                  </div>
+                  <div class="col-md-6"><hr></div>
+                </div><br>
+
+
+                <div class="row">
+                  
+                  
+                </div>
+
+                <style>
+                  #nat_lesao_outros_id,
+                  #loc_lesao_outros_id{
+                    display: none;
+                  }
+                </style>
+                <script>
+                  $(function() {
+                    $(document).on('click','#natureza_lesao_outros_id', function (e) {
+                      if ($(this).is(":checked")) {
+                        $("#nat_lesao_outros_id").show();
+                      } else {
+                        $("#nat_lesao_outros_id").hide();
+                        $("#nat_lesao_outros_id").val("");
+                      }
+                    });
+                  });
+
+                  $(function() {
+                    $(document).on('click','#local_lesao_outros_id', function (e) {
+                      if ($(this).is(":checked")) {
+                        $("#loc_lesao_outros_id").show();
+                      } else {
+                        $("#loc_lesao_outros_id").hide();
+                        $("#loc_lesao_outros_id").val("");
+                      }
+                    });
+                  });
+                </script>
+
+                <div class="row">
+                  <div class="col-sm-2"><b>Natureza da Lesão</b></div>
+                  <div class="col-md-1">
+                      <div class="custom-control custom-checkbox mb-3">
+                        <input type="checkbox" class="custom-control-input" id="papula_id" name="papula">
+                        <label class="custom-control-label" for="papula_id">Pápula</label>
+                      </div>
+                  </div>
+                  
+                  <div class="col-md-1">
+                      <div class="custom-control custom-checkbox mb-3">
+                        <input type="checkbox" class="custom-control-input" id="ulcera_id" name="ulcera">
+                        <label class="custom-control-label" for="ulcera_id">Úlcera</label>
+                      </div>
+                  </div>
+                  <div class="col-md-2">
+                      <div class="custom-control custom-checkbox mb-3">
+                        <input type="checkbox" class="custom-control-input" id="linfonodos_id" name="linfonodos">
+                        <label class="custom-control-label" for="linfonodos_id">Linfonodos
+                          
+                        </label>
+                      </div>
+                  </div>
+                  <div class="col-md-1">
+                      <div class="custom-control custom-checkbox mb-3">
+                        <input type="checkbox" class="custom-control-input" id="natureza_lesao_outros_id" name="">
+                        <label class="custom-control-label" for="natureza_lesao_outros_id">Outros
+                          
+                        </label>
+                      </div>
+                  </div>
+                  <div class="col-md-4">
+                      <div class="form-group">
+                      <input class="form-control" type="text" id="nat_lesao_outros_id" name="natureza_lesao_outros" value="">
+                      </div>
+                  </div>
+                </div><br>
+                <div class="row">
+                  <div class="col-sm-5"><b>Localização da Lesão(PARTE DO CORPO ATINGIDA)</b></div>
+                  <div class="col-md-1">
+                      <div class="custom-control custom-checkbox mb-3">
+                        <input type="checkbox" class="custom-control-input" id="mao_id" name="mao">
+                        <label class="custom-control-label" for="mao_id">Mão</label>
+                      </div>
+                  </div>
+                  
+                  <div class="col-md-2">
+                      <div class="custom-control custom-checkbox mb-3">
+                        <input type="checkbox" class="custom-control-input" id="membro_superir_id" name="membro_superir">
+                        <label class="custom-control-label" for="membro_superir_id">Membro Superior</label>
+                      </div>
+                  </div>
+                  <div class="col-md-1">
+                      <div class="custom-control custom-checkbox mb-2">
+                        <input type="checkbox" class="custom-control-input" id="cabeca_id" name="cabeca">
+                        <label class="custom-control-label" for="cabeca_id">Cabeça
+                          
+                        </label>
+                      </div>
+                  </div>
+                  <div class="col-md-1">
+                      <div class="custom-control custom-checkbox mb-3">
+                        <input type="checkbox" class="custom-control-input" id="pescoco_id" name="pescoco">
+                        <label class="custom-control-label" for="pescoco_id">Pescoço
+                          
+                        </label>
+                      </div>
+                  </div>
+                  <div class="col-md-1">
+                      <div class="custom-control custom-checkbox mb-3">
+                        <input type="checkbox" class="custom-control-input" id="torax_id" name="torax">
+                        <label class="custom-control-label" for="torax_id">Tórax
+                          
+                        </label>
+                      </div>
+                  </div>             
+                  
+                </div><br>
+
+
+                <div class="row">
+                  <div class="col-md-2">
+                      <div class="custom-control custom-checkbox mb-3">
+                        <input type="checkbox" class="custom-control-input" id="abdome_id" name="abdome">
+                        <label class="custom-control-label" for="abdome_id">Abdome
+                          
+                        </label>
+                      </div>
+                  </div>
+                  <div class="col-md-2">
+                      <div class="custom-control custom-checkbox mb-3">
+                        <input type="checkbox" class="custom-control-input" id="pe_id" name="pe">
+                        <label class="custom-control-label" for="pe_id">Pé
+                          
+                        </label>
+                      </div>
+                  </div>
+                  <div class="col-md-2">
+                      <div class="custom-control custom-checkbox mb-3">
+                        <input type="checkbox" class="custom-control-input" id="membro_inferior_id" name="membro_inferior">
+                        <label class="custom-control-label" for="membro_inferior_id">Membro Inferior
+                          
+                        </label>
+                      </div>
+                  </div>
+                  <div class="col-md-2">
+                      <div class="custom-control custom-checkbox mb-3">
+                        <input type="checkbox" class="custom-control-input" id="todo_corpo_id" name="todo_corpo">
+                        <label class="custom-control-label" for="todo_corpo_id">Todo Corpo
+                          
+                        </label>
+                      </div>
+                  </div>
+                  <div class="col-md-1">
+                      <div class="custom-control custom-checkbox mb-3">
+                        <input type="checkbox" class="custom-control-input" id="local_lesao_outros_id" name="">
+                        <label class="custom-control-label" for="local_lesao_outros_id">Outros
+                          
+                        </label>
+                      </div>
+                  </div>
+                  <div class="col-md-4">
+                      <div class="form-group">
+                      <input class="form-control" type="text" id="loc_lesao_outros_id" name="local_lesao_outros" value="">
+                      </div>
+                  </div>
+
+                </div>
+
               </div>
+
               <div id="menu4" class="container tab-pane fade"><br>
                 
               </div>
