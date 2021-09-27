@@ -1202,9 +1202,13 @@ cidades : [
                   
                 </div>
 
+
+
                 <style>
                   #nat_lesao_outros_id,
-                  #loc_lesao_outros_id{
+                  #loc_lesao_outros_id,
+                  #lb_data_coleta_material,
+                  #data_coleta_material_id{
                     display: none;
                   }
                 </style>
@@ -1230,6 +1234,41 @@ cidades : [
                       }
                     });
                   });
+
+                  $(function() {
+                    $(document).on('click','#coleta_exame_labo_sim_id', function (e) {
+                      if ($(this).is(":checked")) {
+                        $("#lb_data_coleta_material").show();
+                        $("#data_coleta_material_id").show();
+                      } else {
+                        $("#lb_data_coleta_material").hide();
+                        $("#data_coleta_material_id").hide();
+                        $("#data_coleta_material_id").val("");
+                      }
+                    });
+                  });
+
+                  $(function() {
+                    $(document).on('click','#coleta_exame_nao_id', function (e) {
+                      if ($(this).is(":checked")) {
+                        $("#lb_data_coleta_material").hide();
+                        $("#data_coleta_material_id").hide();
+                        $("#data_coleta_material_id").val("");
+                      }
+                    });
+                  }) ;
+
+                  $(function() {
+                    $(document).on('click','#coleta_exame_ignorado_id', function (e) {
+                      if ($(this).is(":checked")) {
+                        $("#lb_data_coleta_material").hide();
+                        $("#data_coleta_material_id").hide();
+                        $("#data_coleta_material_id").val("");
+                      }
+                    });
+                  }) ;
+                  
+
                 </script>
 
                 <div class="row">
@@ -1271,6 +1310,10 @@ cidades : [
                 </div><br>
                 <div class="row">
                   <div class="col-sm-5"><b>Localização da Lesão(PARTE DO CORPO ATINGIDA)</b></div>
+                  <div class="col-md-7"><hr></div>
+                  
+                </div>
+                <div class="row">
                   <div class="col-md-1">
                       <div class="custom-control custom-checkbox mb-3">
                         <input type="checkbox" class="custom-control-input" id="mao_id" name="mao">
@@ -1307,13 +1350,12 @@ cidades : [
                           
                         </label>
                       </div>
-                  </div>             
-                  
-                </div><br>
+                  </div> 
+                </div>
 
 
                 <div class="row">
-                  <div class="col-md-2">
+                  <div class="col-md-1">
                       <div class="custom-control custom-checkbox mb-3">
                         <input type="checkbox" class="custom-control-input" id="abdome_id" name="abdome">
                         <label class="custom-control-label" for="abdome_id">Abdome
@@ -1321,7 +1363,7 @@ cidades : [
                         </label>
                       </div>
                   </div>
-                  <div class="col-md-2">
+                  <div class="col-md-1">
                       <div class="custom-control custom-checkbox mb-3">
                         <input type="checkbox" class="custom-control-input" id="pe_id" name="pe">
                         <label class="custom-control-label" for="pe_id">Pé
@@ -1360,17 +1402,475 @@ cidades : [
                   </div>
 
                 </div>
+                <br>
+                <div class="row">
+                  <div class="col-sm-5"><b>Diagnóstico de FORMA EXTRACUTANEA DA DOENÇA</b></div>
+                  <div class="col-md-1">
+                      <div class="custom-control custom-checkbox mb-3">
+                        <input type="checkbox" class="custom-control-input" id="extra_cutanea_sim_id" name="extra_cutanea_sim">
+                        <label class="custom-control-label" for="extra_cutanea_sim_id">Sim</label>
+                      </div>
+                  </div>
+                  
+                  <div class="col-md-1">
+                      <div class="custom-control custom-checkbox mb-3">
+                        <input type="checkbox" class="custom-control-input" id="extra_cutanea_nao_id" name="extra_cutanea_nao">
+                        <label class="custom-control-label" for="extra_cutanea_nao_id">Não</label>
+                      </div>
+                  </div>
+                  <div class="col-md-1">
+                      <div class="custom-control custom-checkbox mb-3">
+                        <input type="checkbox" class="custom-control-input" id="extra_cutanea_ignorado_id" name="extra_cutanea_ignorado">
+                        <label class="custom-control-label" for="extra_cutanea_ignorado_id">Ignorado
+                          
+                        </label>
+                      </div>
+                  </div>
+
+              </div>
+
+              <div class="row">
+                 <div class="col-md-4">
+                      <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                          <span class="input-group-text">Qual Localização</span>
+                        </div>
+                        <input type="text" class="form-control" name="local_extra_cutanea" value="">
+                      </div>
+                  </div>
+              </div><br>
 
               </div>
 
               <div id="menu4" class="container tab-pane fade"><br>
+                <br>
+                <div class="row">
+                  <div class="col-sm-5"><b>Houve coleta de Material para EXAME LABORATORIAL</b></div>
+                  <div class="col-md-1">
+                      <div class="custom-control custom-checkbox mb-3">
+                        <input type="checkbox" class="custom-control-input" id="coleta_exame_labo_sim_id" name="coleta_exame_labo_sim">
+                        <label class="custom-control-label" for="coleta_exame_labo_sim_id">Sim</label>
+                      </div>
+                  </div>
+                  
+                  <div class="col-md-1">
+                      <div class="custom-control custom-checkbox mb-3">
+                        <input type="checkbox" class="custom-control-input" id="coleta_exame_nao_id" name="coleta_exame_nao">
+                        <label class="custom-control-label" for="coleta_exame_nao_id">Não</label>
+                      </div>
+                  </div>
+                  <div class="col-md-2">
+                      <div class="custom-control custom-checkbox mb-3">
+                        <input type="checkbox" class="custom-control-input" id="coleta_exame_ignorado_id" name="coleta_exame_ignorado">
+                        <label class="custom-control-label" for="coleta_exame_ignorado_id">Ignorado
+                          
+                        </label>
+                      </div>
+                  </div>
+
+                  
+                </div>
+                <div class="row">
+                  <div class="col-md-5"></div>
+                  <div class="col-md-3">
+                      <div class="input-group mb-3" id="">
+                        <div class="input-group-prepend" id="lb_data_coleta_material">
+                          <span class="input-group-text">Data Coleta</span>
+                        </div>
+                        <input type="date" class="form-control" name="local_extra_cutanea" value="" id="data_coleta_material_id">
+                      </div>
+                  </div>
+
+                </div>
+
+                <br>
+                <div class="row">
+                  <div class="col-sm-3"><b>Resultado do Isolamento</b></div>
+                  <div class="col-md-2">
+                      <div class="custom-control custom-radio custom-control-inline">
+                        <input type="radio" class="custom-control-input" id="customRadio1" name="example1" value="Detectado">
+                        <label class="custom-control-label" for="customRadio1">Detectado</label>
+                      </div>
+                  </div>
+
+                  <div class="col-md-2">
+                      <div class="custom-control custom-radio custom-control-inline">
+                        <input type="radio" class="custom-control-input" id="customRadio2" name="example1" value="Não detectado">
+                        <label class="custom-control-label" for="customRadio2">Não detectado</label>
+                      </div>
+                  </div>
+                  <div class="col-md-2">
+                      <div class="custom-control custom-radio custom-control-inline">
+                        <input type="radio" class="custom-control-input" id="customRadio3" name="example1" value="Inconclusivo">
+                        <label class="custom-control-label" for="customRadio3">Inconclusivo</label>
+                      </div>
+                  </div>
+
+                  <div class="col-md-2">
+                      <div class="custom-control custom-radio custom-control-inline">
+                        <input type="radio" class="custom-control-input" id="customRadio4" name="example1" value="Não Realizado">
+                        <label class="custom-control-label" for="customRadio4">Não Realizado</label>
+                      </div>
+                  </div>
+                  
+                </div><br>
+
+                <div class="row">
+                  <div class="col-md-3"></div>
+                  <div class="col-md-5">
+                      <div class="input-group mb-3" id="">
+                        <div class="input-group-prepend" id="">
+                          <span class="input-group-text">Agente</span>
+                        </div>
+                        <input type="text" class="form-control" name="" value="" id="">
+                      </div>
+                  </div>
+                </div>
+
+                <br>
+                <div class="row">
+                  <div class="col-sm-3"><b>Histopatologia</b></div>
+                  <div class="col-md-2">
+                      <div class="custom-control custom-radio custom-control-inline">
+                        <input type="radio" class="custom-control-input" id="customRadio5" name="example2" value="Compatível">
+                        <label class="custom-control-label" for="customRadio5">Compatível</label>
+                      </div>
+                  </div>
+
+                  <div class="col-md-2">
+                      <div class="custom-control custom-radio custom-control-inline">
+                        <input type="radio" class="custom-control-input" id="customRadio6" name="example2" value="Não compatível">
+                        <label class="custom-control-label" for="customRadio6">Não compatível</label>
+                      </div>
+                  </div>
+                  <div class="col-md-2">
+                      <div class="custom-control custom-radio custom-control-inline">
+                        <input type="radio" class="custom-control-input" id="customRadio7" name="example2" value="Inconclusivo">
+                        <label class="custom-control-label" for="customRadio7">Inconclusivo</label>
+                      </div>
+                  </div>
+
+                  <div class="col-md-2">
+                      <div class="custom-control custom-radio custom-control-inline">
+                        <input type="radio" class="custom-control-input" id="customRadio8" name="example2" value="Não Realizado">
+                        <label class="custom-control-label" for="customRadio8">Não Realizado</label>
+                      </div>
+                  </div>
+                  
+                </div><br><br>
+                <div class="row">
+                  <div class="col-sm-12">
+                    <div class="alert alert-success" style="text-align: center;">
+                      <strong style="align-items: center;">Outros Exames Realizados</strong>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-3">
+                      <div class="input-group mb-3" id="">
+                        <div class="input-group-prepend" id="">
+                          <span class="input-group-text">Data</span>
+                        </div>
+                        <input type="date" class="form-control" name="data_outros_exames_1" value="" id="">
+                      </div>
+                  </div>
+                  <div class="col-md-4">
+                      <div class="input-group mb-3" id="">
+                        <div class="input-group-prepend" id="">
+                          <span class="input-group-text">Descricao</span>
+                        </div>
+                        <input type="text" class="form-control" name="descricao_outros_exames_1" value="" id="">
+                      </div>
+                  </div>
+                  <div class="col-md-5">
+                      <div class="input-group mb-3" id="">
+                        <div class="input-group-prepend" id="">
+                          <span class="input-group-text">Resultado</span>
+                        </div>
+                        <input type="text" class="form-control" name="resultado_outros_exames_1" value="" id="">
+                      </div>
+                  </div>
+                  
+                </div>
+                <div class="row">
+                  <div class="col-md-3">
+                      <div class="input-group mb-3" id="">
+                        <div class="input-group-prepend" id="">
+                          <span class="input-group-text">Data</span>
+                        </div>
+                        <input type="date" class="form-control" name="data_outros_exames_2" value="" id="">
+                      </div>
+                  </div>
+                  <div class="col-md-4">
+                      <div class="input-group mb-3" id="">
+                        <div class="input-group-prepend" id="">
+                          <span class="input-group-text">Descricao</span>
+                        </div>
+                        <input type="text" class="form-control" name="descricao_outros_exames_2" value="" id="">
+                      </div>
+                  </div>
+                  <div class="col-md-5">
+                      <div class="input-group mb-3" id="">
+                        <div class="input-group-prepend" id="">
+                          <span class="input-group-text">Resultado</span>
+                        </div>
+                        <input type="text" class="form-control" name="resultado_outros_exames_2" value="" id="">
+                      </div>
+                  </div>
+
+                  
+                  
+                </div>
+                <div class="row">
+                  <div class="col-md-3">
+                      <div class="input-group mb-3" id="">
+                        <div class="input-group-prepend" id="">
+                          <span class="input-group-text">Data</span>
+                        </div>
+                        <input type="date" class="form-control" name="data_outros_exames_3" value="" id="">
+                      </div>
+                  </div>
+                  <div class="col-md-4">
+                      <div class="input-group mb-3" id="">
+                        <div class="input-group-prepend" id="">
+                          <span class="input-group-text">Descricao</span>
+                        </div>
+                        <input type="text" class="form-control" name="descricao_outros_exames_3" value="" id="">
+                      </div>
+                  </div>
+                  <div class="col-md-5">
+                      <div class="input-group mb-3" id="">
+                        <div class="input-group-prepend" id="">
+                          <span class="input-group-text">Resultado</span>
+                        </div>
+                        <input type="text" class="form-control" name="resultado_outros_exames_3" value="" id="">
+                      </div>
+                  </div>
+                </div><br><br>
                 
+
+
+
+
               </div>
               <div id="menu5" class="container tab-pane fade"><br>
+
+                <div class="row">
+                  <div class="col-sm-12">
+                    <div class="alert alert-success" style="text-align: center;">
+                      <strong style="align-items: center;">Tratamento</strong>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-3">
+                      <div class="input-group mb-3" id="">
+                        <div class="input-group-prepend" id="">
+                          <span class="input-group-text">Início</span>
+                        </div>
+                        <input type="date" class="form-control" name="data_inicio_tratamento" value="" id="">
+                      </div>
+                  </div>
+                  <div class="col-md-5">
+                      <div class="input-group mb-3" id="">
+                        <div class="input-group-prepend" id="">
+                          <span class="input-group-text">Droga Administrada</span>
+                        </div>
+                        <input type="text" class="form-control" name="droga_admin_tratamento" value="" id="">
+                      </div>
+                  </div>
+                  <div class="col-md-4">
+                      <div class="input-group mb-3" id="">
+                        <div class="input-group-prepend" id="">
+                          <span class="input-group-text">Esquema Terapeutico</span>
+                        </div>
+                        <input type="text" class="form-control" name="esquema_terapeutico" value="" id="">
+                      </div>
+                  </div>
+                </div><br><br>
+
+                <div class="row">
+                  <div class="col-sm-12">
+                    <div class="alert alert-success" style="text-align: center;">
+                      <strong style="align-items: center;">Hospitalização</strong>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+
+                  <div class="col-md-4">
+                      <div class="custom-control custom-radio custom-control-inline">
+                        <input type="radio" class="custom-control-input" id="customRadio11" name="hospitalizado" value="Sim">
+                        <label class="custom-control-label" for="customRadio11">Sim</label>
+                      </div>
+                  </div>
+
+                  <div class="col-md-4">
+                      <div class="custom-control custom-radio custom-control-inline">
+                        <input type="radio" class="custom-control-input" id="customRadio9" name="hospitalizado" value="Não">
+                        <label class="custom-control-label" for="customRadio9">Não</label>
+                      </div>
+                  </div>
+                  <div class="col-md-4">
+                      <div class="custom-control custom-radio custom-control-inline">
+                        <input type="radio" class="custom-control-input" id="customRadio10" name="hospitalizado" value="Ignorado">
+                        <label class="custom-control-label" for="customRadio10">Ignorado</label>
+                      </div>
+                  </div>
+
+                  
+                  
+                </div><br>
+                <div class="row">
+                  <div class="col-md-4">
+                      <div class="input-group mb-3" id="">
+                        <div class="input-group-prepend" id="">
+                          <span class="input-group-text">Data Internação</span>
+                        </div>
+                        <input type="date" class="form-control" name="data_internacao" value="" id="">
+                      </div>
+                  </div>
+                  <div class="col-md-3">
+                      <div class="input-group mb-3" id="">
+                        <div class="input-group-prepend" id="">
+                          <span class="input-group-text">Data Alta</span>
+                        </div>
+                        <input type="date" class="form-control" name="data_alta" value="" id="">
+                      </div>
+                  </div>
+                  <div class="col-md-3">
+                      <div class="input-group mb-3" id="">
+                        <div class="input-group-prepend" id="">
+                          <span class="input-group-text">UF</span>
+                        </div>
+                        <select class="form-control" name="uf_internacao" id="">
+                          <option value="AC">Acre</option>
+                          <option value="AL">Alagoas</option>
+                          <option value="AP">Amapá</option>
+                          <option value="AM">Amazonas</option>
+                          <option value="BA">Bahia</option>
+                          <option value="CE">Ceará</option>
+                          <option value="DF">Distrito Federal</option>
+                          <option value="ES">Espírito Santo</option>
+                          <option value="GO">Goiás</option>
+                          <option value="MA">Maranhão</option>
+                          <option value="MT">Mato Grosso</option>
+                          <option value="MS">Mato Grosso do Sul</option>
+                          <option value="MG">Minas Gerais</option>
+                          <option value="PA">Pará</option>
+                          <option value="PB">Paraíba</option>
+                          <option value="PR">Paraná</option>
+                          <option value="PE">Pernambuco</option>
+                          <option value="PI">Piauí</option>
+                          <option value="RJ">Rio de Janeiro</option>
+                          <option value="RN">Rio Grande do Norte</option>
+                          <option value="RS">Rio Grande do Sul</option>
+                          <option value="RO">Rondônia</option>
+                          <option value="RR">Roraima</option>
+                          <option value="SC">Santa Catarina</option>
+                          <option value="SP">São Paulo</option>
+                          <option value="SE">Sergipe</option>
+                          <option value="TO">Tocantins</option>
+                        </select>
+                      </div>
+                  </div>
+                </div><br>
+                <div class="row">
+                  <div class="col-md-6">
+                      <div class="input-group mb-3" id="">
+                        <div class="input-group-prepend" id="">
+                          <span class="input-group-text">Município do Hospital</span>
+                        </div>
+                        <input type="text" class="form-control" name="municipio_hospital" value="" id="">
+                      </div>
+                  </div>
+                  <div class="col-md-3">
+                      <div class="input-group mb-3" id="">
+                        <div class="input-group-prepend" id="">
+                          <span class="input-group-text">Código IBGE</span>
+                        </div>
+                        <input type="text" class="form-control" name="codigo_ibge_municipio" value="" id="">
+                      </div>
+                  </div>
+                  <div class="col-md-3">
+                      
+                  </div>
+                </div><br>
+                <div class="row">
+                  <div class="col-md-6">
+                      <div class="input-group mb-3" id="">
+                        <div class="input-group-prepend" id="">
+                          <span class="input-group-text">Nome do Hospital</span>
+                        </div>
+                        <input type="text" class="form-control" name="nome_hospital" value="" id="">
+                      </div>
+                  </div>
+                  <div class="col-md-3">
+                      <div class="input-group mb-3" id="">
+                        <div class="input-group-prepend" id="">
+                          <span class="input-group-text">Código</span>
+                        </div>
+                        <input type="text" class="form-control" name="codigo_hospital" value="" id="">
+                      </div>
+                  </div>
+                  <div class="col-md-3">
+                      
+                  </div>
+                </div>
                 
               </div>
               <div id="menu6" class="container tab-pane fade"><br>
-                
+                <div class="row">
+                  <div class="col-sm-12">
+                    <div class="alert alert-success" style="text-align: center;">
+                      <strong style="align-items: center;">Classificação Final</strong>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-3"></div>
+
+                  <div class="col-md-4">
+                      <div class="custom-control custom-radio custom-control-inline">
+                        <input type="radio" class="custom-control-input" id="customRadio12" name="classificacao" value="Confirmado">
+                        <label class="custom-control-label" for="customRadio12">Confirmado</label>
+                      </div>
+                  </div>
+
+                  <div class="col-md-4">
+                      <div class="custom-control custom-radio custom-control-inline">
+                        <input type="radio" class="custom-control-input" id="customRadio13" name="classificacao" value="Descartado">
+                        <label class="custom-control-label" for="customRadio13">Descartado</label>
+                      </div>
+                  </div>
+                  
+                </div><br><br>
+                <div class="row">
+                  <div class="col-sm-12">
+                    <div class="alert alert-success" style="text-align: center;">
+                      <strong style="align-items: center;">Critério de Confirmação</strong>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-3"></div>
+
+                  <div class="col-md-4">
+                      <div class="custom-control custom-radio custom-control-inline">
+                        <input type="radio" class="custom-control-input" id="customRadio14" name="criterio" value="Clinico Laboratorial">
+                        <label class="custom-control-label" for="customRadio14">Clinico Laboratorial</label>
+                      </div>
+                  </div>
+
+                  <div class="col-md-4">
+                      <div class="custom-control custom-radio custom-control-inline">
+                        <input type="radio" class="custom-control-input" id="customRadio15" name="criterio" value="Clinico Epidemiológico">
+                        <label class="custom-control-label" for="customRadio15">Clinico Epidemiológico</label>
+                      </div>
+                  </div>
+                  
+                </div>
+
               </div>
               <div id="menu7" class="container tab-pane fade"><br>
                 
