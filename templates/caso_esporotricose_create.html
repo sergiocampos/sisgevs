@@ -458,7 +458,7 @@ cidades : [
             </div>
           </div>
 
-          <form enctype="multipart/form-data" action="submit" method="POST">{% csrf_token %}
+          <form enctype="multipart/form-data" class="needs-validation" novalidate action="submit" method="POST">{% csrf_token %}
             <br>
             <!-- Nav tabs -->
             <ul class="nav nav-tabs" role="tablist">
@@ -473,7 +473,7 @@ cidades : [
                 <a class="nav-link" data-toggle="tab" href="#menu1">Dados de Residência</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" data-toggle="tab" href="#menu2">Antecedêntes Epidemiológicos</a>
+                <a class="nav-link" data-toggle="tab" href="#menu2">Antecedentes Epidemiológicos</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" data-toggle="tab" href="#menu3">Dados Clínicos</a>
@@ -547,11 +547,13 @@ cidades : [
                   </div>
                   <div class="col-md-2">
                     <div class="form-group"><b>Município</b>
-                      <select class="form-control" name="municipio" id="">
+                      <select class="form-control" name="municipio" id="" required>
                         <option value="" selected><i></i></option>
                         <option value=""></option>
 
                       </select>
+                      <div class="valid-feedback">Valid.</div>
+                      <div class="invalid-feedback">Município obrigatório.</div>
                     </div>              
                   </div>
                   <div class="col-md-2">
@@ -561,7 +563,9 @@ cidades : [
                   </div>
                   <div class="col-md-3">
                     <div class="form-group"><b>Data dos Primeiros Sintomas</b>
-                      <input class="form-control" type="date" name="data_primeiros_sintomas" value="">
+                      <input class="form-control" type="date" name="data_primeiros_sintomas" value="" required>
+                      <div class="valid-feedback">Valid.</div>
+                      <div class="invalid-feedback">Data obrigatória.</div>
                     </div>
                   </div>
 
@@ -583,128 +587,99 @@ cidades : [
                   
 
                 </div>
-
                 
 
-                <!--
-                <div class="row">
-                  <div class="col-md-2">
-                    <div class="form-group"><b>Idade</b>
-                      <input class="form-control" type="text" name="matricula" placeholder="" value="{{servidor.matricula}}">
-                    </div>
-                  </div>
-                  <div class="col-md-6">
-                    <div class="form-group"><b>Nome</b>
-                      <input class="form-control" type="text" name="nome" placeholder="" value="{{servidor.nome}}">
-                    </div>
-                  </div>
-                  <div class="col-md-2">
-                    <div class="form-group"><b>Sexo</b>
-                      <select class="form-control" name="sexo" id="">
-                        {% if servidor.sexo %}
-                        <option value="{{servidor.sexo}}" selected>{{servidor.sexo}}</option>
-                        <option value="M">Masculino</option>
-                        <option value="F">Feminino</option>
-                        {% else %}
-                        <option value=""></option>
-                        <option value="M">Masculino</option>
-                        <option value="F">Feminino</option>
-                        {%endif%}
-                      </select>
-                    </div>
-                  </div>
-                  <div class="col-md-2">
-                    <div class="form-group"><b>Data Nasc</b>
-                      {% if servidor.data_nasc %}
-                      <input class="form-control" type="text" name="data_nasc_text" placeholder="" value="{{servidor.data_nasc}}">
-                      {%else%}
-                      <input class="form-control" type="date" name="data_nasc" placeholder="" value="">
-                      {%endif%}
-                    </div>
-                  </div>
-
-                </div>
-                <div class="row">
-                  <div class="col-md-6">
-                    <div class="form-group"><b>Endereço</b>
-                      <input class="form-control" type="text" name="cargo" placeholder="" value="{{servidor.cargo}}">
-                    </div>              
-                  </div>
-                  <div class="col-md-5"><b>Profissão</b>
-                    <div class="form-group">
-                      <input class="form-control" type="text" name="funcao" placeholder="" value="{{servidor.funcao}}">
-                    </div>              
-                  </div>
-
-                </div>
-                <div class="row">
-                  <div class="col-md-3">
-                    <div class="form-group"><b>CPF</b>
-                      <input class="form-control" type="text" name="cpf" placeholder="" value="{{servidor.cpf}}">
-                    </div>
-                  </div>
-                  <div class="col-md-4">
-                    <div class="form-group"><b>Sintomas</b>
-                      <input class="form-control" type="text" name="produtividade" placeholder="" value="{{servidor.produtividade}}">
-                    </div>
-                  </div>
-                  <div class="col-md-4">
-                    <div class="form-group"><b>Medicação</b>
-                      <input class="form-control" type="text" name="regime" placeholder="" value="{{servidor.regime}}">
-                    </div>
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="col-md-3">
-                    <div class="form-group"><b>Data Inicío Sintomas</b>
-                      {% if servidor.data_admissao %}
-                      <input class="form-control" type="text" name="data_admissao_text" value="{{servidor.data_admissao}}">
-                      {%else%}
-                      <input class="form-control" type="date" name="data_admissao" value="">
-                      {%endif%}
-                    </div>
-                  </div>
-                  <div class="col-md-4">
-                    <div class="form-group"><b>Data Fim dos Sintomas</b>
-                      {% if servidor.data_demissao %}
-                      <input class="form-control" type="text" name="data_demissao_text" value="{{servidor.data_demissao}}">
-                      {%else%}
-                      <input class="form-control" type="date" name="data_demissao" value="">
-                      {%endif%}
-                    </div>
-                  </div>
-                  <div class="col-md-4">
-
-                  </div>
-                </div>
-              -->
-
-
               </div>
-
+              
 
               <div id="home" class="container tab-pane"><br>
 
 
+                <div class="row">                  
+                  <div class="col-md-2">
+                    <div class="form-group"><b>Hojee</b>
+                      <input type="date" class="form-control" id="dateDefault" />
+                    </div>                                
+                  </div>                  
+                </div>
+
+                <script>
+                function setInputDate(_id){
+                    var _dat = document.querySelector(_id);
+                    var hoy = new Date(),
+                        d = hoy.getDate(),
+                        m = hoy.getMonth()+1, 
+                        y = hoy.getFullYear(),
+                        data;
+
+                    if(d < 10){
+                        d = "0"+d;
+                    };
+                    if(m < 10){
+                        m = "0"+m;
+                    };
+
+                    data = y+"-"+m+"-"+d;
+                    console.log(data);
+                    _dat.value = data;
+                };
+
+                setInputDate("#dateDefault");
+              </script>
+
                 <div class="row">
 
-                  <div class="col-md-8"><b>Paciente</b>
+                  <div class="col-md-6"><b>Paciente</b>
                     <div class="form-group">
-                      <input class="form-control" type="text" name="nome_paciente" value="">
+                      <input class="form-control" type="text" name="nome_paciente" value="" required>
+                      <div class="valid-feedback">Valid.</div>
+                      <div class="invalid-feedback">Nome obrigatório.</div>
                     </div>
                   </div>
                   <div class="col-md-2">
                     <div class="form-group"><b>Data Nasc</b>
-                      <input class="form-control" type="date" name="data_nasc" placeholder="" value="">
+                      <input class="form-control" type="date" name="data_nasc" id="date2" placeholder="" value="" required>
+                      <div class="valid-feedback">Valid.</div>
+                      <div class="invalid-feedback">Data nascimento obrigatória.</div>
                     </div>                                
                   </div>
                   <div class="col-md-2">
-                    <div class="form-group"><b>Idade</b>
-                      <input class="form-control" type="text" name="matricula" placeholder="" value="{{servidor.matricula}}">
+                    <div class="form-group"><span id="">calcular</span>
+                      <input class="form-control" type="text" name="matricula" placeholder="" value="" id="span_id">
+                    </div>
+                  </div>
+                  <div class="col-md-2">
+                    <div class="form-group"><b>Idadee</b>
+                      <input class="form-control" type="text" name="result" placeholder="" value="" id="result">
                     </div>
                   </div>
 
                 </div>
+
+                <script>
+                  $('#span_id').click(function(){
+                    var dt1 = $('#dateDefault').val();
+                    var dt2 = $('#date2').val();
+                    
+                    $('#result').text(calcula(dt1,dt2))
+                    //console.log(dt1);
+                    //console.log(dt2);
+
+                  });
+
+                  function calcula(data1, data2){
+                    data1 = new Date(data1);
+                    data2 = new Date(data2);
+                    
+                    idade = parseInt(((data2 - data1)/(1000*3600*24))/365);
+                    console.log(idade);
+                    document.getElementById("result").value = idade;
+                    //$('#result').text(idade);
+                    return idade;
+                    
+                  }
+
+                </script>
 
                 <div class="row">
                   <div class="col-md-2">
@@ -721,7 +696,7 @@ cidades : [
                   
                     <div class="col-md-2">
                       <div class="form-group"><b>Gestante</b>
-                        <select class="form-control" name="gestacao" id="">
+                        <select class="form-control" name="gestacao" id="" required>
                           
                           <option value=""></option>
                           <option value="1º Trimente">1º Trimente</option>
@@ -733,6 +708,8 @@ cidades : [
                           <option value="Não">Não</option>
                           
                         </select>
+                        <div class="valid-feedback">Valid.</div>
+                        <div class="invalid-feedback">Seleção obrigatória.</div>
                       </div>
                     </div>
                   <div class="col-md-2">
@@ -780,7 +757,9 @@ cidades : [
                 <div class="row">
                   <div class="col-md-6">
                     <div class="form-group"><b>Nome da Mãe</b>
-                      <input class="form-control" type="text" name="nome_mae" placeholder="" value="{{servidor.cargo}}">
+                      <input class="form-control" type="text" name="nome_mae" placeholder="" value="" required>
+                      <div class="valid-feedback">Valid.</div>
+                      <div class="invalid-feedback">nome da mãe obrigatório.</div>
                     </div>              
                   </div>
                   <div class="col-md-5">
@@ -797,7 +776,7 @@ cidades : [
 
                   <div class="col-md-2">
                     <div class="form-group"><b>CEP</b>
-                      <input class="form-control" type="text" name="cep" id="cep" placeholder="" value="">
+                      <input class="form-control" type="text" name="cep" id="cep" placeholder="" value="" required>
                     </div>
                   </div>
                   <div class="col-md-3">
@@ -816,12 +795,13 @@ cidades : [
                       <input class="form-control" type="text" name="bairro" id="bairro" placeholder="" value="">
                     </div>
                   </div>
+
                   <div class="col-md-2">
-                    <div class="form-group"><b>Código</b>
-                      <input class="form-control" type="text" name="codigo_municipio" placeholder="" value="">
+                    <div class="form-group"><b>Código IBGE</b>
+                      <input class="form-control" type="text" name="codigo_ibge" placeholder="" value="">
                     </div>
                   </div>
-
+                  
                 </div>
                 
                 <div class="row">
@@ -852,6 +832,7 @@ cidades : [
                       <input class="form-control" type="text" name="rua" id="rua" placeholder="" value="">
                     </div>
                   </div>
+                  <!--
                   <div class="col-md-3">
                     <div class="form-group"><b>Geo Campo1</b>
                       <input class="form-control" type="text" name="numero" id="" placeholder="" value="">
@@ -862,14 +843,13 @@ cidades : [
                       <input class="form-control" type="text" name="complemento" id="" placeholder="" value="">
                     </div>
                   </div>
+                -->
                   <div class="col-md-3">
                     <div class="form-group"><b>Ponto de Referência</b>
                       <input class="form-control" type="text" name="complemento" id="" placeholder="" value="">
                     </div>
-                  </div>
+                  </div>                
                   
-                  
-
                 </div>
                 <div class="row">
                   <div class="col-md-2">
@@ -895,15 +875,12 @@ cidades : [
                   </div>
                 </div>
                 <div class="row">
-                  <div class="col-md-2">
-                    <div class="form-group"><b>Código IBGE</b>
-                      <input class="form-control" type="text" name="codigo_ibge" placeholder="" value="">
-                    </div>
-                  </div>
+                  
                 </div>
               </div>
               <div id="menu2" class="container tab-pane fade"><br>
                 <div class="row">
+                  <div class="col-md-3"></div>
                   <div class="col-md-3">
                     <div class="form-group"><b>Data de Investigação</b>
                       <input class="form-control" type="date" name="data_investigacao" value="">
@@ -915,6 +892,7 @@ cidades : [
                     </div>
                   </div>
                 </div>
+                <hr>
                 <div class="row">
                   <div class="col-sm-3"></div>
                   <div class="col-sm-6">
@@ -923,13 +901,16 @@ cidades : [
                     </div>
                   </div>
                   <div class="col-sm-3"></div>
-                </div>
+                </div><br>
 
 
                 <div class="row">
-                  <div class="col-sm-3"><b>Frequentou Ambientes</b></div>
-                  <div class="col-sm-9"><hr></div>
-                </div><br>
+                  <div class="col-sm-12">
+                    <div class="alert alert-success" style="text-align: center;">
+                      <strong style="align-items: center;">Frequentou Ambientes</strong>
+                    </div>
+                  </div>
+                </div>
 
 
                 <div class="row">
@@ -970,14 +951,19 @@ cidades : [
                       </div>
                   </div>
                   
-                </div>
+                </div><br>
+
                 <div class="row">
-                  <div class="col-sm-3"><b>Teve contato com Animais</b></div>
-                  <div class="col-sm-9"><hr></div>
+                  <div class="col-sm-12">
+                    <div class="alert alert-success" style="text-align: center;">
+                      <strong style="align-items: center;">Teve contato com Animais</strong>
+                    </div>
+                  </div>
                 </div><br>
 
 
                 <div class="row">
+                  <div class="col-md-2"></div>
                   <div class="col-md-2">
                       <div class="custom-control custom-checkbox mb-3">
                         <input type="checkbox" class="custom-control-input" id="gato_id" name="gato">
@@ -1003,13 +989,15 @@ cidades : [
                       </div>
                   </div>
                                     
-                </div>
-
-                <div class="row">
-                  <div class="col-sm-4"><b>Natureza do contato com animais</b></div>
-                  <div class="col-sm-8"><hr></div>
                 </div><br>
 
+                <div class="row">
+                  <div class="col-sm-12">
+                    <div class="alert alert-success" style="text-align: center;">
+                      <strong style="align-items: center;">Natureza do contato com animais</strong>
+                    </div>
+                  </div>
+                </div><br>
 
                 <div class="row">
                   <div class="col-md-2">
@@ -1043,15 +1031,19 @@ cidades : [
                       </div>
                   </div>
                                     
-                </div>
+                </div><br>
 
                 <div class="row">
-                  <div class="col-sm-4"><b>Relação com Animal doente</b></div>
-                  <div class="col-sm-8"><hr></div>
+                  <div class="col-sm-12">
+                    <div class="alert alert-success" style="text-align: center;">
+                      <strong style="align-items: center;">Relação com Animal doente</strong>
+                    </div>
+                  </div>
                 </div><br>
 
 
                 <div class="row">
+                  <div class="col-md-1"></div>
                   <div class="col-md-3">
                       <div class="custom-control custom-checkbox mb-3">
                         <input type="checkbox" class="custom-control-input" id="tratador_proprietario_id" name="tratador_proprietario">
@@ -1062,7 +1054,7 @@ cidades : [
                       <div class="custom-control custom-checkbox mb-3">
                         <input type="checkbox" class="custom-control-input" id="prof_saude_id" name="prof_saude">
                         <label class="custom-control-label" for="prof_saude_id">Profissional de Saúde
-                          <a href="" data-toggle="tooltip" data-placement="right" title="Veterinário, Enfermeiro, Tratador de Animal em Clínicas!">(*)</a>
+                          <a href="#" data-toggle="tooltip" data-placement="right" title="Veterinário, Enfermeiro, Tratador de Animal em Clínicas!">(*)</a>
                         </label>
                       </div>
                   </div>
@@ -1089,36 +1081,40 @@ cidades : [
                                     
                 </div>
                 <br>
+                
                 <div class="row">
-                  <div class="col-sm-7"><b>Exerce atividade que Resulte em CONTATO CONSTANTE COM PLANTAS?</b>
-                    <a href="" data-toggle="tooltip" data-placement="right" title="Jardineiros, Agricultores, Horticultores, Exploradores de Madeira, Trabalhadores Rurais!">(*)</a>
-
+                  <div class="col-sm-12">
+                    <div class="alert alert-success" style="text-align: center;">
+                      <strong style="align-items: center;">Exerce atividade que Resulte em CONTATO CONSTANTE COM PLANTAS?
+                        <a href="#" data-toggle="tooltip" data-placement="right" title="Jardineiros, Agricultores, Horticultores, Exploradores de Madeira, Trabalhadores Rurais!">(*)</a>
+                      </strong>
+                    </div>
                   </div>
-                  <div class="col-sm-5"><hr></div>
                 </div><br>
 
                 <div class="row">
-                  <div class="col-md-1">
-                      <div class="custom-control custom-checkbox mb-3">
-                        <input type="checkbox" class="custom-control-input" id="plantas_cont_sim_id" name="plantas_cont_sim">
-                        <label class="custom-control-label" for="plantas_cont_sim_id">Sim</label>
+                  <div class="col-md-2"></div>
+                  <div class="col-md-3">
+                      <div class="custom-control custom-radio custom-control-inline">
+                        <input type="radio" class="custom-control-input" id="customRadio25" name="exerc_ativ_contato_plantas" value="Sim">
+                        <label class="custom-control-label" for="customRadio25">Sim</label>
+                      </div>
+                  </div>
+
+                  <div class="col-md-3">
+                      <div class="custom-control custom-radio custom-control-inline">
+                        <input type="radio" class="custom-control-input" id="customRadio26" name="exerc_ativ_contato_plantas" value="Não">
+                        <label class="custom-control-label" for="customRadio26">Não</label>
                       </div>
                   </div>
                   
-                  <div class="col-md-1">
-                      <div class="custom-control custom-checkbox mb-3">
-                        <input type="checkbox" class="custom-control-input" id="plantas_cont_nao_id" name="plantas_cont_nao">
-                        <label class="custom-control-label" for="plantas_cont_nao_id">Não</label>
-                      </div>
-                  </div>
                   <div class="col-md-3">
-                      <div class="custom-control custom-checkbox mb-3">
-                        <input type="checkbox" class="custom-control-input" id="plantas_cont_ignorado_id" name="plantas_cont_ignorado">
-                        <label class="custom-control-label" for="plantas_cont_ignorado_id">Ignorado
-                          
-                        </label>
+                      <div class="custom-control custom-radio custom-control-inline">
+                        <input type="radio" class="custom-control-input" id="customRadio27" name="exerc_ativ_contato_plantas" value="Ignorado">
+                        <label class="custom-control-label" for="customRadio27">Ignorado</label>
                       </div>
                   </div>
+
 
                   <script>
                   $(document).ready(function(){
@@ -1127,37 +1123,39 @@ cidades : [
                   </script>                                    
                 </div>
                 <br>
-                <div class="row">
-                  <div class="col-sm-12"><b>História de Corte, Lesão ou Trauma durante o manuseio de Plantas ou Material Orgânico SUSPEITO DE CONTAMINAÇÃO PELO FUNGO?</b>
-                    <a href="" data-toggle="tooltip" data-placement="right" title="Tábuas Úmidas de Madeira, Solo, Palha, Farpas, Espinhos, Vegetais!">(*)</a>
 
+                <div class="row">
+                  <div class="col-sm-12">
+                    <div class="alert alert-success" style="text-align: center;">
+                      <strong style="align-items: center; font-size: 95%;">História de Corte, Lesão ou Trauma durante o manuseio de Plantas ou Material Orgânico SUSPEITO DE CONTAMINAÇÃO PELO FUNGO?
+                        <a href="#" data-toggle="tooltip" data-placement="right" title="Tábuas Úmidas de Madeira, Solo, Palha, Farpas, Espinhos, Vegetais!">(*)</a>
+                      </strong>
+                    </div>
                   </div>
-                  
                 </div><br>
 
                 <div class="row">
-                  <div class="col-md-1">
-                      <div class="custom-control custom-checkbox mb-3">
-                        <input type="checkbox" class="custom-control-input" id="manuseio_sim_id" name="manuseio_sim">
-                        <label class="custom-control-label" for="manuseio_sim_id">Sim</label>
-                      </div>
-                  </div>
-                  
-                  <div class="col-md-1">
-                      <div class="custom-control custom-checkbox mb-3">
-                        <input type="checkbox" class="custom-control-input" id="manuseio_nao_id" name="manuseio_nao">
-                        <label class="custom-control-label" for="manuseio_nao_id">Não</label>
+                  <div class="col-md-2"></div>
+                  <div class="col-md-3">
+                      <div class="custom-control custom-radio custom-control-inline">
+                        <input type="radio" class="custom-control-input" id="customRadio28" name="lesao_manuseio" value="Sim">
+                        <label class="custom-control-label" for="customRadio28">Sim</label>
                       </div>
                   </div>
                   <div class="col-md-3">
-                      <div class="custom-control custom-checkbox mb-3">
-                        <input type="checkbox" class="custom-control-input" id="manuseio_ignorado_id" name="manuseio_ignorado">
-                        <label class="custom-control-label" for="manuseio_ignorado_id">Ignorado
-                          
-                        </label>
+                      <div class="custom-control custom-radio custom-control-inline">
+                        <input type="radio" class="custom-control-input" id="customRadio29" name="lesao_manuseio" value="Não">
+                        <label class="custom-control-label" for="customRadio29">Não</label>
+                      </div>
+                  </div>
+                  <div class="col-md-3">
+                      <div class="custom-control custom-radio custom-control-inline">
+                        <input type="radio" class="custom-control-input" id="customRadio30" name="lesao_manuseio" value="Ignorado">
+                        <label class="custom-control-label" for="customRadio30">Ignorado</label>
                       </div>
                   </div>
 
+                  
                   <script>
                   $(document).ready(function(){
                     $('[data-toggle="tooltip"]').tooltip();   
@@ -1471,33 +1469,43 @@ cidades : [
               <div id="menu4" class="container tab-pane fade"><br>
                 <br>
                 <div class="row">
-                  <div class="col-sm-5"><b>Houve coleta de Material para EXAME LABORATORIAL</b></div>
-                  <div class="col-md-1">
-                      <div class="custom-control custom-checkbox mb-3">
-                        <input type="checkbox" class="custom-control-input" id="coleta_exame_labo_sim_id" name="coleta_exame_labo_sim">
-                        <label class="custom-control-label" for="coleta_exame_labo_sim_id">Sim</label>
-                      </div>
+                  <div class="col-sm-12">
+                    <div class="alert alert-success" style="text-align: center;">
+                      <strong style="align-items: center;">Houve coleta de Material para EXAME LABORATORIAL</strong>
+                    </div>
                   </div>
+                </div><br>
+
+                <div class="row">
+                  <div class="col-sm-2"></div>
                   
-                  <div class="col-md-1">
-                      <div class="custom-control custom-checkbox mb-3">
-                        <input type="checkbox" class="custom-control-input" id="coleta_exame_nao_id" name="coleta_exame_nao">
-                        <label class="custom-control-label" for="coleta_exame_nao_id">Não</label>
-                      </div>
-                  </div>
-                  <div class="col-md-2">
-                      <div class="custom-control custom-checkbox mb-3">
-                        <input type="checkbox" class="custom-control-input" id="coleta_exame_ignorado_id" name="coleta_exame_ignorado">
-                        <label class="custom-control-label" for="coleta_exame_ignorado_id">Ignorado
-                          
-                        </label>
+
+                  <div class="col-md-3">
+                      <div class="custom-control custom-radio custom-control-inline">
+                        <input type="radio" class="custom-control-input" id="coleta_exame_labo_sim_id" name="coleta_exame_labo_sim" value="Sim">
+                        <label class="custom-control-label" for="coleta_exame_labo_sim_id">Sim</label>
+                        <div class="valid-feedback">Valid.</div>
+                        <div class="invalid-feedback">Escolha obrigatória.</div>
                       </div>
                   </div>
 
+                  <div class="col-md-3">
+                      <div class="custom-control custom-radio custom-control-inline">
+                        <input type="radio" class="custom-control-input" id="coleta_exame_nao_id" name="coleta_exame_labo_sim" value="Não">
+                        <label class="custom-control-label" for="coleta_exame_nao_id">Não</label>
+                      </div>
+                  </div>
+
+                  <div class="col-md-3">
+                      <div class="custom-control custom-radio custom-control-inline">
+                        <input type="radio" class="custom-control-input" id="coleta_exame_ignorado_id" name="coleta_exame_labo_sim" value="Ignorado">
+                        <label class="custom-control-label" for="coleta_exame_ignorado_id">Ignorado</label>
+                      </div>
+                  </div>
                   
-                </div>
+                </div><br>
                 <div class="row">
-                  <div class="col-md-5"></div>
+                  <div class="col-md-2"></div>
                   <div class="col-md-3">
                       <div class="input-group mb-3" id="">
                         <div class="input-group-prepend" id="lb_data_coleta_material">
@@ -1511,7 +1519,15 @@ cidades : [
 
                 <br>
                 <div class="row">
-                  <div class="col-sm-3"><b>Resultado do Isolamento</b></div>
+                  <div class="col-sm-12">
+                    <div class="alert alert-success" style="text-align: center;">
+                      <strong style="align-items: center;">Resultado do Isolamento</strong>
+                    </div>
+                  </div>
+                </div><br>
+
+                <div class="row">
+                  <div class="col-sm-2"></div>
                   <div class="col-md-2">
                       <div class="custom-control custom-radio custom-control-inline">
                         <input type="radio" class="custom-control-input" id="customRadio1" name="example1" value="Detectado">
@@ -1555,7 +1571,14 @@ cidades : [
 
                 <br>
                 <div class="row">
-                  <div class="col-sm-3"><b>Histopatologia</b></div>
+                  <div class="col-sm-12">
+                    <div class="alert alert-success" style="text-align: center;">
+                      <strong style="align-items: center;">Histopatologia</strong>
+                    </div>
+                  </div>
+                </div><br>
+                <div class="row">
+                  <div class="col-sm-2"></div>
                   <div class="col-md-2">
                       <div class="custom-control custom-radio custom-control-inline">
                         <input type="radio" class="custom-control-input" id="customRadio5" name="example2" value="Compatível">
@@ -1713,6 +1736,58 @@ cidades : [
                         <input type="text" class="form-control" name="esquema_terapeutico" value="" id="">
                       </div>
                   </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-3">
+                      <div class="input-group mb-3" id="">
+                        <div class="input-group-prepend" id="">
+                          <span class="input-group-text">Início</span>
+                        </div>
+                        <input type="date" class="form-control" name="data_inicio_tratamento2" value="" id="">
+                      </div>
+                  </div>
+                  <div class="col-md-5">
+                      <div class="input-group mb-3" id="">
+                        <div class="input-group-prepend" id="">
+                          <span class="input-group-text">Droga Administrada</span>
+                        </div>
+                        <input type="text" class="form-control" name="droga_admin_tratamento2" value="" id="">
+                      </div>
+                  </div>
+                  <div class="col-md-4">
+                      <div class="input-group mb-3" id="">
+                        <div class="input-group-prepend" id="">
+                          <span class="input-group-text">Esquema Terapeutico</span>
+                        </div>
+                        <input type="text" class="form-control" name="esquema_terapeutico2" value="" id="">
+                      </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-3">
+                      <div class="input-group mb-3" id="">
+                        <div class="input-group-prepend" id="">
+                          <span class="input-group-text">Início</span>
+                        </div>
+                        <input type="date" class="form-control" name="data_inicio_tratamento3" value="" id="">
+                      </div>
+                  </div>
+                  <div class="col-md-5">
+                      <div class="input-group mb-3" id="">
+                        <div class="input-group-prepend" id="">
+                          <span class="input-group-text">Droga Administrada</span>
+                        </div>
+                        <input type="text" class="form-control" name="droga_admin_tratamento3" value="" id="">
+                      </div>
+                  </div>
+                  <div class="col-md-4">
+                      <div class="input-group mb-3" id="">
+                        <div class="input-group-prepend" id="">
+                          <span class="input-group-text">Esquema Terapeutico</span>
+                        </div>
+                        <input type="text" class="form-control" name="esquema_terapeutico3" value="" id="">
+                      </div>
+                  </div>
                 </div><br><br>
 
                 <div class="row">
@@ -1849,7 +1924,9 @@ cidades : [
                 <div class="row">
                   <div class="col-sm-12">
                     <div class="alert alert-success" style="text-align: center;">
-                      <strong style="align-items: center;">Classificação Final</strong>
+                      <strong style="align-items: center;">Classificação Final
+                        <a href="#" data-toggle="tooltip" data-placement="right" title="Obrigatório após 180 dias da notificação!">(*)</a>
+                      </strong>
                     </div>
                   </div>
                 </div>
@@ -2060,15 +2137,53 @@ cidades : [
                   </div>
                   
                 </div>
-                <br>
+                
+                <br><br>
                 <div class="row">
-                  <div class="col-md-1"></div>
+                  <div class="col-sm-12">
+                    <div class="alert alert-success" style="text-align: center;">
+                      <strong style="align-items: center;">Evolução do Caso</strong>
+                    </div>
+                  </div>
+                </div><br>
+                <script>
+                  function activeDataEvoCaso(){
+                    if (document.getElementById("sel_evo_caso").value == "Obito pelo AGRAVO"){
+                      //$("#data_obito_evolucao_id").show();
+                      $("#data_obito_evo_id").show();
+                      $("#div_input_data_ob").show();
+                    }
+                    if (document.getElementById("sel_evo_caso").value == "Obito Outras Causas"){
+                      //$("#data_obito_evolucao_id").show();
+                      $("#data_obito_evo_id").show();
+                      $("#div_input_data_ob").show();
+                    }
+                    if (document.getElementById("sel_evo_caso").value == "Cura"){
+                      $("#div_input_data_ob").hide();
+                      $("#data_obito_evo_id").hide();
+                      $("#data_obito_evo_id").val("");
+                    }
+                    if (document.getElementById("sel_evo_caso").value == "Ignorado"){
+                      $("#div_input_data_ob").hide();
+                      $("#data_obito_evo_id").hide();
+                      $("#data_obito_evo_id").val("");
+                    }
+                  }
+                </script>
+                <style>
+                  #div_input_data_ob,
+                  #data_obito_evo_id {
+                    display: none;
+                  }
+                </style>
+                <div class="row">
+                  
                   <div class="col-md-4">
                       <div class="input-group mb-3" id="">
                         <div class="input-group-prepend" id="">
                           <span class="input-group-text">Evolução do Caso</span>
                         </div>
-                        <select class="form-control" name="evolucao_caso_autoctone" id="">
+                        <select class="form-control" name="evolucao_caso_autoctone" id="sel_evo_caso" onclick="activeDataEvoCaso()">
                           <option value=""></option>
                           <option value="Cura">Cura</option>
                           <option value="Obito pelo AGRAVO">Obito pelo AGRAVO</option>
@@ -2077,12 +2192,12 @@ cidades : [
                         </select>
                       </div>
                   </div>
-                  <div class="col-md-3">
+                  <div class="col-md-4">
                       <div class="input-group mb-3" id="">
-                        <div class="input-group-prepend" id="">
-                          <span class="input-group-text">Data do Obito</span>
+                        <div class="input-group-prepend" id="div_input_data_ob">
+                          <span class="input-group-text">Data do Óbito</span>
                         </div>
-                        <input type="date" class="form-control" name="data_obito" value="" id="">
+                        <input type="date" class="form-control" name="data_obito" value="" id="data_obito_evo_id">
                       </div>
                   </div>
                   <div class="col-md-4">
@@ -2122,7 +2237,7 @@ cidades : [
                   </div>
                                  
                   
-                </div><br>
+                </div>
                 <div class="row">
                   <div class="col-md-1"></div>
                   
@@ -2137,11 +2252,33 @@ cidades : [
                   <div class="col-md-5">
                       <div class="input-group mb-3" id="">
                         <div class="input-group-prepend" id="">
-                          <span class="input-group-text">Assinatura</span>
+                          <span class="input-group-text">Email</span>
                         </div>
-                        <input type="text" class="form-control" name="assinatura_investigador" value="" id="">
+                        <input type="text" class="form-control" name="email_investigador" value="" id="">
                       </div>
                   </div>                 
+                  
+                </div>
+                <div class="row">
+                  <div class="col-md-1"></div>
+                  
+                  <div class="col-md-4">
+                      <div class="input-group mb-3" id="">
+                        <div class="input-group-prepend" id="">
+                          <span class="input-group-text">Telefone</span>
+                        </div>
+                        <input type="text" class="form-control" id="" name="telefone_investigador" pattern="[0-9]+\-[0-9]" onkeypress="$(this).mask('00 00000-0000')" placeholder="apenas números">
+                        
+                      </div>
+                  </div>
+                  <div class="col-md-5">
+                      <div class="input-group mb-3" id="">
+                        <div class="input-group-prepend" id="">
+                          <span class="input-group-text">Conselho Classe</span>
+                        </div>
+                        <input type="text" class="form-control" name="conselho_classe_investigador" value="" id="">
+                      </div>
+                  </div>                                 
                   
                 </div>
               </div>
@@ -2151,7 +2288,7 @@ cidades : [
             <hr>
 
             <div class="container-fluid" style="text-align: center;">
-              <button type="submit" class="btn btn-primary" style="align-items: center;" id="btn_cadastrar_amostra" disabled>Criar</button>  
+              <button type="submit" class="btn btn-primary" style="align-items: center;" id="">Criar</button>  
             </div>
           </form>
           

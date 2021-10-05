@@ -23,9 +23,13 @@ urlpatterns = [
     path('index/', views.index, name='index'),
     path('main/', views.main, name='main'),
 
+    path('login/',views.login_page, name='login_page'),
+    path('login/submit', views.login_submit),
+
     path('all_forms/', views.all_forms, name='all_forms'),
 
     path('caso_esporotricose_create/', views.caso_esporotricose_create, name='caso_esporotricose_create'),
+    path('caso_esporotricose_create/submit', views.set_caso_esporotricose_create),
 
 
     path('login/',views.login_page, name='login_page'),
