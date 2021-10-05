@@ -1797,24 +1797,93 @@ cidades : [
                     </div>
                   </div>
                 </div>
-                <div class="row">
+                
+                <script>
+                  function activeDadosHos(){
+                    if (document.getElementById("customRadio11").checked == true){
+                      //$("#row_dados_hospitalizacao_id").show();
+                      $("#div_g").show();
+                      $("#div_lb").show();
+                      
+                      $("#input_internacao").prop("disabled", false);
+                      $("#input_d_a").prop("disabled", false);
+                      $("#sel_uf_t").prop("disabled", false);
+                      $("#mun_hosp_id").prop("disabled", false);
+                      $("#cod_ibge_id").prop("disabled", false);
+                      $("#nome_hosp_id").prop("disabled", false);
+                      $("#cod_hosp_id").prop("disabled", false);
 
-                  <div class="col-md-4">
+                      
+                      $("#div_g_da").show();
+                      $("#div_lb_da").show();
+                      $("#input_d_a").show();
+
+                      $("#div_sel_uf").show();
+                      $("#div_ls_sel").show();
+                      $("#sel_uf_t").show();
+                    }
+                  }
+
+                  function desactiveDadosHos(){
+                    if (document.getElementById("customRadio9").checked == true){
+                      $("#input_internacao").val("");
+                      $("#input_d_a").val("");
+                      $("#sel_uf_t").val("");
+                      $("#mun_hosp_id").val("");
+                      $("#cod_ibge_id").val("");
+                      $("#nome_hosp_id").val("");
+                      $("#cod_hosp_id").val("");
+
+                      $("#input_internacao").prop("disabled", true);
+                      $("#input_d_a").prop("disabled", true);
+                      $("#sel_uf_t").prop("disabled", true);
+                      $("#mun_hosp_id").prop("disabled", true);
+                      $("#cod_ibge_id").prop("disabled", true);
+                      $("#nome_hosp_id").prop("disabled", true);
+                      $("#cod_hosp_id").prop("disabled", true);
+                    }
+                  }
+
+                  function desactiveDadosHosI(){
+                    if (document.getElementById("customRadio10").checked == true){
+                      $("#input_internacao").val("");
+                      $("#input_d_a").val("");
+                      $("#sel_uf_t").val("");
+                      $("#mun_hosp_id").val("");
+                      $("#cod_ibge_id").val("");
+                      $("#nome_hosp_id").val("");
+                      $("#cod_hosp_id").val("");
+
+                      $("#input_internacao").prop("disabled", true);
+                      $("#input_d_a").prop("disabled", true);
+                      $("#sel_uf_t").prop("disabled", true);
+                      $("#mun_hosp_id").prop("disabled", true);
+                      $("#cod_ibge_id").prop("disabled", true);
+                      $("#nome_hosp_id").prop("disabled", true);
+                      $("#cod_hosp_id").prop("disabled", true);
+                    }
+                  }
+                </script>
+
+                <div class="row">
+                  <div class="col-md-2"></div>
+
+                  <div class="col-md-3">
                       <div class="custom-control custom-radio custom-control-inline">
-                        <input type="radio" class="custom-control-input" id="customRadio11" name="hospitalizado" value="Sim">
+                        <input type="radio" class="custom-control-input" id="customRadio11" name="hospitalizado" value="Sim" onclick="activeDadosHos()">
                         <label class="custom-control-label" for="customRadio11">Sim</label>
                       </div>
                   </div>
 
-                  <div class="col-md-4">
+                  <div class="col-md-3">
                       <div class="custom-control custom-radio custom-control-inline">
-                        <input type="radio" class="custom-control-input" id="customRadio9" name="hospitalizado" value="Não">
+                        <input type="radio" class="custom-control-input" id="customRadio9" name="hospitalizado" value="Não" onclick="desactiveDadosHos()">
                         <label class="custom-control-label" for="customRadio9">Não</label>
                       </div>
                   </div>
-                  <div class="col-md-4">
+                  <div class="col-md-3">
                       <div class="custom-control custom-radio custom-control-inline">
-                        <input type="radio" class="custom-control-input" id="customRadio10" name="hospitalizado" value="Ignorado">
+                        <input type="radio" class="custom-control-input" id="customRadio10" name="hospitalizado" value="Ignorado" onclick="desactiveDadosHosI()">
                         <label class="custom-control-label" for="customRadio10">Ignorado</label>
                       </div>
                   </div>
@@ -1822,29 +1891,33 @@ cidades : [
                   
                   
                 </div><br>
-                <div class="row">
+                
+
+                <div class="row" id="row_dados_hospitalizacao_id">
+                  
                   <div class="col-md-4">
-                      <div class="input-group mb-3" id="">
-                        <div class="input-group-prepend" id="">
+                      <div class="input-group mb-3" id="div_g">
+                        <div class="input-group-prepend" id="div_lb">
                           <span class="input-group-text">Data Internação</span>
                         </div>
-                        <input type="date" class="form-control" name="data_internacao" value="" id="">
+                        <input type="date" class="form-control" name="data_internacao" value="" id="input_internacao" disabled>
                       </div>
                   </div>
                   <div class="col-md-3">
-                      <div class="input-group mb-3" id="">
-                        <div class="input-group-prepend" id="">
+                      <div class="input-group mb-3" id="div_g_da">
+                        <div class="input-group-prepend" id="div_lb_da">
                           <span class="input-group-text">Data Alta</span>
                         </div>
-                        <input type="date" class="form-control" name="data_alta" value="" id="">
+                        <input type="date" class="form-control" name="data_alta" value="" id="input_d_a" disabled>
                       </div>
                   </div>
                   <div class="col-md-3">
-                      <div class="input-group mb-3" id="">
-                        <div class="input-group-prepend" id="">
+                      <div class="input-group mb-3" id="div_sel_uf">
+                        <div class="input-group-prepend" id="div_ls_sel">
                           <span class="input-group-text">UF</span>
                         </div>
-                        <select class="form-control" name="uf_internacao" id="">
+                        <select class="form-control" name="uf_internacao" id="sel_uf_t" disabled>
+                          <option value=""></option>
                           <option value="AC">Acre</option>
                           <option value="AL">Alagoas</option>
                           <option value="AP">Amapá</option>
@@ -1875,14 +1948,13 @@ cidades : [
                         </select>
                       </div>
                   </div>
-                </div><br>
-                <div class="row">
+
                   <div class="col-md-6">
                       <div class="input-group mb-3" id="">
                         <div class="input-group-prepend" id="">
                           <span class="input-group-text">Município do Hospital</span>
                         </div>
-                        <input type="text" class="form-control" name="municipio_hospital" value="" id="">
+                        <input type="text" class="form-control" name="municipio_hospital" value="" id="mun_hosp_id" disabled>
                       </div>
                   </div>
                   <div class="col-md-3">
@@ -1890,20 +1962,19 @@ cidades : [
                         <div class="input-group-prepend" id="">
                           <span class="input-group-text">Código IBGE</span>
                         </div>
-                        <input type="text" class="form-control" name="codigo_ibge_municipio" value="" id="">
+                        <input type="text" class="form-control" name="codigo_ibge_municipio" value="" id="cod_ibge_id" disabled>
                       </div>
                   </div>
                   <div class="col-md-3">
                       
                   </div>
-                </div><br>
-                <div class="row">
+
                   <div class="col-md-6">
                       <div class="input-group mb-3" id="">
                         <div class="input-group-prepend" id="">
                           <span class="input-group-text">Nome do Hospital</span>
                         </div>
-                        <input type="text" class="form-control" name="nome_hospital" value="" id="">
+                        <input type="text" class="form-control" name="nome_hospital" value="" id="nome_hosp_id" disabled>
                       </div>
                   </div>
                   <div class="col-md-3">
@@ -1911,13 +1982,13 @@ cidades : [
                         <div class="input-group-prepend" id="">
                           <span class="input-group-text">Código</span>
                         </div>
-                        <input type="text" class="form-control" name="codigo_hospital" value="" id="">
+                        <input type="text" class="form-control" name="codigo_hospital" value="" id="cod_hosp_id" disabled>
                       </div>
                   </div>
                   <div class="col-md-3">
                       
                   </div>
-                </div>
+                </div><br>
                 
               </div>
               <div id="menu6" class="container tab-pane fade"><br>
