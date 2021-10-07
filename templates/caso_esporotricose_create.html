@@ -210,9 +210,9 @@ addOption: function (elm, val, text) {
   elm.appendChild(opt);
 },
 estados : [
-['','Selecione um estado'],['AC','Acre'],['AL','Alagoas'],['AM','Amazonas'],['AP','Amapá'],['BA','Bahia'],
+['PB','Paraíba'],['AC','Acre'],['AL','Alagoas'],['AM','Amazonas'],['AP','Amapá'],['BA','Bahia'],
 ['CE','Ceará'],['DF','Distrito Federal'],['ES','Espírito Santo'],['GO','Goiás'],['MA','Maranhão'],['MG','Minas Gerais'],
-['MS','Mato Grosso do Sul'],['MT','Mato Grosso'],['PA','Pará'],['PB','Paraíba'],['PE','Pernambuco'],['PI','Piauí'],
+['MS','Mato Grosso do Sul'],['MT','Mato Grosso'],['PA','Pará'],['PE','Pernambuco'],['PI','Piauí'],
 ['PR','Paraná'],['RJ','Rio de Janeiro'],['RN','Rio Grande do Norte'],['RO','Rondônia'],['RR','Roraima'],['RS','Rio Grande do Sul'],
 ['SC','Santa Catarina'],['SP','São Paulo'],['SE','Sergipe'],['TO','Tocantins']
 ],
@@ -453,9 +453,22 @@ cidades : [
           <div class="row">
             <div class="col-sm-12">
               <div class="alert alert-primary" style="text-align: center;">
-                <strong style="align-items: center;">Registro de Caso</strong>
+                <strong style="align-items: center;">Ficha de Investigação de Esporotricose</strong>
               </div>
             </div>
+          </div>
+
+          
+
+          <div class="row">
+            <div class="col-md-12">
+              <p style="font-size: 72%; background-color: #e6e6e6; padding: 8px;">
+
+                <b>CASO SUSPEITO:</b> INDIVÍDUO QUE APRESENTE LESÕES NA PELE, QUE SE INICIAM COMO UMA PEQUENA PÁPILA, QUE PODEM EVOLUIR PARA UMA FORMA ULCERADA, COM OU SEM SECREÇÃO SEROPULENTA, DISPOSTAS OU NÃO EM FILEIRA; COM HISTÓRIA EPIDEMIOLÓGICA DE TRAUMA CUTÂNEO POR MATERIAL DE ORIGEM VEGETAL POTENCIALMENTE CONTAMINADO COM FUNGO OU ARRANHADURA/MORDEDURA POR GATOS OU CONTATO COM FERIDAS DESSES ANIMAIS.
+                
+              </p>
+          
+          </div>
           </div>
 
           <form enctype="multipart/form-data" class="needs-validation" novalidate action="submit" method="POST">{% csrf_token %}
@@ -505,7 +518,7 @@ cidades : [
 
                   <div class="col-md-3">
                     <div class="form-group"><b>Tipo de Notificação</b>
-                      <select class="form-control" name="utb" id="">
+                      <select class="form-control" name="tipo_notificacao" id="">
                         <option value="" selected></option>
                         <option value="Individual">Individual</option>
 
@@ -514,7 +527,7 @@ cidades : [
                   </div>
                   <div class="col-md-2">
                     <div class="form-group"><b>Agravo/Doença</b>
-                      <select class="form-control" name="utb" id="">
+                      <select class="form-control" name="agravo_doenca" id="">
                         <option value="" selected><i></i></option>
                         <option value="Esporotricose">Esporotricose</option>
 
@@ -539,7 +552,7 @@ cidades : [
                   <div class="col-md-3">
                     <div class="form-group"><b>UF</b>
                       <select class="form-control" name="uf_notificacao" id="estado">
-                        <option value="" selected></option>
+                        <option value="PB" selected>PB</option>
                         <option value=""></option>
 
                       </select>
@@ -547,7 +560,7 @@ cidades : [
                   </div>
                   <div class="col-md-2">
                     <div class="form-group"><b>Município</b>
-                      <select class="form-control" name="municipio" id="" required>
+                      <select class="form-control" name="municipio_notificacao" id="" required>
                         <option value="" selected><i></i></option>
                         <option value=""></option>
 
@@ -558,7 +571,7 @@ cidades : [
                   </div>
                   <div class="col-md-2">
                     <div class="form-group"><b>Código IBGE</b>
-                      <input class="form-control" type="text" name="codigo_ibge" placeholder="" value="">
+                      <input class="form-control" type="text" name="codigo_ibge_dados_gerais" placeholder="" value="">
                     </div>
                   </div>
                   <div class="col-md-3">
@@ -580,8 +593,8 @@ cidades : [
 
                 <div class="row">
                   <div class="col-md-6">
-                    <div class="form-group"><b>Unidade de Saúde - </b><i>Código</i>
-                      <input class="form-control" type="text" name="nome" placeholder="" value="{{servidor.nome}}">
+                    <div class="form-group"><b>Unidade de Saúde  </b><i></i>
+                      <input class="form-control" type="text" name="unidade_saude" placeholder="" value="">
                     </div>
                   </div>
                   
@@ -597,8 +610,8 @@ cidades : [
 
                 <div class="row">                  
                   <div class="col-md-2">
-                    <div class="form-group"><b>Hojee</b>
-                      <input type="date" class="form-control" id="dateDefault" />
+                    <div class="form-group">
+                      <input type="date" class="form-control" id="dateDefault" / style="display: none;">
                     </div>                                
                   </div>                  
                 </div>
@@ -644,12 +657,18 @@ cidades : [
                     </div>                                
                   </div>
                   <div class="col-md-2">
-                    <div class="form-group"><span id="">calcular</span>
-                      <input class="form-control" type="text" name="matricula" placeholder="" value="" id="span_id">
+                    <div class="form-group"><b>Sexo</b>
+                      <select class="form-control" name="sexo" id="span_id">
+                        
+                        <option value=""></option>
+                        <option value="M">Masculino</option>
+                        <option value="F">Feminino</option>
+                        
+                      </select>
                     </div>
                   </div>
                   <div class="col-md-2">
-                    <div class="form-group"><b>Idadee</b>
+                    <div class="form-group"><b>Idade</b>
                       <input class="form-control" type="text" name="result" placeholder="" value="" id="result">
                     </div>
                   </div>
@@ -682,19 +701,9 @@ cidades : [
                 </script>
 
                 <div class="row">
-                  <div class="col-md-2">
-                    <div class="form-group"><b>Sexo</b>
-                      <select class="form-control" name="sexo" id="">
-                        
-                        <option value=""></option>
-                        <option value="M">Masculino</option>
-                        <option value="F">Feminino</option>
-                        
-                      </select>
-                    </div>
-                  </div>
                   
-                    <div class="col-md-2">
+                  
+                    <div class="col-md-3">
                       <div class="form-group"><b>Gestante</b>
                         <select class="form-control" name="gestacao" id="" required>
                           
@@ -728,7 +737,7 @@ cidades : [
                     </div>
                   </div>
 
-                  <div class="col-md-2">
+                  <div class="col-md-4">
                     <div class="form-group"><b>Escolaridade</b>
                       <select class="form-control" name="escolaridade" id="">
                         
@@ -1978,12 +1987,7 @@ cidades : [
                       </div>
                   </div>
                   <div class="col-md-3">
-                      <div class="input-group mb-3" id="">
-                        <div class="input-group-prepend" id="">
-                          <span class="input-group-text">Código</span>
-                        </div>
-                        <input type="text" class="form-control" name="codigo_hospital" value="" id="cod_hosp_id" disabled>
-                      </div>
+                      
                   </div>
                   <div class="col-md-3">
                       
