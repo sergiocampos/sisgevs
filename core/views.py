@@ -75,15 +75,15 @@ def set_caso_esporotricose_create(request):
 	unidade_saude = request.POST.get('unidade_saude')
 	
 	#notificação individual
-	nome_paciente = request.POST.get('')
-	data_nascimento_paciente = request.POST.get('')
-	idade_paciente = request.POST.get('')
-	sexo_paciente = request.POST.get('')
-	paciente_gestante = request.POST.get('')
-	raca_paciente = request.POST.get('')
-	escolaridade_paciente = request.POST.get('')
-	cantao_sus_paciente = request.POST.get('')
-	nome_mae_paciente = request.POST.get('')
+	nome_paciente = request.POST.get('nome_paciente')
+	data_nascimento_paciente = request.POST.get('data_nasc')
+	sexo_paciente = request.POST.get('sexo')
+	idade_paciente = request.POST.get('result')
+	paciente_gestante = request.POST.get('gestacao')
+	raca_paciente = request.POST.get('raca')
+	escolaridade_paciente = request.POST.get('escolaridade')
+	cantao_sus_paciente = request.POST.get('cartao_sus')
+	nome_mae_paciente = request.POST.get('nome_mae')
 	
 	#Dados Residencia
 	cep_residencia = request.POST.get('')

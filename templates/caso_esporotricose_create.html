@@ -285,7 +285,7 @@ cidades : [
                         $("#bairro").val("...");
                         $("#cidade").val("...");
                         $("#uf").val("...");
-                        //$("#ibge").val("...");
+                        $("#ibge").val("...");
 
                         //Consulta o webservice viacep.com.br/
                         $.getJSON("https://viacep.com.br/ws/"+ cep +"/json/?callback=?", function(dados) {
@@ -296,7 +296,7 @@ cidades : [
                                 $("#bairro").val(dados.bairro);
                                 $("#cidade").val(dados.localidade);
                                 $("#uf").val(dados.uf);
-                                //$("#ibge").val(dados.ibge);
+                                $("#ibge").val(dados.ibge);
                             } //end if.
                             else {
                                 //CEP pesquisado não foi encontrado.
@@ -690,7 +690,7 @@ cidades : [
                     data1 = new Date(data1);
                     data2 = new Date(data2);
                     
-                    idade = parseInt(((data2 - data1)/(1000*3600*24))/365);
+                    idade = parseInt(((data1 - data2)/(1000*3600*24))/365);
                     console.log(idade);
                     document.getElementById("result").value = idade;
                     //$('#result').text(idade);
@@ -807,7 +807,7 @@ cidades : [
 
                   <div class="col-md-2">
                     <div class="form-group"><b>Código IBGE</b>
-                      <input class="form-control" type="text" name="codigo_ibge" placeholder="" value="">
+                      <input class="form-control" type="text" name="codigo_ibge" id="ibge" placeholder="" value="">
                     </div>
                   </div>
                   
