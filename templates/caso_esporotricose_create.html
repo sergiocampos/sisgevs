@@ -112,12 +112,12 @@ function dgReadyState(fn){ //dom is ready for interaction (IE)
 }
 
 /* Objeto */
-var dgCidadesEstados = function(data) {
+var dgIbgeCidade = function(data) {
   var defaultData = {
-    estado: false,
-    estadoVal: '',
     cidade: false,
     cidadeVal: '',
+    codibge: false,
+    codibgeVal: '',
     change: false
   }
   for (name in defaultData) {
@@ -125,7 +125,7 @@ var dgCidadesEstados = function(data) {
       data[name] = defaultData[name];
     }
   }
-  var keys = ['estado', 'cidade'];
+  var keys = ['cidade', 'codibge'];
   if (data['change']) { //caso change: true, não se trata de um select a ser povoado
     var nome, length = keys.length;
     for (var a=0; a<length; a++ ) {
@@ -146,27 +146,27 @@ var dgCidadesEstados = function(data) {
       }
     }
   }
-  this.set(data['estado'], data['cidade']);
+  this.set(data['cidade'], data['codibge']);
   this.start();
 
   var nome, length = keys.length;
   for (var i=0; i<length; i++) {
-    nome = keys[i]; //estado e cidade
+    nome = keys[i]; //cidade e codibge
 
     if (this[nome].getAttribute('value')) {
       data[nome+'Val'] = this[nome].getAttribute('value');
     }
 
-    if (data[nome+'Val']) { //preenche estadoVal e cidadeVal se fornecidos na criação do dgCidadesEstados.
+    if (data[nome+'Val']) { //preenche estadoVal e cidadeVal se fornecidos na criação do dgIbgeCidade.
       var options = this[nome].options;
-    if (nome=='estado') this.estado.onchange(); //se tiver preenchido o estado, dá run() pra preencher as cidades
+    if (nome=='cidade') this.cidade.onchange(); //se tiver preenchido o cidade, dá run() pra preencher as cidades
     for (var j = 0; j<options.length; j++) { //olha cada linha e vê se é a que quer... aí coloca como selected.
       if (options[j].tagName == 'OPTION') {
         if (options[j].value == data[nome+'Val']) {
           options[j].setAttribute('selected',true);
-          if (nome=='estado'){ //esses dois passos são necessários pro IE6!
-            this.estado.selectedIndex=j;
-            this.estado.onchange();
+          if (nome=='cidade'){ //esses dois passos são necessários pro IE6!
+            this.cidade.selectedIndex=j;
+            this.cidade.onchange();
           }
         }
       }
@@ -177,29 +177,29 @@ var dgCidadesEstados = function(data) {
 
 }
 
-dgCidadesEstados.prototype = {
-  estado: document.createElement('select'),
+dgIbgeCidade.prototype = {
   cidade: document.createElement('select'),
-  set: function(estado, cidade) { //define os elementos DOM a serem preenchidos
-    this.estado=estado;
-    this.estado.dgCidadesEstados=this;
+  codibge: document.createElement('select'),
+  set: function(cidade, codibge) { //define os elementos DOM a serem preenchidos
     this.cidade=cidade;
-    this.estado.onchange=function(){this.dgCidadesEstados.run()};
+    this.cidade.dgIbgeCidade=this;
+    this.codibge=codibge;
+    this.cidade.onchange=function(){this.dgIbgeCidade.run()};
   },
   start: function () { //preenche os estados
-    var estado = this.estado;
-    while (estado.childNodes.length) estado.removeChild(estado.firstChild);
-    for (var i=0;i<this.estados.length;i++) this.addOption(estado, this.estados[i][0], this.estados[i][1]);
+    var cidade = this.cidade;
+    while (cidade.childNodes.length) cidade.removeChild(cidade.firstChild);
+    for (var i=0;i<this.estados.length;i++) this.addOption(cidade, this.estados[i][0], this.estados[i][1]);
   },
-  run: function () { //preenche as cidades de acordo com o estado escolhido
-  var sel = this.estado.selectedIndex; // estado escolhido
+  run: function () { //preenche as cidades de acordo com o cidade escolhido
+  var sel = this.cidade.selectedIndex; // cidade escolhido
     var itens = this.cidades[sel]; // pega as cidades correspondentes
     var itens_total = itens.length;
 
-    var opts = this.cidade;
+    var opts = this.codibge;
     while (opts.childNodes.length) opts.removeChild(opts.firstChild); // limpa a lista atual
 
-    this.addOption(opts, '', 'Selecione uma cidade');
+    this.addOption(opts, '', 'Selecione uma codibge');
     for (var i=0;i<itens_total;i++) this.addOption(opts, itens[i], itens[i]); // vai adicionando as cidades correspondentes
   },
 addOption: function (elm, val, text) {
@@ -209,15 +209,15 @@ addOption: function (elm, val, text) {
   elm.appendChild(opt);
 },
 estados : [
-    ['','Selecione um estado'],['João Pessoa'],['Água Branca'],['Aguiar'],['Alagoa Grande'],['BA','Bahia'],
-    ['CE','Ceará'],['DF','Distrito Federal'],['ES','Espírito Santo'],['GO','Goiás'],['MA','Maranhão'],['MG','Minas Gerais'],
-    ['MS','Mato Grosso do Sul'],['MT','Mato Grosso'],['PA','Pará'],['PB','Paraíba'],['PE','Pernambuco'],['PI','Piauí'],
-    ['PR','Paraná'],['RJ','Rio de Janeiro'],['RN','Rio Grande do Norte'],['RO','Rondônia'],['RR','Roraima'],['RS','Rio Grande do Sul'],
+    ['','Selecione um estado'],['João Pessoa'],['Água Branca'],['Aguiar'],['Alagoa Grande'],['Alagoa Nova'],
+    ['Alagoinha'],['Alcantil'],['Algodão de Jandaíra'],['Alhandra'],['Amparo'],['Aparecida'],
+    ['Araçagi'],['Arara'],['Araruna'],['Areia'],['Areia de Baraúnas'],['Areial'],['Aroeiras'],['Assunção'],['Baía da Traição'],
+    ['Bananeiras'],['Baraúna'],['Barra de Santa Rosa'],['RO','Rondônia'],['RR','Roraima'],['RS','Rio Grande do Sul'],
     ['SC','Santa Catarina'],['SP','São Paulo'],['SE','Sergipe'],['TO','Tocantins']
   ],
   cidades : [
   [''],
-  ['2507507','2500106','2500205','2500304','Alagoa Nova','Alagoinha','Alcantil','Algodão de Jandaíra','Alhandra','Amparo','Aparecida','Araçagi','Arara','Araruna','Areia','Areia de Baraúnas','Areial','Aroeiras','Assunção','Baía da Traição','Bananeiras','Baraúna','Barra de Santa Rosa','Barra de Santana','Barra de São Miguel','Bayeux','Belém','Belém do Brejo do Cruz','Bernardino Batista','Boa Ventura','Boa Vista','Bom Jesus','Bom Sucesso','Bonito de Santa Fé','Boqueirão','Borborema','Brejo do Cruz','Brejo dos Santos','Caaporã','Cabaceiras','Cabedelo','Cachoeira dos Índios','Cacimba de Areia','Cacimba de Dentro','Cacimbas','Caiçara','Cajazeiras','Cajazeirinhas','Caldas Brandão','Camalaú','Campina Grande','Capim','Caraúbas','Carrapateira','Casserengue','Catingueira','Catolé do Rocha','Caturité','Conceição','Condado','Conde','Congo','Coremas','Coxixola','Cruz do Espírito Santo','Cubati','Cuité','Cuité de Mamanguape','Cuitegi','Curral de Cima','Curral Velho','Damião','Desterro','Diamante','Dona Inês','Duas Estradas','Emas','Esperança','Fagundes','Frei Martinho','Gado Bravo','Guarabira','Gurinhém','Gurjão','Ibiara','Igaracy','Imaculada','Ingá','Itabaiana','Itaporanga','Itapororoca','Itatuba','Jacaraú','Jericó','Joca Claudino','Juarez Távora','Juazeirinho','Junco do Seridó','Juripiranga','Juru','Lagoa','Lagoa de Dentro','Lagoa Seca','Lastro','Livramento','Logradouro','Lucena','Mãe d\'Água','Malta','Mamanguape','Manaíra','Marcação','Mari','Marizópolis','Massaranduba','Mataraca','Matinhas','Mato Grosso','Maturéia','Mogeiro','Montadas','Monte Horebe','Monteiro','Mulungu','Natuba','Nazarezinho','Nova Floresta','Nova Olinda','Nova Palmeira','Olho d\'Água','Olivedos','Ouro Velho','Parari','Passagem','Patos','Paulista','Pedra Branca','Pedra Lavrada','Pedras de Fogo','Pedro Régis','Piancó','Picuí','Pilar','Pilões','Pilõezinhos','Pirpirituba','Pitimbu','Pocinhos','Poço Dantas','Poço de José de Moura','Pombal','Prata','Princesa Isabel','Puxinanã','Queimadas','Quixabá','Remígio','Riachão','Riachão do Bacamarte','Riachão do Poço','Riacho de Santo Antônio','Riacho dos Cavalos','Rio Tinto','Salgadinho','Salgado de São Félix','Santa Cecília','Santa Cruz','Santa Helena','Santa Inês','Santa Luzia','Santa Rita','Santa Teresinha','Santana de Mangueira','Santana dos Garrotes','Santo André','São Bentinho','São Bento','São Domingos','São Domingos do Cariri','São Francisco','São João do Cariri','São João do Rio do Peixe','São João do Tigre','São José da Lagoa Tapada','São José de Caiana','São José de Espinharas','São José de Piranhas','São José de Princesa','São José do Bonfim','São José do Brejo do Cruz','São José do Sabugi','São José dos Cordeiros','São José dos Ramos','São Mamede','São Miguel de Taipu','São Sebastião de Lagoa de Roça','São Sebastião do Umbuzeiro','Sapé','Seridó','Serra Branca','Serra da Raiz','Serra Grande','Serra Redonda','Serraria','Sertãozinho','Sobrado','Solânea','Soledade','Sossêgo','Sousa','Sumé','Tacima','Taperoá','Tavares','Teixeira','Tenório','Triunfo','Uiraúna','Umbuzeiro','Várzea','Vieirópolis','Vista Serrana','Zabelê']
+  ['2507507','2500106','2500205','2500304','2500403','2500502','2500536','2500577','2500601','2500734','2500775','2500809','Arara','Araruna','Areia','Areia de Baraúnas','Areial','Aroeiras','Assunção','Baía da Traição','Bananeiras','Baraúna','Barra de Santa Rosa','Barra de Santana','Barra de São Miguel','Bayeux','Belém','Belém do Brejo do Cruz','Bernardino Batista','Boa Ventura','Boa Vista','Bom Jesus','Bom Sucesso','Bonito de Santa Fé','Boqueirão','Borborema','Brejo do Cruz','Brejo dos Santos','Caaporã','Cabaceiras','Cabedelo','Cachoeira dos Índios','Cacimba de Areia','Cacimba de Dentro','Cacimbas','Caiçara','Cajazeiras','Cajazeirinhas','Caldas Brandão','Camalaú','Campina Grande','Capim','Caraúbas','Carrapateira','Casserengue','Catingueira','Catolé do Rocha','Caturité','Conceição','Condado','Conde','Congo','Coremas','Coxixola','Cruz do Espírito Santo','Cubati','Cuité','Cuité de Mamanguape','Cuitegi','Curral de Cima','Curral Velho','Damião','Desterro','Diamante','Dona Inês','Duas Estradas','Emas','Esperança','Fagundes','Frei Martinho','Gado Bravo','Guarabira','Gurinhém','Gurjão','Ibiara','Igaracy','Imaculada','Ingá','Itabaiana','Itaporanga','Itapororoca','Itatuba','Jacaraú','Jericó','Joca Claudino','Juarez Távora','Juazeirinho','Junco do Seridó','Juripiranga','Juru','Lagoa','Lagoa de Dentro','Lagoa Seca','Lastro','Livramento','Logradouro','Lucena','Mãe d\'Água','Malta','Mamanguape','Manaíra','Marcação','Mari','Marizópolis','Massaranduba','Mataraca','Matinhas','Mato Grosso','Maturéia','Mogeiro','Montadas','Monte Horebe','Monteiro','Mulungu','Natuba','Nazarezinho','Nova Floresta','Nova Olinda','Nova Palmeira','Olho d\'Água','Olivedos','Ouro Velho','Parari','Passagem','Patos','Paulista','Pedra Branca','Pedra Lavrada','Pedras de Fogo','Pedro Régis','Piancó','Picuí','Pilar','Pilões','Pilõezinhos','Pirpirituba','Pitimbu','Pocinhos','Poço Dantas','Poço de José de Moura','Pombal','Prata','Princesa Isabel','Puxinanã','Queimadas','Quixabá','Remígio','Riachão','Riachão do Bacamarte','Riachão do Poço','Riacho de Santo Antônio','Riacho dos Cavalos','Rio Tinto','Salgadinho','Salgado de São Félix','Santa Cecília','Santa Cruz','Santa Helena','Santa Inês','Santa Luzia','Santa Rita','Santa Teresinha','Santana de Mangueira','Santana dos Garrotes','Santo André','São Bentinho','São Bento','São Domingos','São Domingos do Cariri','São Francisco','São João do Cariri','São João do Rio do Peixe','São João do Tigre','São José da Lagoa Tapada','São José de Caiana','São José de Espinharas','São José de Piranhas','São José de Princesa','São José do Bonfim','São José do Brejo do Cruz','São José do Sabugi','São José dos Cordeiros','São José dos Ramos','São Mamede','São Miguel de Taipu','São Sebastião de Lagoa de Roça','São Sebastião do Umbuzeiro','Sapé','Seridó','Serra Branca','Serra da Raiz','Serra Grande','Serra Redonda','Serraria','Sertãozinho','Sobrado','Solânea','Soledade','Sossêgo','Sousa','Sumé','Tacima','Taperoá','Tavares','Teixeira','Tenório','Triunfo','Uiraúna','Umbuzeiro','Várzea','Vieirópolis','Vista Serrana','Zabelê']
 ]
 };
 </script>
@@ -707,7 +707,12 @@ estados : [
                   </div>
                   <div class="col-md-2">
                     <div class="form-group"><b>Código IBGE</b>
-                      <input class="form-control" type="text" name="codigo_ibge_dados_gerais" placeholder="" value="">
+                      <select class="form-control" name="uf_notificacao" id="codibge">
+                        
+                        <option value=""></option>
+
+                      </select>
+                      <input class="form-control" type="text" name="codigo_ibge_dados_gerais" id="codibge" placeholder="" value="">
                     </div>
                   </div>
                   <div class="col-md-3">
@@ -717,6 +722,13 @@ estados : [
                       <div class="invalid-feedback">Data obrigatória.</div>
                     </div>
                   </div>
+
+                  <script language="JavaScript" type="text/javascript" charset="utf-8">
+                    new dgIbgeCidade({
+                      cidade: document.getElementById('cidade'),
+                      codibge: document.getElementById('codibge')
+                    })
+                  </script>
 
                   <script language="JavaScript" type="text/javascript" charset="utf-8">
                     new dgCidadesEstados({

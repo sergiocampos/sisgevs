@@ -3,6 +3,8 @@ from django.conf import settings
 from django.contrib.auth.models import User
 from django.contrib.postgres.fields import ArrayField
 
+from localflavor.br.br_states import STATE_CHOICES
+
 # Create your models here.
 
 class Macrorregiao(models.Model):
