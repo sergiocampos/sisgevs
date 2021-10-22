@@ -22,9 +22,11 @@ class Gerencia(models.Model):
 		return self.nome
 
 ################ models para select ######################################
+
 class Municipio(models.Model):
 	nome = models.CharField(max_length=200, null=True)
 	gerencia = models.ForeignKey(Gerencia, on_delete=models.CASCADE, null=True)
+	uf = models.CharField(max_length=200, choices=STATE_CHOICES)
 
 	def __str__(self):
 		return self.nome
@@ -38,9 +40,13 @@ class CodigoIbge(models.Model):
 		return self.codigo
 
 
+##########################################################################
+
+
 class Regiao(models.Model):
 	nome = models.CharField(max_length=200, null=True)
 	gerencia = models.ForeignKey(Gerencia, on_delete=models.CASCADE, null=True)
+	macrorregiao = models.ForeignKey(Macrorregiao, on_delete=models.CASCADE, null=True)
 
 	def __str__(self):
 		return self.nome
@@ -49,8 +55,7 @@ class Regiao(models.Model):
 class UnidadeSaude(models.Model):
 	nome = models.CharField(max_length=200, null=True)
 	municipio = models.ForeignKey(Municipio, on_delete=models.CASCADE, null=True)
-	#codigo_ibge = models.ForeignKey(CodigoIbge, on_delete=models.CASCADE)
-	#estado = models.ForeignKey(Estado, on_delete=models.CASCADE)
+	cnes = models.CharField(max_length=200, null=True)
 
 	def __str__(self):
 		return self.nome
