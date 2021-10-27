@@ -26,10 +26,17 @@ class Gerencia(models.Model):
 class Municipio(models.Model):
 	nome = models.CharField(max_length=200, null=True)
 	gerencia = models.ForeignKey(Gerencia, on_delete=models.CASCADE, null=True)
-	uf = models.CharField(max_length=200, choices=STATE_CHOICES)
+	#uf = models.CharField(max_length=200, choices=STATE_CHOICES)
+	ibge = models.CharField(max_length=10, null=True)
 
 	def __str__(self):
 		return self.nome
+
+	class Meta:
+		ordering = ('nome',)
+		verbose_name = 'cidade'
+		verbose_name_plural = 'cidades'
+
 
 
 class CodigoIbge(models.Model):
@@ -39,12 +46,18 @@ class CodigoIbge(models.Model):
 	def __str__(self):
 		return self.codigo
 
+	class Meta:
+		ordering = ('codigo',)
+		verbose_name = 'ibge'
+		verbose_name_plural = 'ibges'
+
 
 ##########################################################################
 
 
 class Regiao(models.Model):
 	nome = models.CharField(max_length=200, null=True)
+	descricao = models.CharField(max_length=200, null=True)
 	gerencia = models.ForeignKey(Gerencia, on_delete=models.CASCADE, null=True)
 	macrorregiao = models.ForeignKey(Macrorregiao, on_delete=models.CASCADE, null=True)
 
@@ -61,6 +74,10 @@ class UnidadeSaude(models.Model):
 		return self.nome
 
 
+class JoinMunicipioIbgeUnidadeSaude(models.Model):
+	unidade_saude = models.ForeignKey(UnidadeSaude, on_delete=models.CASCADE, null=True)
+	ibge = models.ForeignKey(CodigoIbge, on_delete=models.CASCADE, null=True)
+	municipio = models.ForeignKey(Municipio, on_delete=models.CASCADE, null=True)
 
 ################# models de doenças ######################################
 
@@ -74,8 +91,8 @@ class CasoEsporotricose(models.Model):
 	data_notificacao = models.DateField(blank=True, null=True)
 	estado = models.CharField(max_length = 100, null=True, blank=True)
 	
-	municipio = models.ForeignKey(Municipio, on_delete=models.CASCADE)
-	codigo_ibge = models.ForeignKey(CodigoIbge, on_delete=models.CASCADE)
+	municipio = models.CharField(max_length=200, null=True)
+	codigo_ibge = models.CharField(max_length=10, null=True)
 
 	data_primeiros_sintomas = models.DateField(blank=True, null=True)
 	unidade_saude = models.CharField(max_length = 200, null=True, blank=True)
