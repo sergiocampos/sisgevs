@@ -3,6 +3,8 @@ from django.views.decorators.csrf import csrf_protect
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
 
+from .models import *
+
 # Create your views here.
 
 def login_page(request):
@@ -57,7 +59,16 @@ def caso_view_detail(request):
 	return render(request, 'caso_view_detail.html')
 
 def caso_esporotricose_create(request):
-	return render(request, 'caso_esporotricose_create.html')
+	municipios = Municipio.objects.all().order_by('nome')
+	unidades_saude = []
+	codigos_ibge = []
+	return render(request, 'caso_esporotricose_create.html', {'municipios':municipios, 'unidades_saude':unidades_saude, 'codigos_ibge':codigos_ibge})
+
+
+def ajax_load_unidadesaude(request):
+	municipio = request.GET.get('municipio_id')
+	cod_ibge = JoinMunicipioIbgeUnidadeSaude.objects.filter(municipio=municipio).all()
+	return render(request, 'unidades_saude_ajax.html', {'cod_ibge':cod_ibge})
 
 
 def set_caso_esporotricose_create(request):
@@ -179,3 +190,4 @@ def set_caso_esporotricose_create(request):
 	conselho_classe_investigador = request.POST.get('')
 
 	return redirect('index')
+

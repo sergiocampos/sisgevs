@@ -31,6 +31,8 @@ urlpatterns = [
     path('caso_esporotricose_create/', views.caso_esporotricose_create, name='caso_esporotricose_create'),
     path('caso_esporotricose_create/submit', views.set_caso_esporotricose_create),
 
+    path('ajax_load_unidadesaude', views.ajax_load_unidadesaude, name='ajax_load_unidadesaude'),
+
 
     path('login/',views.login_page, name='login_page'),
     path('login/submit', views.set_login_page),
@@ -40,4 +42,5 @@ urlpatterns = [
 
     path('caso_view/', views.caso_view, name='caso_view'),
     path('caso_view_detail/', views.caso_view_detail, name='caso_view_detail'),
+
 ]

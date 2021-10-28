@@ -3,6 +3,14 @@
 <html lang="en">
 <head>
   <title>SISGEVS - Sistema de Informação em Saúde da GEVS</title>
+
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -607,7 +615,7 @@ estados : [
           </div>
           </div>
 
-          <form enctype="multipart/form-data" class="needs-validation" novalidate action="submit" method="POST">{% csrf_token %}
+          <form name="Form" id="Form" enctype="multipart/form-data" class="needs-validation" novalidate action="submit" method="POST" action="" data-unidadesaude-url="{% url 'ajax_load_unidadesaude' %}">{% csrf_token %}
             <br>
             <!-- Nav tabs -->
             <ul class="nav nav-tabs" role="tablist">
@@ -696,9 +704,11 @@ estados : [
                   </div>
                   <div class="col-md-2">
                     <div class="form-group"><b>Município</b>
-                      <select class="form-control" name="municipio_notificacao" id="cidade" required>
+                      <select class="form-control" name="municipio_notificacao" id="municipio_id" required>
                         <option value="" selected><i></i></option>
-                        <option value=""></option>
+                        {% for municipio in municipios %}
+                        <option value="{{municipio.id}}">{{municipio.nome}}</option>
+                        {% endfor %}
 
                       </select>
                       <div class="valid-feedback">Valid.</div>
@@ -742,7 +752,11 @@ estados : [
                 <div class="row">
                   <div class="col-md-6">
                     <div class="form-group"><b>Unidade de Saúde  </b><i></i>
-                      <input class="form-control" type="text" name="unidade_saude" placeholder="" value="">
+                      <select class="form-control" name="uf_notificacao" id="unidade_saude_id">
+                        {% for unid_saude in unidades_saude %}
+                        <option value="{{unid_saude.id}}">{{unid_saude.id}}</option>
+                        {% endfor %}
+                      </select>
                     </div>
                   </div>
                   
@@ -2532,6 +2546,30 @@ estados : [
       <i class="fa">&#xf1f9;</i>
     </div>
     <br>
+
+    <script
+  src="https://code.jquery.com/jquery-3.4.1.min.js"
+  integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+  crossorigin="anonymous"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+
+    <script type="text/javascript">
+      $("#municipio_id").change(function(){
+        const url = $('#Form').attr("data-unidadesaude-url");
+        municipioId = $(this).val();
+
+        $.ajax({
+          url : url,
+          data: { 'municipio_id': municipioId},
+          success: function(data){
+            $("#unidade_saude_id").html(data);
+          }
+        });
+      });
+    </script>
 
   </body>
   </html>
