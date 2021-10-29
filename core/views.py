@@ -66,10 +66,18 @@ def caso_esporotricose_create(request):
 
 
 def ajax_load_unidadesaude(request):
-	municipio = request.GET.get('municipio_id')
-	cod_ibge = JoinMunicipioIbgeUnidadeSaude.objects.filter(municipio=municipio).all()
+	municipio_id = request.GET.get('municipio_id')
+	#cod_ibge = JoinMunicipioIbgeUnidadeSaude.objects.filter(municipio=municipio).all()
+	cod_ibge = UnidadeSaude.objects.filter(municipio_id=municipio_id).all()
+	
 	return render(request, 'unidades_saude_ajax.html', {'cod_ibge':cod_ibge})
 
+
+def ajax_load_ibge(request):
+	municipio_id = request.GET.get('municipio_id')
+	codigo = CodigoIbge.objects.filter(municipio_id=municipio_id).values()
+
+	return render(request, 'ibge_ajax.html', {'codigo':codigo})
 
 def set_caso_esporotricose_create(request):
 	responsavel_pelas_informacoes = request.user

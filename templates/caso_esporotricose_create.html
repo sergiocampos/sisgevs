@@ -615,7 +615,7 @@ estados : [
           </div>
           </div>
 
-          <form name="Form" id="Form" enctype="multipart/form-data" class="needs-validation" novalidate action="submit" method="POST" action="" data-unidadesaude-url="{% url 'ajax_load_unidadesaude' %}">{% csrf_token %}
+          <form name="Form" id="Form" enctype="multipart/form-data" class="needs-validation" novalidate action="submit" method="POST" action="" data-unidadesaude-url="{% url 'ajax_load_unidadesaude' %}" data-ibge-url="{% url 'ajax_load_ibge' %}">{% csrf_token %}
             <br>
             <!-- Nav tabs -->
             <ul class="nav nav-tabs" role="tablist">
@@ -693,7 +693,7 @@ estados : [
 
                 <div class="row">
 
-                  <div class="col-md-3">
+                  <div class="col-md-2">
                     <div class="form-group"><b>UF</b>
                       <select class="form-control" name="uf_notificacao" id="estado">
                         <option value="PB" selected>PB</option>
@@ -702,7 +702,7 @@ estados : [
                       </select>
                     </div>
                   </div>
-                  <div class="col-md-2">
+                  <div class="col-md-3">
                     <div class="form-group"><b>Município</b>
                       <select class="form-control" name="municipio_notificacao" id="municipio_id" required>
                         <option value="" selected><i></i></option>
@@ -717,12 +717,12 @@ estados : [
                   </div>
                   <div class="col-md-2">
                     <div class="form-group"><b>Código IBGE</b>
-                      <select class="form-control" name="uf_notificacao" id="codibge">
+                      <b ></b>
+                      <select class="form-control" name="" id="ibge_cod_id">
                         
-                        <option value=""></option>
-
+                      
+                        
                       </select>
-                      <input class="form-control" type="text" name="codigo_ibge_dados_gerais" id="codibge" placeholder="" value="">
                     </div>
                   </div>
                   <div class="col-md-3">
@@ -2568,7 +2568,22 @@ estados : [
             $("#unidade_saude_id").html(data);
           }
         });
+
+        
       });
+
+      $("#municipio_id").change(function(){
+          const url = $('#Form').attr("data-ibge-url");
+          const municipioId = $(this).val();
+          $.ajax({
+          url : url,
+          data: { 'municipio_id': municipioId},
+          success: function(data){
+            $("#ibge_cod_id").html(data);
+          }
+        });
+
+        });
     </script>
 
   </body>

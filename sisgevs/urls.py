@@ -32,6 +32,7 @@ urlpatterns = [
     path('caso_esporotricose_create/submit', views.set_caso_esporotricose_create),
 
     path('ajax_load_unidadesaude', views.ajax_load_unidadesaude, name='ajax_load_unidadesaude'),
+    path('ajax_load_ibge', views.ajax_load_ibge, name='ajax_load_ibge'),
 
 
     path('login/',views.login_page, name='login_page'),

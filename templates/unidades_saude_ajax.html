@@ -1,4 +1,4 @@
-<option value="" selected><i></i></option>
+<option value="" selected>escolha unidade</option>
 {% for ibge in cod_ibge %}
- <option value="{{ibge.UnidadeSaude.id}}">{{ibge.UnidadeSaude.nome}}</option>
+ <option value="{{ibge.id}}">{{ibge.nome}}</option>
 {% endfor %}
