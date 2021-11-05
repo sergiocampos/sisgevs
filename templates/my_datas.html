@@ -16,20 +16,20 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.min.js"></script>
 
   <style>
-  .fakeimg {
-    height: 500px;
-    background: #aaa;
-  }
-</style>
+    .fakeimg {
+      height: 500px;
+      background: #aaa;
+    }
+  </style>
 
-<style>
-* {
-  box-sizing: border-box;
-}
+  <style>
+    * {
+      box-sizing: border-box;
+    }
 
-body {
-  font-family: Arial, Helvetica, sans-serif;
-}
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+    }
 
 /* Style the header */
 header {
@@ -167,7 +167,10 @@ footer {
           </li>
           <li class="nav-item">
             <a class="nav-link" href="/logout/">Sair</a>
-          </li>    
+          </li>   
+          <li class="nav-item">
+            <a class="nav-link" href="#">Usuário: {{user.login}}</a>
+          </li> 
         </ul>
       </div>
       
@@ -175,7 +178,7 @@ footer {
     <section>
 
       <nav>
-        
+
         <ul>
           <li>
             <button type="button" class="btn btn-info dropdown-toggle" data-toggle="collapse" data-target="#demo">Usuário Gevs</button>
@@ -183,23 +186,23 @@ footer {
         </ul>
         <ul>
           <div id="demo" class="collapse show">
-            <li style="color: #0066ff;">123.456.789-00</li>
-            <li style="color: #0066ff;">João Pessoa</li>
-          <hr>
-            <li><a href="#">Notificações</a></li>
+            <li style="color: #0066ff;">{{user.cpf}}</li>
+            <li style="color: #0066ff;">{{user.municipio}}</li>
+            <hr>
+            <li><a href="/all_forms/">Notificações</a></li>
             <li><a href="#"></a></li>
             <li><a href="#"></a></li>
-          <hr>
-            <li><a href="/my_datas/">Meus Dados</a></li>
+            <hr>
+            <li><a href="#">Meus Dados</a></li>
             <li><a href="#"></a></li>
             <li><a href="#"></a></li>
-          <hr>
+            <hr>
             <li><a href="/logout/">Sair</a></li>
             <li><a href="#"></a></li>
             <li><a href="#"></a></li>          
           </div>
         </ul>
-          
+
       </nav>
 
 
@@ -210,43 +213,45 @@ footer {
           <div class="row">
             <div class="col-sm-12">
               <div class="alert alert-primary" style="text-align: center;">
-                <strong style="align-items: center;">Formulários</strong>
+                <strong style="align-items: center;">Área de Trabalho</strong>
               </div>
             </div>
           </div>
 
-          
-           <div class="row">
-            <div class="col-sm-4"></div>
-            <div class="col-sm-4">
-              <a href="/caso_esporotricose_create/" style="text-decoration: none;"><button type="button" class="btn btn-outline-warning btn-lg btn-block">Esporoticose</button></a>
-            </div>
-            <div class="col-sm-4"></div>
-           </div>
-           <br>
-           <div class="row">
-            <div class="col-sm-4"></div>
-            <div class="col-sm-4">
-              <a href="" style="text-decoration: none;"><button type="button" class="btn btn-outline-success btn-lg btn-block">Dengue</button></a>
-            </div>
-            <div class="col-sm-4"></div>
-           </div>
-           <br>
-           <div class="row">
-            <div class="col-sm-4"></div>
-            <div class="col-sm-4">
-              <a href="" style="text-decoration: none;"><button type="button" class="btn btn-outline-info btn-lg btn-block">Chicunguya</button></a>
-            </div>
-            <div class="col-sm-4"></div>
-           </div>
-           <br>
-           <div class="row">
-            <div class="col-sm-4"></div>
-            <div class="col-sm-4">
-              <a href="" style="text-decoration: none;"><button type="button" class="btn btn-outline-secondary btn-lg btn-block">Zika</button></a>
-            </div>
-            <div class="col-sm-4"></div>
-           </div>
+          <table class="table table-hover">
+            <thead>
+              <tr>
+                <th>Data Notificação</th>
+                <th>Nome Paciente</th>
+                <th>Idade</th>
+                <th>Cidade</th>
+                <th>Notificante</th>
+                <th style="text-align: center;">Ações</th>
+
+              </tr>
+            </thead>
+            <tbody>
+
+              {% for registro in registros %}
+              <tr>
+                <td>{{registro.data_notificacao}}</td>
+                <td>{{registro.nome_paciente}}</td>
+                <td>{{registro.idade_paciente}}</td>
+                <td>{{registro.municipio_residencia}}</td>
+                <td>{{registro.nome_investigador}}</td>
+                <td align="center">
+                  <a href="/caso_view/{{registro.id}}/"><button type="button" class="btn btn-info btn-sm">Editar
+                  </button></a>
+
+                  <a href="/caso_view_detail/"><button type="button" class="btn btn-info btn-sm">Ver
+                  </button></a>
+                </td>
+                
+              </tr>
+              {% endfor %}              
+
+            </tbody>
+          </table>
           
 
         </div>

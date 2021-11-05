@@ -285,7 +285,7 @@ footer {
           </li>
         </ul>
         <ul>
-          <div id="" class="">
+          <div id="demo" class="collapse show">
             <li style="color: #0066ff;">123.456.789-00</li>
             <li style="color: #0066ff;">João Pessoa</li>
           <hr>
@@ -293,11 +293,11 @@ footer {
             <li><a href="#"></a></li>
             <li><a href="#"></a></li>
           <hr>
-            <li><a href="#">Meus Dados</a></li>
+            <li><a href="/my_datas/">Meus Dados</a></li>
             <li><a href="#"></a></li>
             <li><a href="#"></a></li>
           <hr>
-            <li><a href="#">Sair</a></li>
+            <li><a href="/logout/">Sair</a></li>
             <li><a href="#"></a></li>
             <li><a href="#"></a></li>          
           </div>
@@ -434,7 +434,7 @@ footer {
                   <div class="col-md-2">
                     <div class="form-group"><b>Código IBGE</b>
                       <b ></b>
-                      <select class="form-control" name="" id="ibge_cod_id">
+                      <select class="form-control" name="codigo_ibge_dados_gerais" id="ibge_cod_id">
                         
                       
                         
@@ -455,7 +455,7 @@ footer {
                 <div class="row">
                   <div class="col-md-6">
                     <div class="form-group"><b>Unidade de Saúde  </b><i></i>
-                      <select class="form-control" name="uf_notificacao" id="unidade_saude_id">
+                      <select class="form-control" name="unidade_saude" id="unidade_saude_id">
                         {% for unid_saude in unidades_saude %}
                         <option value="{{unid_saude.id}}">{{unid_saude.id}}</option>
                         {% endfor %}
@@ -475,7 +475,7 @@ footer {
                       <div class="input-group-prepend" id="">
                         <span class="input-group-text">Outra Unidade</span>
                       </div>
-                      <input type="text" class="form-control" name="funcao_investigador" value="" id="">
+                      <input type="text" class="form-control" name="unidade_saude_outro" value="" id="">
                     </div>
                   </div>
                 </div>
@@ -642,10 +642,16 @@ footer {
                   </div>
                 </div>
 
+                <script>
+                  function active_submit(){
+                    $("#btn_submit_id").prop("disabled", false);
+                  }
+                </script>
+
                 <div class="row">
                   <div class="col-md-6">
                     <div class="form-group"><b>Nome da Mãe</b>
-                      <input class="form-control" type="text" name="nome_mae" placeholder="" value="" required>
+                      <input class="form-control" type="text" name="nome_mae" placeholder="" value="" required onclick="active_submit()">
                       <div class="valid-feedback">Valid.</div>
                       <div class="invalid-feedback">nome da mãe obrigatório.</div>
                     </div>              
@@ -664,29 +670,29 @@ footer {
 
                   <div class="col-md-2">
                     <div class="form-group"><b>CEP</b>
-                      <input class="form-control" type="text" name="cep" id="cep" placeholder="" value="" required>
+                      <input class="form-control" type="text" name="cep_residencia" id="cep" placeholder="" value="" required>
                     </div>
                   </div>
                   <div class="col-md-3">
                     <div class="form-group"><b>UF</b>
-                      <input class="form-control" type="text" name="uf" id="uf" placeholder="" value="">
+                      <input class="form-control" type="text" name="uf_residencia" id="uf" placeholder="" value="">
                     </div>
                   </div>
                   <div class="col-md-3">
                     <div class="form-group"><b>Município</b>
-                      <input class="form-control" type="text" name="cidade" id="cidade" placeholder="" value="">
+                      <input class="form-control" type="text" name="cidade_residencia" id="cidade" placeholder="" value="">
                     </div>              
                   </div>
                   
                   <div class="col-md-2">
                     <div class="form-group"><b>Bairro</b>
-                      <input class="form-control" type="text" name="bairro" id="bairro" placeholder="" value="">
+                      <input class="form-control" type="text" name="bairro_residencia" id="bairro" placeholder="" value="">
                     </div>
                   </div>
 
                   <div class="col-md-2">
                     <div class="form-group"><b>Código IBGE</b>
-                      <input class="form-control" type="text" name="codigo_ibge" id="ibge" placeholder="" value="">
+                      <input class="form-control" type="text" name="codigo_ibge_residencia" id="ibge" placeholder="" value="">
                     </div>
                   </div>
                   
@@ -696,17 +702,17 @@ footer {
 
                   <div class="col-md-6">
                     <div class="form-group"><b>Rua</b>
-                      <input class="form-control" type="text" name="rua" id="rua" placeholder="" value="">
+                      <input class="form-control" type="text" name="rua_residencia" id="rua" placeholder="" value="">
                     </div>
                   </div>
                   <div class="col-md-2">
                     <div class="form-group"><b>Número</b>
-                      <input class="form-control" type="text" name="numero" id="" placeholder="" value="">
+                      <input class="form-control" type="text" name="numero_residencia" id="" placeholder="" value="">
                     </div>
                   </div>
                   <div class="col-md-4">
                     <div class="form-group"><b>Complemento</b>
-                      <input class="form-control" type="text" name="complemento" id="" placeholder="" value="">
+                      <input class="form-control" type="text" name="complemento_residencia" id="" placeholder="" value="">
                     </div>
                   </div>
                   
@@ -717,7 +723,7 @@ footer {
 
                   <div class="col-md-3">
                     <div class="form-group"><b>Distrito</b>
-                      <input class="form-control" type="text" name="rua" id="rua" placeholder="" value="">
+                      <input class="form-control" type="text" name="distrito_residencia" id="rua" placeholder="" value="">
                     </div>
                   </div>
                   <!--
@@ -734,7 +740,7 @@ footer {
                 -->
                   <div class="col-md-3">
                     <div class="form-group"><b>Ponto de Referência</b>
-                      <input class="form-control" type="text" name="complemento" id="" placeholder="" value="">
+                      <input class="form-control" type="text" name="ponto_referencia_residencia" id="" placeholder="" value="">
                     </div>
                   </div>                
                   
@@ -742,12 +748,12 @@ footer {
                 <div class="row">
                   <div class="col-md-2">
                     <div class="form-group"><b>Telefone</b>
-                      <input type="text" class="form-control" id="telefone_residencia_id" name="telefone" placeholder="apenas números">
+                      <input type="text" class="form-control" id="telefone_residencia_id" name="telefone_residencia" placeholder="apenas números">
                     </div>
                   </div>
                   <div class="col-md-3">
                     <div class="form-group"><b>Zona</b>
-                      <select class="form-control" name="zona" id="">
+                      <select class="form-control" name="zona_residencia" id="">
                         <option value=""></option>
                         <option value="Rural">Rural</option>
                         <option value="Urbana">Urbana</option>
@@ -804,37 +810,37 @@ footer {
                 <div class="row">
                   <div class="col-md-2">
                       <div class="custom-control custom-checkbox mb-3">
-                        <input type="checkbox" class="custom-control-input" id="mata_id" name="mata">
+                        <input type="checkbox" class="custom-control-input" id="mata_id" name="ambientes_frequentados" value="Mata">
                         <label class="custom-control-label" for="mata_id">Mata</label>
                       </div>
                   </div>
                   <div class="col-md-2">
                       <div class="custom-control custom-checkbox mb-3">
-                        <input type="checkbox" class="custom-control-input" id="floresta_id" name="floresta">
+                        <input type="checkbox" class="custom-control-input" id="floresta_id" name="ambientes_frequentados" value="Floresta">
                         <label class="custom-control-label" for="floresta_id">Floresta</label>
                       </div>
                   </div>
                   <div class="col-md-2">
                       <div class="custom-control custom-checkbox mb-3">
-                        <input type="checkbox" class="custom-control-input" id="rios_id" name="rios">
+                        <input type="checkbox" class="custom-control-input" id="rios_id" name="ambientes_frequentados" value="Rios">
                         <label class="custom-control-label" for="rios_id">Rios</label>
                       </div>
                   </div>
                   <div class="col-md-2">
                       <div class="custom-control custom-checkbox mb-3">
-                        <input type="checkbox" class="custom-control-input" id="cachoeira_id" name="cachoeira">
+                        <input type="checkbox" class="custom-control-input" id="cachoeira_id" name="ambientes_frequentados" value="Cachoeiras">
                         <label class="custom-control-label" for="cachoeira_id">Cachoeiras</label>
                       </div>
                   </div>
                   <div class="col-md-2">
                       <div class="custom-control custom-checkbox mb-3">
-                        <input type="checkbox" class="custom-control-input" id="sitios_id" name="sitios">
+                        <input type="checkbox" class="custom-control-input" id="sitios_id" name="ambientes_frequentados" value="Sítios">
                         <label class="custom-control-label" for="sitios_id">Sítios</label>
                       </div>
                   </div>
                   <div class="col-md-2">
                       <div class="custom-control custom-checkbox mb-3">
-                        <input type="checkbox" class="custom-control-input" id="outros_id" name="outros">
+                        <input type="checkbox" class="custom-control-input" id="outros_id" name="ambientes_frequentados" value="Outros">
                         <label class="custom-control-label" for="outros_id">Outros</label>
                       </div>
                   </div>
@@ -854,25 +860,25 @@ footer {
                   <div class="col-md-2"></div>
                   <div class="col-md-2">
                       <div class="custom-control custom-checkbox mb-3">
-                        <input type="checkbox" class="custom-control-input" id="gato_id" name="gato">
+                        <input type="checkbox" class="custom-control-input" id="gato_id" name="animais_que_teve_contato" value="Gato">
                         <label class="custom-control-label" for="gato_id">Gato</label>
                       </div>
                   </div>
                   <div class="col-md-2">
                       <div class="custom-control custom-checkbox mb-3">
-                        <input type="checkbox" class="custom-control-input" id="cao_id" name="cao">
+                        <input type="checkbox" class="custom-control-input" id="cao_id" name="animais_que_teve_contato" value="Cão">
                         <label class="custom-control-label" for="cao_id">Cão</label>
                       </div>
                   </div>
                   <div class="col-md-2">
                       <div class="custom-control custom-checkbox mb-3">
-                        <input type="checkbox" class="custom-control-input" id="equinos_id" name="equinos">
+                        <input type="checkbox" class="custom-control-input" id="equinos_id" name="animais_que_teve_contato" value="Equinos">
                         <label class="custom-control-label" for="equinos_id">Equinos</label>
                       </div>
                   </div>
                   <div class="col-md-2">
                       <div class="custom-control custom-checkbox mb-3">
-                        <input type="checkbox" class="custom-control-input" id="outros_animais_id" name="outros_animais">
+                        <input type="checkbox" class="custom-control-input" id="outros_animais_id" name="animais_que_teve_contato" value="Outros Animais">
                         <label class="custom-control-label" for="outros_animais_id">Outros Animais</label>
                       </div>
                   </div>
@@ -890,31 +896,31 @@ footer {
                 <div class="row">
                   <div class="col-md-2">
                       <div class="custom-control custom-checkbox mb-3">
-                        <input type="checkbox" class="custom-control-input" id="mordida_id" name="mordida">
+                        <input type="checkbox" class="custom-control-input" id="mordida_id" name="natureza_contato_animais" value="Mordedura">
                         <label class="custom-control-label" for="mordida_id">Mordedura</label>
                       </div>
                   </div>
                   <div class="col-md-2">
                       <div class="custom-control custom-checkbox mb-3">
-                        <input type="checkbox" class="custom-control-input" id="arranhadura_id" name="arranhadura">
+                        <input type="checkbox" class="custom-control-input" id="arranhadura_id" name="natureza_contato_animais" value="Arranhadura">
                         <label class="custom-control-label" for="arranhadura_id">Arranhadura</label>
                       </div>
                   </div>
                   <div class="col-md-4">
                       <div class="custom-control custom-checkbox mb-3">
-                        <input type="checkbox" class="custom-control-input" id="lesoes_cutaneas_id" name="lesoes_cutaneas">
+                        <input type="checkbox" class="custom-control-input" id="lesoes_cutaneas_id" name="natureza_contato_animais" value="Lesões Cutâneas (Úlceras) do animal">
                         <label class="custom-control-label" for="lesoes_cutaneas_id">Lesões Cutâneas (Úlceras) do animal</label>
                       </div>
                   </div>
                   <div class="col-md-3">
                       <div class="custom-control custom-checkbox mb-3">
-                        <input type="checkbox" class="custom-control-input" id="lesoes_mucosas_id" name="lesoes_mucosas">
+                        <input type="checkbox" class="custom-control-input" id="lesoes_mucosas_id" name="natureza_contato_animais" value="Lesões Mucosas do Animal">
                         <label class="custom-control-label" for="lesoes_mucosas_id">Lesões Mucosas do Animal</label>
                       </div>
                   </div>
                   <div class="col-md-1">
                       <div class="custom-control custom-checkbox mb-3">
-                        <input type="checkbox" class="custom-control-input" id="outros_a_id" name="outros_a">
+                        <input type="checkbox" class="custom-control-input" id="outros_a_id" name="natureza_contato_animais" value="Outros">
                         <label class="custom-control-label" for="outros_a_id">Outros</label>
                       </div>
                   </div>
@@ -934,13 +940,13 @@ footer {
                   <div class="col-md-1"></div>
                   <div class="col-md-3">
                       <div class="custom-control custom-checkbox mb-3">
-                        <input type="checkbox" class="custom-control-input" id="tratador_proprietario_id" name="tratador_proprietario">
+                        <input type="checkbox" class="custom-control-input" id="tratador_proprietario_id" name="relacao_animal_doente" value="Tratador/Proprietário do animal">
                         <label class="custom-control-label" for="tratador_proprietario_id">Tratador/Proprietário do animal</label>
                       </div>
                   </div>
                   <div class="col-md-3">
                       <div class="custom-control custom-checkbox mb-3">
-                        <input type="checkbox" class="custom-control-input" id="prof_saude_id" name="prof_saude">
+                        <input type="checkbox" class="custom-control-input" id="prof_saude_id" name="relacao_animal_doente" value="Profissional de Saúde">
                         <label class="custom-control-label" for="prof_saude_id">Profissional de Saúde
                           <a href="#" data-toggle="tooltip" data-placement="right" title="Veterinário, Enfermeiro, Tratador de Animal em Clínicas!">(*)</a>
                         </label>
@@ -955,14 +961,14 @@ footer {
 
                   <div class="col-md-2">
                       <div class="custom-control custom-checkbox mb-3">
-                        <input type="checkbox" class="custom-control-input" id="abrigo_id" name="abrigo">
+                        <input type="checkbox" class="custom-control-input" id="abrigo_id" name="relacao_animal_doente" value="Abrigo/ONG">
                         <label class="custom-control-label" for="abrigo_id">Abrigo/ONG</label>
                       </div>
                   </div>
                   
                   <div class="col-md-1">
                       <div class="custom-control custom-checkbox mb-3">
-                        <input type="checkbox" class="custom-control-input" id="outros_p_id" name="outros_p">
+                        <input type="checkbox" class="custom-control-input" id="outros_p_id" name="relacao_animal_doente" value="Outros">
                         <label class="custom-control-label" for="outros_p_id">Outros</label>
                       </div>
                   </div>
@@ -1088,14 +1094,6 @@ footer {
                   
                 </div><br>
 
-
-                <div class="row">
-                  
-                  
-                </div>
-
-
-
                 <style>
                   #nat_lesao_outros_id,
                   #loc_lesao_outros_id,
@@ -1159,7 +1157,27 @@ footer {
                       }
                     });
                   }) ;
-                  
+
+                  $(function() {
+                    $(document).on('click','#customRadio22', function (e) {
+                      $("#local_diag_extracutaneo").prop("disabled", false);
+                    });
+                  });
+
+                  $(function() {
+                    $(document).on('click','#customRadio23', function (e) {
+                      $("#local_diag_extracutaneo").prop("disabled", true);
+                      $("#local_diag_extracutaneo").val("");
+                    });
+                  });
+
+                  $(function() {
+                    $(document).on('click','#customRadio24', function (e) {
+                      $("#local_diag_extracutaneo").prop("disabled", true);
+                      $("#local_diag_extracutaneo").val("");
+                    });
+                  });
+
 
                 </script>
 
@@ -1175,20 +1193,20 @@ footer {
                   <div class="col-sm-1"></div>
                   <div class="col-md-2">
                       <div class="custom-control custom-checkbox mb-3">
-                        <input type="checkbox" class="custom-control-input" id="papula_id" name="papula">
+                        <input type="checkbox" class="custom-control-input" id="papula_id" name="natureza_lesao" value="Pápula">
                         <label class="custom-control-label" for="papula_id">Pápula</label>
                       </div>
                   </div>
                   
                   <div class="col-md-2">
                       <div class="custom-control custom-checkbox mb-3">
-                        <input type="checkbox" class="custom-control-input" id="ulcera_id" name="ulcera">
+                        <input type="checkbox" class="custom-control-input" id="ulcera_id" name="natureza_lesao" value="Úlcera">
                         <label class="custom-control-label" for="ulcera_id">Úlcera</label>
                       </div>
                   </div>
                   <div class="col-md-2">
                       <div class="custom-control custom-checkbox mb-3">
-                        <input type="checkbox" class="custom-control-input" id="linfonodos_id" name="linfonodos">
+                        <input type="checkbox" class="custom-control-input" id="linfonodos_id" name="natureza_lesao" value="Linfonodos">
                         <label class="custom-control-label" for="linfonodos_id">Linfonodos
                           
                         </label>
@@ -1196,7 +1214,7 @@ footer {
                   </div>
                   <div class="col-md-1">
                       <div class="custom-control custom-checkbox mb-3">
-                        <input type="checkbox" class="custom-control-input" id="natureza_lesao_outros_id" name="">
+                        <input type="checkbox" class="custom-control-input" id="natureza_lesao_outros_id" name="natureza_lesao" value="Outros">
                         <label class="custom-control-label" for="natureza_lesao_outros_id">Outros
                           
                         </label>
@@ -1221,20 +1239,20 @@ footer {
                   <div class="col-md-1"></div>
                   <div class="col-md-2">
                       <div class="custom-control custom-checkbox mb-3">
-                        <input type="checkbox" class="custom-control-input" id="mao_id" name="mao">
+                        <input type="checkbox" class="custom-control-input" id="mao_id" name="local_lesao" value="Mão">
                         <label class="custom-control-label" for="mao_id">Mão</label>
                       </div>
                   </div>
                   
                   <div class="col-md-2">
                       <div class="custom-control custom-checkbox mb-3">
-                        <input type="checkbox" class="custom-control-input" id="membro_superir_id" name="membro_superir">
+                        <input type="checkbox" class="custom-control-input" id="membro_superir_id" name="local_lesao" value="Membro Superior">
                         <label class="custom-control-label" for="membro_superir_id">Membro Superior</label>
                       </div>
                   </div>
                   <div class="col-md-2">
                       <div class="custom-control custom-checkbox mb-2">
-                        <input type="checkbox" class="custom-control-input" id="cabeca_id" name="cabeca">
+                        <input type="checkbox" class="custom-control-input" id="cabeca_id" name="local_lesao" value="Cabeça">
                         <label class="custom-control-label" for="cabeca_id">Cabeça
                           
                         </label>
@@ -1242,7 +1260,7 @@ footer {
                   </div>
                   <div class="col-md-2">
                       <div class="custom-control custom-checkbox mb-3">
-                        <input type="checkbox" class="custom-control-input" id="pescoco_id" name="pescoco">
+                        <input type="checkbox" class="custom-control-input" id="pescoco_id" name="local_lesao" value="Pescoço">
                         <label class="custom-control-label" for="pescoco_id">Pescoço
                           
                         </label>
@@ -1250,7 +1268,7 @@ footer {
                   </div>
                   <div class="col-md-1">
                       <div class="custom-control custom-checkbox mb-3">
-                        <input type="checkbox" class="custom-control-input" id="torax_id" name="torax">
+                        <input type="checkbox" class="custom-control-input" id="torax_id" name="local_lesao" value="Tórax">
                         <label class="custom-control-label" for="torax_id">Tórax
                           
                         </label>
@@ -1263,7 +1281,7 @@ footer {
                   <div class="col-md-1"></div>
                   <div class="col-md-2">
                       <div class="custom-control custom-checkbox mb-3">
-                        <input type="checkbox" class="custom-control-input" id="abdome_id" name="abdome">
+                        <input type="checkbox" class="custom-control-input" id="abdome_id" name="local_lesao" value="Abdome">
                         <label class="custom-control-label" for="abdome_id">Abdome
                           
                         </label>
@@ -1271,7 +1289,7 @@ footer {
                   </div>
                   <div class="col-md-2">
                       <div class="custom-control custom-checkbox mb-3">
-                        <input type="checkbox" class="custom-control-input" id="pe_id" name="pe">
+                        <input type="checkbox" class="custom-control-input" id="pe_id" name="local_lesao" value="Pé">
                         <label class="custom-control-label" for="pe_id">Pé
                           
                         </label>
@@ -1279,7 +1297,7 @@ footer {
                   </div>
                   <div class="col-md-2">
                       <div class="custom-control custom-checkbox mb-3">
-                        <input type="checkbox" class="custom-control-input" id="membro_inferior_id" name="membro_inferior">
+                        <input type="checkbox" class="custom-control-input" id="membro_inferior_id" name="local_lesao" value="Membro Inferior">
                         <label class="custom-control-label" for="membro_inferior_id">Membro Inferior
                           
                         </label>
@@ -1287,7 +1305,7 @@ footer {
                   </div>
                   <div class="col-md-2">
                       <div class="custom-control custom-checkbox mb-3">
-                        <input type="checkbox" class="custom-control-input" id="todo_corpo_id" name="todo_corpo">
+                        <input type="checkbox" class="custom-control-input" id="todo_corpo_id" name="local_lesao" value="Todo Corpo">
                         <label class="custom-control-label" for="todo_corpo_id">Todo Corpo
                           
                         </label>
@@ -1295,7 +1313,7 @@ footer {
                   </div>
                   <div class="col-md-1">
                       <div class="custom-control custom-checkbox mb-3">
-                        <input type="checkbox" class="custom-control-input" id="local_lesao_outros_id" name="">
+                        <input type="checkbox" class="custom-control-input" id="local_lesao_outros_id" name="local_lesao" value="Outros">
                         <label class="custom-control-label" for="local_lesao_outros_id">Outros
                           
                         </label>
@@ -1347,7 +1365,7 @@ footer {
                         <div class="input-group-prepend">
                           <span class="input-group-text">Qual Localização</span>
                         </div>
-                        <input type="text" class="form-control" name="local_extra_cutanea" value="">
+                        <input type="text" class="form-control" name="local_extra_cutanea" value="" id="local_diag_extracutaneo" disabled>
                       </div>
                   </div>
               </div><br>
@@ -1399,7 +1417,7 @@ footer {
                         <div class="input-group-prepend" id="lb_data_coleta_material">
                           <span class="input-group-text">Data Coleta</span>
                         </div>
-                        <input type="date" class="form-control" name="local_extra_cutanea" value="" id="data_coleta_material_id">
+                        <input type="date" class="form-control" name="data_coleta_mat_exame" value="" id="data_coleta_material_id">
                       </div>
                   </div>
 
@@ -1418,27 +1436,27 @@ footer {
                   <div class="col-sm-2"></div>
                   <div class="col-md-2">
                       <div class="custom-control custom-radio custom-control-inline">
-                        <input type="radio" class="custom-control-input" id="customRadio1" name="example1" value="Detectado">
+                        <input type="radio" class="custom-control-input" id="customRadio1" name="resultado_isolamento" value="Detectado">
                         <label class="custom-control-label" for="customRadio1">Detectado</label>
                       </div>
                   </div>
 
                   <div class="col-md-2">
                       <div class="custom-control custom-radio custom-control-inline">
-                        <input type="radio" class="custom-control-input" id="customRadio2" name="example1" value="Não detectado">
+                        <input type="radio" class="custom-control-input" id="customRadio2" name="resultado_isolamento" value="Não detectado">
                         <label class="custom-control-label" for="customRadio2">Não detectado</label>
                       </div>
                   </div>
                   <div class="col-md-2">
                       <div class="custom-control custom-radio custom-control-inline">
-                        <input type="radio" class="custom-control-input" id="customRadio3" name="example1" value="Inconclusivo">
+                        <input type="radio" class="custom-control-input" id="customRadio3" name="resultado_isolamento" value="Inconclusivo">
                         <label class="custom-control-label" for="customRadio3">Inconclusivo</label>
                       </div>
                   </div>
 
                   <div class="col-md-2">
                       <div class="custom-control custom-radio custom-control-inline">
-                        <input type="radio" class="custom-control-input" id="customRadio4" name="example1" value="Não Realizado">
+                        <input type="radio" class="custom-control-input" id="customRadio4" name="resultado_isolamento" value="Não Realizado">
                         <label class="custom-control-label" for="customRadio4">Não Realizado</label>
                       </div>
                   </div>
@@ -1452,7 +1470,7 @@ footer {
                         <div class="input-group-prepend" id="">
                           <span class="input-group-text">Agente</span>
                         </div>
-                        <input type="text" class="form-control" name="" value="" id="">
+                        <input type="text" class="form-control" name="agente_isolamento" value="" id="">
                       </div>
                   </div>
                 </div>
@@ -1469,27 +1487,27 @@ footer {
                   <div class="col-sm-2"></div>
                   <div class="col-md-2">
                       <div class="custom-control custom-radio custom-control-inline">
-                        <input type="radio" class="custom-control-input" id="customRadio5" name="example2" value="Compatível">
+                        <input type="radio" class="custom-control-input" id="customRadio5" name="histopatologia" value="Compatível">
                         <label class="custom-control-label" for="customRadio5">Compatível</label>
                       </div>
                   </div>
 
                   <div class="col-md-2">
                       <div class="custom-control custom-radio custom-control-inline">
-                        <input type="radio" class="custom-control-input" id="customRadio6" name="example2" value="Não compatível">
+                        <input type="radio" class="custom-control-input" id="customRadio6" name="histopatologia" value="Não compatível">
                         <label class="custom-control-label" for="customRadio6">Não compatível</label>
                       </div>
                   </div>
                   <div class="col-md-2">
                       <div class="custom-control custom-radio custom-control-inline">
-                        <input type="radio" class="custom-control-input" id="customRadio7" name="example2" value="Inconclusivo">
+                        <input type="radio" class="custom-control-input" id="customRadio7" name="histopatologia" value="Inconclusivo">
                         <label class="custom-control-label" for="customRadio7">Inconclusivo</label>
                       </div>
                   </div>
 
                   <div class="col-md-2">
                       <div class="custom-control custom-radio custom-control-inline">
-                        <input type="radio" class="custom-control-input" id="customRadio8" name="example2" value="Não Realizado">
+                        <input type="radio" class="custom-control-input" id="customRadio8" name="histopatologia" value="Não Realizado">
                         <label class="custom-control-label" for="customRadio8">Não Realizado</label>
                       </div>
                   </div>
@@ -1850,7 +1868,7 @@ footer {
                         <div class="input-group-prepend" id="">
                           <span class="input-group-text">Código IBGE</span>
                         </div>
-                        <input type="text" class="form-control" name="codigo_ibge_municipio" value="" id="cod_ibge_id" disabled>
+                        <input type="text" class="form-control" name="codigo_ibge_municipio_hospitalizacao" value="" id="cod_ibge_id" disabled>
                       </div>
                   </div>
                   <div class="col-md-3">
@@ -1862,7 +1880,7 @@ footer {
                         <div class="input-group-prepend" id="">
                           <span class="input-group-text">Nome do Hospital</span>
                         </div>
-                        <input type="text" class="form-control" name="nome_hospital" value="" id="nome_hosp_id" disabled>
+                        <input type="text" class="form-control" name="nome_hospital_hospitalizacao" value="" id="nome_hosp_id" disabled>
                       </div>
                   </div>
                   <div class="col-md-3">
@@ -2047,7 +2065,7 @@ footer {
                         <div class="input-group-prepend" id="">
                           <span class="input-group-text">Área Provável de Infecção</span>
                         </div>
-                        <select class="form-control" name="uf_caso_autoctone_municipio" id="">
+                        <select class="form-control" name="area_provavel_infeccao" id="">
                           <option value=""></option>
                           <option value="Periurbano">Periurbano</option>
                           <option value="Rural">Rural</option>

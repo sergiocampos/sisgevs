@@ -91,11 +91,14 @@ class CasoEsporotricose(models.Model):
 	data_notificacao = models.DateField(blank=True, null=True)
 	estado = models.CharField(max_length = 100, null=True, blank=True)
 	
-	municipio = models.CharField(max_length=200, null=True)
+	municipio = models.IntegerField(blank=True, null=True)
 	codigo_ibge = models.CharField(max_length=10, null=True)
 
 	data_primeiros_sintomas = models.DateField(blank=True, null=True)
 	unidade_saude = models.CharField(max_length = 200, null=True, blank=True)
+	unidade_saude_outro = models.CharField(max_length = 200, null=True, blank=True)
+
+	gerencia = models.ForeignKey(Gerencia, on_delete=models.CASCADE, null=True)
 
 	#Notificação Individual
 	nome_paciente = models.CharField(max_length = 200, null=True, blank=True)
