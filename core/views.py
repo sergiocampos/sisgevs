@@ -1,8 +1,15 @@
 from django.shortcuts import render, redirect
+from django.contrib import messages
+from django.utils.translation import gettext as _
 from django.views.decorators.csrf import csrf_protect
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
 from datetime import datetime
+from django.contrib.auth.forms import PasswordChangeForm, UserCreationForm
+from django.contrib.auth import update_session_auth_hash, login, authenticate, logout
+
+from django.http import HttpResponse, HttpResponseRedirect
+import os
 
 from .models import *
 
@@ -33,6 +40,21 @@ def logout_user(request):
     logout(request)
     return redirect('/login/')
 
+
+@login_required
+def change_password(request):
+	if request.method == 'POST':
+		form = PasswordChangeForm(request.user, request.POST)
+		if form.is_valid():
+			user = form.save()
+			update_session_auth_hash(request, user)
+			messages.success(request, _('Your password was successfully updated!'))
+			return redirect('/')
+		else:
+			messages.error(request, _('Please correct the error below.'))
+	else:
+		form = PasswordChangeForm(request.user)
+	return render(request, 'change_password.html', {'form': form})
 
 
 @login_required(login_url='/login/')
@@ -74,6 +96,18 @@ def set_localizar_paciente_nome(request):
 	return render(request, 'resultado_search_caso_nome.html')
 
 
+
+###########View Renderiza a ficha para impressão######################################################
+@login_required(login_url='/login/')
+def download_ficha(request):
+	file_path = os.path.join(settings.MEDIA_ROOT, 'ficha_investigacao_esporotricose(1).pdf')
+	if os.path.exists(file_path):
+		with open(file_path, 'rb') as fh:
+			response = HttpResponse(fh.read(), content_type="application/pdf")
+			response['Content-Disposition'] = 'inline; filename' + os.path.basename(file_path)
+			return response
+
+
 @login_required(login_url='/login/')
 def caso_view(request, id):
 	registro = CasoEsporotricose.objects.get(id=id)
@@ -95,7 +129,7 @@ def caso_esporotricose_create(request):
 	codigos_ibge = []
 	return render(request, 'caso_esporotricose_create.html', {'municipios':municipios, 'unidades_saude':unidades_saude, 'codigos_ibge':codigos_ibge})
 
-
+#############################views ajax dados gerais#####################################
 
 @login_required(login_url='/login/')
 def ajax_load_unidadesaude(request):
@@ -113,6 +147,25 @@ def ajax_load_ibge(request):
 
 	return render(request, 'ibge_ajax.html', {'codigo':codigo})
 
+
+#############################view do ajax para hospitalização#################################
+@login_required(login_url='/login/')
+def ajax_hospitalizacao(request):
+	municipio_id = request.GET.get('municipio_id')
+	cod_ibge = UnidadeSaude.objects.filter(municipio_id=municipio_id).all().order_by('nome')
+	
+	return render(request, 'hospitalizacao_ajax.html', {'cod_ibge':cod_ibge})
+
+
+@login_required(login_url='/login/')
+def ajax_hospitalizacao_ibge(request):
+	municipio_id = request.GET.get('municipio_id')
+	codigo = CodigoIbge.objects.filter(municipio_id=municipio_id).values()
+
+	return render(request, 'hospitalizacaoibge_ajax.html', {'codigo':codigo})
+
+
+##########################end###############################################################
 
 @login_required(login_url='/login/')
 def my_datas(request):
@@ -198,7 +251,7 @@ def set_caso_esporotricose_create(request):
 	paciente_gestante = request.POST.get('gestacao')
 	raca_paciente = request.POST.get('raca')
 	escolaridade_paciente = request.POST.get('escolaridade')
-	cantao_sus_paciente = request.POST.get('cartao_sus')
+	cartao_sus_paciente = request.POST.get('cartao_sus')
 	nome_mae_paciente = request.POST.get('nome_mae')
 	
 	#Dados Residencia
@@ -254,9 +307,9 @@ def set_caso_esporotricose_create(request):
 	
 	data_exame1_cap = request.POST.get('data_outros_exames_1')
 	if data_exame1_cap == '' or data_exame1_cap == None:
-		data_exame1 = None
+		data_resultado_exame1 = None
 	else:
-		data_exame1 = datetime.strptime(data_exame1_cap, '%Y-%m-%d').date()
+		data_resultado_exame1 = datetime.strptime(data_exame1_cap, '%Y-%m-%d').date()
 	
 
 	descricao_exame_1 = request.POST.get('descricao_outros_exames_1')
@@ -264,9 +317,9 @@ def set_caso_esporotricose_create(request):
 	
 	data_exame2_cap = request.POST.get('data_outros_exames_2')
 	if data_exame2_cap == '' or data_exame2_cap == None:
-		data_exame2 = None
+		data_resultado_exame2 = None
 	else:
-		data_exame2 = datetime.strptime(data_exame2_cap, '%Y-%m-%d').date()
+		data_resultado_exame2 = datetime.strptime(data_exame2_cap, '%Y-%m-%d').date()
 
 	
 	descricao_exame_2 = request.POST.get('descricao_outros_exames_2')
@@ -274,9 +327,9 @@ def set_caso_esporotricose_create(request):
 	
 	data_exame3_cap = request.POST.get('data_outros_exames_3')
 	if data_exame3_cap == '' or data_exame3_cap == None:
-		data_exame3 = None
+		data_resultado_exame3 = None
 	else:
-		data_exame3 = datetime.strptime(data_exame3_cap, '%Y-%m-%d').date()
+		data_resultado_exame3 = datetime.strptime(data_exame3_cap, '%Y-%m-%d').date()
 		
 	
 	descricao_exame_3 = request.POST.get('descricao_outros_exames_3')
@@ -392,7 +445,7 @@ def set_caso_esporotricose_create(request):
 		paciente_gestante = paciente_gestante,
 		raca_paciente = raca_paciente,
 		escolaridade_paciente = escolaridade_paciente,
-		cantao_sus_paciente = cantao_sus_paciente,
+		cartao_sus_paciente = cartao_sus_paciente,
 		nome_mae_paciente = nome_mae_paciente,
 		cep_residencia = cep_residencia,
 		uf_residencia = uf_residencia,
@@ -425,13 +478,13 @@ def set_caso_esporotricose_create(request):
 		resultado_isolamento = resultado_isolamento,
 		agente = agente,
 		histopatologia = histopatologia,
-		data_exame1 = data_exame1,
+		data_resultado_exame1 = data_resultado_exame1,
 		descricao_exame_1 = descricao_exame_1,
 		resultado_exame1 = resultado_exame1,
-		data_exame2 = data_exame2,
+		data_resultado_exame2 = data_resultado_exame2,
 		descricao_exame_2 = descricao_exame_2,
 		resultado_exame2 = resultado_exame2,
-		data_exame3 = data_exame3,
+		data_resultado_exame3 = data_resultado_exame3,
 		descricao_exame_3 = descricao_exame_3,
 		resultado_exame3 = resultado_exame3,
 		data_inicio_tratamento1 = data_inicio_tratamento1,

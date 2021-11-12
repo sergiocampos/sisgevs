@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'crispy_forms',
     'account',
     'core',
 ]
@@ -131,6 +132,12 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static'),
 ]
 
+
+MEDIA_DIR = os.path.join(BASE_DIR,'media')
+MEDIA_ROOT = MEDIA_DIR
+MEDIA_URL = '/media/'
+
+
 STATIC_ROOT = os.path.join(os.path.dirname(BASE_DIR), 'static')
 
 SESSION_EXPIRE_AT_BROWSER_CLOSE = True
@@ -139,3 +146,5 @@ SESSION_EXPIRE_AT_BROWSER_CLOSE = True
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+CRISPY_TEMPLATE_PACK = 'bootstrap4'

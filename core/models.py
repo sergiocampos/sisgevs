@@ -7,6 +7,16 @@ from localflavor.br.br_states import STATE_CHOICES
 
 # Create your models here.
 
+class UserProfileInfo(models.Model):
+	user = models.ForeignKey(settings.AUTH_USER_MODEL,on_delete=models.CASCADE)
+	#portfolio_site = models.URLField(blank=True)
+	#profile_pic = models.ImageField(upload_to='profile_pics',blank=True)
+
+	def __str__(self):
+		return self.user.username
+
+
+
 class Macrorregiao(models.Model):
 	nome = models.CharField(max_length=200, null=True)
 
@@ -108,7 +118,7 @@ class CasoEsporotricose(models.Model):
 	paciente_gestante = models.CharField(max_length = 200, null=True, blank=True)
 	raca_paciente = models.CharField(max_length = 20, null=True, blank=True)
 	escolaridade_paciente = models.CharField(max_length = 100, null=True, blank=True)
-	cantao_sus_paciente = models.CharField(max_length = 100, null=True, blank=True)
+	cartao_sus_paciente = models.CharField(max_length = 100, null=True, blank=True)
 	nome_mae_paciente = models.CharField(max_length = 200, null=True, blank=True)
 
 	#dados de residencia
@@ -150,15 +160,15 @@ class CasoEsporotricose(models.Model):
 	agente = models.CharField(max_length = 200, null=True, blank=True)
 	histopatologia = models.CharField(max_length = 100, null=True, blank=True)
 
-	data_exame1 = models.DateField(blank=True, null=True)
+	data_resultado_exame1 = models.DateField(blank=True, null=True)
 	descricao_exame_1 = models.CharField(max_length = 200, null=True, blank=True)
 	resultado_exame1 = models.CharField(max_length = 200, null=True, blank=True)
 	
-	data_exame2 = models.DateField(blank=True, null=True)
+	data_resultado_exame2 = models.DateField(blank=True, null=True)
 	descricao_exame_2 = models.CharField(max_length = 200, null=True, blank=True)
 	resultado_exame2 = models.CharField(max_length = 200, null=True, blank=True)
 	
-	data_exame3 = models.DateField(blank=True, null=True)
+	data_resultado_exame3 = models.DateField(blank=True, null=True)
 	descricao_exame_3 = models.CharField(max_length = 200, null=True, blank=True)
 	resultado_exame3 = models.CharField(max_length = 200, null=True, blank=True)
 
