@@ -84,10 +84,41 @@ class UnidadeSaude(models.Model):
 		return self.nome
 
 
+class Estado(models.Model):
+	uf = models.IntegerField(blank=True, null=True)
+	nome = models.CharField(max_length=200, null=True)
+
+	def __str__(self):
+		return self.nome
+
+
+class MunicipioBr(models.Model):
+	nome = models.CharField(max_length=200, null=True)
+	uf = models.ForeignKey(Estado, on_delete=models.CASCADE, null=True)
+
+	def __str__(self):
+		return self.nome
+
+
+class Distrito(models.Model):
+	nome = models.CharField(max_length=200, null=True)
+	municipio = models.ForeignKey(MunicipioBr, on_delete=models.CASCADE, null=True)
+
+	def __str__(self):
+		return self.nome
+
+
 class JoinMunicipioIbgeUnidadeSaude(models.Model):
 	unidade_saude = models.ForeignKey(UnidadeSaude, on_delete=models.CASCADE, null=True)
 	ibge = models.ForeignKey(CodigoIbge, on_delete=models.CASCADE, null=True)
 	municipio = models.ForeignKey(Municipio, on_delete=models.CASCADE, null=True)
+
+
+class JoinDistritoMunicipioIbgeEstado(models.Model):
+	estado = models.ForeignKey(Estado, on_delete=models.CASCADE, null=True)
+	ibge = models.ForeignKey(CodigoIbge, on_delete=models.CASCADE, null=True)
+	municipio = models.ForeignKey(MunicipioBr, on_delete=models.CASCADE, null=True)
+	distrito = models.ForeignKey(Distrito, on_delete=models.CASCADE, null=True)
 
 ################# models de doenças ######################################
 

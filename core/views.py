@@ -165,7 +165,16 @@ def ajax_hospitalizacao_ibge(request):
 	return render(request, 'hospitalizacaoibge_ajax.html', {'codigo':codigo})
 
 
-##########################end###############################################################
+########################## view para caso autoctone ##########################################
+@login_required(login_url='/login/')
+def ajax_load_estado_municipio(request):
+	uf = request.GET.get('estado_id')
+	#cod_ibge = JoinMunicipioIbgeUnidadeSaude.objects.filter(municipio=municipio).all()
+	municipio = MunicipioBr.objects.filter(uf=uf).all()
+	
+	return render(request, 'municipios_estado_ajax.html', {'municipio':municipio})
+##############################end#############################################################
+
 
 @login_required(login_url='/login/')
 def my_datas(request):

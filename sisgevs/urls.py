@@ -50,6 +50,8 @@ urlpatterns = [
     path('ajax_hospitalizacao', views.ajax_hospitalizacao, name='ajax_hospitalizacao'),
     path('ajax_hospitalizacao_ibge', views.ajax_hospitalizacao_ibge, name='ajax_hospitalizacao_ibge'),
 
+    path('ajax_load_estado_municipio', views.ajax_load_estado_municipio, name='ajax_load_estado_municipio'),
+
 
     path('login/',views.login_page, name='login_page'),
     path('login/submit', views.set_login_page),
