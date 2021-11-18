@@ -50,7 +50,9 @@ urlpatterns = [
     path('ajax_hospitalizacao', views.ajax_hospitalizacao, name='ajax_hospitalizacao'),
     path('ajax_hospitalizacao_ibge', views.ajax_hospitalizacao_ibge, name='ajax_hospitalizacao_ibge'),
 
-    path('ajax_load_estado_municipio', views.ajax_load_estado_municipio, name='ajax_load_estado_municipio'),
+    path('ajax_autoctone_uf', views.ajax_autoctone_uf, name='ajax_autoctone_uf'),
+    path('ajax_autoctone_municipio', views.ajax_autoctone_municipio, name='ajax_autoctone_municipio'),
+    path('ajax_autoctone_distrito', views.ajax_autoctone_distrito, name='ajax_autoctone_distrito'),
 
 
     path('login/',views.login_page, name='login_page'),
@@ -63,6 +65,7 @@ urlpatterns = [
     path('caso_view_detail/', views.caso_view_detail, name='caso_view_detail'),
 
     path('download_ficha/', views.download_ficha, name='download_ficha'),
+    path('remove_caso_esporotricose/<id>/', views.remove_caso_esporotricose, name='remove_caso_esporotricose'),
 
 ]
 

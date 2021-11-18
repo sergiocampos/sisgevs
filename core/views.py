@@ -124,10 +124,12 @@ def caso_view_detail(request):
 
 @login_required(login_url='/login/')
 def caso_esporotricose_create(request):
+	estados = Estado.objects.all().order_by('nome')
 	municipios = Municipio.objects.all().order_by('nome')
 	unidades_saude = []
 	codigos_ibge = []
-	return render(request, 'caso_esporotricose_create.html', {'municipios':municipios, 'unidades_saude':unidades_saude, 'codigos_ibge':codigos_ibge})
+	return render(request, 'caso_esporotricose_create.html', {'municipios':municipios, 'unidades_saude':unidades_saude, 
+		'codigos_ibge':codigos_ibge, 'estados':estados})
 
 #############################views ajax dados gerais#####################################
 
@@ -167,12 +169,30 @@ def ajax_hospitalizacao_ibge(request):
 
 ########################## view para caso autoctone ##########################################
 @login_required(login_url='/login/')
-def ajax_load_estado_municipio(request):
-	uf = request.GET.get('estado_id')
+def ajax_autoctone_uf(request):
+	uf_id = request.GET.get('municipio_id')
 	#cod_ibge = JoinMunicipioIbgeUnidadeSaude.objects.filter(municipio=municipio).all()
-	municipio = MunicipioBr.objects.filter(uf=uf).all()
+	municipio = MunicipioBr.objects.filter(uf_id=uf_id).all()
 	
 	return render(request, 'municipios_estado_ajax.html', {'municipio':municipio})
+
+
+@login_required(login_url='/login/')
+def ajax_autoctone_municipio(request):
+	id = request.GET.get('municipio_id')
+	#cod_ibge = JoinMunicipioIbgeUnidadeSaude.objects.filter(municipio=municipio).all()
+	municipio = Municipios.objects.get(id=id)
+	ibge = municipio.ibge
+	return render(request, 'municipios_ibge_ajax.html', {'ibge':ibge})
+
+
+@login_required(login_url='/login/')
+def ajax_autoctone_distrito(request):
+	municipio_id = request.GET.get('municipio_id')
+	#cod_ibge = JoinMunicipioIbgeUnidadeSaude.objects.filter(municipio=municipio).all()
+	distrito = Distrito.objects.filter(municipio_id=municipio_id)
+	return render(request, 'municipios_distrito_ajax.html', {'distrito':distrito})
+
 ##############################end#############################################################
 
 
@@ -196,6 +216,11 @@ def my_datas(request):
 		return render(request, 'my_datas.html', {'registros':registros})
 	
 
+
+def remove_caso_esporotricose(request, id):
+	caso_esporotricose = CasoEsporotricose.objects.get(id=id)
+	caso_esporotricose.delete()
+	return redirect('my_datas')
 
 @login_required(login_url='/login/')
 def set_caso_esporotricose_create(request):

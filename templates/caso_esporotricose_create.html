@@ -203,7 +203,7 @@ footer {
       document.getElementById('alert_dt_ps').style.display="inline";
       document.getElementById('alert_dados_gerais').style.display="inline";
       document.getElementById('alert_notificacao_individual').style.display="inline";
-      document.getElementById('alert_nome_paciente').style.display="inline";
+      //document.getElementById('alert_nome_paciente').style.display="inline";
       document.getElementById('alert_data_nasc').style.display="inline";
       document.getElementById('alert_nome_mae').style.display="inline";
       document.getElementById('alert_dados_residencia').style.display="inline";
@@ -217,6 +217,10 @@ footer {
       document.getElementById('alert_dt_ps').style.display="none";
       return true;
     }
+
+
+
+
 
   }
 
@@ -238,6 +242,16 @@ footer {
       $("#gestante_id").val("");
     }
 
+  }
+
+  function activeOutraUnidade(){
+    $("#outra_unidade_id").prop("disabled", false);
+    $("#btn_desfaz_outra_unidade_id").prop("disabled", false);
+  }
+
+  function desactiveOutraUnidade(){
+    $("#outra_unidade_id").prop("disabled", true);
+    $("#outra_unidade_id").val("");
   }
 </script>
 
@@ -379,7 +393,7 @@ footer {
           </div>
           </div>
 
-          <form name="Form" id="Form" enctype="multipart/form-data" class="" novalidate action="submit" method="POST" action="" data-unidadesaude-url="{% url 'ajax_load_unidadesaude' %}" data-ibge-url="{% url 'ajax_load_ibge' %}" data-hospitalizacao-url="{% url 'ajax_hospitalizacao' %}" data-hospitalizacaoibge-url="{% url 'ajax_hospitalizacao_ibge' %}" onsubmit="return validaDtPrimeirosSintomas();">{% csrf_token %}
+          <form name="Form" id="Form" enctype="multipart/form-data" class="" novalidate action="submit" method="POST" onsubmit="return validaDtPrimeirosSintomas();">{% csrf_token %}
             <br>
             <!-- Nav tabs -->
             <ul class="nav nav-tabs" role="tablist">
@@ -508,6 +522,30 @@ footer {
                   <script>
                     dt_primeiros_s.max = new Date().toISOString().split("T")[0];
                   </script>
+
+
+                  <script>
+                    /* script para validar datas menores que data de início dos sintomas
+                    var form = document.Form;
+                    var dt_primeiros_sintomas = new Date(form.data_primeiros_sintomas.value);
+                    var dt_data_internacao = new Date(form.data_internacao.value);
+                    var dt_data_alta = new Date(form.data_alta.value);
+                    var dt_data_inicio_tratamento = new Date(form.data_inicio_tratamento.value);
+                    var dt_data_inicio_tratamento2 = new Date(form.data_inicio_tratamento2.value);
+                    var dt_data_inicio_tratamento3 = new Date(form.data_inicio_tratamento3.value);
+                    var dt_data_coleta_mat_exame = new Date(form.data_coleta_mat_exame.value);
+                    var dt_data_outros_exames_1 = new Date(form.data_outros_exames_1.value);
+                    var dt_data_outros_exames_2 = new Date(form.data_outros_exames_2.value);
+                    var dt_data_outros_exames_3 = new Date(form.data_outros_exames_3.value);
+                    var dt_data_investigacao = new Date(form.data_investigacao.value);
+
+                    if ((dt_primeiros_sintomas > dt_data_internacao) || (dt_primeiros_sintomas > dt_data_alta) || (dt_primeiros_sintomas > dt_data_inicio_tratamento) || (dt_primeiros_sintomas > dt_data_inicio_tratamento2) || (dt_primeiros_sintomas > dt_data_inicio_tratamento3) || (dt_primeiros_sintomas > dt_data_coleta_mat_exame) || (dt_primeiros_sintomas > dt_data_outros_exames_1)) {
+                      alert("Data de Início dos sintomas não pode ser maior que outras datas!")
+                    } else {
+                      return true
+                    }
+                    */
+                  </script>
                   
 
 
@@ -524,19 +562,41 @@ footer {
                     </div>
                   </div>
 
-                  
-                  
+                  <div class="col-md-1">
+                    
+                  </div>
 
                 </div>
                 <br>
+                <div class="row">
+
+                  <div class="col-md-5">
+                    <div class="form-group">
+                    
+                      <button type="button" class="btn btn-info btn-sm" onclick="activeOutraUnidade()">Informar Outra Unidade</button>
+                    
+                    </div>
+                  </div>
+
+                
+                </div>
+
+                <br>
 
                 <div class="row">
-                  <div class="col-md-12">
+                  <div class="col-md-11">
                     <div class="input-group mb-3" id="">
                       <div class="input-group-prepend" id="">
                         <span class="input-group-text">Outra Unidade</span>
                       </div>
-                      <input type="text" class="form-control" name="unidade_saude_outro" value="" id="">
+                      <input type="text" class="form-control" name="unidade_saude_outro" value="" id="outra_unidade_id" disabled>
+                    </div>
+                  </div>
+                  <div class="col-md-1">
+                    <div class="form-group">
+                     
+                      <button type="button" class="btn btn-warning btn-sm" id="btn_desfaz_outra_unidade_id" onclick="desactiveOutraUnidade()" disabled>Desfaz</button>
+                    
                     </div>
                   </div>
                 </div>
@@ -580,12 +640,44 @@ footer {
                 setInputDate("#dateDefault");
               </script>
 
+              <script>
+                function limitcarc(e, tipo) {
+                    var chr = String.fromCharCode(e.which);
+                    if (tipo == 'letr_acent'){
+                        if ("áéíóúâêîôûãõ qwertyuioplkjhgfdsazxcvbnmQWERTYUIOPLKJHGFDSAZXCVBNM".indexOf(chr) < 0)
+                          return false;
+                    }else if (tipo == 'num') {
+                        if ("0123456789".indexOf(chr) < 0)
+                          return false;
+                    }else if (tipo == 'letr'){
+                        if (" qwertyuioplkjhgfdsazxcvbnmQWERTYUIOPLKJHGFDSAZXCVBNM".indexOf(chr) < 0)
+                          return false;
+                    }
+                }
+
+                //js para validar quantidade de caracteres
+                $('#Form').on('submit', function(event) {
+                      event.preventDefault();
+
+                      nome_paciente = $('#nome_paciente_id');
+                      alvo_erro = $('#msg-error');
+
+                      if (nome_paciente.val().length < 10) {
+                          alvo_erro.html('<div class="alert alert-danger" role="alert"><i class="fas fa-exclamation-triangle"></i> O nome deve ter no mínimo 10 caracteres!</div>');
+                      } else {
+                          //.....
+                          console.log('Passou na validação!');
+                          alvo_erro.empty();
+                      }
+                  });
+              </script>
+
                 <div class="row">
-                  <div class="col-md-6"><b>Paciente</b><i id="alert_nome_paciente" style="display:none;color:red">**</i>
+                  <div class="col-md-6"><b>Paciente</b>
                     <div class="form-group">
-                      <input class="form-control" type="text" name="nome_paciente" value="" id="nome_paciente_id" required style="text-transform: uppercase;">
+                      <input class="form-control" type="text" name="nome_paciente" value="" id="nome_paciente_id" required style="text-transform: uppercase;" onkeypress="return limitcarc(event, 'letr')">
                       
-                    </div>
+                    </div><div id="msg-error"></div>
                   </div>
                   <div class="col-md-2">
                     <div class="form-group"><b>Data Nasc</b>
@@ -2110,35 +2202,11 @@ footer {
                         <div class="input-group-prepend" id="">
                           <span class="input-group-text">UF</span>
                         </div>
-                        <select class="form-control" name="uf_caso_autoctone_municipio" id="">
+                        <select class="form-control" name="uf_caso_autoctone_municipio" id="uf_caso_autoctone_id">
                           <option value="" selected></option>
-                          <option value="AC">Acre</option>
-                          <option value="AL">Alagoas</option>
-                          <option value="AP">Amapá</option>
-                          <option value="AM">Amazonas</option>
-                          <option value="BA">Bahia</option>
-                          <option value="CE">Ceará</option>
-                          <option value="DF">Distrito Federal</option>
-                          <option value="ES">Espírito Santo</option>
-                          <option value="GO">Goiás</option>
-                          <option value="MA">Maranhão</option>
-                          <option value="MT">Mato Grosso</option>
-                          <option value="MS">Mato Grosso do Sul</option>
-                          <option value="MG">Minas Gerais</option>
-                          <option value="PA">Pará</option>
-                          <option value="PB">Paraíba</option>
-                          <option value="PR">Paraná</option>
-                          <option value="PE">Pernambuco</option>
-                          <option value="PI">Piauí</option>
-                          <option value="RJ">Rio de Janeiro</option>
-                          <option value="RN">Rio Grande do Norte</option>
-                          <option value="RS">Rio Grande do Sul</option>
-                          <option value="RO">Rondônia</option>
-                          <option value="RR">Roraima</option>
-                          <option value="SC">Santa Catarina</option>
-                          <option value="SP">São Paulo</option>
-                          <option value="SE">Sergipe</option>
-                          <option value="TO">Tocantins</option>
+                          {% for e in estados %}
+                          <option value="{{e.id}}">{{e.nome}}</option>
+                          {% endfor %}
                         </select>
                       </div>
                   </div>
@@ -2147,7 +2215,10 @@ footer {
                         <div class="input-group-prepend" id="">
                           <span class="input-group-text">País</span>
                         </div>
-                        <input type="text" class="form-control" name="pais_autoctone_municipio" value="" id="">
+                        <select class="form-control" name="pais_autoctone_municipio" id="pais_autoctone_id">
+                          <option value="BRASIL" selected>BRASIL</option>
+                          <option value="Outros" selected>Outros</option>                          
+                        </select>
                       </div>
                   </div>
                   
@@ -2159,15 +2230,21 @@ footer {
                         <div class="input-group-prepend" id="">
                           <span class="input-group-text">Município</span>
                         </div>
-                        <input type="text" class="form-control" name="municipio_autoctone" value="" id="">
+                        <!--<input type="text" class="form-control" name="municipio_autoctone" value="" id="municipio_autoctone_id">
+                        -->
+
+                        <select class="form-control" name="municipio_autoctone" id="municipio_autoctone_id">                          
+                        </select>
+
+
                       </div>
                   </div>
                   <div class="col-md-3">
                       <div class="input-group mb-3" id="">
                         <div class="input-group-prepend" id="">
                           <span class="input-group-text">Código IBGE</span>
-                        </div>
-                        <input type="text" class="form-control" name="codigo_ibge_municipio_autoctone" value="" id="">
+                        </div>                                           
+                        <select class="form-control" name="ibge_autoctone" name="" id="ibge_autoctone_id"></select>
                       </div>
                   </div>
                   <div class="col-md-4">
@@ -2175,7 +2252,10 @@ footer {
                         <div class="input-group-prepend" id="">
                           <span class="input-group-text">Distrito</span>
                         </div>
+                        <!--
                         <input type="text" class="form-control" name="distrito_autoctone" value="" id="">
+                      -->
+                        <select class="form-control" name="ibge_autoctone" name="" id="distrito_autoctone_id"></select>
                       </div>
                   </div>
                 </div>
@@ -2187,7 +2267,7 @@ footer {
                         <div class="input-group-prepend" id="">
                           <span class="input-group-text">Bairro</span>
                         </div>
-                        <input type="text" class="form-control" name="bairro_autoctone" value="" id="">
+                        <input type="text" class="form-control" name="bairro_autoctone" value="" id="bairro_autoctone_id">
                       </div>
                   </div>
                   <div class="col-md-4">
@@ -2195,7 +2275,7 @@ footer {
                         <div class="input-group-prepend" id="">
                           <span class="input-group-text">Área Provável de Infecção</span>
                         </div>
-                        <select class="form-control" name="area_provavel_infeccao" id="">
+                        <select class="form-control" name="area_provavel_infeccao" id="area_provavel_infeccao_autoctone_id">
                           <option value=""></option>
                           <option value="Periurbano">Periurbano</option>
                           <option value="Rural">Rural</option>
@@ -2214,7 +2294,7 @@ footer {
                         <div class="input-group-prepend" id="">
                           <span class="input-group-text">Ambiente da Infecção</span>
                         </div>
-                        <select class="form-control" name="ambiente_infeccao_autoctone" id="">
+                        <select class="form-control" name="ambiente_infeccao_autoctone" id="ambiente_infeccao_autoctone_id">
                           <option value=""></option>
                           <option value="Domiciliar">Domiciliar</option>
                           <option value="Trabalho">Trabalho</option>
@@ -2338,14 +2418,23 @@ footer {
                         <input type="date" class="form-control" name="data_obito" value="" id="data_obito_evo_id">
                       </div>
                   </div>
+                  
+                  <script>
+                    data_obito_evo_id.max = new Date().toISOString().split("T")[0];
+                  </script>
+
                   <div class="col-md-4">
                       <div class="input-group mb-4" id="">
                         <div class="input-group-prepend" id="">
                           <span class="input-group-text">Data Encerramento</span>
                         </div>
-                        <input type="date" class="form-control" name="data_encerramento" value="" id="">
+                        <input type="date" class="form-control" name="data_encerramento" value="" id="data_encerramento_id">
                       </div>
                   </div>
+
+                  <script>
+                    data_encerramento_id.max = new Date().toISOString().split("T")[0];
+                  </script>
                   
                   
                 </div>
@@ -2485,11 +2574,11 @@ footer {
 
     <script type="text/javascript">
       $("#municipio_id").change(function(){
-        const url = $('#Form').attr("data-unidadesaude-url");
+        //const url = $('#Form').attr("data-unidadesaude-url");
         municipioId = $(this).val();
 
         $.ajax({
-          url : url,
+          url : '{% url "ajax_load_unidadesaude" %}',
           data: { 'municipio_id': municipioId},
           success: function(data){
             $("#unidade_saude_id").html(data);
@@ -2500,10 +2589,10 @@ footer {
       });
 
       $("#municipio_id").change(function(){
-          const url = $('#Form').attr("data-ibge-url");
+          //const url = $('#Form').attr("data-ibge-url");
           const municipioId = $(this).val();
           $.ajax({
-          url : url,
+          url : '{% url "ajax_load_ibge" %}',
           data: { 'municipio_id': municipioId},
           success: function(data){
             $("#ibge_cod_id").html(data);
@@ -2521,11 +2610,11 @@ footer {
       //data-hospitalizacaoibge-url
 
       $("#mun_hosp_id").change(function(){
-        const url = $('#Form').attr("data-hospitalizacao-url");
+        //const url = $('#Form').attr("data-hospitalizacao-url");
         municipioId = $(this).val();
 
         $.ajax({
-          url : url,
+          url : '{% url "ajax_hospitalizacao" %}',
           data: { 'municipio_id': municipioId},
           success: function(data){
             $("#nome_hosp_id").html(data);
@@ -2536,10 +2625,10 @@ footer {
       });
 
       $("#mun_hosp_id").change(function(){
-          const url = $('#Form').attr("data-hospitalizacaoibge-url");
+          //const url = $('#Form').attr("data-hospitalizacaoibge-url");
           const municipioId = $(this).val();
           $.ajax({
-          url : url,
+          url : '{% url "ajax_hospitalizacao_ibge" %}',
           data: { 'municipio_id': municipioId},
           success: function(data){
             $("#cod_ibge_id").html(data);
@@ -2549,7 +2638,56 @@ footer {
         });
 
       //Ajax para caso autoctone: Estado, Municipio, Cód IBGE e Distrito.
+      $("#uf_caso_autoctone_id").change(function(){
+        //const url = $('#Form').attr("data-autoctone-uf-url");
+        municipioId = $(this).val();
+
+        $.ajax({
+          url : '{% url "ajax_autoctone_uf" %}',
+          data: { 'municipio_id': municipioId},
+          success: function(data){
+            $("#municipio_autoctone_id").html(data);
+          }
+        });
+
+        
+      });
+
+      $("#municipio_autoctone_id").change(function(){
+        //const url = $('#Form').attr("data-autoctone-municipio-url");
+        municipioId = $(this).val();
+
+        $.ajax({
+          url : '{% url "ajax_autoctone_municipio" %}',
+          data: { 'municipio_id': municipioId},
+          success: function(data){
+            console.log(data);
+            $("#ibge_autoctone_id").html(data);
+          }
+        });
+
+        
+      });
+
+
+
       
+
+      $("#municipio_autoctone_id").change(function(){
+        //const url = $('#Form').attr("data-autoctone-distrito-url");
+        municipioId = $(this).val();
+
+        $.ajax({
+          url : '{% url "ajax_autoctone_distrito" %}',
+          data: { 'municipio_id': municipioId},
+          success: function(data){
+            console.log(data);
+            $("#distrito_autoctone_id").html(data);
+          }
+        });
+
+        
+      });
 
     </script>
 

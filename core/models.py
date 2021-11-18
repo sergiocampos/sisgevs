@@ -95,6 +95,16 @@ class Estado(models.Model):
 class MunicipioBr(models.Model):
 	nome = models.CharField(max_length=200, null=True)
 	uf = models.ForeignKey(Estado, on_delete=models.CASCADE, null=True)
+	ibge = models.CharField(max_length=200, null=True)
+
+	def __str__(self):
+		return self.nome
+
+#############Tabela usada para selects de caso autoctone################################
+class Municipios(models.Model):
+	nome = models.CharField(max_length=200, null=True)
+	uf = models.ForeignKey(Estado, on_delete=models.CASCADE, null=True)
+	ibge = models.CharField(max_length=200, null=True)
 
 	def __str__(self):
 		return self.nome
