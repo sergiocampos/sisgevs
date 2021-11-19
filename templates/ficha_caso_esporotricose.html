@@ -276,9 +276,7 @@
                 <div class="row" style="padding-left: 2%;">
                     <div class="col">
                         <label>Frequentou Ambientes com Mata, Floresta, Rios, Cachoeiras, Sítios, Outros?</label>
-                        <select name="" id="">
-                            <option value=""></option>
-                        </select>
+                        <select name="" id="">{% include 'options/tp_simnao.html' %}</select>
                     </div>
                 </div>
                 <div class="row text-center" style="padding-left: 10%;">
@@ -693,9 +691,9 @@
                         <option value="Descartado">Descartado</option>
                     </select>
                 </div>
-                <div class="col-6 arredondado" style="padding:5px; padding-left: 5%;">
+                <div class="col-6 arredondado" style="padding:5px; padding-left: 2%;">
                     <label>Critério de confirmação</label>
-                    <select style="width: 40%;margin-top: 2%;">
+                    <select style="width: 60%;margin-top: 2%;">
                         <option value="" selected>Selecionar</option>
                         <option value="Clínico Laboratorial">Clínico Laboratorial</option>
                         <option value="Clínico Epidemiológico">Clínico Epidemiológico</option>
@@ -708,8 +706,8 @@
                     <label>Caso Autoctone do Município de Residência?</label>
                     <select style="width: 40%; margin-left: 5%;margin-top: 2%;">
                         <option value="" selected>Selecionar</option>
-                        <option value="sim">sim</option>
-                        <option value="não">não</option>
+                        <option value="Sim">Sim</option>
+                        <option value="Não">Não</option>
                         <option value="Indeterminado">Indeterminado</option>
                     </select>
                 </div>
@@ -780,7 +778,7 @@
             <div class="row">
                 <div class="col-6 arredondado">
                     <label>Evolução do caso</label>
-                    <select style="width: 40%; margin-left: 5%;margin-top: 2%;">
+                    <select style="width: 60%; margin-left: 5%;margin-top: 2%;">
                         <option value="" selected>Selecionar</option>
                         <option value="Cura">Cura</option>
                         <option value="Obito pelo Agravo">Obito pelo Agravo</option>
@@ -837,7 +835,7 @@
                 </div>
                 <div class="col-3 arredondado">
                     <label>Assinatura</label>
-                    {% include 'options/underline.html' %}
+                    <input type="text">
                 </div>
             </div>
         </div>
