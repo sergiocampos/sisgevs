@@ -13,6 +13,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.min.js"></script>
+    
 </head>
 <body>
     <div class="pagina">
@@ -841,10 +842,6 @@
             </div>
         </div>
     </div>
-    <script>
-        // JQuery - Data máxima = dia de hoje.
-        var today = new Date().toISOString().split('T')[0];
-        $(".data").attr('max', today);
-    </script>
+    <script src="{% static 'js/js.js' %}"></script>
 </body>
 </html>
