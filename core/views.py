@@ -196,6 +196,10 @@ def my_datas(request):
 		return render(request, 'my_datas.html', {'registros':registros})
 	
 
+@login_required(login_url='/login/')
+def ficha_caso_esporotricose(request):
+	return render(request, 'ficha_caso_esporotricose.html')
+
 
 @login_required(login_url='/login/')
 def set_caso_esporotricose_create(request):
