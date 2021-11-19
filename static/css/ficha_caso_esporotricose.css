@@ -1,5 +1,4 @@
 *{
-    /*font-family: Arial, Helvetica, sans-serif;*/
     text-transform: uppercase;
 }
 body{
@@ -18,7 +17,7 @@ img{
 .pagina{
     margin: auto;
     width:21.6cm;
-    /*height:29.7cm;*/
+    
 }
 .caso-suspeito{
     border: 2px solid black;
