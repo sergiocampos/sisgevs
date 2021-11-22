@@ -1,0 +1,778 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="shortcut icon" href="https://docs.google.com/uc?id=1h8jgyPDlDWWinD_VP50nqKXnmdCHEKH3" type="image/x-icon" />
+    <link rel="stylesheet" href="{% static 'css/ficha_caso_esporotricose.css' %}">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.min.js"></script>
+    <title>SISGEVS - Ficha Esporotricose</title>
+</head>
+<body>
+    <div class="pagina">
+        <div id="botao" class="row text-center">
+            <div class="col">
+                <button class="btn btn-primary" type="button" id="salvar_imprimir">Salvar ou Imprimir</button>
+            </div>
+        </div>
+        <div class="header">
+            <div class="row" style="border-bottom: 1px solid black;">
+                <div class="col-3">
+                    <img src="{% static 'sisgevs/nova-marca-governo-01.png' %}" alt="Logo Nao consigo entender">
+                </div>
+                <div class="col-6 text-center">
+                    <h1 style="font-size:14px; font-weight: bold; margin-top: 4%;">GOVERNO DO ESTADO DA PARAÍBA</h1>
+                    <h2 style="font-size:12px; font-weight: bold; margin: 0;">SECRETARIA ESTADUAL DE SAÚDE</h2>
+                    <h4 style="font-size:10px; font-weight: bold; margin: 0;">Laboratório Central de Saúde Pública Dr.ª Telma Lobo</h4>
+                </div>
+                <div class="col-3">
+                    <img src="{% static 'sisgevs/secretaria-da-saude.jfif' %}" alt="Logo SUS">
+                </div>
+            </div>
+            <div class="row text-center">
+                <div class="col-9">
+                    <h4 style="font-size:14px; font-weight: bold; margin-left: 12rem;">FICHA DE INVESTIGAÇÃO DE ESPOROTRICOSE</h1>
+                </div>
+                <div class="col-3">
+                    <input style="width: 150px;" type="text" value="N°:" id="numero-ficha">
+                </div>
+            </div>
+            <div class="row caso-suspeito">
+                <p>CASO SUSPEITO: INDIVÍDUO QUE APRESENTE LESÕES NA PELE, QUE SE INICIAM COMO UMA PEQUENA PÁPULA, QUE PODEM
+                    EVOLUIR PARA UMA FORMA ULCERADA, COM OU SEM SECREÇÃO SEROPURULENTA, DISPOSTAS OU NÃO EM FILEIRA, COM 
+                    HISTÓRIA EPIDEMIOLÓGICA DE TRAUMA CUTÂNEO POR MATERIAL DE ORIGEM VEGETAL POTENCIALMENTE CONTAMINADO
+                    COM FUNGO OU ARRANHADURA/ MORDEDURA POR GATOS OU CONTATO COM FERIDAS DESSES ANIMAIS.
+                </p>
+            </div>
+        </div>
+        <div class="content">
+            <!-- LINHA -->
+            <div class="barra dados_gerais">Dados Gerais</div>
+            <!-- LINHA -->
+            <div class="row arredondado">
+                <div class="col-4">
+                    <label>Tipo de Notificação</label>
+                    <input id="tipo_notificacao_dados_gerais" type="text">
+                </div>
+                <div class="col-8">
+                    <label>Individual</label>
+                    <input id="individual_dados_gerais" type="text">
+                </div>
+            </div>
+            <!-- LINHA -->
+            <div class="row">
+                <div class="col-6 arredondado">
+                    <label>Agravo/Doença</label>
+                    <input id="agravo_doenca_dados_gerais" type="text">
+                </div>
+                <div class="col-2 arredondado">
+                    <label>Código (CID-10)</label>
+                    <input id="codigo_cid_dados_gerais" type="text">
+                </div>
+                <div class="col-4 arredondado">
+                    <label>Data da Notificação</label>
+                    <input id="data_notificacao_dados_gerais" class="data" type="text">
+                </div>
+            </div>
+            <!-- LINHA -->
+            <div class="row">
+                <div class="col-1 arredondado">
+                    <label>UF</label>
+                    <input id="uf_dados_gerais" type="text">
+                </div>
+                <div class="col-7 arredondado">
+                    <label>Município de Notificação</label>
+                    <input id="municipio_notificacao_dados_gerais" type="text">
+                </div>
+                <div class="col-4 arredondado">
+                    <label>Código IBGE</label>
+                    <input id="codigo_ibge_dados_gerais" type="text">
+                </div>
+            </div>
+            <!-- LINHA -->
+            <div class="row">
+                <div class="col-6 arredondado">
+                    <label>Unidade de Saude</label>
+                    <input id="unidade_saude_dados_gerais" type="text">
+                </div>
+                <div class="col-2 arredondado">
+                    <label>Código</label>
+                    <input id="codigo_dados_gerais" type="text">
+                </div>
+                <div class="col-4 arredondado">
+                    <label>Data dos Primeiros Sintomas</label>
+                    <input id="data_primeiros_sintomas_dados_gerais" type="text">
+                </div>
+            </div>
+            <!-- LINHA -->
+            <div class="barra notificacao_individual">Notificação Individual</div>
+            <!-- LINHA -->
+            <div class="row">
+                <div class="col-8 arredondado">
+                    <label>Nome do Paciente(Sem Abreviações)</label>
+                    <input id="nome_paciente_notificacao_individual" type="text">
+                </div>
+                <div class="col-4 arredondado">
+                    <label>Data de Nascimento</label>
+                    <input id="data_nascimento_notificacao_individual" type="text">
+                </div>
+            </div>
+            <!-- LINHA -->
+            <div class="row">
+                <div class="col-1 arredondado">
+                    <label>Idade</label>
+                    <input id="idade_notificacao_individual" type="text">
+                </div>
+                <div class="col-2 arredondado">
+                    <label>Sexo</label>
+                    <input id="sexo_notificacao_individual" type="text">
+                </div>
+                <div class="col-5 arredondado">
+                    <label>Gestante</label>
+                    <input id="gestante_notificacao_individual" type="text">
+                </div>
+                <div class="col-4 arredondado">
+                    <label>Raça/Cor</label>
+                    <input type="text" id="raca_cor_notificacao_individual">
+                </div>
+            </div>
+            <!-- LINHA -->
+            <div class="row">
+                <div class="col py-2 arredondado">
+                    <label>Escolaridade</label>
+                    <input id="escolaridade_notificacao_individual" type="text">
+                </div>
+            </div>
+            <!-- LINHA -->
+            <div class="row">
+                <div class="col arredondado">
+                    <label>Numero do Cartao SUS</label>
+                    <input id="cartao_sus_notificacao_individual" type="text">
+                </div>
+                <div class="col arredondado">
+                    <label>Nome da Mãe</label>
+                    <input id="nome_mae_notificacao_individual" type="text">
+                </div>
+            </div>
+            <!-- LINHA -->
+            <div class="barra dados_residencia">Dados de Residência</div>
+            <!-- LINHA -->
+            <div class="row">
+                <div class="col-3 arredondado">
+                    <label>CEP</label>
+                    <input id="cep_dados_residencia" type="text">
+                </div>
+                <div class="col-1 arredondado">
+                    <label>UF</label>
+                    <input id="uf_dados_residencia" type="text">
+                </div>
+                <div class="col-8 arredondado">
+                    <label>Município de Residência</label>
+                    <input id="municipio_dados_residencia" type="text">
+                </div>
+                
+            </div>
+            <!-- LINHA -->
+            <div class="row">
+                <div class="col-3 arredondado">
+                    <label>Bairro</label>
+                    <input id="bairro_dados_residencia" type="text">
+                </div>
+                <div class="col-7 arredondado">
+                    <label>Logradouro</label>
+                    <input id="logradouro_dados_residencia" type="text">
+                </div>
+                <div class="col-2 arredondado">
+                    <label>Código</label>
+                    <input id="codigo_dados_residencia" type="text">
+                </div>
+            </div>
+            <!-- LINHA -->
+            <div class="row">
+                <div class="col-2 arredondado">
+                    <label>Número</label>
+                    <input id="numero_dados_residencia" type="text">
+                </div>
+                <div class="col-7 arredondado">
+                    <label>Complemento</label>
+                    <input id="complemento_dados_residencia" type="text">
+                </div>
+                <div class="col-3 arredondado">
+                    <label>Distrito</label>
+                    <input id="distrito_dados_residencia" type="text">
+                </div>
+            </div>
+            <!-- LINHA -->
+            <div class="row">
+                <div class="col-2 arredondado">
+                    <label>Geo Campo 1</label>
+                    <input id="geo_campo_1_dados_residencia" type="text">
+                </div>
+                <div class="col-2 arredondado">
+                    <label>Geo Campo 2</label>
+                    <input id="geo_campo_2_dados_residencia" type="text">
+                </div>
+                <div class="col-4 arredondado">
+                    <label>Ponto de Referência</label>
+                    <input id="ponto_referencia_dados_residencia" type="text">
+                </div>
+                <div class="col-4 arredondado">
+                    <label>Código IBGE</label>
+                    <input id="codigo_ibge_dados_residencia" type="text">
+                </div>
+            </div>
+            <!-- LINHA -->
+            <div class="row">
+                <div class="col-5 arredondado">
+                    <label>(DDD) Telefone</label>
+                    <input id="telefone_dados_residencia" type="text">
+                </div>
+                <div class="col-2 arredondado">
+                    <label>Zona</label>
+                    <input id="zona_dados_residencia" type="text">
+                </div>
+                <div class="col-5 arredondado">
+                    <label>País (Se residir no exterior)</label>
+                    <input id="pais_dados_residencia" type="text">
+                </div>
+            </div>
+            <!-- LINHA -->
+            <div class="barra antecedentes_epidemiologicos">Antecedentes Epidemiológicos</div>
+            <!-- LINHA -->
+            <div class="row">
+                <div class="col arredondado pt-2 text-center"><p>DADOS COMPLEMENTARES DO CASO</p></div>
+            </div>
+            <!-- LINHA -->
+            <div class="row">
+                <div class="col-4 arredondado">
+                    <label>Data da Investigação</label>
+                    <input id="data_investigacao_antecedentes_epidemiologicos" type="text">
+                </div>
+                <div class="col-8 arredondado">
+                    <label>Ocupação</label>
+                    <input id="ocupacao_antecedentes_epidemiologicos" type="text">
+                </div>
+            </div>
+            <!-- LINHA -->
+            <div class="row">
+                <div class="col arredondado pt-2 text-center"><p>SITUAÇÃO DE RISCO NAS ÚLTIMAS SEMANAS(14 DIAS)</p></div>
+            </div>
+            <!-- LINHA -->
+            <div class="row arredondado">
+                <div class="row" style="padding-left: 2%;">
+                    <div class="col">
+                        <label>Frequentou Ambientes com Mata, Floresta, Rios, Cachoeiras, Sítios, Outros?</label>
+                        <input id="sim_nao_ambientes_frequentados" type="text">
+                    </div>
+                </div>
+                <div class="row text-center" style="padding-left: 10%;">
+                    <div class="col" style="display:inline-flex;" style="display:inline-flex;">
+                        <input id="check_mata_ambientes_frequentados" style="width: 16px; height: 16px; margin:5px;margin-top: 0;" type="checkbox">
+                        <label>Mata</label>
+                    </div>
+                    <div class="col" style="display:inline-flex;" style="display:inline-flex;">
+                        <input id="check_floresta_ambientes_frequentados" style="width: 16px; height: 16px; margin:5px;margin-top: 0;" type="checkbox">
+                        <label>Floresta</label>
+                    </div>
+                    <div class="col" style="display:inline-flex;" style="display:inline-flex;">
+                        <input id="check_rios_ambientes_frequentados" style="width: 16px; height: 16px; margin:5px;margin-top: 0;" type="checkbox">
+                        <label>Rios</label>
+                    </div>
+                    <div class="col" style="display:inline-flex;" style="display:inline-flex;">
+                        <input id="check_cachoeiras_ambientes_frequentados" style="width: 16px; height: 16px; margin:5px;margin-top: 0;" type="checkbox">
+                        <label>Cachoeiras</label>
+                    </div>
+                    <div class="col" style="display:inline-flex;" style="display:inline-flex;">
+                        <input id="check_sitios_ambientes_frequentados" style="width: 16px; height: 16px; margin:5px;margin-top: 0;" type="checkbox">
+                        <label>Sítios</label>
+                    </div>
+                    <div class="col" style="display:inline-flex;" style="display:inline-flex;">
+                        <input id="outros_ambientes_frequentados" style="width: 50%;" type="text">
+                        <label>Outros</label>
+                    </div>
+                </div>
+            </div>
+            <!-- LINHA -->
+            <div class="row arredondado">
+                <div class="row" style="padding-left: 2%;">
+                    <div class="col">
+                        <label>TEVE CONTATO COM ANIMAIS?</label>
+                        <input id="sim_nao_contato_animais" type="text">
+                    </div>
+                </div>
+                <div class="row text-center" style="padding-left: 10%;">
+                    <div class="col-2" style="display:inline-flex;">
+                        <input id="check_cao_contato_animais" style="width: 16px; height: 16px; margin:5px;margin-top: 0;" type="checkbox">
+                        <label>Cão</label>
+                    </div>
+                    <div class="col-2" style="display:inline-flex;">
+                        <input id="check_gato_contato_animais" style="width: 16px; height: 16px; margin:5px;margin-top: 0;" type="checkbox">
+                        <label>Gato</label>
+                    </div>
+                    <div class="col-3" style="display:inline-flex;">
+                        <input id="check_equinos_contato_animais" style="width: 16px; height: 16px; margin:5px;margin-top: 0;" type="checkbox">
+                        <label>Equinos</label>
+                    </div>
+                    <div class="col-5">
+                        <label>Outros Animais</label>
+                        <input id="outros_contato_animais" style="width: 50%;" type="text" >
+                    </div>
+                </div>
+            </div>
+            <!-- LINHA -->
+            <div class="row arredondado">
+                <div class="row" style="padding-left: 2%;">
+                    <div class="col">
+                        <label>Natureza do contato com animais</label>
+                        <input id="sim_nao_natureza_contato" type="text">
+                    </div>
+                </div>
+                <div class="row text-center" style="padding-left: 12%;">
+                    <div class="col-3.5" style="display:inline-flex;">
+                        <input id="check_mordedura_natureza_contato" style="width: 16px; height: 16px; margin:5px;margin-top: 0;" type="checkbox">
+                        <label>MORDEDURA</label>
+                    </div>
+                    <div class="col-4" style="display:inline-flex;">
+                        <input id="check_arranhadura_natureza_contato" style="width: 16px; height: 16px; margin:5px;margin-top: 0;" type="checkbox">
+                        <label>Arranhadura</label>
+                    </div>
+                    <div class="col">
+                        <label>Outros</label>
+                        <input id="outros_natureza_contato" style="width: 50%;" type="text" >
+                    </div>
+                </div>
+                <div class="row text-center" style="padding-left: 10%;">
+                    <div class="col" style="display:inline-flex;">
+                        <input id="check_mucosas_natureza_contato" style="width: 16px; height: 16px; margin:5px;margin-top: 0;" type="checkbox">
+                        <label>Lesões mucosas do animal</label>
+                        <div class="col" style="display:inline-flex;">
+                            <input id="check_cutaneas_natureza_contato" style="width: 16px; height: 16px; margin:5px;margin-top: 0;" type="checkbox">
+                            <label>Lesões cutâneas do animal</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- LINHA -->
+            <div class="row arredondado">
+                <div class="row" style="padding-left: 2%;">
+                    <div class="col">
+                        <label>Relação com o animal doente</label>
+                        <input id="sim_nao_relacao_animal" type="text">
+                    </div>
+                </div>
+                <div class="row text-center" style="padding-left: 5%;">
+                    <div class="col-3.5" style="display:inline-flex;">
+                        <input id="check_tratador_relacao_animal" style="width: 16px; height: 16px; margin:5px;margin-top: 0;" type="checkbox">
+                        <label>Tratador/Propietário do Animal</label>
+                    </div>
+                    <div class="col-4" style="display:inline-flex;">
+                        <input id="check_profissional_relacao_animal" style="width: 16px; height: 16px; margin:5px;margin-top: 0;" type="checkbox">
+                        <label>Profissional de Saúde(*)</label>
+                    </div>
+                    <div class="col">
+                        <label>Outros</label>
+                        <input id="outros_relacao_animal" style="width: 78%;" type="text" >
+                    </div>
+                </div>
+                <div class="row text-center" style="padding-left: 3%;">
+                    <div class="col" style="display:inline-flex;">
+                        <input id="check_abrigo_relacao_animal" style="width: 16px; height: 16px; margin:5px;margin-top: 0;" type="checkbox">
+                        <label>Abrigo/ong</label>
+                        <label>(*) Veterinário, enfermeiro, tratador de animal em clínicas</label>
+                    </div>
+                </div>
+            </div>
+            <!-- LINHA -->
+            <div class="row arredondado">
+                <div class="col-9">
+                    <label>
+                        Exerce atividade que resulte em contato constante com plantas?
+                        (Jardineiros, agricultores, horticultores, exploradores de madeira,
+                        trabalhadores ruais)
+                    </label>
+                </div>
+                <div class="col-3" style="margin-top: 5px;">
+                    <input id="sim_nao_trabalha_com_plantas" type="text">
+                </div>
+            </div>
+            <!-- LINHA -->
+            <div class="row arredondado">
+                <div class="col-9">
+                    <label>
+                        História de corte, lesão ou trauma durante o manuseio de plantas 
+                        ou material orgânico suspeito de contaminação pelo fungo? (EX:
+                        tábuas úmidas de madeira, solo, palhas, farpas, espinhos, vegetais)
+                    </label>
+                </div>
+                <div class="col-3" style="margin-top: 15px;">
+                    <input id="sim_nao_historico_corte" type="text">
+                </div>
+            </div>
+            <div class="pagebreaker"></div>
+            <!-- LINHA -->
+            <div style="margin-top: 5%;"  class="barra dados_clinicos">Dados Clínicos</div>
+            <!-- LINHA -->
+            <div class="row">
+                <div class="col arredondado pt-2 text-center"><p>DADOS COMPLEMENTARES DO CASO</p></div>
+            </div>
+            <!-- LINHA -->
+            <div class="row">
+                <div class="col-4 arredondado" style="padding-left: 5%;">
+                    <label>
+                        Presença de lesão na pele?
+                    </label>
+                    <input id="sim_nao_lesao_pele" type="text">
+                </div>
+                <div class="col-8 arredondado">
+                    <div class="row text-center" style="padding-left: 40%; padding-bottom: 2%;">
+                        <label>Natureza da Lesão</label>
+                    </div>
+                    <div class="row text-center" style="padding-left: 2%;">
+                        <div class="col-4" style="display:inline-flex;">
+                            <input id="check_papula_natureza_lesao" style="width: 16px; height: 16px; margin:5px;margin-top: 0;" type="checkbox">
+                            <label>pápula</label>
+                        </div>
+                        <div class="col-4" style="display:inline-flex;">
+                            <input id="check_ulcera_natureza_lesao" style="width: 16px; height: 16px; margin:5px;margin-top: 0;" type="checkbox">
+                            <label>úlcera</label>
+                        </div>
+                        <div class="col-4" style="display:inline-flex;">
+                            <input id="check_linfonodos_natureza_lesao" style="width: 16px; height: 16px; margin:5px;margin-top: 0;" type="checkbox">
+                            <label>linfonodos</label>
+                        </div>
+                        <div class="col">
+                            <label>Outros</label>
+                            <input id="outros_natureza_lesao" style="width: 50%;" type="text" >
+                        </div>
+                    </div>
+                </div>
+            </div> 
+            <!-- LINHA -->
+            <div class="row arredondado">
+                <div class="row" style="padding-left: 2%;">
+                    <div class="col">
+                        <label>Localização da lesão (parte do corpo atingida)</label>
+                    </div>
+                </div>
+                <div class="row text-center" style="padding-left: 10%;">
+                    <div class="row">
+                        <input id="check_mao_localizacao_lesao" style="width: 16px; height: 16px; margin:5px;margin-top: 0;" type="checkbox">
+                        <label>Mão</label>
+                        <input id="check_membro_superior_localizacao_lesao" style="width: 16px; height: 16px; margin:5px;margin-top: 0;" type="checkbox">
+                        <label>Membro superior</label>
+                        <input id="check_cabeca_localizacao_lesao" style="width: 16px; height: 16px; margin:5px;margin-top: 0;" type="checkbox">
+                        <label>cabeça</label>
+                        <input id="check_pescoco_localizacao_lesao" style="width: 16px; height: 16px; margin:5px;margin-top: 0;" type="checkbox">
+                        <label>Pescoço</label>
+                        <input id="check_abdome_localizacao_lesao" style="width: 16px; height: 16px; margin:5px;margin-top: 0;" type="checkbox">
+                        <label>Abdome</label>
+                    </div>
+                    <div class="row">
+                        <input id="check_torax_localizacao_lesao" style="width: 16px; height: 16px; margin:5px;margin-top: 0;" type="checkbox">
+                        <label>Tórax</label>
+                        <input id="check_pe_localizacao_lesao" style="width: 16px; height: 16px; margin:5px;margin-top: 0;" type="checkbox">
+                        <label>Pé</label>
+                        <input id="check_membro_inferior_localizacao_lesao" style="width: 16px; height: 16px; margin:5px;margin-top: 0;" type="checkbox">
+                        <label>Membro inferior</label>
+                        <input id="check_todo_corpo_localizacao_lesao" style="width: 16px; height: 16px; margin:5px;margin-top: 0;" type="checkbox">
+                        <label>Todo o corpo</label>
+                        <div class="col">
+                            <label>Outro</label>
+                            <input id="outros_localizacao_lesao" style="width: 80%;" type="text" >
+                        </div>
+                    </div>
+                </div>
+            </div>   
+            <!-- LINHA -->
+            <div class="row arredondado">
+                <div class="col-7">
+                    <label>
+                        Diagnóstico de forma extracutânea da doença?
+                    </label>
+                </div>
+                <div class="col-5 py-2">
+                    <input id="sim_nao_diagnostico_forma" type="text">
+                </div>
+                <label style="margin-left: 2%;">Qual Localização?</label>
+                <input id="localizacao_doenca" style="width: 40%;" type="text" >
+            </div>
+            <!-- LINHA -->
+            <div class="barra dados_laboratoriais">Dados Laboratoriais</div>
+            <!-- LINHA -->
+            <div class="row">
+                <div class="col-9 arredondado">
+                    <label>
+                        Houve coleta de material para exame laboratorial?
+                    </label>
+                    <input id="sim_nao_dados_laboratoriais" type="text">
+                </div>
+                <div class="col-3 arredondado">
+                    <label>Data da coleta</label>
+                    <input id="data_coleta_dados_laboratoriais" type="text">
+                </div>
+            </div> 
+            <!-- LINHA -->
+            <div class="row">
+                <div class="col-9 arredondado">
+                    <label>
+                        Resultado do Isolamento
+                    </label>
+                    <input id="resultado_isolamento_dados_laboratoriais" type="text">
+                </div>
+                <div class="col-3 arredondado">
+                    <label>Agente</label>
+                    <input id="agente_dados_laboratoriais" type="text">
+                </div>
+            </div> 
+            <!-- LINHA -->
+            <div class="row">
+                <div class="col arredondado" style="padding:10px">
+                    <label>
+                        Histopatologia
+                    </label>
+                    <input id="histopatologia_dados_laboratoriais" type="text">
+                </div>
+            </div>
+            <!-- LINHA -->
+            <div class="row arredondado">
+                <label>Outros Exames realizados</label>
+            </div>
+            <div class="row">
+                <div class="col-3 arredondado">
+                    <label>Data</label>
+                    <input id="data_outros_exames_1" type="text">
+                </div>
+                <div class="col-4 arredondado">
+                    <label>Descrição</label>
+                    <input id="descricao_outros_exames_1" type="text">
+                </div>
+                <div class="col-5 arredondado">
+                    <label>Resultado</label>
+                    <input id="resultado_outros_exames_1" type="text">
+                </div>
+            </div>
+            <div class="row arredondado">
+                <div class="col-3 arredondado">
+                    <label>Data</label>
+                    <input id="data_outros_exames_2" type="text">
+                </div>
+                <div class="col-4 arredondado">
+                    <label>Descrição</label>
+                    <input id="descricao_outros_exames_2" type="text">
+                </div>
+                <div class="col-5 arredondado">
+                    <label>Resultado</label>
+                    <input id="resultado_outros_exames_2" type="text">
+                </div>
+            </div>
+            <div class="row arredondado">
+                <div class="col-3 arredondado">
+                    <label>Data</label>
+                    <input id="data_outros_exames_3" type="text">
+                </div>
+                <div class="col-4 arredondado">
+                    <label>Descrição</label>
+                    <input id="descricao_outros_exames_3" type="text">
+                </div>
+                <div class="col-5 arredondado">
+                    <label>Resultado</label>
+                    <input id="resultado_outros_exames_3" type="text">
+                </div>
+            </div>
+            <!-- Linha -->
+            <div class="barra tratamento">Tratamento</div>
+            <!-- Linha -->
+            <div class="row">
+                <div class="col-4 arredondado">
+                    <label>Data de Inicio do Tratamento</label>
+                    <input id="data_inicio_tratamento" type="text">
+                </div>
+                <div class="col-3 arredondado">
+                    <label>Droga Administrada</label>
+                    <input id="droga_administrada_tratamento" type="text">
+                </div>
+                <div class="col-5 arredondado">
+                    <label>Esquema Terapeutico (Dose, Via, Intervalo)</label>
+                    <input id="esquema_terapeutico_tratamento" type="text">
+                </div>
+            </div>
+            <!-- Linha -->
+            <div class="row">
+                <div class="col-4 arredondado">
+                    <label>Ocorreu Hospitalização?</label>
+                    <input id="sim_nao_ocorreu_hospitalizacao" type="text">
+                </div>
+                <div class="col-4 arredondado">
+                    <label>Data da Internação</label>
+                    <input id="data_internacao_tratamento" type="text">
+                </div>
+                <div class="col-3 arredondado">
+                    <label>Data da Alta</label>
+                    <input id="data_alta_tratamento" type="text">
+                </div>
+                <div class="col-1 arredondado">
+                    <label>UF</label>
+                    <input id="uf_tratamento" type="text">
+                </div>
+            </div>
+            <!-- LINHA -->
+            <div class="row">
+                <div class="col-9 arredondado">
+                    <label>Município do Hospital</label>
+                    <input id="municipio_hospital_tratamento" type="text">
+                </div>
+                <div class="col-3 arredondado">
+                    <label>Codigo do IBGE</label>
+                    <input id="codigo_ibge_tratamento" type="text">
+                </div>
+            </div>
+            <!-- LINHA -->
+            <div class="row">
+                <div class="col-9 arredondado">
+                    <label>Nome do Hospital</label>
+                    <input id="nome_hospital_tratamento" type="text">
+                </div>
+                <div class="col-3 arredondado">
+                    <label>Codigo</label>
+                    <input id="codigo_tratamento" type="text">
+                </div>
+            </div>
+            <!-- Linha -->
+            <div class="barra conclusao">Conclusão</div>
+            <!-- Linha -->
+            <div class="row">
+                <div class="col-6 arredondado" style="padding:5px; padding-left: 5%;">
+                    <label>Classificação Final</label>
+                    <input id="classificacao_final_conclusao" type="text">
+                </div>
+                <div class="col-6 arredondado" style="padding:5px; padding-left: 2%;">
+                    <label>Critério de confirmação</label>
+                    <input id="criterio_confirmacao_conclusao" type="text">
+                </div>
+            </div>
+            <!-- Linha -->
+            <div class="row">
+                <div class="col-9 arredondado">
+                    <label>Caso Autoctone do Município de Residência?</label>
+                    <input id="sim_nao_caso_autoctone_conclusao" type="text">
+                </div>
+                <div class="col-1 arredondado">
+                    <label>UF</label>
+                    <input id="uf_conclusao" type="text">
+                </div>
+                <div class="col-2 arredondado">
+                    <label>País</label>
+                    <input id="pais_conclusao" type="text">
+                </div>
+            </div>
+            <!-- LINHA -->
+            <div class="row">
+                <div class="col-9 arredondado">
+                    <label>Município</label>
+                    <input id="municipio_conclusao" type="text">
+                </div>
+                <div class="col-3 arredondado">
+                    <label>Codigo do IBGE</label>
+                    <input id="codigo_ibge_conclusao" type="text">
+                </div>
+            </div>
+            <!-- LINHA -->
+            <div class="row">
+                <div class="col-4 arredondado">
+                    <label>Distrito</label>
+                    <input id="distrito_conclusao" type="text">
+                </div>
+                <div class="col-4 arredondado">
+                    <label>Bairro</label>
+                    <input id="bairro_conclusao" type="text">
+                </div>
+                <div class="col-4 arredondado">
+                    <label>Área Provável de Infecção</label>
+                    <input id="area_provavel_infeccao_conclusao" type="text">
+                </div>
+            </div>
+            <!-- Linha -->
+            <div class="row">
+                <div class="col-6 arredondado" style="padding:5px; padding-left: 5%;">
+                    <label>Ambiente de Infecção</label>
+                    <input id="ambiente_infeccao_conclusao" type="text">
+                </div>
+                <div class="col-6 arredondado" style="padding:5px; padding-left: 5%;">
+                    <label>Doença relacionada ao trabalho?</label>
+                    <input id="sim_nao_doenca_relacionada_trabalho" type="text">
+                </div>
+            </div>
+            <!-- Linha -->
+            <div class="row">
+                <div class="col-6 arredondado">
+                    <label>Evolução do caso</label>
+                    <input id="evolucao_caso_conclusao" type="text">
+                </div>
+                <div class="col-3 arredondado">
+                    <label>Data do Obito</label>
+                    <input id="data_obito_conclusao" type="text">
+                </div>
+                <div class="col-3 arredondado">
+                    <label>Data Encerramento</label>
+                    <input id="data_encerramento_conclusao" type="text">
+                </div>
+            </div>
+            <!-- Linha -->
+            <div class="barra observacao">Observação</div>
+            <!-- Linha -->
+            <div class="row pt-3 arredondado">
+                <div class="col">
+                    <input id="obs_1" type="text">
+                </div>
+            </div>
+            <!-- Linha -->
+            <div class="row pt-3 arredondado">
+                <div class="col">
+                    <input id="obs_2" type="text">
+                </div>
+            </div>
+            <!-- Linha -->
+            <div class="row pt-3 arredondado">
+                <div class="col">
+                    <input id="obs_3" type="text">
+                </div>
+            </div>
+            <!-- Linha -->
+            <div class="row pt-3 arredondado">
+                <div class="col">
+                    <input id="obs_4" type="text">
+                </div>
+            </div>
+            <!-- LINHA -->
+            <div class="barra investigador">Investigador</div>
+            <!-- LINHA -->
+            <div class="row">
+                <div class="col-6 arredondado">
+                    <label>Nome</label>
+                    <input id="nome_investigador" type="text">
+                </div>
+                <div class="col-3 arredondado">
+                    <label>Função</label>
+                    <input id="funcao_investigador" type="text" >
+                </div>
+                <div class="col-3 arredondado">
+                    <label>Assinatura</label>
+                    <input id="assinatura_investigador" type="text">
+                </div>
+            </div>
+        </div>
+        <div id="botao" class="row py-4 text-center">
+            <div class="col">
+                <button class="btn btn-primary" type="button" id="salvar_imprimir">Salvar ou Imprimir</button>
+            </div>
+        </div>
+    </div>
+    <script src="{% static 'js/js.js' %}"></script>
+</body>
+</html>

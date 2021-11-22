@@ -37,6 +37,7 @@ label{
 input{
     width: 100%;
     border:0px;
+    margin: 2px;
 }
 li{display: flex;}
 
@@ -72,4 +73,8 @@ p{
 }
 select{
     border:0;
+}
+
+@media print{
+    #botao{display: none;}
 }

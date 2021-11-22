@@ -44,7 +44,8 @@ urlpatterns = [
 
     path('caso_esporotricose_create/', views.caso_esporotricose_create, name='caso_esporotricose_create'),
     path('caso_esporotricose_create/submit', views.set_caso_esporotricose_create),
-    path('ficha_caso_esporotricose/', views.ficha_caso_esporotricose, name='ficha_caso_esporotricose'),
+    path('ficha_caso_esporotricose_preencher/', views.ficha_caso_esporotricose_preencher, name='ficha_caso_esporotricose_preencher'),
+    path('ficha_caso_esporotricose_preenchido/', views.ficha_caso_esporotricose_preenchido, name='ficha_caso_esporotricose_preenchido'),
 
     path('ajax_load_unidadesaude', views.ajax_load_unidadesaude, name='ajax_load_unidadesaude'),
     path('ajax_load_ibge', views.ajax_load_ibge, name='ajax_load_ibge'),
