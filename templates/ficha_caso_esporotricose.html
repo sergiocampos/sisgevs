@@ -114,18 +114,18 @@
             <div class="row">
                 <div class="col-8 arredondado">
                     <label>Nome do Paciente(Sem Abreviações)</label>
-                    <input type="text">
+                    <input onkeypress="return limitcarc(event, 'letr_acent')" type="text">
                 </div>
                 <div class="col-4 arredondado">
                     <label>Data de Nascimento</label>
-                    <input class="data" type="date">
+                    <input onchange="idade('idade', this)" id="data_nascimento" class="data" type="date">
                 </div>
             </div>
             <!-- LINHA -->
             <div class="row">
                 <div class="col-1 arredondado">
                     <label>Idade</label>
-                    <input type="number">
+                    <input id="idade" type="number">
                 </div>
                 <div class="col-2 arredondado">
                     <label>Sexo</label>
@@ -160,43 +160,42 @@
             <div class="row">
                 <div class="col arredondado">
                     <label>Numero do Cartao SUS</label>
-                    <input type="text">
+                    <input onkeypress = "return limitcarc(event, 'num')" type="text">
                 </div>
                 <div class="col arredondado">
                     <label>Nome da Mãe</label>
-                    <input type="text">
+                    <input onkeypress = "return limitcarc(event, 'letr_acent')" type="text">
                 </div>
             </div>
             <!-- LINHA -->
             <div class="barra dados_residencia">Dados de Residência</div>
             <!-- LINHA -->
             <div class="row">
+                <div class="col-3 arredondado">
+                    <label>CEP</label>
+                    <input id="cep" type="text">
+                </div>
                 <div class="col-1 arredondado">
                     <label>UF</label>
-                    <select style="width: 130%; margin-left: -5px;" name="" id="">
-                        {% include 'options/tp_uf.html' %}
-                    </select>
+                    <input id="uf" type="text">
                 </div>
                 <div class="col-8 arredondado">
                     <label>Município de Residência</label>
-                    <input type="text">
+                    <input id="cidade" type="text">
                 </div>
-                <div class="col-3 arredondado">
-                    <label>Código IBGE</label>
-                    <input type="text">
-                </div>
+                
             </div>
             <!-- LINHA -->
             <div class="row">
-                <div class="col-2 arredondado">
+                <div class="col-3 arredondado">
                     <label>Bairro</label>
-                    <input type="text">
+                    <input id="bairro" type="text">
                 </div>
                 <div class="col-7 arredondado">
                     <label>Logradouro</label>
-                    <input type="text">
+                    <input id="rua" type="text">
                 </div>
-                <div class="col-3 arredondado">
+                <div class="col-2 arredondado">
                     <label>Código</label>
                     <input type="text">
                 </div>
@@ -205,7 +204,7 @@
             <div class="row">
                 <div class="col-2 arredondado">
                     <label>Número</label>
-                    <input type="text">
+                    <input onkeypress = "return limitcarc(event, 'num')" type="text">
                 </div>
                 <div class="col-7 arredondado">
                     <label>Complemento</label>
@@ -231,15 +230,15 @@
                     <input type="text">
                 </div>
                 <div class="col-4 arredondado">
-                    <label>CEP</label>
-                    <input type="text">
+                    <label>Código IBGE</label>
+                    <input id="ibge" type="text">
                 </div>
             </div>
             <!-- LINHA -->
             <div class="row">
                 <div class="col-5 arredondado">
                     <label>(DDD) Telefone</label>
-                    <input type="text">
+                    <input id="fone" type="text">
                 </div>
                 <div class="col-2 arredondado">
                     <label>Zona</label>
@@ -329,7 +328,7 @@
                     </div>
                     <div class="col-5">
                         <label>Outros Animais</label>
-                        <input style="width: 50%;" type="text" >
+                        <input onkeypress = "return limitcarc(event, 'letr_acent')" style="width: 50%;" type="text" >
                     </div>
                 </div>
             </div>
@@ -352,7 +351,7 @@
                     </div>
                     <div class="col">
                         <label>Outros Animais</label>
-                        <input style="width: 50%;" type="text" >
+                        <input onkeypress = "return limitcarc(event, 'letr_acent')" style="width: 50%;" type="text" >
                     </div>
                 </div>
                 <div class="row text-center" style="padding-left: 10%;">
@@ -385,7 +384,7 @@
                     </div>
                     <div class="col">
                         <label>Outro</label>
-                        <input style="width: 50%;" type="text" >
+                        <input onkeypress = "return limitcarc(event, 'letr_acent')" style="width: 78%;" type="text" >
                     </div>
                 </div>
                 <div class="row text-center" style="padding-left: 3%;">
@@ -502,7 +501,7 @@
                         <label>Todo o corpo</label>
                         <div class="col">
                             <label>Outro</label>
-                            <input style="width: 80%;" type="text" >
+                            <input onkeypress = "return limitcarc(event, 'letr_acent')" style="width: 80%;" type="text" >
                         </div>
                     </div>
                 </div>
@@ -518,7 +517,7 @@
                     <select name="" id="">{% include 'options/tp_simnao.html' %}</select>
                 </div>
                 <label style="margin-left: 2%;">Qual Localização?</label>
-                <input style="width: 40%;" type="text" >
+                <input onkeypress = "return limitcarc(event, 'letr_acent')" style="width: 40%;" type="text" >
             </div>
             <!-- LINHA -->
             <div class="barra dados_laboratoriais">Dados Laboratoriais</div>
@@ -827,7 +826,7 @@
             <div class="row">
                 <div class="col-6 arredondado">
                     <label>Nome</label>
-                    <input type="text">
+                    <input onkeypress = "return limitcarc(event, 'letr_acent')" type="text">
                 </div>
                 <div class="col-3 arredondado">
                     <label>Função</label>
