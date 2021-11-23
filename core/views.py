@@ -216,6 +216,14 @@ def my_datas(request):
 		return render(request, 'my_datas.html', {'registros':registros})
 	
 
+@login_required(login_url='/login/')
+def ficha_caso_esporotricose_preencher(request):
+	return render(request, 'ficha_caso_esporotricose_preencher.html')
+
+@login_required(login_url='/login/')
+def ficha_caso_esporotricose_preenchido(request):
+	return render(request, 'ficha_caso_esporotricose_preenchido.html')
+
 
 def remove_caso_esporotricose(request, id):
 	caso_esporotricose = CasoEsporotricose.objects.get(id=id)
