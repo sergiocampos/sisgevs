@@ -224,6 +224,7 @@ def remove_caso_esporotricose(request, id):
 
 @login_required(login_url='/login/')
 def set_caso_esporotricose_create(request):
+	print("entrou no set caso esporotricose")
 	responsavel_pelas_informacoes = request.user
 
 	#Dados Gerais

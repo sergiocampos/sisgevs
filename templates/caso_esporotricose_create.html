@@ -35,24 +35,24 @@
   </script>
 
   <style>
-  .fakeimg {
-    height: 500px;
-    background: #aaa;
-  }
+    .fakeimg {
+      height: 500px;
+      background: #aaa;
+    }
 
-  #dados_hospitalizacao_outro {
-    display: none;
-  }
-</style>
+    #dados_hospitalizacao_outro {
+      display: none;
+    }
+  </style>
 
-<style>
-* {
-  box-sizing: border-box;
-}
+  <style>
+    * {
+      box-sizing: border-box;
+    }
 
-body {
-  font-family: Arial, Helvetica, sans-serif;
-}
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+    }
 
 /* Style the header */
 header {
@@ -196,13 +196,49 @@ footer {
               $("#select_uc_id option[data-uc="+municipio_uc+"]").show();
             });
           });
+
+          function activeInputsAutoctone(){
+            $("#uf_caso_autoctone_id").prop("disabled", false);
+            $("#pais_autoctone_id").prop("disabled", false);
+            $("#municipio_autoctone_id").prop("disabled", false);
+            $("#ibge_autoctone_id").prop("disabled", false);
+            $("#distrito_autoctone_id").prop("disabled", false);
+            $("#bairro_autoctone_id").prop("disabled", false);
+            $("#area_provavel_infeccao_autoctone_id").prop("disabled", false);
+            $("#ambiente_infeccao_autoctone_id").prop("disabled", false);
+            $("#doenca_rel_trabalho_autoctone_id").prop("disabled", false);
+            
+          }
+
+          function desactiveInputsAutoctone(){
+            $("#uf_caso_autoctone_id").prop("disabled", true);
+            $("#pais_autoctone_id").prop("disabled", true);
+            $("#municipio_autoctone_id").prop("disabled", true);
+            $("#ibge_autoctone_id").prop("disabled", true);
+            $("#distrito_autoctone_id").prop("disabled", true);
+            $("#bairro_autoctone_id").prop("disabled", true);
+            $("#area_provavel_infeccao_autoctone_id").prop("disabled", true);
+            $("#ambiente_infeccao_autoctone_id").prop("disabled", true);
+            $("#doenca_rel_trabalho_autoctone_id").prop("disabled", true);
+
+            $("#uf_caso_autoctone_id").val("");
+            $("#pais_autoctone_id").val("");
+            $("#municipio_autoctone_id").val("");
+            $("#ibge_autoctone_id").val("");
+            $("#distrito_autoctone_id").val("");
+            $("#bairro_autoctone_id").val("");
+            $("#area_provavel_infeccao_autoctone_id").val("");
+            $("#ambiente_infeccao_autoctone_id").val("");
+            $("#doenca_rel_trabalho_autoctone_id").val("");
+            
+          }
         </script>
-<script>
-  function validaDtPrimeirosSintomas(){
-    if (document.Form.dt_primeiros_s.value==""){
-      document.getElementById('alert_dt_ps').style.display="inline";
-      document.getElementById('alert_dados_gerais').style.display="inline";
-      document.getElementById('alert_notificacao_individual').style.display="inline";
+        <script>
+          function validaDtPrimeirosSintomas(){
+            if (document.Form.dt_primeiros_s.value==""){
+              document.getElementById('alert_dt_ps').style.display="inline";
+              document.getElementById('alert_dados_gerais').style.display="inline";
+              document.getElementById('alert_notificacao_individual').style.display="inline";
       //document.getElementById('alert_nome_paciente').style.display="inline";
       document.getElementById('alert_data_nasc').style.display="inline";
       document.getElementById('alert_nome_mae').style.display="inline";
@@ -338,7 +374,7 @@ footer {
     <section>
 
       <nav>
-        
+
         <ul>
           <li>
             <button type="button" class="btn btn-info dropdown-toggle" data-toggle="collapse" data-target="#demo">Usuário Gevs</button>
@@ -348,23 +384,23 @@ footer {
           <div id="demo" class="collapse show">
             <li style="color: #0066ff;">{{user.cpf}}</li>
             <li style="color: #0066ff;">{{user.municipio}}</li>
-          <hr>
+            <hr>
             <li><a href="#">Notificações</a></li>
             <li><a href="#"></a></li>
             <li><a href="#"></a></li>
-          <hr>
+            <hr>
             <li><a href="/my_datas/">Meus Dados</a></li>
             <li><a href="#"></a></li>
-          <hr>
+            <hr>
             <li><a href="/download_ficha/" download>Imprimir Ficha</a></li>
             <li><a href="#"></a></li>
-          <hr>
+            <hr>
             <li><a href="/logout/">Sair</a></li>
             <li><a href="#"></a></li>
             <li><a href="#"></a></li>          
           </div>
         </ul>
-          
+
       </nav>
 
 
@@ -389,8 +425,8 @@ footer {
                 <b>CASO SUSPEITO:</b> INDIVÍDUO QUE APRESENTE LESÕES NA PELE, QUE SE INICIAM COMO UMA PEQUENA PÁPILA, QUE PODEM EVOLUIR PARA UMA FORMA ULCERADA, COM OU SEM SECREÇÃO SEROPULENTA, DISPOSTAS OU NÃO EM FILEIRA; COM HISTÓRIA EPIDEMIOLÓGICA DE TRAUMA CUTÂNEO POR MATERIAL DE ORIGEM VEGETAL POTENCIALMENTE CONTAMINADO COM FUNGO OU ARRANHADURA/MORDEDURA POR GATOS OU CONTATO COM FERIDAS DESSES ANIMAIS.
                 
               </p>
-          
-          </div>
+
+            </div>
           </div>
 
           <form name="Form" id="Form" enctype="multipart/form-data" class="" novalidate action="submit" method="POST" onsubmit="return validaDtPrimeirosSintomas();">{% csrf_token %}
@@ -470,14 +506,37 @@ footer {
                   </div>
                   
                   <div class="col-md-3">
-                    <div class="form-group"><b>Data de notificação</b>
-                      <input class="form-control" type="date" name="data_notificacao" id="datanotificacao" value="">
+                    <div class="form-group"><b>Data dos Primeiros Sintomas</b><i id="alert_dt_ps" style="display:none;color:red">***</i>
+                      <input class="form-control" type="date" name="data_primeiros_sintomas" value="" id="dt_primeiros_s" onchange="limitandoData(this)">
+                      
                     </div>
                   </div>
 
                   <script>
-                    datanotificacao.max = new Date().toISOString().split("T")[0];
+                    dt_primeiros_s.max = new Date().toISOString().split("T")[0];
+
+                    function limitandoData(datamin){
+                      var today = new Date();
+                      datamin = datamin.value;
+                      //console.log(datamin);
+                      $("#datanotificacao").attr('min', datamin);
+                      $("#data_investigacao_id").attr('min', datamin);
+                      $("#data_coleta_material_id").attr('min', datamin);
+                      $("#data_outros_exames_1_id").attr('min', datamin);
+                      $("#data_outros_exames_2_id").attr('min', datamin);
+                      $("#data_outros_exames_3_id").attr('min', datamin);
+                      $("#data_inicio_tratamento_id").attr('min', datamin);
+                      $("#data_inicio_tratamento2_id").attr('min', datamin);
+                      $("#data_inicio_tratamento3_id").attr('min', datamin);
+                      $("#input_internacao").attr('min', datamin);
+                      $("#input_d_a").attr('min', datamin);
+                      $("#data_obito_evo_id").attr('min', datamin);
+                      $("#data_encerramento_id").attr('min', datamin);
+
+                    }
                   </script>
+
+                  
 
                 </div>
 
@@ -512,42 +571,17 @@ footer {
                       </select>
                     </div>
                   </div>
+
                   <div class="col-md-3">
-                    <div class="form-group"><b>Data dos Primeiros Sintomas</b><i id="alert_dt_ps" style="display:none;color:red">***</i>
-                      <input class="form-control" type="date" name="data_primeiros_sintomas" value="" id="dt_primeiros_s">
-                      
+                    <div class="form-group"><b>Data de notificação</b>
+                      <input class="form-control" type="date" name="data_notificacao" id="datanotificacao" value="">
                     </div>
                   </div>
 
                   <script>
-                    dt_primeiros_s.max = new Date().toISOString().split("T")[0];
+                    datanotificacao.max = new Date().toISOString().split("T")[0];
+                    document.getElementById("datanotificacao").valueAsDate=new Date();
                   </script>
-
-
-                  <script>
-                    /* script para validar datas menores que data de início dos sintomas
-                    var form = document.Form;
-                    var dt_primeiros_sintomas = new Date(form.data_primeiros_sintomas.value);
-                    var dt_data_internacao = new Date(form.data_internacao.value);
-                    var dt_data_alta = new Date(form.data_alta.value);
-                    var dt_data_inicio_tratamento = new Date(form.data_inicio_tratamento.value);
-                    var dt_data_inicio_tratamento2 = new Date(form.data_inicio_tratamento2.value);
-                    var dt_data_inicio_tratamento3 = new Date(form.data_inicio_tratamento3.value);
-                    var dt_data_coleta_mat_exame = new Date(form.data_coleta_mat_exame.value);
-                    var dt_data_outros_exames_1 = new Date(form.data_outros_exames_1.value);
-                    var dt_data_outros_exames_2 = new Date(form.data_outros_exames_2.value);
-                    var dt_data_outros_exames_3 = new Date(form.data_outros_exames_3.value);
-                    var dt_data_investigacao = new Date(form.data_investigacao.value);
-
-                    if ((dt_primeiros_sintomas > dt_data_internacao) || (dt_primeiros_sintomas > dt_data_alta) || (dt_primeiros_sintomas > dt_data_inicio_tratamento) || (dt_primeiros_sintomas > dt_data_inicio_tratamento2) || (dt_primeiros_sintomas > dt_data_inicio_tratamento3) || (dt_primeiros_sintomas > dt_data_coleta_mat_exame) || (dt_primeiros_sintomas > dt_data_outros_exames_1)) {
-                      alert("Data de Início dos sintomas não pode ser maior que outras datas!")
-                    } else {
-                      return true
-                    }
-                    */
-                  </script>
-                  
-
 
                 </div>
 
@@ -563,7 +597,7 @@ footer {
                   </div>
 
                   <div class="col-md-1">
-                    
+
                   </div>
 
                 </div>
@@ -572,13 +606,13 @@ footer {
 
                   <div class="col-md-5">
                     <div class="form-group">
-                    
+
                       <button type="button" class="btn btn-info btn-sm" onclick="activeOutraUnidade()">Informar Outra Unidade</button>
-                    
+
                     </div>
                   </div>
 
-                
+
                 </div>
 
                 <br>
@@ -594,9 +628,9 @@ footer {
                   </div>
                   <div class="col-md-1">
                     <div class="form-group">
-                     
+
                       <button type="button" class="btn btn-warning btn-sm" id="btn_desfaz_outra_unidade_id" onclick="desactiveOutraUnidade()" disabled>Desfaz</button>
-                    
+
                     </div>
                   </div>
                 </div>
@@ -617,113 +651,113 @@ footer {
                 </div>
 
                 <script>
-                function setInputDate(_id){
+                  function setInputDate(_id){
                     var _dat = document.querySelector(_id);
                     var hoy = new Date(),
-                        d = hoy.getDate(),
-                        m = hoy.getMonth()+1, 
-                        y = hoy.getFullYear(),
-                        data;
+                    d = hoy.getDate(),
+                    m = hoy.getMonth()+1, 
+                    y = hoy.getFullYear(),
+                    data;
 
                     if(d < 10){
-                        d = "0"+d;
+                      d = "0"+d;
                     };
                     if(m < 10){
-                        m = "0"+m;
+                      m = "0"+m;
                     };
 
                     data = y+"-"+m+"-"+d;
                     console.log(data);
                     _dat.value = data;
-                };
+                  };
 
-                setInputDate("#dateDefault");
-              </script>
+                  setInputDate("#dateDefault");
+                </script>
 
-              <script>
-                function limitcarc(e, tipo) {
+                <script>
+                  function limitcarc(e, tipo) {
                     var chr = String.fromCharCode(e.which);
                     if (tipo == 'letr_acent'){
-                        if ("áéíóúâêîôûãõ qwertyuioplkjhgfdsazxcvbnmQWERTYUIOPLKJHGFDSAZXCVBNM".indexOf(chr) < 0)
-                          return false;
+                      if ("áéíóúâêîôûãõ qwertyuioplkjhgfdsazxcvbnmQWERTYUIOPLKJHGFDSAZXCVBNM".indexOf(chr) < 0)
+                        return false;
                     }else if (tipo == 'num') {
-                        if ("0123456789".indexOf(chr) < 0)
-                          return false;
+                      if ("0123456789".indexOf(chr) < 0)
+                        return false;
                     }else if (tipo == 'letr'){
-                        if (" qwertyuioplkjhgfdsazxcvbnmQWERTYUIOPLKJHGFDSAZXCVBNM".indexOf(chr) < 0)
-                          return false;
+                      if (" qwertyuioplkjhgfdsazxcvbnmQWERTYUIOPLKJHGFDSAZXCVBNM".indexOf(chr) < 0)
+                        return false;
                     }
-                }
+                  }
 
                 //js para validar quantidade de caracteres
                 $('#Form').on('submit', function(event) {
-                      event.preventDefault();
+                  event.preventDefault();
 
-                      nome_paciente = $('#nome_paciente_id');
-                      alvo_erro = $('#msg-error');
+                  nome_paciente = $('#nome_paciente_id');
+                  alvo_erro = $('#msg-error');
 
-                      if (nome_paciente.val().length < 10) {
-                          alvo_erro.html('<div class="alert alert-danger" role="alert"><i class="fas fa-exclamation-triangle"></i> O nome deve ter no mínimo 10 caracteres!</div>');
-                      } else {
+                  if (nome_paciente.val().length < 10) {
+                    alvo_erro.html('<div class="alert alert-danger" role="alert"><i class="fas fa-exclamation-triangle"></i> O nome deve ter no mínimo 10 caracteres!</div>');
+                  } else {
                           //.....
                           console.log('Passou na validação!');
                           alvo_erro.empty();
-                      }
-                  });
-              </script>
+                        }
+                      });
+                    </script>
 
-                <div class="row">
-                  <div class="col-md-6"><b>Paciente</b>
-                    <div class="form-group">
-                      <input class="form-control" type="text" name="nome_paciente" value="" id="nome_paciente_id" required style="text-transform: uppercase;" onkeypress="return limitcarc(event, 'letr')">
-                      
-                    </div><div id="msg-error"></div>
-                  </div>
-                  <div class="col-md-2">
-                    <div class="form-group"><b>Data Nasc</b>
-                      <i id="alert_data_nasc" style="display:none;color:red">**</i>
-                      <input class="form-control" type="date" name="data_nasc" id="date2" placeholder="" value="" required>
-                      
-                    </div>                                
-                  </div>
-                  <script>
-                    date2.max = new Date().toISOString().split("T")[0];
-                  </script>
-                  <div class="col-md-3">
-                    <div class="form-group"><b>Identidade de Gênero</b>
-                      <select class="form-control" name="sexo" id="span_id" onclick="activeGestante()">
-                        
-                        <option value=""></option>
-                        <option value="M">Masculino</option>
-                        <option value="F">Feminino</option>
-                        <option value="M-Trans">Masculino Trans</option>
-                        <option value="F-Trans">Feminino Trans</option>
-                        <option value="Nao Binario">Não Binario</option>
-                        
-                      </select>
+                    <div class="row">
+                      <div class="col-md-6"><b>Paciente</b>
+                        <div class="form-group">
+                          <input class="form-control" type="text" name="nome_paciente" value="" id="nome_paciente_id" required style="text-transform: uppercase;" onkeypress="return limitcarc(event, 'letr')">
+
+                        </div><div id="msg-error"></div>
+                      </div>
+                      <div class="col-md-2">
+                        <div class="form-group"><b>Data Nasc</b>
+                          <i id="alert_data_nasc" style="display:none;color:red">**</i>
+                          <input class="form-control" type="date" name="data_nasc" id="date2" placeholder="" value="" required>
+
+                        </div>                                
+                      </div>
+                      <script>
+                        date2.max = new Date().toISOString().split("T")[0];
+                      </script>
+                      <div class="col-md-3">
+                        <div class="form-group"><b>Identidade de Gênero</b>
+                          <select class="form-control" name="sexo" id="span_id" onclick="activeGestante()">
+
+                            <option value=""></option>
+                            <option value="M">Masculino</option>
+                            <option value="F">Feminino</option>
+                            <option value="M-Trans">Masculino Trans</option>
+                            <option value="F-Trans">Feminino Trans</option>
+                            <option value="Nao Binario">Não Binario</option>
+
+                          </select>
+                        </div>
+                      </div>
+
                     </div>
-                  </div>
-                  
-                </div>
 
-                <script>
-                  $('#span_id').click(function(){
-                    var dt1 = $('#dateDefault').val();
-                    var dt2 = $('#date2').val();
-                    
-                    $('#result').text(calcula(dt1,dt2))
+                    <script>
+                      $('#span_id').click(function(){
+                        var dt1 = $('#dateDefault').val();
+                        var dt2 = $('#date2').val();
+
+                        $('#result').text(calcula(dt1,dt2))
                     //console.log(dt1);
                     //console.log(dt2);
 
                   });
 
-                  function calcula(data1, data2){
-                    data1 = new Date(data1);
-                    data2 = new Date(data2);
-                    
-                    idade = parseInt(((data1 - data2)/(1000*3600*24))/365);
-                    console.log(idade);
-                    document.getElementById("result").value = idade;
+                      function calcula(data1, data2){
+                        data1 = new Date(data1);
+                        data2 = new Date(data2);
+
+                        idade = parseInt(((data1 - data2)/(1000*3600*24))/365);
+                        console.log(idade);
+                        document.getElementById("result").value = idade;
                     //$('#result').text(idade);
                     return idade;
                     
@@ -740,7 +774,7 @@ footer {
                   <div class="col-md-2">
                     <div class="form-group"><b>Raça</b>
                       <select class="form-control" name="raca" id="">
-                        
+
                         <option value=""></option>
                         <option value="Branca">Branca</option>
                         <option value="Preta">Preta</option>
@@ -753,27 +787,27 @@ footer {
                     </div>
                   </div>
                   <div class="col-md-3">
-                      <div class="form-group"><b>Gestante</b>
-                        <select class="form-control" name="gestacao" id="gestante_id" disabled>
-                          
-                          <option value=""></option>
-                          <option value="1º Trimente">1º Trimente</option>
-                          <option value="2º Trimestre">2º Trimestre</option>
-                          <option value="3º Trimestre">3º Trimestre</option>
-                          <option value="Idade Gestacional Ignorada">Idade Gestacional Ignorada</option>
-                          <option value="Ignorado">Ignorado</option>
-                          <option value="Não se aplica">Não se aplica</option>
-                          <option value="Não">Não</option>
-                          
-                        </select>
-                        <div class="valid-feedback">Valid.</div>
-                        <div class="invalid-feedback">Seleção obrigatória.</div>
-                      </div>
+                    <div class="form-group"><b>Gestante</b>
+                      <select class="form-control" name="gestacao" id="gestante_id" disabled>
+
+                        <option value=""></option>
+                        <option value="1º Trimente">1º Trimente</option>
+                        <option value="2º Trimestre">2º Trimestre</option>
+                        <option value="3º Trimestre">3º Trimestre</option>
+                        <option value="Idade Gestacional Ignorada">Idade Gestacional Ignorada</option>
+                        <option value="Ignorado">Ignorado</option>
+                        <option value="Não se aplica">Não se aplica</option>
+                        <option value="Não">Não</option>
+
+                      </select>
+                      <div class="valid-feedback">Valid.</div>
+                      <div class="invalid-feedback">Seleção obrigatória.</div>
                     </div>
-                    <div class="col-md-4">
+                  </div>
+                  <div class="col-md-4">
                     <div class="form-group"><b>Escolaridade</b>
                       <select class="form-control" name="escolaridade" id="">
-                        
+
                         <option value=""></option>
                         <option value="Analfabeto">Analfabeto</option>
                         <option value="1ª a 4ª serie incompleto">1ª a 4ª série incompleto</option>
@@ -792,12 +826,12 @@ footer {
                 </div>
 
                 <div class="row">
-                  
-                  
-                    
-                  
 
-                  
+
+
+
+
+
                   <div class="col-md-3">
                     <div class="form-group"><b>Cartão SUS</b>
                       <input class="form-control" type="text" name="cartao_sus" placeholder="" value="">
@@ -815,7 +849,7 @@ footer {
                     $("#btn_submit_id").prop("disabled", false);
                   }
                 </script>
-              
+
 
               </div>
               <div id="menu1" class="container tab-pane fade"><br>
@@ -911,7 +945,7 @@ footer {
                   </div>
                 </div>
                 <div class="row">
-                  
+
                 </div>
               </div>
               <div id="menu2" class="container tab-pane fade"><br>
@@ -919,7 +953,7 @@ footer {
                   <div class="col-md-3"></div>
                   <div class="col-md-3">
                     <div class="form-group"><b>Data de Investigação</b>
-                      <input class="form-control" type="date" name="data_investigacao" value="">
+                      <input class="form-control" type="date" name="data_investigacao" value="" id="data_investigacao_id">
                     </div>
                   </div>
                   <div class="col-md-4">
@@ -951,40 +985,40 @@ footer {
 
                 <div class="row">
                   <div class="col-md-2">
-                      <div class="custom-control custom-checkbox mb-3">
-                        <input type="checkbox" class="custom-control-input" id="mata_id" name="ambientes_frequentados" value="Mata">
-                        <label class="custom-control-label" for="mata_id">Mata</label>
-                      </div>
+                    <div class="custom-control custom-checkbox mb-3">
+                      <input type="checkbox" class="custom-control-input" id="mata_id" name="ambientes_frequentados" value="Mata">
+                      <label class="custom-control-label" for="mata_id">Mata</label>
+                    </div>
                   </div>
                   <div class="col-md-2">
-                      <div class="custom-control custom-checkbox mb-3">
-                        <input type="checkbox" class="custom-control-input" id="floresta_id" name="ambientes_frequentados" value="Floresta">
-                        <label class="custom-control-label" for="floresta_id">Floresta</label>
-                      </div>
+                    <div class="custom-control custom-checkbox mb-3">
+                      <input type="checkbox" class="custom-control-input" id="floresta_id" name="ambientes_frequentados" value="Floresta">
+                      <label class="custom-control-label" for="floresta_id">Floresta</label>
+                    </div>
                   </div>
                   <div class="col-md-2">
-                      <div class="custom-control custom-checkbox mb-3">
-                        <input type="checkbox" class="custom-control-input" id="rios_id" name="ambientes_frequentados" value="Rios">
-                        <label class="custom-control-label" for="rios_id">Rios</label>
-                      </div>
+                    <div class="custom-control custom-checkbox mb-3">
+                      <input type="checkbox" class="custom-control-input" id="rios_id" name="ambientes_frequentados" value="Rios">
+                      <label class="custom-control-label" for="rios_id">Rios</label>
+                    </div>
                   </div>
                   <div class="col-md-2">
-                      <div class="custom-control custom-checkbox mb-3">
-                        <input type="checkbox" class="custom-control-input" id="cachoeira_id" name="ambientes_frequentados" value="Cachoeiras">
-                        <label class="custom-control-label" for="cachoeira_id">Cachoeiras</label>
-                      </div>
+                    <div class="custom-control custom-checkbox mb-3">
+                      <input type="checkbox" class="custom-control-input" id="cachoeira_id" name="ambientes_frequentados" value="Cachoeiras">
+                      <label class="custom-control-label" for="cachoeira_id">Cachoeiras</label>
+                    </div>
                   </div>
                   <div class="col-md-2">
-                      <div class="custom-control custom-checkbox mb-3">
-                        <input type="checkbox" class="custom-control-input" id="sitios_id" name="ambientes_frequentados" value="Sítios">
-                        <label class="custom-control-label" for="sitios_id">Sítios</label>
-                      </div>
+                    <div class="custom-control custom-checkbox mb-3">
+                      <input type="checkbox" class="custom-control-input" id="sitios_id" name="ambientes_frequentados" value="Sítios">
+                      <label class="custom-control-label" for="sitios_id">Sítios</label>
+                    </div>
                   </div>
                   <div class="col-md-2">
-                      <div class="custom-control custom-checkbox mb-3">
-                        <input type="checkbox" class="custom-control-input" id="outros_id" name="ambientes_frequentados" value="Outros">
-                        <label class="custom-control-label" for="outros_id">Outros</label>
-                      </div>
+                    <div class="custom-control custom-checkbox mb-3">
+                      <input type="checkbox" class="custom-control-input" id="outros_id" name="ambientes_frequentados" value="Outros">
+                      <label class="custom-control-label" for="outros_id">Outros</label>
+                    </div>
                   </div>
                   
                 </div><br>
@@ -1001,30 +1035,30 @@ footer {
                 <div class="row">
                   <div class="col-md-2"></div>
                   <div class="col-md-2">
-                      <div class="custom-control custom-checkbox mb-3">
-                        <input type="checkbox" class="custom-control-input" id="gato_id" name="animais_que_teve_contato" value="Gato">
-                        <label class="custom-control-label" for="gato_id">Gato</label>
-                      </div>
+                    <div class="custom-control custom-checkbox mb-3">
+                      <input type="checkbox" class="custom-control-input" id="gato_id" name="animais_que_teve_contato" value="Gato">
+                      <label class="custom-control-label" for="gato_id">Gato</label>
+                    </div>
                   </div>
                   <div class="col-md-2">
-                      <div class="custom-control custom-checkbox mb-3">
-                        <input type="checkbox" class="custom-control-input" id="cao_id" name="animais_que_teve_contato" value="Cão">
-                        <label class="custom-control-label" for="cao_id">Cão</label>
-                      </div>
+                    <div class="custom-control custom-checkbox mb-3">
+                      <input type="checkbox" class="custom-control-input" id="cao_id" name="animais_que_teve_contato" value="Cão">
+                      <label class="custom-control-label" for="cao_id">Cão</label>
+                    </div>
                   </div>
                   <div class="col-md-2">
-                      <div class="custom-control custom-checkbox mb-3">
-                        <input type="checkbox" class="custom-control-input" id="equinos_id" name="animais_que_teve_contato" value="Equinos">
-                        <label class="custom-control-label" for="equinos_id">Equinos</label>
-                      </div>
+                    <div class="custom-control custom-checkbox mb-3">
+                      <input type="checkbox" class="custom-control-input" id="equinos_id" name="animais_que_teve_contato" value="Equinos">
+                      <label class="custom-control-label" for="equinos_id">Equinos</label>
+                    </div>
                   </div>
                   <div class="col-md-2">
-                      <div class="custom-control custom-checkbox mb-3">
-                        <input type="checkbox" class="custom-control-input" id="outros_animais_id" name="animais_que_teve_contato" value="Outros Animais">
-                        <label class="custom-control-label" for="outros_animais_id">Outros Animais</label>
-                      </div>
+                    <div class="custom-control custom-checkbox mb-3">
+                      <input type="checkbox" class="custom-control-input" id="outros_animais_id" name="animais_que_teve_contato" value="Outros Animais">
+                      <label class="custom-control-label" for="outros_animais_id">Outros Animais</label>
+                    </div>
                   </div>
-                                    
+
                 </div><br>
 
                 <div class="row">
@@ -1037,36 +1071,36 @@ footer {
 
                 <div class="row">
                   <div class="col-md-2">
-                      <div class="custom-control custom-checkbox mb-3">
-                        <input type="checkbox" class="custom-control-input" id="mordida_id" name="natureza_contato_animais" value="Mordedura">
-                        <label class="custom-control-label" for="mordida_id">Mordedura</label>
-                      </div>
+                    <div class="custom-control custom-checkbox mb-3">
+                      <input type="checkbox" class="custom-control-input" id="mordida_id" name="natureza_contato_animais" value="Mordedura">
+                      <label class="custom-control-label" for="mordida_id">Mordedura</label>
+                    </div>
                   </div>
                   <div class="col-md-2">
-                      <div class="custom-control custom-checkbox mb-3">
-                        <input type="checkbox" class="custom-control-input" id="arranhadura_id" name="natureza_contato_animais" value="Arranhadura">
-                        <label class="custom-control-label" for="arranhadura_id">Arranhadura</label>
-                      </div>
+                    <div class="custom-control custom-checkbox mb-3">
+                      <input type="checkbox" class="custom-control-input" id="arranhadura_id" name="natureza_contato_animais" value="Arranhadura">
+                      <label class="custom-control-label" for="arranhadura_id">Arranhadura</label>
+                    </div>
                   </div>
                   <div class="col-md-4">
-                      <div class="custom-control custom-checkbox mb-3">
-                        <input type="checkbox" class="custom-control-input" id="lesoes_cutaneas_id" name="natureza_contato_animais" value="Lesões Cutâneas (Úlceras) do animal">
-                        <label class="custom-control-label" for="lesoes_cutaneas_id">Lesões Cutâneas (Úlceras) do animal</label>
-                      </div>
+                    <div class="custom-control custom-checkbox mb-3">
+                      <input type="checkbox" class="custom-control-input" id="lesoes_cutaneas_id" name="natureza_contato_animais" value="Lesões Cutâneas (Úlceras) do animal">
+                      <label class="custom-control-label" for="lesoes_cutaneas_id">Lesões Cutâneas (Úlceras) do animal</label>
+                    </div>
                   </div>
                   <div class="col-md-3">
-                      <div class="custom-control custom-checkbox mb-3">
-                        <input type="checkbox" class="custom-control-input" id="lesoes_mucosas_id" name="natureza_contato_animais" value="Lesões Mucosas do Animal">
-                        <label class="custom-control-label" for="lesoes_mucosas_id">Lesões Mucosas do Animal</label>
-                      </div>
+                    <div class="custom-control custom-checkbox mb-3">
+                      <input type="checkbox" class="custom-control-input" id="lesoes_mucosas_id" name="natureza_contato_animais" value="Lesões Mucosas do Animal">
+                      <label class="custom-control-label" for="lesoes_mucosas_id">Lesões Mucosas do Animal</label>
+                    </div>
                   </div>
                   <div class="col-md-1">
-                      <div class="custom-control custom-checkbox mb-3">
-                        <input type="checkbox" class="custom-control-input" id="outros_a_id" name="natureza_contato_animais" value="Outros">
-                        <label class="custom-control-label" for="outros_a_id">Outros</label>
-                      </div>
+                    <div class="custom-control custom-checkbox mb-3">
+                      <input type="checkbox" class="custom-control-input" id="outros_a_id" name="natureza_contato_animais" value="Outros">
+                      <label class="custom-control-label" for="outros_a_id">Outros</label>
+                    </div>
                   </div>
-                                    
+
                 </div><br>
 
                 <div class="row">
@@ -1081,40 +1115,40 @@ footer {
                 <div class="row">
                   <div class="col-md-1"></div>
                   <div class="col-md-3">
-                      <div class="custom-control custom-checkbox mb-3">
-                        <input type="checkbox" class="custom-control-input" id="tratador_proprietario_id" name="relacao_animal_doente" value="Tratador/Proprietário do animal">
-                        <label class="custom-control-label" for="tratador_proprietario_id">Tratador/Proprietário do animal</label>
-                      </div>
+                    <div class="custom-control custom-checkbox mb-3">
+                      <input type="checkbox" class="custom-control-input" id="tratador_proprietario_id" name="relacao_animal_doente" value="Tratador/Proprietário do animal">
+                      <label class="custom-control-label" for="tratador_proprietario_id">Tratador/Proprietário do animal</label>
+                    </div>
                   </div>
                   <div class="col-md-3">
-                      <div class="custom-control custom-checkbox mb-3">
-                        <input type="checkbox" class="custom-control-input" id="prof_saude_id" name="relacao_animal_doente" value="Profissional de Saúde">
-                        <label class="custom-control-label" for="prof_saude_id">Profissional de Saúde
-                          <a href="#" data-toggle="tooltip" data-placement="right" title="Veterinário, Enfermeiro, Tratador de Animal em Clínicas!">(*)</a>
-                        </label>
-                      </div>
+                    <div class="custom-control custom-checkbox mb-3">
+                      <input type="checkbox" class="custom-control-input" id="prof_saude_id" name="relacao_animal_doente" value="Profissional de Saúde">
+                      <label class="custom-control-label" for="prof_saude_id">Profissional de Saúde
+                        <a href="#" data-toggle="tooltip" data-placement="right" title="Veterinário, Enfermeiro, Tratador de Animal em Clínicas!">(*)</a>
+                      </label>
+                    </div>
                   </div>
 
                   <script>
-                  $(document).ready(function(){
-                    $('[data-toggle="tooltip"]').tooltip();   
-                  });
+                    $(document).ready(function(){
+                      $('[data-toggle="tooltip"]').tooltip();   
+                    });
                   </script>
 
                   <div class="col-md-2">
-                      <div class="custom-control custom-checkbox mb-3">
-                        <input type="checkbox" class="custom-control-input" id="abrigo_id" name="relacao_animal_doente" value="Abrigo/ONG">
-                        <label class="custom-control-label" for="abrigo_id">Abrigo/ONG</label>
-                      </div>
+                    <div class="custom-control custom-checkbox mb-3">
+                      <input type="checkbox" class="custom-control-input" id="abrigo_id" name="relacao_animal_doente" value="Abrigo/ONG">
+                      <label class="custom-control-label" for="abrigo_id">Abrigo/ONG</label>
+                    </div>
                   </div>
                   
                   <div class="col-md-1">
-                      <div class="custom-control custom-checkbox mb-3">
-                        <input type="checkbox" class="custom-control-input" id="outros_p_id" name="relacao_animal_doente" value="Outros">
-                        <label class="custom-control-label" for="outros_p_id">Outros</label>
-                      </div>
+                    <div class="custom-control custom-checkbox mb-3">
+                      <input type="checkbox" class="custom-control-input" id="outros_p_id" name="relacao_animal_doente" value="Outros">
+                      <label class="custom-control-label" for="outros_p_id">Outros</label>
+                    </div>
                   </div>
-                                    
+
                 </div>
                 <br>
                 
@@ -1131,31 +1165,31 @@ footer {
                 <div class="row">
                   <div class="col-md-2"></div>
                   <div class="col-md-3">
-                      <div class="custom-control custom-radio custom-control-inline">
-                        <input type="radio" class="custom-control-input" id="customRadio25" name="exerc_ativ_contato_plantas" value="Sim">
-                        <label class="custom-control-label" for="customRadio25">Sim</label>
-                      </div>
+                    <div class="custom-control custom-radio custom-control-inline">
+                      <input type="radio" class="custom-control-input" id="customRadio25" name="exerc_ativ_contato_plantas" value="Sim">
+                      <label class="custom-control-label" for="customRadio25">Sim</label>
+                    </div>
                   </div>
 
                   <div class="col-md-3">
-                      <div class="custom-control custom-radio custom-control-inline">
-                        <input type="radio" class="custom-control-input" id="customRadio26" name="exerc_ativ_contato_plantas" value="Não">
-                        <label class="custom-control-label" for="customRadio26">Não</label>
-                      </div>
+                    <div class="custom-control custom-radio custom-control-inline">
+                      <input type="radio" class="custom-control-input" id="customRadio26" name="exerc_ativ_contato_plantas" value="Não">
+                      <label class="custom-control-label" for="customRadio26">Não</label>
+                    </div>
                   </div>
                   
                   <div class="col-md-3">
-                      <div class="custom-control custom-radio custom-control-inline">
-                        <input type="radio" class="custom-control-input" id="customRadio27" name="exerc_ativ_contato_plantas" value="Ignorado">
-                        <label class="custom-control-label" for="customRadio27">Ignorado</label>
-                      </div>
+                    <div class="custom-control custom-radio custom-control-inline">
+                      <input type="radio" class="custom-control-input" id="customRadio27" name="exerc_ativ_contato_plantas" value="Ignorado">
+                      <label class="custom-control-label" for="customRadio27">Ignorado</label>
+                    </div>
                   </div>
 
 
                   <script>
-                  $(document).ready(function(){
-                    $('[data-toggle="tooltip"]').tooltip();   
-                  });
+                    $(document).ready(function(){
+                      $('[data-toggle="tooltip"]').tooltip();   
+                    });
                   </script>                                    
                 </div>
                 <br>
@@ -1173,29 +1207,29 @@ footer {
                 <div class="row">
                   <div class="col-md-2"></div>
                   <div class="col-md-3">
-                      <div class="custom-control custom-radio custom-control-inline">
-                        <input type="radio" class="custom-control-input" id="customRadio28" name="lesao_manuseio" value="Sim">
-                        <label class="custom-control-label" for="customRadio28">Sim</label>
-                      </div>
+                    <div class="custom-control custom-radio custom-control-inline">
+                      <input type="radio" class="custom-control-input" id="customRadio28" name="lesao_manuseio" value="Sim">
+                      <label class="custom-control-label" for="customRadio28">Sim</label>
+                    </div>
                   </div>
                   <div class="col-md-3">
-                      <div class="custom-control custom-radio custom-control-inline">
-                        <input type="radio" class="custom-control-input" id="customRadio29" name="lesao_manuseio" value="Não">
-                        <label class="custom-control-label" for="customRadio29">Não</label>
-                      </div>
+                    <div class="custom-control custom-radio custom-control-inline">
+                      <input type="radio" class="custom-control-input" id="customRadio29" name="lesao_manuseio" value="Não">
+                      <label class="custom-control-label" for="customRadio29">Não</label>
+                    </div>
                   </div>
                   <div class="col-md-3">
-                      <div class="custom-control custom-radio custom-control-inline">
-                        <input type="radio" class="custom-control-input" id="customRadio30" name="lesao_manuseio" value="Ignorado">
-                        <label class="custom-control-label" for="customRadio30">Ignorado</label>
-                      </div>
+                    <div class="custom-control custom-radio custom-control-inline">
+                      <input type="radio" class="custom-control-input" id="customRadio30" name="lesao_manuseio" value="Ignorado">
+                      <label class="custom-control-label" for="customRadio30">Ignorado</label>
+                    </div>
                   </div>
 
                   
                   <script>
-                  $(document).ready(function(){
-                    $('[data-toggle="tooltip"]').tooltip();   
-                  });
+                    $(document).ready(function(){
+                      $('[data-toggle="tooltip"]').tooltip();   
+                    });
                   </script>                                    
                 </div>
 
@@ -1215,23 +1249,23 @@ footer {
                   <div class="col-sm-2"></div>
 
                   <div class="col-md-3">
-                      <div class="custom-control custom-radio custom-control-inline">
-                        <input type="radio" class="custom-control-input" id="customRadio19" name="presenca_lesao_pele" value="Sim">
-                        <label class="custom-control-label" for="customRadio19">Sim</label>
-                      </div>
+                    <div class="custom-control custom-radio custom-control-inline">
+                      <input type="radio" class="custom-control-input" id="customRadio19" name="presenca_lesao_pele" value="Sim">
+                      <label class="custom-control-label" for="customRadio19">Sim</label>
+                    </div>
                   </div>
 
                   <div class="col-md-3">
-                      <div class="custom-control custom-radio custom-control-inline">
-                        <input type="radio" class="custom-control-input" id="customRadio20" name="presenca_lesao_pele" value="Não">
-                        <label class="custom-control-label" for="customRadio20">Não</label>
-                      </div>
+                    <div class="custom-control custom-radio custom-control-inline">
+                      <input type="radio" class="custom-control-input" id="customRadio20" name="presenca_lesao_pele" value="Não">
+                      <label class="custom-control-label" for="customRadio20">Não</label>
+                    </div>
                   </div>
                   <div class="col-md-3">
-                      <div class="custom-control custom-radio custom-control-inline">
-                        <input type="radio" class="custom-control-input" id="customRadio21" name="presenca_lesao_pele" value="Ignorado">
-                        <label class="custom-control-label" for="customRadio21">Ignorado</label>
-                      </div>
+                    <div class="custom-control custom-radio custom-control-inline">
+                      <input type="radio" class="custom-control-input" id="customRadio21" name="presenca_lesao_pele" value="Ignorado">
+                      <label class="custom-control-label" for="customRadio21">Ignorado</label>
+                    </div>
                   </div>
                   
                 </div><br>
@@ -1361,38 +1395,38 @@ footer {
                 <div class="row">
                   <div class="col-sm-1"></div>
                   <div class="col-md-2">
-                      <div class="custom-control custom-checkbox mb-3">
-                        <input type="checkbox" class="custom-control-input" id="papula_id" name="natureza_lesao" value="Pápula">
-                        <label class="custom-control-label" for="papula_id">Pápula</label>
-                      </div>
+                    <div class="custom-control custom-checkbox mb-3">
+                      <input type="checkbox" class="custom-control-input" id="papula_id" name="natureza_lesao" value="Pápula">
+                      <label class="custom-control-label" for="papula_id">Pápula</label>
+                    </div>
                   </div>
                   
                   <div class="col-md-2">
-                      <div class="custom-control custom-checkbox mb-3">
-                        <input type="checkbox" class="custom-control-input" id="ulcera_id" name="natureza_lesao" value="Úlcera">
-                        <label class="custom-control-label" for="ulcera_id">Úlcera</label>
-                      </div>
+                    <div class="custom-control custom-checkbox mb-3">
+                      <input type="checkbox" class="custom-control-input" id="ulcera_id" name="natureza_lesao" value="Úlcera">
+                      <label class="custom-control-label" for="ulcera_id">Úlcera</label>
+                    </div>
                   </div>
                   <div class="col-md-2">
-                      <div class="custom-control custom-checkbox mb-3">
-                        <input type="checkbox" class="custom-control-input" id="linfonodos_id" name="natureza_lesao" value="Linfonodos">
-                        <label class="custom-control-label" for="linfonodos_id">Linfonodos
-                          
-                        </label>
-                      </div>
+                    <div class="custom-control custom-checkbox mb-3">
+                      <input type="checkbox" class="custom-control-input" id="linfonodos_id" name="natureza_lesao" value="Linfonodos">
+                      <label class="custom-control-label" for="linfonodos_id">Linfonodos
+
+                      </label>
+                    </div>
                   </div>
                   <div class="col-md-1">
-                      <div class="custom-control custom-checkbox mb-3">
-                        <input type="checkbox" class="custom-control-input" id="natureza_lesao_outros_id" name="natureza_lesao" value="Outros">
-                        <label class="custom-control-label" for="natureza_lesao_outros_id">Outros
-                          
-                        </label>
-                      </div>
+                    <div class="custom-control custom-checkbox mb-3">
+                      <input type="checkbox" class="custom-control-input" id="natureza_lesao_outros_id" name="natureza_lesao" value="Outros">
+                      <label class="custom-control-label" for="natureza_lesao_outros_id">Outros
+
+                      </label>
+                    </div>
                   </div>
                   <div class="col-md-3">
-                      <div class="form-group">
+                    <div class="form-group">
                       <input class="form-control" type="text" id="nat_lesao_outros_id" name="natureza_lesao_outros" value="">
-                      </div>
+                    </div>
                   </div>
                 </div><br>
                 
@@ -1407,41 +1441,41 @@ footer {
                 <div class="row">
                   <div class="col-md-1"></div>
                   <div class="col-md-2">
-                      <div class="custom-control custom-checkbox mb-3">
-                        <input type="checkbox" class="custom-control-input" id="mao_id" name="local_lesao" value="Mão">
-                        <label class="custom-control-label" for="mao_id">Mão</label>
-                      </div>
+                    <div class="custom-control custom-checkbox mb-3">
+                      <input type="checkbox" class="custom-control-input" id="mao_id" name="local_lesao" value="Mão">
+                      <label class="custom-control-label" for="mao_id">Mão</label>
+                    </div>
                   </div>
                   
                   <div class="col-md-2">
-                      <div class="custom-control custom-checkbox mb-3">
-                        <input type="checkbox" class="custom-control-input" id="membro_superir_id" name="local_lesao" value="Membro Superior">
-                        <label class="custom-control-label" for="membro_superir_id">Membro Superior</label>
-                      </div>
+                    <div class="custom-control custom-checkbox mb-3">
+                      <input type="checkbox" class="custom-control-input" id="membro_superir_id" name="local_lesao" value="Membro Superior">
+                      <label class="custom-control-label" for="membro_superir_id">Membro Superior</label>
+                    </div>
                   </div>
                   <div class="col-md-2">
-                      <div class="custom-control custom-checkbox mb-2">
-                        <input type="checkbox" class="custom-control-input" id="cabeca_id" name="local_lesao" value="Cabeça">
-                        <label class="custom-control-label" for="cabeca_id">Cabeça
-                          
-                        </label>
-                      </div>
+                    <div class="custom-control custom-checkbox mb-2">
+                      <input type="checkbox" class="custom-control-input" id="cabeca_id" name="local_lesao" value="Cabeça">
+                      <label class="custom-control-label" for="cabeca_id">Cabeça
+
+                      </label>
+                    </div>
                   </div>
                   <div class="col-md-2">
-                      <div class="custom-control custom-checkbox mb-3">
-                        <input type="checkbox" class="custom-control-input" id="pescoco_id" name="local_lesao" value="Pescoço">
-                        <label class="custom-control-label" for="pescoco_id">Pescoço
-                          
-                        </label>
-                      </div>
+                    <div class="custom-control custom-checkbox mb-3">
+                      <input type="checkbox" class="custom-control-input" id="pescoco_id" name="local_lesao" value="Pescoço">
+                      <label class="custom-control-label" for="pescoco_id">Pescoço
+
+                      </label>
+                    </div>
                   </div>
                   <div class="col-md-1">
-                      <div class="custom-control custom-checkbox mb-3">
-                        <input type="checkbox" class="custom-control-input" id="torax_id" name="local_lesao" value="Tórax">
-                        <label class="custom-control-label" for="torax_id">Tórax
-                          
-                        </label>
-                      </div>
+                    <div class="custom-control custom-checkbox mb-3">
+                      <input type="checkbox" class="custom-control-input" id="torax_id" name="local_lesao" value="Tórax">
+                      <label class="custom-control-label" for="torax_id">Tórax
+
+                      </label>
+                    </div>
                   </div> 
                 </div>
 
@@ -1449,49 +1483,49 @@ footer {
                 <div class="row">
                   <div class="col-md-1"></div>
                   <div class="col-md-2">
-                      <div class="custom-control custom-checkbox mb-3">
-                        <input type="checkbox" class="custom-control-input" id="abdome_id" name="local_lesao" value="Abdome">
-                        <label class="custom-control-label" for="abdome_id">Abdome
-                          
-                        </label>
-                      </div>
+                    <div class="custom-control custom-checkbox mb-3">
+                      <input type="checkbox" class="custom-control-input" id="abdome_id" name="local_lesao" value="Abdome">
+                      <label class="custom-control-label" for="abdome_id">Abdome
+
+                      </label>
+                    </div>
                   </div>
                   <div class="col-md-2">
-                      <div class="custom-control custom-checkbox mb-3">
-                        <input type="checkbox" class="custom-control-input" id="pe_id" name="local_lesao" value="Pé">
-                        <label class="custom-control-label" for="pe_id">Pé
-                          
-                        </label>
-                      </div>
+                    <div class="custom-control custom-checkbox mb-3">
+                      <input type="checkbox" class="custom-control-input" id="pe_id" name="local_lesao" value="Pé">
+                      <label class="custom-control-label" for="pe_id">Pé
+
+                      </label>
+                    </div>
                   </div>
                   <div class="col-md-2">
-                      <div class="custom-control custom-checkbox mb-3">
-                        <input type="checkbox" class="custom-control-input" id="membro_inferior_id" name="local_lesao" value="Membro Inferior">
-                        <label class="custom-control-label" for="membro_inferior_id">Membro Inferior
-                          
-                        </label>
-                      </div>
+                    <div class="custom-control custom-checkbox mb-3">
+                      <input type="checkbox" class="custom-control-input" id="membro_inferior_id" name="local_lesao" value="Membro Inferior">
+                      <label class="custom-control-label" for="membro_inferior_id">Membro Inferior
+
+                      </label>
+                    </div>
                   </div>
                   <div class="col-md-2">
-                      <div class="custom-control custom-checkbox mb-3">
-                        <input type="checkbox" class="custom-control-input" id="todo_corpo_id" name="local_lesao" value="Todo Corpo">
-                        <label class="custom-control-label" for="todo_corpo_id">Todo Corpo
-                          
-                        </label>
-                      </div>
+                    <div class="custom-control custom-checkbox mb-3">
+                      <input type="checkbox" class="custom-control-input" id="todo_corpo_id" name="local_lesao" value="Todo Corpo">
+                      <label class="custom-control-label" for="todo_corpo_id">Todo Corpo
+
+                      </label>
+                    </div>
                   </div>
                   <div class="col-md-1">
-                      <div class="custom-control custom-checkbox mb-3">
-                        <input type="checkbox" class="custom-control-input" id="local_lesao_outros_id" name="local_lesao" value="Outros">
-                        <label class="custom-control-label" for="local_lesao_outros_id">Outros
-                          
-                        </label>
-                      </div>
+                    <div class="custom-control custom-checkbox mb-3">
+                      <input type="checkbox" class="custom-control-input" id="local_lesao_outros_id" name="local_lesao" value="Outros">
+                      <label class="custom-control-label" for="local_lesao_outros_id">Outros
+
+                      </label>
+                    </div>
                   </div>
                   <div class="col-md-4">
-                      <div class="form-group">
+                    <div class="form-group">
                       <input class="form-control" type="text" id="loc_lesao_outros_id" name="local_lesao_outros" value="">
-                      </div>
+                    </div>
                   </div>
 
                 </div>
@@ -1506,38 +1540,38 @@ footer {
                 <div class="row">
                   <div class="col-sm-2"></div>
                   <div class="col-md-3">
-                      <div class="custom-control custom-radio custom-control-inline">
-                        <input type="radio" class="custom-control-input" id="customRadio22" name="diagnostico_extracutaneo" value="Sim">
-                        <label class="custom-control-label" for="customRadio22">Sim</label>
-                      </div>
+                    <div class="custom-control custom-radio custom-control-inline">
+                      <input type="radio" class="custom-control-input" id="customRadio22" name="diagnostico_extracutaneo" value="Sim">
+                      <label class="custom-control-label" for="customRadio22">Sim</label>
+                    </div>
                   </div>
 
                   <div class="col-md-3">
-                      <div class="custom-control custom-radio custom-control-inline">
-                        <input type="radio" class="custom-control-input" id="customRadio23" name="diagnostico_extracutaneo" value="Não">
-                        <label class="custom-control-label" for="customRadio23">Não</label>
-                      </div>
+                    <div class="custom-control custom-radio custom-control-inline">
+                      <input type="radio" class="custom-control-input" id="customRadio23" name="diagnostico_extracutaneo" value="Não">
+                      <label class="custom-control-label" for="customRadio23">Não</label>
+                    </div>
                   </div>
                   <div class="col-md-3">
-                      <div class="custom-control custom-radio custom-control-inline">
-                        <input type="radio" class="custom-control-input" id="customRadio24" name="diagnostico_extracutaneo" value="Ignorado">
-                        <label class="custom-control-label" for="customRadio24">Ignorado</label>
-                      </div>
+                    <div class="custom-control custom-radio custom-control-inline">
+                      <input type="radio" class="custom-control-input" id="customRadio24" name="diagnostico_extracutaneo" value="Ignorado">
+                      <label class="custom-control-label" for="customRadio24">Ignorado</label>
+                    </div>
                   </div>
 
                 </div><br>
 
-              <div class="row">
-                <div class="col-sm-2"></div>
-                 <div class="col-md-4">
-                      <div class="input-group mb-3">
-                        <div class="input-group-prepend">
-                          <span class="input-group-text">Qual Localização</span>
-                        </div>
-                        <input type="text" class="form-control" name="local_extra_cutanea" value="" id="local_diag_extracutaneo" disabled>
+                <div class="row">
+                  <div class="col-sm-2"></div>
+                  <div class="col-md-4">
+                    <div class="input-group mb-3">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text">Qual Localização</span>
                       </div>
+                      <input type="text" class="form-control" name="local_extra_cutanea" value="" id="local_diag_extracutaneo" disabled>
+                    </div>
                   </div>
-              </div><br>
+                </div><br>
 
               </div>
 
@@ -1556,38 +1590,38 @@ footer {
                   
 
                   <div class="col-md-3">
-                      <div class="custom-control custom-radio custom-control-inline">
-                        <input type="radio" class="custom-control-input" id="coleta_exame_labo_sim_id" name="coleta_exame_labo_sim" value="Sim">
-                        <label class="custom-control-label" for="coleta_exame_labo_sim_id">Sim</label>
-                        <div class="valid-feedback">Valid.</div>
-                        <div class="invalid-feedback">Escolha obrigatória.</div>
-                      </div>
+                    <div class="custom-control custom-radio custom-control-inline">
+                      <input type="radio" class="custom-control-input" id="coleta_exame_labo_sim_id" name="coleta_exame_labo_sim" value="Sim">
+                      <label class="custom-control-label" for="coleta_exame_labo_sim_id">Sim</label>
+                      <div class="valid-feedback">Valid.</div>
+                      <div class="invalid-feedback">Escolha obrigatória.</div>
+                    </div>
                   </div>
 
                   <div class="col-md-3">
-                      <div class="custom-control custom-radio custom-control-inline">
-                        <input type="radio" class="custom-control-input" id="coleta_exame_nao_id" name="coleta_exame_labo_sim" value="Não">
-                        <label class="custom-control-label" for="coleta_exame_nao_id">Não</label>
-                      </div>
+                    <div class="custom-control custom-radio custom-control-inline">
+                      <input type="radio" class="custom-control-input" id="coleta_exame_nao_id" name="coleta_exame_labo_sim" value="Não">
+                      <label class="custom-control-label" for="coleta_exame_nao_id">Não</label>
+                    </div>
                   </div>
 
                   <div class="col-md-3">
-                      <div class="custom-control custom-radio custom-control-inline">
-                        <input type="radio" class="custom-control-input" id="coleta_exame_ignorado_id" name="coleta_exame_labo_sim" value="Ignorado">
-                        <label class="custom-control-label" for="coleta_exame_ignorado_id">Ignorado</label>
-                      </div>
+                    <div class="custom-control custom-radio custom-control-inline">
+                      <input type="radio" class="custom-control-input" id="coleta_exame_ignorado_id" name="coleta_exame_labo_sim" value="Ignorado">
+                      <label class="custom-control-label" for="coleta_exame_ignorado_id">Ignorado</label>
+                    </div>
                   </div>
                   
                 </div><br>
                 <div class="row">
                   <div class="col-md-2"></div>
                   <div class="col-md-3">
-                      <div class="input-group mb-3" id="">
-                        <div class="input-group-prepend" id="lb_data_coleta_material">
-                          <span class="input-group-text">Data Coleta</span>
-                        </div>
-                        <input type="date" class="form-control" name="data_coleta_mat_exame" value="" id="data_coleta_material_id">
+                    <div class="input-group mb-3" id="">
+                      <div class="input-group-prepend" id="lb_data_coleta_material">
+                        <span class="input-group-text">Data Coleta</span>
                       </div>
+                      <input type="date" class="form-control" name="data_coleta_mat_exame" value="" id="data_coleta_material_id">
+                    </div>
                   </div>
 
                 </div>
@@ -1604,30 +1638,30 @@ footer {
                 <div class="row">
                   <div class="col-sm-2"></div>
                   <div class="col-md-2">
-                      <div class="custom-control custom-radio custom-control-inline">
-                        <input type="radio" class="custom-control-input" id="customRadio1" name="resultado_isolamento" value="Detectado">
-                        <label class="custom-control-label" for="customRadio1">Detectado</label>
-                      </div>
+                    <div class="custom-control custom-radio custom-control-inline">
+                      <input type="radio" class="custom-control-input" id="customRadio1" name="resultado_isolamento" value="Detectado">
+                      <label class="custom-control-label" for="customRadio1">Detectado</label>
+                    </div>
                   </div>
 
                   <div class="col-md-2">
-                      <div class="custom-control custom-radio custom-control-inline">
-                        <input type="radio" class="custom-control-input" id="customRadio2" name="resultado_isolamento" value="Não detectado">
-                        <label class="custom-control-label" for="customRadio2">Não detectado</label>
-                      </div>
+                    <div class="custom-control custom-radio custom-control-inline">
+                      <input type="radio" class="custom-control-input" id="customRadio2" name="resultado_isolamento" value="Não detectado">
+                      <label class="custom-control-label" for="customRadio2">Não detectado</label>
+                    </div>
                   </div>
                   <div class="col-md-2">
-                      <div class="custom-control custom-radio custom-control-inline">
-                        <input type="radio" class="custom-control-input" id="customRadio3" name="resultado_isolamento" value="Inconclusivo">
-                        <label class="custom-control-label" for="customRadio3">Inconclusivo</label>
-                      </div>
+                    <div class="custom-control custom-radio custom-control-inline">
+                      <input type="radio" class="custom-control-input" id="customRadio3" name="resultado_isolamento" value="Inconclusivo">
+                      <label class="custom-control-label" for="customRadio3">Inconclusivo</label>
+                    </div>
                   </div>
 
                   <div class="col-md-2">
-                      <div class="custom-control custom-radio custom-control-inline">
-                        <input type="radio" class="custom-control-input" id="customRadio4" name="resultado_isolamento" value="Não Realizado">
-                        <label class="custom-control-label" for="customRadio4">Não Realizado</label>
-                      </div>
+                    <div class="custom-control custom-radio custom-control-inline">
+                      <input type="radio" class="custom-control-input" id="customRadio4" name="resultado_isolamento" value="Não Realizado">
+                      <label class="custom-control-label" for="customRadio4">Não Realizado</label>
+                    </div>
                   </div>
                   
                 </div><br>
@@ -1635,12 +1669,12 @@ footer {
                 <div class="row">
                   <div class="col-md-3"></div>
                   <div class="col-md-5">
-                      <div class="input-group mb-3" id="">
-                        <div class="input-group-prepend" id="">
-                          <span class="input-group-text">Agente</span>
-                        </div>
-                        <input type="text" class="form-control" name="agente_isolamento" value="" id="agente_id" disabled>
+                    <div class="input-group mb-3" id="">
+                      <div class="input-group-prepend" id="">
+                        <span class="input-group-text">Agente</span>
                       </div>
+                      <input type="text" class="form-control" name="agente_isolamento" value="" id="agente_id" disabled>
+                    </div>
                   </div>
                 </div>
 
@@ -1655,30 +1689,30 @@ footer {
                 <div class="row">
                   <div class="col-sm-2"></div>
                   <div class="col-md-2">
-                      <div class="custom-control custom-radio custom-control-inline">
-                        <input type="radio" class="custom-control-input" id="customRadio5" name="histopatologia" value="Compatível">
-                        <label class="custom-control-label" for="customRadio5">Compatível</label>
-                      </div>
+                    <div class="custom-control custom-radio custom-control-inline">
+                      <input type="radio" class="custom-control-input" id="customRadio5" name="histopatologia" value="Compatível">
+                      <label class="custom-control-label" for="customRadio5">Compatível</label>
+                    </div>
                   </div>
 
                   <div class="col-md-2">
-                      <div class="custom-control custom-radio custom-control-inline">
-                        <input type="radio" class="custom-control-input" id="customRadio6" name="histopatologia" value="Não compatível">
-                        <label class="custom-control-label" for="customRadio6">Não compatível</label>
-                      </div>
+                    <div class="custom-control custom-radio custom-control-inline">
+                      <input type="radio" class="custom-control-input" id="customRadio6" name="histopatologia" value="Não compatível">
+                      <label class="custom-control-label" for="customRadio6">Não compatível</label>
+                    </div>
                   </div>
                   <div class="col-md-2">
-                      <div class="custom-control custom-radio custom-control-inline">
-                        <input type="radio" class="custom-control-input" id="customRadio7" name="histopatologia" value="Inconclusivo">
-                        <label class="custom-control-label" for="customRadio7">Inconclusivo</label>
-                      </div>
+                    <div class="custom-control custom-radio custom-control-inline">
+                      <input type="radio" class="custom-control-input" id="customRadio7" name="histopatologia" value="Inconclusivo">
+                      <label class="custom-control-label" for="customRadio7">Inconclusivo</label>
+                    </div>
                   </div>
 
                   <div class="col-md-2">
-                      <div class="custom-control custom-radio custom-control-inline">
-                        <input type="radio" class="custom-control-input" id="customRadio8" name="histopatologia" value="Não Realizado">
-                        <label class="custom-control-label" for="customRadio8">Não Realizado</label>
-                      </div>
+                    <div class="custom-control custom-radio custom-control-inline">
+                      <input type="radio" class="custom-control-input" id="customRadio8" name="histopatologia" value="Não Realizado">
+                      <label class="custom-control-label" for="customRadio8">Não Realizado</label>
+                    </div>
                   </div>
                   
                 </div><br><br>
@@ -1691,55 +1725,55 @@ footer {
                 </div>
                 <div class="row">
                   <div class="col-md-3">
-                      <div class="input-group mb-3" id="">
-                        <div class="input-group-prepend" id="">
-                          <span class="input-group-text">Data</span>
-                        </div>
-                        <input type="date" class="form-control" name="data_outros_exames_1" value="" id="">
+                    <div class="input-group mb-3" id="">
+                      <div class="input-group-prepend" id="">
+                        <span class="input-group-text">Data</span>
                       </div>
+                      <input type="date" class="form-control" name="data_outros_exames_1" value="" id="data_outros_exames_1_id">
+                    </div>
                   </div>
                   <div class="col-md-4">
-                      <div class="input-group mb-3" id="">
-                        <div class="input-group-prepend" id="">
-                          <span class="input-group-text">Descricao</span>
-                        </div>
-                        <input type="text" class="form-control" name="descricao_outros_exames_1" value="" id="">
+                    <div class="input-group mb-3" id="">
+                      <div class="input-group-prepend" id="">
+                        <span class="input-group-text">Descricao</span>
                       </div>
+                      <input type="text" class="form-control" name="descricao_outros_exames_1" value="" id="">
+                    </div>
                   </div>
                   <div class="col-md-5">
-                      <div class="input-group mb-3" id="">
-                        <div class="input-group-prepend" id="">
-                          <span class="input-group-text">Resultado</span>
-                        </div>
-                        <input type="text" class="form-control" name="resultado_outros_exames_1" value="" id="">
+                    <div class="input-group mb-3" id="">
+                      <div class="input-group-prepend" id="">
+                        <span class="input-group-text">Resultado</span>
                       </div>
+                      <input type="text" class="form-control" name="resultado_outros_exames_1" value="" id="">
+                    </div>
                   </div>
                   
                 </div>
                 <div class="row">
                   <div class="col-md-3">
-                      <div class="input-group mb-3" id="">
-                        <div class="input-group-prepend" id="">
-                          <span class="input-group-text">Data</span>
-                        </div>
-                        <input type="date" class="form-control" name="data_outros_exames_2" value="" id="">
+                    <div class="input-group mb-3" id="">
+                      <div class="input-group-prepend" id="">
+                        <span class="input-group-text">Data</span>
                       </div>
+                      <input type="date" class="form-control" name="data_outros_exames_2" value="" id="data_outros_exames_2_id">
+                    </div>
                   </div>
                   <div class="col-md-4">
-                      <div class="input-group mb-3" id="">
-                        <div class="input-group-prepend" id="">
-                          <span class="input-group-text">Descricao</span>
-                        </div>
-                        <input type="text" class="form-control" name="descricao_outros_exames_2" value="" id="">
+                    <div class="input-group mb-3" id="">
+                      <div class="input-group-prepend" id="">
+                        <span class="input-group-text">Descricao</span>
                       </div>
+                      <input type="text" class="form-control" name="descricao_outros_exames_2" value="" id="">
+                    </div>
                   </div>
                   <div class="col-md-5">
-                      <div class="input-group mb-3" id="">
-                        <div class="input-group-prepend" id="">
-                          <span class="input-group-text">Resultado</span>
-                        </div>
-                        <input type="text" class="form-control" name="resultado_outros_exames_2" value="" id="">
+                    <div class="input-group mb-3" id="">
+                      <div class="input-group-prepend" id="">
+                        <span class="input-group-text">Resultado</span>
                       </div>
+                      <input type="text" class="form-control" name="resultado_outros_exames_2" value="" id="">
+                    </div>
                   </div>
 
                   
@@ -1747,28 +1781,28 @@ footer {
                 </div>
                 <div class="row">
                   <div class="col-md-3">
-                      <div class="input-group mb-3" id="">
-                        <div class="input-group-prepend" id="">
-                          <span class="input-group-text">Data</span>
-                        </div>
-                        <input type="date" class="form-control" name="data_outros_exames_3" value="" id="">
+                    <div class="input-group mb-3" id="">
+                      <div class="input-group-prepend" id="">
+                        <span class="input-group-text">Data</span>
                       </div>
+                      <input type="date" class="form-control" name="data_outros_exames_3" value="" id="data_outros_exames_3_id">
+                    </div>
                   </div>
                   <div class="col-md-4">
-                      <div class="input-group mb-3" id="">
-                        <div class="input-group-prepend" id="">
-                          <span class="input-group-text">Descricao</span>
-                        </div>
-                        <input type="text" class="form-control" name="descricao_outros_exames_3" value="" id="">
+                    <div class="input-group mb-3" id="">
+                      <div class="input-group-prepend" id="">
+                        <span class="input-group-text">Descricao</span>
                       </div>
+                      <input type="text" class="form-control" name="descricao_outros_exames_3" value="" id="">
+                    </div>
                   </div>
                   <div class="col-md-5">
-                      <div class="input-group mb-3" id="">
-                        <div class="input-group-prepend" id="">
-                          <span class="input-group-text">Resultado</span>
-                        </div>
-                        <input type="text" class="form-control" name="resultado_outros_exames_3" value="" id="">
+                    <div class="input-group mb-3" id="">
+                      <div class="input-group-prepend" id="">
+                        <span class="input-group-text">Resultado</span>
                       </div>
+                      <input type="text" class="form-control" name="resultado_outros_exames_3" value="" id="">
+                    </div>
                   </div>
                 </div><br><br>
                 
@@ -1788,80 +1822,80 @@ footer {
                 </div>
                 <div class="row">
                   <div class="col-md-3">
-                      <div class="input-group mb-3" id="">
-                        <div class="input-group-prepend" id="">
-                          <span class="input-group-text">Início</span>
-                        </div>
-                        <input type="date" class="form-control" name="data_inicio_tratamento" value="" id="">
+                    <div class="input-group mb-3" id="">
+                      <div class="input-group-prepend" id="">
+                        <span class="input-group-text">Início</span>
                       </div>
+                      <input type="date" class="form-control" name="data_inicio_tratamento" value="" id="data_inicio_tratamento_id">
+                    </div>
                   </div>
                   <div class="col-md-5">
-                      <div class="input-group mb-3" id="">
-                        <div class="input-group-prepend" id="">
-                          <span class="input-group-text">Droga Administrada</span>
-                        </div>
-                        <input type="text" class="form-control" name="droga_admin_tratamento" value="" id="">
+                    <div class="input-group mb-3" id="">
+                      <div class="input-group-prepend" id="">
+                        <span class="input-group-text">Droga Administrada</span>
                       </div>
+                      <input type="text" class="form-control" name="droga_admin_tratamento" value="" id="">
+                    </div>
                   </div>
                   <div class="col-md-4">
-                      <div class="input-group mb-3" id="">
-                        <div class="input-group-prepend" id="">
-                          <span class="input-group-text">Esquema Terapeutico</span>
-                        </div>
-                        <input type="text" class="form-control" name="esquema_terapeutico" value="" id="">
+                    <div class="input-group mb-3" id="">
+                      <div class="input-group-prepend" id="">
+                        <span class="input-group-text">Esquema Terapeutico</span>
                       </div>
+                      <input type="text" class="form-control" name="esquema_terapeutico" value="" id="">
+                    </div>
                   </div>
                 </div>
                 <div class="row">
                   <div class="col-md-3">
-                      <div class="input-group mb-3" id="">
-                        <div class="input-group-prepend" id="">
-                          <span class="input-group-text">Início</span>
-                        </div>
-                        <input type="date" class="form-control" name="data_inicio_tratamento2" value="" id="">
+                    <div class="input-group mb-3" id="">
+                      <div class="input-group-prepend" id="">
+                        <span class="input-group-text">Início</span>
                       </div>
+                      <input type="date" class="form-control" name="data_inicio_tratamento2" value="" id="data_inicio_tratamento2_id">
+                    </div>
                   </div>
                   <div class="col-md-5">
-                      <div class="input-group mb-3" id="">
-                        <div class="input-group-prepend" id="">
-                          <span class="input-group-text">Droga Administrada</span>
-                        </div>
-                        <input type="text" class="form-control" name="droga_admin_tratamento2" value="" id="">
+                    <div class="input-group mb-3" id="">
+                      <div class="input-group-prepend" id="">
+                        <span class="input-group-text">Droga Administrada</span>
                       </div>
+                      <input type="text" class="form-control" name="droga_admin_tratamento2" value="" id="">
+                    </div>
                   </div>
                   <div class="col-md-4">
-                      <div class="input-group mb-3" id="">
-                        <div class="input-group-prepend" id="">
-                          <span class="input-group-text">Esquema Terapeutico</span>
-                        </div>
-                        <input type="text" class="form-control" name="esquema_terapeutico2" value="" id="">
+                    <div class="input-group mb-3" id="">
+                      <div class="input-group-prepend" id="">
+                        <span class="input-group-text">Esquema Terapeutico</span>
                       </div>
+                      <input type="text" class="form-control" name="esquema_terapeutico2" value="" id="">
+                    </div>
                   </div>
                 </div>
                 <div class="row">
                   <div class="col-md-3">
-                      <div class="input-group mb-3" id="">
-                        <div class="input-group-prepend" id="">
-                          <span class="input-group-text">Início</span>
-                        </div>
-                        <input type="date" class="form-control" name="data_inicio_tratamento3" value="" id="">
+                    <div class="input-group mb-3" id="">
+                      <div class="input-group-prepend" id="">
+                        <span class="input-group-text">Início</span>
                       </div>
+                      <input type="date" class="form-control" name="data_inicio_tratamento3" value="" id="data_inicio_tratamento3_id">
+                    </div>
                   </div>
                   <div class="col-md-5">
-                      <div class="input-group mb-3" id="">
-                        <div class="input-group-prepend" id="">
-                          <span class="input-group-text">Droga Administrada</span>
-                        </div>
-                        <input type="text" class="form-control" name="droga_admin_tratamento3" value="" id="">
+                    <div class="input-group mb-3" id="">
+                      <div class="input-group-prepend" id="">
+                        <span class="input-group-text">Droga Administrada</span>
                       </div>
+                      <input type="text" class="form-control" name="droga_admin_tratamento3" value="" id="">
+                    </div>
                   </div>
                   <div class="col-md-4">
-                      <div class="input-group mb-3" id="">
-                        <div class="input-group-prepend" id="">
-                          <span class="input-group-text">Esquema Terapeutico</span>
-                        </div>
-                        <input type="text" class="form-control" name="esquema_terapeutico3" value="" id="">
+                    <div class="input-group mb-3" id="">
+                      <div class="input-group-prepend" id="">
+                        <span class="input-group-text">Esquema Terapeutico</span>
                       </div>
+                      <input type="text" class="form-control" name="esquema_terapeutico3" value="" id="">
+                    </div>
                   </div>
                 </div><br><br>
 
@@ -1955,23 +1989,23 @@ footer {
                   <div class="col-md-2"></div>
 
                   <div class="col-md-3">
-                      <div class="custom-control custom-radio custom-control-inline">
-                        <input type="radio" class="custom-control-input" id="customRadio11" name="hospitalizado" value="Sim" onclick="activeDadosHos()">
-                        <label class="custom-control-label" for="customRadio11">Sim</label>
-                      </div>
+                    <div class="custom-control custom-radio custom-control-inline">
+                      <input type="radio" class="custom-control-input" id="customRadio11" name="hospitalizado" value="Sim" onclick="activeDadosHos()">
+                      <label class="custom-control-label" for="customRadio11">Sim</label>
+                    </div>
                   </div>
 
                   <div class="col-md-3">
-                      <div class="custom-control custom-radio custom-control-inline">
-                        <input type="radio" class="custom-control-input" id="customRadio9" name="hospitalizado" value="Não" onclick="desactiveDadosHos()">
-                        <label class="custom-control-label" for="customRadio9">Não</label>
-                      </div>
+                    <div class="custom-control custom-radio custom-control-inline">
+                      <input type="radio" class="custom-control-input" id="customRadio9" name="hospitalizado" value="Não" onclick="desactiveDadosHos()">
+                      <label class="custom-control-label" for="customRadio9">Não</label>
+                    </div>
                   </div>
                   <div class="col-md-3">
-                      <div class="custom-control custom-radio custom-control-inline">
-                        <input type="radio" class="custom-control-input" id="customRadio10" name="hospitalizado" value="Ignorado" onclick="desactiveDadosHosI()">
-                        <label class="custom-control-label" for="customRadio10">Ignorado</label>
-                      </div>
+                    <div class="custom-control custom-radio custom-control-inline">
+                      <input type="radio" class="custom-control-input" id="customRadio10" name="hospitalizado" value="Ignorado" onclick="desactiveDadosHosI()">
+                      <label class="custom-control-label" for="customRadio10">Ignorado</label>
+                    </div>
                   </div>
 
                   
@@ -1980,252 +2014,252 @@ footer {
                 
 
                 <div class="row" id="row_dados_hospitalizacao_id">
-                  
+
                   <div class="col-md-4">
-                      <div class="input-group mb-3" id="div_g">
-                        <div class="input-group-prepend" id="div_lb">
-                          <span class="input-group-text">Data Internação</span>
-                        </div>
-                        <input type="date" class="form-control" name="data_internacao" value="" id="input_internacao" disabled>
+                    <div class="input-group mb-3" id="div_g">
+                      <div class="input-group-prepend" id="div_lb">
+                        <span class="input-group-text">Data Internação</span>
                       </div>
+                      <input type="date" class="form-control" name="data_internacao" value="" id="input_internacao" disabled>
+                    </div>
                   </div>
                   <div class="col-md-3">
-                      <div class="input-group mb-3" id="div_g_da">
-                        <div class="input-group-prepend" id="div_lb_da">
-                          <span class="input-group-text">Data Alta</span>
-                        </div>
-                        <input type="date" class="form-control" name="data_alta" value="" id="input_d_a" disabled>
+                    <div class="input-group mb-3" id="div_g_da">
+                      <div class="input-group-prepend" id="div_lb_da">
+                        <span class="input-group-text">Data Alta</span>
                       </div>
+                      <input type="date" class="form-control" name="data_alta" value="" id="input_d_a" disabled>
+                    </div>
                   </div>
                   <div class="col-md-3">
-                      <div class="input-group mb-3" id="div_sel_uf">
-                        <div class="input-group-prepend" id="div_ls_sel">
-                          <span class="input-group-text">UF</span>
-                        </div>
-                        <select class="form-control" name="uf_internacao" id="sel_uf_t" disabled onclick="activeOutroHospital()">
-                          <option value=""></option>
-                          <option value="AC">Acre</option>
-                          <option value="AL">Alagoas</option>
-                          <option value="AP">Amapá</option>
-                          <option value="AM">Amazonas</option>
-                          <option value="BA">Bahia</option>
-                          <option value="CE">Ceará</option>
-                          <option value="DF">Distrito Federal</option>
-                          <option value="ES">Espírito Santo</option>
-                          <option value="GO">Goiás</option>
-                          <option value="MA">Maranhão</option>
-                          <option value="MT">Mato Grosso</option>
-                          <option value="MS">Mato Grosso do Sul</option>
-                          <option value="MG">Minas Gerais</option>
-                          <option value="PA">Pará</option>
-                          <option value="PB" selected>Paraíba</option>
-                          <option value="PR">Paraná</option>
-                          <option value="PE">Pernambuco</option>
-                          <option value="PI">Piauí</option>
-                          <option value="RJ">Rio de Janeiro</option>
-                          <option value="RN">Rio Grande do Norte</option>
-                          <option value="RS">Rio Grande do Sul</option>
-                          <option value="RO">Rondônia</option>
-                          <option value="RR">Roraima</option>
-                          <option value="SC">Santa Catarina</option>
-                          <option value="SP">São Paulo</option>
-                          <option value="SE">Sergipe</option>
-                          <option value="TO">Tocantins</option>
-                        </select>
+                    <div class="input-group mb-3" id="div_sel_uf">
+                      <div class="input-group-prepend" id="div_ls_sel">
+                        <span class="input-group-text">UF</span>
                       </div>
+                      <select class="form-control" name="uf_internacao" id="sel_uf_t" disabled onclick="activeOutroHospital()">
+                        <option value=""></option>
+                        <option value="AC">Acre</option>
+                        <option value="AL">Alagoas</option>
+                        <option value="AP">Amapá</option>
+                        <option value="AM">Amazonas</option>
+                        <option value="BA">Bahia</option>
+                        <option value="CE">Ceará</option>
+                        <option value="DF">Distrito Federal</option>
+                        <option value="ES">Espírito Santo</option>
+                        <option value="GO">Goiás</option>
+                        <option value="MA">Maranhão</option>
+                        <option value="MT">Mato Grosso</option>
+                        <option value="MS">Mato Grosso do Sul</option>
+                        <option value="MG">Minas Gerais</option>
+                        <option value="PA">Pará</option>
+                        <option value="PB" selected>Paraíba</option>
+                        <option value="PR">Paraná</option>
+                        <option value="PE">Pernambuco</option>
+                        <option value="PI">Piauí</option>
+                        <option value="RJ">Rio de Janeiro</option>
+                        <option value="RN">Rio Grande do Norte</option>
+                        <option value="RS">Rio Grande do Sul</option>
+                        <option value="RO">Rondônia</option>
+                        <option value="RR">Roraima</option>
+                        <option value="SC">Santa Catarina</option>
+                        <option value="SP">São Paulo</option>
+                        <option value="SE">Sergipe</option>
+                        <option value="TO">Tocantins</option>
+                      </select>
+                    </div>
                   </div>
 
                   <div class="col-md-6">
-                      <div class="input-group mb-3" id="">
-                        <div class="input-group-prepend" id="">
-                          <span class="input-group-text">Município do Hospital</span>
-                        </div>
+                    <div class="input-group mb-3" id="">
+                      <div class="input-group-prepend" id="">
+                        <span class="input-group-text">Município do Hospital</span>
+                      </div>
                         <!--<input type="text" class="form-control" name="municipio_hospital" value="" id="mun_hosp_id" disabled>
-                      -->
-                          <select class="form-control" name="municipio_hospital" id="mun_hosp_id" disabled>
-                            <option value="" selected><i></i></option>
-                            {% for municipio in municipios %}
-                            <option value="{{municipio.id}}">{{municipio.nome}}</option>
-                            {% endfor %}
+                        -->
+                        <select class="form-control" name="municipio_hospital" id="mun_hosp_id" disabled>
+                          <option value="" selected><i></i></option>
+                          {% for municipio in municipios %}
+                          <option value="{{municipio.id}}">{{municipio.nome}}</option>
+                          {% endfor %}
                         </select>
                       </div>
-                  </div>
-                  <div class="col-md-3">
+                    </div>
+                    <div class="col-md-3">
                       <div class="input-group mb-3" id="">
                         <div class="input-group-prepend" id="">
                           <span class="input-group-text">Código IBGE</span>
                         </div>
                         <!--
                         <input type="text" class="form-control" name="codigo_ibge_municipio_hospitalizacao" value="" id="cod_ibge_id" disabled>
-                        -->
-                        <select class="form-control" name="codigo_ibge_municipio_hospitalizacao" id="cod_ibge_id" disabled>
-                          
-                        </select>
-                      </div>
+                      -->
+                      <select class="form-control" name="codigo_ibge_municipio_hospitalizacao" id="cod_ibge_id" disabled>
+
+                      </select>
+                    </div>
                   </div>
                   <div class="col-md-3">
-                      
+
                   </div>
 
                   <div class="col-md-6">
-                      <div class="input-group mb-3" id="">
-                        <div class="input-group-prepend" id="">
-                          <span class="input-group-text">Nome do Hospital</span>
-                        </div>
+                    <div class="input-group mb-3" id="">
+                      <div class="input-group-prepend" id="">
+                        <span class="input-group-text">Nome do Hospital</span>
+                      </div>
                         <!--<input type="text" class="form-control" name="nome_hospital_hospitalizacao" value="" id="nome_hosp_id" disabled>
-                      -->
+                        -->
                         <select class="form-control" name="nome_hospital_hospitalizacao" id="nome_hosp_id" disabled>
                           {% for unid_saude in unidades_saude %}
                           <option value="{{unid_saude.id}}">{{unid_saude.id}}</option>
                           {% endfor %}
                         </select>
                       </div>
-                  </div>
-                  
-                </div><br>
-                <!-- dados hospitalização outro -->
+                    </div>
 
-                <div class="row" id="dados_hospitalizacao_outro">
-                  <div class="col-md-6">
+                  </div><br>
+                  <!-- dados hospitalização outro -->
+
+                  <div class="row" id="dados_hospitalizacao_outro">
+                    <div class="col-md-6">
                       <div class="input-group mb-3" id="">
                         <div class="input-group-prepend" id="">
                           <span class="input-group-text">Outro Município do Hospital</span>
                         </div>
                         <input type="text" class="form-control" name="municipio_hospital_outro" value="" id="outro_municipio_hospitalizacao">
                       </div>
-                  </div>
-                  <div class="col-md-3">
+                    </div>
+                    <div class="col-md-3">
                       <div class="input-group mb-3" id="">
                         <div class="input-group-prepend" id="">
                           <span class="input-group-text">Código IBGE</span>
                         </div>                        
                         <input type="text" class="form-control" name="codigo_ibge_municipio_hospitalizacao_outro" value="" id="outro_ibge_hospitalizacao">                        
                       </div>
-                  </div>                  
+                    </div>                  
 
-                  <div class="col-md-6">
+                    <div class="col-md-6">
                       <div class="input-group mb-3" id="">
                         <div class="input-group-prepend" id="">
                           <span class="input-group-text">Nome do Hospital</span>
                         </div>
                         <input type="text" class="form-control" name="nome_hospital_hospitalizacao_outro" value="" id="outro_hospital_hospitalizacao">
                       </div>
-                  </div>
-                </div>
-                
-              </div>
-              <div id="menu6" class="container tab-pane fade"><br>
-                <div class="row">
-                  <div class="col-sm-12">
-                    <div class="alert alert-success" style="text-align: center;">
-                      <strong style="align-items: center;">Classificação Final
-                        <a href="#" data-toggle="tooltip" data-placement="right" title="Obrigatório após 180 dias da notificação!">(*)</a>
-                      </strong>
                     </div>
                   </div>
-                </div>
-                <div class="row">
-                  <div class="col-md-3"></div>
 
-                  <div class="col-md-4">
+                </div>
+                <div id="menu6" class="container tab-pane fade"><br>
+                  <div class="row">
+                    <div class="col-sm-12">
+                      <div class="alert alert-success" style="text-align: center;">
+                        <strong style="align-items: center;">Classificação Final
+                          <a href="#" data-toggle="tooltip" data-placement="right" title="Obrigatório após 180 dias da notificação!">(*)</a>
+                        </strong>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-3"></div>
+
+                    <div class="col-md-4">
                       <div class="custom-control custom-radio custom-control-inline">
                         <input type="radio" class="custom-control-input" id="customRadio12" name="classificacao" value="Confirmado">
                         <label class="custom-control-label" for="customRadio12">Confirmado</label>
                       </div>
-                  </div>
+                    </div>
 
-                  <div class="col-md-4">
+                    <div class="col-md-4">
                       <div class="custom-control custom-radio custom-control-inline">
                         <input type="radio" class="custom-control-input" id="customRadio13" name="classificacao" value="Descartado">
                         <label class="custom-control-label" for="customRadio13">Descartado</label>
                       </div>
-                  </div>
-                  
-                </div><br><br>
-                <div class="row">
-                  <div class="col-sm-12">
-                    <div class="alert alert-success" style="text-align: center;">
-                      <strong style="align-items: center;">Critério de Confirmação</strong>
+                    </div>
+
+                  </div><br><br>
+                  <div class="row">
+                    <div class="col-sm-12">
+                      <div class="alert alert-success" style="text-align: center;">
+                        <strong style="align-items: center;">Critério de Confirmação</strong>
+                      </div>
                     </div>
                   </div>
-                </div>
-                <div class="row">
-                  <div class="col-md-3"></div>
+                  <div class="row">
+                    <div class="col-md-3"></div>
 
-                  <div class="col-md-4">
+                    <div class="col-md-4">
                       <div class="custom-control custom-radio custom-control-inline">
                         <input type="radio" class="custom-control-input" id="customRadio14" name="criterio" value="Clinico Laboratorial">
                         <label class="custom-control-label" for="customRadio14">Clinico Laboratorial</label>
                       </div>
-                  </div>
+                    </div>
 
-                  <div class="col-md-4">
+                    <div class="col-md-4">
                       <div class="custom-control custom-radio custom-control-inline">
                         <input type="radio" class="custom-control-input" id="customRadio15" name="criterio" value="Clinico Epidemiológico">
                         <label class="custom-control-label" for="customRadio15">Clinico Epidemiológico</label>
                       </div>
+                    </div>
+
                   </div>
-                  
-                </div>
-                <br><br>
-                <div class="row">
-                  <div class="col-sm-12">
-                    <div class="alert alert-success" style="text-align: center;">
-                      <strong style="align-items: center;">Caso Autoctone do Município de Residência</strong>
+                  <br><br>
+                  <div class="row">
+                    <div class="col-sm-12">
+                      <div class="alert alert-success" style="text-align: center;">
+                        <strong style="align-items: center;">Caso Autoctone do Município de Residência</strong>
+                      </div>
                     </div>
                   </div>
-                </div>
-                <div class="row">
-                  <div class="col-md-1"></div>
+                  <div class="row">
+                    <div class="col-md-1"></div>
 
-                  <div class="col-md-1">
+                    <div class="col-md-1">
                       <div class="custom-control custom-radio custom-control-inline">
                         <input type="radio" class="custom-control-input" id="customRadio16" name="autoctone" value="Sim">
-                        <label class="custom-control-label" for="customRadio16">Sim</label>
+                        <label class="custom-control-label" for="customRadio16" onclick="activeInputsAutoctone()">Sim</label>
                       </div>
-                  </div>
+                    </div>
 
-                  <div class="col-md-1">
+                    <div class="col-md-1">
                       <div class="custom-control custom-radio custom-control-inline">
                         <input type="radio" class="custom-control-input" id="customRadio17" name="autoctone" value="Não">
-                        <label class="custom-control-label" for="customRadio17">Não</label>
+                        <label class="custom-control-label" for="customRadio17" onclick="desactiveInputsAutoctone()">Não</label>
                       </div>
-                  </div>
-                  <div class="col-md-2">
+                    </div>
+                    <div class="col-md-2">
                       <div class="custom-control custom-radio custom-control-inline">
                         <input type="radio" class="custom-control-input" id="customRadio18" name="autoctone" value="Indeterminado">
-                        <label class="custom-control-label" for="customRadio18">Indeterminado</label>
+                        <label class="custom-control-label" for="customRadio18" onclick="desactiveInputsAutoctone()">Indeterminado</label>
                       </div>
-                  </div>
-                  <div class="col-md-3">
+                    </div>
+                    <div class="col-md-3">
                       <div class="input-group mb-3" id="">
                         <div class="input-group-prepend" id="">
                           <span class="input-group-text">UF</span>
                         </div>
-                        <select class="form-control" name="uf_caso_autoctone_municipio" id="uf_caso_autoctone_id">
+                        <select class="form-control" name="uf_caso_autoctone_municipio" id="uf_caso_autoctone_id" disabled>
                           <option value="" selected></option>
                           {% for e in estados %}
                           <option value="{{e.id}}">{{e.nome}}</option>
                           {% endfor %}
                         </select>
                       </div>
-                  </div>
-                  <div class="col-md-3">
+                    </div>
+                    <div class="col-md-3">
                       <div class="input-group mb-3" id="">
                         <div class="input-group-prepend" id="">
                           <span class="input-group-text">País</span>
                         </div>
-                        <select class="form-control" name="pais_autoctone_municipio" id="pais_autoctone_id">
+                        <select class="form-control" name="pais_autoctone_municipio" id="pais_autoctone_id" disabled>
                           <option value="BRASIL" selected>BRASIL</option>
-                          <option value="Outros" selected>Outros</option>                          
+                          <option value="Outros">Outros</option>                          
                         </select>
                       </div>
-                  </div>
-                  
-                </div><br>
-                <div class="row">
-                  <div class="col-md-1"></div>
-                  <div class="col-md-4">
+                    </div>
+
+                  </div><br>
+                  <div class="row">
+                    <div class="col-md-1"></div>
+                    <div class="col-md-4">
                       <div class="input-group mb-3" id="">
                         <div class="input-group-prepend" id="">
                           <span class="input-group-text">Município</span>
@@ -2233,21 +2267,21 @@ footer {
                         <!--<input type="text" class="form-control" name="municipio_autoctone" value="" id="municipio_autoctone_id">
                         -->
 
-                        <select class="form-control" name="municipio_autoctone" id="municipio_autoctone_id">                          
+                        <select class="form-control" name="municipio_autoctone" id="municipio_autoctone_id" disabled>                          
                         </select>
 
 
                       </div>
-                  </div>
-                  <div class="col-md-3">
+                    </div>
+                    <div class="col-md-3">
                       <div class="input-group mb-3" id="">
                         <div class="input-group-prepend" id="">
                           <span class="input-group-text">Código IBGE</span>
                         </div>                                           
-                        <select class="form-control" name="ibge_autoctone" name="" id="ibge_autoctone_id"></select>
+                        <select class="form-control" name="ibge_autoctone" name="" id="ibge_autoctone_id" disabled></select>
                       </div>
-                  </div>
-                  <div class="col-md-4">
+                    </div>
+                    <div class="col-md-4">
                       <div class="input-group mb-3" id="">
                         <div class="input-group-prepend" id="">
                           <span class="input-group-text">Distrito</span>
@@ -2255,34 +2289,34 @@ footer {
                         <!--
                         <input type="text" class="form-control" name="distrito_autoctone" value="" id="">
                       -->
-                        <select class="form-control" name="ibge_autoctone" name="" id="distrito_autoctone_id"></select>
-                      </div>
+                      <select class="form-control" name="ibge_autoctone" name="" id="distrito_autoctone_id" disabled></select>
+                    </div>
                   </div>
                 </div>
                 <br>
                 <div class="row">
                   <div class="col-md-1"></div>
                   <div class="col-md-4">
-                      <div class="input-group mb-3" id="">
-                        <div class="input-group-prepend" id="">
-                          <span class="input-group-text">Bairro</span>
-                        </div>
-                        <input type="text" class="form-control" name="bairro_autoctone" value="" id="bairro_autoctone_id">
+                    <div class="input-group mb-3" id="">
+                      <div class="input-group-prepend" id="">
+                        <span class="input-group-text">Bairro</span>
                       </div>
+                      <input type="text" class="form-control" name="bairro_autoctone" value="" id="bairro_autoctone_id" disabled>
+                    </div>
                   </div>
                   <div class="col-md-4">
-                      <div class="input-group mb-3" id="">
-                        <div class="input-group-prepend" id="">
-                          <span class="input-group-text">Área Provável de Infecção</span>
-                        </div>
-                        <select class="form-control" name="area_provavel_infeccao" id="area_provavel_infeccao_autoctone_id">
-                          <option value=""></option>
-                          <option value="Periurbano">Periurbano</option>
-                          <option value="Rural">Rural</option>
-                          <option value="Urbana">Urbana</option>
-                          <option value="Ignorado">Ignorado</option>
-                        </select>
+                    <div class="input-group mb-3" id="">
+                      <div class="input-group-prepend" id="">
+                        <span class="input-group-text">Área Provável de Infecção</span>
                       </div>
+                      <select class="form-control" name="area_provavel_infeccao" id="area_provavel_infeccao_autoctone_id" disabled>
+                        <option value=""></option>
+                        <option value="Periurbano">Periurbano</option>
+                        <option value="Rural">Rural</option>
+                        <option value="Urbana">Urbana</option>
+                        <option value="Ignorado">Ignorado</option>
+                      </select>
+                    </div>
                   </div>
                   
                 </div>
@@ -2290,32 +2324,32 @@ footer {
                 <div class="row">
                   <div class="col-md-1"></div>
                   <div class="col-md-4">
-                      <div class="input-group mb-3" id="">
-                        <div class="input-group-prepend" id="">
-                          <span class="input-group-text">Ambiente da Infecção</span>
-                        </div>
-                        <select class="form-control" name="ambiente_infeccao_autoctone" id="ambiente_infeccao_autoctone_id">
-                          <option value=""></option>
-                          <option value="Domiciliar">Domiciliar</option>
-                          <option value="Trabalho">Trabalho</option>
-                          <option value="Lazer">Lazer</option>
-                          <option value="Outro">Outro</option>
-                          <option value="Ignorado">Ignorado</option>
-                        </select>
+                    <div class="input-group mb-3" id="">
+                      <div class="input-group-prepend" id="">
+                        <span class="input-group-text">Ambiente da Infecção</span>
                       </div>
+                      <select class="form-control" name="ambiente_infeccao_autoctone" id="ambiente_infeccao_autoctone_id" disabled>
+                        <option value=""></option>
+                        <option value="Domiciliar">Domiciliar</option>
+                        <option value="Trabalho">Trabalho</option>
+                        <option value="Lazer">Lazer</option>
+                        <option value="Outro">Outro</option>
+                        <option value="Ignorado">Ignorado</option>
+                      </select>
+                    </div>
                   </div>
                   <div class="col-md-5">
-                      <div class="input-group mb-3" id="">
-                        <div class="input-group-prepend" id="">
-                          <span class="input-group-text">Doença Relacionada ao Trabalho</span>
-                        </div>
-                        <select class="form-control" name="doenca_rel_trabalho_autoctone" id="">
-                          <option value=""></option>
-                          <option value="Sim">Sim</option>
-                          <option value="Não">Não</option>
-                          <option value="Ignorado">Ignorado</option>
-                        </select>
+                    <div class="input-group mb-3" id="">
+                      <div class="input-group-prepend" id="">
+                        <span class="input-group-text">Doença Relacionada ao Trabalho</span>
                       </div>
+                      <select class="form-control" name="doenca_rel_trabalho_autoctone" id="doenca_rel_trabalho_autoctone_id" disabled>
+                        <option value=""></option>
+                        <option value="Sim">Sim</option>
+                        <option value="Não">Não</option>
+                        <option value="Ignorado">Ignorado</option>
+                      </select>
+                    </div>
                   </div>
                   
                 </div>
@@ -2360,9 +2394,9 @@ footer {
                       $("#cod_ibge_id").val("");
                       $("#nome_hosp_id").val("");
 
-                       $("#mun_hosp_id").prop("disabled", true);
-                       $("#cod_ibge_id").prop("disabled", true);
-                       $("#nome_hosp_id").prop("disabled", true);
+                      $("#mun_hosp_id").prop("disabled", true);
+                      $("#cod_ibge_id").prop("disabled", true);
+                      $("#nome_hosp_id").prop("disabled", true);
                     }
 
                     if (document.getElementById("sel_uf_t").value == "PB"){
@@ -2395,28 +2429,28 @@ footer {
                   }
                 </style>
                 <div class="row">
-                  
+
                   <div class="col-md-4">
-                      <div class="input-group mb-3" id="">
-                        <div class="input-group-prepend" id="">
-                          <span class="input-group-text">Evolução do Caso</span>
-                        </div>
-                        <select class="form-control" name="evolucao_caso_autoctone" id="sel_evo_caso" onclick="activeDataEvoCaso()">
-                          <option value=""></option>
-                          <option value="Cura">Cura</option>
-                          <option value="Obito pelo AGRAVO">Obito pelo AGRAVO</option>
-                          <option value="Obito Outras Causas">Obito Outras Causas</option>
-                          <option value="Ignorado">Ignorado</option>
-                        </select>
+                    <div class="input-group mb-3" id="">
+                      <div class="input-group-prepend" id="">
+                        <span class="input-group-text">Evolução do Caso</span>
                       </div>
+                      <select class="form-control" name="evolucao_caso_autoctone" id="sel_evo_caso" onclick="activeDataEvoCaso()">
+                        <option value=""></option>
+                        <option value="Cura">Cura</option>
+                        <option value="Obito pelo AGRAVO">Obito pelo AGRAVO</option>
+                        <option value="Obito Outras Causas">Obito Outras Causas</option>
+                        <option value="Ignorado">Ignorado</option>
+                      </select>
+                    </div>
                   </div>
                   <div class="col-md-4">
-                      <div class="input-group mb-3" id="">
-                        <div class="input-group-prepend" id="div_input_data_ob">
-                          <span class="input-group-text">Data do Óbito</span>
-                        </div>
-                        <input type="date" class="form-control" name="data_obito" value="" id="data_obito_evo_id">
+                    <div class="input-group mb-3" id="">
+                      <div class="input-group-prepend" id="div_input_data_ob">
+                        <span class="input-group-text">Data do Óbito</span>
                       </div>
+                      <input type="date" class="form-control" name="data_obito" value="" id="data_obito_evo_id">
+                    </div>
                   </div>
                   
                   <script>
@@ -2424,12 +2458,12 @@ footer {
                   </script>
 
                   <div class="col-md-4">
-                      <div class="input-group mb-4" id="">
-                        <div class="input-group-prepend" id="">
-                          <span class="input-group-text">Data Encerramento</span>
-                        </div>
-                        <input type="date" class="form-control" name="data_encerramento" value="" id="data_encerramento_id">
+                    <div class="input-group mb-4" id="">
+                      <div class="input-group-prepend" id="">
+                        <span class="input-group-text">Data Encerramento</span>
                       </div>
+                      <input type="date" class="form-control" name="data_encerramento" value="" id="data_encerramento_id">
+                    </div>
                   </div>
 
                   <script>
@@ -2453,7 +2487,7 @@ footer {
               </div>
               
               <script>
-                
+
               </script>
 
               <script>
@@ -2469,34 +2503,34 @@ footer {
                 <div class="row">
                   <div class="col-md-1"></div>
                   <div class="col-md-9">
-                      <div class="input-group mb-3" id="">
-                        <div class="input-group-prepend" id="">
-                          <span class="input-group-text">Nome</span>
-                        </div>
-                        <input type="text" class="form-control" name="nome_investigador" value="" id="nome_investigador_id" onkeyup="maiuscula(event)">
+                    <div class="input-group mb-3" id="">
+                      <div class="input-group-prepend" id="">
+                        <span class="input-group-text">Nome</span>
                       </div>
+                      <input type="text" class="form-control" name="nome_investigador" value="" id="nome_investigador_id" onkeyup="maiuscula(event)">
+                    </div>
                   </div>
-                                 
+
                   
                 </div>
                 <div class="row">
                   <div class="col-md-1"></div>
                   
                   <div class="col-md-4">
-                      <div class="input-group mb-3" id="">
-                        <div class="input-group-prepend" id="">
-                          <span class="input-group-text">Função</span>
-                        </div>
-                        <input type="text" class="form-control" name="funcao_investigador" value="" id="">
+                    <div class="input-group mb-3" id="">
+                      <div class="input-group-prepend" id="">
+                        <span class="input-group-text">Função</span>
                       </div>
+                      <input type="text" class="form-control" name="funcao_investigador" value="" id="">
+                    </div>
                   </div>
                   <div class="col-md-5">
-                      <div class="input-group mb-3" id="">
-                        <div class="input-group-prepend" id="">
-                          <span class="input-group-text">Email</span>
-                        </div>
-                        <input type="text" class="form-control" name="email_investigador" value="" id="">
+                    <div class="input-group mb-3" id="">
+                      <div class="input-group-prepend" id="">
+                        <span class="input-group-text">Email</span>
                       </div>
+                      <input type="text" class="form-control" name="email_investigador" value="" id="">
+                    </div>
                   </div>                 
                   
                 </div>
@@ -2504,26 +2538,26 @@ footer {
                   <div class="col-md-1"></div>
                   
                   <div class="col-md-4">
-                      <div class="input-group mb-3" id="">
-                        <div class="input-group-prepend" id="">
-                          <span class="input-group-text">Telefone</span>
-                        </div>
-                        <input type="text" class="form-control" id="telefone_investigador_id" name="telefone_investigador" placeholder="apenas números">
-                        
+                    <div class="input-group mb-3" id="">
+                      <div class="input-group-prepend" id="">
+                        <span class="input-group-text">Telefone</span>
                       </div>
+                      <input type="text" class="form-control" id="telefone_investigador_id" name="telefone_investigador" placeholder="apenas números">
+
+                    </div>
                   </div>
                   <div class="col-md-5">
-                      <div class="input-group mb-3" id="">
-                        <div class="input-group-prepend" id="">
-                          <span class="input-group-text">Conselho Classe</span>
-                        </div>
-                        <input type="text" class="form-control" name="conselho_classe_investigador" value="" id="">
+                    <div class="input-group mb-3" id="">
+                      <div class="input-group-prepend" id="">
+                        <span class="input-group-text">Conselho Classe</span>
                       </div>
+                      <input type="text" class="form-control" name="conselho_classe_investigador" value="" id="">
+                    </div>
                   </div>                                 
                   
                 </div>
               </div>
-            
+
             </div>
 
             <hr>
@@ -2537,30 +2571,30 @@ footer {
           <script>
             $(document).ready(function () {
              $('input').keypress(function (e) {
-                  var code = null;
-                  code = (e.keyCode ? e.keyCode : e.which);                
-                  return (code == 13) ? false : true;
-             });
-          });
-          </script>
-          
-
-        </div>
+              var code = null;
+              code = (e.keyCode ? e.keyCode : e.which);                
+              return (code == 13) ? false : true;
+            });
+           });
+         </script>
 
 
-      </article>
+       </div>
 
 
-    </section>
-
-    <br><br>
+     </article>
 
 
-    <div class="jumbotron text-center" style="margin-bottom:0">
-      <p>Footer</p>
-      <i class="fa">&#xf1f9;</i>
-    </div>
-    <br>
+   </section>
+
+   <br><br>
+
+
+   <div class="jumbotron text-center" style="margin-bottom:0">
+    <p>Footer</p>
+    <i class="fa">&#xf1f9;</i>
+  </div>
+  <br>
 <!--
     <script
   src="https://code.jquery.com/jquery-3.4.1.min.js"
@@ -2572,8 +2606,8 @@ footer {
   -->
 
 
-    <script type="text/javascript">
-      $("#municipio_id").change(function(){
+  <script type="text/javascript">
+    $("#municipio_id").change(function(){
         //const url = $('#Form').attr("data-unidadesaude-url");
         municipioId = $(this).val();
 
@@ -2588,16 +2622,16 @@ footer {
         
       });
 
-      $("#municipio_id").change(function(){
+    $("#municipio_id").change(function(){
           //const url = $('#Form').attr("data-ibge-url");
           const municipioId = $(this).val();
           $.ajax({
-          url : '{% url "ajax_load_ibge" %}',
-          data: { 'municipio_id': municipioId},
-          success: function(data){
-            $("#ibge_cod_id").html(data);
-          }
-        });
+            url : '{% url "ajax_load_ibge" %}',
+            data: { 'municipio_id': municipioId},
+            success: function(data){
+              $("#ibge_cod_id").html(data);
+            }
+          });
 
         });
 
@@ -2628,12 +2662,12 @@ footer {
           //const url = $('#Form').attr("data-hospitalizacaoibge-url");
           const municipioId = $(this).val();
           $.ajax({
-          url : '{% url "ajax_hospitalizacao_ibge" %}',
-          data: { 'municipio_id': municipioId},
-          success: function(data){
-            $("#cod_ibge_id").html(data);
-          }
-        });
+            url : '{% url "ajax_hospitalizacao_ibge" %}',
+            data: { 'municipio_id': municipioId},
+            success: function(data){
+              $("#cod_ibge_id").html(data);
+            }
+          });
 
         });
 
