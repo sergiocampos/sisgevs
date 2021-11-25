@@ -31,6 +31,7 @@
       $("#telefone_residencia_id").mask("(99)99999-9999");
       $("#telefone_investigador_id").mask("(99)99999-9999");
       $("#outro_ibge_hospitalizacao").mask("99999999999999");
+      $("#cep").mask("99999-999");
     });
   </script>
 
@@ -720,7 +721,7 @@ footer {
                     <div class="row">
                       <div class="col-md-6"><b>Paciente</b>
                         <div class="form-group">
-                          <input class="form-control" type="text" name="nome_paciente" value="" id="nome_paciente_id" required style="text-transform: uppercase;" onchange="verificarNotifGeral()" onkeypress="return limitcarc(event, 'letr')">
+                          <input class="form-control" type="text" name="nome_paciente" value="" id="nome_paciente_id" required style="text-transform: uppercase;" onkeydown="verificarNotifGeral()" onkeypress="return limitcarc(event, 'letr')">
 
                         </div><div id="msg-error"></div>
                       </div>
@@ -772,7 +773,7 @@ footer {
                 <div class="row">
                   <div class="col-md-2">
                     <div class="form-group"><b>Idade</b>
-                      <input class="form-control" type="text" name="result" placeholder="" value="" id="result">
+                      <input class="form-control" type="text" name="result" placeholder="" onkeypress="return limitcarc(event, 'num')" value="" id="result">
                     </div>
                   </div>
                   <div class="col-md-2">
@@ -833,12 +834,12 @@ footer {
 
                   <div class="col-md-3">
                     <div class="form-group"><b>Cartão SUS</b>
-                      <input class="form-control" type="text" name="cartao_sus" placeholder="" value="">
+                      <input class="form-control" type="text" name="cartao_sus" onkeypress="return limitcarc(event, 'num')" placeholder="" value="">
                     </div>              
                   </div>
                   <div class="col-md-6">
                     <div class="form-group"><b>Nome da Mãe</b><i id="alert_nome_mae" style="display:none;color:red">**</i>
-                      <input class="form-control" type="text" name="nome_mae" placeholder="" value="" id="nome_mae_id" required onkeypress="verificarNotifGeral()" style="text-transform: uppercase;">
+                      <input class="form-control" type="text" name="nome_mae" placeholder="" value="" id="nome_mae_id" required onkeydown="verificarNotifGeral()" onkeypress="return limitcarc(event, 'letr')" style="text-transform: uppercase;">
                     </div>              
                   </div>
                 </div>
@@ -846,16 +847,21 @@ footer {
                 <script>
                   
                   function verificarNotifGeral(){
-                    if((document.getElementById('nome_paciente_id').value.length >= 10) && (document.getElementById('nome_mae_id').value.length >= 10) && (document.getElementById('date2').value != "") ){
+                    if ((document.getElementById('nome_paciente_id').value.length <= 10) || (document.getElementById('nome_mae_id').value.length <= 10) || (document.getElementById('date2').value == "") ){
+                      $("#alert_notificacao_individual").show();
+                    }
+                    if ((document.getElementById('nome_paciente_id').value.length >= 10) && (document.getElementById('nome_mae_id').value.length >= 10) && (document.getElementById('date2').value != "") ){
                       $("#alert_notificacao_individual").hide();
                     }
-                    
                     if ((document.getElementById('dt_primeiros_s').value != "") && (document.getElementById('municipio_id').value.length != 0)){
                       $('#alert_dados_gerais').hide();
                     }
+                    if (document.getElementById('telefone_residencia_id').value.length < 13){
+                      $("#alert_dados_residencia").show();
+                    }
                     if (document.getElementById('telefone_residencia_id').value.length === 13){
                       $("#alert_dados_residencia").hide();
-                    }                    
+                    }                 
                     if ((document.getElementById('nome_paciente_id').value.length != 0) && (document.getElementById('nome_mae_id').value.length != 0) 
                     && (document.getElementById('date2').value != "") && (document.getElementById('dt_primeiros_s').value != "") 
                     && (document.getElementById('municipio_id').value.length != 0) && (document.getElementById('telefone_residencia_id').value.length === 13)){
@@ -872,29 +878,29 @@ footer {
 
                   <div class="col-md-2">
                     <div class="form-group"><b>CEP</b>
-                      <input class="form-control" type="text" name="cep_residencia" id="cep" placeholder="" value="" required>
+                      <input class="form-control" type="text" onkeypress="return limitcarc(event, 'num')" name="cep_residencia" id="cep" placeholder="" value="" required>
                     </div>
                   </div>
                   <div class="col-md-3">
                     <div class="form-group"><b>UF</b>
-                      <input class="form-control" type="text" name="uf_residencia" id="uf" placeholder="" value="">
+                      <input class="form-control" type="text" onkeypress="return limitcarc(event, 'letr')" name="uf_residencia" id="uf" placeholder="" value="">
                     </div>
                   </div>
                   <div class="col-md-3">
                     <div class="form-group"><b>Município</b>
-                      <input class="form-control" type="text" name="cidade_residencia" id="cidade" placeholder="" value="">
+                      <input class="form-control" type="text" onkeypress="return limitcarc(event, 'letr_acent')" name="cidade_residencia" id="cidade" placeholder="" value="">
                     </div>              
                   </div>
                   
                   <div class="col-md-2">
                     <div class="form-group"><b>Bairro</b>
-                      <input class="form-control" type="text" name="bairro_residencia" id="bairro" placeholder="" value="">
+                      <input class="form-control" type="text" onkeypress="return limitcarc(event, 'letr_acent')" name="bairro_residencia" id="bairro" placeholder="" value="">
                     </div>
                   </div>
 
                   <div class="col-md-2">
                     <div class="form-group"><b>Código IBGE</b>
-                      <input class="form-control" type="text" name="codigo_ibge_residencia" id="ibge" placeholder="" value="">
+                      <input class="form-control" type="text" onkeypress="return limitcarc(event, 'num')" name="codigo_ibge_residencia" id="ibge" placeholder="" value="">
                     </div>
                   </div>
                   
@@ -938,7 +944,7 @@ footer {
                 <div class="row">
                   <div class="col-md-2">
                     <div class="form-group"><b>Telefone</b><i id="alert_telefone_paciente" style="display:none;color:red">**</i>
-                      <input type="text" class="form-control" id="telefone_residencia_id" name="telefone_residencia" placeholder="apenas números" required onkeypress="verificarNotifGeral()">
+                      <input type="text" class="form-control" id="telefone_residencia_id" name="telefone_residencia" placeholder="apenas números" required onkeydown="verificarNotifGeral()">
                     </div>
                   </div>
                   <div class="col-md-3">
