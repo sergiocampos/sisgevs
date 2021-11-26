@@ -276,7 +276,7 @@ def set_caso_esporotricose_create(request):
 	unidade_saude_outro = request.POST.get('unidade_saude_outro')
 	
 	#notificação individual
-	nome_paciente = request.POST.get('nome_paciente')
+	nome_paciente = request.POST.get('nome_paciente').upper()
 	
 	data_nascimento_paciente_cap = request.POST.get('data_nasc')
 	if data_nascimento_paciente_cap == '' or data_nascimento_paciente_cap == None:
@@ -296,7 +296,7 @@ def set_caso_esporotricose_create(request):
 	raca_paciente = request.POST.get('raca')
 	escolaridade_paciente = request.POST.get('escolaridade')
 	cartao_sus_paciente = request.POST.get('cartao_sus')
-	nome_mae_paciente = request.POST.get('nome_mae')
+	nome_mae_paciente = request.POST.get('nome_mae').upper()
 	
 	#Dados Residencia
 	cep_residencia = request.POST.get('cep_residencia')
@@ -633,7 +633,7 @@ def set_caso_esporotricose_edit(request, id):
 	unidade_saude_outro = request.POST.get('unidade_saude_outro')
 	
 	#notificação individual
-	nome_paciente = request.POST.get('nome_paciente')
+	nome_paciente = request.POST.get('nome_paciente').upper()
 	
 	data_nascimento_paciente_cap = request.POST.get('data_nasc')
 	if data_nascimento_paciente_cap == '' or data_nascimento_paciente_cap == None:
@@ -653,7 +653,7 @@ def set_caso_esporotricose_edit(request, id):
 	raca_paciente = request.POST.get('raca')
 	escolaridade_paciente = request.POST.get('escolaridade')
 	cartao_sus_paciente = request.POST.get('cartao_sus')
-	nome_mae_paciente = request.POST.get('nome_mae')
+	nome_mae_paciente = request.POST.get('nome_mae').upper()
 	
 	#Dados Residencia
 	cep_residencia = request.POST.get('cep_residencia')
@@ -826,7 +826,7 @@ def set_caso_esporotricose_edit(request, id):
 	telefone_investigador = request.POST.get('telefone_investigador')
 	conselho_classe_investigador = request.POST.get('conselho_classe_investigador')
 
-	registro = CasoEsporotricose.objects.create(
+	registro = CasoEsporotricose.objects.update(
 		id = id,
 		responsavel_pelas_informacoes = responsavel_pelas_informacoes,
 		tipo_notificacao = tipo_notificacao,
