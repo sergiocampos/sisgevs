@@ -19,6 +19,10 @@ def login_page(request):
 	return render(request, 'login_page.html')
 
 
+def index_aberto(request):
+	return render(request, 'index_aberto.html')
+
+
 @csrf_protect
 def login_submit(request):
 	if request.POST:
