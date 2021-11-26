@@ -244,7 +244,7 @@ def set_caso_esporotricose_create(request):
 	#Dados Gerais
 	tipo_notificacao = request.POST.get('tipo_notificacao')
 	agravo_doenca = request.POST.get('agravo_doenca')
-	codigo_cib10 = request.POST.get('codigo_cib')
+	codigo_cib10 = request.POST.get('codigo_cid')
 	
 	data_notificacao_cap = request.POST.get('data_notificacao')
 	
@@ -586,7 +586,7 @@ def caso_esporotricose_edit(request, id):
 	municipios = Municipio.objects.all().order_by('nome')
 	unidades_saude = []
 	codigos_ibge = []
-	print(caso.data_notificacao)
+	print(caso.codigo_ibge)
 	caso.data_notificacao = datetime.strftime(caso.data_notificacao, '%Y-%m-%d')
 	caso.data_primeiros_sintomas = datetime.strftime(caso.data_primeiros_sintomas, '%Y-%m-%d')
 	caso.data_nascimento_paciente = datetime.strftime(caso.data_nascimento_paciente, '%Y-%m-%d')
@@ -601,7 +601,7 @@ def set_caso_esporotricose_edit(request, id):
 	#Dados Gerais
 	tipo_notificacao = request.POST.get('tipo_notificacao')
 	agravo_doenca = request.POST.get('agravo_doenca')
-	codigo_cib10 = request.POST.get('codigo_cib')
+	codigo_cib10 = request.POST.get('codigo_cid')
 	
 	data_notificacao_cap = request.POST.get('data_notificacao')
 	
