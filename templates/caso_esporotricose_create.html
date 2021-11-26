@@ -99,7 +99,9 @@ footer {
   text-align: center;
   color: white;
 }
-
+#cid_number{
+  font-weight: 700;
+}
 /* Responsive layout - makes the menu and the content (inside the section) sit on top of each other instead of next to each other */
 @media (max-width: 600px) {
   section {
@@ -435,7 +437,7 @@ footer {
             <div class="col-md-12">
               <p style="font-size: 72%; background-color: #e6e6e6; padding: 8px;">
 
-                <b>CASO SUSPEITO:</b> INDIVÍDUO QUE APRESENTE LESÕES NA PELE, QUE SE INICIAM COMO UMA PEQUENA PÁPILA, QUE PODEM EVOLUIR PARA UMA FORMA ULCERADA, COM OU SEM SECREÇÃO SEROPULENTA, DISPOSTAS OU NÃO EM FILEIRA; COM HISTÓRIA EPIDEMIOLÓGICA DE TRAUMA CUTÂNEO POR MATERIAL DE ORIGEM VEGETAL POTENCIALMENTE CONTAMINADO COM FUNGO OU ARRANHADURA/MORDEDURA POR GATOS OU CONTATO COM FERIDAS DESSES ANIMAIS.
+                <b>CASO SUSPEITO:</b> INDIVÍDUO QUE APRESENTE LESÕES NA PELE, QUE SE INICIAM COMO UMA PEQUENA PÁPULA, QUE PODEM EVOLUIR PARA UMA FORMA ULCERADA, COM OU SEM SECREÇÃO SEROPULENTA, DISPOSTAS OU NÃO EM FILEIRA; COM HISTÓRIA EPIDEMIOLÓGICA DE TRAUMA CUTÂNEO POR MATERIAL DE ORIGEM VEGETAL POTENCIALMENTE CONTAMINADO COM FUNGO OU ARRANHADURA/MORDEDURA POR GATOS OU CONTATO COM FERIDAS DESSES ANIMAIS.
                 
               </p>
 
@@ -470,7 +472,7 @@ footer {
                 <a class="nav-link" data-toggle="tab" href="#menu3">Dados Clínicos</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" data-toggle="tab" href="#menu4" id="btn_menu4">Dados Laboratoriais</a>
+                <a class="nav-link" data-toggle="tab" href="#menu4">Dados Laboratoriais</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" data-toggle="tab" href="#menu5">Tratamento</a>
@@ -494,14 +496,14 @@ footer {
 
                 <div class="row">
 
-                  <div class="col-md-3">
+                  <div class="col-md-2">
                     <div class="form-group"><b>Tipo de Notificação</b>
                       <select class="form-control" name="tipo_notificacao" id="">
                         <option value="Individual" selected>Individual</option>
                       </select>
                     </div>
                   </div>
-                  <div class="col-md-2">
+                  <div class="col-md-3">
                     <div class="form-group"><b>Agravo/Doença</b>
                       <select class="form-control" name="agravo_doenca" id="">
                         <option value="Esporotricose" selected>Esporotricose</option>
@@ -509,7 +511,7 @@ footer {
                     </div>              
                   </div>
                   <div class="col-md-2">
-                    <div class="form-group"><b>Código CID</b>
+                    <div class="form-group"><b>Código CID-<input style="border:none; width: 40px; background-color:#f1f1f1" min="0" type="number" id="cid_number"></b>
                       <input class="form-control" type="text" name="codigo_cid" placeholder="" value="B42.9">
                     </div>
                   </div>
@@ -1179,7 +1181,11 @@ footer {
 
                   <script>
                     $(document).ready(function(){
-                      $('[data-toggle="tooltip"]').tooltip();   
+                      $('[data-toggle="tooltip"]').tooltip();
+                      $('#cid_number').val(10);
+                      $("#coleta_gal_1").hide();
+                      $("#coleta_gal_2").hide();
+                      $("#coleta_gal_3").hide();
                     });
                   </script>
 
@@ -1380,14 +1386,7 @@ footer {
                       }
                     });
                   });
-                  $('#btn_menu4').on('click', function(){
-                    $("#coleta_gal_1").hide();
-                    $("#coleta_gal_2").hide();
-                    $("#coleta_gal_3").hide();
-                  });
-
-
-                  
+                                    
                   $(function() {
                     $(document).on('click','#coleta_exame_labo_sim_id', function (e) {
                       if ($(this).is(":checked")) {
@@ -1898,7 +1897,10 @@ footer {
                       <div class="input-group-prepend" id="">
                         <span class="input-group-text">Descricao</span>
                       </div>
-                      <input type="text" class="form-control" name="descricao_outros_exames_1" value="" id="">
+                      <select class="form-control" id="select_descricao_1">
+                        <option value="micologico">Micológico</option>
+                        <option value="outros">Outros</option>
+                      </select>
                     </div>
                   </div>
                   <div class="col-md-5">
@@ -1925,7 +1927,10 @@ footer {
                       <div class="input-group-prepend" id="">
                         <span class="input-group-text">Descricao</span>
                       </div>
-                      <input type="text" class="form-control" name="descricao_outros_exames_2" value="" id="">
+                      <select class="form-control" id="select_descricao_2">
+                        <option value="micologico">Micológico</option>
+                        <option value="outros">Outros</option>
+                      </select>
                     </div>
                   </div>
                   <div class="col-md-5">
@@ -1954,7 +1959,10 @@ footer {
                       <div class="input-group-prepend" id="">
                         <span class="input-group-text">Descricao</span>
                       </div>
-                      <input type="text" class="form-control" name="descricao_outros_exames_3" value="" id="">
+                      <select class="form-control" id="select_descricao_3">
+                        <option value="micologico">Micológico</option>
+                        <option value="outros">Outros</option>
+                      </select>
                     </div>
                   </div>
                   <div class="col-md-5">
