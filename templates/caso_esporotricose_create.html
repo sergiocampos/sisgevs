@@ -252,27 +252,41 @@ footer {
       document.getElementById('alert_dt_ps').style.display="none";
       return true;
     }
-
-
-
-
-
-  }
+  } // FIM AJAX CEP
 
   function activeGestante(){
-    if (document.getElementById('span_id').value=="F"){
+    let genero = document.getElementById('span_id').value;
+    let idade = document.getElementById('result').value;
+    if ((idade<= 9) && (genero!="M") && (genero!="")){
+      $('#gestante_id').children('option[value=""]').hide();
+      $('#gestante_id').children('option[value="1º Trimestre"]').hide();
+      $('#gestante_id').children('option[value="2º Trimestre"]').hide();
+      $('#gestante_id').children('option[value="3º Trimestre"]').hide();
+      $('#gestante_id').children('option[value="Idade Gestacional Ignorada"]').hide();
+      $('#gestante_id').children('option[value="Ignorado"]').hide();
+      $('#gestante_id').children('option[value="Não"]').hide();
+    } else if ((idade > 9) || (genero!="M") || (genero!="M")) {
+      $('#gestante_id').children('option[value=""]').show();
+      $('#gestante_id').children('option[value="1º Trimestre"]').show();
+      $('#gestante_id').children('option[value="2º Trimestre"]').show();
+      $('#gestante_id').children('option[value="3º Trimestre"]').show();
+      $('#gestante_id').children('option[value="Idade Gestacional Ignorada"]').show();
+      $('#gestante_id').children('option[value="Ignorado"]').show();
+      $('#gestante_id').children('option[value="Não"]').show();
+    }
+    if (genero=="F"){
       $("#gestante_id").prop("disabled", false);
     }
-    if (document.getElementById('span_id').value=="M-Trans"){
+    if (genero=="M-Trans"){
       $("#gestante_id").prop("disabled", false);
     }
-    if (document.getElementById('span_id').value=="F-Trans"){
+    if (genero=="F-Trans"){
       $("#gestante_id").prop("disabled", false);
     }
-    if (document.getElementById('span_id').value=="Nao Binario"){
+    if (genero=="Nao Binario"){
       $("#gestante_id").prop("disabled", false);
     }
-    if (document.getElementById('span_id').value=="M"){
+    if (genero=="M"){
       $("#gestante_id").prop("disabled", true);
       $("#gestante_id").val("");
     }
@@ -324,7 +338,7 @@ footer {
       <h6><b>----</b></h6>
     </div>
     <div class="col-sm-3">
-      <img src="{% static "sisgevs/nova-marca-governo-01.png" %}" alt="" width="50%">
+      <img src="{% static 'sisgevs/nova-marca-governo-01.png' %}" alt="" width="50%">
         <!--
         <img src="https://docs.google.com/uc?id=1tLThSsCUOFKg-1fphY-Y9hrC_XFnHdOr" alt="" width="50%">
       -->
@@ -456,7 +470,7 @@ footer {
                 <a class="nav-link" data-toggle="tab" href="#menu3">Dados Clínicos</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" data-toggle="tab" href="#menu4">Dados Laboratoriais</a>
+                <a class="nav-link" data-toggle="tab" href="#menu4" id="btn_menu4">Dados Laboratoriais</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" data-toggle="tab" href="#menu5">Tratamento</a>
@@ -484,8 +498,6 @@ footer {
                     <div class="form-group"><b>Tipo de Notificação</b>
                       <select class="form-control" name="tipo_notificacao" id="">
                         <option value="Individual" selected>Individual</option>
-                        <option value=""></option>
-
                       </select>
                     </div>
                   </div>
@@ -493,34 +505,34 @@ footer {
                     <div class="form-group"><b>Agravo/Doença</b>
                       <select class="form-control" name="agravo_doenca" id="">
                         <option value="Esporotricose" selected>Esporotricose</option>
-                        <option value=""></option>
-
                       </select>
                     </div>              
                   </div>
                   <div class="col-md-2">
-                    <div class="form-group"><b>Código CIB 10</b>
-                      <input class="form-control" type="text" name="codigo_cib" placeholder="" value="B42.9">
+                    <div class="form-group"><b>Código CID</b>
+                      <input class="form-control" type="text" name="codigo_cid" placeholder="" value="B42.9">
                     </div>
                   </div>
                   
                   <div class="col-md-3">
-                    <div class="form-group"><b>Data dos Primeiros Sintomas</b><i id="alert_dt_ps" style="display:none;color:red">***</i>
-                      <input class="form-control" type="date" name="data_primeiros_sintomas" value="" id="dt_primeiros_s" onchange="verificarNotifGeral()" onclick="limitandoData(this)" required>
+                    <div class="form-group"><b>Data dos Primeiros Sintomas</b><i id="alert_dt_ps" style="color:red">**</i>
+                      <input class="form-control" type="date" name="data_primeiros_sintomas" value="" id="dt_primeiros_s" onchange="verificarNotifGeral()" onblur="limitandoData(this)" onclick="limitandoData(this)" required>
                       
                     </div>
                   </div>
 
                   <script>
                     dt_primeiros_s.max = new Date().toISOString().split("T")[0];
-
+                    
                     function limitandoData(datamin){
                       var today = new Date();
                       datamin = datamin.value;
                       //console.log(datamin);
                       $("#datanotificacao").attr('min', datamin);
                       $("#data_investigacao_id").attr('min', datamin);
-                      $("#data_coleta_material_id").attr('min', datamin);
+                      $("#data_coleta_material_id_1").attr('min', datamin);
+                      $("#data_coleta_material_id_2").attr('min', datamin);
+                      $("#data_coleta_material_id_3").attr('min', datamin);
                       $("#data_outros_exames_1_id").attr('min', datamin);
                       $("#data_outros_exames_2_id").attr('min', datamin);
                       $("#data_outros_exames_3_id").attr('min', datamin);
@@ -551,7 +563,7 @@ footer {
                     </div>
                   </div>
                   <div class="col-md-3">
-                    <div class="form-group"><b>Município</b>
+                    <div class="form-group"><b>Município</b><i id="alert_municipio" style="color:red">**</i>
                       <select class="form-control" name="municipio_notificacao" id="municipio_id" required onchange="verificarNotifGeral()">
                         <option value="" selected><i></i></option>
                         {% for municipio in municipios %}
@@ -678,7 +690,6 @@ footer {
                     };
 
                     data = y+"-"+m+"-"+d;
-                    console.log(data);
                     _dat.value = data;
                   };
 
@@ -719,7 +730,7 @@ footer {
                 </script>
 
                     <div class="row">
-                      <div class="col-md-6"><b>Paciente</b>
+                      <div class="col-md-6"><b>Paciente</b><i id="alert_paciente" style="color:red">**</i>
                         <div class="form-group">
                           <input class="form-control" type="text" name="nome_paciente" value="" id="nome_paciente_id" required style="text-transform: uppercase;" onkeydown="verificarNotifGeral()" onkeypress="return limitcarc(event, 'letr')">
 
@@ -727,7 +738,7 @@ footer {
                       </div>
                       <div class="col-md-2">
                         <div class="form-group"><b>Data Nasc</b>
-                          <i id="alert_data_nasc" style="display:none;color:red">**</i>
+                          <i id="alert_data_nasc" style="color:red">**</i>
                           <input class="form-control" type="date" name="data_nasc" id="date2" placeholder="" value="" required onchange="verificarNotifGeral()">
 
                         </div>                                
@@ -753,20 +764,20 @@ footer {
                     </div>
 
                     <script>
-                      
+                      // Calculando IDADE
                       $('#date2').on('change', function(){
                         var data = document.getElementById('date2');
                         var idade = calcula(data);
                         idade = String(idade);
                         document.getElementById('result').value = idade;
+                        activeGestante();
                       })
-
                       function calcula(data_nascimento){
                         today = new Date();
                         nascimento = new Date(data_nascimento.value);
                         idade = parseInt(((today - nascimento)/(24 * 3600 * 1000))/365);
                         return idade;
-                      }
+                      } // FIM Calculando IDADE
 
                 </script>
 
@@ -796,7 +807,7 @@ footer {
                       <select class="form-control" name="gestacao" id="gestante_id" disabled>
 
                         <option value=""></option>
-                        <option value="1º Trimente">1º Trimente</option>
+                        <option value="1º Trimestre">1º Trimestre</option>
                         <option value="2º Trimestre">2º Trimestre</option>
                         <option value="3º Trimestre">3º Trimestre</option>
                         <option value="Idade Gestacional Ignorada">Idade Gestacional Ignorada</option>
@@ -838,7 +849,7 @@ footer {
                     </div>              
                   </div>
                   <div class="col-md-6">
-                    <div class="form-group"><b>Nome da Mãe</b><i id="alert_nome_mae" style="display:none;color:red">**</i>
+                    <div class="form-group"><b>Nome da Mãe</b><i id="alert_nome_mae" style="color:red">**</i>
                       <input class="form-control" type="text" name="nome_mae" placeholder="" value="" id="nome_mae_id" required onkeydown="verificarNotifGeral()" onkeypress="return limitcarc(event, 'letr')" style="text-transform: uppercase;">
                     </div>              
                   </div>
@@ -847,26 +858,43 @@ footer {
                 <script>
                   
                   function verificarNotifGeral(){
-                    if ((document.getElementById('nome_paciente_id').value.length <= 10) || (document.getElementById('nome_mae_id').value.length <= 10) || (document.getElementById('date2').value == "") ){
-                      $("#alert_notificacao_individual").show();
-                    }
-                    if ((document.getElementById('nome_paciente_id').value.length >= 10) && (document.getElementById('nome_mae_id').value.length >= 10) && (document.getElementById('date2').value != "") ){
+                    var nome_paciente = document.getElementById('nome_paciente_id').value.length;
+                    var nome_mae = document.getElementById('nome_mae_id').value.length;
+                    var date2 = document.getElementById('date2').value;
+                    var data_1_s = document.getElementById('dt_primeiros_s').value;
+                    var municipio = document.getElementById('municipio_id').value.length;
+                    var telefone = document.getElementById('telefone_residencia_id').value.length;
+                    
+                    if (municipio != 0) {$('#alert_municipio').hide();} else {$('#alert_municipio').show();}
+                    
+                    if (data_1_s != "") {$('#alert_dt_ps').hide();} else {$('#alert_dt_ps').show();}
+                    
+                    if (nome_paciente >= 10) {$('#alert_paciente').hide();} else {$('#alert_paciente').show();}
+                    
+                    if (date2 != "") {$('#alert_data_nasc').hide();} else {$('#alert_data_nasc').show();}
+                    
+                    if (nome_mae >= 10) {$('#alert_nome_mae').hide();} else {$('#alert_nome_mae').show();}
+                    
+                    if ((nome_paciente >= 10) && (nome_mae >= 10) && (date2 != "") ){
                       $("#alert_notificacao_individual").hide();
-                    }
-                    if ((document.getElementById('dt_primeiros_s').value != "") && (document.getElementById('municipio_id').value.length != 0)){
+                    } else {$("#alert_notificacao_individual").show();}
+
+                    if ((data_1_s != "") && (municipio != 0)){
                       $('#alert_dados_gerais').hide();
                     }
-                    if (document.getElementById('telefone_residencia_id').value.length < 13){
+                    if (telefone < 13){
                       $("#alert_dados_residencia").show();
-                    }
-                    if (document.getElementById('telefone_residencia_id').value.length === 13){
+                      $('#alert_telefone_paciente').show();
+                    } else {
                       $("#alert_dados_residencia").hide();
-                    }                 
-                    if ((document.getElementById('nome_paciente_id').value.length != 0) && (document.getElementById('nome_mae_id').value.length != 0) 
-                    && (document.getElementById('date2').value != "") && (document.getElementById('dt_primeiros_s').value != "") 
-                    && (document.getElementById('municipio_id').value.length != 0) && (document.getElementById('telefone_residencia_id').value.length === 13)){
-                      $("#btn_submit_id").prop("disabled", false);
+                      $('#alert_telefone_paciente').hide();
                     }
+                                     
+                    if ((nome_paciente >= 10) && (nome_mae >= 10) && (date2 != "") 
+                        && (data_1_s != "") && (municipio != 0) && (telefone >= 13)){
+                      $("#btn_submit_id").prop("disabled", false);
+                    } else {$("#btn_submit_id").prop("disabled", true);}
+                    
                   }
                 </script>
 
@@ -943,7 +971,7 @@ footer {
                 </div>
                 <div class="row">
                   <div class="col-md-2">
-                    <div class="form-group"><b>Telefone</b><i id="alert_telefone_paciente" style="display:none;color:red">**</i>
+                    <div class="form-group"><b>Telefone</b><i id="alert_telefone_paciente" style="color:red">**</i>
                       <input type="text" class="form-control" id="telefone_residencia_id" name="telefone_residencia" placeholder="apenas números" required onkeydown="verificarNotifGeral()">
                     </div>
                   </div>
@@ -959,7 +987,7 @@ footer {
                     </div>
                   </div>
                   <div class="col-md-7">
-                    <div class="form-group"><b>Pais - </b><i>Se residem fora do Brasil</i>
+                    <div class="form-group"><b>País - </b><i>Se residem fora do Brasil</i>
                       <input class="form-control" type="text" name="pais_residente_fora_pais" id="" placeholder="" value="">
                     </div>
                   </div>
@@ -1292,9 +1320,7 @@ footer {
 
                 <style>
                   #nat_lesao_outros_id,
-                  #loc_lesao_outros_id,
-                  #lb_data_coleta_material,
-                  #data_coleta_material_id{
+                  #loc_lesao_outros_id{
                     display: none;
                   }
                 </style>
@@ -1310,6 +1336,40 @@ footer {
                     });
                   });
 
+                  function active_deactive_1(){
+                    if(document.getElementById('checkbox_1_id').checked == true){
+                      $("#gal_id_1").prop("disabled", false);
+                      $("#data_coleta_material_id_1").prop("disabled", false);
+                    } else if(document.getElementById('checkbox_1_id').checked == false){
+                      $("#gal_id_1").prop("disabled", true);
+                      $("#data_coleta_material_id_1").prop("disabled", true);
+                      $("#gal_id_1").val("");
+                      $("#data_coleta_material_id_1").val("");
+                    }
+                  };
+                  function active_deactive_2(){
+                    if(document.getElementById('checkbox_2_id').checked == true){
+                      $("#gal_id_2").prop("disabled", false);
+                      $("#data_coleta_material_id_2").prop("disabled", false);
+                    } else if(document.getElementById('checkbox_2_id').checked == false){
+                      $("#gal_id_2").prop("disabled", true);
+                      $("#data_coleta_material_id_2").prop("disabled", true);
+                      $("#gal_id_2").val("");
+                      $("#data_coleta_material_id_2").val("");
+                    }
+                  };
+                  function active_deactive_3(){
+                    if(document.getElementById('checkbox_3_id').checked == true){
+                      $("#gal_id_3").prop("disabled", false);
+                      $("#data_coleta_material_id_3").prop("disabled", false);
+                    } else if(document.getElementById('checkbox_3_id').checked == false){
+                      $("#gal_id_3").prop("disabled", true);
+                      $("#data_coleta_material_id_3").prop("disabled", true);
+                      $("#gal_id_3").val("");
+                      $("#data_coleta_material_id_3").val("");
+                    }
+                  };
+
                   $(function() {
                     $(document).on('click','#local_lesao_outros_id', function (e) {
                       if ($(this).is(":checked")) {
@@ -1320,16 +1380,31 @@ footer {
                       }
                     });
                   });
+                  $('#btn_menu4').on('click', function(){
+                    $("#coleta_gal_1").hide();
+                    $("#coleta_gal_2").hide();
+                    $("#coleta_gal_3").hide();
+                  });
 
+
+                  
                   $(function() {
                     $(document).on('click','#coleta_exame_labo_sim_id', function (e) {
                       if ($(this).is(":checked")) {
-                        $("#lb_data_coleta_material").show();
-                        $("#data_coleta_material_id").show();
+                        $("#coleta_gal_1").show();
+                        $("#coleta_gal_2").show();
+                        $("#coleta_gal_3").show();
                       } else {
-                        $("#lb_data_coleta_material").hide();
-                        $("#data_coleta_material_id").hide();
-                        $("#data_coleta_material_id").val("");
+                        $("#coleta_gal_1").hide();
+                        $("#coleta_gal_2").hide();
+                        $("#coleta_gal_3").hide();
+                        
+                        $('#gal_id_1').val("");
+                        $("#data_coleta_material_id_1").val("");
+                        $('#gal_id_2').val("");
+                        $("#data_coleta_material_id_2").val("");
+                        $('#gal_id_3').val("");
+                        $("#data_coleta_material_id_3").val("");
                       }
                     });
                   });
@@ -1337,9 +1412,16 @@ footer {
                   $(function() {
                     $(document).on('click','#coleta_exame_nao_id', function (e) {
                       if ($(this).is(":checked")) {
-                        $("#lb_data_coleta_material").hide();
-                        $("#data_coleta_material_id").hide();
-                        $("#data_coleta_material_id").val("");
+                        $("#coleta_gal_1").hide();
+                        $("#coleta_gal_2").hide();
+                        $("#coleta_gal_3").hide();
+                        
+                        $('#gal_id_1').val("");
+                        $("#data_coleta_material_id_1").val("");
+                        $('#gal_id_2').val("");
+                        $("#data_coleta_material_id_2").val("");
+                        $('#gal_id_3').val("");
+                        $("#data_coleta_material_id_3").val("");
                       }
                     });
                   }) ;
@@ -1347,9 +1429,16 @@ footer {
                   $(function() {
                     $(document).on('click','#coleta_exame_ignorado_id', function (e) {
                       if ($(this).is(":checked")) {
-                        $("#lb_data_coleta_material").hide();
-                        $("#data_coleta_material_id").hide();
-                        $("#data_coleta_material_id").val("");
+                        $("#coleta_gal_1").hide();
+                        $("#coleta_gal_2").hide();
+                        $("#coleta_gal_3").hide();
+                        
+                        $('#gal_id_1').val("");
+                        $("#data_coleta_material_id_1").val("");
+                        $('#gal_id_2').val("");
+                        $("#data_coleta_material_id_2").val("");
+                        $('#gal_id_3').val("");
+                        $("#data_coleta_material_id_3").val("");
                       }
                     });
                   }) ;
@@ -1633,19 +1722,71 @@ footer {
                   </div>
                   
                 </div><br>
-                <div class="row">
+                <!-- |INICIO| DATA COLETA E GAL -->
+                <!-- |1| DATA COLETA E GAL -->
+                <div id="coleta_gal_1" class="row">
                   <div class="col-md-2"></div>
-                  <div class="col-md-3">
+                  <div class="col-md-4">
                     <div class="input-group mb-3" id="">
-                      <div class="input-group-prepend" id="lb_data_coleta_material">
-                        <span class="input-group-text">Data Coleta</span>
+                      <div class="input-group-prepend" id="lb_data_coleta_material_1">
+                        <input onclick="active_deactive_1()" style="margin-top:12px;" class="form-check-input" type="checkbox" value="" id="checkbox_1_id">
+                        <span class="input-group-text">Data Coleta 1</span>
                       </div>
-                      <input type="date" class="form-control" name="data_coleta_mat_exame" value="" id="data_coleta_material_id">
+                      <input type="date" class="form-control" name="data_coleta_mat_exame" value="" id="data_coleta_material_id_1" disabled>
                     </div>
                   </div>
-
+                  <div class="col-md-4">
+                    <div class="input-group mb-3" id="">
+                      <div class="input-group-prepend" id="lb_gal_1">
+                        <span class="input-group-text">N° GAL 1</span>
+                      </div>
+                      <input type="text" class="form-control" name="" value="" id="gal_id_1" disabled>
+                    </div>
+                  </div>
                 </div>
-
+                <!-- |2| DATA COLETA E GAL -->
+                <div id="coleta_gal_2" class="row">
+                  <div class="col-md-2"></div>
+                  <div class="col-md-4">
+                    <div class="input-group mb-3" id="">
+                      <div class="input-group-prepend" id="lb_data_coleta_material_2">
+                        <input onclick="active_deactive_2()" style="margin-top:12px;" class="form-check-input" type="checkbox" value="" id="checkbox_2_id">
+                        <span class="input-group-text">Data Coleta 2</span>
+                      </div>
+                      <input type="date" class="form-control" name="data_coleta_mat_exame" value="" id="data_coleta_material_id_2" disabled>
+                    </div>
+                  </div>
+                  <div class="col-md-4">
+                    <div class="input-group mb-3" id="">
+                      <div class="input-group-prepend" id="lb_gal_2">
+                        <span class="input-group-text">N° GAL 2</span>
+                      </div>
+                      <input type="text" class="form-control" name="" value="" id="gal_id_2" disabled>
+                    </div>
+                  </div>
+                </div>
+                <!-- |3| DATA COLETA E GAL -->
+                <div id="coleta_gal_3" class="row">
+                  <div class="col-md-2"></div>
+                  <div class="col-md-4">
+                    <div class="input-group mb-3" id="">
+                      <div class="input-group-prepend" id="lb_data_coleta_material_3">
+                        <input onclick="active_deactive_3()" style="margin-top:12px;" class="form-check-input" type="checkbox" value="" id="checkbox_3_id">
+                        <span class="input-group-text">Data Coleta 3</span>
+                      </div>
+                      <input type="date" class="form-control" name="data_coleta_mat_exame" value="" id="data_coleta_material_id_3" disabled>
+                    </div>
+                  </div>
+                  <div class="col-md-4">
+                    <div class="input-group mb-3" id="">
+                      <div class="input-group-prepend" id="lb_gal_3">
+                        <span class="input-group-text">N° GAL 3</span>
+                      </div>
+                      <input type="text" class="form-control" name="" value="" id="gal_id_3" disabled>
+                    </div>
+                  </div>
+                </div>
+                <!-- |FIM| DATA COLETA E GAL -->
                 <br>
                 <div class="row">
                   <div class="col-sm-12">
@@ -2384,12 +2525,12 @@ footer {
                 </div><br>
                 <script>
                   function activeDataEvoCaso(){
-                    if (document.getElementById("sel_evo_caso").value == "Obito pelo AGRAVO"){
+                    if (document.getElementById("sel_evo_caso").value == "Óbito pelo AGRAVO"){
                       //$("#data_obito_evolucao_id").show();
                       $("#data_obito_evo_id").show();
                       $("#div_input_data_ob").show();
                     }
-                    if (document.getElementById("sel_evo_caso").value == "Obito Outras Causas"){
+                    if (document.getElementById("sel_evo_caso").value == "Óbito Outras Causas"){
                       //$("#data_obito_evolucao_id").show();
                       $("#data_obito_evo_id").show();
                       $("#div_input_data_ob").show();
@@ -2458,8 +2599,8 @@ footer {
                       <select class="form-control" name="evolucao_caso_autoctone" id="sel_evo_caso" onclick="activeDataEvoCaso()">
                         <option value=""></option>
                         <option value="Cura">Cura</option>
-                        <option value="Obito pelo AGRAVO">Obito pelo AGRAVO</option>
-                        <option value="Obito Outras Causas">Obito Outras Causas</option>
+                        <option value="Óbito pelo AGRAVO">Óbito pelo AGRAVO</option>
+                        <option value="Óbito Outras Causas">Óbito Outras Causas</option>
                         <option value="Ignorado">Ignorado</option>
                       </select>
                     </div>
