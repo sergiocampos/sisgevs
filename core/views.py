@@ -8,6 +8,8 @@ from datetime import datetime
 from django.contrib.auth.forms import PasswordChangeForm, UserCreationForm
 from django.contrib.auth import update_session_auth_hash, login, authenticate, logout
 
+from django.core.paginator import Paginator
+
 from django.http import HttpResponse, HttpResponseRedirect
 import os
 
@@ -203,7 +205,10 @@ def my_datas(request):
 	#municipio_nome = municipio_user.nome
 	if request.user.perfil == 'admin':
 		registros = CasoEsporotricose.objects.all()
-		return render(request, 'my_datas.html', {'registros':registros})
+		paginator = Paginator(registros, 6)
+		page = request.GET.get('page')
+		regs = paginator.get_page(page)
+		return render(request, 'my_datas.html', {'regs':regs})
 
 	if request.user.perfil == 'gerencia':
 		gerencia_user = municipio_user.gerencia
