@@ -586,7 +586,7 @@ def caso_esporotricose_edit(request, id):
 	municipios = Municipio.objects.all().order_by('nome')
 	unidades_saude = []
 	codigos_ibge = []
-	print(caso.codigo_ibge)
+	print(caso.unidade_saude)
 	caso.data_notificacao = datetime.strftime(caso.data_notificacao, '%Y-%m-%d')
 	caso.data_primeiros_sintomas = datetime.strftime(caso.data_primeiros_sintomas, '%Y-%m-%d')
 	caso.data_nascimento_paciente = datetime.strftime(caso.data_nascimento_paciente, '%Y-%m-%d')

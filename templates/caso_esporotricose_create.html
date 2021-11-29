@@ -579,10 +579,10 @@ footer {
                   <div class="col-md-2">
                     <div class="form-group"><b>Código IBGE</b>
                       <b ></b>
-                      <!-- <input type="text" name="codigo_ibge_dados_gerais" id="ibge_cod_id" class="form-control" readonly> -->
-                      <select class="form-control" name="codigo_ibge_dados_gerais" id="ibge_cod_id">
+                      <input type="text" name="codigo_ibge_dados_gerais" id="ibge_cod_id" class="form-control" readonly>
+                      <!-- <select class="form-control" name="codigo_ibge_dados_gerais" id="ibge_cod_id">
 
-                      </select>
+                      </select> -->
                     </div>
                   </div>
 
@@ -2800,7 +2800,7 @@ footer {
             url : '{% url "ajax_load_ibge" %}',
             data: { 'municipio_id': municipioId},
             success: function(data){
-              $("#ibge_cod_id").html(data);
+              $("#ibge_cod_id").val(data);
             }
           });
 
