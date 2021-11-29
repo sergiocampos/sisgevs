@@ -1,0 +1,107 @@
+header{
+    margin-right: 0px!important;
+}
+.fakeimg {
+    height: 200px;
+    background: #aaa;
+}
+#titulo_foto{
+    background-color: rgba(0, 0, 0, 0.70);
+    padding: 10px;
+    width: 60%;
+    margin:auto;
+    border-radius: 7px;
+}
+#coluna_esquerda{
+    background-color: #e9ecef;
+    border-radius: 4px;
+    box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.15);
+    padding: 15px;
+    margin-bottom: 30px;
+}
+#conteudo{
+    margin:15px;
+    background-color: #fff;
+    padding: 10px;
+    height: 85%;
+    border-radius: 4px;
+}
+#coluna_direita{
+    background-color: #e9ecef;
+    border-radius: 4px;
+    box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.15);
+    padding: 15px;
+    margin-bottom: 30px;
+}
+#titulo_foto h5{
+    margin-top: 10px;
+}
+#btn-transparencia{
+    width: 90%;
+    height: 38%;
+    background-color: #e9ecef;
+    margin: auto auto;
+    margin-top: 40px;
+    border-radius: 4px;
+    box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.15);
+    padding: 25px;
+    align-content: center;
+    justify-content: center;
+    color: #00000091;
+}
+#btn-transparencia svg{
+    margin-top: 15px;
+}
+#btn-transparencia:hover{
+    background-color: #e9ecef5d;
+}
+#btn-transparencia:active{
+    background-color: #e9ecef;
+    box-shadow:none;
+}
+button{
+    width: 65%;
+    margin-top: 15px;
+}
+#transparencia{
+    width: 90%;
+    height: 38%;
+    background-color: #e9ecef;
+    margin: auto auto;
+    margin-top: 40px;
+    border-radius: 4px;
+    box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.15);
+    padding: 35px;
+    align-content: center;
+    justify-content: center;
+    color: #00000091;
+}
+#span_btn{
+    letter-spacing: 3px;
+    font-size: 15px;
+}
+hr{
+    border: 1.5px solid rgba(0, 0, 0, 0.15);
+    border-radius: 50%;
+    width: 50%;
+    margin-top: 60px;
+    margin-bottom: 60px;
+}
+#dados-click{
+    margin: auto;
+    overflow-y: scroll;
+    width: 80%;
+    height: 500px;
+    background-color: #e9ecef;
+    border-radius: 4px;
+    box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.15);
+    transform: scale(0);
+    animation-duration: 0.3s;
+    animation-name: bigger;
+    animation-fill-mode: forwards;
+}
+
+@keyframes bigger {
+    to {transform: scale(1);}
+}
+
