@@ -167,10 +167,80 @@ $(function(){
       "idade_paciente":"idade_paciente",
       "municipio":"municipio",
       "data_notificacao":"data_notificacao",
+    },paciente11: {
+      "id":"id",
+      "doenca":"doenca",
+      "idade_paciente":"idade_paciente",
+      "municipio":"municipio",
+      "data_notificacao":"data_notificacao",
+    },
+    paciente12: {
+      "id":2,
+      "doenca":"doenca",
+      "idade_paciente":"idade_paciente",
+      "municipio":"municipio",
+      "data_notificacao":"data_notificacao",
+    },
+    paciente13: {
+      "id":3,
+      "doenca":"doenca",
+      "idade_paciente":"idade_paciente",
+      "municipio":"municipio",
+      "data_notificacao":"data_notificacao",
+    },
+    paciente14: {
+      "id":4,
+      "doenca":"doenca",
+      "idade_paciente":"idade_paciente",
+      "municipio":"municipio",
+      "data_notificacao":"data_notificacao",
+    },
+    paciente15: {
+      "id":5,
+      "doenca":"doenca",
+      "idade_paciente":"idade_paciente",
+      "municipio":"municipio",
+      "data_notificacao":"data_notificacao",
+    },
+    paciente16: {
+      "id":"id",
+      "doenca":"doenca",
+      "idade_paciente":"idade_paciente",
+      "municipio":"municipio",
+      "data_notificacao":"data_notificacao",
+    },
+    paciente17: {
+      "id":"id",
+      "doenca":"doenca",
+      "idade_paciente":"idade_paciente",
+      "municipio":"municipio",
+      "data_notificacao":"data_notificacao",
+    },
+    paciente18: {
+      "id":"id",
+      "doenca":"doenca",
+      "idade_paciente":"idade_paciente",
+      "municipio":"municipio",
+      "data_notificacao":"data_notificacao",
+    },
+    paciente19: {
+      "id":"id",
+      "doenca":"doenca",
+      "idade_paciente":"idade_paciente",
+      "municipio":"municipio",
+      "data_notificacao":"data_notificacao",
+    },
+    paciente20: {
+      "id":"id",
+      "doenca":"doenca",
+      "idade_paciente":"idade_paciente",
+      "municipio":"municipio",
+      "data_notificacao":"data_notificacao",
     },
   };
 $(document).ready(function(){
   $("#dados-click").hide();
+  //console.log(Object.keys(dados).length);
   for (dado in dados){
     $("table > tbody:last-child").append(`
         <tr>
@@ -188,6 +258,7 @@ $("#btn-transparencia").on('click', function(){
   if (atributo.getAttribute('clicked') == "false") {
     $("#dados-click").show();
     $("#btn-transparencia").attr('clicked', true);
+        
   } else if (atributo.getAttribute('clicked') == "true") {
     $("#dados-click").hide();
     $("#btn-transparencia").attr('clicked', false);  
@@ -199,3 +270,4 @@ $("#btn-transparencia").on('click', function(){
   //$("#dados-click").show();
   //console.log(atributo.getAttribute('clicked'));
 });
+

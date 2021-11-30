@@ -25,6 +25,8 @@
   <script src="https://code.highcharts.com/highcharts.src.js"></script>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 
   <script>
     $(document).ready(function($){
@@ -443,7 +445,7 @@ footer {
 
             </div>
           </div>
-
+          
           <form name="" id="" enctype="multipart/form-data" action="submit" method="POST" onsubmit="return validaDtPrimeirosSintomas();">{% csrf_token %}
             <br>
             <!-- Nav tabs -->
@@ -716,6 +718,7 @@ footer {
                 //js para validar quantidade de caracteres
                 
                 $('#Form').on('submit', function(event) {
+                   
                   event.preventDefault();
 
                   nome_paciente = $('#nome_paciente_id');
@@ -727,8 +730,8 @@ footer {
                           //.....
                           console.log('Passou na validação!');
                           alvo_erro.empty();
-                        }
-                      });
+                          }
+                  });
                 </script>
 
                     <div class="row">
@@ -828,15 +831,15 @@ footer {
 
                         <option value=""></option>
                         <option value="Analfabeto">Analfabeto</option>
-                        <option value="1ª a 4ª serie incompleto">1ª a 4ª série incompleto</option>
-                        <option value="4ª serie completa">4ª série completa</option>
-                        <option value="5ª a 8ª serie incompleto">5ª a 8ª série incompleto</option>
-                        <option value="Ensido Fundamental Completo">Ensido Fundamental Completo</option>
-                        <option value="Ensino Medio incompleto">Ensino Médio incompleto</option>
-                        <option value="Ensino Medio Completo">Ensino Médio Completo</option>
-                        <option value="Superior Incompleto">Superior Incompleto</option>
-                        <option value="Superior completo">Superior completo</option>
-                        <option value="Nao se aplica">Não se aplica</option>
+                        <option value="1ª-a-4ª-serie-incompleto">1ª a 4ª série incompleto</option>
+                        <option value="4ª-serie-completa">4ª série completa</option>
+                        <option value="5ª-a-8ª-serie-incompleto">5ª a 8ª série incompleto</option>
+                        <option value="Ensido-Fundamental-Completo">Ensido Fundamental Completo</option>
+                        <option value="Ensino-Medio-incompleto">Ensino Médio incompleto</option>
+                        <option value="Ensino-Medio-Completo">Ensino Médio Completo</option>
+                        <option value="Superior-Incompleto">Superior Incompleto</option>
+                        <option value="Superior-completo">Superior completo</option>
+                        <option value="Nao-se-aplica">Não se aplica</option>
                         
                       </select>
                     </div>
@@ -2735,6 +2738,33 @@ footer {
               <button type="submit" class="btn btn-primary" style="align-items: center;" id="btn_submit_id" disabled>Criar</button>  
             </div>
           </form>
+          
+          <!--TOAST-->
+          <script>
+            $('#btn_submit_id').on('click', function(){
+              toastr["success"]("Caso cadastrado com sucesso!", "SISGEVS");
+              
+            });
+            
+            toastr.options = {
+              "closeButton": true,
+              "debug": false,
+              "newestOnTop": false,
+              "progressBar": false,
+              "positionClass": "toast-bottom-right",
+              "preventDuplicates": false,
+              "onclick": null,
+              "showDuration": "300",
+              "hideDuration": "1000",
+              "timeOut": "2500",
+              "extendedTimeOut": "1000",
+              "showEasing": "swing",
+              "hideEasing": "linear",
+              "showMethod": "fadeIn",
+              "hideMethod": "fadeOut"
+            }
+          </script>
+          <!--TOAST-->
 
           <!-- Scrip abaixo bloqueia envio formulário com ENTER -->
           <script>
