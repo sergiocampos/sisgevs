@@ -257,7 +257,7 @@ footer {
   } // FIM AJAX CEP
 
   function activeGestante(){
-    let genero = document.getElementById('span_id').value;
+    let genero = document.getElementById('genero_paciente').value;
     let idade = document.getElementById('result').value;
     if ((idade<= 9) && (genero!="M") && (genero!="")){
       $('#gestante_id').children('option[value=""]').hide();
@@ -753,7 +753,7 @@ footer {
                       </script>
                       <div class="col-lg-3">
                         <div class="form-group"><b>Identidade de Gênero</b>
-                          <select class="form-control" name="sexo" id="span_id" onclick="activeGestante()">
+                          <select class="form-control" name="sexo" id="genero_paciente" onclick="activeGestante()">
 
                             <option value="" disabled selected>Selecionar</option>
                             <option value="M">Masculino</option>
@@ -791,12 +791,12 @@ footer {
                 <div class="row">
                   <div class="col-md-2">
                     <div class="form-group"><b>Idade</b>
-                      <input class="form-control" type="text" name="result" placeholder="" onkeypress="return limitcarc(event, 'num')" value="" id="result" readonly>
+                      <input class="form-control" type="text" name="result" placeholder="" onkeypress="return limitcarc(event, 'num')" value="{{form.idade_paciente}}" id="result" readonly>
                     </div>
                   </div>
                   <div class="col-md-2">
                     <div class="form-group"><b>Raça</b>
-                      <select class="form-control" name="raca" id="">
+                      <select class="form-control" name="raca" id="raca_paciente">
 
                         <option value="" disabled selected>Selecionar</option>
                         <option value="Branca">Branca</option>
@@ -814,12 +814,12 @@ footer {
                       <select class="form-control" name="gestacao" id="gestante_id" disabled>
 
                         <option value=""></option>
-                        <option value="1º Trimestre">1º Trimestre</option>
-                        <option value="2º Trimestre">2º Trimestre</option>
-                        <option value="3º Trimestre">3º Trimestre</option>
-                        <option value="Idade Gestacional Ignorada">Idade Gestacional Ignorada</option>
+                        <option value="1º-Trimestre">1º Trimestre</option>
+                        <option value="2º-Trimestre">2º Trimestre</option>
+                        <option value="3º-Trimestre">3º Trimestre</option>
+                        <option value="Idade-Gestacional-Ignorada">Idade Gestacional Ignorada</option>
                         <option value="Ignorado">Ignorado</option>
-                        <option value="Não se aplica">Não se aplica</option>
+                        <option value="Não-se-aplica">Não se aplica</option>
                         <option value="Não">Não</option>
 
                       </select>
@@ -829,19 +829,19 @@ footer {
                   </div>
                   <div class="col-md-4">
                     <div class="form-group"><b>Escolaridade</b>
-                      <select class="form-control" name="escolaridade" id="">
+                      <select class="form-control" name="escolaridade" id="escolaridade_paciente">
 
                         <option value="" disabled selected>Selecionar</option>
                         <option value="Analfabeto">Analfabeto</option>
-                        <option value="1ª a 4ª serie incompleto">1ª a 4ª série incompleto</option>
-                        <option value="4ª serie completa">4ª série completa</option>
-                        <option value="5ª a 8ª serie incompleto">5ª a 8ª série incompleto</option>
-                        <option value="Ensido Fundamental Completo">Ensido Fundamental Completo</option>
-                        <option value="Ensino Medio incompleto">Ensino Médio incompleto</option>
-                        <option value="Ensino Medio Completo">Ensino Médio Completo</option>
-                        <option value="Superior Incompleto">Superior Incompleto</option>
-                        <option value="Superior completo">Superior completo</option>
-                        <option value="Nao se aplica">Não se aplica</option>
+                        <option value="1ª-a-4ª-serie incompleto">1ª a 4ª série incompleto</option>
+                        <option value="4ª-serie-completa">4ª série completa</option>
+                        <option value="5ª-a-8ª-serie-incompleto">5ª a 8ª série incompleto</option>
+                        <option value="Ensido-Fundamental-Completo">Ensido Fundamental Completo</option>
+                        <option value="Ensino-Medio-incompleto">Ensino Médio incompleto</option>
+                        <option value="Ensino-Medio-Completo">Ensino Médio Completo</option>
+                        <option value="Superior-Incompleto">Superior Incompleto</option>
+                        <option value="Superior-completo">Superior completo</option>
+                        <option value="Nao-se-aplica">Não se aplica</option>
                         
                       </select>
                     </div>
@@ -852,17 +852,22 @@ footer {
 
                   <div class="col-md-3">
                     <div class="form-group"><b>Cartão SUS</b>
-                      <input class="form-control" type="text" name="cartao_sus" onkeypress="return limitcarc(event, 'num')" placeholder="" value="">
+                      <input class="form-control" type="text" name="cartao_sus" onkeypress="return limitcarc(event, 'num')" placeholder="" value="{{form.cartao_sus_paciente}}">
                     </div>              
                   </div>
                   <div class="col-md-6">
                     <div class="form-group"><b>Nome da Mãe</b><i id="alert_nome_mae" style="color:red">**</i>
-                      <input class="form-control" type="text" name="nome_mae" placeholder="" value="" id="nome_mae_id" required onkeydown="verificarNotifGeral()" onkeypress="return limitcarc(event, 'letr')" style="text-transform: uppercase;">
+                      <input class="form-control" type="text" name="nome_mae" placeholder="" value="{{form.nome_mae_paciente}}" id="nome_mae_id" required onkeydown="verificarNotifGeral()" onkeypress="return limitcarc(event, 'letr')" style="text-transform: uppercase;">
                     </div>              
                   </div>
                 </div>
 
                 <script>
+                  $('#raca_paciente').find('option[value={{form.raca_paciente}}]').attr("selected", "selected");
+                  $('#genero_paciente').find('option[value={{form.sexo_paciente}}]').attr("selected", "selected");
+                  $('#genero_paciente').find('option[value={{form.sexo_paciente}}]').attr("selected", "selected");
+                  $('#escolaridade_paciente').find('option[value={{form.escolaridade_paciente}}]').attr("selected", "selected");
+                  $('#gestante_id').find('option[value={{form.paciente_gestante}}]').attr("selected", "selected");
                   
                   function verificarNotifGeral(){
                     var nome_paciente = document.getElementById('nome_paciente_id').value.length;
@@ -913,29 +918,29 @@ footer {
 
                   <div class="col-md-2">
                     <div class="form-group"><b>CEP</b>
-                      <input class="form-control" type="text" onkeypress="return limitcarc(event, 'num')" name="cep_residencia" id="cep" placeholder="" value="" required>
+                      <input class="form-control" type="text" onkeypress="return limitcarc(event, 'num')" name="cep_residencia" id="cep" placeholder="" value="{{form.cep_residencia}}" required>
                     </div>
                   </div>
                   <div class="col-md-3">
                     <div class="form-group"><b>UF</b>
-                      <input class="form-control" type="text" onkeypress="return limitcarc(event, 'letr')" name="uf_residencia" id="uf" placeholder="" value="">
+                      <input class="form-control" type="text" onkeypress="return limitcarc(event, 'letr')" name="uf_residencia" id="uf" placeholder="" value="{{form.uf_residencia}}">
                     </div>
                   </div>
                   <div class="col-md-3">
                     <div class="form-group"><b>Município</b>
-                      <input class="form-control" type="text" onkeypress="return limitcarc(event, 'letr_acent')" name="cidade_residencia" id="cidade" placeholder="" value="">
+                      <input class="form-control" type="text" onkeypress="return limitcarc(event, 'letr_acent')" name="cidade_residencia" id="cidade" placeholder="" value="{{form.municipio_residencia}}">
                     </div>              
                   </div>
                   
                   <div class="col-md-2">
                     <div class="form-group"><b>Bairro</b>
-                      <input class="form-control" type="text" onkeypress="return limitcarc(event, 'letr_acent')" name="bairro_residencia" id="bairro" placeholder="" value="">
+                      <input class="form-control" type="text" onkeypress="return limitcarc(event, 'letr_acent')" name="bairro_residencia" id="bairro" placeholder="" value="{{form.bairro_residencia}}">
                     </div>
                   </div>
 
                   <div class="col-md-2">
                     <div class="form-group"><b>Código IBGE</b>
-                      <input class="form-control" type="text" onkeypress="return limitcarc(event, 'num')" name="codigo_ibge_residencia" id="ibge" placeholder="" value="">
+                      <input class="form-control" type="text" onkeypress="return limitcarc(event, 'num')" name="codigo_ibge_residencia" id="ibge" placeholder="" value="{{form.codigo_ibge_residencia}}" readonly>
                     </div>
                   </div>
                   
@@ -945,17 +950,17 @@ footer {
 
                   <div class="col-md-6">
                     <div class="form-group"><b>Rua</b>
-                      <input class="form-control" type="text" name="rua_residencia" id="rua" placeholder="" value="">
+                      <input class="form-control" type="text" name="rua_residencia" id="rua" placeholder="" value="{{form.rua_residencia}}">
                     </div>
                   </div>
                   <div class="col-md-2">
                     <div class="form-group"><b>Número</b>
-                      <input class="form-control" type="text" name="numero_residencia" id="" placeholder="" value="">
+                      <input class="form-control" type="text" name="numero_residencia" id="" placeholder="" value="{{form.numero_residencia}}">
                     </div>
                   </div>
                   <div class="col-md-4">
                     <div class="form-group"><b>Complemento</b>
-                      <input class="form-control" type="text" name="complemento_residencia" id="" placeholder="" value="">
+                      <input class="form-control" type="text" name="complemento_residencia" id="" placeholder="" value="{{form.complemento_residencia}}">
                     </div>
                   </div>
                   
@@ -966,12 +971,12 @@ footer {
 
                   <div class="col-md-3">
                     <div class="form-group"><b>Distrito</b>
-                      <input class="form-control" type="text" name="distrito_residencia" id="rua" placeholder="" value="">
+                      <input class="form-control" type="text" name="distrito_residencia" id="rua" placeholder="" value="{{form.distrito_residencia}}">
                     </div>
                   </div>
                   <div class="col-md-3">
                     <div class="form-group"><b>Ponto de Referência</b>
-                      <input class="form-control" type="text" name="ponto_referencia_residencia" id="" placeholder="" value="">
+                      <input class="form-control" type="text" name="ponto_referencia_residencia" id="" placeholder="" value="{{form.ponto_referencia_residencia}}">
                     </div>
                   </div>                
                   
@@ -979,12 +984,12 @@ footer {
                 <div class="row">
                   <div class="col-md-2">
                     <div class="form-group"><b>Telefone</b><i id="alert_telefone_paciente" style="color:red">**</i>
-                      <input type="text" class="form-control" id="telefone_residencia_id" name="telefone_residencia" required onkeydown="verificarNotifGeral()">
+                      <input type="text" class="form-control" id="telefone_residencia_id" name="telefone_residencia" value="{{form.telefone_residencia}}" required onkeydown="verificarNotifGeral()">
                     </div>
                   </div>
                   <div class="col-md-3">
                     <div class="form-group"><b>Zona</b>
-                      <select class="form-control" name="zona_residencia" id="">
+                      <select class="form-control" name="zona_residencia" id="zona_residencia">
                         <option value="" disabled selected>Selecionar</option>
                         <option value="Rural">Rural</option>
                         <option value="Urbana">Urbana</option>
@@ -993,9 +998,12 @@ footer {
                       </select>
                     </div>
                   </div>
+                  <script>
+                  $('#zona_residencia').find('option[value={{form.zona_residencia}}]').attr("selected", "selected");
+                  </script>
                   <div class="col-md-7">
                     <div class="form-group"><b>País - </b><i>Se residem fora do Brasil</i>
-                      <input class="form-control" type="text" name="pais_residente_fora_pais" id="" placeholder="" value="">
+                      <input class="form-control" type="text" name="pais_residente_fora_pais" id="" placeholder="" value="{{form.pais_residencia}}">
                     </div>
                   </div>
                 </div>
@@ -1008,12 +1016,12 @@ footer {
                   <div class="col-md-3"></div>
                   <div class="col-md-3">
                     <div class="form-group"><b>Data de Investigação</b>
-                      <input class="form-control" type="date" name="data_investigacao" value="" id="data_investigacao_id">
+                      <input class="form-control" type="date" name="data_investigacao" value="{{form.data_investigacao}}" id="data_investigacao_id">
                     </div>
                   </div>
                   <div class="col-md-4">
                     <div class="form-group"><b>Ocupação</b>
-                      <input class="form-control" type="text" name="ocupacao" placeholder="" value="">
+                      <input class="form-control" type="text" name="ocupacao" placeholder="" value="{{form.ocupacao}}">
                     </div>
                   </div>
                 </div>
@@ -2924,6 +2932,49 @@ footer {
 
         
       });
+
+      var nome_paciente = document.getElementById('nome_paciente_id').value.length;
+      var nome_mae = document.getElementById('nome_mae_id').value.length;
+      var date2 = document.getElementById('date2').value;
+      var data_1_s = document.getElementById('dt_primeiros_s').value;
+      var municipio = document.getElementById('municipio_id').value.length;
+      var telefone = document.getElementById('telefone_residencia_id').value.length;
+      
+      if (municipio != 0) {$('#alert_municipio').hide();} else {$('#alert_municipio').show();}
+      
+      if (data_1_s != "") {$('#alert_dt_ps').hide();} else {$('#alert_dt_ps').show();}
+      
+      if (nome_paciente >= 10) {$('#alert_paciente').hide();} else {$('#alert_paciente').show();}
+      
+      if (date2 != "") {$('#alert_data_nasc').hide();} else {$('#alert_data_nasc').show();}
+      
+      if (nome_mae >= 10) {$('#alert_nome_mae').hide();} else {$('#alert_nome_mae').show();}
+      
+      if ((nome_paciente >= 10) && (nome_mae >= 10) && (date2 != "") ){
+        $("#alert_notificacao_individual").hide();
+      } else {$("#alert_notificacao_individual").show();}
+
+      if ((data_1_s != "") && (municipio != 0)){
+        $('#alert_dados_gerais').hide();
+      }
+      if (telefone < 13){
+        $("#alert_dados_residencia").show();
+        $('#alert_telefone_paciente').show();
+      } else {
+        $("#alert_dados_residencia").hide();
+        $('#alert_telefone_paciente').hide();
+      }
+                        
+      if ((nome_paciente >= 10) && (nome_mae >= 10) && (date2 != "") 
+          && (data_1_s != "") && (municipio != 0) && (telefone >= 13)){
+        $("#btn_submit_id").prop("disabled", false);
+      } else {$("#btn_submit_id").prop("disabled", true);}
+
+      var data = document.getElementById('date2');
+      var idade = calcula(data);
+      idade = String(idade);
+      document.getElementById('result').value = idade;
+      activeGestante();
 
     </script>
 
