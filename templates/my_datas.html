@@ -234,7 +234,7 @@ footer {
             </thead>
             <tbody>
 
-              {% for registro in registros %}
+              {% for registro in regs %}
               <tr>
                 <td>{{registro.data_notificacao}}</td>
                 <td>{{registro.nome_paciente}}</td>
@@ -242,8 +242,11 @@ footer {
                 <td>{{registro.municipio_residencia}}</td>
                 <td>{{registro.nome_investigador}}</td>
                 <td align="center">
+                  {% if user.funcao == 'gerencia' %}
+                  {% else %}
                   <a href="/caso_view/{{registro.id}}/"><button type="button" class="btn btn-info btn-sm">Editar
                   </button></a>
+                  {%endif%}
 
                   <a href="/caso_view_detail/"><button type="button" class="btn btn-secondary btn-sm">Ver
                   </button></a>
@@ -268,6 +271,21 @@ footer {
     </section>
 
     <br><br>
+
+    <div class="pagination">
+      <span class="step-links" style="margin: auto">
+        {% if regs.has_previous %}
+         <a href="?page={{regs.previous_page_number}}">Anterior</a>
+        {% endif %}
+        <span class="current">
+        {{regs.number}} de {{regs.paginator.num_pages}}
+        </span>
+        {% if regs.has_next %}
+         <a href="?page={{regs.next_page_number}}"> Próximo</a>
+         {% endif %}
+                
+      </span> 
+    </div>
 
 
     <div class="jumbotron text-center" style="margin-bottom:0">
