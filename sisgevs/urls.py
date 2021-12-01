@@ -13,6 +13,7 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+from os import name
 from django.conf.urls import url, include
 from django.contrib import admin
 from django.urls import path, include
@@ -68,7 +69,8 @@ urlpatterns = [
 
     path('download_ficha/', views.download_ficha, name='download_ficha'),
     path('remove_caso_esporotricose/<id>/', views.remove_caso_esporotricose, name='remove_caso_esporotricose'),
-
+    path('index_aberto/', views.index_aberto, name='index_aberto'),
+    
 ]
 
 urlpatterns += static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)

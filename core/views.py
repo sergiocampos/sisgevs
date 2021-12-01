@@ -21,6 +21,10 @@ def login_page(request):
 	return render(request, 'login_page.html')
 
 
+def index_aberto(request):
+	return render(request, 'index_aberto.html')
+
+
 @csrf_protect
 def login_submit(request):
 	if request.POST:
@@ -574,7 +578,7 @@ def set_caso_esporotricose_create(request):
 		conselho_classe_investigador = conselho_classe_investigador
 
 		)
-
-
-	return redirect('my_datas')
+	
+	
+	return redirect("/my_datas", messages = messages.success(request, 'Caso criado com sucesso!'))
 

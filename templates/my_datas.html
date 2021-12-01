@@ -33,7 +33,6 @@
 
 /* Style the header */
 header {
-  background-color: ;
   padding: 1px;
   text-align: center;
   font-size: 35px;
@@ -58,7 +57,6 @@ nav {
 /* Style the list inside the menu */
 nav ul {
   list-style-type: none;
-  padding: ;
 }
 
 /* Style the content */
@@ -211,7 +209,6 @@ footer {
       <article>
 
         <div class="container" style="margin-left: 0;" id="container">
-
           <div class="row">
             <div class="col-sm-12">
               <div class="alert alert-primary" style="text-align: center;">
@@ -219,7 +216,7 @@ footer {
               </div>
             </div>
           </div>
-
+          {% include 'messages/message.html' %}
           <table class="table table-hover">
             <thead>
               <tr>
@@ -293,6 +290,5 @@ footer {
       <i class="fa">&#xf1f9;</i>
     </div>
     <br>
-
   </body>
   </html>
