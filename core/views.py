@@ -573,7 +573,7 @@ def set_caso_esporotricose_create(request):
 		conselho_classe_investigador = conselho_classe_investigador
 
 		)
-
-
-	return redirect('my_datas')
+	
+	
+	return redirect("/my_datas", messages = messages.success(request, 'Caso criado com sucesso!'))
 
