@@ -190,13 +190,20 @@ class CasoEsporotricose(models.Model):
 	#Dados clínicos
 	presenca_lesao_pele = models.CharField(max_length = 100, null=True, blank=True)
 	natureza_lesao = ArrayField(models.CharField(max_length=200), blank=True, null=True)
+	natureza_lesao_outro = models.CharField(max_length = 100, null=True, blank=True)
 	local_lesao = ArrayField(models.CharField(max_length=200), blank=True, null=True)
+	local_lesao_outro = models.CharField(max_length = 100, null=True, blank=True)
 	diagnostico_forma_extrac_doenca = models.CharField(max_length = 100, null=True, blank=True)
 	localizacao_forma_extrac_doenca = models.CharField(max_length = 200, null=True, blank=True)
 
 	#Dados Laboratoriais
 	houve_coleta_material = models.CharField(max_length = 10, null=True, blank=True)
-	data_coleta = models.DateField(blank=True, null=True)
+	data_coleta1 = models.DateField(blank=True, null=True)
+	numero_gal1 = models.IntegerField(blank=True, null=True)
+	data_coleta2 = models.DateField(blank=True, null=True)
+	numero_gal2 = models.IntegerField(blank=True, null=True)
+	data_coleta3 = models.DateField(blank=True, null=True)
+	numero_gal3 = models.IntegerField(blank=True, null=True)
 	resultado_isolamento = models.CharField(max_length = 200, null=True, blank=True)
 	agente = models.CharField(max_length = 200, null=True, blank=True)
 	histopatologia = models.CharField(max_length = 100, null=True, blank=True)

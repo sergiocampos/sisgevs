@@ -784,7 +784,7 @@ footer {
                         return idade;
                       } // FIM Calculando IDADE
 
-                      $("#select[name='sexo']").find('option[value='+{{form.sexo_paciente}}+']').attr("selected", "selected");
+                      $("#select[name='sexo']").find("option[value='{{form.sexo_paciente}}']").attr("selected", "selected");
 
                 </script>
 
@@ -1083,8 +1083,13 @@ footer {
                       <label class="custom-control-label" for="outros_id">Outros</label>
                     </div>
                   </div>
-                  
+                  <script>
+                    {% for ambiente in form.ambientes_frequentados %}
+                      $("input[name='ambientes_frequentados'][value='{{ambiente}}']").prop("checked", true)
+                    {% endfor  %}
+                  </script>
                 </div><br>
+                
 
                 <div class="row">
                   <div class="col-sm-12">
@@ -1121,7 +1126,11 @@ footer {
                       <label class="custom-control-label" for="outros_animais_id">Outros Animais</label>
                     </div>
                   </div>
-
+                  <script>
+                    {% for animais in form.animais_que_teve_contato %}
+                      $(`input[name='animais_que_teve_contato'][value='{{animais}}']`).prop("checked", true)
+                    {% endfor  %}
+                  </script>
                 </div><br>
 
                 <div class="row">
@@ -1163,7 +1172,11 @@ footer {
                       <label class="custom-control-label" for="outros_a_id">Outros</label>
                     </div>
                   </div>
-
+                  <script>
+                    {% for contato in form.natureza_contato_animais %}
+                      $(`input[name='natureza_contato_animais'][value='{{contato}}']`).prop("checked", true)
+                    {% endfor  %}
+                  </script>
                 </div><br>
 
                 <div class="row">
@@ -1192,16 +1205,6 @@ footer {
                     </div>
                   </div>
 
-                  <script>
-                    $(document).ready(function(){
-                      $('[data-toggle="tooltip"]').tooltip();
-                      $('#cid_number').val(10);
-                      $("#coleta_gal_1").hide();
-                      $("#coleta_gal_2").hide();
-                      $("#coleta_gal_3").hide();
-                    });
-                  </script>
-
                   <div class="col-md-2">
                     <div class="custom-control custom-checkbox mb-3">
                       <input type="checkbox" class="custom-control-input" id="abrigo_id" name="relacao_animal_doente" value="Abrigo/ONG">
@@ -1215,7 +1218,11 @@ footer {
                       <label class="custom-control-label" for="outros_p_id">Outros</label>
                     </div>
                   </div>
-
+                  <script>
+                    {% for relacao in form.relacao_animal_doente %}
+                      $(`input[name='relacao_animal_doente'][value='{{relacao}}']`).prop("checked", true)
+                    {% endfor  %}
+                  </script>
                 </div>
                 <br>
                 
@@ -1251,7 +1258,9 @@ footer {
                       <label class="custom-control-label" for="customRadio27">Ignorado</label>
                     </div>
                   </div>
-
+                  <script>
+                      $("input[name='exerc_ativ_contato_plantas'][value='{{form.exerce_atividade_contato_plantas}}']").prop("checked", true)
+                  </script>
 
                   <script>
                     $(document).ready(function(){
@@ -1292,6 +1301,9 @@ footer {
                     </div>
                   </div>
 
+                  <script>
+                    $("input[name='lesao_manuseio'][value='{{form.historico_contato_material}}']").prop("checked", true)
+                  </script>
                   
                   <script>
                     $(document).ready(function(){
@@ -1334,7 +1346,9 @@ footer {
                       <label class="custom-control-label" for="customRadio21">Ignorado</label>
                     </div>
                   </div>
-                  
+                  <script>
+                    $("input[name='presenca_lesao_pele'][value='{{form.presenca_lesao_pele}}']").prop("checked", true)
+                  </script>
                 </div><br>
 
                 <style>
@@ -1549,6 +1563,11 @@ footer {
                       <input class="form-control" type="text" id="nat_lesao_outros_id" name="natureza_lesao_outros" value="">
                     </div>
                   </div>
+                  <script>
+                    {% for natureza in form.natureza_lesao %}
+                      $(`input[name='natureza_lesao'][value='{{natureza}}']`).prop("checked", true)
+                    {% endfor %}
+                  </script>
                 </div><br>
                 
                 <div class="row">
@@ -1648,7 +1667,11 @@ footer {
                       <input class="form-control" type="text" id="loc_lesao_outros_id" name="local_lesao_outros" value="">
                     </div>
                   </div>
-
+                  <script>
+                    {% for local in form.local_lesao %}
+                      $(`input[name='local_lesao'][value='{{local}}']`).prop("checked", true)
+                    {% endfor %}
+                  </script>
                 </div>
                 <br>
                 <div class="row">
@@ -1679,7 +1702,9 @@ footer {
                       <label class="custom-control-label" for="customRadio24">Ignorado</label>
                     </div>
                   </div>
-
+                  <script>
+                    $("input[name='diagnostico_extracutaneo'][value='{{form.diagnostico_forma_extrac_doenca}}']").prop("checked", true)
+                  </script>
                 </div><br>
 
                 <div class="row">
@@ -1689,7 +1714,7 @@ footer {
                       <div class="input-group-prepend">
                         <span class="input-group-text">Qual Localização</span>
                       </div>
-                      <input type="text" class="form-control" name="local_extra_cutanea" value="" id="local_diag_extracutaneo" disabled>
+                      <input type="text" class="form-control" name="local_extra_cutanea" value="{{form.localizacao_forma_extrac_doenca}}" id="local_diag_extracutaneo" disabled>
                     </div>
                   </div>
                 </div><br>
@@ -1732,7 +1757,9 @@ footer {
                       <label class="custom-control-label" for="coleta_exame_ignorado_id">Ignorado</label>
                     </div>
                   </div>
-                  
+                  <script>
+                    $("input[name='coleta_exame_labo_sim'][value='{{form.houve_coleta_material}}']").prop("checked", true)
+                  </script>
                 </div><br>
                 <!-- |INICIO| DATA COLETA E GAL -->
                 <!-- |1| DATA COLETA E GAL -->
@@ -1744,7 +1771,7 @@ footer {
                         <input onclick="active_deactive_1()" style="margin-top:12px;" class="form-check-input" type="checkbox" value="" id="checkbox_1_id">
                         <span class="input-group-text">Data Coleta 1</span>
                       </div>
-                      <input type="date" class="form-control" name="data_coleta_mat_exame" value="" id="data_coleta_material_id_1" disabled>
+                      <input type="date" class="form-control" name="data_coleta_mat_exame1" value="{{form.data_coleta1}}" id="data_coleta_material_id_1" disabled>
                     </div>
                   </div>
                   <div class="col-md-4">
@@ -1752,10 +1779,16 @@ footer {
                       <div class="input-group-prepend" id="lb_gal_1">
                         <span class="input-group-text">N° GAL 1</span>
                       </div>
-                      <input type="text" class="form-control" name="" value="" id="gal_id_1" disabled>
+                      <input type="text" class="form-control" name="numero_gal1" value="{{form.numero_gal1}}" id="gal_id_1" disabled>
                     </div>
                   </div>
                 </div>
+                <script>
+                  {% if form.data_coleta1 != None %}
+                    $("#lb_data_coleta_material_1 input").prop("checked", true)
+                    active_deactive_1()
+                  {% endif %}
+                </script>
                 <!-- |2| DATA COLETA E GAL -->
                 <div id="coleta_gal_2" class="row">
                   <div class="col-md-2"></div>
@@ -1765,7 +1798,7 @@ footer {
                         <input onclick="active_deactive_2()" style="margin-top:12px;" class="form-check-input" type="checkbox" value="" id="checkbox_2_id">
                         <span class="input-group-text">Data Coleta 2</span>
                       </div>
-                      <input type="date" class="form-control" name="data_coleta_mat_exame" value="" id="data_coleta_material_id_2" disabled>
+                      <input type="date" class="form-control" name="data_coleta_mat_exame2" value="{{form.data_coleta2}}" id="data_coleta_material_id_2" disabled>
                     </div>
                   </div>
                   <div class="col-md-4">
@@ -1773,10 +1806,16 @@ footer {
                       <div class="input-group-prepend" id="lb_gal_2">
                         <span class="input-group-text">N° GAL 2</span>
                       </div>
-                      <input type="text" class="form-control" name="" value="" id="gal_id_2" disabled>
+                      <input type="text" class="form-control" name="numero_gal2" value="{{numero_gal2}}" id="gal_id_2" disabled>
                     </div>
                   </div>
                 </div>
+                <script>
+                  {% if form.data_coleta2 != None %}
+                    $("#lb_data_coleta_material_2 input").prop("checked", true)
+                    active_deactive_2()
+                  {% endif %}
+                </script>
                 <!-- |3| DATA COLETA E GAL -->
                 <div id="coleta_gal_3" class="row">
                   <div class="col-md-2"></div>
@@ -1786,7 +1825,7 @@ footer {
                         <input onclick="active_deactive_3()" style="margin-top:12px;" class="form-check-input" type="checkbox" value="" id="checkbox_3_id">
                         <span class="input-group-text">Data Coleta 3</span>
                       </div>
-                      <input type="date" class="form-control" name="data_coleta_mat_exame" value="" id="data_coleta_material_id_3" disabled>
+                      <input type="date" class="form-control" name="data_coleta_mat_exame3" value="{{form.data_coleta3}}" id="data_coleta_material_id_3" disabled>
                     </div>
                   </div>
                   <div class="col-md-4">
@@ -1794,10 +1833,23 @@ footer {
                       <div class="input-group-prepend" id="lb_gal_3">
                         <span class="input-group-text">N° GAL 3</span>
                       </div>
-                      <input type="text" class="form-control" name="" value="" id="gal_id_3" disabled>
+                      <input type="text" class="form-control" name="numero_gal3" value="{{form.numero_gal3}}" id="gal_id_3" disabled>
                     </div>
                   </div>
                 </div>
+
+                <script>
+                  {% if form.data_coleta3 != None %}
+                    $("#lb_data_coleta_material_3 input").prop("checked", true)
+                    active_deactive_3()
+                  {% endif %}
+
+                  $('[data-toggle="tooltip"]').tooltip();
+                  $('#cid_number').val(10);
+                  $("#coleta_gal_1").hide();
+                  $("#coleta_gal_2").hide();
+                  $("#coleta_gal_3").hide();
+                </script>
                 <!-- |FIM| DATA COLETA E GAL -->
                 <br>
                 <div class="row">
@@ -1836,7 +1888,9 @@ footer {
                       <label class="custom-control-label" for="customRadio4">Não Realizado</label>
                     </div>
                   </div>
-                  
+                  <script>
+                    $("input[name='resultado_isolamento'][value='{{form.resultado_isolamento}}']").prop("checked", true)
+                  </script>
                 </div><br>
 
                 <div class="row">
@@ -1887,7 +1941,9 @@ footer {
                       <label class="custom-control-label" for="customRadio8">Não Realizado</label>
                     </div>
                   </div>
-                  
+                  <script>
+                    $("input[name='histopatologia'][value='{{form.histopatologia}}']").prop("checked", true)
+                  </script>
                 </div><br><br>
                 <div class="row">
                   <div class="col-sm-12">
@@ -1902,7 +1958,7 @@ footer {
                       <div class="input-group-prepend" id="">
                         <span class="input-group-text">Data</span>
                       </div>
-                      <input type="date" class="form-control" name="data_outros_exames_1" value="" id="data_outros_exames_1_id">
+                      <input type="date" class="form-control" name="data_outros_exames_1" value="{{form.data_resultado_exame1}}" id="data_outros_exames_1_id">
                     </div>
                   </div>
                   <div class="col-md-4">
@@ -1932,7 +1988,7 @@ footer {
                       <div class="input-group-prepend" id="">
                         <span class="input-group-text">Data</span>
                       </div>
-                      <input type="date" class="form-control" name="data_outros_exames_2" value="" id="data_outros_exames_2_id">
+                      <input type="date" class="form-control" name="data_outros_exames_2" value="{{form.data_resultado_exame2}}" id="data_outros_exames_2_id">
                     </div>
                   </div>
                   <div class="col-md-4">
@@ -1964,7 +2020,7 @@ footer {
                       <div class="input-group-prepend" id="">
                         <span class="input-group-text">Data</span>
                       </div>
-                      <input type="date" class="form-control" name="data_outros_exames_3" value="" id="data_outros_exames_3_id">
+                      <input type="date" class="form-control" name="data_outros_exames_3" value="{{form.data_resultado_exame3}}" id="data_outros_exames_3_id">
                     </div>
                   </div>
                   <div class="col-md-4">
@@ -2975,8 +3031,25 @@ footer {
       idade = String(idade);
       document.getElementById('result').value = idade;
       activeGestante();
-
-    </script>
+      if ($("#customRadio22").is(':checked')){
+        $("#local_diag_extracutaneo").prop("disabled", false);
+      }
+      if ($("#local_lesao_outros_id").is(":checked")) {
+        $("#loc_lesao_outros_id").show();
+      }
+      if ($("#natureza_lesao_outros_id").is(":checked")) {
+        $("#nat_lesao_outros_id").show();
+      }
+      if ($("#coleta_exame_labo_sim_id").is(":checked")) {
+        console.log('1')
+        $("#coleta_gal_1").show();
+        $("#coleta_gal_2").show();
+        $("#coleta_gal_3").show();
+      }
+      if ($("#customRadio1").is(":checked")) {
+        $("#agente_id").prop("disabled", false);
+      }
+</script>
 
   </body>
   </html>

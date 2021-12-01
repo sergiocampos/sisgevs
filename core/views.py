@@ -337,18 +337,38 @@ def set_caso_esporotricose_create(request):
 	#dados clínicos
 	presenca_lesao_pele = request.POST.get('presenca_lesao_pele')
 	natureza_lesao = request.POST.getlist('natureza_lesao')
+	natureza_lesao_outro = request.POST.get('natureza_lesao_outros')
 	local_lesao = request.POST.getlist('local_lesao')
+	local_lesao_outro = request.POST.get('local_lesao_outros')
 	diagnostico_forma_extrac_doenca = request.POST.get('diagnostico_extracutaneo')
 	localizacao_forma_extrac_doenca = request.POST.get('local_extra_cutanea')
 	
 	#Dados Laboratoriais
 	houve_coleta_material = request.POST.get('coleta_exame_labo_sim')
 	
-	data_coleta_cap = request.POST.get('data_coleta_mat_exame')
-	if data_coleta_cap == '' or data_coleta_cap == None:
-		data_coleta = None
+	data_coleta1 = request.POST.get('data_coleta_mat_exame1')
+	if data_coleta1 == '' or data_coleta1 == None:
+		data_coleta1 = None
+		numero_gal1 = None
 	else:
-		data_coleta = datetime.strptime(data_coleta_cap, '%Y-%m-%d').date()
+		data_coleta1 = datetime.strptime(data_coleta1, '%Y-%m-%d').date()
+		numero_gal1 = request.POST.get('numero_gal1')
+
+	data_coleta2 = request.POST.get('data_coleta_mat_exame2')
+	if data_coleta2 == '' or data_coleta2 == None:
+		data_coleta2 = None
+		numero_gal2 = None
+	else:
+		data_coleta2 = datetime.strptime(data_coleta2, '%Y-%m-%d').date()
+		numero_gal2 = request.POST.get('numero_gal2')
+
+	data_coleta3 = request.POST.get('data_coleta_mat_exame3')
+	if data_coleta2 == '' or data_coleta2 == None:
+		data_coleta2 = None
+		numero_gal2 = None
+	else:
+		data_coleta2 = datetime.strptime(data_coleta2, '%Y-%m-%d').date()
+		numero_gal3 = request.POST.get('numero_gal3')
 	
 	resultado_isolamento = request.POST.get('resultado_isolamento')
 	agente = request.POST.get('agente_isolamento')
@@ -519,11 +539,18 @@ def set_caso_esporotricose_create(request):
 		historico_contato_material = historico_contato_material,
 		presenca_lesao_pele = presenca_lesao_pele,
 		natureza_lesao = natureza_lesao,
+		natureza_lesao_outro = natureza_lesao_outro,
 		local_lesao = local_lesao,
+		local_lesao_outro = local_lesao_outro,
 		diagnostico_forma_extrac_doenca = diagnostico_forma_extrac_doenca,
 		localizacao_forma_extrac_doenca = localizacao_forma_extrac_doenca,
 		houve_coleta_material = houve_coleta_material,
-		data_coleta = data_coleta,
+		data_coleta1 = data_coleta1,
+		numero_gal1 = numero_gal1,
+		data_coleta2 = data_coleta2,
+		numero_gal2 = numero_gal2,
+		data_coleta3 = data_coleta3,
+		numero_gal3 = numero_gal3,
 		resultado_isolamento = resultado_isolamento,
 		agente = agente,
 		histopatologia = histopatologia,
@@ -586,10 +613,22 @@ def caso_esporotricose_edit(request, id):
 	municipios = Municipio.objects.all().order_by('nome')
 	unidades_saude = []
 	codigos_ibge = []
-	print(caso.ambientes_frequentados)
+	print(caso.data_coleta)
 	caso.data_notificacao = datetime.strftime(caso.data_notificacao, '%Y-%m-%d')
 	caso.data_primeiros_sintomas = datetime.strftime(caso.data_primeiros_sintomas, '%Y-%m-%d')
 	caso.data_nascimento_paciente = datetime.strftime(caso.data_nascimento_paciente, '%Y-%m-%d')
+	if caso.data_resultado_exame1 != None:
+		caso.data_resultado_exame1 = datetime.strftime(caso.data_resultado_exame1, '%Y-%m-%d')
+	if caso.data_resultado_exame2 != None:
+		caso.data_resultado_exame2 = datetime.strftime(caso.data_resultado_exame2, '%Y-%m-%d')
+	if caso.data_resultado_exame3 != None:
+		caso.data_resultado_exame3 = datetime.strftime(caso.data_resultado_exame3, '%Y-%m-%d')
+	if caso.data_coleta1 != None:
+		caso.data_coleta1 = datetime.strftime(caso.data_coleta1, '%Y-%m-%d')
+	if caso.data_coleta2 != None:
+		caso.data_coleta2 = datetime.strftime(caso.data_coleta2, '%Y-%m-%d')
+	if caso.data_coleta3 != None:
+		caso.data_coleta3 = datetime.strftime(caso.data_coleta3, '%Y-%m-%d')
 	if caso.data_investigacao != None:
 		caso.data_investigacao = datetime.strftime(caso.data_investigacao, '%Y-%m-%d')
 	return render(request, 'caso_esporotricose_edit.html', {'form':caso, 'municipios':municipios, 'unidades_saude':unidades_saude, 
@@ -696,18 +735,38 @@ def set_caso_esporotricose_edit(request, id):
 	#dados clínicos
 	presenca_lesao_pele = request.POST.get('presenca_lesao_pele')
 	natureza_lesao = request.POST.getlist('natureza_lesao')
+	natureza_lesao_outro = request.POST.get('natureza_lesao_outros')
 	local_lesao = request.POST.getlist('local_lesao')
+	local_lesao_outro = request.POST.get('local_lesao_outros')
 	diagnostico_forma_extrac_doenca = request.POST.get('diagnostico_extracutaneo')
 	localizacao_forma_extrac_doenca = request.POST.get('local_extra_cutanea')
 	
 	#Dados Laboratoriais
 	houve_coleta_material = request.POST.get('coleta_exame_labo_sim')
 	
-	data_coleta_cap = request.POST.get('data_coleta_mat_exame')
-	if data_coleta_cap == '' or data_coleta_cap == None:
-		data_coleta = None
+	data_coleta1 = request.POST.get('data_coleta_mat_exame1')
+	if data_coleta1 == '' or data_coleta1 == None:
+		data_coleta1 = None
+		numero_gal1 = None
 	else:
-		data_coleta = datetime.strptime(data_coleta_cap, '%Y-%m-%d').date()
+		data_coleta1 = datetime.strptime(data_coleta1, '%Y-%m-%d').date()
+		numero_gal1 = request.POST.get('numero_gal1')
+
+	data_coleta2 = request.POST.get('data_coleta_mat_exame2')
+	if data_coleta2 == '' or data_coleta2 == None:
+		data_coleta2 = None
+		numero_gal2 = None
+	else:
+		data_coleta2 = datetime.strptime(data_coleta2, '%Y-%m-%d').date()
+		numero_gal2 = request.POST.get('numero_gal2')
+
+	data_coleta3 = request.POST.get('data_coleta_mat_exame3')
+	if data_coleta2 == '' or data_coleta2 == None:
+		data_coleta2 = None
+		numero_gal2 = None
+	else:
+		data_coleta2 = datetime.strptime(data_coleta2, '%Y-%m-%d').date()
+		numero_gal3 = request.POST.get('numero_gal3')
 	
 	resultado_isolamento = request.POST.get('resultado_isolamento')
 	agente = request.POST.get('agente_isolamento')
@@ -833,8 +892,7 @@ def set_caso_esporotricose_edit(request, id):
 	telefone_investigador = request.POST.get('telefone_investigador')
 	conselho_classe_investigador = request.POST.get('conselho_classe_investigador')
 
-	registro = CasoEsporotricose.objects.update(
-		id = id,
+	CasoEsporotricose.objects.update(
 		responsavel_pelas_informacoes = responsavel_pelas_informacoes,
 		tipo_notificacao = tipo_notificacao,
 		agravo_doenca = agravo_doenca,
@@ -879,11 +937,18 @@ def set_caso_esporotricose_edit(request, id):
 		historico_contato_material = historico_contato_material,
 		presenca_lesao_pele = presenca_lesao_pele,
 		natureza_lesao = natureza_lesao,
+		natureza_lesao_outro = natureza_lesao_outro,
 		local_lesao = local_lesao,
+		local_lesao_outro = local_lesao_outro,
 		diagnostico_forma_extrac_doenca = diagnostico_forma_extrac_doenca,
 		localizacao_forma_extrac_doenca = localizacao_forma_extrac_doenca,
 		houve_coleta_material = houve_coleta_material,
-		data_coleta = data_coleta,
+		data_coleta1 = data_coleta1,
+		numero_gal1 = numero_gal1,
+		data_coleta2 = data_coleta2,
+		numero_gal2 = numero_gal2,
+		data_coleta3 = data_coleta3,
+		numero_gal3 = numero_gal3,
 		resultado_isolamento = resultado_isolamento,
 		agente = agente,
 		histopatologia = histopatologia,
