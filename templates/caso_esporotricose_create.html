@@ -1817,6 +1817,7 @@ footer {
                               <tr>
                                 <th>Nome do exame</th>
                                 <th>Hospital</th>
+                                <th>Data do exame</th>
                                 <th>N° GAL</th>
                               </tr>
                             </thead>
@@ -1835,33 +1836,76 @@ footer {
 
                   $("#btn_gal_id_1").on('click', function(){
                     gal_value = document.getElementById('gal_id_1').value;
-                    $("table > tbody:last-child").append(`
-                      <tr>
-                        <td>n o m e   d o   e x a m e</td>
-                        <td>h o s p i t a l</td>
-                        <td>${gal_value}</td>
-                      </tr>                                          
-                    `)
+                    $.ajax({
+                      url: "{% url 'ajax_gal' %}",
+                      data: {
+                        'n_gal':gal_value
+                      },
+                      success: function(data){
+                        for (exame in data){
+                          nome_exame = data[exame]['nome'];
+                          data_exame = data[exame]['data'];
+                          hospital = data[exame]['hospital'];
+                          $("table > tbody:last-child").append(`
+                            <tr>
+                              <td>${nome_exame}</td>
+                              <td>${hospital}</td>
+                              <td>${data_exame}</td>
+                              <td>${gal_value}</td>
+                            </tr>                                          
+                          `);
+                        };
+                      }
+                    });
                   });
+
                   $("#btn_gal_id_2").on('click', function(){
                     gal_value = document.getElementById('gal_id_2').value;
-                    $("table > tbody:last-child").append(`
-                      <tr>
-                        <td>n o m e   d o   e x a m e</td>
-                        <td>h o s p i t a l</td>
-                        <td>${gal_value}</td>
-                      </tr>                                          
-                    `)
+                    $.ajax({
+                      url: "{% url 'ajax_gal' %}",
+                      data: {
+                        'n_gal':gal_value
+                      },
+                      success: function(data){
+                        for (exame in data){
+                          nome_exame = data[exame]['nome'];
+                          data_exame = data[exame]['data'];
+                          hospital = data[exame]['hospital'];
+                          $("table > tbody:last-child").append(`
+                            <tr>
+                              <td>${nome_exame}</td>
+                              <td>${hospital}</td>
+                              <td>${data_exame}</td>
+                              <td>${gal_value}</td>
+                            </tr>                                          
+                          `);
+                        };
+                      }
+                    });
                   });
                   $("#btn_gal_id_3").on('click', function(){
                     gal_value = document.getElementById('gal_id_3').value;
-                    $("table > tbody:last-child").append(`
-                      <tr>
-                        <td>n o m e   d o   e x a m e</td>
-                        <td>h o s p i t a l</td>
-                        <td>${gal_value}</td>
-                      </tr>                                          
-                    `)
+                    $.ajax({
+                      url: "{% url 'ajax_gal' %}",
+                      data: {
+                        'n_gal':gal_value
+                      },
+                      success: function(data){
+                        for (exame in data){
+                          nome_exame = data[exame]['nome'];
+                          data_exame = data[exame]['data'];
+                          hospital = data[exame]['hospital'];
+                          $("table > tbody:last-child").append(`
+                            <tr>
+                              <td>${nome_exame}</td>
+                              <td>${hospital}</td>
+                              <td>${data_exame}</td>
+                              <td>${gal_value}</td>
+                            </tr>                                          
+                          `);
+                        };
+                      }
+                    });
                   });
                   
                   

@@ -1,3 +1,5 @@
+from django.http.response import JsonResponse
+import psycopg2
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.utils.translation import gettext as _
@@ -232,6 +234,43 @@ def ficha_caso_esporotricose_preencher(request):
 @login_required(login_url='/login/')
 def ficha_caso_esporotricose_preenchido(request):
 	return render(request, 'ficha_caso_esporotricose_preenchido.html')
+
+
+
+
+# AJAX GAL
+@login_required(login_url='/login/')
+def ajax_gal(request):
+	n_gal = request.GET.get('n_gal')
+	#conn = psycopg2.connect(dbname='yourdb', user='dbuser', password='abcd1234', Host='server', port='5432', sslmode='require')
+
+	# DATA DE EXEMPLO
+	data = {'exame1':{
+			'nome':'Exame tralalalaaa',
+			'data':'02/12/2021',
+			'hospital':'Hospital Laureano'
+		},
+		'exame2':{
+			'nome':'Exame trelelelee',
+			'data':'02/12/2021',
+			'hospital':'Hospital Unimed'
+		},
+		'exame3':{
+			'nome':'Exame trululuuuu',
+			'data':'15/11/2021',
+			'hospital':'Hospital Candida Vargas'
+		}
+	}
+	# DATA DE EXEMPLO
+
+
+
+
+	return JsonResponse(data)
+# AJAX GAL
+
+
+
 
 
 def remove_caso_esporotricose(request, id):
