@@ -353,42 +353,29 @@ footer {
 </header>
 
 <nav class="navbar navbar-expand-sm bg-secondary navbar-dark">
-  <a class="navbar-brand" href="#"></a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-  <div class="collapse navbar-collapse" id="collapsibleNavbar">
-    <ul class="navbar-nav">
-      <li class="nav-item">
-        <a class="nav-link" href="/index/">Home</a>
-      </li>
-      <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#">Localizar Notificação</a>
-        <div class="dropdown-menu">
-          <a class="dropdown-item" href="/localizar_paciente_nome/">Nome Paciente</a>
-          <a class="dropdown-item" href="/localizar_paciente_cpf/">CPF</a>
-          <a class="dropdown-item" href="/localizar_paciente_phone/">Telefone</a></div>
-        </li>
+    <a class="navbar-brand" href="#"></a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="collapsibleNavbar">
+      <ul class="navbar-nav">
         <li class="nav-item">
-          <a class="nav-link" href="#">Menu</a>
+          <a class="nav-link" href="/main/">Área do Usuário</a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Menu</a>
-        </li>
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#">Acompanhar Resultados</a>
-          <div class="dropdown-menu">
-            <a class="dropdown-item" href="#">Por Unidade</a>
-            <a class="dropdown-item" href="#">Por Macro</a>
-            <a class="dropdown-item" href="#">Por Gerência</a></div>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/logout/">Sair</a>
-          </li>    
-        </ul>
-      </div>
+        
+        
       
-    </nav>
+        <li class="nav-item">
+          <a class="nav-link" href="/change_password/">Alterar Senha</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/logout/">Sair</a>
+        </li>
+      </ul>
+    </div>
+    
+  </nav>
+
     <section>
 
       <nav>
@@ -409,9 +396,15 @@ footer {
             <hr>
             <li><a href="/my_datas/">Meus Dados</a></li>
             <li><a href="#"></a></li>
+            
             <hr>
-            <li><a href="/download_ficha/" download>Imprimir Ficha</a></li>
-            <li><a href="#"></a></li>
+            <li><a href="/download_ficha/" data-toggle="collapse" data-target="#_demo">Ficha</a></li>
+            <li><a href="#"></a></li>        
+            
+            <div id="_demo" class="collapse"><br>
+              <li><a href="/download_ficha/" download style="color: #4d94ff;">Imprimir Ficha</a></li>
+              <li><a href="/ficha_caso_esporotricose_preencher/" target="_blank" style="color: #4d94ff;">Novo Layout</a></li>
+            </div>
             <hr>
             <li><a href="/logout/">Sair</a></li>
             <li><a href="#"></a></li>
@@ -1350,33 +1343,42 @@ footer {
                     if(document.getElementById('checkbox_1_id').checked == true){
                       $("#gal_id_1").prop("disabled", false);
                       $("#data_coleta_material_id_1").prop("disabled", false);
+                      $("#btn_gal_id_1").hide();
                     } else if(document.getElementById('checkbox_1_id').checked == false){
                       $("#gal_id_1").prop("disabled", true);
                       $("#data_coleta_material_id_1").prop("disabled", true);
                       $("#gal_id_1").val("");
                       $("#data_coleta_material_id_1").val("");
+                      $("#btn_gal_id_1").prop("disabled", true);
+                      $("#btn_gal_id_1").hide();
                     }
                   };
                   function active_deactive_2(){
                     if(document.getElementById('checkbox_2_id').checked == true){
                       $("#gal_id_2").prop("disabled", false);
                       $("#data_coleta_material_id_2").prop("disabled", false);
+                      $("#btn_gal_id_2").hide();
                     } else if(document.getElementById('checkbox_2_id').checked == false){
                       $("#gal_id_2").prop("disabled", true);
                       $("#data_coleta_material_id_2").prop("disabled", true);
                       $("#gal_id_2").val("");
                       $("#data_coleta_material_id_2").val("");
+                      $("#btn_gal_id_2").prop("disabled", true);
+                      $("#btn_gal_id_2").hide();
                     }
                   };
                   function active_deactive_3(){
                     if(document.getElementById('checkbox_3_id').checked == true){
                       $("#gal_id_3").prop("disabled", false);
                       $("#data_coleta_material_id_3").prop("disabled", false);
+                      $("#btn_gal_id_3").hide();
                     } else if(document.getElementById('checkbox_3_id').checked == false){
                       $("#gal_id_3").prop("disabled", true);
                       $("#data_coleta_material_id_3").prop("disabled", true);
                       $("#gal_id_3").val("");
                       $("#data_coleta_material_id_3").val("");
+                      $("#btn_gal_id_3").prop("disabled", true);
+                      $("#btn_gal_id_3").hide();
                     }
                   };
 
@@ -1743,8 +1745,11 @@ footer {
                       <div class="input-group-prepend" id="lb_gal_1">
                         <span class="input-group-text">N° GAL 1</span>
                       </div>
-                      <input type="text" class="form-control" name="" value="" id="gal_id_1" disabled>
+                      <input onkeydown="visualizar_gal(id)" onkeypress="return limitcarc(event, 'num')" type="text" class="form-control" name="" value="" id="gal_id_1" disabled>
                     </div>
+                  </div>
+                  <div class="col-md-2">
+                    <button type="button" id="btn_gal_id_1" class="btn btn-primary" data-toggle="modal" data-target=".bd-example-modal-lg" disabled>Visualizar</button>
                   </div>
                 </div>
                 <!-- |2| DATA COLETA E GAL -->
@@ -1764,8 +1769,11 @@ footer {
                       <div class="input-group-prepend" id="lb_gal_2">
                         <span class="input-group-text">N° GAL 2</span>
                       </div>
-                      <input type="text" class="form-control" name="" value="" id="gal_id_2" disabled>
+                      <input onkeydown="visualizar_gal(id)" onkeypress="return limitcarc(event, 'num')" type="text" class="form-control" name="" value="" id="gal_id_2" disabled>
                     </div>
+                  </div>
+                  <div class="col-md-2">
+                    <button type="button" id="btn_gal_id_2" class="btn btn-primary" data-toggle="modal" data-target=".bd-example-modal-lg" disabled>Visualizar</button>
                   </div>
                 </div>
                 <!-- |3| DATA COLETA E GAL -->
@@ -1785,10 +1793,127 @@ footer {
                       <div class="input-group-prepend" id="lb_gal_3">
                         <span class="input-group-text">N° GAL 3</span>
                       </div>
-                      <input type="text" class="form-control" name="" value="" id="gal_id_3" disabled>
+                      <input onkeydown="visualizar_gal(id)" onkeypress="return limitcarc(event, 'num')" type="text" class="form-control" name="" value="" id="gal_id_3" disabled>
                     </div>
                   </div>
+                  <div class="col-md-2">
+                    <button type="button" id="btn_gal_id_3" class="btn btn-primary" data-toggle="modal" data-target=".bd-example-modal-lg" disabled>Visualizar</button>
+                  </div>
                 </div>
+                <!-- MODAL GAL -->
+                  <!-- Large modal -->
+                    <div id="modal_gal" class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+                      <div class="modal-dialog modal-lg">
+                        <div class="modal-content">
+                          <table id="table_gal" class="table table-hover">
+                            <thead>
+                              <tr>
+                                <th>Nome do exame</th>
+                                <th>Hospital</th>
+                                <th>Data do exame</th>
+                                <th>N° GAL</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                          </table>
+                        </div>
+                      </div>
+                    </div>
+
+                <!-- MODAL GAL -->
+                <script>
+                  $('#modal_gal').on('hidden.bs.modal', function (e) {
+                    $("table > tbody:last-child").empty();
+                  });
+
+                  $("#btn_gal_id_1").on('click', function(){
+                    gal_value = document.getElementById('gal_id_1').value;
+                    $.ajax({
+                      url: "{% url 'ajax_gal' %}",
+                      data: {
+                        'n_gal':gal_value
+                      },
+                      success: function(data){
+                        for (exame in data){
+                          nome_exame = data[exame]['nome'];
+                          data_exame = data[exame]['data'];
+                          hospital = data[exame]['hospital'];
+                          $("table > tbody:last-child").append(`
+                            <tr>
+                              <td>${nome_exame}</td>
+                              <td>${hospital}</td>
+                              <td>${data_exame}</td>
+                              <td>${gal_value}</td>
+                            </tr>                                          
+                          `);
+                        };
+                      }
+                    });
+                  });
+
+                  $("#btn_gal_id_2").on('click', function(){
+                    gal_value = document.getElementById('gal_id_2').value;
+                    $.ajax({
+                      url: "{% url 'ajax_gal' %}",
+                      data: {
+                        'n_gal':gal_value
+                      },
+                      success: function(data){
+                        for (exame in data){
+                          nome_exame = data[exame]['nome'];
+                          data_exame = data[exame]['data'];
+                          hospital = data[exame]['hospital'];
+                          $("table > tbody:last-child").append(`
+                            <tr>
+                              <td>${nome_exame}</td>
+                              <td>${hospital}</td>
+                              <td>${data_exame}</td>
+                              <td>${gal_value}</td>
+                            </tr>                                          
+                          `);
+                        };
+                      }
+                    });
+                  });
+                  $("#btn_gal_id_3").on('click', function(){
+                    gal_value = document.getElementById('gal_id_3').value;
+                    $.ajax({
+                      url: "{% url 'ajax_gal' %}",
+                      data: {
+                        'n_gal':gal_value
+                      },
+                      success: function(data){
+                        for (exame in data){
+                          nome_exame = data[exame]['nome'];
+                          data_exame = data[exame]['data'];
+                          hospital = data[exame]['hospital'];
+                          $("table > tbody:last-child").append(`
+                            <tr>
+                              <td>${nome_exame}</td>
+                              <td>${hospital}</td>
+                              <td>${data_exame}</td>
+                              <td>${gal_value}</td>
+                            </tr>                                          
+                          `);
+                        };
+                      }
+                    });
+                  });
+                  
+                  
+                  
+                  //  SCRIPT APENAS PARA A VISUALIZAÇÃO GAL
+                  function visualizar_gal(id){
+                    let id_value = document.getElementById(id).value;
+                    let id_btn = "#btn_"+id
+                    if (id_value.length > 1){
+                      $(id_btn).prop('disabled', false);                      
+                    } else {
+                      $(id_btn).prop('disabled', true);                      
+                    };                    
+                  };
+                </script>
                 <!-- |FIM| DATA COLETA E GAL -->
                 <br>
                 <div class="row">
@@ -2743,6 +2868,9 @@ footer {
           <!-- Scrip abaixo bloqueia envio formulário com ENTER -->
           <script>
             $(document).ready(function () {
+              $("#btn_gal_id_1").hide();
+              $("#btn_gal_id_2").hide();
+              $("#btn_gal_id_3").hide();
              $('input').keypress(function (e) {
               var code = null;
               code = (e.keyCode ? e.keyCode : e.which);                
