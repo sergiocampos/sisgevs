@@ -16,6 +16,10 @@ from django.http import HttpResponse, HttpResponseRedirect
 import os
 
 from .models import *
+import json
+import urllib
+from django.conf import settings
+
 
 # Create your views here.
 
@@ -27,6 +31,7 @@ def index_aberto(request):
 	return render(request, 'index_aberto.html')
 
 
+######### View de login e autenticação com reCaptcha##################
 @csrf_protect
 def login_submit(request):
 	if request.POST:
@@ -34,11 +39,31 @@ def login_submit(request):
 		password = request.POST.get('password')
 
 		user = authenticate(username = username, password = password)
-		if user is not None:
-			login(request, user)
-			return redirect('/')
+		
+		''' Begin reCAPTCHA validation '''
+		recaptcha_response = request.POST.get('g-recaptcha-response')
+		url = 'https://www.google.com/recaptcha/api/siteverify'
+		values = {
+				'secret': settings.GOOGLE_RECAPTCHA_SECRET_KEY,
+				'response': recaptcha_response
+			}
+		data = urllib.parse.urlencode(values).encode()
+		req =  urllib.request.Request(url, data=data)
+		response = urllib.request.urlopen(req)
+		result = json.loads(response.read().decode())
+		''' End reCAPTCHA validation '''
+		if result['success']:
+			if user is not None:
+				login(request, user)
+				return redirect('/')
+			else:
+				return render(request, 'login_page.html')
+
+			#form.save()
+			messages.success(request, 'New comment added with success!')
 		else:
-			return render(request, 'login_page.html')
+			messages.error(request, 'Invalid reCAPTCHA. Please try again.')
+		
 			#messages.error(request, 'Usuário e/ou senha inválido!')
 	return redirect('/login/')
 
