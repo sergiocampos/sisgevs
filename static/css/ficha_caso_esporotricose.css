@@ -1,9 +1,12 @@
 *{
     text-transform: uppercase;
+    margin: 0;
+    padding: 0;
 }
 body{
     padding: 2rem;
 }
+
 img{
     width: 100%;
 }
@@ -24,7 +27,7 @@ img{
     border-radius: 10px;
 }
 .caso-suspeito p{
-    font-size: 12px;
+    font-size: 10px;
     font-weight: 700;
     line-height: 17px;
 }
@@ -37,7 +40,8 @@ label{
 input{
     width: 100%;
     border:0px;
-    margin: 2px;
+    margin: 0;
+    padding: 0;
 }
 li{display: flex;}
 
@@ -50,6 +54,8 @@ li{display: flex;}
 }
 p{
     font-weight: 700;
+    margin: 5px;
+    padding: 0;
 }
 .barra{
     background-color: #404040;

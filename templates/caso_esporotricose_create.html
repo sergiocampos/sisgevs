@@ -1350,33 +1350,42 @@ footer {
                     if(document.getElementById('checkbox_1_id').checked == true){
                       $("#gal_id_1").prop("disabled", false);
                       $("#data_coleta_material_id_1").prop("disabled", false);
+                      $("#btn_gal_id_1").hide();
                     } else if(document.getElementById('checkbox_1_id').checked == false){
                       $("#gal_id_1").prop("disabled", true);
                       $("#data_coleta_material_id_1").prop("disabled", true);
                       $("#gal_id_1").val("");
                       $("#data_coleta_material_id_1").val("");
+                      $("#btn_gal_id_1").prop("disabled", true);
+                      $("#btn_gal_id_1").hide();
                     }
                   };
                   function active_deactive_2(){
                     if(document.getElementById('checkbox_2_id').checked == true){
                       $("#gal_id_2").prop("disabled", false);
                       $("#data_coleta_material_id_2").prop("disabled", false);
+                      $("#btn_gal_id_2").hide();
                     } else if(document.getElementById('checkbox_2_id').checked == false){
                       $("#gal_id_2").prop("disabled", true);
                       $("#data_coleta_material_id_2").prop("disabled", true);
                       $("#gal_id_2").val("");
                       $("#data_coleta_material_id_2").val("");
+                      $("#btn_gal_id_2").prop("disabled", true);
+                      $("#btn_gal_id_2").hide();
                     }
                   };
                   function active_deactive_3(){
                     if(document.getElementById('checkbox_3_id').checked == true){
                       $("#gal_id_3").prop("disabled", false);
                       $("#data_coleta_material_id_3").prop("disabled", false);
+                      $("#btn_gal_id_3").hide();
                     } else if(document.getElementById('checkbox_3_id').checked == false){
                       $("#gal_id_3").prop("disabled", true);
                       $("#data_coleta_material_id_3").prop("disabled", true);
                       $("#gal_id_3").val("");
                       $("#data_coleta_material_id_3").val("");
+                      $("#btn_gal_id_3").prop("disabled", true);
+                      $("#btn_gal_id_3").hide();
                     }
                   };
 
@@ -1743,8 +1752,11 @@ footer {
                       <div class="input-group-prepend" id="lb_gal_1">
                         <span class="input-group-text">N° GAL 1</span>
                       </div>
-                      <input type="text" class="form-control" name="" value="" id="gal_id_1" disabled>
+                      <input onkeydown="visualizar_gal(id)" onkeypress="return limitcarc(event, 'num')" type="text" class="form-control" name="" value="" id="gal_id_1" disabled>
                     </div>
+                  </div>
+                  <div class="col-md-2">
+                    <button type="button" id="btn_gal_id_1" class="btn btn-primary" data-toggle="modal" data-target=".bd-example-modal-lg" disabled>Visualizar</button>
                   </div>
                 </div>
                 <!-- |2| DATA COLETA E GAL -->
@@ -1764,8 +1776,11 @@ footer {
                       <div class="input-group-prepend" id="lb_gal_2">
                         <span class="input-group-text">N° GAL 2</span>
                       </div>
-                      <input type="text" class="form-control" name="" value="" id="gal_id_2" disabled>
+                      <input onkeydown="visualizar_gal(id)" onkeypress="return limitcarc(event, 'num')" type="text" class="form-control" name="" value="" id="gal_id_2" disabled>
                     </div>
+                  </div>
+                  <div class="col-md-2">
+                    <button type="button" id="btn_gal_id_2" class="btn btn-primary" data-toggle="modal" data-target=".bd-example-modal-lg" disabled>Visualizar</button>
                   </div>
                 </div>
                 <!-- |3| DATA COLETA E GAL -->
@@ -1785,10 +1800,127 @@ footer {
                       <div class="input-group-prepend" id="lb_gal_3">
                         <span class="input-group-text">N° GAL 3</span>
                       </div>
-                      <input type="text" class="form-control" name="" value="" id="gal_id_3" disabled>
+                      <input onkeydown="visualizar_gal(id)" onkeypress="return limitcarc(event, 'num')" type="text" class="form-control" name="" value="" id="gal_id_3" disabled>
                     </div>
                   </div>
+                  <div class="col-md-2">
+                    <button type="button" id="btn_gal_id_3" class="btn btn-primary" data-toggle="modal" data-target=".bd-example-modal-lg" disabled>Visualizar</button>
+                  </div>
                 </div>
+                <!-- MODAL GAL -->
+                  <!-- Large modal -->
+                    <div id="modal_gal" class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+                      <div class="modal-dialog modal-lg">
+                        <div class="modal-content">
+                          <table id="table_gal" class="table table-hover">
+                            <thead>
+                              <tr>
+                                <th>Nome do exame</th>
+                                <th>Hospital</th>
+                                <th>Data do exame</th>
+                                <th>N° GAL</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                          </table>
+                        </div>
+                      </div>
+                    </div>
+
+                <!-- MODAL GAL -->
+                <script>
+                  $('#modal_gal').on('hidden.bs.modal', function (e) {
+                    $("table > tbody:last-child").empty();
+                  });
+
+                  $("#btn_gal_id_1").on('click', function(){
+                    gal_value = document.getElementById('gal_id_1').value;
+                    $.ajax({
+                      url: "{% url 'ajax_gal' %}",
+                      data: {
+                        'n_gal':gal_value
+                      },
+                      success: function(data){
+                        for (exame in data){
+                          nome_exame = data[exame]['nome'];
+                          data_exame = data[exame]['data'];
+                          hospital = data[exame]['hospital'];
+                          $("table > tbody:last-child").append(`
+                            <tr>
+                              <td>${nome_exame}</td>
+                              <td>${hospital}</td>
+                              <td>${data_exame}</td>
+                              <td>${gal_value}</td>
+                            </tr>                                          
+                          `);
+                        };
+                      }
+                    });
+                  });
+
+                  $("#btn_gal_id_2").on('click', function(){
+                    gal_value = document.getElementById('gal_id_2').value;
+                    $.ajax({
+                      url: "{% url 'ajax_gal' %}",
+                      data: {
+                        'n_gal':gal_value
+                      },
+                      success: function(data){
+                        for (exame in data){
+                          nome_exame = data[exame]['nome'];
+                          data_exame = data[exame]['data'];
+                          hospital = data[exame]['hospital'];
+                          $("table > tbody:last-child").append(`
+                            <tr>
+                              <td>${nome_exame}</td>
+                              <td>${hospital}</td>
+                              <td>${data_exame}</td>
+                              <td>${gal_value}</td>
+                            </tr>                                          
+                          `);
+                        };
+                      }
+                    });
+                  });
+                  $("#btn_gal_id_3").on('click', function(){
+                    gal_value = document.getElementById('gal_id_3').value;
+                    $.ajax({
+                      url: "{% url 'ajax_gal' %}",
+                      data: {
+                        'n_gal':gal_value
+                      },
+                      success: function(data){
+                        for (exame in data){
+                          nome_exame = data[exame]['nome'];
+                          data_exame = data[exame]['data'];
+                          hospital = data[exame]['hospital'];
+                          $("table > tbody:last-child").append(`
+                            <tr>
+                              <td>${nome_exame}</td>
+                              <td>${hospital}</td>
+                              <td>${data_exame}</td>
+                              <td>${gal_value}</td>
+                            </tr>                                          
+                          `);
+                        };
+                      }
+                    });
+                  });
+                  
+                  
+                  
+                  //  SCRIPT APENAS PARA A VISUALIZAÇÃO GAL
+                  function visualizar_gal(id){
+                    let id_value = document.getElementById(id).value;
+                    let id_btn = "#btn_"+id
+                    if (id_value.length > 1){
+                      $(id_btn).prop('disabled', false);                      
+                    } else {
+                      $(id_btn).prop('disabled', true);                      
+                    };                    
+                  };
+                </script>
                 <!-- |FIM| DATA COLETA E GAL -->
                 <br>
                 <div class="row">
@@ -2743,6 +2875,9 @@ footer {
           <!-- Scrip abaixo bloqueia envio formulário com ENTER -->
           <script>
             $(document).ready(function () {
+              $("#btn_gal_id_1").hide();
+              $("#btn_gal_id_2").hide();
+              $("#btn_gal_id_3").hide();
              $('input').keypress(function (e) {
               var code = null;
               code = (e.keyCode ? e.keyCode : e.which);                
