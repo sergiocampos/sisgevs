@@ -814,12 +814,12 @@ footer {
                       <select class="form-control" name="gestacao" id="gestante_id" disabled>
 
                         <option value=""></option>
-                        <option value="1º-Trimestre">1º Trimestre</option>
-                        <option value="2º-Trimestre">2º Trimestre</option>
-                        <option value="3º-Trimestre">3º Trimestre</option>
-                        <option value="Idade-Gestacional-Ignorada">Idade Gestacional Ignorada</option>
+                        <option value="1º Trimestre">1º Trimestre</option>
+                        <option value="2º Trimestre">2º Trimestre</option>
+                        <option value="3º Trimestre">3º Trimestre</option>
+                        <option value="Idade Gestacional Ignorada">Idade Gestacional Ignorada</option>
                         <option value="Ignorado">Ignorado</option>
-                        <option value="Não-se-aplica">Não se aplica</option>
+                        <option value="Não se aplica">Não se aplica</option>
                         <option value="Não">Não</option>
 
                       </select>
@@ -833,15 +833,15 @@ footer {
 
                         <option value="" disabled selected>Selecionar</option>
                         <option value="Analfabeto">Analfabeto</option>
-                        <option value="1ª-a-4ª-serie incompleto">1ª a 4ª série incompleto</option>
-                        <option value="4ª-serie-completa">4ª série completa</option>
-                        <option value="5ª-a-8ª-serie-incompleto">5ª a 8ª série incompleto</option>
-                        <option value="Ensido-Fundamental-Completo">Ensido Fundamental Completo</option>
-                        <option value="Ensino-Medio-incompleto">Ensino Médio incompleto</option>
-                        <option value="Ensino-Medio-Completo">Ensino Médio Completo</option>
-                        <option value="Superior-Incompleto">Superior Incompleto</option>
-                        <option value="Superior-completo">Superior completo</option>
-                        <option value="Nao-se-aplica">Não se aplica</option>
+                        <option value="1ª a 4ª serie incompleto">1ª a 4ª série incompleto</option>
+                        <option value="4ª serie completa">4ª série completa</option>
+                        <option value="5ª a 8ª serie incompleto">5ª a 8ª série incompleto</option>
+                        <option value="Ensido Fundamental Completo">Ensido Fundamental Completo</option>
+                        <option value="Ensino Medio incompleto">Ensino Médio incompleto</option>
+                        <option value="Ensino Medio Completo">Ensino Médio Completo</option>
+                        <option value="Superior Incompleto">Superior Incompleto</option>
+                        <option value="Superior completo">Superior completo</option>
+                        <option value="Nao se aplica">Não se aplica</option>
                         
                       </select>
                     </div>
@@ -866,8 +866,8 @@ footer {
                   $('#raca_paciente').find('option[value={{form.raca_paciente}}]').attr("selected", "selected");
                   $('#genero_paciente').find('option[value={{form.sexo_paciente}}]').attr("selected", "selected");
                   $('#genero_paciente').find('option[value={{form.sexo_paciente}}]').attr("selected", "selected");
-                  $('#escolaridade_paciente').find('option[value={{form.escolaridade_paciente}}]').attr("selected", "selected");
-                  $('#gestante_id').find('option[value={{form.paciente_gestante}}]').attr("selected", "selected");
+                  $('#escolaridade_paciente').find("option[value='{{form.escolaridade_paciente}}']").attr("selected", "selected");
+                  $('#gestante_id').find('option[value="{{form.paciente_gestante}}"]').attr("selected", "selected");
                   
                   function verificarNotifGeral(){
                     var nome_paciente = document.getElementById('nome_paciente_id').value.length;
@@ -1560,7 +1560,7 @@ footer {
                   </div>
                   <div class="col-md-3">
                     <div class="form-group">
-                      <input class="form-control" type="text" id="nat_lesao_outros_id" name="natureza_lesao_outros" value="">
+                      <input class="form-control" type="text" id="nat_lesao_outros_id" name="natureza_lesao_outros" value="{{form.natureza_lesao_outro}}">
                     </div>
                   </div>
                   <script>
@@ -1664,7 +1664,7 @@ footer {
                   </div>
                   <div class="col-md-4">
                     <div class="form-group">
-                      <input class="form-control" type="text" id="loc_lesao_outros_id" name="local_lesao_outros" value="">
+                      <input class="form-control" type="text" id="loc_lesao_outros_id" name="local_lesao_outros" value="{{form.local_lesao_outro}}">
                     </div>
                   </div>
                   <script>
@@ -1806,7 +1806,7 @@ footer {
                       <div class="input-group-prepend" id="lb_gal_2">
                         <span class="input-group-text">N° GAL 2</span>
                       </div>
-                      <input type="text" class="form-control" name="numero_gal2" value="{{numero_gal2}}" id="gal_id_2" disabled>
+                      <input type="text" class="form-control" name="numero_gal2" value="{{form.numero_gal2}}" id="gal_id_2" disabled>
                     </div>
                   </div>
                 </div>
@@ -1900,7 +1900,7 @@ footer {
                       <div class="input-group-prepend" id="">
                         <span class="input-group-text">Agente</span>
                       </div>
-                      <input type="text" class="form-control" name="agente_isolamento" value="" id="agente_id" disabled>
+                      <input type="text" class="form-control" name="agente_isolamento" value="{{form.agente}}" id="agente_id" disabled>
                     </div>
                   </div>
                 </div>
@@ -1966,7 +1966,7 @@ footer {
                       <div class="input-group-prepend" id="">
                         <span class="input-group-text">Descricao</span>
                       </div>
-                      <select class="form-control" id="select_descricao_1">
+                      <select class="form-control" id="select_descricao_1" name="descricao_outros_exames_1">
                         <option value="micologico">Micológico</option>
                         <option value="outros">Outros</option>
                       </select>
@@ -1977,7 +1977,7 @@ footer {
                       <div class="input-group-prepend" id="">
                         <span class="input-group-text">Resultado</span>
                       </div>
-                      <input type="text" class="form-control" name="resultado_outros_exames_1" value="" id="">
+                      <input type="text" class="form-control" name="resultado_outros_exames_1" value="{{form.resultado_exame1}}" id="">
                     </div>
                   </div>
                   
@@ -1996,7 +1996,7 @@ footer {
                       <div class="input-group-prepend" id="">
                         <span class="input-group-text">Descricao</span>
                       </div>
-                      <select class="form-control" id="select_descricao_2">
+                      <select class="form-control" id="select_descricao_2" name="descricao_outros_exames_2">
                         <option value="micologico">Micológico</option>
                         <option value="outros">Outros</option>
                       </select>
@@ -2007,7 +2007,7 @@ footer {
                       <div class="input-group-prepend" id="">
                         <span class="input-group-text">Resultado</span>
                       </div>
-                      <input type="text" class="form-control" name="resultado_outros_exames_2" value="" id="">
+                      <input type="text" class="form-control" name="resultado_outros_exames_2" value="{{form.resultado_exame2}}" id="">
                     </div>
                   </div>
 
@@ -2028,7 +2028,7 @@ footer {
                       <div class="input-group-prepend" id="">
                         <span class="input-group-text">Descricao</span>
                       </div>
-                      <select class="form-control" id="select_descricao_3">
+                      <select class="form-control" id="select_descricao_3" name="descricao_outros_exames_3">
                         <option value="micologico">Micológico</option>
                         <option value="outros">Outros</option>
                       </select>
@@ -2039,9 +2039,15 @@ footer {
                       <div class="input-group-prepend" id="">
                         <span class="input-group-text">Resultado</span>
                       </div>
-                      <input type="text" class="form-control" name="resultado_outros_exames_3" value="" id="">
+                      <input type="text" class="form-control" name="resultado_outros_exames_3" value="{{form.resultado_exame3}}" id="">
                     </div>
                   </div>
+
+                  <script>
+                     $('#select_descricao_1').find('option[value={{form.descricao_exame_1}}]').attr("selected", "selected");
+                     $('#select_descricao_2').find('option[value={{form.descricao_exame_2}}]').attr("selected", "selected");
+                     $('#select_descricao_3').find('option[value={{form.descricao_exame_3}}]').attr("selected", "selected");
+                  </script>
                 </div><br><br>
                 
 
@@ -2064,7 +2070,7 @@ footer {
                       <div class="input-group-prepend" id="">
                         <span class="input-group-text">Início</span>
                       </div>
-                      <input type="date" class="form-control" name="data_inicio_tratamento" value="" id="data_inicio_tratamento_id">
+                      <input type="date" class="form-control" name="data_inicio_tratamento" value="{{form.data_inicio_tratamento1}}" id="data_inicio_tratamento_id">
                     </div>
                   </div>
                   <div class="col-md-5">
@@ -2072,7 +2078,7 @@ footer {
                       <div class="input-group-prepend" id="">
                         <span class="input-group-text">Droga Administrada</span>
                       </div>
-                      <input type="text" class="form-control" name="droga_admin_tratamento" value="" id="">
+                      <input type="text" class="form-control" name="droga_admin_tratamento" value="{{form.droga_administrada1}}" id="">
                     </div>
                   </div>
                   <div class="col-md-4">
@@ -2080,7 +2086,7 @@ footer {
                       <div class="input-group-prepend" id="">
                         <span class="input-group-text">Esquema Terapeutico</span>
                       </div>
-                      <input type="text" class="form-control" name="esquema_terapeutico" value="" id="">
+                      <input type="text" class="form-control" name="esquema_terapeutico" value="{{form.esquema_terapeutico1}}" id="">
                     </div>
                   </div>
                 </div>
@@ -2090,7 +2096,7 @@ footer {
                       <div class="input-group-prepend" id="">
                         <span class="input-group-text">Início</span>
                       </div>
-                      <input type="date" class="form-control" name="data_inicio_tratamento2" value="" id="data_inicio_tratamento2_id">
+                      <input type="date" class="form-control" name="data_inicio_tratamento2" value="{{form.data_inicio_tratamento2}}" id="data_inicio_tratamento2_id">
                     </div>
                   </div>
                   <div class="col-md-5">
@@ -2098,7 +2104,7 @@ footer {
                       <div class="input-group-prepend" id="">
                         <span class="input-group-text">Droga Administrada</span>
                       </div>
-                      <input type="text" class="form-control" name="droga_admin_tratamento2" value="" id="">
+                      <input type="text" class="form-control" name="droga_admin_tratamento2" value="{{form.droga_administrada2}}" id="">
                     </div>
                   </div>
                   <div class="col-md-4">
@@ -2106,7 +2112,7 @@ footer {
                       <div class="input-group-prepend" id="">
                         <span class="input-group-text">Esquema Terapeutico</span>
                       </div>
-                      <input type="text" class="form-control" name="esquema_terapeutico2" value="" id="">
+                      <input type="text" class="form-control" name="esquema_terapeutico2" value="{{form.esquema_terapeutico2}}" id="">
                     </div>
                   </div>
                 </div>
@@ -2116,7 +2122,7 @@ footer {
                       <div class="input-group-prepend" id="">
                         <span class="input-group-text">Início</span>
                       </div>
-                      <input type="date" class="form-control" name="data_inicio_tratamento3" value="" id="data_inicio_tratamento3_id">
+                      <input type="date" class="form-control" name="data_inicio_tratamento3" value="{{form.data_inicio_tratamento3}}" id="data_inicio_tratamento3_id">
                     </div>
                   </div>
                   <div class="col-md-5">
@@ -2124,7 +2130,7 @@ footer {
                       <div class="input-group-prepend" id="">
                         <span class="input-group-text">Droga Administrada</span>
                       </div>
-                      <input type="text" class="form-control" name="droga_admin_tratamento3" value="" id="">
+                      <input type="text" class="form-control" name="droga_admin_tratamento3" value="{{form.droga_administrada3}}" id="">
                     </div>
                   </div>
                   <div class="col-md-4">
@@ -2132,7 +2138,7 @@ footer {
                       <div class="input-group-prepend" id="">
                         <span class="input-group-text">Esquema Terapeutico</span>
                       </div>
-                      <input type="text" class="form-control" name="esquema_terapeutico3" value="" id="">
+                      <input type="text" class="form-control" name="esquema_terapeutico3" value="{{form.esquema_terapeutico3}}" id="">
                     </div>
                   </div>
                 </div><br><br>
@@ -2247,7 +2253,9 @@ footer {
                   </div>
 
                   
-                  
+                  <script>
+                    $("input[name='hospitalizado'][value='{{form.hospitalizacao}}']").prop("checked", true)
+                  </script>
                 </div><br>
                 
 
@@ -2258,7 +2266,7 @@ footer {
                       <div class="input-group-prepend" id="div_lb">
                         <span class="input-group-text">Data Internação</span>
                       </div>
-                      <input type="date" class="form-control" name="data_internacao" value="" id="input_internacao" disabled>
+                      <input type="date" class="form-control" name="data_internacao" value="{{form.data_internacao}}" id="input_internacao" disabled>
                     </div>
                   </div>
                   <div class="col-md-3">
@@ -2266,7 +2274,7 @@ footer {
                       <div class="input-group-prepend" id="div_lb_da">
                         <span class="input-group-text">Data Alta</span>
                       </div>
-                      <input type="date" class="form-control" name="data_alta" value="" id="input_d_a" disabled>
+                      <input type="date" class="form-control" name="data_alta" value="{{form.data_da_alta}}" id="input_d_a" disabled>
                     </div>
                   </div>
                   <div class="col-md-3">
@@ -2306,6 +2314,12 @@ footer {
                       </select>
                     </div>
                   </div>
+                  <script>
+                    $('#sel_uf_t').find('option[value="{{form.uf_hospitalizacao}}"]').attr("selected", "selected")
+                    $('#sel_uf_t').ready(function(){
+                      activeOutroHospital()
+                    })
+                  </script>
 
                   <div class="col-md-6">
                     <div class="input-group mb-3" id="">
@@ -2322,6 +2336,9 @@ footer {
                         </select>
                       </div>
                     </div>
+                    <script>
+                      $('#mun_hosp_id').find('option[value="{{form.municipio_hospitalizacao}}"]').attr("selected", "selected")
+                    </script>
                     <div class="col-md-3">
                       <div class="input-group mb-3" id="">
                         <div class="input-group-prepend" id="">
@@ -2330,9 +2347,9 @@ footer {
                         <!--
                         <input type="text" class="form-control" name="codigo_ibge_municipio_hospitalizacao" value="" id="cod_ibge_id" disabled>
                       -->
-                      <select class="form-control" name="codigo_ibge_municipio_hospitalizacao" id="cod_ibge_id" disabled>
+                      <input type="text" class="form-control" value="{{form.codigo_ibge_hospitalizacao}}" name="codigo_ibge_municipio_hospitalizacao" id="cod_ibge_id" disabled readonly>
 
-                      </select>
+                      </input>
                     </div>
                   </div>
                   <div class="col-md-3">
@@ -2353,7 +2370,7 @@ footer {
                         </select>
                       </div>
                     </div>
-
+                    
                   </div><br>
                   <!-- dados hospitalização outro -->
 
@@ -2363,7 +2380,7 @@ footer {
                         <div class="input-group-prepend" id="">
                           <span class="input-group-text">Outro Município do Hospital</span>
                         </div>
-                        <input type="text" class="form-control" name="municipio_hospital_outro" value="" id="outro_municipio_hospitalizacao">
+                        <input type="text" class="form-control" name="municipio_hospital_outro" value="{{form.municipio_hospitalizacao}}" id="outro_municipio_hospitalizacao">
                       </div>
                     </div>
                     <div class="col-md-3">
@@ -2371,7 +2388,7 @@ footer {
                         <div class="input-group-prepend" id="">
                           <span class="input-group-text">Código IBGE</span>
                         </div>                        
-                        <input type="text" class="form-control" name="codigo_ibge_municipio_hospitalizacao_outro" value="" id="outro_ibge_hospitalizacao">                        
+                        <input type="text" class="form-control" name="codigo_ibge_municipio_hospitalizacao_outro" value="{{form.codigo_ibge_hospitalizacao}}" id="outro_ibge_hospitalizacao">                        
                       </div>
                     </div>                  
 
@@ -2380,7 +2397,7 @@ footer {
                         <div class="input-group-prepend" id="">
                           <span class="input-group-text">Nome do Hospital</span>
                         </div>
-                        <input type="text" class="form-control" name="nome_hospital_hospitalizacao_outro" value="" id="outro_hospital_hospitalizacao">
+                        <input type="text" class="form-control" name="nome_hospital_hospitalizacao_outro" value="{{form.nome_hospital_hospitalizacao}}" id="outro_hospital_hospitalizacao">
                       </div>
                     </div>
                   </div>
@@ -2412,7 +2429,9 @@ footer {
                         <label class="custom-control-label" for="customRadio13">Descartado</label>
                       </div>
                     </div>
-
+                    <script>
+                      $('input[name="classificacao"][value="{{form.classificacao_final}}"]').prop('checked', true)
+                    </script>
                   </div><br><br>
                   <div class="row">
                     <div class="col-sm-12">
@@ -2439,6 +2458,9 @@ footer {
                     </div>
 
                   </div>
+                  <script>
+                    $('input[name="criterio"][value="{{form.criterio_confirmacao}}"]').prop('checked', true)
+                  </script>
                   <br><br>
                   <div class="row">
                     <div class="col-sm-12">
@@ -2469,6 +2491,7 @@ footer {
                         <label class="custom-control-label" for="customRadio18" onclick="desactiveInputsAutoctone()">Indeterminado</label>
                       </div>
                     </div>
+                    
                     <div class="col-md-3">
                       <div class="input-group mb-3" id="">
                         <div class="input-group-prepend" id="">
@@ -2516,7 +2539,7 @@ footer {
                         <div class="input-group-prepend" id="">
                           <span class="input-group-text">Código IBGE</span>
                         </div>                                           
-                        <select class="form-control" name="ibge_autoctone" name="" id="ibge_autoctone_id" disabled></select>
+                        <input type="text" class="form-control" name="ibge_autoctone" value="{{form.codigo_ibge_caso_autoctone}}" id="ibge_autoctone_id" readonly>
                       </div>
                     </div>
                     <div class="col-md-4">
@@ -2589,6 +2612,15 @@ footer {
                       </select>
                     </div>
                   </div>
+
+                  <script>
+                    $('#pais_autoctone_id').find('option[value="{{form.pais_caso_autoctone}}"]').attr("selected", "selected")
+                    $('#uf_caso_autoctone_id').find('option[value="{{form.uf_caso_autoctone}}"]').attr("selected", "selected")
+                    $('input[name="autoctone"][value="{{form.caso_autoctone_municipio_residencia}}"]').prop('checked', true)
+                    if (document.getElementById('customRadio16').checked) {
+                      activeInputsAutoctone()
+                    }
+                  </script>
                   
                 </div>
                 
@@ -2626,6 +2658,7 @@ footer {
 
 
                   function activeOutroHospital(){
+                    console.log(document.getElementById("sel_uf_t").value)
                     if (document.getElementById("sel_uf_t").value != "PB"){
                       $("#dados_hospitalizacao_outro").show();
                       $("#mun_hosp_id").val("");
@@ -2682,6 +2715,12 @@ footer {
                       </select>
                     </div>
                   </div>
+                  <script>
+                    $('#sel_evo_caso').find('option[value="{{form.evolucao_caso}}"]').attr("selected", "selected")
+                    $('#sel_evo_caso').ready(function{
+                      activeDataEvoCaso()
+                    })
+                  </script>
                   <div class="col-md-4">
                     <div class="input-group mb-3" id="">
                       <div class="input-group-prepend" id="div_input_data_ob">
@@ -2923,6 +2962,23 @@ footer {
 
         
       });
+      if (document.getElementById("sel_uf_t").value == "PB") {
+        $("#nome_hosp_id").ready(function(){
+          //const url = $('#Form').attr("data-hospitalizacao-url");
+          municipioId = $("#mun_hosp_id").val();
+  
+          $.ajax({
+            url : '{% url "ajax_hospitalizacao" %}',
+            data: { 'municipio_id': municipioId},
+            success: function(data){
+              $("#nome_hosp_id").html(data);
+              $('#nome_hosp_id').find('option[value="{{form.nome_hospital_hospitalizacao}}"]').attr("selected", "selected")
+            }
+          });
+        })
+
+        
+      };
 
       $("#mun_hosp_id").change(function(){
           //const url = $('#Form').attr("data-hospitalizacaoibge-url");
@@ -2931,7 +2987,7 @@ footer {
             url : '{% url "ajax_hospitalizacao_ibge" %}',
             data: { 'municipio_id': municipioId},
             success: function(data){
-              $("#cod_ibge_id").html(data);
+              $("#cod_ibge_id").val(data);
             }
           });
 
@@ -2953,6 +3009,21 @@ footer {
         
       });
 
+      $("#municipio_autoctone_id").ready(function(){
+        //const url = $('#Form').attr("data-autoctone-uf-url");
+        municipioId = $("#uf_caso_autoctone_id").val();
+
+        $.ajax({
+          url : '{% url "ajax_autoctone_uf" %}',
+          data: { 'municipio_id': municipioId},
+          success: function(data){
+            $("#municipio_autoctone_id").html(data);
+            $('#municipio_autoctone_id').find('option[value="{{form.municipio_caso_autoctone}}"]').attr("selected", "selected")
+          }
+        });
+        
+      });
+
       $("#municipio_autoctone_id").change(function(){
         //const url = $('#Form').attr("data-autoctone-municipio-url");
         municipioId = $(this).val();
@@ -2962,7 +3033,7 @@ footer {
           data: { 'municipio_id': municipioId},
           success: function(data){
             console.log(data);
-            $("#ibge_autoctone_id").html(data);
+            $("#ibge_autoctone_id").val(data);
           }
         });
 
@@ -3048,6 +3119,28 @@ footer {
       }
       if ($("#customRadio1").is(":checked")) {
         $("#agente_id").prop("disabled", false);
+      }
+      if (document.getElementById("customRadio11").checked == true){
+        //$("#row_dados_hospitalizacao_id").show();
+        $("#div_g").show();
+        $("#div_lb").show();
+        
+        $("#input_internacao").prop("disabled", false);
+        $("#input_d_a").prop("disabled", false);
+        $("#sel_uf_t").prop("disabled", false);
+        $("#mun_hosp_id").prop("disabled", false);
+        $("#cod_ibge_id").prop("disabled", false);
+        $("#nome_hosp_id").prop("disabled", false);
+        $("#cod_hosp_id").prop("disabled", false);
+
+        
+        $("#div_g_da").show();
+        $("#div_lb_da").show();
+        $("#input_d_a").show();
+
+        $("#div_sel_uf").show();
+        $("#div_ls_sel").show();
+        $("#sel_uf_t").show();
       }
 </script>
 

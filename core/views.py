@@ -363,11 +363,11 @@ def set_caso_esporotricose_create(request):
 		numero_gal2 = request.POST.get('numero_gal2')
 
 	data_coleta3 = request.POST.get('data_coleta_mat_exame3')
-	if data_coleta2 == '' or data_coleta2 == None:
-		data_coleta2 = None
-		numero_gal2 = None
+	if data_coleta3 == '' or data_coleta3 == None:
+		data_coleta3 = None
+		numero_gal3 = None
 	else:
-		data_coleta2 = datetime.strptime(data_coleta2, '%Y-%m-%d').date()
+		data_coleta3 = datetime.strptime(data_coleta3, '%Y-%m-%d').date()
 		numero_gal3 = request.POST.get('numero_gal3')
 	
 	resultado_isolamento = request.POST.get('resultado_isolamento')
@@ -377,32 +377,38 @@ def set_caso_esporotricose_create(request):
 	data_exame1_cap = request.POST.get('data_outros_exames_1')
 	if data_exame1_cap == '' or data_exame1_cap == None:
 		data_resultado_exame1 = None
+		descricao_exame_1 = None
+		resultado_exame1 = None
 	else:
 		data_resultado_exame1 = datetime.strptime(data_exame1_cap, '%Y-%m-%d').date()
+		descricao_exame_1 = request.POST.get('descricao_outros_exames_1')
+		resultado_exame1 = request.POST.get('resultado_outros_exames_1')
 	
 
-	descricao_exame_1 = request.POST.get('descricao_outros_exames_1')
-	resultado_exame1 = request.POST.get('resultado_outros_exames_1')
 	
 	data_exame2_cap = request.POST.get('data_outros_exames_2')
 	if data_exame2_cap == '' or data_exame2_cap == None:
 		data_resultado_exame2 = None
+		descricao_exame_2 = None
+		resultado_exame2 = None
 	else:
 		data_resultado_exame2 = datetime.strptime(data_exame2_cap, '%Y-%m-%d').date()
+		descricao_exame_2 = request.POST.get('descricao_outros_exames_2')
+		resultado_exame2 = request.POST.get('resultado_outros_exames_2')
 
 	
-	descricao_exame_2 = request.POST.get('descricao_outros_exames_2')
-	resultado_exame2 = request.POST.get('resultado_outros_exames_2')
 	
 	data_exame3_cap = request.POST.get('data_outros_exames_3')
 	if data_exame3_cap == '' or data_exame3_cap == None:
 		data_resultado_exame3 = None
+		descricao_exame_3 = None
+		resultado_exame3 = None
 	else:
 		data_resultado_exame3 = datetime.strptime(data_exame3_cap, '%Y-%m-%d').date()
+		descricao_exame_3 = request.POST.get('descricao_outros_exames_3')
+		resultado_exame3 = request.POST.get('resultado_outros_exames_3')
 		
 	
-	descricao_exame_3 = request.POST.get('descricao_outros_exames_3')
-	resultado_exame3 = request.POST.get('resultado_outros_exames_3')
 	
 	#tratamento
 	data_inicio_tratamento1_cap = request.POST.get('data_inicio_tratamento')
@@ -494,7 +500,7 @@ def set_caso_esporotricose_create(request):
 	telefone_investigador = request.POST.get('telefone_investigador')
 	conselho_classe_investigador = request.POST.get('conselho_classe_investigador')
 
-	registro = CasoEsporotricose.objects.create(
+	CasoEsporotricose.objects.create(
 		responsavel_pelas_informacoes = responsavel_pelas_informacoes,
 		tipo_notificacao = tipo_notificacao,
 		agravo_doenca = agravo_doenca,
@@ -613,24 +619,40 @@ def caso_esporotricose_edit(request, id):
 	municipios = Municipio.objects.all().order_by('nome')
 	unidades_saude = []
 	codigos_ibge = []
-	print(caso.data_coleta)
+	print(caso.hospitalizacao)
 	caso.data_notificacao = datetime.strftime(caso.data_notificacao, '%Y-%m-%d')
 	caso.data_primeiros_sintomas = datetime.strftime(caso.data_primeiros_sintomas, '%Y-%m-%d')
 	caso.data_nascimento_paciente = datetime.strftime(caso.data_nascimento_paciente, '%Y-%m-%d')
+
 	if caso.data_resultado_exame1 != None:
 		caso.data_resultado_exame1 = datetime.strftime(caso.data_resultado_exame1, '%Y-%m-%d')
 	if caso.data_resultado_exame2 != None:
 		caso.data_resultado_exame2 = datetime.strftime(caso.data_resultado_exame2, '%Y-%m-%d')
 	if caso.data_resultado_exame3 != None:
 		caso.data_resultado_exame3 = datetime.strftime(caso.data_resultado_exame3, '%Y-%m-%d')
+
 	if caso.data_coleta1 != None:
 		caso.data_coleta1 = datetime.strftime(caso.data_coleta1, '%Y-%m-%d')
 	if caso.data_coleta2 != None:
 		caso.data_coleta2 = datetime.strftime(caso.data_coleta2, '%Y-%m-%d')
 	if caso.data_coleta3 != None:
 		caso.data_coleta3 = datetime.strftime(caso.data_coleta3, '%Y-%m-%d')
+
 	if caso.data_investigacao != None:
 		caso.data_investigacao = datetime.strftime(caso.data_investigacao, '%Y-%m-%d')
+
+	if caso.data_inicio_tratamento1 != None:
+		caso.data_inicio_tratamento1 = datetime.strftime(caso.data_inicio_tratamento1, '%Y-%m-%d')
+	if caso.data_inicio_tratamento2 != None:
+		caso.data_inicio_tratamento2 = datetime.strftime(caso.data_inicio_tratamento2, '%Y-%m-%d')
+	if caso.data_inicio_tratamento3 != None:
+		caso.data_inicio_tratamento3 = datetime.strftime(caso.data_inicio_tratamento3, '%Y-%m-%d')
+
+	if caso.data_internacao != None:
+		caso.data_internacao = datetime.strftime(caso.data_internacao, '%Y-%m-%d')
+	if caso.data_da_alta != None:
+		caso.data_da_alta = datetime.strftime(caso.data_da_alta, '%Y-%m-%d')
+
 	return render(request, 'caso_esporotricose_edit.html', {'form':caso, 'municipios':municipios, 'unidades_saude':unidades_saude, 
 		'codigos_ibge':codigos_ibge, 'estados':estados})
 
@@ -761,11 +783,11 @@ def set_caso_esporotricose_edit(request, id):
 		numero_gal2 = request.POST.get('numero_gal2')
 
 	data_coleta3 = request.POST.get('data_coleta_mat_exame3')
-	if data_coleta2 == '' or data_coleta2 == None:
-		data_coleta2 = None
-		numero_gal2 = None
+	if data_coleta3 == '' or data_coleta3 == None:
+		data_coleta3 = None
+		numero_gal3 = None
 	else:
-		data_coleta2 = datetime.strptime(data_coleta2, '%Y-%m-%d').date()
+		data_coleta3 = datetime.strptime(data_coleta3, '%Y-%m-%d').date()
 		numero_gal3 = request.POST.get('numero_gal3')
 	
 	resultado_isolamento = request.POST.get('resultado_isolamento')
@@ -778,7 +800,6 @@ def set_caso_esporotricose_edit(request, id):
 	else:
 		data_resultado_exame1 = datetime.strptime(data_exame1_cap, '%Y-%m-%d').date()
 	
-
 	descricao_exame_1 = request.POST.get('descricao_outros_exames_1')
 	resultado_exame1 = request.POST.get('resultado_outros_exames_1')
 	
@@ -788,9 +809,9 @@ def set_caso_esporotricose_edit(request, id):
 	else:
 		data_resultado_exame2 = datetime.strptime(data_exame2_cap, '%Y-%m-%d').date()
 
-	
 	descricao_exame_2 = request.POST.get('descricao_outros_exames_2')
 	resultado_exame2 = request.POST.get('resultado_outros_exames_2')
+	
 	
 	data_exame3_cap = request.POST.get('data_outros_exames_3')
 	if data_exame3_cap == '' or data_exame3_cap == None:
@@ -798,9 +819,9 @@ def set_caso_esporotricose_edit(request, id):
 	else:
 		data_resultado_exame3 = datetime.strptime(data_exame3_cap, '%Y-%m-%d').date()
 		
-	
 	descricao_exame_3 = request.POST.get('descricao_outros_exames_3')
 	resultado_exame3 = request.POST.get('resultado_outros_exames_3')
+	
 	
 	#tratamento
 	data_inicio_tratamento1_cap = request.POST.get('data_inicio_tratamento')
@@ -849,9 +870,14 @@ def set_caso_esporotricose_edit(request, id):
 	
 
 	uf_hospitalizacao = request.POST.get('uf_internacao')
-	municipio_hospitalizacao = request.POST.get('municipio_hospital')
-	codigo_ibge_hospitalizacao = request.POST.get('codigo_ibge_municipio_hospitalizacao')
-	nome_hospital_hospitalizacao = request.POST.get('nome_hospital_hospitalizacao')
+	if uf_hospitalizacao == 'PB':
+		municipio_hospitalizacao = request.POST.get('municipio_hospital')
+		codigo_ibge_hospitalizacao = request.POST.get('codigo_ibge_municipio_hospitalizacao')
+		nome_hospital_hospitalizacao = request.POST.get('nome_hospital_hospitalizacao')
+	else:
+		municipio_hospitalizacao = request.POST.get('municipio_hospital_outro')
+		codigo_ibge_hospitalizacao = request.POST.get('codigo_ibge_municipio_hospitalizacao_outro')
+		nome_hospital_hospitalizacao = request.POST.get('nome_hospital_hospitalizacao_outro')
 	
 	#conclusao
 	classificacao_final = request.POST.get('classificacao')
@@ -860,7 +886,7 @@ def set_caso_esporotricose_edit(request, id):
 	uf_caso_autoctone = request.POST.get('uf_caso_autoctone_municipio')
 	pais_caso_autoctone = request.POST.get('pais_autoctone_municipio')
 	municipio_caso_autoctone = request.POST.get('municipio_autoctone')
-	codigo_ibge_caso_autoctone = request.POST.get('codigo_ibge_municipio_autoctone')
+	codigo_ibge_caso_autoctone = request.POST.get('ibge_autoctone')
 	distrito_caso_autoctone = request.POST.get('distrito_autoctone')
 	bairro_caso_autoctone = request.POST.get('bairro_autoctone')
 	area_provavel_infeccao_caso_autoctone = request.POST.get('area_provavel_infeccao')
@@ -893,6 +919,7 @@ def set_caso_esporotricose_edit(request, id):
 	conselho_classe_investigador = request.POST.get('conselho_classe_investigador')
 
 	CasoEsporotricose.objects.update(
+		id = id,
 		responsavel_pelas_informacoes = responsavel_pelas_informacoes,
 		tipo_notificacao = tipo_notificacao,
 		agravo_doenca = agravo_doenca,
