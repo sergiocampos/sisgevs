@@ -36,82 +36,29 @@ header{
 #titulo_foto h5{
     margin-top: 10px;
 }
-#btn-transparencia{
-    width: 90%;
-    height: 38%;
+#coluna_central{
     background-color: #e9ecef;
-    margin: auto auto;
-    margin-top: 40px;
     border-radius: 4px;
     box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.15);
-    padding: 25px;
-    align-content: center;
-    justify-content: center;
-    color: #00000091;
+    padding: 15px;
+    margin: 0px 20px 30px 20px
 }
-#btn-transparencia svg{
-    margin-top: 15px;
-}
-#btn-transparencia:hover{
-    background-color: #e9ecef5d;
-}
-#btn-transparencia:active{
-    background-color: #e9ecef;
-    box-shadow:none;
-}
-button{
-    width: 65%;
-    margin-top: 15px;
-}
-#transparencia{
-    width: 90%;
-    height: 38%;
-    background-color: #e9ecef;
-    margin: auto auto;
-    margin-top: 40px;
-    border-radius: 4px;
-    box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.15);
-    padding: 35px;
-    align-content: center;
-    justify-content: center;
-    color: #00000091;
-}
-#span_btn{
-    letter-spacing: 3px;
-    font-size: 15px;
+#filtros_box{
+    background-color: #fff;
+    width: 100%;
+    height: 100%;
+    padding: 5%;
 }
 hr{
-    border: 1.5px solid rgba(0, 0, 0, 0.15);
-    border-radius: 50%;
-    width: 50%;
+    border: 1px solid rgba(0, 0, 0, 0.15);
+    width: 80%;
     margin-top: 60px;
     margin-bottom: 60px;
 }
-#dados-click{
-    margin: auto;
-    width: 80%;
-    overflow-y: scroll;
-    height: 0;
-    background-color: #e9ecef;
-    border-radius: 4px;
-    box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.15);
-    animation-duration: 0.2s;
-    animation-name: bigger;
-    animation-fill-mode:forwards;
+#hr_filtros{
+    margin: 5% auto 5% auto;
+    width: 100%;
 }
-
-@keyframes bigger {
-    0% {height: 0px;}
-    10% {height: 50px;}
-    20% {height: 100px;}
-    30% {height: 150px;}
-    40% {height: 200px;}
-    50% {height: 250px;}
-    60% {height: 300px;}
-    70% {height: 350px;}
-    80% {height: 400px;}
-    90% {height: 450px;}
-    100% {height: 500px;}
-    
+#btn_filtros{
+    margin-top: 5%;
 }
-
