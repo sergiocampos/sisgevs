@@ -119,6 +119,7 @@ def informar_dados_ficha(request):
 	return render(request, 'informar_dados_ficha.html')
 
 
+########################  View de localização de uma notificação ##################################
 @login_required(login_url='/login/')
 def localizar_paciente_nome(request):
 	return render(request, 'localizar_paciente_nome.html')
@@ -126,8 +127,16 @@ def localizar_paciente_nome(request):
 
 @login_required(login_url='/login/')
 def set_localizar_paciente_nome(request):
-	return render(request, 'resultado_search_caso_nome.html')
+	nome = request.POST.get('nome')
+	request.session['nome'] = nome
+	return redirect('search_paciente_nome')
 
+@login_required(login_url='/login/')
+def search_paciente_nome(request):
+	nome = request.session['nome']
+	caso_all_result = CasoEsporotricose.objects.filter(nome_paciente__icontains=nome)
+
+	return render(request, 'resultado_search_caso_nome.html', {'caso_all_result':caso_all_result})
 
 
 ###########View Renderiza a ficha para impressão######################################################
