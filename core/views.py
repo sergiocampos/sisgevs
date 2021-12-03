@@ -1,5 +1,4 @@
 from django.db.models.expressions import Value
-from openpyxl.workbook import Workbook
 import pandas as pd
 from django.http.response import JsonResponse
 from django.shortcuts import render, redirect
@@ -710,6 +709,5 @@ def ajax_exportar_index_aberto(request):
 		data.to_excel(response, index=False)
 		return response
 
-	
 # INDEX ABERTO
 
