@@ -259,9 +259,10 @@ footer {
   } // FIM AJAX CEP
 
   function activeGestante(){
-    let genero = document.getElementById('span_id').value;
+    verificarNotifGeral()
+    var genero = document.getElementById('span_id').value;
     let idade = document.getElementById('result').value;
-    if ((idade<= 9) && (genero!="M") && (genero!="")){
+    if ((idade <= 10 || idade >= 50) && (genero!="M") && (genero!="")){
       $('#gestante_id').children('option[value=""]').hide();
       $('#gestante_id').children('option[value="1º Trimestre"]').hide();
       $('#gestante_id').children('option[value="2º Trimestre"]').hide();
@@ -270,7 +271,7 @@ footer {
       $('#gestante_id').children('option[value="Ignorado"]').hide();
       $('#gestante_id').children('option[value="Não"]').hide();
       $('#gestante_id').children('option[value="Não se aplica"]').prop('selected', true);
-    } else if ((idade > 9) || (genero!="M")) {
+    } else if ((idade > 10 && idade < 50) || (genero!="M")) {
       $('#gestante_id').children('option[value=""]').show();
       $('#gestante_id').children('option[value="1º Trimestre"]').show();
       $('#gestante_id').children('option[value="2º Trimestre"]').show();
@@ -279,23 +280,31 @@ footer {
       $('#gestante_id').children('option[value="Ignorado"]').show();
       $('#gestante_id').children('option[value="Não"]').show();
     }
+    if (idade <= 3){
+      $('#escolaridade').children('option[value=""]').hide();
+      $('#escolaridade').children('option[value="Analfabeto"]').hide();
+      $('#escolaridade').children('option[value="1ª-a-4ª-serie-incompleto"]').hide();
+      $('#escolaridade').children('option[value="4ª-serie-completa"]').hide();
+      $('#escolaridade').children('option[value="5ª-a-8ª-serie-incompleto"]').hide();
+      $('#escolaridade').children('option[value="Ensido-Fundamental-Completo"]').hide();
+      $('#escolaridade').children('option[value="Ensino-Medio-incompleto"]').hide();
+      $('#escolaridade').children('option[value="Ensino-Medio-Completo"]').hide();
+      $('#escolaridade').children('option[value="Superior-Incompleto"]').hide();
+      $('#escolaridade').children('option[value="Superior-completo"]').hide();
+      $('#escolaridade').children('option[value=""]').prop('selected', false);
+      $('#escolaridade').children('option[value="Nao-se-aplica"]').prop('selected', true);
+    }
+
     if (genero=="F"){
       $("#gestante_id").prop("disabled", false);
     }
-    if (genero=="M-Trans"){
-      $("#gestante_id").prop("disabled", false);
-    }
-    if (genero=="F-Trans"){
-      $("#gestante_id").prop("disabled", false);
-    }
-    if (genero=="Nao Binario"){
+    if (genero=="Ignorado"){
       $("#gestante_id").prop("disabled", false);
     }
     if (genero=="M"){
       $("#gestante_id").prop("disabled", true);
       $("#gestante_id").val("");
     }
-
   }
 
   function activeOutraUnidade(){
@@ -583,14 +592,14 @@ footer {
                   </div>
 
                   <div class="col-md-3">
-                    <div class="form-group"><b>Data de notificação</b>
-                      <input class="form-control" type="date" name="data_notificacao" id="datanotificacao" value="">
+                    <div class="form-group"><b>Data de notificação</b><i id="alert_data_notificacao" style="color:red">**</i>
+                      <input class="form-control" type="date" name="data_notificacao" id="datanotificacao" value="" onchange="verificarNotifGeral()">
                     </div>
                   </div>
 
                   <script>
                     datanotificacao.max = new Date().toISOString().split("T")[0];
-                    document.getElementById("datanotificacao").valueAsDate=new Date();
+                    
 
                     function removeAlertDadosGerais(){
                       $("#alert_dados_gerais").hide();
@@ -741,22 +750,19 @@ footer {
                         <div class="form-group"><b>Data Nasc</b>
                           <i id="alert_data_nasc" style="color:red">**</i>
                           <input class="form-control" type="date" name="data_nasc" id="date2" placeholder="" value="" required onchange="verificarNotifGeral()">
-
                         </div>                                
                       </div>
                       <script>
                         date2.max = new Date().toISOString().split("T")[0];
                       </script>
                       <div class="col-lg-3">
-                        <div class="form-group"><b>Identidade de Gênero</b>
+                        <div class="form-group"><b>Sexo</b><i id="alert_sexo" style="color:red">**</i>
                           <select class="form-control" name="sexo" id="span_id" onclick="activeGestante()">
 
                             <option value="" disabled selected>Selecionar</option>
                             <option value="M">Masculino</option>
                             <option value="F">Feminino</option>
-                            <option value="M-Trans">Masculino Trans</option>
-                            <option value="F-Trans">Feminino Trans</option>
-                            <option value="Nao Binario">Não Binario</option>
+                            <option value="Ignorado">Ignorado</option>
 
                           </select>
                         </div>
@@ -823,7 +829,7 @@ footer {
                   </div>
                   <div class="col-md-4">
                     <div class="form-group"><b>Escolaridade</b>
-                      <select class="form-control" name="escolaridade" id="">
+                      <select class="form-control" name="escolaridade" id="escolaridade">
 
                         <option value="" disabled selected>Selecionar</option>
                         <option value="Analfabeto">Analfabeto</option>
@@ -862,25 +868,32 @@ footer {
                     var nome_paciente = document.getElementById('nome_paciente_id').value.length;
                     var nome_mae = document.getElementById('nome_mae_id').value.length;
                     var date2 = document.getElementById('date2').value;
+                    var data_notificacao = document.getElementById('datanotificacao').value;
                     var data_1_s = document.getElementById('dt_primeiros_s').value;
                     var municipio = document.getElementById('municipio_id').value.length;
                     var telefone = document.getElementById('telefone_residencia_id').value.length;
+                    var sexo = document.getElementById('span_id').value;
+                    console.log(sexo)
+
+                    if (sexo != "") {$('#alert_sexo').hide();} else {$('#alert_sexo').show();};
+
+                    if (data_notificacao != "") {$('#alert_data_notificacao').hide();} else {$('#alert_data_notificacao').show();};
+
+                    if (municipio != 0) {$('#alert_municipio').hide();} else {$('#alert_municipio').show();};
                     
-                    if (municipio != 0) {$('#alert_municipio').hide();} else {$('#alert_municipio').show();}
+                    if (data_1_s != "") {$('#alert_dt_ps').hide();} else {$('#alert_dt_ps').show();};
                     
-                    if (data_1_s != "") {$('#alert_dt_ps').hide();} else {$('#alert_dt_ps').show();}
+                    if (nome_paciente >= 10) {$('#alert_paciente').hide();} else {$('#alert_paciente').show();};
                     
-                    if (nome_paciente >= 10) {$('#alert_paciente').hide();} else {$('#alert_paciente').show();}
-                    
-                    if (date2 != "") {$('#alert_data_nasc').hide();} else {$('#alert_data_nasc').show();}
+                    if (date2 != "") {$('#alert_data_nasc').hide();} else {$('#alert_data_nasc').show();};
                     
                     if (nome_mae >= 10) {$('#alert_nome_mae').hide();} else {$('#alert_nome_mae').show();}
                     
-                    if ((nome_paciente >= 10) && (nome_mae >= 10) && (date2 != "") ){
+                    if ((nome_paciente >= 10) && (nome_mae >= 10) && (date2 != "") && (sexo != "") ){
                       $("#alert_notificacao_individual").hide();
                     } else {$("#alert_notificacao_individual").show();}
 
-                    if ((data_1_s != "") && (municipio != 0)){
+                    if ((data_1_s != "") && (municipio != 0) && (data_notificacao != "")){
                       $('#alert_dados_gerais').hide();
                     }
                     if (telefone < 13){
@@ -892,7 +905,8 @@ footer {
                     }
                                      
                     if ((nome_paciente >= 10) && (nome_mae >= 10) && (date2 != "") 
-                        && (data_1_s != "") && (municipio != 0) && (telefone >= 13)){
+                        && (data_1_s != "") && (municipio != 0) && (telefone >= 13)
+                        && (data_notificacao != "") && (sexo != "")){
                       $("#btn_submit_id").prop("disabled", false);
                     } else {$("#btn_submit_id").prop("disabled", true);}
                     
@@ -2429,19 +2443,12 @@ footer {
                     <div class="col-md-6">
                       <div class="input-group mb-3" id="">
                         <div class="input-group-prepend" id="">
-                          <span class="input-group-text">Outro Município do Hospital</span>
+                          <span class="input-group-text">Outro Município de Internação</span>
                         </div>
                         <input type="text" class="form-control" name="municipio_hospital_outro" value="" id="outro_municipio_hospitalizacao">
                       </div>
                     </div>
-                    <div class="col-md-3">
-                      <div class="input-group mb-3" id="">
-                        <div class="input-group-prepend" id="">
-                          <span class="input-group-text">Código IBGE</span>
-                        </div>                        
-                        <input type="text" class="form-control" name="codigo_ibge_municipio_hospitalizacao_outro" value="" id="outro_ibge_hospitalizacao">                        
-                      </div>
-                    </div>                  
+                               
 
                     <div class="col-md-6">
                       <div class="input-group mb-3" id="">
