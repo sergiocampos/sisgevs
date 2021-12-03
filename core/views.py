@@ -1,5 +1,7 @@
+
+from django.db.models.expressions import Value
+import pandas as pd
 from django.http.response import JsonResponse
-import psycopg2
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.utils.translation import gettext as _
@@ -15,6 +17,8 @@ from django.core.paginator import Paginator
 from django.http import HttpResponse, HttpResponseRedirect
 import os
 
+from pandas.core.frame import DataFrame
+
 from .models import *
 import json
 import urllib
@@ -27,11 +31,6 @@ def login_page(request):
 	return render(request, 'login_page.html')
 
 
-def index_aberto(request):
-	return render(request, 'index_aberto.html')
-
-
-######### View de login e autenticação com reCaptcha##################
 @csrf_protect
 def login_submit(request):
 	if request.POST:
@@ -39,6 +38,7 @@ def login_submit(request):
 		password = request.POST.get('password')
 
 		user = authenticate(username = username, password = password)
+
 		
 		''' Begin reCAPTCHA validation '''
 		recaptcha_response = request.POST.get('g-recaptcha-response')
@@ -61,6 +61,7 @@ def login_submit(request):
 
 			#form.save()
 			messages.success(request, 'New comment added with success!')
+
 		else:
 			messages.error(request, 'Invalid reCAPTCHA. Please try again.')
 		
@@ -654,4 +655,132 @@ def set_caso_esporotricose_create(request):
 	
 	
 	return redirect("/my_datas", messages = messages.success(request, 'Caso criado com sucesso!'))
+
+
+# INDEX ABERTO
+
+def index_aberto(request):
+	return render(request, 'index_aberto.html')
+
+def ajax_index_aberto(request):
+	dados = CasoEsporotricose.objects.all()
+	casos_esporotricose = len(dados)
+	data = {'casos': casos_esporotricose}
+
+	
+	return JsonResponse(data)
+
+def ajax_filtrar_index_aberto(request):
+	### APLICAR IF PARA TIPO DE FILTRO
+	ano = request.GET.get('ano')
+	inicio = request.GET.get('inicio')
+	fim = request.GET.get('fim')
+	if inicio == "" and fim == "" and ano == "":
+		dados = CasoEsporotricose.objects.all()
+		data = {'casos':len(dados)}
+		return JsonResponse(data)
+	if inicio == "" and fim == "" and ano != "":
+		dados = CasoEsporotricose.objects.filter(data_notificacao__year=ano)
+		data = {'casos':len(dados)}
+		return JsonResponse(data)
+	if inicio != "" and fim == "":
+		dados = CasoEsporotricose.objects.filter(data_notificacao__range=[inicio,inicio])
+		print(dados)
+		data = {'casos':len(dados)}
+		return JsonResponse(data)
+	if inicio == "" and fim != "":
+		dados = CasoEsporotricose.objects.filter(data_notificacao__range=[fim,fim])
+		print(dados)
+		data = {'casos':len(dados)}
+		return JsonResponse(data)
+	if inicio != "" and fim != "":
+		dados = CasoEsporotricose.objects.filter(data_notificacao__range=[inicio,fim])
+		print(dados)
+		data = {'casos':len(dados)}
+		return JsonResponse(data)
+	return
+
+def ajax_exportar_index_fechado(request):
+	ano = request.POST.get('ano')
+	inicio = request.POST.get('inicio')
+	fim = request.POST.get('fim')
+	option = request.POST.get('export_select')
+	
+	if inicio == "" and fim == "" and ano == "":
+		dados = CasoEsporotricose.objects.all()
+		
+	if inicio == "" and fim == "" and ano != "":
+		dados = CasoEsporotricose.objects.filter(data_notificacao__year=ano)
+		
+	if inicio != "" and fim == "":
+		dados = CasoEsporotricose.objects.filter(data_notificacao__range=[inicio,inicio])
+		
+	if inicio == "" and fim != "":
+		dados = CasoEsporotricose.objects.filter(data_notificacao__range=[fim,fim])
+		
+	if inicio != "" and fim != "":
+		dados = CasoEsporotricose.objects.filter(data_notificacao__range=[inicio,fim])
+		
+	data = []
+	for item in dados:
+		data.append([item.tipo_notificacao, item.agravo_doenca, item.codigo_cib10, item.data_notificacao, item.estado, item.municipio, item.codigo_ibge, item.data_primeiros_sintomas, item.unidade_saude, item.nome_paciente, item.data_nascimento_paciente, item.idade_paciente, item.sexo_paciente, item.paciente_gestante, item.raca_paciente, item.escolaridade_paciente, item.cartao_sus_paciente, item.nome_mae_paciente, item.cep_residencia, item.uf_residencia, item.municipio_residencia, item.bairro_residencia, item.codigo_ibge_residencia, item.rua_residencia, item.numero_residencia, item.complemento_residencia, item.distrito_residencia, item.ponto_referencia_residencia, item.telefone_residencia, item.zona_residencia, item.pais_residencia, item.data_investigacao, item.ocupacao, item.ambientes_frequentados, item.animais_que_teve_contato, item.natureza_contato_animais, item.relacao_animal_doente, item.exerce_atividade_contato_plantas, item.historico_contato_material, item.presenca_lesao_pele, item.natureza_lesao, item.local_lesao, item.diagnostico_forma_extrac_doenca, item.localizacao_forma_extrac_doenca, item.houve_coleta_material, item.data_coleta, item.resultado_isolamento, item.agente, item.histopatologia, item.data_resultado_exame1, item.descricao_exame_1, item.resultado_exame1, item.data_resultado_exame2, item.descricao_exame_2, item.resultado_exame2, item.data_resultado_exame3, item.descricao_exame_3, item.resultado_exame3, item.data_inicio_tratamento1, item.droga_administrada1, item.esquema_terapeutico1, item.data_inicio_tratamento2, item.droga_administrada2, item.esquema_terapeutico2, item.data_inicio_tratamento3, item.droga_administrada3, item.esquema_terapeutico3, item.hospitalizacao, item.data_internacao, item.data_da_alta, item.uf_hospitalizacao, item.municipio_hospitalizacao, item.codigo_ibge_hospitalizacao, item.nome_hospital_hospitalizacao, item.classificacao_final, item.criterio_confirmacao, item.caso_autoctone_municipio_residencia, item.uf_caso_autoctone, item.pais_caso_autoctone, item.municipio_caso_autoctone, item.codigo_ibge_caso_autoctone, item.distrito_caso_autoctone, item.bairro_caso_autoctone, item.area_provavel_infeccao_caso_autoctone, item.ambiente_infeccao_caso_autoctone, item.doenca_rel_trabalho_caso_autoctone, item.evolucao_caso, item.data_obito, item.data_encerramento, item.observacao, item.nome_investigador, item.funcao_investigador, item.email_investigador, item.telefone_investigador, item.conselho_classe_investigador, item.responsavel_pelas_informacoes_id, item.unidade_saude_outro, item.gerencia_id])
+	
+	data = pd.DataFrame(data, columns=['Tipo de Notificação', 'Agravo/Doença', 'Codigo CID-10', 'Data de Notificação', 'Estado', 'Municipio', 'Codigo IBGE', 'Data dos Primeiros Sintomas', 'Unidade de Saúde', 'Nome do Paciente', 'Data de Nascimento do Paciente', 'Idade do Paciente', 'Sexo do Paciente', 'Paciente Gestante', 'Raça do Paciente', 'Escolaridade do Paciente', 'Cartão SUS do Paciente', 'Nome da Mãe do Paciente', 'CEP da Residência', 'UF da Residência', 'Municipio da Residência', 'Bairro da Residência', 'Codigo IBGE da Residência', 'Rua da Residência', 'Numero_da Residência', 'Complemento da Residência', 'Distrito da Residência', 'Ponto de Referência da Residência', 'Telefone da Residência', 'Zona da Residência', 'País da Residência', 'Data de Investigação', 'Ocupação', 'Ambientes Frequentados', 'Animais que Teve Contato', 'Natureza do Contato com os Animais', 'Relação com o Animal Doente', 'Exerce Atividade Contato Plantas', 'Histórico Contato Material', 'Presença de Lesão na Pele', 'Natureza da Lesão', 'Local da Lesão', 'Diagnóstico Forma Extrac Doença', 'Localização Forma Extrac Doença', 'Houve Coleta de Material', 'Data da Coleta', 'Resultado de Isolamento', 'Agente', 'Histopatologia', 'Data do Restultado EXAME 1', 'Descrição EXAME 1', 'Resultado EXAME 1', 'Data do Resultado EXAME 2', 'Descrição EXAME 2', 'Resultado EXAME 2', 'Data do Resultado EXAME 3', 'Descrição EXAME 3', 'Resultado EXAME 3', 'Data de Início do Tratamento 1', 'Droga Administrada 1', 'Esquema Terapeutico 1', 'Data de Início do Tratamento 2', 'Droga Administrada 2', 'Esquema Terapeutico 2', 'Data de Início do Tratamento 3', 'Droga Administrada 3', 'Esquema Terapeutico 3', 'Hospitalizacão', 'Data de Internação', 'Data da Alta', 'UF da Hospitalização', 'Município da Hospitalização', 'Codigo IBGE da Hospitalização', 'Nome do Hospital da Hospitalização', 'Classificação Final', 'Critério de Confirmação', 'Caso Autoctone Municipio Residência', 'UF Caso Autoctone', 'País Caso Autoctone', 'Município Caso Autoctone', 'Codigo IBGE Caso Autoctone', 'Distrito Caso Autoctone', 'Bairro Caso Autoctone', 'Área Provável de Infecção Caso Autoctone', 'Ambiente Infecção Caso Autoctone', 'Doença Rel Trabalho Caso Autoctone', 'Evolução do Caso', 'Data do Óbito', 'Data de Encerramento', 'Observação', 'Nome do Investigador', 'Função do Investigador', 'Email do Investigador', 'Telefone do Investigador', 'Conselho Classe Investigador', 'Responsável Pelas Informações ID', 'Unidade de Saude Outro', 'Gerencia ID'])
+	
+	if option == "csv":
+		response = HttpResponse(content_type = "text/csv")
+		response['Content-Disposition'] = 'attachment; filename=casos_esporotricose.csv'
+		data.to_csv(response, index=False)
+
+		return response
+
+	if option =="excel":
+		response = HttpResponse(content_type = "application/ms-excel")
+		response['Content-Disposition'] = 'attachment; filename=casos_esporotricose.xlsx'
+
+		data.to_excel(response, index=False)
+		return response
+
+def ajax_exportar_index_aberto(request):
+	ano = request.POST.get('ano')
+	inicio = request.POST.get('inicio')
+	fim = request.POST.get('fim')
+	option = request.POST.get('export_select')
+	
+	if inicio == "" and fim == "" and ano == "":
+		dados = CasoEsporotricose.objects.all()
+		
+	if inicio == "" and fim == "" and ano != "":
+		dados = CasoEsporotricose.objects.filter(data_notificacao__year=ano)
+		
+	if inicio != "" and fim == "":
+		dados = CasoEsporotricose.objects.filter(data_notificacao__range=[inicio,inicio])
+		
+	if inicio == "" and fim != "":
+		dados = CasoEsporotricose.objects.filter(data_notificacao__range=[fim,fim])
+		
+	if inicio != "" and fim != "":
+		dados = CasoEsporotricose.objects.filter(data_notificacao__range=[inicio,fim])
+		
+	data = []
+	for item in dados:
+		data.append([item.tipo_notificacao, item.agravo_doenca, item.codigo_cib10, item.data_notificacao, item.estado, item.municipio, item.codigo_ibge, item.data_primeiros_sintomas, item.unidade_saude, item.idade_paciente, item.sexo_paciente, item.paciente_gestante, item.raca_paciente, item.escolaridade_paciente,  item.uf_residencia, item.municipio_residencia,  item.codigo_ibge_residencia, item.distrito_residencia, item.zona_residencia, item.pais_residencia, item.data_investigacao, item.ocupacao, item.ambientes_frequentados, item.animais_que_teve_contato, item.natureza_contato_animais, item.relacao_animal_doente, item.exerce_atividade_contato_plantas, item.historico_contato_material, item.presenca_lesao_pele, item.natureza_lesao, item.local_lesao, item.diagnostico_forma_extrac_doenca, item.localizacao_forma_extrac_doenca, item.houve_coleta_material, item.data_coleta, item.resultado_isolamento, item.agente, item.histopatologia, item.data_resultado_exame1, item.descricao_exame_1, item.resultado_exame1, item.data_resultado_exame2, item.descricao_exame_2, item.resultado_exame2, item.data_resultado_exame3, item.descricao_exame_3, item.resultado_exame3, item.data_inicio_tratamento1, item.droga_administrada1, item.esquema_terapeutico1, item.data_inicio_tratamento2, item.droga_administrada2, item.esquema_terapeutico2, item.data_inicio_tratamento3, item.droga_administrada3, item.esquema_terapeutico3, item.hospitalizacao, item.data_internacao, item.data_da_alta, item.uf_hospitalizacao, item.municipio_hospitalizacao, item.codigo_ibge_hospitalizacao, item.nome_hospital_hospitalizacao, item.classificacao_final, item.criterio_confirmacao, item.caso_autoctone_municipio_residencia, item.uf_caso_autoctone, item.pais_caso_autoctone, item.municipio_caso_autoctone, item.codigo_ibge_caso_autoctone, item.distrito_caso_autoctone, item.bairro_caso_autoctone, item.area_provavel_infeccao_caso_autoctone, item.ambiente_infeccao_caso_autoctone, item.doenca_rel_trabalho_caso_autoctone, item.evolucao_caso, item.data_obito, item.data_encerramento, item.observacao, item.responsavel_pelas_informacoes_id, item.unidade_saude_outro, item.gerencia_id])
+	
+	data = pd.DataFrame(data, columns=['Tipo de Notificação', 'Agravo/Doença', 'Codigo CID-10', 'Data de Notificação', 'Estado', 'Municipio', 'Codigo IBGE', 'Data dos Primeiros Sintomas', 'Unidade de Saúde', 'Idade do Paciente', 'Sexo do Paciente', 'Paciente Gestante', 'Raça do Paciente', 'Escolaridade do Paciente', 'UF da Residência', 'Municipio da Residência',  'Codigo IBGE da Residência', 'Distrito da Residência', 'Zona da Residência', 'País da Residência', 'Data de Investigação', 'Ocupação', 'Ambientes Frequentados', 'Animais que Teve Contato', 'Natureza do Contato com os Animais', 'Relação com o Animal Doente', 'Exerce Atividade Contato Plantas', 'Histórico Contato Material', 'Presença de Lesão na Pele', 'Natureza da Lesão', 'Local da Lesão', 'Diagnóstico Forma Extrac Doença', 'Localização Forma Extrac Doença', 'Houve Coleta de Material', 'Data da Coleta', 'Resultado de Isolamento', 'Agente', 'Histopatologia', 'Data do Restultado EXAME 1', 'Descrição EXAME 1', 'Resultado EXAME 1', 'Data do Resultado EXAME 2', 'Descrição EXAME 2', 'Resultado EXAME 2', 'Data do Resultado EXAME 3', 'Descrição EXAME 3', 'Resultado EXAME 3', 'Data de Início do Tratamento 1', 'Droga Administrada 1', 'Esquema Terapeutico 1', 'Data de Início do Tratamento 2', 'Droga Administrada 2', 'Esquema Terapeutico 2', 'Data de Início do Tratamento 3', 'Droga Administrada 3', 'Esquema Terapeutico 3', 'Hospitalizacão', 'Data de Internação', 'Data da Alta', 'UF da Hospitalização', 'Município da Hospitalização', 'Codigo IBGE da Hospitalização', 'Nome do Hospital da Hospitalização', 'Classificação Final', 'Critério de Confirmação', 'Caso Autoctone Municipio Residência', 'UF Caso Autoctone', 'País Caso Autoctone', 'Município Caso Autoctone', 'Codigo IBGE Caso Autoctone', 'Distrito Caso Autoctone', 'Bairro Caso Autoctone', 'Área Provável de Infecção Caso Autoctone', 'Ambiente Infecção Caso Autoctone', 'Doença Rel Trabalho Caso Autoctone', 'Evolução do Caso', 'Data do Óbito', 'Data de Encerramento', 'Observação', 'Responsável Pelas Informações ID', 'Unidade de Saude Outro', 'Gerencia ID'])
+	
+	if option == "csv":
+		response = HttpResponse(content_type = "text/csv")
+		response['Content-Disposition'] = 'attachment; filename=casos_esporotricose.csv'
+		data.to_csv(response, index=False)
+
+		return response
+
+	if option =="excel":
+		response = HttpResponse(content_type = "application/ms-excel")
+		response['Content-Disposition'] = 'attachment; filename=casos_esporotricose.xlsx'
+
+		data.to_excel(response, index=False)
+		return response
+
+# INDEX ABERTO
 
