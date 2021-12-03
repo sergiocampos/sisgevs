@@ -80,6 +80,7 @@ urlpatterns = [
     path('ajax_index_aberto', views.ajax_index_aberto, name='ajax_index_aberto'),
     path('ajax_filtrar_index_aberto', views.ajax_filtrar_index_aberto, name='ajax_filtrar_index_aberto'),
     path('submit', views.ajax_exportar_index_aberto, name='ajax_exportar_index_aberto'),
+    path('ajax_gal', views.ajax_gal, name='ajax_gal'),
 
     
 ]
