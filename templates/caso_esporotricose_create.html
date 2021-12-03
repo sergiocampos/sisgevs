@@ -242,7 +242,7 @@ footer {
               document.getElementById('alert_dt_ps').style.display="inline";
               document.getElementById('alert_dados_gerais').style.display="inline";
               document.getElementById('alert_notificacao_individual').style.display="inline";
-      //document.getElementById('alert_nome_paciente').style.display="inline";
+      document.getElementById('alert_data_invest').style.display="inline";
       document.getElementById('alert_data_nasc').style.display="inline";
       document.getElementById('alert_nome_mae').style.display="inline";
       document.getElementById('alert_dados_residencia').style.display="inline";
@@ -462,7 +462,9 @@ footer {
                 </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" data-toggle="tab" href="#menu2">Antecedentes Epidemiológicos</a>
+                <a class="nav-link" data-toggle="tab" href="#menu2">Antecedentes Epidemiológicos
+                  <i id="alert_anteced_epid" style="color: red;">*</i>
+                </a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" data-toggle="tab" href="#menu3">Dados Clínicos</a>
@@ -494,20 +496,16 @@ footer {
 
                   <div class="col-md-2">
                     <div class="form-group"><b>Tipo de Notificação</b>
-                      <select class="form-control" name="tipo_notificacao" id="">
-                        <option value="Individual" selected>Individual</option>
-                      </select>
+                      <input class="form-control" type="text" name="tipo_notificacao" placeholder="" value="Individual" readonly>
                     </div>
                   </div>
                   <div class="col-md-3">
                     <div class="form-group"><b>Agravo/Doença</b>
-                      <select class="form-control" name="agravo_doenca" id="">
-                        <option value="Esporotricose" selected>Esporotricose</option>
-                      </select>
+                      <input class="form-control" type="text" name="agravo_doenca" placeholder="" value="Esporotricose" readonly>
                     </div>              
                   </div>
                   <div class="col-md-2">
-                    <div class="form-group"><b>Código CID-<input style="border:none; width: 40px; background-color:#f1f1f1" min="0" type="number" id="cid_number"></b>
+                    <div class="form-group"><b>Código CID-10<!--<input style="border:none; width: 40px; background-color:#f1f1f1" min="0" type="number" id="cid_number">--></b>
                       <input class="form-control" type="text" name="codigo_cid" placeholder="" value="B42.9">
                     </div>
                   </div>
@@ -553,11 +551,7 @@ footer {
 
                   <div class="col-md-2">
                     <div class="form-group"><b>UF</b>
-                      <select class="form-control" name="uf_notificacao" id="estado">
-                        <option value="" disabled>Selecionar</option>
-                        <option value="PB" selected>PB</option>
-
-                      </select>
+                        <input class="form-control" type="text" name="uf_notificacao" placeholder="" value="PB" readonly id="estado">
                     </div>
                   </div>
                   <div class="col-md-3">
@@ -862,9 +856,13 @@ footer {
                     var nome_paciente = document.getElementById('nome_paciente_id').value.length;
                     var nome_mae = document.getElementById('nome_mae_id').value.length;
                     var date2 = document.getElementById('date2').value;
+                    var data_invest = document.getElementById('data_investigacao_id').value;
                     var data_1_s = document.getElementById('dt_primeiros_s').value;
                     var municipio = document.getElementById('municipio_id').value.length;
                     var telefone = document.getElementById('telefone_residencia_id').value.length;
+
+                    var cep = document.getElementById('cep').value;
+                    var cidade = document.getElementById('cidade').value;
                     
                     if (municipio != 0) {$('#alert_municipio').hide();} else {$('#alert_municipio').show();}
                     
@@ -873,6 +871,14 @@ footer {
                     if (nome_paciente >= 10) {$('#alert_paciente').hide();} else {$('#alert_paciente').show();}
                     
                     if (date2 != "") {$('#alert_data_nasc').hide();} else {$('#alert_data_nasc').show();}
+
+                    if (cep != "" || cidade != "")  {
+                      $('#pais_fora_id').prop("disabled", true)
+                      } else {
+                        $('#pais_fora_id').prop("disabled", false)
+                        }                    
+
+                    if (data_invest != "") {$('#alert_data_invest').hide(); $('#alert_anteced_epid').hide();} else {$('#alert_data_invest').show(); $('#alert_anteced_epid').show();}
                     
                     if (nome_mae >= 10) {$('#alert_nome_mae').hide();} else {$('#alert_nome_mae').show();}
                     
@@ -907,7 +913,7 @@ footer {
 
                   <div class="col-md-2">
                     <div class="form-group"><b>CEP</b>
-                      <input class="form-control" type="text" onkeypress="return limitcarc(event, 'num')" name="cep_residencia" id="cep" placeholder="" value="" required>
+                      <input class="form-control" type="text" onkeypress="return limitcarc(event, 'num')" name="cep_residencia" id="cep" placeholder="" value="" required onkeydown="verificarNotifGeral()">
                     </div>
                   </div>
                   <div class="col-md-3">
@@ -916,8 +922,8 @@ footer {
                     </div>
                   </div>
                   <div class="col-md-3">
-                    <div class="form-group"><b>Município</b>
-                      <input class="form-control" type="text" onkeypress="return limitcarc(event, 'letr_acent')" name="cidade_residencia" id="cidade" placeholder="" value="">
+                    <div class="form-group"><b>Município de Residência</b>
+                      <input class="form-control" type="text" onkeypress="return limitcarc(event, 'letr_acent')" name="cidade_residencia" id="cidade" placeholder="" value="" onkeydown="verificarNotifGeral()">
                     </div>              
                   </div>
                   
@@ -989,7 +995,7 @@ footer {
                   </div>
                   <div class="col-md-7">
                     <div class="form-group"><b>País - </b><i>Se residem fora do Brasil</i>
-                      <input class="form-control" type="text" name="pais_residente_fora_pais" id="" placeholder="" value="">
+                      <input class="form-control" type="text" name="pais_residente_fora_pais" id="pais_fora_id" placeholder="" value="">
                     </div>
                   </div>
                 </div>
@@ -1001,8 +1007,8 @@ footer {
                 <div class="row">
                   <div class="col-md-3"></div>
                   <div class="col-md-3">
-                    <div class="form-group"><b>Data de Investigação</b>
-                      <input class="form-control" type="date" name="data_investigacao" value="" id="data_investigacao_id">
+                    <div class="form-group"><b>Data de Investigação</b><i id="alert_data_invest" style="color:red">**</i>
+                      <input class="form-control" type="date" name="data_investigacao" value="" id="data_investigacao_id" onchange="verificarNotifGeral()">
                     </div>
                   </div>
                   <div class="col-md-4">

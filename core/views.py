@@ -181,7 +181,7 @@ def caso_esporotricose_create(request):
 def ajax_load_unidadesaude(request):
 	municipio_id = request.GET.get('municipio_id')
 	#cod_ibge = JoinMunicipioIbgeUnidadeSaude.objects.filter(municipio=municipio).all()
-	cod_ibge = UnidadeSaude.objects.filter(municipio_id=municipio_id).all()
+	cod_ibge = UnidadeSaude.objects.filter(municipio_id=municipio_id).all().order_by('nome')
 	
 	return render(request, 'unidades_saude_ajax.html', {'cod_ibge':cod_ibge})
 
