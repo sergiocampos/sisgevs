@@ -1,3 +1,90 @@
+$(document).ready(function(){
+  $.ajax({
+    url : 'ajax_index_aberto',
+    success: function(data){
+      $('#container2').highcharts({
+        title: {
+            text: ''
+        },
+        xAxis: {
+            categories: ['casos']
+        },
+        series: [{
+            type: 'column',
+            name: 'Dengue',
+            data: [0]
+        }, {
+            type: 'column',
+            name: 'Chikungonha',
+            data: [0]
+        }, {
+            type: 'column',
+            name: 'Zika',
+            data: [0]
+        }, {
+            type: 'column',
+            name: 'Esporotricose',
+            data: [data['casos']]
+        }]
+    });
+    }
+  });
+
+$("#btn_filtrar").on('click', function(){
+  filtrar_ano = document.getElementById('filtro_ano').value;
+  filtrar_dt_inicio = document.getElementById('filtro_dt_inicio').value;
+  filtrar_dt_fim = document.getElementById('filtro_dt_fim').value;
+  $.ajax({
+    url: 'ajax_filtrar_index_aberto',
+    data: {
+      'ano':filtrar_ano,
+      'inicio':filtrar_dt_inicio,
+      'fim':filtrar_dt_fim
+    },
+    success: function(data){
+      $('#container2').highcharts({
+        title: {
+            text: ''
+        },
+        xAxis: {
+            categories: ['casos']
+        },
+        series: [{
+            type: 'column',
+            name: 'Dengue',
+            data: [0]
+        }, {
+            type: 'column',
+            name: 'Chikungonha',
+            data: [0]
+        }, {
+            type: 'column',
+            name: 'Zika',
+            data: [0]
+        }, {
+            type: 'column',
+            name: 'Esporotricose',
+            data: [data['casos']]
+        }]
+    });
+
+    }
+  });
+});
+// AJAX exportar arquivos csv xls.
+/*
+$("#btn_exportar").on('click', function(){
+  var option = $('#export').find(":selected").val();
+  $.ajax({
+    url: 'ajax_exportar_index_aberto',
+    data: {'option':option},
+    success: function(data){
+      console.log(data);
+    }
+
+  });
+});
+*/
 $(function(){
     // Primeiro Grafico
     $('#container').highcharts({
@@ -41,22 +128,22 @@ $(function(){
             data: [
               {
                 name: "Dengue",
-                y: 25,
+                y: 1,
                 drilldown: null
               },
               {
                 name: "Chikungonha",
-                y: 37,
+                y: 1,
                 drilldown: null
               },
               {
                 name: "Zika",
-                y: 38,
+                y: 1,
                 drilldown: null
               },
               {
                 name: "Esporotricose",
-                y: 70,
+                y: 97,
                 drilldown: null
               }]
           }]/*,
@@ -78,33 +165,30 @@ $(function(){
         ]}*/
     });
     // Segundo Grafico
-    $('#container2').highcharts({
-        title: {
-            text: ''
-        },
-        xAxis: {
-            categories: ['casos']
-        },
-        series: [{
-            type: 'column',
-            name: 'Dengue',
-            data: [5]
-        }, {
-            type: 'column',
-            name: 'Chikungonha',
-            data: [3]
-        }, {
-            type: 'column',
-            name: 'Zika',
-            data: [4]
-        }, {
-            type: 'column',
-            name: 'Esporotricose',
-            data: [15]
-        }]
-    });
+    
 
   });  
+  // Limitando datas a data atual.
   var today = new Date().toISOString().split('T')[0];
   $("#filtro_dt_inicio").attr('max', today);
   $("#filtro_dt_fim").attr('max', today);
+
+  // Ativando botao exportar.
+  $("#export").on('change', function(){
+    select = document.getElementById('export');
+    if (select.value != ""){
+      $("#btn_exportar").prop('disabled', false);
+    } else {$("#btn_exportar").prop('disabled', true);};
+  });
+
+  // Limpando data inicio e fim dos filtros quando clicar no filtro anual.
+  $('#filtro_ano').on('click', function(){
+    $('#filtro_dt_inicio').val("");
+    $('#filtro_dt_fim').val("");
+  });
+
+
+  
+
+  });
+  

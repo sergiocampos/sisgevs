@@ -129,8 +129,21 @@
           </div>
           <input type="date" class="form-control text-center" name="" id="filtro_dt_fim">
         </div>
-        
-        <button class="btn btn-primary" id="btn_filtros">Pesquisar</button>
+        <button class="btn btn-primary" id="btn_filtrar">Filtrar</button>
+        <hr id="hr_filtros">
+        <form name="" id="" enctype="multipart/form-data" action="submit" method="POST">{% csrf_token %}
+          <button type="submit" class="btn btn-secondary" id="btn_exportar" disabled>Exportar</button>
+          <div class="input-group mb-3" id="">
+            <div class="input-group-prepend" id="">
+              <span class="input-group-text">Tipo do Arquivo</span>
+            </div>
+            <select class="form-control text-center" name="export_select" id="export">
+              <option value="" selected>Selecione</option>
+              <option value="csv">.csv</option>
+              <option value="excel">Excel</option>
+            </select>          
+          </div>
+        </form>
       </div>
     </div>
     <!-- Coluna Central -->
