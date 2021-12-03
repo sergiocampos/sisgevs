@@ -27,11 +27,16 @@ urlpatterns = [
     path('account/', include('account.urls')),
     path('account/', include('django.contrib.auth.urls')),
     path('accounts/', include('django.contrib.auth.urls')),
-    path('', views.index, name='index'),
+    path('', views.index_aberto, name='index_aberto'),
     path('login/',views.login_page, name='login_page'),
     path('login/submit', views.login_submit),
     path('logout/', views.logout_user),
     path('index/', views.index, name='index'),
+    path('index/ajax_index_aberto', views.ajax_index_aberto, name='ajax_index_aberto'),
+    path('index/ajax_filtrar_index_aberto', views.ajax_filtrar_index_aberto, name='ajax_filtrar_index_aberto'),
+    path('index/submit', views.ajax_exportar_index_fechado, name='ajax_exportar_index_fechado'),
+
+
     path('main/', views.main, name='main'),
 
     path('change_password/', views.change_password, name='change_password'),
@@ -70,9 +75,9 @@ urlpatterns = [
     path('download_ficha/', views.download_ficha, name='download_ficha'),
     path('remove_caso_esporotricose/<id>/', views.remove_caso_esporotricose, name='remove_caso_esporotricose'),
     path('index_aberto/', views.index_aberto, name='index_aberto'),
-    path('index_aberto/ajax_index_aberto', views.ajax_index_aberto, name='ajax_index_aberto'),
-    path('index_aberto/ajax_filtrar_index_aberto', views.ajax_filtrar_index_aberto, name='ajax_filtrar_index_aberto'),
-    path('index_aberto/submit', views.ajax_exportar_index_aberto, name='ajax_exportar_index_aberto'),
+    path('ajax_index_aberto', views.ajax_index_aberto, name='ajax_index_aberto'),
+    path('ajax_filtrar_index_aberto', views.ajax_filtrar_index_aberto, name='ajax_filtrar_index_aberto'),
+    path('submit', views.ajax_exportar_index_aberto, name='ajax_exportar_index_aberto'),
     
 ]
 

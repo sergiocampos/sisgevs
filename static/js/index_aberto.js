@@ -29,6 +29,9 @@ $(document).ready(function(){
     });
     }
   });
+  //1919   803
+
+  //624   266
 
 $("#btn_filtrar").on('click', function(){
   filtrar_ano = document.getElementById('filtro_ano').value;
@@ -128,22 +131,22 @@ $(function(){
             data: [
               {
                 name: "Dengue",
-                y: 1,
+                y: 0,
                 drilldown: null
               },
               {
                 name: "Chikungonha",
-                y: 1,
+                y: 0,
                 drilldown: null
               },
               {
                 name: "Zika",
-                y: 1,
+                y: 0,
                 drilldown: null
               },
               {
                 name: "Esporotricose",
-                y: 97,
+                y: 100,
                 drilldown: null
               }]
           }]/*,
