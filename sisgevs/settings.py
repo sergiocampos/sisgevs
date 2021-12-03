@@ -28,6 +28,8 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
+#key secret for reCaptcha
+GOOGLE_RECAPTCHA_SECRET_KEY = '6Lc-p3MdAAAAAKeEjc4GYu8rCNJO5yBM2cwMMBwz'
 
 # Application definition
 

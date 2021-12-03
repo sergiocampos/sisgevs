@@ -20,6 +20,10 @@ import os
 from pandas.core.frame import DataFrame
 
 from .models import *
+import json
+import urllib
+from django.conf import settings
+
 
 # Create your views here.
 
@@ -34,11 +38,33 @@ def login_submit(request):
 		password = request.POST.get('password')
 
 		user = authenticate(username = username, password = password)
-		if user is not None:
-			login(request, user)
-			return redirect('index')
+
+		
+		''' Begin reCAPTCHA validation '''
+		recaptcha_response = request.POST.get('g-recaptcha-response')
+		url = 'https://www.google.com/recaptcha/api/siteverify'
+		values = {
+				'secret': settings.GOOGLE_RECAPTCHA_SECRET_KEY,
+				'response': recaptcha_response
+			}
+		data = urllib.parse.urlencode(values).encode()
+		req =  urllib.request.Request(url, data=data)
+		response = urllib.request.urlopen(req)
+		result = json.loads(response.read().decode())
+		''' End reCAPTCHA validation '''
+		if result['success']:
+			if user is not None:
+				login(request, user)
+				return redirect('/')
+			else:
+				return render(request, 'login_page.html')
+
+			#form.save()
+			messages.success(request, 'New comment added with success!')
+
 		else:
-			return render(request, 'login_page.html')
+			messages.error(request, 'Invalid reCAPTCHA. Please try again.')
+		
 			#messages.error(request, 'Usuário e/ou senha inválido!')
 	return redirect('/login/')
 
@@ -94,6 +120,7 @@ def informar_dados_ficha(request):
 	return render(request, 'informar_dados_ficha.html')
 
 
+########################  View de localização de uma notificação ##################################
 @login_required(login_url='/login/')
 def localizar_paciente_nome(request):
 	return render(request, 'localizar_paciente_nome.html')
@@ -101,8 +128,16 @@ def localizar_paciente_nome(request):
 
 @login_required(login_url='/login/')
 def set_localizar_paciente_nome(request):
-	return render(request, 'resultado_search_caso_nome.html')
+	nome = request.POST.get('nome')
+	request.session['nome'] = nome
+	return redirect('search_paciente_nome')
 
+@login_required(login_url='/login/')
+def search_paciente_nome(request):
+	nome = request.session['nome']
+	caso_all_result = CasoEsporotricose.objects.filter(nome_paciente__icontains=nome)
+
+	return render(request, 'resultado_search_caso_nome.html', {'caso_all_result':caso_all_result})
 
 
 ###########View Renderiza a ficha para impressão######################################################
