@@ -152,12 +152,14 @@ footer {
           <a class="dropdown-item" href="/localizar_paciente_cpf/">CPF</a>
           <a class="dropdown-item" href="/localizar_paciente_phone/">Telefone</a></div>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Menu</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Menu</a>
-        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#">Fichas</a>
+          <div class="dropdown-menu">
+            <a class="dropdown-item" href="/download_ficha/" target="_blank">Imprimir</a>
+            <a class="dropdown-item" href="/ficha_caso_esporotricose_preencher/" target="_blank">Novo Layout</a>
+            
+          </li>
+        <!--
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#">Acompanhar Resultados</a>
           <div class="dropdown-menu">
@@ -165,6 +167,7 @@ footer {
             <a class="dropdown-item" href="#">Por Macro</a>
             <a class="dropdown-item" href="#">Por Gerência</a></div>
           </li>
+        -->
           <li class="nav-item">
             <a class="nav-link" href="/logout/">Sair</a>
           </li>    
@@ -192,7 +195,13 @@ footer {
           <hr>
             <li><a href="/my_datas/">Meus Dados</a></li>
           <hr>
-            <li><a href="/download_ficha/" download>Imprimir Ficha</a></li>
+            <li><a href="/download_ficha/" data-toggle="collapse" data-target="#_demo">Ficha</a></li>
+            <li><a href="#"></a></li>        
+            
+            <div id="_demo" class="collapse"><br>
+              <li><a href="/download_ficha/" download style="color: #4d94ff;">Imprimir Ficha</a></li>
+              <li><a href="/ficha_caso_esporotricose_preencher/" target="_blank" style="color: #4d94ff;">Novo Layout</a></li>
+            </div>
           <hr>
             <li><a href="/change_password/">Alterar Senha</a></li>
           <hr>

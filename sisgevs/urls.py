@@ -75,9 +75,11 @@ urlpatterns = [
     path('download_ficha/', views.download_ficha, name='download_ficha'),
     path('remove_caso_esporotricose/<id>/', views.remove_caso_esporotricose, name='remove_caso_esporotricose'),
     path('index_aberto/', views.index_aberto, name='index_aberto'),
+
     path('ajax_index_aberto', views.ajax_index_aberto, name='ajax_index_aberto'),
     path('ajax_filtrar_index_aberto', views.ajax_filtrar_index_aberto, name='ajax_filtrar_index_aberto'),
     path('submit', views.ajax_exportar_index_aberto, name='ajax_exportar_index_aberto'),
+
     
 ]
 
