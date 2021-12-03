@@ -1128,8 +1128,7 @@ def set_caso_esporotricose_edit(request, id):
 	telefone_investigador = request.POST.get('telefone_investigador')
 	conselho_classe_investigador = request.POST.get('conselho_classe_investigador')
 
-	CasoEsporotricose.objects.update(
-		id = id,
+	CasoEsporotricose.objects.filter(id = id).update(
 		responsavel_pelas_informacoes = responsavel_pelas_informacoes,
 		tipo_notificacao = tipo_notificacao,
 		agravo_doenca = agravo_doenca,
