@@ -25,8 +25,6 @@
   <script src="https://code.highcharts.com/highcharts.src.js"></script>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.min.js"></script>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 
   <script>
     $(document).ready(function($){
@@ -259,7 +257,7 @@ footer {
   } // FIM AJAX CEP
 
   function activeGestante(){
-    let genero = document.getElementById('span_id').value;
+    let genero = document.getElementById('genero_paciente').value;
     let idade = document.getElementById('result').value;
     if ((idade<= 9) && (genero!="M") && (genero!="")){
       $('#gestante_id').children('option[value=""]').hide();
@@ -269,8 +267,7 @@ footer {
       $('#gestante_id').children('option[value="Idade Gestacional Ignorada"]').hide();
       $('#gestante_id').children('option[value="Ignorado"]').hide();
       $('#gestante_id').children('option[value="Não"]').hide();
-      $('#gestante_id').children('option[value="Não se aplica"]').prop('selected', true);
-    } else if ((idade > 9) || (genero!="M")) {
+    } else if ((idade > 9) || (genero!="M") || (genero!="M")) {
       $('#gestante_id').children('option[value=""]').show();
       $('#gestante_id').children('option[value="1º Trimestre"]').show();
       $('#gestante_id').children('option[value="2º Trimestre"]').show();
@@ -353,29 +350,42 @@ footer {
 </header>
 
 <nav class="navbar navbar-expand-sm bg-secondary navbar-dark">
-    <a class="navbar-brand" href="#"></a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="collapsibleNavbar">
-      <ul class="navbar-nav">
-        <li class="nav-item">
-          <a class="nav-link" href="/main/">Área do Usuário</a>
+  <a class="navbar-brand" href="#"></a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="collapsibleNavbar">
+    <ul class="navbar-nav">
+      <li class="nav-item">
+        <a class="nav-link" href="/index/">Home</a>
+      </li>
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#">Localizar Notificação</a>
+        <div class="dropdown-menu">
+          <a class="dropdown-item" href="/localizar_paciente_nome/">Nome Paciente</a>
+          <a class="dropdown-item" href="/localizar_paciente_cpf/">CPF</a>
+          <a class="dropdown-item" href="/localizar_paciente_phone/">Telefone</a></div>
         </li>
-        
-        
+        <li class="nav-item">
+          <a class="nav-link" href="#">Menu</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Menu</a>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#">Acompanhar Resultados</a>
+          <div class="dropdown-menu">
+            <a class="dropdown-item" href="#">Por Unidade</a>
+            <a class="dropdown-item" href="#">Por Macro</a>
+            <a class="dropdown-item" href="#">Por Gerência</a></div>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/logout/">Sair</a>
+          </li>    
+        </ul>
+      </div>
       
-        <li class="nav-item">
-          <a class="nav-link" href="/change_password/">Alterar Senha</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="/logout/">Sair</a>
-        </li>
-      </ul>
-    </div>
-    
-  </nav>
-
+    </nav>
     <section>
 
       <nav>
@@ -396,15 +406,9 @@ footer {
             <hr>
             <li><a href="/my_datas/">Meus Dados</a></li>
             <li><a href="#"></a></li>
-            
             <hr>
-            <li><a href="/download_ficha/" data-toggle="collapse" data-target="#_demo">Ficha</a></li>
-            <li><a href="#"></a></li>        
-            
-            <div id="_demo" class="collapse"><br>
-              <li><a href="/download_ficha/" download style="color: #4d94ff;">Imprimir Ficha</a></li>
-              <li><a href="/ficha_caso_esporotricose_preencher/" target="_blank" style="color: #4d94ff;">Novo Layout</a></li>
-            </div>
+            <li><a href="/download_ficha/" download>Imprimir Ficha</a></li>
+            <li><a href="#"></a></li>
             <hr>
             <li><a href="/logout/">Sair</a></li>
             <li><a href="#"></a></li>
@@ -439,7 +443,7 @@ footer {
 
             </div>
           </div>
-          
+
           <form name="" id="" enctype="multipart/form-data" action="submit" method="POST" onsubmit="return validaDtPrimeirosSintomas();">{% csrf_token %}
             <br>
             <!-- Nav tabs -->
@@ -508,13 +512,13 @@ footer {
                   </div>
                   <div class="col-md-2">
                     <div class="form-group"><b>Código CID-<input style="border:none; width: 40px; background-color:#f1f1f1" min="0" type="number" id="cid_number"></b>
-                      <input class="form-control" type="text" name="codigo_cid" placeholder="" value="B42.9">
+                      <input class="form-control" type="text" name="codigo_cid" placeholder="" value="{{form.codigo_cib10}}">
                     </div>
                   </div>
                   
                   <div class="col-md-3">
                     <div class="form-group"><b>Data dos Primeiros Sintomas</b><i id="alert_dt_ps" style="color:red">**</i>
-                      <input class="form-control" type="date" name="data_primeiros_sintomas" value="" id="dt_primeiros_s" onchange="verificarNotifGeral()" onblur="limitandoData(this)" onclick="limitandoData(this)" required>
+                      <input class="form-control" type="date" name="data_primeiros_sintomas" value="{{form.data_primeiros_sintomas}}" id="dt_primeiros_s" onchange="verificarNotifGeral()" onblur="limitandoData(this)" onclick="limitandoData(this)" required>
                       
                     </div>
                   </div>
@@ -524,7 +528,8 @@ footer {
                     
                     function limitandoData(datamin){
                       var today = new Date();
-                      var datamin = datamin.value;
+                      datamin = datamin.value;
+                      //console.log(datamin);
                       $("#datanotificacao").attr('min', datamin);
                       $("#data_investigacao_id").attr('min', datamin);
                       $("#data_coleta_material_id_1").attr('min', datamin);
@@ -540,7 +545,6 @@ footer {
                       $("#input_d_a").attr('min', datamin);
                       $("#data_obito_evo_id").attr('min', datamin);
                       $("#data_encerramento_id").attr('min', datamin);
-                      $("#date2").attr('max', datamin);
 
                     }
                   </script>
@@ -565,7 +569,11 @@ footer {
                       <select class="form-control" name="municipio_notificacao" id="municipio_id" required onchange="verificarNotifGeral()">
                         <option value="" selected disabled><i>Selecionar</i></option>
                         {% for municipio in municipios %}
-                        <option value="{{municipio.id}}">{{municipio.nome}}</option>
+                          {% if municipio.id == form.municipio %}
+                            <option value="{{municipio.id}}" selected>{{municipio.nome}}</option>
+                          {% else %}
+                            <option value="{{municipio.id}}">{{municipio.nome}}</option>
+                          {% endif %}
                         {% endfor %}
 
                       </select>
@@ -575,22 +583,23 @@ footer {
                   <div class="col-md-2">
                     <div class="form-group"><b>Código IBGE</b>
                       <b ></b>
-                      <input type="text" name="codigo_ibge_dados_gerais" id="ibge_cod_id" class="form-control" readonly>
+                      <input type="text" name="codigo_ibge_dados_gerais" id="ibge_cod_id" class="form-control" value="" readonly>
                       <!-- <select class="form-control" name="codigo_ibge_dados_gerais" id="ibge_cod_id">
-
-                      </select> -->
+                        {% if codigo.id == form.codigo_ibge %}
+                        <option value="{{codigo.id}}" selected>{{codigo.codigo}}</option>
+                        {% endif %} -->
+                      </select>
                     </div>
                   </div>
 
                   <div class="col-md-3">
                     <div class="form-group"><b>Data de notificação</b>
-                      <input class="form-control" type="date" name="data_notificacao" id="datanotificacao" value="">
+                      <input class="form-control" type="date" name="data_notificacao" id="datanotificacao" value="{{form.data_notificacao}}">
                     </div>
                   </div>
 
                   <script>
                     datanotificacao.max = new Date().toISOString().split("T")[0];
-                    document.getElementById("datanotificacao").valueAsDate=new Date();
 
                     function removeAlertDadosGerais(){
                       $("#alert_dados_gerais").hide();
@@ -611,10 +620,6 @@ footer {
                   <div class="col-md-6">
                     <div class="form-group"><b>Unidade de Saúde  </b><i></i>
                       <select class="form-control" name="unidade_saude" id="unidade_saude_id">
-                        <option value="" disabled selected>Escolha unidade</option>
-                        {% for unid_saude in unidades_saude %}
-                        <option value="{{unid_saude.id}}">{{unid_saude.id}}</option>
-                        {% endfor %}
                       </select>
                     </div>
                   </div>
@@ -714,7 +719,6 @@ footer {
                 //js para validar quantidade de caracteres
                 
                 $('#Form').on('submit', function(event) {
-                   
                   event.preventDefault();
 
                   nome_paciente = $('#nome_paciente_id');
@@ -726,21 +730,21 @@ footer {
                           //.....
                           console.log('Passou na validação!');
                           alvo_erro.empty();
-                          }
-                  });
+                        }
+                      });
                 </script>
 
                     <div class="row">
                       <div class="col-md-5"><b>Paciente</b><i id="alert_paciente" style="color:red">**</i>
                         <div class="form-group">
-                          <input class="form-control" type="text" name="nome_paciente" value="" id="nome_paciente_id" required style="text-transform: uppercase;" onkeydown="verificarNotifGeral()" onkeypress="return limitcarc(event, 'letr')">
+                          <input class="form-control" type="text" name="nome_paciente" value="{{form.nome_paciente}}" id="nome_paciente_id" required style="text-transform: uppercase;" onkeydown="verificarNotifGeral()" onkeypress="return limitcarc(event, 'letr')">
 
                         </div><div id="msg-error"></div>
                       </div>
                       <div class="col-md-3">
                         <div class="form-group"><b>Data Nasc</b>
                           <i id="alert_data_nasc" style="color:red">**</i>
-                          <input class="form-control" type="date" name="data_nasc" id="date2" placeholder="" value="" required onchange="verificarNotifGeral()">
+                          <input class="form-control" type="date" name="data_nasc" id="date2" placeholder="" value="{{form.data_nascimento_paciente}}" required onchange="verificarNotifGeral()">
 
                         </div>                                
                       </div>
@@ -749,7 +753,7 @@ footer {
                       </script>
                       <div class="col-lg-3">
                         <div class="form-group"><b>Identidade de Gênero</b>
-                          <select class="form-control" name="sexo" id="span_id" onclick="activeGestante()">
+                          <select class="form-control" name="sexo" id="genero_paciente" onclick="activeGestante()">
 
                             <option value="" disabled selected>Selecionar</option>
                             <option value="M">Masculino</option>
@@ -780,17 +784,19 @@ footer {
                         return idade;
                       } // FIM Calculando IDADE
 
+                      $("#select[name='sexo']").find("option[value='{{form.sexo_paciente}}']").attr("selected", "selected");
+
                 </script>
 
                 <div class="row">
                   <div class="col-md-2">
                     <div class="form-group"><b>Idade</b>
-                      <input class="form-control" type="text" name="result" placeholder="" onkeypress="return limitcarc(event, 'num')" value="" id="result" readonly>
+                      <input class="form-control" type="text" name="result" placeholder="" onkeypress="return limitcarc(event, 'num')" value="{{form.idade_paciente}}" id="result" readonly>
                     </div>
                   </div>
                   <div class="col-md-2">
                     <div class="form-group"><b>Raça</b>
-                      <select class="form-control" name="raca" id="">
+                      <select class="form-control" name="raca" id="raca_paciente">
 
                         <option value="" disabled selected>Selecionar</option>
                         <option value="Branca">Branca</option>
@@ -823,19 +829,19 @@ footer {
                   </div>
                   <div class="col-md-4">
                     <div class="form-group"><b>Escolaridade</b>
-                      <select class="form-control" name="escolaridade" id="">
+                      <select class="form-control" name="escolaridade" id="escolaridade_paciente">
 
                         <option value="" disabled selected>Selecionar</option>
                         <option value="Analfabeto">Analfabeto</option>
-                        <option value="1ª-a-4ª-serie-incompleto">1ª a 4ª série incompleto</option>
-                        <option value="4ª-serie-completa">4ª série completa</option>
-                        <option value="5ª-a-8ª-serie-incompleto">5ª a 8ª série incompleto</option>
-                        <option value="Ensido-Fundamental-Completo">Ensido Fundamental Completo</option>
-                        <option value="Ensino-Medio-incompleto">Ensino Médio incompleto</option>
-                        <option value="Ensino-Medio-Completo">Ensino Médio Completo</option>
-                        <option value="Superior-Incompleto">Superior Incompleto</option>
-                        <option value="Superior-completo">Superior completo</option>
-                        <option value="Nao-se-aplica">Não se aplica</option>
+                        <option value="1ª a 4ª serie incompleto">1ª a 4ª série incompleto</option>
+                        <option value="4ª serie completa">4ª série completa</option>
+                        <option value="5ª a 8ª serie incompleto">5ª a 8ª série incompleto</option>
+                        <option value="Ensido Fundamental Completo">Ensido Fundamental Completo</option>
+                        <option value="Ensino Medio incompleto">Ensino Médio incompleto</option>
+                        <option value="Ensino Medio Completo">Ensino Médio Completo</option>
+                        <option value="Superior Incompleto">Superior Incompleto</option>
+                        <option value="Superior completo">Superior completo</option>
+                        <option value="Nao se aplica">Não se aplica</option>
                         
                       </select>
                     </div>
@@ -846,17 +852,22 @@ footer {
 
                   <div class="col-md-3">
                     <div class="form-group"><b>Cartão SUS</b>
-                      <input class="form-control" type="text" name="cartao_sus" onkeypress="return limitcarc(event, 'num')" placeholder="" value="">
+                      <input class="form-control" type="text" name="cartao_sus" onkeypress="return limitcarc(event, 'num')" placeholder="" value="{{form.cartao_sus_paciente}}">
                     </div>              
                   </div>
                   <div class="col-md-6">
                     <div class="form-group"><b>Nome da Mãe</b><i id="alert_nome_mae" style="color:red">**</i>
-                      <input class="form-control" type="text" name="nome_mae" placeholder="" value="" id="nome_mae_id" required onkeydown="verificarNotifGeral()" onkeypress="return limitcarc(event, 'letr')" style="text-transform: uppercase;">
+                      <input class="form-control" type="text" name="nome_mae" placeholder="" value="{{form.nome_mae_paciente}}" id="nome_mae_id" required onkeydown="verificarNotifGeral()" onkeypress="return limitcarc(event, 'letr')" style="text-transform: uppercase;">
                     </div>              
                   </div>
                 </div>
 
                 <script>
+                  $('#raca_paciente').find('option[value={{form.raca_paciente}}]').attr("selected", "selected");
+                  $('#genero_paciente').find('option[value={{form.sexo_paciente}}]').attr("selected", "selected");
+                  $('#genero_paciente').find('option[value={{form.sexo_paciente}}]').attr("selected", "selected");
+                  $('#escolaridade_paciente').find("option[value='{{form.escolaridade_paciente}}']").attr("selected", "selected");
+                  $('#gestante_id').find('option[value="{{form.paciente_gestante}}"]').attr("selected", "selected");
                   
                   function verificarNotifGeral(){
                     var nome_paciente = document.getElementById('nome_paciente_id').value.length;
@@ -907,29 +918,29 @@ footer {
 
                   <div class="col-md-2">
                     <div class="form-group"><b>CEP</b>
-                      <input class="form-control" type="text" onkeypress="return limitcarc(event, 'num')" name="cep_residencia" id="cep" placeholder="" value="" required>
+                      <input class="form-control" type="text" onkeypress="return limitcarc(event, 'num')" name="cep_residencia" id="cep" placeholder="" value="{{form.cep_residencia}}" required>
                     </div>
                   </div>
                   <div class="col-md-3">
                     <div class="form-group"><b>UF</b>
-                      <input class="form-control" type="text" onkeypress="return limitcarc(event, 'letr')" name="uf_residencia" id="uf" placeholder="" value="">
+                      <input class="form-control" type="text" onkeypress="return limitcarc(event, 'letr')" name="uf_residencia" id="uf" placeholder="" value="{{form.uf_residencia}}">
                     </div>
                   </div>
                   <div class="col-md-3">
                     <div class="form-group"><b>Município</b>
-                      <input class="form-control" type="text" onkeypress="return limitcarc(event, 'letr_acent')" name="cidade_residencia" id="cidade" placeholder="" value="">
+                      <input class="form-control" type="text" onkeypress="return limitcarc(event, 'letr_acent')" name="cidade_residencia" id="cidade" placeholder="" value="{{form.municipio_residencia}}">
                     </div>              
                   </div>
                   
                   <div class="col-md-2">
                     <div class="form-group"><b>Bairro</b>
-                      <input class="form-control" type="text" onkeypress="return limitcarc(event, 'letr_acent')" name="bairro_residencia" id="bairro" placeholder="" value="">
+                      <input class="form-control" type="text" onkeypress="return limitcarc(event, 'letr_acent')" name="bairro_residencia" id="bairro" placeholder="" value="{{form.bairro_residencia}}">
                     </div>
                   </div>
 
                   <div class="col-md-2">
                     <div class="form-group"><b>Código IBGE</b>
-                      <input class="form-control" type="text" onkeypress="return limitcarc(event, 'num')" name="codigo_ibge_residencia" id="ibge" placeholder="" value="">
+                      <input class="form-control" type="text" onkeypress="return limitcarc(event, 'num')" name="codigo_ibge_residencia" id="ibge" placeholder="" value="{{form.codigo_ibge_residencia}}" readonly>
                     </div>
                   </div>
                   
@@ -939,17 +950,17 @@ footer {
 
                   <div class="col-md-6">
                     <div class="form-group"><b>Rua</b>
-                      <input class="form-control" type="text" name="rua_residencia" id="rua" placeholder="" value="">
+                      <input class="form-control" type="text" name="rua_residencia" id="rua" placeholder="" value="{{form.rua_residencia}}">
                     </div>
                   </div>
                   <div class="col-md-2">
                     <div class="form-group"><b>Número</b>
-                      <input class="form-control" type="text" name="numero_residencia" id="" placeholder="" value="">
+                      <input class="form-control" type="text" name="numero_residencia" id="" placeholder="" value="{{form.numero_residencia}}">
                     </div>
                   </div>
                   <div class="col-md-4">
                     <div class="form-group"><b>Complemento</b>
-                      <input class="form-control" type="text" name="complemento_residencia" id="" placeholder="" value="">
+                      <input class="form-control" type="text" name="complemento_residencia" id="" placeholder="" value="{{form.complemento_residencia}}">
                     </div>
                   </div>
                   
@@ -960,12 +971,12 @@ footer {
 
                   <div class="col-md-3">
                     <div class="form-group"><b>Distrito</b>
-                      <input class="form-control" type="text" name="distrito_residencia" id="rua" placeholder="" value="">
+                      <input class="form-control" type="text" name="distrito_residencia" id="rua" placeholder="" value="{{form.distrito_residencia}}">
                     </div>
                   </div>
                   <div class="col-md-3">
                     <div class="form-group"><b>Ponto de Referência</b>
-                      <input class="form-control" type="text" name="ponto_referencia_residencia" id="" placeholder="" value="">
+                      <input class="form-control" type="text" name="ponto_referencia_residencia" id="" placeholder="" value="{{form.ponto_referencia_residencia}}">
                     </div>
                   </div>                
                   
@@ -973,12 +984,12 @@ footer {
                 <div class="row">
                   <div class="col-md-2">
                     <div class="form-group"><b>Telefone</b><i id="alert_telefone_paciente" style="color:red">**</i>
-                      <input type="text" class="form-control" id="telefone_residencia_id" name="telefone_residencia" required onkeydown="verificarNotifGeral()">
+                      <input type="text" class="form-control" id="telefone_residencia_id" name="telefone_residencia" value="{{form.telefone_residencia}}" required onkeydown="verificarNotifGeral()">
                     </div>
                   </div>
                   <div class="col-md-3">
                     <div class="form-group"><b>Zona</b>
-                      <select class="form-control" name="zona_residencia" id="">
+                      <select class="form-control" name="zona_residencia" id="zona_residencia">
                         <option value="" disabled selected>Selecionar</option>
                         <option value="Rural">Rural</option>
                         <option value="Urbana">Urbana</option>
@@ -987,9 +998,12 @@ footer {
                       </select>
                     </div>
                   </div>
+                  <script>
+                  $('#zona_residencia').find('option[value={{form.zona_residencia}}]').attr("selected", "selected");
+                  </script>
                   <div class="col-md-7">
                     <div class="form-group"><b>País - </b><i>Se residem fora do Brasil</i>
-                      <input class="form-control" type="text" name="pais_residente_fora_pais" id="" placeholder="" value="">
+                      <input class="form-control" type="text" name="pais_residente_fora_pais" id="" placeholder="" value="{{form.pais_residencia}}">
                     </div>
                   </div>
                 </div>
@@ -1002,12 +1016,12 @@ footer {
                   <div class="col-md-3"></div>
                   <div class="col-md-3">
                     <div class="form-group"><b>Data de Investigação</b>
-                      <input class="form-control" type="date" name="data_investigacao" value="" id="data_investigacao_id">
+                      <input class="form-control" type="date" name="data_investigacao" value="{{form.data_investigacao}}" id="data_investigacao_id">
                     </div>
                   </div>
                   <div class="col-md-4">
                     <div class="form-group"><b>Ocupação</b>
-                      <input class="form-control" type="text" name="ocupacao" placeholder="" value="">
+                      <input class="form-control" type="text" name="ocupacao" placeholder="" value="{{form.ocupacao}}">
                     </div>
                   </div>
                 </div>
@@ -1069,8 +1083,13 @@ footer {
                       <label class="custom-control-label" for="outros_id">Outros</label>
                     </div>
                   </div>
-                  
+                  <script>
+                    {% for ambiente in form.ambientes_frequentados %}
+                      $("input[name='ambientes_frequentados'][value='{{ambiente}}']").prop("checked", true)
+                    {% endfor  %}
+                  </script>
                 </div><br>
+                
 
                 <div class="row">
                   <div class="col-sm-12">
@@ -1107,7 +1126,11 @@ footer {
                       <label class="custom-control-label" for="outros_animais_id">Outros Animais</label>
                     </div>
                   </div>
-
+                  <script>
+                    {% for animais in form.animais_que_teve_contato %}
+                      $(`input[name='animais_que_teve_contato'][value='{{animais}}']`).prop("checked", true)
+                    {% endfor  %}
+                  </script>
                 </div><br>
 
                 <div class="row">
@@ -1149,7 +1172,11 @@ footer {
                       <label class="custom-control-label" for="outros_a_id">Outros</label>
                     </div>
                   </div>
-
+                  <script>
+                    {% for contato in form.natureza_contato_animais %}
+                      $(`input[name='natureza_contato_animais'][value='{{contato}}']`).prop("checked", true)
+                    {% endfor  %}
+                  </script>
                 </div><br>
 
                 <div class="row">
@@ -1178,16 +1205,6 @@ footer {
                     </div>
                   </div>
 
-                  <script>
-                    $(document).ready(function(){
-                      $('[data-toggle="tooltip"]').tooltip();
-                      $('#cid_number').val(10);
-                      $("#coleta_gal_1").hide();
-                      $("#coleta_gal_2").hide();
-                      $("#coleta_gal_3").hide();
-                    });
-                  </script>
-
                   <div class="col-md-2">
                     <div class="custom-control custom-checkbox mb-3">
                       <input type="checkbox" class="custom-control-input" id="abrigo_id" name="relacao_animal_doente" value="Abrigo/ONG">
@@ -1201,7 +1218,11 @@ footer {
                       <label class="custom-control-label" for="outros_p_id">Outros</label>
                     </div>
                   </div>
-
+                  <script>
+                    {% for relacao in form.relacao_animal_doente %}
+                      $(`input[name='relacao_animal_doente'][value='{{relacao}}']`).prop("checked", true)
+                    {% endfor  %}
+                  </script>
                 </div>
                 <br>
                 
@@ -1237,7 +1258,9 @@ footer {
                       <label class="custom-control-label" for="customRadio27">Ignorado</label>
                     </div>
                   </div>
-
+                  <script>
+                      $("input[name='exerc_ativ_contato_plantas'][value='{{form.exerce_atividade_contato_plantas}}']").prop("checked", true)
+                  </script>
 
                   <script>
                     $(document).ready(function(){
@@ -1278,6 +1301,9 @@ footer {
                     </div>
                   </div>
 
+                  <script>
+                    $("input[name='lesao_manuseio'][value='{{form.historico_contato_material}}']").prop("checked", true)
+                  </script>
                   
                   <script>
                     $(document).ready(function(){
@@ -1320,7 +1346,9 @@ footer {
                       <label class="custom-control-label" for="customRadio21">Ignorado</label>
                     </div>
                   </div>
-                  
+                  <script>
+                    $("input[name='presenca_lesao_pele'][value='{{form.presenca_lesao_pele}}']").prop("checked", true)
+                  </script>
                 </div><br>
 
                 <style>
@@ -1345,42 +1373,33 @@ footer {
                     if(document.getElementById('checkbox_1_id').checked == true){
                       $("#gal_id_1").prop("disabled", false);
                       $("#data_coleta_material_id_1").prop("disabled", false);
-                      $("#btn_gal_id_1").hide();
                     } else if(document.getElementById('checkbox_1_id').checked == false){
                       $("#gal_id_1").prop("disabled", true);
                       $("#data_coleta_material_id_1").prop("disabled", true);
                       $("#gal_id_1").val("");
                       $("#data_coleta_material_id_1").val("");
-                      $("#btn_gal_id_1").prop("disabled", true);
-                      $("#btn_gal_id_1").hide();
                     }
                   };
                   function active_deactive_2(){
                     if(document.getElementById('checkbox_2_id').checked == true){
                       $("#gal_id_2").prop("disabled", false);
                       $("#data_coleta_material_id_2").prop("disabled", false);
-                      $("#btn_gal_id_2").hide();
                     } else if(document.getElementById('checkbox_2_id').checked == false){
                       $("#gal_id_2").prop("disabled", true);
                       $("#data_coleta_material_id_2").prop("disabled", true);
                       $("#gal_id_2").val("");
                       $("#data_coleta_material_id_2").val("");
-                      $("#btn_gal_id_2").prop("disabled", true);
-                      $("#btn_gal_id_2").hide();
                     }
                   };
                   function active_deactive_3(){
                     if(document.getElementById('checkbox_3_id').checked == true){
                       $("#gal_id_3").prop("disabled", false);
                       $("#data_coleta_material_id_3").prop("disabled", false);
-                      $("#btn_gal_id_3").hide();
                     } else if(document.getElementById('checkbox_3_id').checked == false){
                       $("#gal_id_3").prop("disabled", true);
                       $("#data_coleta_material_id_3").prop("disabled", true);
                       $("#gal_id_3").val("");
                       $("#data_coleta_material_id_3").val("");
-                      $("#btn_gal_id_3").prop("disabled", true);
-                      $("#btn_gal_id_3").hide();
                     }
                   };
 
@@ -1541,9 +1560,14 @@ footer {
                   </div>
                   <div class="col-md-3">
                     <div class="form-group">
-                      <input class="form-control" type="text" id="nat_lesao_outros_id" name="natureza_lesao_outros" value="">
+                      <input class="form-control" type="text" id="nat_lesao_outros_id" name="natureza_lesao_outros" value="{{form.natureza_lesao_outro}}">
                     </div>
                   </div>
+                  <script>
+                    {% for natureza in form.natureza_lesao %}
+                      $(`input[name='natureza_lesao'][value='{{natureza}}']`).prop("checked", true)
+                    {% endfor %}
+                  </script>
                 </div><br>
                 
                 <div class="row">
@@ -1640,10 +1664,14 @@ footer {
                   </div>
                   <div class="col-md-4">
                     <div class="form-group">
-                      <input class="form-control" type="text" id="loc_lesao_outros_id" name="local_lesao_outros" value="">
+                      <input class="form-control" type="text" id="loc_lesao_outros_id" name="local_lesao_outros" value="{{form.local_lesao_outro}}">
                     </div>
                   </div>
-
+                  <script>
+                    {% for local in form.local_lesao %}
+                      $(`input[name='local_lesao'][value='{{local}}']`).prop("checked", true)
+                    {% endfor %}
+                  </script>
                 </div>
                 <br>
                 <div class="row">
@@ -1674,7 +1702,9 @@ footer {
                       <label class="custom-control-label" for="customRadio24">Ignorado</label>
                     </div>
                   </div>
-
+                  <script>
+                    $("input[name='diagnostico_extracutaneo'][value='{{form.diagnostico_forma_extrac_doenca}}']").prop("checked", true)
+                  </script>
                 </div><br>
 
                 <div class="row">
@@ -1684,7 +1714,7 @@ footer {
                       <div class="input-group-prepend">
                         <span class="input-group-text">Qual Localização</span>
                       </div>
-                      <input type="text" class="form-control" name="local_extra_cutanea" value="" id="local_diag_extracutaneo" disabled>
+                      <input type="text" class="form-control" name="local_extra_cutanea" value="{{form.localizacao_forma_extrac_doenca}}" id="local_diag_extracutaneo" disabled>
                     </div>
                   </div>
                 </div><br>
@@ -1727,7 +1757,9 @@ footer {
                       <label class="custom-control-label" for="coleta_exame_ignorado_id">Ignorado</label>
                     </div>
                   </div>
-                  
+                  <script>
+                    $("input[name='coleta_exame_labo_sim'][value='{{form.houve_coleta_material}}']").prop("checked", true)
+                  </script>
                 </div><br>
                 <!-- |INICIO| DATA COLETA E GAL -->
                 <!-- |1| DATA COLETA E GAL -->
@@ -1739,7 +1771,7 @@ footer {
                         <input onclick="active_deactive_1()" style="margin-top:12px;" class="form-check-input" type="checkbox" value="" id="checkbox_1_id">
                         <span class="input-group-text">Data Coleta 1</span>
                       </div>
-                      <input type="date" class="form-control" name="data_coleta_mat_exame1" value="" id="data_coleta_material_id_1" disabled>
+                      <input type="date" class="form-control" name="data_coleta_mat_exame1" value="{{form.data_coleta1}}" id="data_coleta_material_id_1" disabled>
                     </div>
                   </div>
                   <div class="col-md-4">
@@ -1747,15 +1779,16 @@ footer {
                       <div class="input-group-prepend" id="lb_gal_1">
                         <span class="input-group-text">N° GAL 1</span>
                       </div>
-
-                      <input onkeydown="visualizar_gal(id)" onkeypress="return limitcarc(event, 'num')" type="text" class="form-control" name="" value="" id="gal_id_1" disabled>
-
+                      <input type="text" class="form-control" name="numero_gal1" value="{{form.numero_gal1}}" id="gal_id_1" disabled>
                     </div>
                   </div>
-                  <div class="col-md-2">
-                    <button type="button" id="btn_gal_id_1" class="btn btn-primary" data-toggle="modal" data-target=".bd-example-modal-lg" disabled>Visualizar</button>
-                  </div>
                 </div>
+                <script>
+                  {% if form.data_coleta1 != None %}
+                    $("#lb_data_coleta_material_1 input").prop("checked", true)
+                    active_deactive_1()
+                  {% endif %}
+                </script>
                 <!-- |2| DATA COLETA E GAL -->
                 <div id="coleta_gal_2" class="row">
                   <div class="col-md-2"></div>
@@ -1765,7 +1798,7 @@ footer {
                         <input onclick="active_deactive_2()" style="margin-top:12px;" class="form-check-input" type="checkbox" value="" id="checkbox_2_id">
                         <span class="input-group-text">Data Coleta 2</span>
                       </div>
-                      <input type="date" class="form-control" name="data_coleta_mat_exame2" value="" id="data_coleta_material_id_2" disabled>
+                      <input type="date" class="form-control" name="data_coleta_mat_exame2" value="{{form.data_coleta2}}" id="data_coleta_material_id_2" disabled>
                     </div>
                   </div>
                   <div class="col-md-4">
@@ -1773,15 +1806,16 @@ footer {
                       <div class="input-group-prepend" id="lb_gal_2">
                         <span class="input-group-text">N° GAL 2</span>
                       </div>
-
-                      <input onkeydown="visualizar_gal(id)" onkeypress="return limitcarc(event, 'num')" type="text" class="form-control" name="" value="" id="gal_id_2" disabled>
-
+                      <input type="text" class="form-control" name="numero_gal2" value="{{form.numero_gal2}}" id="gal_id_2" disabled>
                     </div>
                   </div>
-                  <div class="col-md-2">
-                    <button type="button" id="btn_gal_id_2" class="btn btn-primary" data-toggle="modal" data-target=".bd-example-modal-lg" disabled>Visualizar</button>
-                  </div>
                 </div>
+                <script>
+                  {% if form.data_coleta2 != None %}
+                    $("#lb_data_coleta_material_2 input").prop("checked", true)
+                    active_deactive_2()
+                  {% endif %}
+                </script>
                 <!-- |3| DATA COLETA E GAL -->
                 <div id="coleta_gal_3" class="row">
                   <div class="col-md-2"></div>
@@ -1791,7 +1825,7 @@ footer {
                         <input onclick="active_deactive_3()" style="margin-top:12px;" class="form-check-input" type="checkbox" value="" id="checkbox_3_id">
                         <span class="input-group-text">Data Coleta 3</span>
                       </div>
-                      <input type="date" class="form-control" name="data_coleta_mat_exame3" value="" id="data_coleta_material_id_3" disabled>
+                      <input type="date" class="form-control" name="data_coleta_mat_exame3" value="{{form.data_coleta3}}" id="data_coleta_material_id_3" disabled>
                     </div>
                   </div>
                   <div class="col-md-4">
@@ -1799,128 +1833,22 @@ footer {
                       <div class="input-group-prepend" id="lb_gal_3">
                         <span class="input-group-text">N° GAL 3</span>
                       </div>
-
-                      <input onkeydown="visualizar_gal(id)" onkeypress="return limitcarc(event, 'num')" type="text" class="form-control" name="" value="" id="gal_id_3" disabled>
-
+                      <input type="text" class="form-control" name="numero_gal3" value="{{form.numero_gal3}}" id="gal_id_3" disabled>
                     </div>
-                  </div>
-                  <div class="col-md-2">
-                    <button type="button" id="btn_gal_id_3" class="btn btn-primary" data-toggle="modal" data-target=".bd-example-modal-lg" disabled>Visualizar</button>
                   </div>
                 </div>
-                <!-- MODAL GAL -->
-                  <!-- Large modal -->
-                    <div id="modal_gal" class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-                      <div class="modal-dialog modal-lg">
-                        <div class="modal-content">
-                          <table id="table_gal" class="table table-hover">
-                            <thead>
-                              <tr>
-                                <th>Nome do exame</th>
-                                <th>Hospital</th>
-                                <th>Data do exame</th>
-                                <th>N° GAL</th>
-                              </tr>
-                            </thead>
-                            <tbody>
-                            </tbody>
-                          </table>
-                        </div>
-                      </div>
-                    </div>
 
-                <!-- MODAL GAL -->
                 <script>
-                  $('#modal_gal').on('hidden.bs.modal', function (e) {
-                    $("table > tbody:last-child").empty();
-                  });
+                  {% if form.data_coleta3 != None %}
+                    $("#lb_data_coleta_material_3 input").prop("checked", true)
+                    active_deactive_3()
+                  {% endif %}
 
-                  $("#btn_gal_id_1").on('click', function(){
-                    gal_value = document.getElementById('gal_id_1').value;
-                    $.ajax({
-                      url: "{% url 'ajax_gal' %}",
-                      data: {
-                        'n_gal':gal_value
-                      },
-                      success: function(data){
-                        for (exame in data){
-                          nome_exame = data[exame]['nome'];
-                          data_exame = data[exame]['data'];
-                          hospital = data[exame]['hospital'];
-                          $("table > tbody:last-child").append(`
-                            <tr>
-                              <td>${nome_exame}</td>
-                              <td>${hospital}</td>
-                              <td>${data_exame}</td>
-                              <td>${gal_value}</td>
-                            </tr>                                          
-                          `);
-                        };
-                      }
-                    });
-                  });
-
-                  $("#btn_gal_id_2").on('click', function(){
-                    gal_value = document.getElementById('gal_id_2').value;
-                    $.ajax({
-                      url: "{% url 'ajax_gal' %}",
-                      data: {
-                        'n_gal':gal_value
-                      },
-                      success: function(data){
-                        for (exame in data){
-                          nome_exame = data[exame]['nome'];
-                          data_exame = data[exame]['data'];
-                          hospital = data[exame]['hospital'];
-                          $("table > tbody:last-child").append(`
-                            <tr>
-                              <td>${nome_exame}</td>
-                              <td>${hospital}</td>
-                              <td>${data_exame}</td>
-                              <td>${gal_value}</td>
-                            </tr>                                          
-                          `);
-                        };
-                      }
-                    });
-                  });
-                  $("#btn_gal_id_3").on('click', function(){
-                    gal_value = document.getElementById('gal_id_3').value;
-                    $.ajax({
-                      url: "{% url 'ajax_gal' %}",
-                      data: {
-                        'n_gal':gal_value
-                      },
-                      success: function(data){
-                        for (exame in data){
-                          nome_exame = data[exame]['nome'];
-                          data_exame = data[exame]['data'];
-                          hospital = data[exame]['hospital'];
-                          $("table > tbody:last-child").append(`
-                            <tr>
-                              <td>${nome_exame}</td>
-                              <td>${hospital}</td>
-                              <td>${data_exame}</td>
-                              <td>${gal_value}</td>
-                            </tr>                                          
-                          `);
-                        };
-                      }
-                    });
-                  });
-                  
-                  
-                  
-                  //  SCRIPT APENAS PARA A VISUALIZAÇÃO GAL
-                  function visualizar_gal(id){
-                    let id_value = document.getElementById(id).value;
-                    let id_btn = "#btn_"+id
-                    if (id_value.length > 1){
-                      $(id_btn).prop('disabled', false);                      
-                    } else {
-                      $(id_btn).prop('disabled', true);                      
-                    };                    
-                  };
+                  $('[data-toggle="tooltip"]').tooltip();
+                  $('#cid_number').val(10);
+                  $("#coleta_gal_1").hide();
+                  $("#coleta_gal_2").hide();
+                  $("#coleta_gal_3").hide();
                 </script>
                 <!-- |FIM| DATA COLETA E GAL -->
                 <br>
@@ -1960,7 +1888,9 @@ footer {
                       <label class="custom-control-label" for="customRadio4">Não Realizado</label>
                     </div>
                   </div>
-                  
+                  <script>
+                    $("input[name='resultado_isolamento'][value='{{form.resultado_isolamento}}']").prop("checked", true)
+                  </script>
                 </div><br>
 
                 <div class="row">
@@ -1970,7 +1900,7 @@ footer {
                       <div class="input-group-prepend" id="">
                         <span class="input-group-text">Agente</span>
                       </div>
-                      <input type="text" class="form-control" name="agente_isolamento" value="" id="agente_id" disabled>
+                      <input type="text" class="form-control" name="agente_isolamento" value="{{form.agente}}" id="agente_id" disabled>
                     </div>
                   </div>
                 </div>
@@ -2011,7 +1941,9 @@ footer {
                       <label class="custom-control-label" for="customRadio8">Não Realizado</label>
                     </div>
                   </div>
-                  
+                  <script>
+                    $("input[name='histopatologia'][value='{{form.histopatologia}}']").prop("checked", true)
+                  </script>
                 </div><br><br>
                 <div class="row">
                   <div class="col-sm-12">
@@ -2026,7 +1958,7 @@ footer {
                       <div class="input-group-prepend" id="">
                         <span class="input-group-text">Data</span>
                       </div>
-                      <input type="date" class="form-control" name="data_outros_exames_1" value="" id="data_outros_exames_1_id">
+                      <input type="date" class="form-control" name="data_outros_exames_1" value="{{form.data_resultado_exame1}}" id="data_outros_exames_1_id">
                     </div>
                   </div>
                   <div class="col-md-4">
@@ -2034,7 +1966,7 @@ footer {
                       <div class="input-group-prepend" id="">
                         <span class="input-group-text">Descricao</span>
                       </div>
-                      <select class="form-control" id="select_descricao_1">
+                      <select class="form-control" id="select_descricao_1" name="descricao_outros_exames_1">
                         <option value="micologico">Micológico</option>
                         <option value="outros">Outros</option>
                       </select>
@@ -2045,7 +1977,7 @@ footer {
                       <div class="input-group-prepend" id="">
                         <span class="input-group-text">Resultado</span>
                       </div>
-                      <input type="text" class="form-control" name="resultado_outros_exames_1" value="" id="">
+                      <input type="text" class="form-control" name="resultado_outros_exames_1" value="{{form.resultado_exame1}}" id="">
                     </div>
                   </div>
                   
@@ -2056,7 +1988,7 @@ footer {
                       <div class="input-group-prepend" id="">
                         <span class="input-group-text">Data</span>
                       </div>
-                      <input type="date" class="form-control" name="data_outros_exames_2" value="" id="data_outros_exames_2_id">
+                      <input type="date" class="form-control" name="data_outros_exames_2" value="{{form.data_resultado_exame2}}" id="data_outros_exames_2_id">
                     </div>
                   </div>
                   <div class="col-md-4">
@@ -2064,7 +1996,7 @@ footer {
                       <div class="input-group-prepend" id="">
                         <span class="input-group-text">Descricao</span>
                       </div>
-                      <select class="form-control" id="select_descricao_2">
+                      <select class="form-control" id="select_descricao_2" name="descricao_outros_exames_2">
                         <option value="micologico">Micológico</option>
                         <option value="outros">Outros</option>
                       </select>
@@ -2075,7 +2007,7 @@ footer {
                       <div class="input-group-prepend" id="">
                         <span class="input-group-text">Resultado</span>
                       </div>
-                      <input type="text" class="form-control" name="resultado_outros_exames_2" value="" id="">
+                      <input type="text" class="form-control" name="resultado_outros_exames_2" value="{{form.resultado_exame2}}" id="">
                     </div>
                   </div>
 
@@ -2088,7 +2020,7 @@ footer {
                       <div class="input-group-prepend" id="">
                         <span class="input-group-text">Data</span>
                       </div>
-                      <input type="date" class="form-control" name="data_outros_exames_3" value="" id="data_outros_exames_3_id">
+                      <input type="date" class="form-control" name="data_outros_exames_3" value="{{form.data_resultado_exame3}}" id="data_outros_exames_3_id">
                     </div>
                   </div>
                   <div class="col-md-4">
@@ -2096,7 +2028,7 @@ footer {
                       <div class="input-group-prepend" id="">
                         <span class="input-group-text">Descricao</span>
                       </div>
-                      <select class="form-control" id="select_descricao_3">
+                      <select class="form-control" id="select_descricao_3" name="descricao_outros_exames_3">
                         <option value="micologico">Micológico</option>
                         <option value="outros">Outros</option>
                       </select>
@@ -2107,9 +2039,15 @@ footer {
                       <div class="input-group-prepend" id="">
                         <span class="input-group-text">Resultado</span>
                       </div>
-                      <input type="text" class="form-control" name="resultado_outros_exames_3" value="" id="">
+                      <input type="text" class="form-control" name="resultado_outros_exames_3" value="{{form.resultado_exame3}}" id="">
                     </div>
                   </div>
+
+                  <script>
+                     $('#select_descricao_1').find('option[value={{form.descricao_exame_1}}]').attr("selected", "selected");
+                     $('#select_descricao_2').find('option[value={{form.descricao_exame_2}}]').attr("selected", "selected");
+                     $('#select_descricao_3').find('option[value={{form.descricao_exame_3}}]').attr("selected", "selected");
+                  </script>
                 </div><br><br>
                 
 
@@ -2132,7 +2070,7 @@ footer {
                       <div class="input-group-prepend" id="">
                         <span class="input-group-text">Início</span>
                       </div>
-                      <input type="date" class="form-control" name="data_inicio_tratamento" value="" id="data_inicio_tratamento_id">
+                      <input type="date" class="form-control" name="data_inicio_tratamento" value="{{form.data_inicio_tratamento1}}" id="data_inicio_tratamento_id">
                     </div>
                   </div>
                   <div class="col-md-5">
@@ -2140,7 +2078,7 @@ footer {
                       <div class="input-group-prepend" id="">
                         <span class="input-group-text">Droga Administrada</span>
                       </div>
-                      <input type="text" class="form-control" name="droga_admin_tratamento" value="" id="">
+                      <input type="text" class="form-control" name="droga_admin_tratamento" value="{{form.droga_administrada1}}" id="">
                     </div>
                   </div>
                   <div class="col-md-4">
@@ -2148,7 +2086,7 @@ footer {
                       <div class="input-group-prepend" id="">
                         <span class="input-group-text">Esquema Terapeutico</span>
                       </div>
-                      <input type="text" class="form-control" name="esquema_terapeutico" value="" id="">
+                      <input type="text" class="form-control" name="esquema_terapeutico" value="{{form.esquema_terapeutico1}}" id="">
                     </div>
                   </div>
                 </div>
@@ -2158,7 +2096,7 @@ footer {
                       <div class="input-group-prepend" id="">
                         <span class="input-group-text">Início</span>
                       </div>
-                      <input type="date" class="form-control" name="data_inicio_tratamento2" value="" id="data_inicio_tratamento2_id">
+                      <input type="date" class="form-control" name="data_inicio_tratamento2" value="{{form.data_inicio_tratamento2}}" id="data_inicio_tratamento2_id">
                     </div>
                   </div>
                   <div class="col-md-5">
@@ -2166,7 +2104,7 @@ footer {
                       <div class="input-group-prepend" id="">
                         <span class="input-group-text">Droga Administrada</span>
                       </div>
-                      <input type="text" class="form-control" name="droga_admin_tratamento2" value="" id="">
+                      <input type="text" class="form-control" name="droga_admin_tratamento2" value="{{form.droga_administrada2}}" id="">
                     </div>
                   </div>
                   <div class="col-md-4">
@@ -2174,7 +2112,7 @@ footer {
                       <div class="input-group-prepend" id="">
                         <span class="input-group-text">Esquema Terapeutico</span>
                       </div>
-                      <input type="text" class="form-control" name="esquema_terapeutico2" value="" id="">
+                      <input type="text" class="form-control" name="esquema_terapeutico2" value="{{form.esquema_terapeutico2}}" id="">
                     </div>
                   </div>
                 </div>
@@ -2184,7 +2122,7 @@ footer {
                       <div class="input-group-prepend" id="">
                         <span class="input-group-text">Início</span>
                       </div>
-                      <input type="date" class="form-control" name="data_inicio_tratamento3" value="" id="data_inicio_tratamento3_id">
+                      <input type="date" class="form-control" name="data_inicio_tratamento3" value="{{form.data_inicio_tratamento3}}" id="data_inicio_tratamento3_id">
                     </div>
                   </div>
                   <div class="col-md-5">
@@ -2192,7 +2130,7 @@ footer {
                       <div class="input-group-prepend" id="">
                         <span class="input-group-text">Droga Administrada</span>
                       </div>
-                      <input type="text" class="form-control" name="droga_admin_tratamento3" value="" id="">
+                      <input type="text" class="form-control" name="droga_admin_tratamento3" value="{{form.droga_administrada3}}" id="">
                     </div>
                   </div>
                   <div class="col-md-4">
@@ -2200,7 +2138,7 @@ footer {
                       <div class="input-group-prepend" id="">
                         <span class="input-group-text">Esquema Terapeutico</span>
                       </div>
-                      <input type="text" class="form-control" name="esquema_terapeutico3" value="" id="">
+                      <input type="text" class="form-control" name="esquema_terapeutico3" value="{{form.esquema_terapeutico3}}" id="">
                     </div>
                   </div>
                 </div><br><br>
@@ -2315,7 +2253,9 @@ footer {
                   </div>
 
                   
-                  
+                  <script>
+                    $("input[name='hospitalizado'][value='{{form.hospitalizacao}}']").prop("checked", true)
+                  </script>
                 </div><br>
                 
 
@@ -2326,7 +2266,7 @@ footer {
                       <div class="input-group-prepend" id="div_lb">
                         <span class="input-group-text">Data Internação</span>
                       </div>
-                      <input type="date" class="form-control" name="data_internacao" value="" id="input_internacao" disabled>
+                      <input type="date" class="form-control" name="data_internacao" value="{{form.data_internacao}}" id="input_internacao" disabled>
                     </div>
                   </div>
                   <div class="col-md-3">
@@ -2334,7 +2274,7 @@ footer {
                       <div class="input-group-prepend" id="div_lb_da">
                         <span class="input-group-text">Data Alta</span>
                       </div>
-                      <input type="date" class="form-control" name="data_alta" value="" id="input_d_a" disabled>
+                      <input type="date" class="form-control" name="data_alta" value="{{form.data_da_alta}}" id="input_d_a" disabled>
                     </div>
                   </div>
                   <div class="col-md-3">
@@ -2374,6 +2314,12 @@ footer {
                       </select>
                     </div>
                   </div>
+                  <script>
+                    $('#sel_uf_t').find('option[value="{{form.uf_hospitalizacao}}"]').attr("selected", "selected")
+                    $('#sel_uf_t').ready(function(){
+                      activeOutroHospital()
+                    })
+                  </script>
 
                   <div class="col-md-6">
                     <div class="input-group mb-3" id="">
@@ -2390,6 +2336,9 @@ footer {
                         </select>
                       </div>
                     </div>
+                    <script>
+                      $('#mun_hosp_id').find('option[value="{{form.municipio_hospitalizacao}}"]').attr("selected", "selected")
+                    </script>
                     <div class="col-md-3">
                       <div class="input-group mb-3" id="">
                         <div class="input-group-prepend" id="">
@@ -2398,9 +2347,9 @@ footer {
                         <!--
                         <input type="text" class="form-control" name="codigo_ibge_municipio_hospitalizacao" value="" id="cod_ibge_id" disabled>
                       -->
-                      <select class="form-control" name="codigo_ibge_municipio_hospitalizacao" id="cod_ibge_id" disabled>
+                      <input type="text" class="form-control" value="{{form.codigo_ibge_hospitalizacao}}" name="codigo_ibge_municipio_hospitalizacao" id="cod_ibge_id" disabled readonly>
 
-                      </select>
+                      </input>
                     </div>
                   </div>
                   <div class="col-md-3">
@@ -2421,7 +2370,7 @@ footer {
                         </select>
                       </div>
                     </div>
-
+                    
                   </div><br>
                   <!-- dados hospitalização outro -->
 
@@ -2431,7 +2380,7 @@ footer {
                         <div class="input-group-prepend" id="">
                           <span class="input-group-text">Outro Município do Hospital</span>
                         </div>
-                        <input type="text" class="form-control" name="municipio_hospital_outro" value="" id="outro_municipio_hospitalizacao">
+                        <input type="text" class="form-control" name="municipio_hospital_outro" value="{{form.municipio_hospitalizacao}}" id="outro_municipio_hospitalizacao">
                       </div>
                     </div>
                     <div class="col-md-3">
@@ -2439,7 +2388,7 @@ footer {
                         <div class="input-group-prepend" id="">
                           <span class="input-group-text">Código IBGE</span>
                         </div>                        
-                        <input type="text" class="form-control" name="codigo_ibge_municipio_hospitalizacao_outro" value="" id="outro_ibge_hospitalizacao">                        
+                        <input type="text" class="form-control" name="codigo_ibge_municipio_hospitalizacao_outro" value="{{form.codigo_ibge_hospitalizacao}}" id="outro_ibge_hospitalizacao">                        
                       </div>
                     </div>                  
 
@@ -2448,7 +2397,7 @@ footer {
                         <div class="input-group-prepend" id="">
                           <span class="input-group-text">Nome do Hospital</span>
                         </div>
-                        <input type="text" class="form-control" name="nome_hospital_hospitalizacao_outro" value="" id="outro_hospital_hospitalizacao">
+                        <input type="text" class="form-control" name="nome_hospital_hospitalizacao_outro" value="{{form.nome_hospital_hospitalizacao}}" id="outro_hospital_hospitalizacao">
                       </div>
                     </div>
                   </div>
@@ -2480,7 +2429,9 @@ footer {
                         <label class="custom-control-label" for="customRadio13">Descartado</label>
                       </div>
                     </div>
-
+                    <script>
+                      $('input[name="classificacao"][value="{{form.classificacao_final}}"]').prop('checked', true)
+                    </script>
                   </div><br><br>
                   <div class="row">
                     <div class="col-sm-12">
@@ -2507,6 +2458,9 @@ footer {
                     </div>
 
                   </div>
+                  <script>
+                    $('input[name="criterio"][value="{{form.criterio_confirmacao}}"]').prop('checked', true)
+                  </script>
                   <br><br>
                   <div class="row">
                     <div class="col-sm-12">
@@ -2537,6 +2491,7 @@ footer {
                         <label class="custom-control-label" for="customRadio18" onclick="desactiveInputsAutoctone()">Indeterminado</label>
                       </div>
                     </div>
+                    
                     <div class="col-md-3">
                       <div class="input-group mb-3" id="">
                         <div class="input-group-prepend" id="">
@@ -2584,7 +2539,7 @@ footer {
                         <div class="input-group-prepend" id="">
                           <span class="input-group-text">Código IBGE</span>
                         </div>                                           
-                        <select class="form-control" name="ibge_autoctone" name="" id="ibge_autoctone_id" disabled></select>
+                        <input type="text" class="form-control" name="ibge_autoctone" value="{{form.codigo_ibge_caso_autoctone}}" id="ibge_autoctone_id" readonly>
                       </div>
                     </div>
                     <div class="col-md-4">
@@ -2592,10 +2547,7 @@ footer {
                         <div class="input-group-prepend" id="">
                           <span class="input-group-text">Distrito</span>
                         </div>
-                        <!--
-                        <input type="text" class="form-control" name="distrito_autoctone" value="" id="">
-                      -->
-                      <select class="form-control" name="ibge_autoctone" name="" id="distrito_autoctone_id" disabled></select>
+                        <select class="form-control" name="distrito_autoctone" id="distrito_autoctone_id" disabled></select>
                     </div>
                   </div>
                 </div>
@@ -2607,7 +2559,7 @@ footer {
                       <div class="input-group-prepend" id="">
                         <span class="input-group-text">Bairro</span>
                       </div>
-                      <input type="text" class="form-control" name="bairro_autoctone" value="" id="bairro_autoctone_id" disabled>
+                      <input type="text" class="form-control" name="bairro_autoctone" value="{{form.bairro_caso_autoctone}}" id="bairro_autoctone_id" disabled>
                     </div>
                   </div>
                   <div class="col-md-4">
@@ -2657,6 +2609,18 @@ footer {
                       </select>
                     </div>
                   </div>
+
+                  <script>
+                    $('input[name="autoctone"][value="{{form.caso_autoctone_municipio_residencia}}"]').prop('checked', true)
+                    if (document.getElementById('customRadio16').checked) {
+                      activeInputsAutoctone()
+                    }
+                    $('#pais_autoctone_id').find('option[value="{{form.pais_caso_autoctone}}"]').attr("selected", "selected")
+                    $('#uf_caso_autoctone_id').find('option[value="{{form.uf_caso_autoctone}}"]').attr("selected", "selected")
+                    $('#area_provavel_infeccao_autoctone_id').find('option[value="{{form.area_provavel_infeccao_caso_autoctone}}"]').attr("selected", "selected")
+                    $('#ambiente_infeccao_autoctone_id').find('option[value="{{form.ambiente_infeccao_caso_autoctone}}"]').attr("selected", "selected")
+                    $('#doenca_rel_trabalho_autoctone_id').find('option[value="{{form.doenca_rel_trabalho_caso_autoctone}}"]').attr("selected", "selected")
+                  </script>
                   
                 </div>
                 
@@ -2694,6 +2658,7 @@ footer {
 
 
                   function activeOutroHospital(){
+                    console.log(document.getElementById("sel_uf_t").value)
                     if (document.getElementById("sel_uf_t").value != "PB"){
                       $("#dados_hospitalizacao_outro").show();
                       $("#mun_hosp_id").val("");
@@ -2750,12 +2715,18 @@ footer {
                       </select>
                     </div>
                   </div>
+                  <script>
+                    $('#sel_evo_caso').find('option[value="{{form.evolucao_caso}}"]').attr("selected", "selected")
+                    $('#sel_evo_caso').ready(function(){
+                      activeDataEvoCaso()
+                    })
+                  </script>
                   <div class="col-md-4">
                     <div class="input-group mb-3" id="">
                       <div class="input-group-prepend" id="div_input_data_ob">
                         <span class="input-group-text">Data do Óbito</span>
                       </div>
-                      <input type="date" class="form-control" name="data_obito" value="" id="data_obito_evo_id">
+                      <input type="date" class="form-control" name="data_obito" value="{{form.data_obito}}" id="data_obito_evo_id">
                     </div>
                   </div>
                   
@@ -2768,7 +2739,7 @@ footer {
                       <div class="input-group-prepend" id="">
                         <span class="input-group-text">Data Encerramento</span>
                       </div>
-                      <input type="date" class="form-control" name="data_encerramento" value="" id="data_encerramento_id">
+                      <input type="date" class="form-control" name="data_encerramento" value="{{form.data_encerramento}}" id="data_encerramento_id">
                     </div>
                   </div>
 
@@ -2786,7 +2757,7 @@ footer {
                   <div class="col-md-6">
                     <div class="form-group">
                       <label for="comment">Comentário, observações e/ou anotações:</label>
-                      <textarea class="form-control" rows="5" id="comment" name="observacao"></textarea>
+                      <textarea class="form-control" rows="5" id="comment" name="observacao">{{form.observacao}}</textarea>
                     </div>
                   </div>
                 </div>
@@ -2813,7 +2784,7 @@ footer {
                       <div class="input-group-prepend" id="">
                         <span class="input-group-text">Nome</span>
                       </div>
-                      <input type="text" class="form-control" name="nome_investigador" value="" id="nome_investigador_id" onkeypress="return limitcarc(event, 'letr_acent')" onkeyup="maiuscula(event)">
+                      <input type="text" class="form-control" name="nome_investigador" value="{{form.nome_investigador}}" id="nome_investigador_id" onkeypress="return limitcarc(event, 'letr_acent')" style="text-transform: uppercase;">
                     </div>
                   </div>
 
@@ -2827,7 +2798,7 @@ footer {
                       <div class="input-group-prepend" id="">
                         <span class="input-group-text">Função</span>
                       </div>
-                      <input type="text" class="form-control" name="funcao_investigador" value="" id="">
+                      <input type="text" class="form-control" name="funcao_investigador" value="{{form.funcao_investigador}}" id="">
                     </div>
                   </div>
                   <div class="col-md-5">
@@ -2835,7 +2806,7 @@ footer {
                       <div class="input-group-prepend" id="">
                         <span class="input-group-text">Email</span>
                       </div>
-                      <input type="text" class="form-control" name="email_investigador" value="" id="">
+                      <input type="text" class="form-control" name="email_investigador" value="{{form.email_investigador}}" id="">
                     </div>
                   </div>                 
                   
@@ -2848,7 +2819,7 @@ footer {
                       <div class="input-group-prepend" id="">
                         <span class="input-group-text">Telefone</span>
                       </div>
-                      <input type="text" class="form-control" id="telefone_investigador_id" name="telefone_investigador" placeholder="apenas números">
+                      <input type="text" class="form-control" id="telefone_investigador_id" value="{{form.telefone_investigador}}" name="telefone_investigador" placeholder="apenas números">
 
                     </div>
                   </div>
@@ -2857,7 +2828,7 @@ footer {
                       <div class="input-group-prepend" id="">
                         <span class="input-group-text">Conselho Classe</span>
                       </div>
-                      <input type="text" class="form-control" name="conselho_classe_investigador" value="" id="">
+                      <input type="text" class="form-control" name="conselho_classe_investigador" value="{{form.conselho_classe_investigador}}" id="">
                     </div>
                   </div>                                 
                   
@@ -2869,16 +2840,13 @@ footer {
             <hr>
 
             <div class="container-fluid" style="text-align: center;">
-              <button type="submit" class="btn btn-primary" style="align-items: center;" id="btn_submit_id" disabled>Criar</button>  
+              <button type="submit" class="btn btn-primary" style="align-items: center;" id="btn_submit_id" disabled>Salvar</button>  
             </div>
           </form>
-          
+
           <!-- Scrip abaixo bloqueia envio formulário com ENTER -->
           <script>
             $(document).ready(function () {
-              $("#btn_gal_id_1").hide();
-              $("#btn_gal_id_2").hide();
-              $("#btn_gal_id_3").hide();
              $('input').keypress(function (e) {
               var code = null;
               code = (e.keyCode ? e.keyCode : e.which);                
@@ -2931,9 +2899,24 @@ footer {
         
       });
 
+      $("#unidade_saude_id").ready(function(){
+        //const url = $('#Form').attr("data-unidadesaude-url");
+        municipioId = $("#municipio_id").val();
+        unid = {{form.unidade_saude}};
+        $.ajax({
+          url : '{% url "ajax_load_unidadesaude" %}',
+          data: { 'municipio_id': municipioId},
+          success: function(data){
+            $("#unidade_saude_id").html(data);
+            $('#unidade_saude_id').find('option[value='+unid+']').attr("selected", "selected");
+          }
+        });
+      });
+
     $("#municipio_id").change(function(){
           //const url = $('#Form').attr("data-ibge-url");
           const municipioId = $(this).val();
+          console.log(municipioId)
           $.ajax({
             url : '{% url "ajax_load_ibge" %}',
             data: { 'municipio_id': municipioId},
@@ -2943,6 +2926,19 @@ footer {
           });
 
         });
+    
+      $("#ibge_cod_id").ready(function(){
+        //const url = $('#Form').attr("data-ibge-url");
+        const municipioId = $("#municipio_id").val();
+        $.ajax({
+          url : '{% url "ajax_load_ibge" %}',
+          data: { 'municipio_id': municipioId},
+          success: function(data){
+            $("#ibge_cod_id").val(data);
+          }
+        });
+
+      });
 
       //ajax para selects de hospitalização:
       //mun_hosp_id
@@ -2966,6 +2962,23 @@ footer {
 
         
       });
+      if (document.getElementById("sel_uf_t").value == "PB") {
+        $("#nome_hosp_id").ready(function(){
+          //const url = $('#Form').attr("data-hospitalizacao-url");
+          municipioId = $("#mun_hosp_id").val();
+  
+          $.ajax({
+            url : '{% url "ajax_hospitalizacao" %}',
+            data: { 'municipio_id': municipioId},
+            success: function(data){
+              $("#nome_hosp_id").html(data);
+              $('#nome_hosp_id').find('option[value="{{form.nome_hospital_hospitalizacao}}"]').attr("selected", "selected")
+            }
+          });
+        })
+
+        
+      };
 
       $("#mun_hosp_id").change(function(){
           //const url = $('#Form').attr("data-hospitalizacaoibge-url");
@@ -2974,7 +2987,7 @@ footer {
             url : '{% url "ajax_hospitalizacao_ibge" %}',
             data: { 'municipio_id': municipioId},
             success: function(data){
-              $("#cod_ibge_id").html(data);
+              $("#cod_ibge_id").val(data);
             }
           });
 
@@ -2996,25 +3009,48 @@ footer {
         
       });
 
+      $("#municipio_autoctone_id").ready(function(){
+        //const url = $('#Form').attr("data-autoctone-uf-url");
+        municipioId = $("#uf_caso_autoctone_id").val();
+
+        $.ajax({
+          url : '{% url "ajax_autoctone_uf" %}',
+          data: { 'municipio_id': municipioId},
+          success: function(data){
+            $("#municipio_autoctone_id").html(data);
+            $('#municipio_autoctone_id').find('option[value="{{form.municipio_caso_autoctone}}"]').attr("selected", "selected")
+            municipioId = $('#municipio_autoctone_id').val();
+
+            $.ajax({
+              url : '{% url "ajax_autoctone_distrito" %}',
+              data: { 'municipio_id': municipioId},
+              success: function(data){
+                console.log(data);
+                $("#distrito_autoctone_id").html(data);
+                $('#distrito_autoctone_id').find('option[value="{{form.distrito_caso_autoctone}}"]').attr("selected", "selected")
+              }
+            });
+          }
+        });
+        
+      });
+
       $("#municipio_autoctone_id").change(function(){
         //const url = $('#Form').attr("data-autoctone-municipio-url");
         municipioId = $(this).val();
+        console.log(municipioId)
 
         $.ajax({
           url : '{% url "ajax_autoctone_municipio" %}',
           data: { 'municipio_id': municipioId},
           success: function(data){
             console.log(data);
-            $("#ibge_autoctone_id").html(data);
+            $("#ibge_autoctone_id").val(data);
           }
         });
 
         
       });
-
-
-
-      
 
       $("#municipio_autoctone_id").change(function(){
         //const url = $('#Form').attr("data-autoctone-distrito-url");
@@ -3032,7 +3068,89 @@ footer {
         
       });
 
-    </script>
+      var nome_paciente = document.getElementById('nome_paciente_id').value.length;
+      var nome_mae = document.getElementById('nome_mae_id').value.length;
+      var date2 = document.getElementById('date2').value;
+      var data_1_s = document.getElementById('dt_primeiros_s').value;
+      var municipio = document.getElementById('municipio_id').value.length;
+      var telefone = document.getElementById('telefone_residencia_id').value.length;
+      
+      if (municipio != 0) {$('#alert_municipio').hide();} else {$('#alert_municipio').show();}
+      
+      if (data_1_s != "") {$('#alert_dt_ps').hide();} else {$('#alert_dt_ps').show();}
+      
+      if (nome_paciente >= 10) {$('#alert_paciente').hide();} else {$('#alert_paciente').show();}
+      
+      if (date2 != "") {$('#alert_data_nasc').hide();} else {$('#alert_data_nasc').show();}
+      
+      if (nome_mae >= 10) {$('#alert_nome_mae').hide();} else {$('#alert_nome_mae').show();}
+      
+      if ((nome_paciente >= 10) && (nome_mae >= 10) && (date2 != "") ){
+        $("#alert_notificacao_individual").hide();
+      } else {$("#alert_notificacao_individual").show();}
+
+      if ((data_1_s != "") && (municipio != 0)){
+        $('#alert_dados_gerais').hide();
+      }
+      if (telefone < 13){
+        $("#alert_dados_residencia").show();
+        $('#alert_telefone_paciente').show();
+      } else {
+        $("#alert_dados_residencia").hide();
+        $('#alert_telefone_paciente').hide();
+      }
+                        
+      if ((nome_paciente >= 10) && (nome_mae >= 10) && (date2 != "") 
+          && (data_1_s != "") && (municipio != 0) && (telefone >= 13)){
+        $("#btn_submit_id").prop("disabled", false);
+      } else {$("#btn_submit_id").prop("disabled", true);}
+
+      var data = document.getElementById('date2');
+      var idade = calcula(data);
+      idade = String(idade);
+      document.getElementById('result').value = idade;
+      activeGestante();
+      if ($("#customRadio22").is(':checked')){
+        $("#local_diag_extracutaneo").prop("disabled", false);
+      }
+      if ($("#local_lesao_outros_id").is(":checked")) {
+        $("#loc_lesao_outros_id").show();
+      }
+      if ($("#natureza_lesao_outros_id").is(":checked")) {
+        $("#nat_lesao_outros_id").show();
+      }
+      if ($("#coleta_exame_labo_sim_id").is(":checked")) {
+        console.log('1')
+        $("#coleta_gal_1").show();
+        $("#coleta_gal_2").show();
+        $("#coleta_gal_3").show();
+      }
+      if ($("#customRadio1").is(":checked")) {
+        $("#agente_id").prop("disabled", false);
+      }
+      if (document.getElementById("customRadio11").checked == true){
+        //$("#row_dados_hospitalizacao_id").show();
+        $("#div_g").show();
+        $("#div_lb").show();
+        
+        $("#input_internacao").prop("disabled", false);
+        $("#input_d_a").prop("disabled", false);
+        $("#sel_uf_t").prop("disabled", false);
+        $("#mun_hosp_id").prop("disabled", false);
+        $("#cod_ibge_id").prop("disabled", false);
+        $("#nome_hosp_id").prop("disabled", false);
+        $("#cod_hosp_id").prop("disabled", false);
+
+        
+        $("#div_g_da").show();
+        $("#div_lb_da").show();
+        $("#input_d_a").show();
+
+        $("#div_sel_uf").show();
+        $("#div_ls_sel").show();
+        $("#sel_uf_t").show();
+      }
+</script>
 
   </body>
   </html>
