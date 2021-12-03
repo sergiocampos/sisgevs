@@ -13,6 +13,7 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+from os import name
 from django.conf.urls import url, include
 from django.contrib import admin
 from django.urls import path, include
@@ -26,11 +27,16 @@ urlpatterns = [
     path('account/', include('account.urls')),
     path('account/', include('django.contrib.auth.urls')),
     path('accounts/', include('django.contrib.auth.urls')),
-    path('', views.index, name='index'),
+    path('', views.index_aberto, name='index_aberto'),
     path('login/',views.login_page, name='login_page'),
     path('login/submit', views.login_submit),
     path('logout/', views.logout_user),
     path('index/', views.index, name='index'),
+    path('index/ajax_index_aberto', views.ajax_index_aberto, name='ajax_index_aberto'),
+    path('index/ajax_filtrar_index_aberto', views.ajax_filtrar_index_aberto, name='ajax_filtrar_index_aberto'),
+    path('index/submit', views.ajax_exportar_index_fechado, name='ajax_exportar_index_fechado'),
+
+
     path('main/', views.main, name='main'),
 
     path('change_password/', views.change_password, name='change_password'),
@@ -64,13 +70,21 @@ urlpatterns = [
     path('informar_dados_ficha/', views.informar_dados_ficha, name='informar_dados_ficha'),
     path('localizar_paciente_nome/', views.localizar_paciente_nome, name='localizar_paciente_nome'),
     path('localizar_paciente_nome/submit', views.set_localizar_paciente_nome),
+    path('search_paciente_nome/', views.search_paciente_nome, name='search_paciente_nome'),
 
     path('caso_view/<id>/', views.caso_view, name='caso_view'),
     path('caso_view_detail/', views.caso_view_detail, name='caso_view_detail'),
 
     path('download_ficha/', views.download_ficha, name='download_ficha'),
     path('remove_caso_esporotricose/<id>/', views.remove_caso_esporotricose, name='remove_caso_esporotricose'),
+    path('index_aberto/', views.index_aberto, name='index_aberto'),
 
+    path('ajax_index_aberto', views.ajax_index_aberto, name='ajax_index_aberto'),
+    path('ajax_filtrar_index_aberto', views.ajax_filtrar_index_aberto, name='ajax_filtrar_index_aberto'),
+    path('submit', views.ajax_exportar_index_aberto, name='ajax_exportar_index_aberto'),
+    path('ajax_gal', views.ajax_gal, name='ajax_gal'),
+
+    
 ]
 
 urlpatterns += static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)
