@@ -2547,10 +2547,7 @@ footer {
                         <div class="input-group-prepend" id="">
                           <span class="input-group-text">Distrito</span>
                         </div>
-                        <!--
-                        <input type="text" class="form-control" name="distrito_autoctone" value="" id="">
-                      -->
-                      <select class="form-control" name="ibge_autoctone" name="" id="distrito_autoctone_id" disabled></select>
+                        <select class="form-control" name="distrito_autoctone" id="distrito_autoctone_id" disabled></select>
                     </div>
                   </div>
                 </div>
@@ -2562,7 +2559,7 @@ footer {
                       <div class="input-group-prepend" id="">
                         <span class="input-group-text">Bairro</span>
                       </div>
-                      <input type="text" class="form-control" name="bairro_autoctone" value="" id="bairro_autoctone_id" disabled>
+                      <input type="text" class="form-control" name="bairro_autoctone" value="{{form.bairro_caso_autoctone}}" id="bairro_autoctone_id" disabled>
                     </div>
                   </div>
                   <div class="col-md-4">
@@ -2614,12 +2611,15 @@ footer {
                   </div>
 
                   <script>
-                    $('#pais_autoctone_id').find('option[value="{{form.pais_caso_autoctone}}"]').attr("selected", "selected")
-                    $('#uf_caso_autoctone_id').find('option[value="{{form.uf_caso_autoctone}}"]').attr("selected", "selected")
                     $('input[name="autoctone"][value="{{form.caso_autoctone_municipio_residencia}}"]').prop('checked', true)
                     if (document.getElementById('customRadio16').checked) {
                       activeInputsAutoctone()
                     }
+                    $('#pais_autoctone_id').find('option[value="{{form.pais_caso_autoctone}}"]').attr("selected", "selected")
+                    $('#uf_caso_autoctone_id').find('option[value="{{form.uf_caso_autoctone}}"]').attr("selected", "selected")
+                    $('#area_provavel_infeccao_autoctone_id').find('option[value="{{form.area_provavel_infeccao_caso_autoctone}}"]').attr("selected", "selected")
+                    $('#ambiente_infeccao_autoctone_id').find('option[value="{{form.ambiente_infeccao_caso_autoctone}}"]').attr("selected", "selected")
+                    $('#doenca_rel_trabalho_autoctone_id').find('option[value="{{form.doenca_rel_trabalho_caso_autoctone}}"]').attr("selected", "selected")
                   </script>
                   
                 </div>
@@ -2717,7 +2717,7 @@ footer {
                   </div>
                   <script>
                     $('#sel_evo_caso').find('option[value="{{form.evolucao_caso}}"]').attr("selected", "selected")
-                    $('#sel_evo_caso').ready(function{
+                    $('#sel_evo_caso').ready(function(){
                       activeDataEvoCaso()
                     })
                   </script>
@@ -2726,7 +2726,7 @@ footer {
                       <div class="input-group-prepend" id="div_input_data_ob">
                         <span class="input-group-text">Data do Óbito</span>
                       </div>
-                      <input type="date" class="form-control" name="data_obito" value="" id="data_obito_evo_id">
+                      <input type="date" class="form-control" name="data_obito" value="{{form.data_obito}}" id="data_obito_evo_id">
                     </div>
                   </div>
                   
@@ -2739,7 +2739,7 @@ footer {
                       <div class="input-group-prepend" id="">
                         <span class="input-group-text">Data Encerramento</span>
                       </div>
-                      <input type="date" class="form-control" name="data_encerramento" value="" id="data_encerramento_id">
+                      <input type="date" class="form-control" name="data_encerramento" value="{{form.data_encerramento}}" id="data_encerramento_id">
                     </div>
                   </div>
 
@@ -2757,7 +2757,7 @@ footer {
                   <div class="col-md-6">
                     <div class="form-group">
                       <label for="comment">Comentário, observações e/ou anotações:</label>
-                      <textarea class="form-control" rows="5" id="comment" name="observacao"></textarea>
+                      <textarea class="form-control" rows="5" id="comment" name="observacao">{{form.observacao}}</textarea>
                     </div>
                   </div>
                 </div>
@@ -2784,7 +2784,7 @@ footer {
                       <div class="input-group-prepend" id="">
                         <span class="input-group-text">Nome</span>
                       </div>
-                      <input type="text" class="form-control" name="nome_investigador" value="" id="nome_investigador_id" onkeypress="return limitcarc(event, 'letr_acent')" onkeyup="maiuscula(event)">
+                      <input type="text" class="form-control" name="nome_investigador" value="{{form.nome_investigador}}" id="nome_investigador_id" onkeypress="return limitcarc(event, 'letr_acent')" style="text-transform: uppercase;">
                     </div>
                   </div>
 
@@ -2798,7 +2798,7 @@ footer {
                       <div class="input-group-prepend" id="">
                         <span class="input-group-text">Função</span>
                       </div>
-                      <input type="text" class="form-control" name="funcao_investigador" value="" id="">
+                      <input type="text" class="form-control" name="funcao_investigador" value="{{form.funcao_investigador}}" id="">
                     </div>
                   </div>
                   <div class="col-md-5">
@@ -2806,7 +2806,7 @@ footer {
                       <div class="input-group-prepend" id="">
                         <span class="input-group-text">Email</span>
                       </div>
-                      <input type="text" class="form-control" name="email_investigador" value="" id="">
+                      <input type="text" class="form-control" name="email_investigador" value="{{form.email_investigador}}" id="">
                     </div>
                   </div>                 
                   
@@ -2819,7 +2819,7 @@ footer {
                       <div class="input-group-prepend" id="">
                         <span class="input-group-text">Telefone</span>
                       </div>
-                      <input type="text" class="form-control" id="telefone_investigador_id" name="telefone_investigador" placeholder="apenas números">
+                      <input type="text" class="form-control" id="telefone_investigador_id" value="{{form.telefone_investigador}}" name="telefone_investigador" placeholder="apenas números">
 
                     </div>
                   </div>
@@ -2828,7 +2828,7 @@ footer {
                       <div class="input-group-prepend" id="">
                         <span class="input-group-text">Conselho Classe</span>
                       </div>
-                      <input type="text" class="form-control" name="conselho_classe_investigador" value="" id="">
+                      <input type="text" class="form-control" name="conselho_classe_investigador" value="{{form.conselho_classe_investigador}}" id="">
                     </div>
                   </div>                                 
                   
@@ -3019,6 +3019,17 @@ footer {
           success: function(data){
             $("#municipio_autoctone_id").html(data);
             $('#municipio_autoctone_id').find('option[value="{{form.municipio_caso_autoctone}}"]').attr("selected", "selected")
+            municipioId = $('#municipio_autoctone_id').val();
+
+            $.ajax({
+              url : '{% url "ajax_autoctone_distrito" %}',
+              data: { 'municipio_id': municipioId},
+              success: function(data){
+                console.log(data);
+                $("#distrito_autoctone_id").html(data);
+                $('#distrito_autoctone_id').find('option[value="{{form.distrito_caso_autoctone}}"]').attr("selected", "selected")
+              }
+            });
           }
         });
         
@@ -3027,6 +3038,7 @@ footer {
       $("#municipio_autoctone_id").change(function(){
         //const url = $('#Form').attr("data-autoctone-municipio-url");
         municipioId = $(this).val();
+        console.log(municipioId)
 
         $.ajax({
           url : '{% url "ajax_autoctone_municipio" %}',
@@ -3039,10 +3051,6 @@ footer {
 
         
       });
-
-
-
-      
 
       $("#municipio_autoctone_id").change(function(){
         //const url = $('#Form').attr("data-autoctone-distrito-url");

@@ -619,7 +619,7 @@ def caso_esporotricose_edit(request, id):
 	municipios = Municipio.objects.all().order_by('nome')
 	unidades_saude = []
 	codigos_ibge = []
-	print(caso.hospitalizacao)
+	print(caso.codigo_ibge_caso_autoctone)
 	caso.data_notificacao = datetime.strftime(caso.data_notificacao, '%Y-%m-%d')
 	caso.data_primeiros_sintomas = datetime.strftime(caso.data_primeiros_sintomas, '%Y-%m-%d')
 	caso.data_nascimento_paciente = datetime.strftime(caso.data_nascimento_paciente, '%Y-%m-%d')
@@ -653,6 +653,10 @@ def caso_esporotricose_edit(request, id):
 	if caso.data_da_alta != None:
 		caso.data_da_alta = datetime.strftime(caso.data_da_alta, '%Y-%m-%d')
 
+	if caso.data_obito != None:
+		caso.data_obito = datetime.strftime(caso.data_obito, '%Y-%m-%d')
+	if caso.data_encerramento != None:
+		caso.data_encerramento = datetime.strftime(caso.data_encerramento, '%Y-%m-%d')
 	return render(request, 'caso_esporotricose_edit.html', {'form':caso, 'municipios':municipios, 'unidades_saude':unidades_saude, 
 		'codigos_ibge':codigos_ibge, 'estados':estados})
 
