@@ -1,3 +1,93 @@
+$(document).ready(function(){
+  $.ajax({
+    url : 'ajax_index_aberto',
+    success: function(data){
+      $('#container2').highcharts({
+        title: {
+            text: ''
+        },
+        xAxis: {
+            categories: ['casos']
+        },
+        series: [{
+            type: 'column',
+            name: 'Dengue',
+            data: [0]
+        }, {
+            type: 'column',
+            name: 'Chikungonha',
+            data: [0]
+        }, {
+            type: 'column',
+            name: 'Zika',
+            data: [0]
+        }, {
+            type: 'column',
+            name: 'Esporotricose',
+            data: [data['casos']]
+        }]
+    });
+    }
+  });
+  //1919   803
+
+  //624   266
+
+$("#btn_filtrar").on('click', function(){
+  filtrar_ano = document.getElementById('filtro_ano').value;
+  filtrar_dt_inicio = document.getElementById('filtro_dt_inicio').value;
+  filtrar_dt_fim = document.getElementById('filtro_dt_fim').value;
+  $.ajax({
+    url: 'ajax_filtrar_index_aberto',
+    data: {
+      'ano':filtrar_ano,
+      'inicio':filtrar_dt_inicio,
+      'fim':filtrar_dt_fim
+    },
+    success: function(data){
+      $('#container2').highcharts({
+        title: {
+            text: ''
+        },
+        xAxis: {
+            categories: ['casos']
+        },
+        series: [{
+            type: 'column',
+            name: 'Dengue',
+            data: [0]
+        }, {
+            type: 'column',
+            name: 'Chikungonha',
+            data: [0]
+        }, {
+            type: 'column',
+            name: 'Zika',
+            data: [0]
+        }, {
+            type: 'column',
+            name: 'Esporotricose',
+            data: [data['casos']]
+        }]
+    });
+
+    }
+  });
+});
+// AJAX exportar arquivos csv xls.
+/*
+$("#btn_exportar").on('click', function(){
+  var option = $('#export').find(":selected").val();
+  $.ajax({
+    url: 'ajax_exportar_index_aberto',
+    data: {'option':option},
+    success: function(data){
+      console.log(data);
+    }
+
+  });
+});
+*/
 $(function(){
     // Primeiro Grafico
     $('#container').highcharts({
@@ -8,7 +98,7 @@ $(function(){
           text: ''
         },
         subtitle: {
-          text: 'Clique no gráfico para mais detalhes.'
+          text: ''
         },
 
         accessibility: {
@@ -41,20 +131,25 @@ $(function(){
             data: [
               {
                 name: "Dengue",
-                y: 25,
-                drilldown: "Dengue"
+                y: 0,
+                drilldown: null
               },
               {
                 name: "Chikungonha",
-                y: 37,
-                drilldown: "Chikungonha"
+                y: 0,
+                drilldown: null
               },
               {
                 name: "Zika",
-                y: 38,
-                drilldown: "Zika"
+                y: 0,
+                drilldown: null
+              },
+              {
+                name: "Esporotricose",
+                y: 100,
+                drilldown: null
               }]
-          }],
+          }]/*,
         drilldown: { 
           series: [
               {
@@ -70,204 +165,33 @@ $(function(){
                 id: "Chikungonha",
                 data: [["João Pessoa", 36.5],["Campina Grande", 35.4],["Cabedelo", 10.2],["Bayeux", 7.58], ["Santa Rita", 9.42], ["Mamanguape", 5.52]]
               },
-        ]}
+        ]}*/
     });
     // Segundo Grafico
-    $('#container2').highcharts({
-        title: {
-            text: ''
-        },
-        xAxis: {
-            categories: ['Notificado', 'Confirmado','Em Análise', 'Descartados', 'Pendências']
-        },
-        series: [{
-            type: 'column',
-            name: 'Dengue',
-            data: [3, 2, 1, 3, 4]
-        }, {
-            type: 'column',
-            name: 'Chikungonha',
-            data: [2, 3, 5, 7, 6]
-        }, {
-            type: 'column',
-            name: 'Zika',
-            data: [4, 3, 3, 9, 0]
-        }]
-    });
+    
 
   });  
+  // Limitando datas a data atual.
+  var today = new Date().toISOString().split('T')[0];
+  $("#filtro_dt_inicio").attr('max', today);
+  $("#filtro_dt_fim").attr('max', today);
 
-  var dados = {
-    paciente1: {
-      "id":1,
-      "doenca":"doenca",
-      "idade_paciente":"idade_paciente",
-      "municipio":"municipio",
-      "data_notificacao":"data_notificacao",
-    },
-    paciente2: {
-      "id":2,
-      "doenca":"doenca",
-      "idade_paciente":"idade_paciente",
-      "municipio":"municipio",
-      "data_notificacao":"data_notificacao",
-    },
-    paciente3: {
-      "id":3,
-      "doenca":"doenca",
-      "idade_paciente":"idade_paciente",
-      "municipio":"municipio",
-      "data_notificacao":"data_notificacao",
-    },
-    paciente4: {
-      "id":4,
-      "doenca":"doenca",
-      "idade_paciente":"idade_paciente",
-      "municipio":"municipio",
-      "data_notificacao":"data_notificacao",
-    },
-    paciente5: {
-      "id":5,
-      "doenca":"doenca",
-      "idade_paciente":"idade_paciente",
-      "municipio":"municipio",
-      "data_notificacao":"data_notificacao",
-    },
-    paciente6: {
-      "id":"id",
-      "doenca":"doenca",
-      "idade_paciente":"idade_paciente",
-      "municipio":"municipio",
-      "data_notificacao":"data_notificacao",
-    },
-    paciente7: {
-      "id":"id",
-      "doenca":"doenca",
-      "idade_paciente":"idade_paciente",
-      "municipio":"municipio",
-      "data_notificacao":"data_notificacao",
-    },
-    paciente8: {
-      "id":"id",
-      "doenca":"doenca",
-      "idade_paciente":"idade_paciente",
-      "municipio":"municipio",
-      "data_notificacao":"data_notificacao",
-    },
-    paciente9: {
-      "id":"id",
-      "doenca":"doenca",
-      "idade_paciente":"idade_paciente",
-      "municipio":"municipio",
-      "data_notificacao":"data_notificacao",
-    },
-    paciente10: {
-      "id":"id",
-      "doenca":"doenca",
-      "idade_paciente":"idade_paciente",
-      "municipio":"municipio",
-      "data_notificacao":"data_notificacao",
-    },paciente11: {
-      "id":"id",
-      "doenca":"doenca",
-      "idade_paciente":"idade_paciente",
-      "municipio":"municipio",
-      "data_notificacao":"data_notificacao",
-    },
-    paciente12: {
-      "id":2,
-      "doenca":"doenca",
-      "idade_paciente":"idade_paciente",
-      "municipio":"municipio",
-      "data_notificacao":"data_notificacao",
-    },
-    paciente13: {
-      "id":3,
-      "doenca":"doenca",
-      "idade_paciente":"idade_paciente",
-      "municipio":"municipio",
-      "data_notificacao":"data_notificacao",
-    },
-    paciente14: {
-      "id":4,
-      "doenca":"doenca",
-      "idade_paciente":"idade_paciente",
-      "municipio":"municipio",
-      "data_notificacao":"data_notificacao",
-    },
-    paciente15: {
-      "id":5,
-      "doenca":"doenca",
-      "idade_paciente":"idade_paciente",
-      "municipio":"municipio",
-      "data_notificacao":"data_notificacao",
-    },
-    paciente16: {
-      "id":"id",
-      "doenca":"doenca",
-      "idade_paciente":"idade_paciente",
-      "municipio":"municipio",
-      "data_notificacao":"data_notificacao",
-    },
-    paciente17: {
-      "id":"id",
-      "doenca":"doenca",
-      "idade_paciente":"idade_paciente",
-      "municipio":"municipio",
-      "data_notificacao":"data_notificacao",
-    },
-    paciente18: {
-      "id":"id",
-      "doenca":"doenca",
-      "idade_paciente":"idade_paciente",
-      "municipio":"municipio",
-      "data_notificacao":"data_notificacao",
-    },
-    paciente19: {
-      "id":"id",
-      "doenca":"doenca",
-      "idade_paciente":"idade_paciente",
-      "municipio":"municipio",
-      "data_notificacao":"data_notificacao",
-    },
-    paciente20: {
-      "id":"id",
-      "doenca":"doenca",
-      "idade_paciente":"idade_paciente",
-      "municipio":"municipio",
-      "data_notificacao":"data_notificacao",
-    },
-  };
-$(document).ready(function(){
-  $("#dados-click").hide();
-  //console.log(Object.keys(dados).length);
-  for (dado in dados){
-    $("table > tbody:last-child").append(`
-        <tr>
-          <td>dado.id</td>
-          <td>dado.doenca</td>
-          <td>dado.idade_paciente</td>
-          <td>dado.municipio</td>
-          <td>dado.data_notificacao</td>
-        </tr>
-      `);
-  }
-});
-$("#btn-transparencia").on('click', function(){
-  var atributo = document.getElementById('btn-transparencia');
-  if (atributo.getAttribute('clicked') == "false") {
-    $("#dados-click").show();
-    $("#btn-transparencia").attr('clicked', true);
-        
-  } else if (atributo.getAttribute('clicked') == "true") {
-    $("#dados-click").hide();
-    $("#btn-transparencia").attr('clicked', false);  
-  }
-  
-  // console.log(atributo.getAttribute('clicked'));
-  
-  //$("#btn-transparencia").attr('clicked', true);
-  //$("#dados-click").show();
-  //console.log(atributo.getAttribute('clicked'));
-});
+  // Ativando botao exportar.
+  $("#export").on('change', function(){
+    select = document.getElementById('export');
+    if (select.value != ""){
+      $("#btn_exportar").prop('disabled', false);
+    } else {$("#btn_exportar").prop('disabled', true);};
+  });
 
+  // Limpando data inicio e fim dos filtros quando clicar no filtro anual.
+  $('#filtro_ano').on('click', function(){
+    $('#filtro_dt_inicio').val("");
+    $('#filtro_dt_fim').val("");
+  });
+
+
+  
+
+  });
+  
