@@ -2740,15 +2740,15 @@ footer {
                     display: none;
                   }
                 </style>
-                <div class="row">
+                <div class="row evo-caso">
 
                   <div class="col-md-4">
                     <div class="input-group mb-3" id="">
                       <div class="input-group-prepend" id="">
-                        <span class="input-group-text">Evolução do Caso</span>
+                        <span class="input-group-text">Evolução do Caso<span class="required-evolucao" style="color: red;">**</span></span>
                       </div>
                       <select class="form-control" name="evolucao_caso_autoctone" id="sel_evo_caso" onclick="activeDataEvoCaso()">
-                        <option value=""></option>
+                        <option value="" selected disabled>Selecionar</option>
                         <option value="Cura">Cura</option>
                         <option value="Óbito pelo AGRAVO">Óbito pelo AGRAVO</option>
                         <option value="Óbito Outras Causas">Óbito Outras Causas</option>
@@ -2759,31 +2759,37 @@ footer {
                   <div class="col-md-4">
                     <div class="input-group mb-3" id="">
                       <div class="input-group-prepend" id="div_input_data_ob">
-                        <span class="input-group-text">Data do Óbito</span>
+                        <span class="input-group-text">Data do Óbito<span class="required-evolucao" style="color: red;">**</span></span>
                       </div>
                       <input type="date" class="form-control" name="data_obito" value="" id="data_obito_evo_id">
                     </div>
                   </div>
-                  
-                  <script>
-                    data_obito_evo_id.max = new Date().toISOString().split("T")[0];
-                  </script>
 
                   <div class="col-md-4">
                     <div class="input-group mb-4" id="">
                       <div class="input-group-prepend" id="">
-                        <span class="input-group-text">Data Encerramento</span>
+                        <span class="input-group-text">Data Encerramento<span class="required-evolucao" style="color: red;">**</span></span>
                       </div>
                       <input type="date" class="form-control" name="data_encerramento" value="" id="data_encerramento_id">
                     </div>
                   </div>
-
-                  <script>
-                    data_encerramento_id.max = new Date().toISOString().split("T")[0];
-                  </script>
-                  
-                  
                 </div>
+                  <script>
+                    $('.required-evolucao').hide()
+                    data_encerramento_id.max = new Date().toISOString().split("T")[0];
+                    data_obito_evo_id.max = new Date().toISOString().split("T")[0];
+                    $('#data_investigacao_id').change(function() {
+                      data_obito_evo_id.min = this.value
+                      data_encerramento_id.min = this.value
+                      let data_investigacao = new Date(this.value)
+                      let data_atual = new Date()
+                      let dias = parseInt(Math.abs(data_atual-data_investigacao)/(1000*3600*24));
+                      if (dias >= 180) {
+                        $('.required-evolucao').show()
+                        $('.evo-caso input').prop('required', true)
+                      }
+                    })
+                  </script>
 
               </div>
               <div id="menu7" class="container tab-pane fade"><br>

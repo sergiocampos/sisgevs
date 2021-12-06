@@ -198,7 +198,7 @@ def ajax_load_ibge(request):
 @login_required(login_url='/login/')
 def ajax_hospitalizacao(request):
 	municipio_id = request.GET.get('municipio_id')
-	cod_ibge = UnidadeSaude.objects.filter(municipio_id=municipio_id).all().order_by('nome')
+	cod_ibge = UnidadeSaude.objects.filter(municipio_id=municipio_id).all().exclude(nome__contains='USF').order_by('nome')
 	
 	return render(request, 'hospitalizacao_ajax.html', {'cod_ibge':cod_ibge})
 
