@@ -34,6 +34,7 @@
       $("#telefone_investigador_id").mask("(99)99999-9999");
       $("#outro_ibge_hospitalizacao").mask("99999999999999");
       $("#cep").mask("99999-999");
+      $("#numero_residencia").mask("99999");
     });
   </script>
 
@@ -279,6 +280,8 @@ footer {
       $('#gestante_id').children('option[value="Idade Gestacional Ignorada"]').show();
       $('#gestante_id').children('option[value="Ignorado"]').show();
       $('#gestante_id').children('option[value="Não"]').show();
+      $('#gestante_id').children('option[value="Não se aplica"]').prop('selected', false);
+      $('#gestante_id').children('option[value=""]').prop('selected', true);
     }
     if (idade <= 3){
       $('#escolaridade').children('option[value=""]').hide();
@@ -293,6 +296,19 @@ footer {
       $('#escolaridade').children('option[value="Superior-completo"]').hide();
       $('#escolaridade').children('option[value=""]').prop('selected', false);
       $('#escolaridade').children('option[value="Nao-se-aplica"]').prop('selected', true);
+    } else if (idade > 3) {
+      $('#escolaridade').children('option[value=""]').show();
+      $('#escolaridade').children('option[value="Analfabeto"]').show();
+      $('#escolaridade').children('option[value="1ª-a-4ª-serie-incompleto"]').show();
+      $('#escolaridade').children('option[value="4ª-serie-completa"]').show();
+      $('#escolaridade').children('option[value="5ª-a-8ª-serie-incompleto"]').show();
+      $('#escolaridade').children('option[value="Ensido-Fundamental-Completo"]').show();
+      $('#escolaridade').children('option[value="Ensino-Medio-incompleto"]').show();
+      $('#escolaridade').children('option[value="Ensino-Medio-Completo"]').show();
+      $('#escolaridade').children('option[value="Superior-Incompleto"]').show();
+      $('#escolaridade').children('option[value="Superior-completo"]').show();
+      $('#escolaridade').children('option[value=""]').prop('selected', true);
+      $('#escolaridade').children('option[value="Nao-se-aplica"]').prop('selected', false);
     }
 
     if (genero=="F"){
@@ -516,7 +532,7 @@ footer {
                     </div>              
                   </div>
                   <div class="col-md-2">
-                    <div class="form-group"><b>Código CID-<input style="border:none; width: 40px; background-color:#f1f1f1" min="0" type="number" id="cid_number"></b>
+                    <div class="form-group"><b>Código CID-<input style="border:none; width: 40px; background-color:#f1f1f1" min="0" type="number" id="cid_number" disabled></b>
                       <input class="form-control" type="text" name="codigo_cid" placeholder="" value="B42.9">
                     </div>
                   </div>
@@ -813,7 +829,7 @@ footer {
                     <div class="form-group"><b>Gestante</b>
                       <select class="form-control" name="gestacao" id="gestante_id" disabled>
 
-                        <option value=""></option>
+                        <option value="" disabled selected>Selecionar</option>
                         <option value="1º Trimestre">1º Trimestre</option>
                         <option value="2º Trimestre">2º Trimestre</option>
                         <option value="3º Trimestre">3º Trimestre</option>
@@ -958,7 +974,7 @@ footer {
                   </div>
                   <div class="col-md-2">
                     <div class="form-group"><b>Número</b>
-                      <input class="form-control" type="text" name="numero_residencia" id="" placeholder="" value="">
+                      <input class="form-control" type="text" name="numero_residencia" id="numero_residencia" placeholder="" value="" style="text-transform: uppercase;">
                     </div>
                   </div>
                   <div class="col-md-4">
