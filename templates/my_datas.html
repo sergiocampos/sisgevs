@@ -134,11 +134,12 @@ footer {
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#">Localizar Notificação</a>
         <div class="dropdown-menu">
-          <a class="dropdown-item" href="/localizar_paciente_nome/">Nome Paciente</a>
-          <a class="dropdown-item" href="/localizar_paciente_cpf/">CPF</a>
-          <a class="dropdown-item" href="/localizar_paciente_phone/">Telefone</a>
+            <a class="dropdown-item" href="/localizar_paciente_nome/">Nome Paciente</a>
+            <a class="dropdown-item" href="/localizar_paciente_data_coleta/">Data de Coleta</a>
+            <a class="dropdown-item" href="#">CPF</a>
+            <a class="dropdown-item" href="#">Telefone</a>
         </div>
-      </li>
+    </li>
       <li class="nav-item">
         <a class="nav-link" href="/all_forms/">Notificar</a>
       </li>
@@ -182,6 +183,7 @@ footer {
               </div>
             </div>
           </div>
+          
           {% include 'messages/message.html' %}
           <table class="table table-hover">
             <thead>
@@ -189,8 +191,8 @@ footer {
                 <th>Data Notificação</th>
                 <th>Nome Paciente</th>
                 <th>Idade</th>
-                <th>Cidade</th>
-                <th>Notificante</th>
+                <th>Município de Residência</th>
+                <th>Município Notificador</th>
                 <th style="text-align: center;">Ações</th>
 
               </tr>
@@ -203,7 +205,7 @@ footer {
                 <td>{{registro.nome_paciente}}</td>
                 <td>{{registro.idade_paciente}}</td>
                 <td>{{registro.municipio_residencia}}</td>
-                <td>{{registro.nome_investigador}}</td>
+                <td>{{user.municipio}}</td>
                 <td align="center">
                   {% if user.funcao == 'gerencia' %}
                   {% else %}
@@ -223,7 +225,24 @@ footer {
 
             </tbody>
           </table>
-          
+          <!-- EXPORTAR DADOS POR DATA DA COLETA -->
+          <hr>
+          <div class="row text-center mb-3">
+            <div class="col">
+              <strong>Exportar Dados por Data de Coleta</strong>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-3"></div>
+            <div class="col-3" id="">
+              <input type="date" class="form-control" name="" value="" id="dt-coleta-export">
+            </div>
+            <div class="col-3 mb-3">
+              <button type="button" class="btn btn-primary" id="btn-exportar" disabled>Exportar CSV</button>
+            </div>
+            <div class="col-3"></div>
+          </div>
+          <!-- EXPORTAR DADOS POR DATA DA COLETA -->
 
         </div>
 
@@ -256,5 +275,19 @@ footer {
       <i class="fa">&#xf1f9;</i>
     </div>
     <br>
+    <script>
+      $("#dt-coleta-export").on('click', function(){
+        var dt_export = document.getElementById('dt-coleta-export');
+        var today = new Date().toISOString().split("T")[0];
+        $("#dt-coleta-export").attr('max', today);
+      });
+      $("#dt-coleta-export").on('change', function(){
+        var dt_export = document.getElementById('dt-coleta-export').value;
+        if (dt_export != "") {
+          $("#btn-exportar").attr("disabled", false);
+        } else {$("#btn-exportar").attr("disabled", true);}
+      })
+
+    </script>
   </body>
   </html>

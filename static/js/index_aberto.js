@@ -30,16 +30,18 @@ $("#btn_filtrar").on('click', function(){
       'fim':filtrar_dt_fim
     },
     success: function(data){
+      console.log(data);
       $('#container2').highcharts({
         title: {
-            text: data['agravo_doenca']
-        },
-        xAxis: {
-            categories: ['Detectáveis', 'Não detectáveis', 'Inconclusivo', 'Descartado', 'Vazio']
-        },
-        series: [{
-            type: 'column',
-            data: [data['qtd_casos'], 2, 4, 6, 8]
+          text: data['doenca']
+      },
+      xAxis: {
+          categories: ['Detectáveis', 'Não detectáveis', 'Inconclusivo', 'Descartado', 'Vazio']
+      },
+      series: [{
+          name: [data['total']],
+          type: 'column',
+          data: [data['detectados'], data['nao_detectados'], data['inconclusivo'], data['nao_realizado'], data['vazio']]
         }]
     });
     }

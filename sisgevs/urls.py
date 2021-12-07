@@ -71,6 +71,9 @@ urlpatterns = [
     path('localizar_paciente_nome/', views.localizar_paciente_nome, name='localizar_paciente_nome'),
     path('localizar_paciente_nome/submit', views.set_localizar_paciente_nome),
     path('search_paciente_nome/', views.search_paciente_nome, name='search_paciente_nome'),
+    path('localizar_paciente_data_coleta/', views.localizar_paciente_data_coleta, name='localizar_paciente_data_coleta'),
+    path('localizar_paciente_data_coleta/submit', views.set_localizar_paciente_data_coleta),
+    path('localizar_paciente_data_coleta/csv', views.csv_localizar_paciente_data_coleta),
 
     path('caso_view/<id>/', views.caso_view, name='caso_view'),
     path('caso_view_detail/', views.caso_view_detail, name='caso_view_detail'),
