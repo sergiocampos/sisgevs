@@ -157,7 +157,13 @@ footer {
           <div id="demo" class="collapse">
             <li><a href="#">Meus Dados</a></li>
             <hr>
-            <li><a href="/all_forms/">Formulários</a></li>
+            <li><a href="/all_forms/" data-toggle="collapse" data-target="#formularios">Formulários</a></li>
+            <div id="formularios" class="collapse">
+              <li><a href="/all_forms/">Esporotricose Humana</a></li>
+              <li><a href="/main/">Chikungunya</a></li>
+              <li><a href="/main/">Dengue</a></li>
+              <li><a href="/main/">Zika</a></li>
+            </div>
             <hr>
             <li><a href="/my_datas/">Notificações</a></li>
             <hr>
@@ -225,25 +231,6 @@ footer {
 
             </tbody>
           </table>
-          <!-- EXPORTAR DADOS POR DATA DA COLETA -->
-          <hr>
-          <div class="row text-center mb-3">
-            <div class="col">
-              <strong>Exportar Dados por Data de Coleta</strong>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-3"></div>
-            <div class="col-3" id="">
-              <input type="date" class="form-control" name="" value="" id="dt-coleta-export">
-            </div>
-            <div class="col-3 mb-3">
-              <button type="button" class="btn btn-primary" id="btn-exportar" disabled>Exportar CSV</button>
-            </div>
-            <div class="col-3"></div>
-          </div>
-          <!-- EXPORTAR DADOS POR DATA DA COLETA -->
-
         </div>
 
 
@@ -275,19 +262,5 @@ footer {
       <i class="fa">&#xf1f9;</i>
     </div>
     <br>
-    <script>
-      $("#dt-coleta-export").on('click', function(){
-        var dt_export = document.getElementById('dt-coleta-export');
-        var today = new Date().toISOString().split("T")[0];
-        $("#dt-coleta-export").attr('max', today);
-      });
-      $("#dt-coleta-export").on('change', function(){
-        var dt_export = document.getElementById('dt-coleta-export').value;
-        if (dt_export != "") {
-          $("#btn-exportar").attr("disabled", false);
-        } else {$("#btn-exportar").attr("disabled", true);}
-      })
-
-    </script>
   </body>
   </html>
