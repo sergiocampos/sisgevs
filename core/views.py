@@ -1,5 +1,6 @@
 
 from django.db.models.expressions import Value
+from django.utils.functional import empty
 import pandas as pd
 from django.http.response import JsonResponse
 from django.shortcuts import render, redirect
@@ -56,7 +57,7 @@ def login_submit(request):
 		if result['success']:
 			if user is not None:
 				login(request, user)
-				return redirect('/main/')
+				return redirect('/all_forms/')
 			else:
 				return render(request, 'login_page.html')
 
@@ -84,7 +85,7 @@ def change_password(request):
 			user = form.save()
 			update_session_auth_hash(request, user)
 			messages.success(request, _('Your password was successfully updated!'))
-			return redirect('/')
+			return redirect('/all_forms/')
 		else:
 			messages.error(request, _('Please correct the error below.'))
 	else:
@@ -697,12 +698,28 @@ def index_aberto(request):
 	return render(request, 'index_aberto.html')
 
 def ajax_index_aberto(request):
-	dados = CasoEsporotricose.objects.all()
-	casos_esporotricose = len(dados)
-	data = {}
-	for i in dados:
-		data['qtd_casos'] = casos_esporotricose
-		data['agravo_doenca'] = i.agravo_doenca
+	detectados = CasoEsporotricose.objects.filter(resultado_isolamento = 'Detectado')
+	nao_detectados = CasoEsporotricose.objects.filter(resultado_isolamento = 'Não detectado')
+	inconclusivo = CasoEsporotricose.objects.filter(resultado_isolamento = 'Inconclusivo')
+	nao_realizado = CasoEsporotricose.objects.filter(resultado_isolamento = 'Não Realizado')
+	vazio = CasoEsporotricose.objects.filter(resultado_isolamento = None)
+	
+	len_detectados = len(detectados)
+	len_nao_detectados = len(nao_detectados)
+	len_inconclusivo = len(inconclusivo)
+	len_nao_realizado = len(nao_realizado)
+	len_vazio = len(vazio)
+	soma_casos = len_detectados + len_nao_detectados + len_inconclusivo + len_nao_realizado + len_vazio
+	total_casos = "Total de Casos: " + str(soma_casos)
+	data = {
+		'doenca':"Esporotricose Humana",
+		'detectados':len_detectados,
+		'nao_detectados':len_nao_detectados,
+		'inconclusivo':len_inconclusivo,
+		'nao_realizado':len_nao_realizado,
+		'vazio':len_vazio,
+		'total':total_casos
+	}
 	return JsonResponse(data)
 
 def ajax_filtrar_index_aberto(request):

@@ -34,7 +34,7 @@
       $("#telefone_investigador_id").mask("(99)99999-9999");
       $("#outro_ibge_hospitalizacao").mask("99999999999999");
       $("#cep").mask("99999-999");
-      $("#numero_residencia").mask("99999");
+      $("#numero_residencia").mask("9999/AA");
     });
   </script>
 
@@ -356,87 +356,63 @@ footer {
   <header>
     <div class="" style="background-color: #e6e6e6;">
       <div class="row">
-
-        <div class="col-sm-3">
-        <!--
-        <img src="https://docs.google.com/uc?id=1gDXBrx2Nq6k_Whfk6E4IpkvcyDypJPxY" alt="" width="50%">
-      -->
+        <div class="col" style="padding: 0; margin-top: 10px; text-align: center;">
+          <h4>SECRETARIA DE ESTADO DA SAÚDE</h4>
+          <h6>SISGEVS - Sistema de Informação em Saúde da GEVS</h6>
+          <h6><b>----</b></h6>
+        </div>
+      </div>
     </div>
-    <div class="col-sm-4" style="margin-top: 10px; text-align: center;">
-      <h4>SECRETARIA DE ESTADO DA SAÚDE</h4>
-      <h6>SISGEVS - Sistema de Informação em Saúde da GEVS</h6>
-      <h6><b>----</b></h6>
-    </div>
-    <div class="col-sm-3">
-      <img src="{% static 'sisgevs/nova-marca-governo-01.png' %}" alt="" width="50%">
-        <!--
-        <img src="https://docs.google.com/uc?id=1tLThSsCUOFKg-1fphY-Y9hrC_XFnHdOr" alt="" width="50%">
-      -->
-    </div>
-  </div>
-</div>
-</header>
+  </header>
 
 <nav class="navbar navbar-expand-sm bg-secondary navbar-dark">
-    <a class="navbar-brand" href="#"></a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="collapsibleNavbar">
-      <ul class="navbar-nav">
-        <li class="nav-item">
-          <a class="nav-link" href="/main/">Área do Usuário</a>
-        </li>
-        
-        
-      
-        <li class="nav-item">
-          <a class="nav-link" href="/change_password/">Alterar Senha</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="/logout/">Sair</a>
-        </li>
-      </ul>
-    </div>
-    
-  </nav>
-
+  <a class="navbar-brand" href="#"></a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="collapsibleNavbar">
+    <ul class="navbar-nav">
+      <li class="nav-item">
+        <a class="nav-link" href="/all_forms/">Home</a>
+      </li>
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#">Localizar Notificação</a>
+        <div class="dropdown-menu">
+          <a class="dropdown-item" href="/localizar_paciente_nome/">Nome Paciente</a>
+          <a class="dropdown-item" href="/localizar_paciente_cpf/">CPF</a>
+          <a class="dropdown-item" href="/localizar_paciente_phone/">Telefone</a>
+        </div>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/all_forms/">Notificar</a>
+      </li>
+    </ul>
+  </div>
+</nav>
     <section>
-
       <nav>
-
-        <ul>
+        <ul style="padding:0;">
           <li>
-            <button type="button" class="btn btn-info dropdown-toggle" data-toggle="collapse" data-target="#demo">Usuário Gevs</button>
+            <button type="button" class="btn btn-info dropdown-toggle" data-toggle="collapse" data-target="#demo">Usuário: {{user.municipio}} | {{user.municipio.gerencia}}</button>
           </li>
         </ul>
-        <ul>
-          <div id="demo" class="collapse show">
-            <li style="color: #0066ff;">{{user.cpf}}</li>
-            <li style="color: #0066ff;">{{user.municipio}}</li>
+        <ul style="padding-left: 5%;">
+          <div id="demo" class="collapse">
+            <li><a href="#">Meus Dados</a></li>
             <hr>
-            <li><a href="#">Notificações</a></li>
-            <li><a href="#"></a></li>
-            <li><a href="#"></a></li>
+            <li><a href="/all_forms/">Formulários</a></li>
             <hr>
-            <li><a href="/my_datas/">Meus Dados</a></li>
-            <li><a href="#"></a></li>
-            
+            <li><a href="/my_datas/">Notificações</a></li>
             <hr>
             <li><a href="/download_ficha/" data-toggle="collapse" data-target="#_demo">Ficha</a></li>
-            <li><a href="#"></a></li>        
-            
             <div id="_demo" class="collapse"><br>
-              <li><a href="/download_ficha/" download style="color: #4d94ff;">Imprimir Ficha</a></li>
               <li><a href="/ficha_caso_esporotricose_preencher/" target="_blank" style="color: #4d94ff;">Novo Layout</a></li>
+              <!--<li><a href="/download_ficha/" download style="color: #4d94ff;">Imprimir Ficha</a></li>-->
             </div>
             <hr>
             <li><a href="/logout/">Sair</a></li>
-            <li><a href="#"></a></li>
-            <li><a href="#"></a></li>          
           </div>
         </ul>
-
       </nav>
 
 
@@ -526,7 +502,7 @@ footer {
                   </div>
                   <div class="col-md-3">
                     <div class="form-group"><b>Agravo/Doença</b>
-                      <input class="form-control" type="text" name="agravo_doenca" placeholder="" value="Esporotricose" readonly>
+                      <input class="form-control" type="text" name="agravo_doenca" placeholder="" value="Esporotricose Humana" readonly>
                     </div>              
                   </div>
                   <div class="col-md-2">
@@ -727,6 +703,9 @@ footer {
                     }else if (tipo == 'letr'){
                       if (" qwertyuioplkjhgfdsazxcvbnmQWERTYUIOPLKJHGFDSAZXCVBNM".indexOf(chr) < 0)
                         return false;
+                    }else if (tipo == 'letr_num'){
+                      if ("áéíóúâêîôûãõ qwertyuioplkjhgfdsazxcvbnmQWERTYUIOPLKJHGFDSAZXCVBNM 0123456789".indexOf(chr) < 0)
+                        return false;
                     }
                   }
 
@@ -878,10 +857,14 @@ footer {
                     var nome_paciente = document.getElementById('nome_paciente_id').value.length;
                     var nome_mae = document.getElementById('nome_mae_id').value.length;
                     var date2 = document.getElementById('date2').value;
-
+                    var municipio = document.getElementById('municipio_id').value.length;
                     var data_notificacao = document.getElementById('datanotificacao').value;
                     var sexo = document.getElementById('span_id').value;
-                    console.log(sexo)
+                    var data_invest = document.getElementById('data_investigacao_id').value;
+                    var data_1_s = document.getElementById('dt_primeiros_s').value;
+                    var telefone = document.getElementById('telefone_residencia_id').value.length;
+                    var cep = document.getElementById('cep').value;
+                    var cidade = document.getElementById('cidade').value;
 
                     if (sexo != "") {$('#alert_sexo').hide();} else {$('#alert_sexo').show();};
 
@@ -889,20 +872,10 @@ footer {
 
                     if (municipio != 0) {$('#alert_municipio').hide();} else {$('#alert_municipio').show();};
 
-                    var data_invest = document.getElementById('data_investigacao_id').value;
-                    var data_1_s = document.getElementById('dt_primeiros_s').value;
-                    var municipio = document.getElementById('municipio_id').value.length;
-                    var telefone = document.getElementById('telefone_residencia_id').value.length;
-
-                    var cep = document.getElementById('cep').value;
-                    var cidade = document.getElementById('cidade').value;
-
-                    
                     if (data_1_s != "") {$('#alert_dt_ps').hide();} else {$('#alert_dt_ps').show();};
                     
                     if (nome_paciente >= 10) {$('#alert_paciente').hide();} else {$('#alert_paciente').show();};
                     
-
                     if (date2 != "") {$('#alert_data_nasc').hide();} else {$('#alert_data_nasc').show();}
 
                     if (cep != "" || cidade != "")  {
@@ -913,7 +886,6 @@ footer {
 
                     if (data_invest != "") {$('#alert_data_invest').hide(); $('#alert_anteced_epid').hide();} else {$('#alert_data_invest').show(); $('#alert_anteced_epid').show();}
 
-                    
                     if (nome_mae >= 10) {$('#alert_nome_mae').hide();} else {$('#alert_nome_mae').show();}
                     
                     if ((nome_paciente >= 10) && (nome_mae >= 10) && (date2 != "") && (sexo != "") ){
@@ -933,7 +905,7 @@ footer {
                                      
                     if ((nome_paciente >= 10) && (nome_mae >= 10) && (date2 != "") 
                         && (data_1_s != "") && (municipio != 0) && (telefone >= 13)
-                        && (data_notificacao != "") && (sexo != "")){
+                        && (data_notificacao != "") && (sexo != "") && (data_invest != "")){
                       $("#btn_submit_id").prop("disabled", false);
                     } else {$("#btn_submit_id").prop("disabled", true);}
                     
@@ -980,17 +952,17 @@ footer {
 
                   <div class="col-md-6">
                     <div class="form-group"><b>Rua</b>
-                      <input class="form-control" type="text" name="rua_residencia" id="rua" placeholder="" value="">
+                      <input class="form-control" onkeypress="return limitcarc(event, 'letra_num')" type="text" name="rua_residencia" id="rua" placeholder="" value="">
                     </div>
                   </div>
                   <div class="col-md-2">
                     <div class="form-group"><b>Número</b>
-                      <input class="form-control" type="text" name="numero_residencia" id="numero_residencia" placeholder="" value="" style="text-transform: uppercase;">
+                      <input class="form-control" type="text" onkeypress="return limitcarc(event, 'letr_num')" name="numero_residencia" id="numero_residencia" placeholder="" value="" style="text-transform: uppercase;">
                     </div>
                   </div>
                   <div class="col-md-4">
                     <div class="form-group"><b>Complemento</b>
-                      <input class="form-control" type="text" name="complemento_residencia" id="" placeholder="" value="">
+                      <input class="form-control" onkeypress="return limitcarc(event, 'letra_num')" type="text" name="complemento_residencia" id="" placeholder="" value="">
                     </div>
                   </div>
                   
@@ -1001,12 +973,12 @@ footer {
 
                   <div class="col-md-3">
                     <div class="form-group"><b>Distrito</b>
-                      <input class="form-control" type="text" name="distrito_residencia" id="rua" placeholder="" value="">
+                      <input class="form-control" onkeypress="return limitcarc(event, 'letra_num')" type="text" name="distrito_residencia" id="rua" placeholder="" value="">
                     </div>
                   </div>
                   <div class="col-md-3">
                     <div class="form-group"><b>Ponto de Referência</b>
-                      <input class="form-control" type="text" name="ponto_referencia_residencia" id="" placeholder="" value="">
+                      <input class="form-control" onkeypress="return limitcarc(event, 'letra_num')" type="text" name="ponto_referencia_residencia" id="" placeholder="" value="">
                     </div>
                   </div>                
                   
@@ -1030,7 +1002,7 @@ footer {
                   </div>
                   <div class="col-md-7">
                     <div class="form-group"><b>País - </b><i>Se residem fora do Brasil</i>
-                      <input class="form-control" type="text" name="pais_residente_fora_pais" id="pais_fora_id" placeholder="" value="">
+                      <input class="form-control" onkeypress="return limitcarc(event, 'letr_acent')" type="text" name="pais_residente_fora_pais" id="pais_fora_id" placeholder="" value="">
                     </div>
                   </div>
                 </div>
@@ -1047,7 +1019,7 @@ footer {
                     </div>
                   </div>
                   <div class="col-md-4">
-                    <div class="form-group"><b>Ocupação</b>
+                    <div class="form-group"><b>Ocupação do Paciente</b>
                       <input class="form-control" type="text" name="ocupacao" placeholder="" value="">
                     </div>
                   </div>
@@ -1590,7 +1562,7 @@ footer {
                 <div class="row">
                   <div class="col-sm-12">
                     <div class="alert alert-success" style="text-align: center;">
-                      <strong style="align-items: center;">Localização da Lesão(PARTE DO CORPO ATINGIDA)</strong>
+                      <strong style="align-items: center;">Localização da Lesão - (PARTE DO CORPO ATINGIDA)</strong>
                     </div>
                   </div>
                 </div>
@@ -1690,7 +1662,7 @@ footer {
                 <div class="row">
                   <div class="col-sm-12">
                     <div class="alert alert-success" style="text-align: center;">
-                      <strong style="align-items: center;">Diagnóstico de FORMA EXTRACUTANEA DA DOENÇA</strong>
+                      <strong style="align-items: center;">Diagnóstico de FORMA EXTRACUTÂNEA DA DOENÇA</strong>
                     </div>
                   </div>
                 </div>
@@ -2011,7 +1983,7 @@ footer {
                       <div class="input-group-prepend" id="">
                         <span class="input-group-text">Agente</span>
                       </div>
-                      <input type="text" class="form-control" name="agente_isolamento" value="" id="agente_id" disabled>
+                      <input type="text" onkeypress="return limitcarc(event, 'letr_acent')" class="form-control" name="agente_isolamento" value="" id="agente_id" disabled>
                     </div>
                   </div>
                 </div>
@@ -2181,7 +2153,7 @@ footer {
                       <div class="input-group-prepend" id="">
                         <span class="input-group-text">Droga Administrada</span>
                       </div>
-                      <input type="text" class="form-control" name="droga_admin_tratamento" value="" id="">
+                      <input type="text" onkeypress="return limitcarc(event, 'letr')" class="form-control" name="droga_admin_tratamento" value="" id="">
                     </div>
                   </div>
                   <div class="col-md-4">
@@ -2189,7 +2161,7 @@ footer {
                       <div class="input-group-prepend" id="">
                         <span class="input-group-text">Esquema Terapeutico</span>
                       </div>
-                      <input type="text" class="form-control" name="esquema_terapeutico" value="" id="">
+                      <input type="text" onkeypress="return limitcarc(event, 'letr_num')" class="form-control" name="esquema_terapeutico" value="" id="">
                     </div>
                   </div>
                 </div>
@@ -2207,7 +2179,7 @@ footer {
                       <div class="input-group-prepend" id="">
                         <span class="input-group-text">Droga Administrada</span>
                       </div>
-                      <input type="text" class="form-control" name="droga_admin_tratamento2" value="" id="">
+                      <input type="text" onkeypress="return limitcarc(event, 'letr')" class="form-control" name="droga_admin_tratamento2" value="" id="">
                     </div>
                   </div>
                   <div class="col-md-4">
@@ -2215,7 +2187,7 @@ footer {
                       <div class="input-group-prepend" id="">
                         <span class="input-group-text">Esquema Terapeutico</span>
                       </div>
-                      <input type="text" class="form-control" name="esquema_terapeutico2" value="" id="">
+                      <input type="text" onkeypress="return limitcarc(event, 'letr_num')" class="form-control" name="esquema_terapeutico2" value="" id="">
                     </div>
                   </div>
                 </div>
@@ -2233,7 +2205,7 @@ footer {
                       <div class="input-group-prepend" id="">
                         <span class="input-group-text">Droga Administrada</span>
                       </div>
-                      <input type="text" class="form-control" name="droga_admin_tratamento3" value="" id="">
+                      <input type="text" onkeypress="return limitcarc(event, 'letr')" class="form-control" name="droga_admin_tratamento3" value="" id="">
                     </div>
                   </div>
                   <div class="col-md-4">
@@ -2241,7 +2213,7 @@ footer {
                       <div class="input-group-prepend" id="">
                         <span class="input-group-text">Esquema Terapeutico</span>
                       </div>
-                      <input type="text" class="form-control" name="esquema_terapeutico3" value="" id="">
+                      <input type="text" onkeypress="return limitcarc(event, 'letr_num')" class="form-control" name="esquema_terapeutico3" value="" id="">
                     </div>
                   </div>
                 </div><br><br>
@@ -2439,9 +2411,9 @@ footer {
                         <!--
                         <input type="text" class="form-control" name="codigo_ibge_municipio_hospitalizacao" value="" id="cod_ibge_id" disabled>
                       -->
-                      <select class="form-control" name="codigo_ibge_municipio_hospitalizacao" id="cod_ibge_id" disabled>
+                      <input type="text" class="form-control" name="codigo_ibge_municipio_hospitalizacao" id="cod_ibge_id" disabled readonly>
 
-                      </select>
+                      
                     </div>
                   </div>
                   <div class="col-md-3">
@@ -2529,14 +2501,14 @@ footer {
                     <div class="col-md-4">
                       <div class="custom-control custom-radio custom-control-inline">
                         <input type="radio" class="custom-control-input" id="customRadio14" name="criterio" value="Clinico Laboratorial">
-                        <label class="custom-control-label" for="customRadio14">Clinico Laboratorial</label>
+                        <label class="custom-control-label" for="customRadio14">Clínico Laboratorial</label>
                       </div>
                     </div>
 
                     <div class="col-md-4">
                       <div class="custom-control custom-radio custom-control-inline">
                         <input type="radio" class="custom-control-input" id="customRadio15" name="criterio" value="Clinico Epidemiológico">
-                        <label class="custom-control-label" for="customRadio15">Clinico Epidemiológico</label>
+                        <label class="custom-control-label" for="customRadio15">Clínico Epidemiológico</label>
                       </div>
                     </div>
 
@@ -2545,7 +2517,7 @@ footer {
                   <div class="row">
                     <div class="col-sm-12">
                       <div class="alert alert-success" style="text-align: center;">
-                        <strong style="align-items: center;">Caso Autoctone do Município de Residência</strong>
+                        <strong style="align-items: center;">Caso Autóctone do Município de Residência</strong>
                       </div>
                     </div>
                   </div>
@@ -2853,7 +2825,7 @@ footer {
                       <div class="input-group-prepend" id="">
                         <span class="input-group-text">Nome</span>
                       </div>
-                      <input type="text" class="form-control" name="nome_investigador" value="" id="nome_investigador_id" onkeypress="return limitcarc(event, 'letr_acent')" onkeyup="maiuscula(event)">
+                      <input type="text" class="form-control" name="nome_investigador" value="" id="nome_investigador_id" onkeypress="return limitcarc(event, 'letr')" onkeyup="maiuscula(event)">
                     </div>
                   </div>
 
@@ -2867,7 +2839,7 @@ footer {
                       <div class="input-group-prepend" id="">
                         <span class="input-group-text">Função</span>
                       </div>
-                      <input type="text" class="form-control" name="funcao_investigador" value="" id="">
+                      <input type="text" onkeypress="return limitcarc(event, 'letr')" class="form-control" name="funcao_investigador" value="" id="">
                     </div>
                   </div>
                   <div class="col-md-5">
@@ -2909,7 +2881,7 @@ footer {
             <hr>
 
             <div class="container-fluid" style="text-align: center;">
-              <button type="submit" class="btn btn-primary" style="align-items: center;" id="btn_submit_id" disabled>Criar</button>  
+              <button type="submit" class="btn btn-primary" style="align-items: center;" id="btn_submit_id" disabled>Salvar</button>  
             </div>
           </form>
           
@@ -3014,7 +2986,7 @@ footer {
             url : '{% url "ajax_hospitalizacao_ibge" %}',
             data: { 'municipio_id': municipioId},
             success: function(data){
-              $("#cod_ibge_id").html(data);
+              $("#cod_ibge_id").val(data);
             }
           });
 

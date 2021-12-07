@@ -112,26 +112,14 @@ footer {
   <header>
     <div class="" style="background-color: #e6e6e6;">
       <div class="row">
-
-        <div class="col-sm-3">
-        <!--
-        <img src="https://docs.google.com/uc?id=1gDXBrx2Nq6k_Whfk6E4IpkvcyDypJPxY" alt="" width="50%">
-      -->
+        <div class="col" style="padding: 0; margin-top: 10px; text-align: center;">
+          <h4>SECRETARIA DE ESTADO DA SAÚDE</h4>
+          <h6>SISGEVS - Sistema de Informação em Saúde da GEVS</h6>
+          <h6><b>----</b></h6>
+        </div>
+      </div>
     </div>
-    <div class="col-sm-4" style="margin-top: 10px; text-align: center;">
-      <h4>SECRETARIA DE ESTADO DA SAÚDE</h4>
-      <h6>SISGEVS - Sistema de Informação em Saúde da GEVS</h6>
-      <h6><b>----</b></h6>
-    </div>
-    <div class="col-sm-3">
-      <img src="{% static "sisgevs/nova-marca-governo-01.png" %}" alt="" width="50%">
-        <!--
-        <img src="https://docs.google.com/uc?id=1tLThSsCUOFKg-1fphY-Y9hrC_XFnHdOr" alt="" width="50%">
-      -->
-    </div>
-  </div>
-</div>
-</header>
+  </header>
 
 <nav class="navbar navbar-expand-sm bg-secondary navbar-dark">
   <a class="navbar-brand" href="#"></a>
@@ -141,74 +129,46 @@ footer {
   <div class="collapse navbar-collapse" id="collapsibleNavbar">
     <ul class="navbar-nav">
       <li class="nav-item">
-        <a class="nav-link" href="/index/">Home</a>
+        <a class="nav-link" href="/all_forms/">Home</a>
       </li>
       <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#">Localizar Notificação</a>
-          <div class="dropdown-menu">
-            <a class="dropdown-item" href="/localizar_paciente_nome/">Nome Paciente</a>
-        </li>
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#">Fichas</a>
-          <div class="dropdown-menu">
-            <a class="dropdown-item" href="/download_ficha/" target="_blank">Imprimir</a>
-            <a class="dropdown-item" href="/ficha_caso_esporotricose_preencher/" target="_blank">Novo Layout</a>
-            
-          </li>
-        <!--
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#">Acompanhar Resultados</a>
-          <div class="dropdown-menu">
-            <a class="dropdown-item" href="#">Por Unidade</a>
-            <a class="dropdown-item" href="#">Por Macro</a>
-            <a class="dropdown-item" href="#">Por Gerência</a></div>
-          </li>
-        -->
-          <li class="nav-item">
-            <a class="nav-link" href="/logout/">Sair</a>
-          </li>   
-          <li class="nav-item">
-            <a class="nav-link" href="#">Usuário: {{user.login}}</a>
-          </li> 
-        </ul>
-      </div>
-      
-    </nav>
+        <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#">Localizar Notificação</a>
+        <div class="dropdown-menu">
+          <a class="dropdown-item" href="/localizar_paciente_nome/">Nome Paciente</a>
+          <a class="dropdown-item" href="/localizar_paciente_cpf/">CPF</a>
+          <a class="dropdown-item" href="/localizar_paciente_phone/">Telefone</a>
+        </div>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/all_forms/">Notificar</a>
+      </li>
+    </ul>
+  </div>
+</nav>
     <section>
-
       <nav>
-
-        <ul>
+        <ul style="padding:0;">
           <li>
-            <button type="button" class="btn btn-info dropdown-toggle" data-toggle="collapse" data-target="#demo">Usuário Gevs</button>
+            <button type="button" class="btn btn-info dropdown-toggle" data-toggle="collapse" data-target="#demo">Usuário: {{user.municipio}} | {{user.municipio.gerencia}}</button>
           </li>
         </ul>
-        <ul>
-          <div id="demo" class="collapse show">
-            <li style="color: #0066ff;">{{user.cpf}}</li>
-            <li style="color: #0066ff;">{{user.municipio}}</li>
-            <hr>
-            <li><a href="/all_forms/">Notificações</a></li>
-            <li><a href="#"></a></li>
-            <li><a href="#"></a></li>
-            <hr>
+        <ul style="padding-left: 5%;">
+          <div id="demo" class="collapse">
             <li><a href="#">Meus Dados</a></li>
-            <li><a href="#"></a></li>
+            <hr>
+            <li><a href="/all_forms/">Formulários</a></li>
+            <hr>
+            <li><a href="/my_datas/">Notificações</a></li>
             <hr>
             <li><a href="/download_ficha/" data-toggle="collapse" data-target="#_demo">Ficha</a></li>
-            <li><a href="#"></a></li>        
-            
             <div id="_demo" class="collapse"><br>
-              <li><a href="/download_ficha/" download style="color: #4d94ff;">Imprimir Ficha</a></li>
               <li><a href="/ficha_caso_esporotricose_preencher/" target="_blank" style="color: #4d94ff;">Novo Layout</a></li>
+              <!--<li><a href="/download_ficha/" download style="color: #4d94ff;">Imprimir Ficha</a></li>-->
             </div>
             <hr>
             <li><a href="/logout/">Sair</a></li>
-            <li><a href="#"></a></li>
-            <li><a href="#"></a></li>          
           </div>
         </ul>
-
       </nav>
 
 
@@ -218,7 +178,7 @@ footer {
           <div class="row">
             <div class="col-sm-12">
               <div class="alert alert-primary" style="text-align: center;">
-                <strong style="align-items: center;">Área de Trabalho</strong>
+                <strong style="align-items: center;">Notificações</strong>
               </div>
             </div>
           </div>
