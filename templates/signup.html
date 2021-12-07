@@ -1,0 +1,104 @@
+{% load myfilters %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <title>Document</title>
+    <style>
+        input[type=number]::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+
+        }
+
+        input[type=number] {
+            -moz-appearance: textfield;
+            appearance: textfield;
+
+        }
+    </style>
+</head>
+
+<body>
+    <main class="container text-center">
+        <form action="" method="post" onsubmit="return validar_campos()">
+            {% csrf_token %}
+            {% if form.errors %}
+                {% for field in form %}
+
+                    {% for error in field.errors %}
+                            <p class="my-1 text-danger">{{ error|escape }}</p>
+                    {% endfor %}
+
+                {% endfor %}
+            {% endif %}
+            <div class="row my-3">
+                <div class="col-1"></div>
+                <div class="col-5">
+                    <label for="username">Nome:</label>
+                    {{form.username|addclass:'form-control'}}
+                </div>
+                <div class="col-3">
+                    <label for="login">Login:</label>
+                    {{form.login|addclass:'form-control'}}
+                </div>
+                <div class="col"></div>
+            </div>
+            <div class="row my-3">
+                <div class="col-1"></div>
+                <div class="col-3">
+                    <label for="cpf">Cpf:</label>
+                    {{form.cpf|addclass:'form-control'}}
+                </div>
+                <div class="col-3">
+                    <label for="municipio">Municipio:</label>
+                    {{form.municipio|addclass:'form-control'}}
+                </div>
+                <div class="col-3">
+                    <label for="telefone">Telefone:</label>
+                    {{form.telefone|addclass:'form-control'}}
+                </div>
+                <div class="col"></div>
+            </div>
+            <div class="row my-3">
+                <div class="col-1"></div>
+                <div class="col-3">
+                    <label for="password1">Digite a senha:</label>
+                    {{form.password1|addclass:'form-control'}}
+                    
+                </div>
+                <div class="col-5">
+                    <label for="password2">Confirme a senha:</label>
+                    {{form.password2|addclass:'form-control'}}
+                </div>
+                <div class="col"></div>
+            </div>
+            <div class="row">
+                <div class="col"></div>
+                <div class="col">
+                    <input type="submit" value="Criar" class="btn btn-success">
+                </div>
+                <div class="col"></div>
+            </div>
+        </form>
+        <script>
+            function validar_campos(){
+                console.log('a')
+                const valid_num = /^[(]{0,1}[0-9]{3}[)]{0,1}[-\s\.]{0,1}[0-9]{3}[-\s\.]{0,1}[0-9]{4}$/
+                const telefone = $('#telefone').val()
+                if (valid_num.test(telefone)) {
+                    console.log('erro')
+                    return false
+                }
+            }
+        </script>
+    </main>
+</body>
+
+</html>

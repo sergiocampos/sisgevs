@@ -37,7 +37,8 @@ class User(AbstractBaseUser, PermissionsMixin):
 	login = models.CharField(max_length = 200, help_text='Informe um login', unique=True)
 	funcao = models.CharField(max_length=100, null=True)
 	username = models.CharField(max_length=100, null=True, blank=True)
-	cpf = models.CharField(max_length=100, null=True, blank=True)
+	cpf = models.CharField(max_length=11, null=True, blank=True)
+	telefone = models.CharField(max_length=15, null=True, blank=True)
 	#hospital = models.ForeignKey(Hospital, on_delete = models.CASCADE, default='', null=True)
 	
 	municipio = models.ForeignKey(Municipio, on_delete=models.CASCADE, null=True)
