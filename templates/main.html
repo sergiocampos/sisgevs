@@ -157,6 +157,10 @@ footer {
           <div id="demo" class="collapse">
             <li><a href="#">Meus Dados</a></li>
             <hr>
+            {% if user.funcao == 'admin' %}
+              <li><a href="/admin/">Gerenciar Contas</a></li>
+              <hr>
+            {% endif %}
             <li><a href="/all_forms/" data-toggle="collapse" data-target="#formularios">Formulários</a></li>
             <div id="formularios" class="collapse">
               <li><a href="/all_forms/">Esporotricose Humana</a></li>
@@ -177,7 +181,7 @@ footer {
           </div>
         </ul>
       </nav>
-
+      
 
       <article>
 

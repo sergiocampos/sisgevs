@@ -30,7 +30,7 @@ urlpatterns = [
     path('', views.index_aberto, name='index_aberto'),
     path('login/',views.login_page, name='login_page'),
     path('login/submit', views.login_submit),
-    path('logout/', views.logout_user),
+    path('logout/', views.logout_user, name='logout'),
     path('index/', views.index, name='index'),
     path('index/ajax_index_aberto', views.ajax_index_aberto, name='ajax_index_aberto'),
     path('index/ajax_filtrar_index_aberto', views.ajax_filtrar_index_aberto, name='ajax_filtrar_index_aberto'),
