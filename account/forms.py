@@ -7,7 +7,7 @@ class CustomUserCreationForm(UserCreationForm):
 	class Meta:
 		model = User
 		fields = ('username', 'login', 'municipio', 'cpf', 'telefone')
-	
+		
 	def usuario(self):
 		user = self.cleaned_data('username')
 		print('user')

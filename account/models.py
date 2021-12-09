@@ -34,8 +34,15 @@ class UserManager(BaseUserManager):
 		return user
 
 class User(AbstractBaseUser, PermissionsMixin):
+	OPTIONS = [
+		('admin', 'Admin'),
+		('municipio', 'Município'),
+		('gerencia', 'Gerência'),
+		(('padrao', 'Padrão'))
+	]
+
 	login = models.CharField(max_length = 200, help_text='Informe um login', unique=True)
-	funcao = models.CharField(max_length=100, null=True)
+	funcao = models.CharField(max_length=50, choices=OPTIONS, default='padrao')
 	username = models.CharField(max_length=100, null=True, blank=True)
 	cpf = models.CharField(max_length=11, null=True, blank=True)
 	telefone = models.CharField(max_length=15, null=True, blank=True)
