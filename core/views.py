@@ -721,11 +721,36 @@ def set_caso_esporotricose_create(request):
 
 		)
 	
+	# CODIGO NUMERO UNICO #
 	
+	date = datetime.now()
+	dia = date.day
+	mes = date.month
+	ano = date.year
 
+	dia = str(dia)
+	mes = str(mes)
+	ano = str(ano)
 
+	dia = dia.zfill(2)
+	mes = mes.zfill(2)
+	ano = ano.zfill(4)
 
+	date = dia + mes + ano
+	codigo = "000000000000" # Codigo que vem do banco.
+	ano_codigo_anterior = codigo[4]+codigo[5]+codigo[6]+codigo[7] # Pegando o ano do codigo vindo do banco.
 	
+	if ano_codigo_anterior != ano: # Se o ano do codigo do banco for diferente do ano atual, zera o codigo.
+		codigo = date + "0000"
+
+	n_codigo = codigo[8]+codigo[9]+codigo[10]+codigo[11] # Pegando o codigo final de 4 digitos.
+	n_codigo = int(n_codigo)
+	n_codigo += 1
+	n_codigo = str(n_codigo)
+	n_codigo = n_codigo.zfill(4)
+	codigo = date + n_codigo
+
+	# CODIGO NUMERO UNICO #
 	
 	return redirect("/my_datas", messages = messages.success(request, 'Caso criado com sucesso!'))
 
@@ -758,37 +783,6 @@ def ajax_index_aberto(request):
 		'vazio':len_vazio,
 		'total':total_casos
 	}
-
-# CODIGO NUMERO UNICO #  | A P A G A R |
-	
-	date = datetime.now()
-	dia = date.day
-	mes = date.month
-	ano = date.year
-
-	dia = str(dia)
-	mes = str(mes)
-	ano = str(ano)
-
-	dia = dia.zfill(2)
-	mes = mes.zfill(2)
-	ano = ano.zfill(4)
-
-	date = dia + mes + ano
-	codigo = "000000000000" # Codigo que vem do banco.
-	ano_codigo_anterior = codigo[4]+codigo[5]+codigo[6]+codigo[7] # Pegando o ano do codigo vindo do banco.
-	
-	if ano_codigo_anterior != ano: # Se o ano do codigo do banco for diferente do ano atual, zera o codigo.
-		codigo = date + "0000"
-
-	n_codigo = codigo[8]+codigo[9]+codigo[10]+codigo[11] # Pegando o codigo final de 4 digitos.
-	n_codigo = int(n_codigo)
-	n_codigo += 1
-	n_codigo = str(n_codigo)
-	n_codigo = n_codigo.zfill(4)
-	codigo = date + n_codigo
-
-# CODIGO NUMERO UNICO #  | A P A G A R |
 	
 	return JsonResponse(data)
 
