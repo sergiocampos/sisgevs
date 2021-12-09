@@ -98,7 +98,7 @@
 
         <form class="form-inline" enctype="multipart/form-data" action="submit" method="POST">{% csrf_token %}
           <label for="">Informe Data de Coleta:</label>
-          <input type="date" class="form-control" name="data" id="">
+          <input type="date" class="form-control" name="data" id="" required>
             
           <button type="submit" class="btn btn-primary">Localizar Caso</button>
         </form>
