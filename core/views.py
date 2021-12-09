@@ -1,5 +1,5 @@
 
-from django.db.models.expressions import Value
+from django.db.models.expressions import OrderBy, Value
 from django.utils.functional import empty
 import pandas as pd
 from django.http.response import JsonResponse
@@ -350,7 +350,7 @@ def remove_caso_esporotricose(request, id):
 
 @login_required(login_url='/login/')
 def set_caso_esporotricose_create(request):
-	print("entrou no set caso esporotricose")
+	
 	responsavel_pelas_informacoes = request.user
 
 	#Dados Gerais
@@ -601,7 +601,6 @@ def set_caso_esporotricose_create(request):
 	else:
 		data_encerramento = datetime.strptime(data_encerramento_cap, '%Y-%m-%d').date()
 	
-	
 	#observação
 	observacao = request.POST.get('observacao')
 	
@@ -611,6 +610,42 @@ def set_caso_esporotricose_create(request):
 	email_investigador = request.POST.get('email_investigador')
 	telefone_investigador = request.POST.get('telefone_investigador')
 	conselho_classe_investigador = request.POST.get('conselho_classe_investigador')
+
+	# CODIGO NUMERO UNICO #
+	
+	date = datetime.now()
+	dia = date.day
+	mes = date.month
+	ano = date.year
+
+	dia = str(dia)
+	mes = str(mes)
+	ano = str(ano)
+
+	dia = dia.zfill(2)
+	mes = mes.zfill(2)
+	ano = ano.zfill(4)
+
+	date = dia + mes + ano
+	
+	codigo = CasoEsporotricose.objects.values('numero_unico').order_by('-id')[0]['numero_unico']
+		
+	if codigo == "0":
+		codigo = codigo.zfill(12)
+	
+	ano_codigo_anterior = codigo[4]+codigo[5]+codigo[6]+codigo[7] # Pegando o ano do codigo vindo do banco.
+	
+	if ano_codigo_anterior != ano: # Se o ano do codigo do banco for diferente do ano atual, zera o codigo.
+		codigo = date + "0000"
+
+	n_codigo = codigo[8]+codigo[9]+codigo[10]+codigo[11] # Pegando o codigo final de 4 digitos.
+	n_codigo = int(n_codigo)
+	n_codigo += 1
+	n_codigo = str(n_codigo)
+	n_codigo = n_codigo.zfill(4)
+	codigo = date + n_codigo
+		
+	# CODIGO NUMERO UNICO #
 
 	CasoEsporotricose.objects.create(
 		responsavel_pelas_informacoes = responsavel_pelas_informacoes,
@@ -717,40 +752,11 @@ def set_caso_esporotricose_create(request):
 		funcao_investigador = funcao_investigador,
 		email_investigador = email_investigador,
 		telefone_investigador = telefone_investigador,
-		conselho_classe_investigador = conselho_classe_investigador
+		conselho_classe_investigador = conselho_classe_investigador,
+		numero_unico = codigo
 
 		)
 	
-	# CODIGO NUMERO UNICO #
-	
-	date = datetime.now()
-	dia = date.day
-	mes = date.month
-	ano = date.year
-
-	dia = str(dia)
-	mes = str(mes)
-	ano = str(ano)
-
-	dia = dia.zfill(2)
-	mes = mes.zfill(2)
-	ano = ano.zfill(4)
-
-	date = dia + mes + ano
-	codigo = "000000000000" # Codigo que vem do banco.
-	ano_codigo_anterior = codigo[4]+codigo[5]+codigo[6]+codigo[7] # Pegando o ano do codigo vindo do banco.
-	
-	if ano_codigo_anterior != ano: # Se o ano do codigo do banco for diferente do ano atual, zera o codigo.
-		codigo = date + "0000"
-
-	n_codigo = codigo[8]+codigo[9]+codigo[10]+codigo[11] # Pegando o codigo final de 4 digitos.
-	n_codigo = int(n_codigo)
-	n_codigo += 1
-	n_codigo = str(n_codigo)
-	n_codigo = n_codigo.zfill(4)
-	codigo = date + n_codigo
-
-	# CODIGO NUMERO UNICO #
 	
 	return redirect("/my_datas", messages = messages.success(request, 'Caso criado com sucesso!'))
 
