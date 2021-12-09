@@ -267,7 +267,7 @@ class CasoEsporotricose(models.Model):
 	email_investigador = models.CharField(max_length = 100, null=True, blank=True)
 	telefone_investigador = models.CharField(max_length = 100, null=True, blank=True)
 	conselho_classe_investigador = models.CharField(max_length = 100, null=True, blank=True)
-	numero_unico = models.CharField(max_length = 20, null=False, blank=False)
+	numero_unico = models.CharField(max_length = 20, null=False, blank=False, default=None)
 
 	def __str__(self):
 		return self.tipo_notificacao
