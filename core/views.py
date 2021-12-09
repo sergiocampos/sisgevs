@@ -350,7 +350,7 @@ def remove_caso_esporotricose(request, id):
 
 @login_required(login_url='/login/')
 def set_caso_esporotricose_create(request):
-	
+
 	responsavel_pelas_informacoes = request.user
 
 	#Dados Gerais
@@ -611,6 +611,7 @@ def set_caso_esporotricose_create(request):
 	telefone_investigador = request.POST.get('telefone_investigador')
 	conselho_classe_investigador = request.POST.get('conselho_classe_investigador')
 
+
 	# CODIGO NUMERO UNICO #
 	
 	date = datetime.now()
@@ -646,6 +647,7 @@ def set_caso_esporotricose_create(request):
 	codigo = date + n_codigo
 		
 	# CODIGO NUMERO UNICO #
+
 
 	CasoEsporotricose.objects.create(
 		responsavel_pelas_informacoes = responsavel_pelas_informacoes,
