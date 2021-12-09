@@ -12,13 +12,7 @@ header{
     margin:auto;
     border-radius: 7px;
 }
-#coluna_esquerda{
-    background-color: #e9ecef;
-    border-radius: 4px;
-    box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.15);
-    padding: 15px;
-    margin-bottom: 30px;
-}
+
 #conteudo{
     margin:15px;
     background-color: #fff;
@@ -27,9 +21,9 @@ header{
     border-radius: 4px;
 }
 #coluna_direita{
-    background-color: #e9ecef;
+    background-color: #fff;
     border-radius: 4px;
-    box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.15);
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.15);
     padding: 15px;
     margin-bottom: 30px;
 }
@@ -37,9 +31,9 @@ header{
     margin-top: 10px;
 }
 #coluna_central{
-    background-color: #e9ecef;
+    background-color: #fff;
     border-radius: 4px;
-    box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.15);
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.15);
     padding: 15px;
     margin: 0px 20px 30px 20px
 }

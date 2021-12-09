@@ -65,14 +65,14 @@
           <a class="nav-link" href="/">Home</a>
         </li>
         <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#">Localizar Notificação</a>
-          <div class="dropdown-menu">
-              <a class="dropdown-item" href="/localizar_paciente_nome/">Nome Paciente</a>
-              <a class="dropdown-item" href="/localizar_paciente_data_coleta/">Data de Coleta</a>
-              <a class="dropdown-item" href="#">CPF</a>
-              <a class="dropdown-item" href="#">Telefone</a>
-          </div>
-      </li>
+            <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#">Localizar Notificação</a>
+            <div class="dropdown-menu">
+                <a class="dropdown-item" href="/localizar_paciente_nome/">Nome Paciente</a>
+                <a class="dropdown-item" href="/localizar_paciente_data_coleta/">Data de Coleta</a>
+                <a class="dropdown-item" href="#">CPF</a>
+                <a class="dropdown-item" href="#">Telefone</a>
+            </div>
+        </li>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#">Notificar Caso</a>
           <div class="dropdown-menu">
@@ -95,7 +95,7 @@
     <div class="row">
       <div class="col-sm-12">
         <div class="alert alert-primary" style="text-align: center;">
-          <strong style="align-items: center;">Resultado de Busca de Notificações por Nome</strong>
+          <strong style="align-items: center;">Resultado de Busca de Notificações por Data de Coleta</strong>
         </div>
       </div>
     </div>
@@ -103,8 +103,6 @@
 
     <div class="row">
       <div class="col-sm-11">
-        
-
       </div>
       <div class="col-sm-1">
         <button type="button" class="btn btn-primary btn-sm" onclick="goBack()">Voltar</button>
@@ -138,21 +136,26 @@
         <td>{{r.idade_paciente}}</td>
         <td>{{r.municipio_residencia}}</td>
         <td>{{r.nome_investigador}}</td>
+        <input type="hidden" id="data_coleta" value="{{r.data_coleta1}}">
         <td align="center">
-          
-          <a href="/caso_esporotricose_edit/{{r.id}}/"><button type="button" class="btn btn-info btn-sm">Editar
-          </button></a>
-          
           <a href="/caso_view_detail/"><button type="button" class="btn btn-info btn-sm">Ver
           </button></a>
-          
         </td>
       </tr>
       {% endfor %}
       
     </tbody>
   </table>
-
+  <div class="row">
+      <div class="col-5"></div>
+      <div class="col-5">
+        <form class="form-inline" enctype="multipart/form-data" action="csv" method="POST">{% csrf_token %}
+            <input type="hidden" name="data_coleta" id="data_coleta_send" value="">
+            <button type="submit" id="btn-exportar" class="btn btn-secondary btn-sm">Exportar CSV</button>
+        </form>
+      </div>
+      <div class="col-2"></div>
+  </div>
   </div>
 
   <div style="height: 350px;"></div>
@@ -162,6 +165,16 @@
     <i class="fa">&#xf1f9;</i>
   </div>
   <br>
+  <script>
+      $(document).ready(function(){
+        var data = document.getElementById('data_coleta').value;
+        var newdate = data.split("-").reverse().join("-");
+        $("#data_coleta_send").val(newdate);
+        var data_send = document.getElementById('data_coleta_send').value;
 
+        
+        
+      });
+  </script>
 </body>
 </html>
