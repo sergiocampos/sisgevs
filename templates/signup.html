@@ -1,0 +1,83 @@
+{% extends 'base.html' %}
+{% load myfilters %}
+
+{% block content %}
+    <header class="container text-center my-2">
+        <div class="row">
+            <div class="col">
+              <div class="alert alert-primary text-center">
+                <h1 class="font-weight-bolder">Cadastro de Usuário</h1>
+              </div>
+            </div>
+          </div>
+    </header>
+    <main class="container text-center my-3">
+        <form action="" method="post">
+            {% csrf_token %}
+            {% if form.errors %}
+                {% for field in form %}
+
+                    {% for error in field.errors %}
+                            <p class="my-1 text-danger">{{ error|escape }}</p>
+                    {% endfor %}
+
+                {% endfor %}
+            {% endif %}
+            <div class="row my-3">
+                <div class="col-1"></div>
+                <div class="col-5">
+                    <label for="username">Nome:</label>
+                    {{form.username|addclass:'form-control'}}
+                </div>
+                <div class="col-3">
+                    <label for="login">Login:</label>
+                    {{form.login|addclass:'form-control'}}
+                </div>
+                <div class="col"></div>
+            </div>
+            <div class="row my-3">
+                <div class="col-1"></div>
+                <div class="col-3">
+                    <label for="cpf">Cpf:</label>
+                    {{form.cpf|addclass:'form-control'}}
+                </div>
+                <div class="col-3">
+                    <label for="municipio">Municipio:</label>
+                    {{form.municipio|addclass:'form-control'}}
+                </div>
+                <div class="col-3 tel">
+                    <label for="telefone">Telefone:</label>
+                    {{form.telefone|addclass:'form-control'}}
+                </div>
+                <div class="col"></div>
+            </div>
+            <div class="row my-3">
+                <div class="col-1"></div>
+                <div class="col-3">
+                    <label for="password1">Digite a senha:</label>
+                    {{form.password1|addclass:'form-control'}}
+                    
+                </div>
+                <div class="col-5">
+                    <label for="password2">Confirme a senha:</label>
+                    {{form.password2|addclass:'form-control'}}
+                </div>
+                <div class="col"></div>
+            </div>
+            <hr>
+            <div class="row">
+                <div class="col"></div>
+                <div class="col">
+                    <input type="submit" value="Criar" class="btn btn-success">
+                </div>
+                <div class="col"></div>
+            </div>
+        </form>
+        <script>
+            $(document).ready(function(){
+                $("#id_telefone").mask("(99)99999-9999")
+            })
+            
+        </script>
+    </main>
+{% endblock content %}
