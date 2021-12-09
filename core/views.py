@@ -316,7 +316,6 @@ def remove_caso_esporotricose(request, id):
 
 @login_required(login_url='/login/')
 def set_caso_esporotricose_create(request):
-	print("entrou no set caso esporotricose")
 	responsavel_pelas_informacoes = request.user
 
 	#Dados Gerais
@@ -577,6 +576,7 @@ def set_caso_esporotricose_create(request):
 	email_investigador = request.POST.get('email_investigador')
 	telefone_investigador = request.POST.get('telefone_investigador')
 	conselho_classe_investigador = request.POST.get('conselho_classe_investigador')
+
 
 	CasoEsporotricose.objects.create(
 		responsavel_pelas_informacoes = responsavel_pelas_informacoes,
