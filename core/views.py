@@ -139,7 +139,7 @@ def search_paciente_nome(request):
 	nome = request.session['nome']
 	caso_all_result = CasoEsporotricose.objects.filter(nome_paciente__icontains=nome)
 
-	return render(request, {'caso_all_result':caso_all_result})
+	return render(request, 'resultado_search_caso_nome.html', {'caso_all_result':caso_all_result})
 
 
 # Localizar Paciente por Data da Coleta
@@ -209,9 +209,13 @@ def caso_view(request, id):
 
 
 @login_required(login_url='/login/')
-def caso_view_detail(request):
+def caso_view_detail(request, id):
+	registro = CasoEsporotricose.objects.get(id=id)
 
-	return render(request, 'caso_view_detail.html')
+	municipio_id = registro.municipio
+	municipio = Municipio.objects.get(id=municipio_id)
+
+	return render(request, 'caso_view_detail.html', {'registro':registro, 'municipio':municipio})
 
 
 @login_required(login_url='/login/')
@@ -629,12 +633,17 @@ def set_caso_esporotricose_create(request):
 
 	date = dia + mes + ano
 	
-	codigo = CasoEsporotricose.objects.values('numero_unico').order_by('-id')[0]['numero_unico']
-		
-	if codigo == "0":
-		codigo = codigo.zfill(12)
-	
+	ultimo_registro_caso = CasoEsporotricose.objects.all().last()
+	if ultimo_registro_caso:
+		if ultimo_registro_caso.numero_unico == "" or ultimo_registro_caso.numero_unico == None:
+			codigo = "000000000000"
+		else:
+			codigo = ultimo_registro_caso.numero_unico
+			print("codigo:", codigo)
+	else:
+		codigo = "000000000000"
 	ano_codigo_anterior = codigo[4]+codigo[5]+codigo[6]+codigo[7] # Pegando o ano do codigo vindo do banco.
+	
 	
 	if ano_codigo_anterior != ano: # Se o ano do codigo do banco for diferente do ano atual, zera o codigo.
 		codigo = date + "0000"
