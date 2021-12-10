@@ -30,7 +30,7 @@ urlpatterns = [
     path('', views.index_aberto, name='index_aberto'),
     path('login/',views.login_page, name='login_page'),
     path('login/submit', views.login_submit),
-    path('logout/', views.logout_user),
+    path('logout/', views.logout_user, name='logout'),
     path('index/', views.index, name='index'),
     path('index/ajax_index_aberto', views.ajax_index_aberto, name='ajax_index_aberto'),
     path('index/ajax_filtrar_index_aberto', views.ajax_filtrar_index_aberto, name='ajax_filtrar_index_aberto'),
@@ -71,9 +71,12 @@ urlpatterns = [
     path('localizar_paciente_nome/', views.localizar_paciente_nome, name='localizar_paciente_nome'),
     path('localizar_paciente_nome/submit', views.set_localizar_paciente_nome),
     path('search_paciente_nome/', views.search_paciente_nome, name='search_paciente_nome'),
+    path('localizar_paciente_data_coleta/', views.localizar_paciente_data_coleta, name='localizar_paciente_data_coleta'),
+    path('localizar_paciente_data_coleta/submit', views.set_localizar_paciente_data_coleta),
+    path('localizar_paciente_data_coleta/csv', views.csv_localizar_paciente_data_coleta),
 
     path('caso_view/<id>/', views.caso_view, name='caso_view'),
-    path('caso_view_detail/', views.caso_view_detail, name='caso_view_detail'),
+    path('caso_view_detail/<id>/', views.caso_view_detail, name='caso_view_detail'),
 
     path('download_ficha/', views.download_ficha, name='download_ficha'),
     path('remove_caso_esporotricose/<id>/', views.remove_caso_esporotricose, name='remove_caso_esporotricose'),

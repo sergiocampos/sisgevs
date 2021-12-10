@@ -25,21 +25,10 @@
   <header>
     <div class="" style="background-color: #e6e6e6;">
       <div class="row">
-        <div class="col-3">
-          <!--
-          <img src="https://docs.google.com/uc?id=1gDXBrx2Nq6k_Whfk6E4IpkvcyDypJPxY" alt="" width="50%">
-        -->
-        </div>
-        <div class="col-4" style="margin-top: 10px; text-align: center;">
+        <div class="col" style="padding: 0; margin-top: 10px; text-align: center;">
           <h4>SECRETARIA DE ESTADO DA SAÚDE</h4>
           <h6>SISGEVS - Sistema de Informação em Saúde da GEVS</h6>
           <h6><b>----</b></h6>
-        </div>
-        <div class="col-3">
-          <img src="{% static 'sisgevs/nova-marca-governo-01.png' %}" alt="" width="50%">
-            <!--
-            <img src="https://docs.google.com/uc?id=1tLThSsCUOFKg-1fphY-Y9hrC_XFnHdOr" alt="" width="50%">
-          -->
         </div>
       </div>
     </div>
@@ -52,27 +41,27 @@
     <div class="collapse navbar-collapse" id="collapsibleNavbar">
       <ul class="navbar-nav">
         <li class="nav-item">
-          <a class="nav-link" href="/main/">Entrar</a>
+          <a class="nav-link" href="/all_forms/">Entrar</a>
         </li>
       </ul>
     </div>
     
   </nav>
   <!-- Carrosel -->
-  <div style="margin-top: 3%;" class="container">
+  <div style="margin-top: 3%; width: 70%;" class="container">
     <div id="carouselExampleSlidesOnly" class="carousel slide" data-ride="carousel" data-interval="2000">
       <div class="carousel-inner">
         <div class="carousel-item">
-          <img style="width: 624px; height: 300x;" class="d-block w-100" src="{% static 'sisgevs/simposio-cortada.jpg' %}" alt="First slide">
+          <img style="width: 208px; height: 100x;" class="d-block w-100" src="{% static 'sisgevs/simposio-cortada.jpg' %}" alt="First slide">
           
         </div>
         <div class="carousel-item active">
-          <img style="width: 624px; height: 300x;" class="d-block w-100" src="https://docs.google.com/uc?id=1tLThSsCUOFKg-1fphY-Y9hrC_XFnHdOr" alt="First slide">
+          <img style="width: 208px; height: 100x;" class="d-block w-100" src="https://docs.google.com/uc?id=1tLThSsCUOFKg-1fphY-Y9hrC_XFnHdOr" alt="First slide">
           
         </div>
         
         <div class="carousel-item">
-          <img style="width: 624px; height: 300x;" class="d-block w-100" src="{% static 'sisgevs/seminario-esporotricose-cortada.jpg' %}" alt="First slide">
+          <img style="width: 208px; height: 100x;" class="d-block w-100" src="{% static 'sisgevs/seminario-esporotricose-cortada.jpg' %}" alt="First slide">
           
         </div>
       </div>
@@ -82,20 +71,19 @@
   <hr>
   <!-- Area dos Dados -->
   <div class="row">
-
+    <div class="col-sm-1"></div>
+    
     <!-- Coluna Esquerda -->
-    <div class="col-1"></div>
-    <div class="col-4" id="coluna_esquerda">
-      <div class="alert alert-info" style="text-align: center;"><strong>Casos Confirmados</strong></div>
-      <div style="margin-top:30px;" id="container"><!--PRIMEIRO GRÁFICO--></div>
+    <div class="col-sm-6" id="coluna_direita">
+      <div style="margin-top:30px;" id="container2"><!--SEGUNDO GRÁFICO--></div>
     </div>
     <!-- Coluna Esquerda -->
-
+    
     <!-- Coluna Central -->
-    <div class="col-2" id="coluna_central">
+    <div class="col-sm-4" id="coluna_central">
       <div class="text-center" id="filtros_box">
         <form name="" id="" enctype="multipart/form-data" action="submit" method="POST">{% csrf_token %}
-          <div class="alert alert-info" style="text-align: center;"><strong>Filtrar Dados</strong></div>
+          
           <h6>Filtrar por ano</h6>
           <div class="input-group mb-3" id="">
             <div class="input-group-prepend" id="">
@@ -133,15 +121,8 @@
       </div>
     </div>
     <!-- Coluna Central -->
-
-    <!-- Coluna Direita -->
-    <div class="col-4" id="coluna_direita">
-      <div class="alert alert-info" style="text-align: center;"><strong>Esporotricose - Dengue - Chikungonha - Zika</strong></div>
-      <div style="margin-top:30px;" id="container2"><!--SEGUNDO GRÁFICO--></div>
-    </div>
-    <div class="col-1"></div>
+    <div class="col-sm-1"></div>
   </div>
-  <!-- Coluna Direita -->
 
   <!-- Footer -->
   <div class="jumbotron text-center" style="margin-bottom:0">
