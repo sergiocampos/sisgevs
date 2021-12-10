@@ -76,7 +76,7 @@ urlpatterns = [
     path('localizar_paciente_data_coleta/csv', views.csv_localizar_paciente_data_coleta),
 
     path('caso_view/<id>/', views.caso_view, name='caso_view'),
-    path('caso_view_detail/', views.caso_view_detail, name='caso_view_detail'),
+    path('caso_view_detail/<id>/', views.caso_view_detail, name='caso_view_detail'),
 
     path('download_ficha/', views.download_ficha, name='download_ficha'),
     path('remove_caso_esporotricose/<id>/', views.remove_caso_esporotricose, name='remove_caso_esporotricose'),

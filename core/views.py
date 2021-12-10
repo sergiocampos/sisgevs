@@ -209,9 +209,13 @@ def caso_view(request, id):
 
 
 @login_required(login_url='/login/')
-def caso_view_detail(request):
+def caso_view_detail(request, id):
+	registro = CasoEsporotricose.objects.get(id=id)
 
-	return render(request, 'caso_view_detail.html')
+	municipio_id = registro.municipio
+	municipio = Municipio.objects.get(id=municipio_id)
+
+	return render(request, 'caso_view_detail.html', {'registro':registro, 'municipio':municipio})
 
 
 @login_required(login_url='/login/')
