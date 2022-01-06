@@ -297,22 +297,24 @@ def my_datas(request):
 	municipio_id_user = request.user.municipio_id
 	municipio_user = Municipio.objects.get(id=municipio_id_user)
 	#municipio_nome = municipio_user.nome
-	if request.user.perfil == 'admin':
+	if request.user.funcao == 'admin':
 		registros = CasoEsporotricose.objects.all()
 		paginator = Paginator(registros, 6)
 		page = request.GET.get('page')
 		regs = paginator.get_page(page)
 		return render(request, 'my_datas.html', {'regs':regs})
 
-	if request.user.perfil == 'gerencia':
+	elif request.user.funcao == 'gerencia':
 		gerencia_user = municipio_user.gerencia
-		registros = CasoEsporotricose.objects.filter(gerencia=gerencia_user)
+		regs = CasoEsporotricose.objects.filter(gerencia=gerencia_user)
 		
-		return render(request, 'my_datas.html', {'registros':registros})
+		return render(request, 'my_datas.html', {'regs':regs})
 
-	if request.user.perfil == 'municipio':
-		registros = CasoEsporotricose.objects.filter(municipio=municipio_id_user)
-		return render(request, 'my_datas.html', {'registros':registros})
+	elif request.user.funcao == 'municipio':
+		regs = CasoEsporotricose.objects.filter(municipio=municipio_id_user)
+		return render(request, 'my_datas.html', {'regs':regs})
+	else:
+		return redirect('all_forms')
 	
 
 @login_required(login_url='/login/')
