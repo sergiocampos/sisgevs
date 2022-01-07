@@ -223,15 +223,15 @@ class CasoEsporotricose(models.Model):
 	#Tratamento
 	data_inicio_tratamento1 = models.DateField(blank=True, null=True)
 	droga_administrada1 = models.CharField(max_length = 200, null=True, blank=True)
-	esquema_terapeutico1 = models.CharField(max_length = 100, null=True, blank=True)
+	esquema_terapeutico1 = models.CharField(max_length = 200, null=True, blank=True)
 
 	data_inicio_tratamento2 = models.DateField(blank=True, null=True)
 	droga_administrada2 = models.CharField(max_length = 200, null=True, blank=True)
-	esquema_terapeutico2 = models.CharField(max_length = 100, null=True, blank=True)
+	esquema_terapeutico2 = models.CharField(max_length = 200, null=True, blank=True)
 
 	data_inicio_tratamento3 = models.DateField(blank=True, null=True)
 	droga_administrada3 = models.CharField(max_length = 200, null=True, blank=True)
-	esquema_terapeutico3 = models.CharField(max_length = 100, null=True, blank=True)
+	esquema_terapeutico3 = models.CharField(max_length = 200, null=True, blank=True)
 
 	hospitalizacao = models.CharField(max_length = 10, null=True, blank=True)
 	data_internacao = models.DateField(blank=True, null=True)
@@ -267,7 +267,7 @@ class CasoEsporotricose(models.Model):
 	email_investigador = models.CharField(max_length = 100, null=True, blank=True)
 	telefone_investigador = models.CharField(max_length = 100, null=True, blank=True)
 	conselho_classe_investigador = models.CharField(max_length = 100, null=True, blank=True)
-	numero_unico = models.CharField(max_length = 20, null=False, blank=False, default=None)
+	numero_unico = models.CharField(max_length = 20, null=True, blank=True, default=None)
 
 	def __str__(self):
 		return self.tipo_notificacao
