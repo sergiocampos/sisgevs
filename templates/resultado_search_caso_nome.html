@@ -126,32 +126,52 @@
         <th>Cidade</th>
         <th>Notificante</th>
         <th></th>
+        <th colspan="2"></th>
+
 
       </tr>
     </thead>
     <tbody>
       
-      {% for r in caso_all_result %}
+      {% for r in regs %}
       <tr>
         <td>{{r.data_notificacao}}</td>
         <td>{{r.nome_paciente}}</td>
         <td>{{r.idade_paciente}}</td>
         <td>{{r.municipio_residencia}}</td>
-        <td>{{r.nome_investigador}}</td>
+        <td></td>
         <td align="center">
           
           <a href="/caso_esporotricose_edit/{{r.id}}/"><button type="button" class="btn btn-info btn-sm">Editar
           </button></a>
           
-          <a href="/caso_view_detail/"><button type="button" class="btn btn-info btn-sm">Ver
-          </button></a>
           
+          
+        </td>
+        <td>
+          <a href="/caso_view/{{r.id}}/"><button type="button" class="btn btn-info btn-sm">Ver
+          </button></a>
         </td>
       </tr>
       {% endfor %}
       
     </tbody>
   </table>
+
+  <div class="pagination">
+      <span class="step-links" style="margin: auto">
+        {% if regs.has_previous %}
+         <a href="?page={{regs.previous_page_number}}">Anterior</a>
+        {% endif %}
+        <span class="current">
+        {{regs.number}} de {{regs.paginator.num_pages}}
+        </span>
+        {% if regs.has_next %}
+         <a href="?page={{regs.next_page_number}}"> Próximo</a>
+         {% endif %}
+                
+      </span> 
+    </div>
 
   </div>
 
