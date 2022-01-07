@@ -256,7 +256,7 @@ footer {
 
                   <div class="col-md-3">
                     <div class="form-group"><b>Tipo de Notificação</b>
-                      <select class="form-control" name="tipo_notificacao" id="">
+                      <select class="form-control" name="tipo_notificacao" id="" readonly>
                         <option value="{{registro.tipo_notificacao}}" selected>{{registro.tipo_notificacao}}</option>
                         <option value="Individual">Individual</option>
 
@@ -265,7 +265,7 @@ footer {
                   </div>
                   <div class="col-md-2">
                     <div class="form-group"><b>Agravo/Doença</b>
-                      <select class="form-control" name="agravo_doenca" id="">
+                      <select class="form-control" name="agravo_doenca" id="" readonly>
                         <option value="{{registro.agravo_doenca}}" selected>{{registro.agravo_doenca}}</option>
                         <option value="Esporotricose">Esporotricose</option>
 
@@ -275,18 +275,18 @@ footer {
                   <div class="col-md-2">
                     <div class="form-group"><b>Código CIB 10</b>
                       {% if registro.codigo_cib10 %}
-                      <input class="form-control" type="text" name="codigo_cib" placeholder="" value="{{registro.codigo_cib10}}">
+                      <input class="form-control" type="text" name="codigo_cib" placeholder="" value="{{registro.codigo_cib10}}" readonly>
                       {%else%}
-                      <input class="form-control" type="text" name="codigo_cib" placeholder="" value="B42.9">
+                      <input class="form-control" type="text" name="codigo_cib" placeholder="" value="B42.9" readonly>
                       {%endif%}
                     </div>
                   </div>
                   <div class="col-md-3">
                     <div class="form-group"><b>Data de notificação</b>
                       {% if registro.data_notificacao %}
-                      <input class="form-control" type="" name="data_notificacao" value="{{registro.data_notificacao}}">
+                      <input class="form-control" type="" name="data_notificacao" value="{{registro.data_notificacao}}" readonly>
                       {%else%}
-                      <input class="form-control" type="date" name="data_notificacao" value="">
+                      <input class="form-control" type="date" name="data_notificacao" value="" readonly>
                       {%endif%}
                     </div>
                   </div>
@@ -297,7 +297,7 @@ footer {
 
                   <div class="col-md-2">
                     <div class="form-group"><b>UF</b>
-                      <select class="form-control" name="uf_notificacao" id="estado">
+                      <select class="form-control" name="uf_notificacao" id="estado" readonly>
                         <option value="{{registro.estado}}" selected>{{registro.estado}}</option>
                         <option value=""></option>
 
@@ -306,7 +306,7 @@ footer {
                   </div>
                   <div class="col-md-3">
                     <div class="form-group"><b>Município</b>
-                      <select class="form-control" name="municipio_notificacao" id="municipio_id" required>
+                      <select class="form-control" name="municipio_notificacao" id="municipio_id" required readonly>
                         <option value="{{municipio}}" selected>{{municipio}}</option>
                         
 
@@ -317,7 +317,7 @@ footer {
                   <div class="col-md-2">
                     <div class="form-group"><b>Código IBGE</b>
                       <b ></b>
-                      <select class="form-control" name="codigo_ibge_dados_gerais" id="ibge_cod_id">
+                      <select class="form-control" name="codigo_ibge_dados_gerais" id="ibge_cod_id" readonly>
                         <option value="{{ibge}}">{{ibge}}</option>
                       
                         
@@ -326,7 +326,7 @@ footer {
                   </div>
                   <div class="col-md-3">
                     <div class="form-group"><b>Data dos Primeiros Sintomas</b>
-                      <input class="form-control" type="date" name="data_primeiros_sintomas" value="" required>
+                      <input class="form-control" type="date" name="data_primeiros_sintomas" value="" required readonly>
                       <div class="valid-feedback">Valid.</div>
                       <div class="invalid-feedback">Data obrigatória.</div>
                     </div>
@@ -338,7 +338,7 @@ footer {
                 <div class="row">
                   <div class="col-md-6">
                     <div class="form-group"><b>Unidade de Saúde  </b><i></i>
-                      <select class="form-control" name="unidade_saude" id="unidade_saude_id">
+                      <select class="form-control" name="unidade_saude" id="unidade_saude_id" readonly>
                         {% for unid_saude in unidades_saude %}
                         <option value="{{unid_saude.id}}">{{unid_saude.id}}</option>
                         {% endfor %}
@@ -358,7 +358,7 @@ footer {
                       <div class="input-group-prepend" id="">
                         <span class="input-group-text">Outra Unidade</span>
                       </div>
-                      <input type="text" class="form-control" name="unidade_saude_outro" value="" id="">
+                      <input type="text" class="form-control" name="unidade_saude_outro" value="" id="" readonly>
                     </div>
                   </div>
                 </div>
@@ -406,21 +406,21 @@ footer {
 
                   <div class="col-md-6"><b>Paciente</b>
                     <div class="form-group">
-                      <input class="form-control" type="text" name="nome_paciente" value="" required>
+                      <input class="form-control" type="text" name="nome_paciente" value="" required readonly>
                       <div class="valid-feedback">Valid.</div>
                       <div class="invalid-feedback">Nome obrigatório.</div>
                     </div>
                   </div>
                   <div class="col-md-2">
                     <div class="form-group"><b>Data Nasc</b>
-                      <input class="form-control" type="date" name="data_nasc" id="date2" placeholder="" value="" required>
+                      <input class="form-control" type="date" name="data_nasc" id="date2" placeholder="" value="" required readonly>
                       <div class="valid-feedback">Valid.</div>
                       <div class="invalid-feedback">Data nascimento obrigatória.</div>
                     </div>                                
                   </div>
                   <div class="col-md-2">
                     <div class="form-group"><b>Sexo</b>
-                      <select class="form-control" name="sexo" id="span_id">
+                      <select class="form-control" name="sexo" id="span_id" readonly>
                         
                         <option value=""></option>
                         <option value="M">Masculino</option>
@@ -431,7 +431,7 @@ footer {
                   </div>
                   <div class="col-md-2">
                     <div class="form-group"><b>Idade</b>
-                      <input class="form-control" type="text" name="result" placeholder="" value="" id="result">
+                      <input class="form-control" type="text" name="result" placeholder="" value="" id="result" readonly>
                     </div>
                   </div>
 
@@ -467,7 +467,7 @@ footer {
                   
                     <div class="col-md-3">
                       <div class="form-group"><b>Gestante</b>
-                        <select class="form-control" name="gestacao" id="" required>
+                        <select class="form-control" name="gestacao" id="" required readonly>
                           
                           <option value=""></option>
                           <option value="1º Trimente">1º Trimente</option>
@@ -485,7 +485,7 @@ footer {
                     </div>
                   <div class="col-md-2">
                     <div class="form-group"><b>Raça</b>
-                      <select class="form-control" name="raca" id="">
+                      <select class="form-control" name="raca" id="" readonly>
                         
                         <option value=""></option>
                         <option value="Branca">Branca</option>
@@ -501,7 +501,7 @@ footer {
 
                   <div class="col-md-4">
                     <div class="form-group"><b>Escolaridade</b>
-                      <select class="form-control" name="escolaridade" id="">
+                      <select class="form-control" name="escolaridade" id="" readonly>
                         
                         <option value=""></option>
                         <option value="Analfabeto">Analfabeto</option>
@@ -520,7 +520,7 @@ footer {
                   </div>
                   <div class="col-md-3">
                     <div class="form-group"><b>Cartão SUS</b>
-                      <input class="form-control" type="text" name="cartao_sus" placeholder="" value="">
+                      <input class="form-control" type="text" name="cartao_sus" placeholder="" value="" readonly>
                     </div>              
                   </div>
                 </div>
@@ -534,7 +534,7 @@ footer {
                 <div class="row">
                   <div class="col-md-6">
                     <div class="form-group"><b>Nome da Mãe</b>
-                      <input class="form-control" type="text" name="nome_mae" placeholder="" value="" required onclick="active_submit()">
+                      <input class="form-control" type="text" name="nome_mae" placeholder="" value="" required onclick="active_submit()" readonly>
                       <div class="valid-feedback">Valid.</div>
                       <div class="invalid-feedback">nome da mãe obrigatório.</div>
                     </div>              
@@ -553,29 +553,29 @@ footer {
 
                   <div class="col-md-2">
                     <div class="form-group"><b>CEP</b>
-                      <input class="form-control" type="text" name="cep_residencia" id="cep" placeholder="" value="" required>
+                      <input class="form-control" type="text" name="cep_residencia" id="cep" placeholder="" value="" required readonly>
                     </div>
                   </div>
                   <div class="col-md-3">
                     <div class="form-group"><b>UF</b>
-                      <input class="form-control" type="text" name="uf_residencia" id="uf" placeholder="" value="">
+                      <input class="form-control" type="text" name="uf_residencia" id="uf" placeholder="" value="" readonly>
                     </div>
                   </div>
                   <div class="col-md-3">
                     <div class="form-group"><b>Município</b>
-                      <input class="form-control" type="text" name="cidade_residencia" id="cidade" placeholder="" value="">
+                      <input class="form-control" type="text" name="cidade_residencia" id="cidade" placeholder="" value="" readonly>
                     </div>              
                   </div>
                   
                   <div class="col-md-2">
                     <div class="form-group"><b>Bairro</b>
-                      <input class="form-control" type="text" name="bairro_residencia" id="bairro" placeholder="" value="">
+                      <input class="form-control" type="text" name="bairro_residencia" id="bairro" placeholder="" value="" readonly>
                     </div>
                   </div>
 
                   <div class="col-md-2">
                     <div class="form-group"><b>Código IBGE</b>
-                      <input class="form-control" type="text" name="codigo_ibge_residencia" id="ibge" placeholder="" value="">
+                      <input class="form-control" type="text" name="codigo_ibge_residencia" id="ibge" placeholder="" value="" readonly>
                     </div>
                   </div>
                   
@@ -585,17 +585,17 @@ footer {
 
                   <div class="col-md-6">
                     <div class="form-group"><b>Rua</b>
-                      <input class="form-control" type="text" name="rua_residencia" id="rua" placeholder="" value="">
+                      <input class="form-control" type="text" name="rua_residencia" id="rua" placeholder="" value="" readonly>
                     </div>
                   </div>
                   <div class="col-md-2">
                     <div class="form-group"><b>Número</b>
-                      <input class="form-control" type="text" name="numero_residencia" id="" placeholder="" value="">
+                      <input class="form-control" type="text" name="numero_residencia" id="" placeholder="" value="" readonly>
                     </div>
                   </div>
                   <div class="col-md-4">
                     <div class="form-group"><b>Complemento</b>
-                      <input class="form-control" type="text" name="complemento_residencia" id="" placeholder="" value="">
+                      <input class="form-control" type="text" name="complemento_residencia" id="" placeholder="" value="" readonly>
                     </div>
                   </div>
                   
@@ -606,7 +606,7 @@ footer {
 
                   <div class="col-md-3">
                     <div class="form-group"><b>Distrito</b>
-                      <input class="form-control" type="text" name="distrito_residencia" id="rua" placeholder="" value="">
+                      <input class="form-control" type="text" name="distrito_residencia" id="rua" placeholder="" value="" readonly>
                     </div>
                   </div>
                   <!--
@@ -623,7 +623,7 @@ footer {
                 -->
                   <div class="col-md-3">
                     <div class="form-group"><b>Ponto de Referência</b>
-                      <input class="form-control" type="text" name="ponto_referencia_residencia" id="" placeholder="" value="">
+                      <input class="form-control" type="text" name="ponto_referencia_residencia" id="" placeholder="" value="" readonly>
                     </div>
                   </div>                
                   
@@ -631,12 +631,12 @@ footer {
                 <div class="row">
                   <div class="col-md-2">
                     <div class="form-group"><b>Telefone</b>
-                      <input type="text" class="form-control" id="telefone_residencia_id" name="telefone_residencia" placeholder="apenas números">
+                      <input type="text" class="form-control" id="telefone_residencia_id" name="telefone_residencia" placeholder="apenas números" readonly>
                     </div>
                   </div>
                   <div class="col-md-3">
                     <div class="form-group"><b>Zona</b>
-                      <select class="form-control" name="zona_residencia" id="">
+                      <select class="form-control" name="zona_residencia" id="" readonly>
                         <option value=""></option>
                         <option value="Rural">Rural</option>
                         <option value="Urbana">Urbana</option>
@@ -647,7 +647,7 @@ footer {
                   </div>
                   <div class="col-md-7">
                     <div class="form-group"><b>Pais - </b><i>Se residem fora do Brasil</i>
-                      <input class="form-control" type="text" name="pais_residente_fora_pais" id="" placeholder="" value="">
+                      <input class="form-control" type="text" name="pais_residente_fora_pais" id="" placeholder="" value="" readonly>
                     </div>
                   </div>
                 </div>
@@ -660,12 +660,12 @@ footer {
                   <div class="col-md-3"></div>
                   <div class="col-md-3">
                     <div class="form-group"><b>Data de Investigação</b>
-                      <input class="form-control" type="date" name="data_investigacao" value="">
+                      <input class="form-control" type="date" name="data_investigacao" value="" readonly>
                     </div>
                   </div>
                   <div class="col-md-4">
                     <div class="form-group"><b>Ocupação</b>
-                      <input class="form-control" type="text" name="ocupacao" placeholder="" value="">
+                      <input class="form-control" type="text" name="ocupacao" placeholder="" value="" readonly>
                     </div>
                   </div>
                 </div>
@@ -693,37 +693,37 @@ footer {
                 <div class="row">
                   <div class="col-md-2">
                       <div class="custom-control custom-checkbox mb-3">
-                        <input type="checkbox" class="custom-control-input" id="mata_id" name="ambientes_frequentados" value="Mata">
+                        <input type="checkbox" class="custom-control-input" id="mata_id" name="ambientes_frequentados" value="Mata" disabled>
                         <label class="custom-control-label" for="mata_id">Mata</label>
                       </div>
                   </div>
                   <div class="col-md-2">
                       <div class="custom-control custom-checkbox mb-3">
-                        <input type="checkbox" class="custom-control-input" id="floresta_id" name="ambientes_frequentados" value="Floresta">
+                        <input type="checkbox" class="custom-control-input" id="floresta_id" name="ambientes_frequentados" value="Floresta" disabled>
                         <label class="custom-control-label" for="floresta_id">Floresta</label>
                       </div>
                   </div>
                   <div class="col-md-2">
                       <div class="custom-control custom-checkbox mb-3">
-                        <input type="checkbox" class="custom-control-input" id="rios_id" name="ambientes_frequentados" value="Rios">
+                        <input type="checkbox" class="custom-control-input" id="rios_id" name="ambientes_frequentados" value="Rios" disabled>
                         <label class="custom-control-label" for="rios_id">Rios</label>
                       </div>
                   </div>
                   <div class="col-md-2">
                       <div class="custom-control custom-checkbox mb-3">
-                        <input type="checkbox" class="custom-control-input" id="cachoeira_id" name="ambientes_frequentados" value="Cachoeiras">
+                        <input type="checkbox" class="custom-control-input" id="cachoeira_id" name="ambientes_frequentados" value="Cachoeiras" disabled>
                         <label class="custom-control-label" for="cachoeira_id">Cachoeiras</label>
                       </div>
                   </div>
                   <div class="col-md-2">
                       <div class="custom-control custom-checkbox mb-3">
-                        <input type="checkbox" class="custom-control-input" id="sitios_id" name="ambientes_frequentados" value="Sítios">
+                        <input type="checkbox" class="custom-control-input" id="sitios_id" name="ambientes_frequentados" value="Sítios" disabled>
                         <label class="custom-control-label" for="sitios_id">Sítios</label>
                       </div>
                   </div>
                   <div class="col-md-2">
                       <div class="custom-control custom-checkbox mb-3">
-                        <input type="checkbox" class="custom-control-input" id="outros_id" name="ambientes_frequentados" value="Outros">
+                        <input type="checkbox" class="custom-control-input" id="outros_id" name="ambientes_frequentados" value="Outros" disabled>
                         <label class="custom-control-label" for="outros_id">Outros</label>
                       </div>
                   </div>
@@ -743,25 +743,25 @@ footer {
                   <div class="col-md-2"></div>
                   <div class="col-md-2">
                       <div class="custom-control custom-checkbox mb-3">
-                        <input type="checkbox" class="custom-control-input" id="gato_id" name="animais_que_teve_contato" value="Gato">
+                        <input type="checkbox" class="custom-control-input" id="gato_id" name="animais_que_teve_contato" value="Gato" disabled>
                         <label class="custom-control-label" for="gato_id">Gato</label>
                       </div>
                   </div>
                   <div class="col-md-2">
                       <div class="custom-control custom-checkbox mb-3">
-                        <input type="checkbox" class="custom-control-input" id="cao_id" name="animais_que_teve_contato" value="Cão">
+                        <input type="checkbox" class="custom-control-input" id="cao_id" name="animais_que_teve_contato" value="Cão" disabled>
                         <label class="custom-control-label" for="cao_id">Cão</label>
                       </div>
                   </div>
                   <div class="col-md-2">
                       <div class="custom-control custom-checkbox mb-3">
-                        <input type="checkbox" class="custom-control-input" id="equinos_id" name="animais_que_teve_contato" value="Equinos">
+                        <input type="checkbox" class="custom-control-input" id="equinos_id" name="animais_que_teve_contato" value="Equinos" disabled>
                         <label class="custom-control-label" for="equinos_id">Equinos</label>
                       </div>
                   </div>
                   <div class="col-md-2">
                       <div class="custom-control custom-checkbox mb-3">
-                        <input type="checkbox" class="custom-control-input" id="outros_animais_id" name="animais_que_teve_contato" value="Outros Animais">
+                        <input type="checkbox" class="custom-control-input" id="outros_animais_id" name="animais_que_teve_contato" value="Outros Animais" disabled>
                         <label class="custom-control-label" for="outros_animais_id">Outros Animais</label>
                       </div>
                   </div>
@@ -779,31 +779,31 @@ footer {
                 <div class="row">
                   <div class="col-md-2">
                       <div class="custom-control custom-checkbox mb-3">
-                        <input type="checkbox" class="custom-control-input" id="mordida_id" name="natureza_contato_animais" value="Mordedura">
+                        <input type="checkbox" class="custom-control-input" id="mordida_id" name="natureza_contato_animais" value="Mordedura" disabled>
                         <label class="custom-control-label" for="mordida_id">Mordedura</label>
                       </div>
                   </div>
                   <div class="col-md-2">
                       <div class="custom-control custom-checkbox mb-3">
-                        <input type="checkbox" class="custom-control-input" id="arranhadura_id" name="natureza_contato_animais" value="Arranhadura">
+                        <input type="checkbox" class="custom-control-input" id="arranhadura_id" name="natureza_contato_animais" value="Arranhadura" disabled>
                         <label class="custom-control-label" for="arranhadura_id">Arranhadura</label>
                       </div>
                   </div>
                   <div class="col-md-4">
                       <div class="custom-control custom-checkbox mb-3">
-                        <input type="checkbox" class="custom-control-input" id="lesoes_cutaneas_id" name="natureza_contato_animais" value="Lesões Cutâneas (Úlceras) do animal">
+                        <input type="checkbox" class="custom-control-input" id="lesoes_cutaneas_id" name="natureza_contato_animais" value="Lesões Cutâneas (Úlceras) do animal" disabled>
                         <label class="custom-control-label" for="lesoes_cutaneas_id">Lesões Cutâneas (Úlceras) do animal</label>
                       </div>
                   </div>
                   <div class="col-md-3">
                       <div class="custom-control custom-checkbox mb-3">
-                        <input type="checkbox" class="custom-control-input" id="lesoes_mucosas_id" name="natureza_contato_animais" value="Lesões Mucosas do Animal">
+                        <input type="checkbox" class="custom-control-input" id="lesoes_mucosas_id" name="natureza_contato_animais" value="Lesões Mucosas do Animal" disabled>
                         <label class="custom-control-label" for="lesoes_mucosas_id">Lesões Mucosas do Animal</label>
                       </div>
                   </div>
                   <div class="col-md-1">
                       <div class="custom-control custom-checkbox mb-3">
-                        <input type="checkbox" class="custom-control-input" id="outros_a_id" name="natureza_contato_animais" value="Outros">
+                        <input type="checkbox" class="custom-control-input" id="outros_a_id" name="natureza_contato_animais" value="Outros" disabled>
                         <label class="custom-control-label" for="outros_a_id">Outros</label>
                       </div>
                   </div>
@@ -823,13 +823,13 @@ footer {
                   <div class="col-md-1"></div>
                   <div class="col-md-3">
                       <div class="custom-control custom-checkbox mb-3">
-                        <input type="checkbox" class="custom-control-input" id="tratador_proprietario_id" name="relacao_animal_doente" value="Tratador/Proprietário do animal">
+                        <input type="checkbox" class="custom-control-input" id="tratador_proprietario_id" name="relacao_animal_doente" value="Tratador/Proprietário do animal" disabled>
                         <label class="custom-control-label" for="tratador_proprietario_id">Tratador/Proprietário do animal</label>
                       </div>
                   </div>
                   <div class="col-md-3">
                       <div class="custom-control custom-checkbox mb-3">
-                        <input type="checkbox" class="custom-control-input" id="prof_saude_id" name="relacao_animal_doente" value="Profissional de Saúde">
+                        <input type="checkbox" class="custom-control-input" id="prof_saude_id" name="relacao_animal_doente" value="Profissional de Saúde" disabled>
                         <label class="custom-control-label" for="prof_saude_id">Profissional de Saúde
                           <a href="#" data-toggle="tooltip" data-placement="right" title="Veterinário, Enfermeiro, Tratador de Animal em Clínicas!">(*)</a>
                         </label>
@@ -844,14 +844,14 @@ footer {
 
                   <div class="col-md-2">
                       <div class="custom-control custom-checkbox mb-3">
-                        <input type="checkbox" class="custom-control-input" id="abrigo_id" name="relacao_animal_doente" value="Abrigo/ONG">
+                        <input type="checkbox" class="custom-control-input" id="abrigo_id" name="relacao_animal_doente" value="Abrigo/ONG" disabled>
                         <label class="custom-control-label" for="abrigo_id">Abrigo/ONG</label>
                       </div>
                   </div>
                   
                   <div class="col-md-1">
                       <div class="custom-control custom-checkbox mb-3">
-                        <input type="checkbox" class="custom-control-input" id="outros_p_id" name="relacao_animal_doente" value="Outros">
+                        <input type="checkbox" class="custom-control-input" id="outros_p_id" name="relacao_animal_doente" value="Outros" disabled>
                         <label class="custom-control-label" for="outros_p_id">Outros</label>
                       </div>
                   </div>
@@ -873,21 +873,21 @@ footer {
                   <div class="col-md-2"></div>
                   <div class="col-md-3">
                       <div class="custom-control custom-radio custom-control-inline">
-                        <input type="radio" class="custom-control-input" id="customRadio25" name="exerc_ativ_contato_plantas" value="Sim">
+                        <input type="radio" class="custom-control-input" id="customRadio25" name="exerc_ativ_contato_plantas" value="Sim" disabled>
                         <label class="custom-control-label" for="customRadio25">Sim</label>
                       </div>
                   </div>
 
                   <div class="col-md-3">
                       <div class="custom-control custom-radio custom-control-inline">
-                        <input type="radio" class="custom-control-input" id="customRadio26" name="exerc_ativ_contato_plantas" value="Não">
+                        <input type="radio" class="custom-control-input" id="customRadio26" name="exerc_ativ_contato_plantas" value="Não" disabled>
                         <label class="custom-control-label" for="customRadio26">Não</label>
                       </div>
                   </div>
                   
                   <div class="col-md-3">
                       <div class="custom-control custom-radio custom-control-inline">
-                        <input type="radio" class="custom-control-input" id="customRadio27" name="exerc_ativ_contato_plantas" value="Ignorado">
+                        <input type="radio" class="custom-control-input" id="customRadio27" name="exerc_ativ_contato_plantas" value="Ignorado" disabled>
                         <label class="custom-control-label" for="customRadio27">Ignorado</label>
                       </div>
                   </div>
@@ -915,19 +915,19 @@ footer {
                   <div class="col-md-2"></div>
                   <div class="col-md-3">
                       <div class="custom-control custom-radio custom-control-inline">
-                        <input type="radio" class="custom-control-input" id="customRadio28" name="lesao_manuseio" value="Sim">
+                        <input type="radio" class="custom-control-input" id="customRadio28" name="lesao_manuseio" value="Sim" disabled>
                         <label class="custom-control-label" for="customRadio28">Sim</label>
                       </div>
                   </div>
                   <div class="col-md-3">
                       <div class="custom-control custom-radio custom-control-inline">
-                        <input type="radio" class="custom-control-input" id="customRadio29" name="lesao_manuseio" value="Não">
+                        <input type="radio" class="custom-control-input" id="customRadio29" name="lesao_manuseio" value="Não" disabled>
                         <label class="custom-control-label" for="customRadio29">Não</label>
                       </div>
                   </div>
                   <div class="col-md-3">
                       <div class="custom-control custom-radio custom-control-inline">
-                        <input type="radio" class="custom-control-input" id="customRadio30" name="lesao_manuseio" value="Ignorado">
+                        <input type="radio" class="custom-control-input" id="customRadio30" name="lesao_manuseio" value="Ignorado" disabled>
                         <label class="custom-control-label" for="customRadio30">Ignorado</label>
                       </div>
                   </div>
@@ -957,20 +957,20 @@ footer {
 
                   <div class="col-md-3">
                       <div class="custom-control custom-radio custom-control-inline">
-                        <input type="radio" class="custom-control-input" id="customRadio19" name="presenca_lesao_pele" value="Sim">
+                        <input type="radio" class="custom-control-input" id="customRadio19" name="presenca_lesao_pele" value="Sim" disabled>
                         <label class="custom-control-label" for="customRadio19">Sim</label>
                       </div>
                   </div>
 
                   <div class="col-md-3">
                       <div class="custom-control custom-radio custom-control-inline">
-                        <input type="radio" class="custom-control-input" id="customRadio20" name="presenca_lesao_pele" value="Não">
+                        <input type="radio" class="custom-control-input" id="customRadio20" name="presenca_lesao_pele" value="Não" disabled>
                         <label class="custom-control-label" for="customRadio20">Não</label>
                       </div>
                   </div>
                   <div class="col-md-3">
                       <div class="custom-control custom-radio custom-control-inline">
-                        <input type="radio" class="custom-control-input" id="customRadio21" name="presenca_lesao_pele" value="Ignorado">
+                        <input type="radio" class="custom-control-input" id="customRadio21" name="presenca_lesao_pele" value="Ignorado" disabled>
                         <label class="custom-control-label" for="customRadio21">Ignorado</label>
                       </div>
                   </div>
@@ -1076,20 +1076,20 @@ footer {
                   <div class="col-sm-1"></div>
                   <div class="col-md-2">
                       <div class="custom-control custom-checkbox mb-3">
-                        <input type="checkbox" class="custom-control-input" id="papula_id" name="natureza_lesao" value="Pápula">
+                        <input type="checkbox" class="custom-control-input" id="papula_id" name="natureza_lesao" value="Pápula" disabled>
                         <label class="custom-control-label" for="papula_id">Pápula</label>
                       </div>
                   </div>
                   
                   <div class="col-md-2">
                       <div class="custom-control custom-checkbox mb-3">
-                        <input type="checkbox" class="custom-control-input" id="ulcera_id" name="natureza_lesao" value="Úlcera">
+                        <input type="checkbox" class="custom-control-input" id="ulcera_id" name="natureza_lesao" value="Úlcera" disabled>
                         <label class="custom-control-label" for="ulcera_id">Úlcera</label>
                       </div>
                   </div>
                   <div class="col-md-2">
                       <div class="custom-control custom-checkbox mb-3">
-                        <input type="checkbox" class="custom-control-input" id="linfonodos_id" name="natureza_lesao" value="Linfonodos">
+                        <input type="checkbox" class="custom-control-input" id="linfonodos_id" name="natureza_lesao" value="Linfonodos" disabled>
                         <label class="custom-control-label" for="linfonodos_id">Linfonodos
                           
                         </label>
@@ -1122,20 +1122,20 @@ footer {
                   <div class="col-md-1"></div>
                   <div class="col-md-2">
                       <div class="custom-control custom-checkbox mb-3">
-                        <input type="checkbox" class="custom-control-input" id="mao_id" name="local_lesao" value="Mão">
+                        <input type="checkbox" class="custom-control-input" id="mao_id" name="local_lesao" value="Mão" disabled>
                         <label class="custom-control-label" for="mao_id">Mão</label>
                       </div>
                   </div>
                   
                   <div class="col-md-2">
                       <div class="custom-control custom-checkbox mb-3">
-                        <input type="checkbox" class="custom-control-input" id="membro_superir_id" name="local_lesao" value="Membro Superior">
+                        <input type="checkbox" class="custom-control-input" id="membro_superir_id" name="local_lesao" value="Membro Superior" disabled>
                         <label class="custom-control-label" for="membro_superir_id">Membro Superior</label>
                       </div>
                   </div>
                   <div class="col-md-2">
                       <div class="custom-control custom-checkbox mb-2">
-                        <input type="checkbox" class="custom-control-input" id="cabeca_id" name="local_lesao" value="Cabeça">
+                        <input type="checkbox" class="custom-control-input" id="cabeca_id" name="local_lesao" value="Cabeça" disabled>
                         <label class="custom-control-label" for="cabeca_id">Cabeça
                           
                         </label>
@@ -1143,7 +1143,7 @@ footer {
                   </div>
                   <div class="col-md-2">
                       <div class="custom-control custom-checkbox mb-3">
-                        <input type="checkbox" class="custom-control-input" id="pescoco_id" name="local_lesao" value="Pescoço">
+                        <input type="checkbox" class="custom-control-input" id="pescoco_id" name="local_lesao" value="Pescoço" disabled>
                         <label class="custom-control-label" for="pescoco_id">Pescoço
                           
                         </label>
@@ -1151,7 +1151,7 @@ footer {
                   </div>
                   <div class="col-md-1">
                       <div class="custom-control custom-checkbox mb-3">
-                        <input type="checkbox" class="custom-control-input" id="torax_id" name="local_lesao" value="Tórax">
+                        <input type="checkbox" class="custom-control-input" id="torax_id" name="local_lesao" value="Tórax" disabled>
                         <label class="custom-control-label" for="torax_id">Tórax
                           
                         </label>
@@ -1164,7 +1164,7 @@ footer {
                   <div class="col-md-1"></div>
                   <div class="col-md-2">
                       <div class="custom-control custom-checkbox mb-3">
-                        <input type="checkbox" class="custom-control-input" id="abdome_id" name="local_lesao" value="Abdome">
+                        <input type="checkbox" class="custom-control-input" id="abdome_id" name="local_lesao" value="Abdome" disabled>
                         <label class="custom-control-label" for="abdome_id">Abdome
                           
                         </label>
@@ -1172,7 +1172,7 @@ footer {
                   </div>
                   <div class="col-md-2">
                       <div class="custom-control custom-checkbox mb-3">
-                        <input type="checkbox" class="custom-control-input" id="pe_id" name="local_lesao" value="Pé">
+                        <input type="checkbox" class="custom-control-input" id="pe_id" name="local_lesao" value="Pé" disabled>
                         <label class="custom-control-label" for="pe_id">Pé
                           
                         </label>
@@ -1180,7 +1180,7 @@ footer {
                   </div>
                   <div class="col-md-2">
                       <div class="custom-control custom-checkbox mb-3">
-                        <input type="checkbox" class="custom-control-input" id="membro_inferior_id" name="local_lesao" value="Membro Inferior">
+                        <input type="checkbox" class="custom-control-input" id="membro_inferior_id" name="local_lesao" value="Membro Inferior" disabled>
                         <label class="custom-control-label" for="membro_inferior_id">Membro Inferior
                           
                         </label>
@@ -1188,7 +1188,7 @@ footer {
                   </div>
                   <div class="col-md-2">
                       <div class="custom-control custom-checkbox mb-3">
-                        <input type="checkbox" class="custom-control-input" id="todo_corpo_id" name="local_lesao" value="Todo Corpo">
+                        <input type="checkbox" class="custom-control-input" id="todo_corpo_id" name="local_lesao" value="Todo Corpo" disabled>
                         <label class="custom-control-label" for="todo_corpo_id">Todo Corpo
                           
                         </label>
@@ -1196,7 +1196,7 @@ footer {
                   </div>
                   <div class="col-md-1">
                       <div class="custom-control custom-checkbox mb-3">
-                        <input type="checkbox" class="custom-control-input" id="local_lesao_outros_id" name="local_lesao" value="Outros">
+                        <input type="checkbox" class="custom-control-input" id="local_lesao_outros_id" name="local_lesao" value="Outros" disabled>
                         <label class="custom-control-label" for="local_lesao_outros_id">Outros
                           
                         </label>
@@ -1221,20 +1221,20 @@ footer {
                   <div class="col-sm-2"></div>
                   <div class="col-md-3">
                       <div class="custom-control custom-radio custom-control-inline">
-                        <input type="radio" class="custom-control-input" id="customRadio22" name="diagnostico_extracutaneo" value="Sim">
+                        <input type="radio" class="custom-control-input" id="customRadio22" name="diagnostico_extracutaneo" value="Sim" disabled>
                         <label class="custom-control-label" for="customRadio22">Sim</label>
                       </div>
                   </div>
 
                   <div class="col-md-3">
                       <div class="custom-control custom-radio custom-control-inline">
-                        <input type="radio" class="custom-control-input" id="customRadio23" name="diagnostico_extracutaneo" value="Não">
+                        <input type="radio" class="custom-control-input" id="customRadio23" name="diagnostico_extracutaneo" value="Não" disabled>
                         <label class="custom-control-label" for="customRadio23">Não</label>
                       </div>
                   </div>
                   <div class="col-md-3">
                       <div class="custom-control custom-radio custom-control-inline">
-                        <input type="radio" class="custom-control-input" id="customRadio24" name="diagnostico_extracutaneo" value="Ignorado">
+                        <input type="radio" class="custom-control-input" id="customRadio24" name="diagnostico_extracutaneo" value="Ignorado" disabled>
                         <label class="custom-control-label" for="customRadio24">Ignorado</label>
                       </div>
                   </div>
@@ -1271,7 +1271,7 @@ footer {
 
                   <div class="col-md-3">
                       <div class="custom-control custom-radio custom-control-inline">
-                        <input type="radio" class="custom-control-input" id="coleta_exame_labo_sim_id" name="coleta_exame_labo_sim" value="Sim">
+                        <input type="radio" class="custom-control-input" id="coleta_exame_labo_sim_id" name="coleta_exame_labo_sim" value="Sim" disabled>
                         <label class="custom-control-label" for="coleta_exame_labo_sim_id">Sim</label>
                         <div class="valid-feedback">Valid.</div>
                         <div class="invalid-feedback">Escolha obrigatória.</div>
@@ -1280,14 +1280,14 @@ footer {
 
                   <div class="col-md-3">
                       <div class="custom-control custom-radio custom-control-inline">
-                        <input type="radio" class="custom-control-input" id="coleta_exame_nao_id" name="coleta_exame_labo_sim" value="Não">
+                        <input type="radio" class="custom-control-input" id="coleta_exame_nao_id" name="coleta_exame_labo_sim" value="Não" disabled>
                         <label class="custom-control-label" for="coleta_exame_nao_id">Não</label>
                       </div>
                   </div>
 
                   <div class="col-md-3">
                       <div class="custom-control custom-radio custom-control-inline">
-                        <input type="radio" class="custom-control-input" id="coleta_exame_ignorado_id" name="coleta_exame_labo_sim" value="Ignorado">
+                        <input type="radio" class="custom-control-input" id="coleta_exame_ignorado_id" name="coleta_exame_labo_sim" value="Ignorado" disabled>
                         <label class="custom-control-label" for="coleta_exame_ignorado_id">Ignorado</label>
                       </div>
                   </div>
@@ -1300,7 +1300,7 @@ footer {
                         <div class="input-group-prepend" id="lb_data_coleta_material">
                           <span class="input-group-text">Data Coleta</span>
                         </div>
-                        <input type="date" class="form-control" name="data_coleta_mat_exame" value="" id="data_coleta_material_id">
+                        <input type="date" class="form-control" name="data_coleta_mat_exame" value="" id="data_coleta_material_id" readonly>
                       </div>
                   </div>
 
@@ -1319,27 +1319,27 @@ footer {
                   <div class="col-sm-2"></div>
                   <div class="col-md-2">
                       <div class="custom-control custom-radio custom-control-inline">
-                        <input type="radio" class="custom-control-input" id="customRadio1" name="resultado_isolamento" value="Detectado">
+                        <input type="radio" class="custom-control-input" id="customRadio1" name="resultado_isolamento" value="Detectado" disabled>
                         <label class="custom-control-label" for="customRadio1">Detectado</label>
                       </div>
                   </div>
 
                   <div class="col-md-2">
                       <div class="custom-control custom-radio custom-control-inline">
-                        <input type="radio" class="custom-control-input" id="customRadio2" name="resultado_isolamento" value="Não detectado">
+                        <input type="radio" class="custom-control-input" id="customRadio2" name="resultado_isolamento" value="Não detectado" disabled>
                         <label class="custom-control-label" for="customRadio2">Não detectado</label>
                       </div>
                   </div>
                   <div class="col-md-2">
                       <div class="custom-control custom-radio custom-control-inline">
-                        <input type="radio" class="custom-control-input" id="customRadio3" name="resultado_isolamento" value="Inconclusivo">
+                        <input type="radio" class="custom-control-input" id="customRadio3" name="resultado_isolamento" value="Inconclusivo" disabled>
                         <label class="custom-control-label" for="customRadio3">Inconclusivo</label>
                       </div>
                   </div>
 
                   <div class="col-md-2">
                       <div class="custom-control custom-radio custom-control-inline">
-                        <input type="radio" class="custom-control-input" id="customRadio4" name="resultado_isolamento" value="Não Realizado">
+                        <input type="radio" class="custom-control-input" id="customRadio4" name="resultado_isolamento" value="Não Realizado" disabled>
                         <label class="custom-control-label" for="customRadio4">Não Realizado</label>
                       </div>
                   </div>
@@ -1353,7 +1353,7 @@ footer {
                         <div class="input-group-prepend" id="">
                           <span class="input-group-text">Agente</span>
                         </div>
-                        <input type="text" class="form-control" name="agente_isolamento" value="" id="">
+                        <input type="text" class="form-control" name="agente_isolamento" value="" id="" readonly>
                       </div>
                   </div>
                 </div>
@@ -1370,27 +1370,27 @@ footer {
                   <div class="col-sm-2"></div>
                   <div class="col-md-2">
                       <div class="custom-control custom-radio custom-control-inline">
-                        <input type="radio" class="custom-control-input" id="customRadio5" name="histopatologia" value="Compatível">
+                        <input type="radio" class="custom-control-input" id="customRadio5" name="histopatologia" value="Compatível" disabled>
                         <label class="custom-control-label" for="customRadio5">Compatível</label>
                       </div>
                   </div>
 
                   <div class="col-md-2">
                       <div class="custom-control custom-radio custom-control-inline">
-                        <input type="radio" class="custom-control-input" id="customRadio6" name="histopatologia" value="Não compatível">
+                        <input type="radio" class="custom-control-input" id="customRadio6" name="histopatologia" value="Não compatível" disabled>
                         <label class="custom-control-label" for="customRadio6">Não compatível</label>
                       </div>
                   </div>
                   <div class="col-md-2">
                       <div class="custom-control custom-radio custom-control-inline">
-                        <input type="radio" class="custom-control-input" id="customRadio7" name="histopatologia" value="Inconclusivo">
+                        <input type="radio" class="custom-control-input" id="customRadio7" name="histopatologia" value="Inconclusivo" disabled>
                         <label class="custom-control-label" for="customRadio7">Inconclusivo</label>
                       </div>
                   </div>
 
                   <div class="col-md-2">
                       <div class="custom-control custom-radio custom-control-inline">
-                        <input type="radio" class="custom-control-input" id="customRadio8" name="histopatologia" value="Não Realizado">
+                        <input type="radio" class="custom-control-input" id="customRadio8" name="histopatologia" value="Não Realizado" disabled>
                         <label class="custom-control-label" for="customRadio8">Não Realizado</label>
                       </div>
                   </div>
@@ -1409,7 +1409,7 @@ footer {
                         <div class="input-group-prepend" id="">
                           <span class="input-group-text">Data</span>
                         </div>
-                        <input type="date" class="form-control" name="data_outros_exames_1" value="" id="">
+                        <input type="date" class="form-control" name="data_outros_exames_1" value="" id="" readonly>
                       </div>
                   </div>
                   <div class="col-md-4">
@@ -1417,7 +1417,7 @@ footer {
                         <div class="input-group-prepend" id="">
                           <span class="input-group-text">Descricao</span>
                         </div>
-                        <input type="text" class="form-control" name="descricao_outros_exames_1" value="" id="">
+                        <input type="text" class="form-control" name="descricao_outros_exames_1" value="" id="" readonly>
                       </div>
                   </div>
                   <div class="col-md-5">
@@ -1425,7 +1425,7 @@ footer {
                         <div class="input-group-prepend" id="">
                           <span class="input-group-text">Resultado</span>
                         </div>
-                        <input type="text" class="form-control" name="resultado_outros_exames_1" value="" id="">
+                        <input type="text" class="form-control" name="resultado_outros_exames_1" value="" id="" readonly>
                       </div>
                   </div>
                   
@@ -1436,7 +1436,7 @@ footer {
                         <div class="input-group-prepend" id="">
                           <span class="input-group-text">Data</span>
                         </div>
-                        <input type="date" class="form-control" name="data_outros_exames_2" value="" id="">
+                        <input type="date" class="form-control" name="data_outros_exames_2" value="" id="" readonly>
                       </div>
                   </div>
                   <div class="col-md-4">
@@ -1444,7 +1444,7 @@ footer {
                         <div class="input-group-prepend" id="">
                           <span class="input-group-text">Descricao</span>
                         </div>
-                        <input type="text" class="form-control" name="descricao_outros_exames_2" value="" id="">
+                        <input type="text" class="form-control" name="descricao_outros_exames_2" value="" id="" readonly>
                       </div>
                   </div>
                   <div class="col-md-5">
@@ -1452,7 +1452,7 @@ footer {
                         <div class="input-group-prepend" id="">
                           <span class="input-group-text">Resultado</span>
                         </div>
-                        <input type="text" class="form-control" name="resultado_outros_exames_2" value="" id="">
+                        <input type="text" class="form-control" name="resultado_outros_exames_2" value="" id="" readonly>
                       </div>
                   </div>
 
@@ -1465,7 +1465,7 @@ footer {
                         <div class="input-group-prepend" id="">
                           <span class="input-group-text">Data</span>
                         </div>
-                        <input type="date" class="form-control" name="data_outros_exames_3" value="" id="">
+                        <input type="date" class="form-control" name="data_outros_exames_3" value="" id="" readonly>
                       </div>
                   </div>
                   <div class="col-md-4">
@@ -1473,7 +1473,7 @@ footer {
                         <div class="input-group-prepend" id="">
                           <span class="input-group-text">Descricao</span>
                         </div>
-                        <input type="text" class="form-control" name="descricao_outros_exames_3" value="" id="">
+                        <input type="text" class="form-control" name="descricao_outros_exames_3" value="" id="" readonly>
                       </div>
                   </div>
                   <div class="col-md-5">
@@ -1481,7 +1481,7 @@ footer {
                         <div class="input-group-prepend" id="">
                           <span class="input-group-text">Resultado</span>
                         </div>
-                        <input type="text" class="form-control" name="resultado_outros_exames_3" value="" id="">
+                        <input type="text" class="form-control" name="resultado_outros_exames_3" value="" id="" readonly>
                       </div>
                   </div>
                 </div><br><br>
@@ -1506,7 +1506,7 @@ footer {
                         <div class="input-group-prepend" id="">
                           <span class="input-group-text">Início</span>
                         </div>
-                        <input type="date" class="form-control" name="data_inicio_tratamento" value="" id="">
+                        <input type="date" class="form-control" name="data_inicio_tratamento" value="" id="" readonly>
                       </div>
                   </div>
                   <div class="col-md-5">
@@ -1514,7 +1514,7 @@ footer {
                         <div class="input-group-prepend" id="">
                           <span class="input-group-text">Droga Administrada</span>
                         </div>
-                        <input type="text" class="form-control" name="droga_admin_tratamento" value="" id="">
+                        <input type="text" class="form-control" name="droga_admin_tratamento" value="" id="" readonly>
                       </div>
                   </div>
                   <div class="col-md-4">
@@ -1522,7 +1522,7 @@ footer {
                         <div class="input-group-prepend" id="">
                           <span class="input-group-text">Esquema Terapeutico</span>
                         </div>
-                        <input type="text" class="form-control" name="esquema_terapeutico" value="" id="">
+                        <input type="text" class="form-control" name="esquema_terapeutico" value="" id="" readonly>
                       </div>
                   </div>
                 </div>
@@ -1532,7 +1532,7 @@ footer {
                         <div class="input-group-prepend" id="">
                           <span class="input-group-text">Início</span>
                         </div>
-                        <input type="date" class="form-control" name="data_inicio_tratamento2" value="" id="">
+                        <input type="date" class="form-control" name="data_inicio_tratamento2" value="" id="" readonly>
                       </div>
                   </div>
                   <div class="col-md-5">
@@ -1540,7 +1540,7 @@ footer {
                         <div class="input-group-prepend" id="">
                           <span class="input-group-text">Droga Administrada</span>
                         </div>
-                        <input type="text" class="form-control" name="droga_admin_tratamento2" value="" id="">
+                        <input type="text" class="form-control" name="droga_admin_tratamento2" value="" id="" readonly>
                       </div>
                   </div>
                   <div class="col-md-4">
@@ -1548,7 +1548,7 @@ footer {
                         <div class="input-group-prepend" id="">
                           <span class="input-group-text">Esquema Terapeutico</span>
                         </div>
-                        <input type="text" class="form-control" name="esquema_terapeutico2" value="" id="">
+                        <input type="text" class="form-control" name="esquema_terapeutico2" value="" id="" readonly>
                       </div>
                   </div>
                 </div>
@@ -1558,7 +1558,7 @@ footer {
                         <div class="input-group-prepend" id="">
                           <span class="input-group-text">Início</span>
                         </div>
-                        <input type="date" class="form-control" name="data_inicio_tratamento3" value="" id="">
+                        <input type="date" class="form-control" name="data_inicio_tratamento3" value="" id="" readonly>
                       </div>
                   </div>
                   <div class="col-md-5">
@@ -1566,7 +1566,7 @@ footer {
                         <div class="input-group-prepend" id="">
                           <span class="input-group-text">Droga Administrada</span>
                         </div>
-                        <input type="text" class="form-control" name="droga_admin_tratamento3" value="" id="">
+                        <input type="text" class="form-control" name="droga_admin_tratamento3" value="" id="" readonly>
                       </div>
                   </div>
                   <div class="col-md-4">
@@ -1574,7 +1574,7 @@ footer {
                         <div class="input-group-prepend" id="">
                           <span class="input-group-text">Esquema Terapeutico</span>
                         </div>
-                        <input type="text" class="form-control" name="esquema_terapeutico3" value="" id="">
+                        <input type="text" class="form-control" name="esquema_terapeutico3" value="" id="" readonly>
                       </div>
                   </div>
                 </div><br><br>
@@ -1659,20 +1659,20 @@ footer {
 
                   <div class="col-md-3">
                       <div class="custom-control custom-radio custom-control-inline">
-                        <input type="radio" class="custom-control-input" id="customRadio11" name="hospitalizado" value="Sim" onclick="activeDadosHos()">
+                        <input type="radio" class="custom-control-input" id="customRadio11" name="hospitalizado" value="Sim" onclick="activeDadosHos()" disabled>
                         <label class="custom-control-label" for="customRadio11">Sim</label>
                       </div>
                   </div>
 
                   <div class="col-md-3">
                       <div class="custom-control custom-radio custom-control-inline">
-                        <input type="radio" class="custom-control-input" id="customRadio9" name="hospitalizado" value="Não" onclick="desactiveDadosHos()">
+                        <input type="radio" class="custom-control-input" id="customRadio9" name="hospitalizado" value="Não" onclick="desactiveDadosHos()" disabled>
                         <label class="custom-control-label" for="customRadio9">Não</label>
                       </div>
                   </div>
                   <div class="col-md-3">
                       <div class="custom-control custom-radio custom-control-inline">
-                        <input type="radio" class="custom-control-input" id="customRadio10" name="hospitalizado" value="Ignorado" onclick="desactiveDadosHosI()">
+                        <input type="radio" class="custom-control-input" id="customRadio10" name="hospitalizado" value="Ignorado" onclick="desactiveDadosHosI()" disabled>
                         <label class="custom-control-label" for="customRadio10">Ignorado</label>
                       </div>
                   </div>
@@ -1790,14 +1790,14 @@ footer {
 
                   <div class="col-md-4">
                       <div class="custom-control custom-radio custom-control-inline">
-                        <input type="radio" class="custom-control-input" id="customRadio12" name="classificacao" value="Confirmado">
+                        <input type="radio" class="custom-control-input" id="customRadio12" name="classificacao" value="Confirmado" disabled>
                         <label class="custom-control-label" for="customRadio12">Confirmado</label>
                       </div>
                   </div>
 
                   <div class="col-md-4">
                       <div class="custom-control custom-radio custom-control-inline">
-                        <input type="radio" class="custom-control-input" id="customRadio13" name="classificacao" value="Descartado">
+                        <input type="radio" class="custom-control-input" id="customRadio13" name="classificacao" value="Descartado" disabled>
                         <label class="custom-control-label" for="customRadio13">Descartado</label>
                       </div>
                   </div>
@@ -1815,14 +1815,14 @@ footer {
 
                   <div class="col-md-4">
                       <div class="custom-control custom-radio custom-control-inline">
-                        <input type="radio" class="custom-control-input" id="customRadio14" name="criterio" value="Clinico Laboratorial">
+                        <input type="radio" class="custom-control-input" id="customRadio14" name="criterio" value="Clinico Laboratorial" disabled>
                         <label class="custom-control-label" for="customRadio14">Clinico Laboratorial</label>
                       </div>
                   </div>
 
                   <div class="col-md-4">
                       <div class="custom-control custom-radio custom-control-inline">
-                        <input type="radio" class="custom-control-input" id="customRadio15" name="criterio" value="Clinico Epidemiológico">
+                        <input type="radio" class="custom-control-input" id="customRadio15" name="criterio" value="Clinico Epidemiológico" disabled>
                         <label class="custom-control-label" for="customRadio15">Clinico Epidemiológico</label>
                       </div>
                   </div>
@@ -1841,20 +1841,20 @@ footer {
 
                   <div class="col-md-1">
                       <div class="custom-control custom-radio custom-control-inline">
-                        <input type="radio" class="custom-control-input" id="customRadio16" name="autoctone" value="Sim">
+                        <input type="radio" class="custom-control-input" id="customRadio16" name="autoctone" value="Sim" disabled>
                         <label class="custom-control-label" for="customRadio16">Sim</label>
                       </div>
                   </div>
 
                   <div class="col-md-1">
                       <div class="custom-control custom-radio custom-control-inline">
-                        <input type="radio" class="custom-control-input" id="customRadio17" name="autoctone" value="Não">
+                        <input type="radio" class="custom-control-input" id="customRadio17" name="autoctone" value="Não" disabled>
                         <label class="custom-control-label" for="customRadio17">Não</label>
                       </div>
                   </div>
                   <div class="col-md-2">
                       <div class="custom-control custom-radio custom-control-inline">
-                        <input type="radio" class="custom-control-input" id="customRadio18" name="autoctone" value="Indeterminado">
+                        <input type="radio" class="custom-control-input" id="customRadio18" name="autoctone" value="Indeterminado" disabled>
                         <label class="custom-control-label" for="customRadio18">Indeterminado</label>
                       </div>
                   </div>
@@ -1863,7 +1863,7 @@ footer {
                         <div class="input-group-prepend" id="">
                           <span class="input-group-text">UF</span>
                         </div>
-                        <select class="form-control" name="uf_caso_autoctone_municipio" id="">
+                        <select class="form-control" name="uf_caso_autoctone_municipio" id="" disabled>
                           <option value="" selected></option>
                           <option value="AC">Acre</option>
                           <option value="AL">Alagoas</option>
@@ -1900,7 +1900,7 @@ footer {
                         <div class="input-group-prepend" id="">
                           <span class="input-group-text">País</span>
                         </div>
-                        <input type="text" class="form-control" name="pais_autoctone_municipio" value="" id="">
+                        <input type="text" class="form-control" name="pais_autoctone_municipio" value="" id="" readonly>
                       </div>
                   </div>
                   
@@ -1912,7 +1912,7 @@ footer {
                         <div class="input-group-prepend" id="">
                           <span class="input-group-text">Município</span>
                         </div>
-                        <input type="text" class="form-control" name="municipio_autoctone" value="" id="">
+                        <input type="text" class="form-control" name="municipio_autoctone" value="" id="" readonly>
                       </div>
                   </div>
                   <div class="col-md-3">
@@ -1920,7 +1920,7 @@ footer {
                         <div class="input-group-prepend" id="">
                           <span class="input-group-text">Código IBGE</span>
                         </div>
-                        <input type="text" class="form-control" name="codigo_ibge_municipio_autoctone" value="" id="">
+                        <input type="text" class="form-control" name="codigo_ibge_municipio_autoctone" value="" id="" readonly>
                       </div>
                   </div>
                   <div class="col-md-4">
@@ -1928,7 +1928,7 @@ footer {
                         <div class="input-group-prepend" id="">
                           <span class="input-group-text">Distrito</span>
                         </div>
-                        <input type="text" class="form-control" name="distrito_autoctone" value="" id="">
+                        <input type="text" class="form-control" name="distrito_autoctone" value="" id="" readonly>
                       </div>
                   </div>
                 </div>
@@ -1940,7 +1940,7 @@ footer {
                         <div class="input-group-prepend" id="">
                           <span class="input-group-text">Bairro</span>
                         </div>
-                        <input type="text" class="form-control" name="bairro_autoctone" value="" id="">
+                        <input type="text" class="form-control" name="bairro_autoctone" value="" id="" disabled>
                       </div>
                   </div>
                   <div class="col-md-4">
@@ -1948,7 +1948,7 @@ footer {
                         <div class="input-group-prepend" id="">
                           <span class="input-group-text">Área Provável de Infecção</span>
                         </div>
-                        <select class="form-control" name="area_provavel_infeccao" id="">
+                        <select class="form-control" name="area_provavel_infeccao" id="" disabled>
                           <option value=""></option>
                           <option value="Periurbano">Periurbano</option>
                           <option value="Rural">Rural</option>
@@ -1967,7 +1967,7 @@ footer {
                         <div class="input-group-prepend" id="">
                           <span class="input-group-text">Ambiente da Infecção</span>
                         </div>
-                        <select class="form-control" name="ambiente_infeccao_autoctone" id="">
+                        <select class="form-control" name="ambiente_infeccao_autoctone" id="" disabled>
                           <option value=""></option>
                           <option value="Domiciliar">Domiciliar</option>
                           <option value="Trabalho">Trabalho</option>
@@ -1982,7 +1982,7 @@ footer {
                         <div class="input-group-prepend" id="">
                           <span class="input-group-text">Doença Relacionada ao Trabalho</span>
                         </div>
-                        <select class="form-control" name="doenca_rel_trabalho_autoctone" id="">
+                        <select class="form-control" name="doenca_rel_trabalho_autoctone" id="" disabled>
                           <option value=""></option>
                           <option value="Sim">Sim</option>
                           <option value="Não">Não</option>
@@ -2038,7 +2038,7 @@ footer {
                         <div class="input-group-prepend" id="">
                           <span class="input-group-text">Evolução do Caso</span>
                         </div>
-                        <select class="form-control" name="evolucao_caso_autoctone" id="sel_evo_caso" onclick="activeDataEvoCaso()">
+                        <select class="form-control" name="evolucao_caso_autoctone" id="sel_evo_caso" onclick="activeDataEvoCaso()" disabled>
                           <option value=""></option>
                           <option value="Cura">Cura</option>
                           <option value="Obito pelo AGRAVO">Obito pelo AGRAVO</option>
@@ -2052,7 +2052,7 @@ footer {
                         <div class="input-group-prepend" id="div_input_data_ob">
                           <span class="input-group-text">Data do Óbito</span>
                         </div>
-                        <input type="date" class="form-control" name="data_obito" value="" id="data_obito_evo_id">
+                        <input type="date" class="form-control" name="data_obito" value="" id="data_obito_evo_id" readonly>
                       </div>
                   </div>
                   <div class="col-md-4">
@@ -2060,7 +2060,7 @@ footer {
                         <div class="input-group-prepend" id="">
                           <span class="input-group-text">Data Encerramento</span>
                         </div>
-                        <input type="date" class="form-control" name="data_encerramento" value="" id="">
+                        <input type="date" class="form-control" name="data_encerramento" value="" id="" readonly>
                       </div>
                   </div>
                   
@@ -2074,7 +2074,7 @@ footer {
                   <div class="col-md-6">
                     <div class="form-group">
                       <label for="comment">Comentário, observações e/ou anotações:</label>
-                      <textarea class="form-control" rows="5" id="comment" name="observacao"></textarea>
+                      <textarea class="form-control" rows="5" id="comment" name="observacao" readonly></textarea>
                     </div>
                   </div>
                 </div>
@@ -2087,7 +2087,7 @@ footer {
                         <div class="input-group-prepend" id="">
                           <span class="input-group-text">Nome</span>
                         </div>
-                        <input type="text" class="form-control" name="nome_investigador" value="" id="">
+                        <input type="text" class="form-control" name="nome_investigador" value="" id="" readonly>
                       </div>
                   </div>
                                  
@@ -2101,7 +2101,7 @@ footer {
                         <div class="input-group-prepend" id="">
                           <span class="input-group-text">Função</span>
                         </div>
-                        <input type="text" class="form-control" name="funcao_investigador" value="" id="">
+                        <input type="text" class="form-control" name="funcao_investigador" value="" id="" readonly>
                       </div>
                   </div>
                   <div class="col-md-5">
@@ -2109,7 +2109,7 @@ footer {
                         <div class="input-group-prepend" id="">
                           <span class="input-group-text">Email</span>
                         </div>
-                        <input type="text" class="form-control" name="email_investigador" value="" id="">
+                        <input type="text" class="form-control" name="email_investigador" value="" id="" readonly>
                       </div>
                   </div>                 
                   
@@ -2122,7 +2122,7 @@ footer {
                         <div class="input-group-prepend" id="">
                           <span class="input-group-text">Telefone</span>
                         </div>
-                        <input type="text" class="form-control" id="telefone_investigador_id" name="telefone_investigador" placeholder="apenas números">
+                        <input type="text" class="form-control" id="telefone_investigador_id" name="telefone_investigador" placeholder="apenas números" readonly>
                         
                       </div>
                   </div>
@@ -2131,7 +2131,7 @@ footer {
                         <div class="input-group-prepend" id="">
                           <span class="input-group-text">Conselho Classe</span>
                         </div>
-                        <input type="text" class="form-control" name="conselho_classe_investigador" value="" id="">
+                        <input type="text" class="form-control" name="conselho_classe_investigador" value="" id="" readonly>
                       </div>
                   </div>                                 
                   
@@ -2143,7 +2143,7 @@ footer {
             <hr>
 
             <div class="container-fluid" style="text-align: center;">
-              <button type="submit" class="btn btn-primary" style="align-items: center;" id="">Atualizar</button>  
+              <button type="submit" class="btn btn-primary" style="align-items: center;" id="" disabled>Atualizar</button>  
             </div>
           </form>
 

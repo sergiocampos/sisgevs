@@ -139,7 +139,11 @@ def search_paciente_nome(request):
 	nome = request.session['nome']
 	caso_all_result = CasoEsporotricose.objects.filter(nome_paciente__icontains=nome)
 
-	return render(request, 'resultado_search_caso_nome.html', {'caso_all_result':caso_all_result})
+	paginator = Paginator(caso_all_result, 6)
+	page = request.GET.get('page')
+	regs = paginator.get_page(page)
+
+	return render(request, 'resultado_search_caso_nome.html', {'regs':regs})
 
 
 # Localizar Paciente por Data da Coleta
@@ -203,9 +207,13 @@ def download_ficha(request):
 def caso_view(request, id):
 	registro = CasoEsporotricose.objects.get(id=id)
 	municipio_id = registro.municipio
-	municipio = Municipio.objects.get(id=municipio_id)
-	ibge = municipio.ibge
-	return render(request, 'caso_view.html', {'registro':registro, 'municipio':municipio, 'ibge':ibge})
+	if municipio_id == None or municipio_id == '':
+		return render(request, 'caso_view.html', {'registro':registro})
+	else:
+		municipio = Municipio.objects.get(id=municipio_id)
+		ibge = municipio.ibge
+		return render(request, 'caso_view.html', {'registro':registro, 'municipio':municipio, 'ibge':ibge})
+		
 
 
 @login_required(login_url='/login/')
