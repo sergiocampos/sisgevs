@@ -327,12 +327,21 @@ def my_datas(request):
 
 	elif request.user.funcao == 'gerencia':
 		gerencia_user = municipio_user.gerencia
-		regs = CasoEsporotricose.objects.filter(gerencia=gerencia_user)
+		registros = CasoEsporotricose.objects.filter(gerencia=gerencia_user)
+
+		paginator = Paginator(registros, 6)
+		page = request.GET.get('page')
+		regs = paginator.get_page(page)
 		
 		return render(request, 'my_datas.html', {'regs':regs})
 
 	elif request.user.funcao == 'municipio':
-		regs = CasoEsporotricose.objects.filter(municipio=municipio_id_user)
+		registros = CasoEsporotricose.objects.filter(municipio=municipio_id_user)
+
+		paginator = Paginator(registros, 6)
+		page = request.GET.get('page')
+		regs = paginator.get_page(page)
+
 		return render(request, 'my_datas.html', {'regs':regs})
 	else:
 		return redirect('all_forms')
