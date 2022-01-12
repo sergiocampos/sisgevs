@@ -203,6 +203,19 @@ def download_ficha(request):
 			return response
 
 
+
+###########View Renderiza o dicionario de dados#######################################################
+@login_required(login_url='/login/')
+def download_dicionario_dados(request):
+	file_path = os.path.join(settings.MEDIA_ROOT, 'dicionario_de_dados_Esporotricose_Humana.pdf')
+	if os.path.exists(file_path):
+		with open(file_path, 'rb') as fh:
+			response = HttpResponse(fh.read(), content_type="application/pdf")
+			response['Content-Disposition'] = 'inline; filename' + os.path.basename(file_path)
+			return response
+
+
+
 @login_required(login_url='/login/')
 def caso_view(request, id):
 	registro = CasoEsporotricose.objects.get(id=id)
