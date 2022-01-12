@@ -79,6 +79,7 @@ urlpatterns = [
     path('caso_view_detail/<id>/', views.caso_view_detail, name='caso_view_detail'),
 
     path('download_ficha/', views.download_ficha, name='download_ficha'),
+    path('download_dicionario_dados/', views.download_dicionario_dados, name='download_dicionario_dados'),
     path('remove_caso_esporotricose/<id>/', views.remove_caso_esporotricose, name='remove_caso_esporotricose'),
     path('index_aberto/', views.index_aberto, name='index_aberto'),
 
