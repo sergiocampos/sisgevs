@@ -106,6 +106,11 @@ def index(request):
 
 
 @login_required(login_url='/login/')
+def dados_user(request):
+	return render(request, 'dados_user.html')
+
+
+@login_required(login_url='/login/')
 def main(request):
 	return render(request, 'main.html')
 
@@ -297,22 +302,34 @@ def my_datas(request):
 	municipio_id_user = request.user.municipio_id
 	municipio_user = Municipio.objects.get(id=municipio_id_user)
 	#municipio_nome = municipio_user.nome
-	if request.user.perfil == 'admin':
+	if request.user.funcao == 'admin':
 		registros = CasoEsporotricose.objects.all()
 		paginator = Paginator(registros, 6)
 		page = request.GET.get('page')
 		regs = paginator.get_page(page)
 		return render(request, 'my_datas.html', {'regs':regs})
 
-	if request.user.perfil == 'gerencia':
+	elif request.user.funcao == 'gerencia':
 		gerencia_user = municipio_user.gerencia
 		registros = CasoEsporotricose.objects.filter(gerencia=gerencia_user)
-		
-		return render(request, 'my_datas.html', {'registros':registros})
 
-	if request.user.perfil == 'municipio':
+		paginator = Paginator(registros, 6)
+		page = request.GET.get('page')
+		regs = paginator.get_page(page)
+		
+		return render(request, 'my_datas.html', {'regs':regs})
+
+	elif request.user.funcao == 'municipio':
 		registros = CasoEsporotricose.objects.filter(municipio=municipio_id_user)
-		return render(request, 'my_datas.html', {'registros':registros})
+		
+		paginator = Paginator(registros, 6)
+		page = request.GET.get('page')
+		regs = paginator.get_page(page)
+
+		return render(request, 'my_datas.html', {'regs':regs})
+
+	else:
+		return redirect('all_forms')
 	
 
 @login_required(login_url='/login/')
@@ -1033,9 +1050,15 @@ def caso_esporotricose_edit(request, id):
 	unidades_saude = []
 	codigos_ibge = []
 	print(caso.codigo_ibge_caso_autoctone)
-	caso.data_notificacao = datetime.strftime(caso.data_notificacao, '%Y-%m-%d')
-	caso.data_primeiros_sintomas = datetime.strftime(caso.data_primeiros_sintomas, '%Y-%m-%d')
-	caso.data_nascimento_paciente = datetime.strftime(caso.data_nascimento_paciente, '%Y-%m-%d')
+	
+	if caso.data_notificacao != None:
+		caso.data_notificacao = datetime.strftime(caso.data_notificacao, '%Y-%m-%d')
+	
+	if caso.data_primeiros_sintomas != None:
+		caso.data_primeiros_sintomas = datetime.strftime(caso.data_primeiros_sintomas, '%Y-%m-%d')
+	
+	if caso.data_nascimento_paciente != None:
+		caso.data_nascimento_paciente = datetime.strftime(caso.data_nascimento_paciente, '%Y-%m-%d')
 
 	if caso.data_resultado_exame1 != None:
 		caso.data_resultado_exame1 = datetime.strftime(caso.data_resultado_exame1, '%Y-%m-%d')
