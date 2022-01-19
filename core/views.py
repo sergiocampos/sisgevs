@@ -106,6 +106,11 @@ def index(request):
 
 
 @login_required(login_url='/login/')
+def dados_user(request):
+	return render(request, 'dados_user.html')
+
+
+@login_required(login_url='/login/')
 def main(request):
 	return render(request, 'main.html')
 
@@ -343,6 +348,7 @@ def my_datas(request):
 		regs = paginator.get_page(page)
 
 		return render(request, 'my_datas.html', {'regs':regs})
+
 	else:
 		return redirect('all_forms')
 	
@@ -1065,9 +1071,15 @@ def caso_esporotricose_edit(request, id):
 	unidades_saude = []
 	codigos_ibge = []
 	print(caso.codigo_ibge_caso_autoctone)
-	caso.data_notificacao = datetime.strftime(caso.data_notificacao, '%Y-%m-%d')
-	caso.data_primeiros_sintomas = datetime.strftime(caso.data_primeiros_sintomas, '%Y-%m-%d')
-	caso.data_nascimento_paciente = datetime.strftime(caso.data_nascimento_paciente, '%Y-%m-%d')
+	
+	if caso.data_notificacao != None:
+		caso.data_notificacao = datetime.strftime(caso.data_notificacao, '%Y-%m-%d')
+	
+	if caso.data_primeiros_sintomas != None:
+		caso.data_primeiros_sintomas = datetime.strftime(caso.data_primeiros_sintomas, '%Y-%m-%d')
+	
+	if caso.data_nascimento_paciente != None:
+		caso.data_nascimento_paciente = datetime.strftime(caso.data_nascimento_paciente, '%Y-%m-%d')
 
 	if caso.data_resultado_exame1 != None:
 		caso.data_resultado_exame1 = datetime.strftime(caso.data_resultado_exame1, '%Y-%m-%d')

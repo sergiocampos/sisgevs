@@ -399,10 +399,10 @@ footer {
         </ul>
         <ul style="padding-left: 5%;">
           <div id="demo" class="collapsed">
-            <li><a href="/all_forms/">Meus Dados</a></li>
+            <li><a href="/dados_user/">Meus Dados</a></li>
             <hr>
             {% if user.funcao == 'admin' %}
-              <li><a href="/admin/">Gerenciar Contas</a></li>
+              <li><a href="/admin/account/user/">Gerenciar Contas</a></li>
               <hr>
             {% endif %}
             <li><a href="/all_forms/" data-toggle="collapse" data-target="#formularios">Formulários</a></li>
@@ -569,7 +569,7 @@ footer {
                     </div>
                   </div>
                   <div class="col-md-3">
-                    <div class="form-group"><b>Município</b><i id="alert_municipio" style="color:red">**</i>
+                    <div class="form-group"><b>Município Notificador</b><i id="alert_municipio" style="color:red">**</i>
                       <select class="form-control" name="municipio_notificacao" id="municipio_id" required onchange="verificarNotifGeral()">
                         <option value="" selected disabled><i>Selecionar</i></option>
                         {% for municipio in municipios %}
