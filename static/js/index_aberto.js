@@ -22,15 +22,17 @@ $("#btn_filtrar").on('click', function(){
   filtrar_ano = document.getElementById('filtro_ano').value;
   filtrar_dt_inicio = document.getElementById('filtro_dt_inicio').value;
   filtrar_dt_fim = document.getElementById('filtro_dt_fim').value;
+  agravo = document.getElementById('agravo').value;
+    
   $.ajax({
     url: 'ajax_filtrar_index_aberto',
     data: {
       'ano':filtrar_ano,
       'inicio':filtrar_dt_inicio,
-      'fim':filtrar_dt_fim
+      'fim':filtrar_dt_fim,
+      'agravo':agravo
     },
     success: function(data){
-      console.log(data);
       $('#container2').highcharts({
         title: {
           text: data['doenca']

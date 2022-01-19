@@ -83,26 +83,35 @@
     <div class="col-sm-4" id="coluna_central">
       <div class="text-center" id="filtros_box">
         <form name="" id="" enctype="multipart/form-data" action="submit" method="POST">{% csrf_token %}
-          
           <h6>Filtrar por ano</h6>
           <div class="input-group mb-3" id="">
             <div class="input-group-prepend" id="">
-              <span class="input-group-text">Ano:</span>
+              <span class="input-group-text">Ano</span>
             </div>
             <input type="number" class="form-control text-center" name="ano" id="filtro_ano" min="1900" max="2099" step="1" placeholder="Ex: 2021">
           </div>
           <h6>Filtrar entre datas</h6>
           <div class="input-group mb-3" id="">
             <div class="input-group-prepend" id="">
-              <span class="input-group-text">Início:</span>
+              <span class="input-group-text">Início</span>
             </div>
             <input type="date" class="form-control text-center" name="inicio" id="filtro_dt_inicio">
           </div>
           <div class="input-group mb-3" id="">
             <div class="input-group-prepend" id="">
-              <span class="input-group-text">Fim:</span>
+              <span class="input-group-text">Fim</span>
             </div>
             <input type="date" class="form-control text-center" name="fim" id="filtro_dt_fim">
+          </div>
+          <div class="input-group mb-3">
+            <label class="input-group-text" for="agravo">Agravo/Doença</label>
+            <select name="agravo" class="form-select form-control" id="agravo">
+              <option selected>Selecione</option>
+              <option value="ESPOROTRICOSE">Esporotricose Humana</option>
+              <option value="ZIKA">Zika</option>
+              <option value="CHIKUNGUNYA">Chikungunya</option>
+              <option value="DENGUE">Dengue</option>
+            </select>
           </div>
           <button type="button" class="btn btn-primary" id="btn_filtrar">Filtrar</button>
           <hr id="hr_filtros">
