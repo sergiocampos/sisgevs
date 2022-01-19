@@ -1087,17 +1087,17 @@ def caso_esporotricose_edit(request, id):
 	
 	if caso.data_notificacao != None:
 		caso.data_notificacao = datetime.strftime(caso.data_notificacao, '%Y-%m-%d')
-  else:
+	else:
 		caso.data_notificacao = ""
 	
 	if caso.data_primeiros_sintomas != None:
 		caso.data_primeiros_sintomas = datetime.strftime(caso.data_primeiros_sintomas, '%Y-%m-%d')
-  else:
+	else:
 		caso.data_primeiros_sintomas = ""
 	
 	if caso.data_nascimento_paciente != None:
 		caso.data_nascimento_paciente = datetime.strftime(caso.data_nascimento_paciente, '%Y-%m-%d')
-  else:
+	else:
 		caso.data_nascimento_paciente = ""
 
 	if caso.data_resultado_exame1 != None:
