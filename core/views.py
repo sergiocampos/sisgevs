@@ -853,8 +853,9 @@ def ajax_filtrar_index_aberto(request):
 	ano = request.GET.get('ano')
 	inicio = request.GET.get('inicio')
 	fim = request.GET.get('fim')
+	agravo = request.GET.get('agravo')
 	if inicio == "" and fim == "" and ano == "":
-		dados = CasoEsporotricose.objects.all()
+		dados = CasoEsporotricose.objects.all().filter(agravo_doenca = agravo)
 		detectados = dados.filter(resultado_isolamento = 'Detectado')
 		nao_detectados = dados.filter(resultado_isolamento = 'Não detectado')
 		inconclusivo = dados.filter(resultado_isolamento = 'Inconclusivo')
@@ -879,7 +880,8 @@ def ajax_filtrar_index_aberto(request):
 		}
 		return JsonResponse(data)
 	if inicio == "" and fim == "" and ano != "":
-		dados = CasoEsporotricose.objects.filter(data_notificacao__year=ano)
+		dados = CasoEsporotricose.objects.all().filter(agravo_doenca = agravo)
+		dados = dados.filter(data_notificacao__year=ano)
 		detectados = dados.filter(resultado_isolamento = 'Detectado')
 		nao_detectados = dados.filter(resultado_isolamento = 'Não detectado')
 		inconclusivo = dados.filter(resultado_isolamento = 'Inconclusivo')
@@ -904,7 +906,8 @@ def ajax_filtrar_index_aberto(request):
 		}
 		return JsonResponse(data)
 	if inicio != "" and fim == "":
-		dados = CasoEsporotricose.objects.filter(data_notificacao__range=[inicio,inicio])
+		dados = CasoEsporotricose.objects.all().filter(agravo_doenca = agravo)
+		dados = dados.filter(data_notificacao__range=[inicio,inicio])
 		detectados = dados.filter(resultado_isolamento = 'Detectado')
 		nao_detectados = dados.filter(resultado_isolamento = 'Não detectado')
 		inconclusivo = dados.filter(resultado_isolamento = 'Inconclusivo')
@@ -929,7 +932,8 @@ def ajax_filtrar_index_aberto(request):
 		}
 		return JsonResponse(data)
 	if inicio == "" and fim != "":
-		dados = CasoEsporotricose.objects.filter(data_notificacao__range=[fim,fim])
+		dados = CasoEsporotricose.objects.all().filter(agravo_doenca = agravo)
+		dados = dados.filter(data_notificacao__range=[fim,fim])
 		detectados = dados.filter(resultado_isolamento = 'Detectado')
 		nao_detectados = dados.filter(resultado_isolamento = 'Não detectado')
 		inconclusivo = dados.filter(resultado_isolamento = 'Inconclusivo')
@@ -954,7 +958,8 @@ def ajax_filtrar_index_aberto(request):
 		}
 		return JsonResponse(data)
 	if inicio != "" and fim != "":
-		dados = CasoEsporotricose.objects.filter(data_notificacao__range=[inicio,fim])
+		dados = CasoEsporotricose.objects.all().filter(agravo_doenca = agravo)
+		dados = dados.filter(data_notificacao__range=[inicio,fim])
 		detectados = dados.filter(resultado_isolamento = 'Detectado')
 		nao_detectados = dados.filter(resultado_isolamento = 'Não detectado')
 		inconclusivo = dados.filter(resultado_isolamento = 'Inconclusivo')
