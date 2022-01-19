@@ -371,10 +371,14 @@ footer {
         </ul>
         <ul style="padding-left: 5%;">
           <div id="demo" class="collapsed">
+<<<<<<< HEAD
             <li><a href="/all_forms/">Meus Dados</a></li>
+=======
+            <li><a href="/dados_user/">Meus Dados</a></li>
+>>>>>>> f0370d2efccc5804df4ffd30fca5a2bb5f09c96e
             <hr>
             {% if user.funcao == 'admin' %}
-              <li><a href="/admin/">Gerenciar Contas</a></li>
+              <li><a href="/admin/account/user/" target="_blank">Gerenciar Contas</a></li>
               <hr>
             {% endif %}
             <li><a href="/all_forms/" data-toggle="collapse" data-target="#formularios">Formulários</a></li>
