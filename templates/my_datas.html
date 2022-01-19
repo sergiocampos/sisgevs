@@ -155,7 +155,7 @@ footer {
         </ul>
         <ul style="padding-left: 5%;">
           <div id="demo" class="collapsed">
-            <li><a href="#">Meus Dados</a></li>
+            <li><a href="/all_forms/">Meus Dados</a></li>
             <hr>
             {% if user.funcao == 'admin' %}
               <li><a href="/admin/">Gerenciar Contas</a></li>
@@ -163,7 +163,7 @@ footer {
             {% endif %}
             <li><a href="/all_forms/" data-toggle="collapse" data-target="#formularios">Formulários</a></li>
             <div id="formularios" class="collapse">
-              <li><a href="/all_forms/">Esporotricose Humana</a></li>
+              <li><a href="/caso_esporotricose_create/">Esporotricose Humana</a></li>
               <li><a href="/main/">Chikungunya</a></li>
               <li><a href="/main/">Dengue</a></li>
               <li><a href="/main/">Zika</a></li>
@@ -195,7 +195,7 @@ footer {
           </div>
           
           {% include 'messages/message.html' %}
-          <table class="table table-hover">
+          <table class="table table-hover" style="font-size: 80%;">
             <thead>
               <tr>
                 <th>Data Notificação</th>
@@ -226,8 +226,10 @@ footer {
                   <a href="/caso_view_detail/{{registro.id}}/"><button type="button" class="btn btn-secondary btn-sm">Ver
                   </button></a>
 
+                  <!--
                   <a href="/remove_caso_esporotricose/{{registro.id}}/"><button type="button" class="btn btn-warning btn-sm">Excluir
                   </button></a>
+                -->
                 </td>
                 
               </tr>
