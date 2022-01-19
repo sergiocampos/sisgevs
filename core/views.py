@@ -238,8 +238,11 @@ def caso_view(request, id):
 def caso_view_detail(request, id):
 	registro = CasoEsporotricose.objects.get(id=id)
 
-	municipio_id = registro.municipio
-	municipio = Municipio.objects.get(id=municipio_id)
+	if registro.municipio != None:
+		municipio_id = registro.municipio
+		municipio = Municipio.objects.get(id=municipio_id)
+	else:
+		municipio = None
 
 	return render(request, 'caso_view_detail.html', {'registro':registro, 'municipio':municipio})
 
@@ -348,6 +351,7 @@ def my_datas(request):
 		regs = paginator.get_page(page)
 
 		return render(request, 'my_datas.html', {'regs':regs})
+
 	else:
 		return redirect('all_forms')
 	
@@ -1070,20 +1074,30 @@ def caso_esporotricose_edit(request, id):
 	unidades_saude = []
 	codigos_ibge = []
 	print(caso.codigo_ibge_caso_autoctone)
+
+	if caso.municipio:
+		municipio_caso = caso.municipio
+		codigo_ibge = CodigoIbge.objects.get(municipio=municipio_caso)
+		unidade_saude_caso = UnidadeSaude.objects.filter(municipio=municipio_caso)
+		unidade_saude_caso = caso.unidade_saude
+	else:
+		codigo_ibge = None
+		unidade_saude_caso = None
+
 	
 	if caso.data_notificacao != None:
 		caso.data_notificacao = datetime.strftime(caso.data_notificacao, '%Y-%m-%d')
-	else:
+  else:
 		caso.data_notificacao = ""
-
+	
 	if caso.data_primeiros_sintomas != None:
 		caso.data_primeiros_sintomas = datetime.strftime(caso.data_primeiros_sintomas, '%Y-%m-%d')
-	else:
+  else:
 		caso.data_primeiros_sintomas = ""
 	
 	if caso.data_nascimento_paciente != None:
 		caso.data_nascimento_paciente = datetime.strftime(caso.data_nascimento_paciente, '%Y-%m-%d')
-	else:
+  else:
 		caso.data_nascimento_paciente = ""
 
 	if caso.data_resultado_exame1 != None:
@@ -1157,7 +1171,7 @@ def caso_esporotricose_edit(request, id):
 		caso.data_encerramento = ""
 		
 	return render(request, 'caso_esporotricose_edit.html', {'form':caso, 'municipios':municipios, 'unidades_saude':unidades_saude, 
-		'codigos_ibge':codigos_ibge, 'estados':estados})
+		'codigos_ibge':codigos_ibge, 'estados':estados, 'codigo_ibge':codigo_ibge, 'unidade_saude_caso':unidade_saude_caso})
 
 @login_required(login_url='/login/')
 def set_caso_esporotricose_edit(request, id):
