@@ -345,7 +345,7 @@ def my_datas(request):
 
 	elif request.user.funcao == 'municipio':
 		registros = CasoEsporotricose.objects.filter(municipio=municipio_id_user)
-
+		
 		paginator = Paginator(registros, 6)
 		page = request.GET.get('page')
 		regs = paginator.get_page(page)
@@ -1087,46 +1087,89 @@ def caso_esporotricose_edit(request, id):
 	
 	if caso.data_notificacao != None:
 		caso.data_notificacao = datetime.strftime(caso.data_notificacao, '%Y-%m-%d')
+  else:
+		caso.data_notificacao = ""
 	
 	if caso.data_primeiros_sintomas != None:
 		caso.data_primeiros_sintomas = datetime.strftime(caso.data_primeiros_sintomas, '%Y-%m-%d')
+  else:
+		caso.data_primeiros_sintomas = ""
 	
 	if caso.data_nascimento_paciente != None:
 		caso.data_nascimento_paciente = datetime.strftime(caso.data_nascimento_paciente, '%Y-%m-%d')
+  else:
+		caso.data_nascimento_paciente = ""
 
 	if caso.data_resultado_exame1 != None:
 		caso.data_resultado_exame1 = datetime.strftime(caso.data_resultado_exame1, '%Y-%m-%d')
+	else:
+		caso.data_resultado_exame1 = ""
+
 	if caso.data_resultado_exame2 != None:
 		caso.data_resultado_exame2 = datetime.strftime(caso.data_resultado_exame2, '%Y-%m-%d')
+	else:
+		caso.data_resultado_exame2 = ""
+
 	if caso.data_resultado_exame3 != None:
 		caso.data_resultado_exame3 = datetime.strftime(caso.data_resultado_exame3, '%Y-%m-%d')
+	else:
+		caso.data_resultado_exame3 = ""
 
 	if caso.data_coleta1 != None:
 		caso.data_coleta1 = datetime.strftime(caso.data_coleta1, '%Y-%m-%d')
+	else:
+		caso.data_coleta1 = ""
+
 	if caso.data_coleta2 != None:
 		caso.data_coleta2 = datetime.strftime(caso.data_coleta2, '%Y-%m-%d')
+	else:
+		caso.data_coleta2 = ""
+
 	if caso.data_coleta3 != None:
 		caso.data_coleta3 = datetime.strftime(caso.data_coleta3, '%Y-%m-%d')
+	else:
+		caso.data_coleta3 = ""
 
 	if caso.data_investigacao != None:
 		caso.data_investigacao = datetime.strftime(caso.data_investigacao, '%Y-%m-%d')
+	else:
+		caso.data_investigacao = ""
 
 	if caso.data_inicio_tratamento1 != None:
 		caso.data_inicio_tratamento1 = datetime.strftime(caso.data_inicio_tratamento1, '%Y-%m-%d')
+	else:
+		caso.data_inicio_tratamento1 = ""
+
 	if caso.data_inicio_tratamento2 != None:
 		caso.data_inicio_tratamento2 = datetime.strftime(caso.data_inicio_tratamento2, '%Y-%m-%d')
+	else:
+		caso.data_inicio_tratamento2 = ""
+
 	if caso.data_inicio_tratamento3 != None:
 		caso.data_inicio_tratamento3 = datetime.strftime(caso.data_inicio_tratamento3, '%Y-%m-%d')
+	else:
+		caso.data_inicio_tratamento3 = ""
 
 	if caso.data_internacao != None:
 		caso.data_internacao = datetime.strftime(caso.data_internacao, '%Y-%m-%d')
+	else:
+		caso.data_internacao = ""
+
 	if caso.data_da_alta != None:
 		caso.data_da_alta = datetime.strftime(caso.data_da_alta, '%Y-%m-%d')
+	else:
+		caso.data_da_alta = ""
 
 	if caso.data_obito != None:
 		caso.data_obito = datetime.strftime(caso.data_obito, '%Y-%m-%d')
+	else:
+		caso.data_obito = ""
+
 	if caso.data_encerramento != None:
 		caso.data_encerramento = datetime.strftime(caso.data_encerramento, '%Y-%m-%d')
+	else:
+		caso.data_encerramento = ""
+		
 	return render(request, 'caso_esporotricose_edit.html', {'form':caso, 'municipios':municipios, 'unidades_saude':unidades_saude, 
 		'codigos_ibge':codigos_ibge, 'estados':estados, 'codigo_ibge':codigo_ibge, 'unidade_saude_caso':unidade_saude_caso})
 

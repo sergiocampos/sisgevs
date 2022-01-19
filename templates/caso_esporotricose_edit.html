@@ -525,11 +525,10 @@ footer {
 
                   <script>
                     dt_primeiros_s.max = new Date().toISOString().split("T")[0];
-                    
                     function limitandoData(datamin){
                       var today = new Date();
-                      datamin = datamin.value;
-                      //console.log(datamin);
+                      var datamin = datamin.value;
+                      console.log(datamin);
                       $("#datanotificacao").attr('min', datamin);
                       $("#data_investigacao_id").attr('min', datamin);
                       $("#data_coleta_material_id_1").attr('min', datamin);
@@ -1028,7 +1027,7 @@ footer {
                   <div class="col-md-3"></div>
                   <div class="col-md-3">
                     <div class="form-group"><b>Data de Investigação</b>
-                      <input class="form-control" type="date" name="data_investigacao" value="{{form.data_investigacao}}" id="data_investigacao_id">
+                      <input class="form-control" type="date" name="data_investigacao" onclick="this.max = dt_primeiros_s.value" value="{{form.data_investigacao}}" id="data_investigacao_id">
                     </div>
                   </div>
                   <div class="col-md-4">
@@ -1276,6 +1275,7 @@ footer {
 
                   <script>
                     $(document).ready(function(){
+                      var dt_primeiros_s
                       $('[data-toggle="tooltip"]').tooltip();   
                     });
                   </script>                                    
@@ -2914,7 +2914,7 @@ footer {
       $("#unidade_saude_id").ready(function(){
         //const url = $('#Form').attr("data-unidadesaude-url");
         municipioId = $("#municipio_id").val();
-        unid = {{form.unidade_saude}};
+        unid = {{form.unidade_saude}}        
         $.ajax({
           url : '{% url "ajax_load_unidadesaude" %}',
           data: { 'municipio_id': municipioId},
