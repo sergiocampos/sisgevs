@@ -83,6 +83,9 @@ class UnidadeSaude(models.Model):
 	def __str__(self):
 		return self.nome
 
+	class Meta:
+		verbose_name_plural = 'Unidades de Saúde'
+
 
 class Estado(models.Model):
 	uf = models.IntegerField(blank=True, null=True)
@@ -271,3 +274,7 @@ class CasoEsporotricose(models.Model):
 
 	def __str__(self):
 		return self.tipo_notificacao
+
+
+	class Meta:
+		verbose_name_plural='Casos Esporotricose'
