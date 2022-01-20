@@ -1593,8 +1593,7 @@ def export_data_csv(request):
 		'distrito_caso_autoctone','bairro_caso_autoctone','area_provavel_infeccao_caso_autoctone',
 		'ambiente_infeccao_caso_autoctone','doenca_rel_trabalho_caso_autoctone','evolucao_caso',
 		'data_obito','data_encerramento','observacao','nome_investigador','funcao_investigador','email_investigador',
-		'telefone_investigador','conselho_classe_investigador','numero_unico','gerencia_id',
-		'responsavel_pelas_informacoes_id'
+		'telefone_investigador','conselho_classe_investigador','numero_unico'
 	]
 
 	row_num = 1
@@ -2130,16 +2129,6 @@ def export_data_csv(request):
 		else:
 			numero_unico = ""
 
-		if s.gerencia_id != None:
-			gerencia_id = s.gerencia_id
-		else:
-			gerencia_id = ""
-
-		if s.responsavel_pelas_informacoes_id != None:
-			responsavel_pelas_informacoes_id = s.responsavel_pelas_informacoes_id
-		else:
-			responsavel_pelas_informacoes_id = ""
-
 		
 
 		row = [
@@ -2247,8 +2236,6 @@ def export_data_csv(request):
 			telefone_investigador,
 			conselho_classe_investigador,
 			numero_unico,
-			gerencia_id,
-			responsavel_pelas_informacoes_id,
 
 		]
 		for col_num, cell_value in enumerate(row, 1):
