@@ -19,12 +19,17 @@ from django.http import HttpResponse, HttpResponseRedirect
 import os
 from datetime import datetime
 
+from openpyxl import Workbook
+
 from pandas.core.frame import DataFrame
 
 from .models import *
 import json
 import urllib
 from django.conf import settings
+
+import csv
+
 
 
 # Create your views here.
@@ -1551,3 +1556,743 @@ def set_caso_esporotricose_edit(request, id):
 
 
 	return redirect('my_datas')
+
+
+
+@login_required(login_url='/login/')
+def export_data_csv(request):
+	casos = CasoEsporotricose.objects.all()
+
+	response = HttpResponse(content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
+
+	response['Content-Disposition'] = 'attachment; filename=myfile.xlsx'
+
+	workbook = Workbook()
+	worksheet = workbook.active
+
+	columns = [
+		
+		'tipo_notificacao','agravo_doenca','codigo_cib10','data_notificacao','estado','municipio','codigo_ibge',
+		'data_primeiros_sintomas','unidade_saude','unidade_saude_outro','nome_paciente','data_nascimento_paciente',
+		'idade_paciente','sexo_paciente','paciente_gestante','raca_paciente','escolaridade_paciente','cartao_sus_paciente',
+		'nome_mae_paciente','cep_residencia','uf_residencia','municipio_residencia','bairro_residencia',
+		'codigo_ibge_residencia','rua_residencia','numero_residencia','complemento_residencia','distrito_residencia',
+		'ponto_referencia_residencia','telefone_residencia','zona_residencia','pais_residencia','data_investigacao',
+		'ocupacao','ambientes_frequentados','animais_que_teve_contato','natureza_contato_animais','relacao_animal_doente',
+		'exerce_atividade_contato_plantas','historico_contato_material','presenca_lesao_pele','natureza_lesao',
+		'natureza_lesao_outro','local_lesao','local_lesao_outro','diagnostico_forma_extrac_doenca',
+		'localizacao_forma_extrac_doenca','houve_coleta_material','data_coleta1','numero_gal1','data_coleta2',
+		'numero_gal2','data_coleta3','numero_gal3','resultado_isolamento','agente','histopatologia','data_resultado_exame1',
+		'descricao_exame_1','resultado_exame1','data_resultado_exame2','descricao_exame_2','resultado_exame2',
+		'data_resultado_exame3','descricao_exame_3','resultado_exame3','data_inicio_tratamento1','droga_administrada1',
+		'esquema_terapeutico1','data_inicio_tratamento2','droga_administrada2','esquema_terapeutico2',
+		'data_inicio_tratamento3','droga_administrada3','esquema_terapeutico3','hospitalizacao','data_internacao',
+		'data_da_alta','uf_hospitalizacao','municipio_hospitalizacao','codigo_ibge_hospitalizacao',
+		'nome_hospital_hospitalizacao','classificacao_final','criterio_confirmacao','caso_autoctone_municipio_residencia',
+		'uf_caso_autoctone','pais_caso_autoctone','municipio_caso_autoctone','codigo_ibge_caso_autoctone',
+		'distrito_caso_autoctone','bairro_caso_autoctone','area_provavel_infeccao_caso_autoctone',
+		'ambiente_infeccao_caso_autoctone','doenca_rel_trabalho_caso_autoctone','evolucao_caso',
+		'data_obito','data_encerramento','observacao','nome_investigador','funcao_investigador','email_investigador',
+		'telefone_investigador','conselho_classe_investigador','numero_unico','gerencia_id',
+		'responsavel_pelas_informacoes_id'
+	]
+
+	row_num = 1
+
+	for col_num, column_title in enumerate(columns, 1):
+		cell = worksheet.cell(row=row_num, column=col_num)
+		cell.value = column_title
+
+	for s in casos:
+		row_num += 1
+
+
+		if s.tipo_notificacao != None:
+			tipo_notificacao = s.tipo_notificacao
+		else:
+			tipo_notificacao = ""
+
+		if s.agravo_doenca != None:
+			agravo_doenca = s.agravo_doenca
+		else:
+			agravo_doenca = ""
+
+		if s.codigo_cib10 != None:
+			codigo_cib10 = s.codigo_cib10
+		else:
+			codigo_cib10 = ""
+
+		
+		if s.data_notificacao != None:
+			data_notificacao = s.data_notificacao
+		else:
+			data_notificacao = ""
+
+		
+		if s.estado != None:
+			estado = s.estado
+		else:
+			estado = ""
+
+		if s.municipio != None:
+			municipio = s.municipio
+		else:
+			municipio = ""
+
+		if s.codigo_ibge != None:
+			codigo_ibge = s.codigo_ibge
+		else:
+			codigo_ibge = ""
+
+		if  s.data_primeiros_sintomas!= None:
+			data_primeiros_sintomas = s.data_primeiros_sintomas
+		else:
+			data_primeiros_sintomas = ""
+
+		if s.unidade_saude != None:
+			unidade_saude = s.unidade_saude
+		else:
+			unidade_saude = ""
+
+		if s.unidade_saude_outro != None:
+			unidade_saude_outro = s.unidade_saude_outro
+		else:
+			unidade_saude_outro = ""
+
+		if s.nome_paciente != None:
+			nome_paciente = s.nome_paciente
+		else:
+			nome_paciente = ""
+
+		if s.data_nascimento_paciente != None:
+			data_nascimento_paciente = s.data_nascimento_paciente
+		else:
+			data_nascimento_paciente = ""
+
+		if s.idade_paciente != None:
+			idade_paciente = s.idade_paciente
+		else:
+			idade_paciente = ""
+
+		if s.sexo_paciente != None:
+			sexo_paciente = s.sexo_paciente
+		else:
+			sexo_paciente = ""
+
+		if s.paciente_gestante != None:
+			paciente_gestante = s.paciente_gestante
+		else:
+			paciente_gestante = ""
+
+		if s.raca_paciente != None:
+			raca_paciente = s.raca_paciente
+		else:
+			raca_paciente = ""
+
+		if s.escolaridade_paciente != None:
+			escolaridade_paciente = s.escolaridade_paciente
+		else:
+			escolaridade_paciente = ""
+
+		if s.cartao_sus_paciente != None:
+			cartao_sus_paciente = s.cartao_sus_paciente
+		else:
+			cartao_sus_paciente = ""
+
+		if s.nome_mae_paciente != None:
+			nome_mae_paciente = s.nome_mae_paciente
+		else:
+			nome_mae_paciente = ""
+
+		if s.cep_residencia != None:
+			cep_residencia = s.cep_residencia
+		else:
+			cep_residencia = ""
+
+		if s.uf_residencia != None:
+			uf_residencia = s.uf_residencia
+		else:
+			uf_residencia = ""
+
+		if s.municipio_residencia != None:
+			municipio_residencia = s.municipio_residencia
+		else:
+			municipio_residencia = ""
+
+		if s.bairro_residencia != None:
+			bairro_residencia = s.bairro_residencia
+		else:
+			bairro_residencia = ""
+
+		if s.codigo_ibge_residencia != None:
+			codigo_ibge_residencia = s.codigo_ibge_residencia
+		else:
+			codigo_ibge_residencia = ""
+
+
+		if s.rua_residencia != None:
+			rua_residencia = s.rua_residencia
+		else:
+			rua_residencia = ""
+
+		if s.numero_residencia != None:
+			numero_residencia = s.numero_residencia
+		else:
+			numero_residencia = ""
+
+		if s.complemento_residencia != None:
+			complemento_residencia = s.complemento_residencia
+		else:
+			complemento_residencia = ""
+
+		if s.distrito_residencia != None:
+			distrito_residencia = s.distrito_residencia
+		else:
+			distrito_residencia = ""
+
+		if s.ponto_referencia_residencia != None:
+			ponto_referencia_residencia = s.ponto_referencia_residencia
+		else:
+			ponto_referencia_residencia = ""
+
+		if s.telefone_residencia != None:
+			telefone_residencia = s.telefone_residencia
+		else:
+			telefone_residencia = ""
+
+		if s.zona_residencia != None:
+			zona_residencia = s.zona_residencia
+		else:
+			zona_residencia = ""
+
+		if s.pais_residencia != None:
+			pais_residencia = s.pais_residencia
+		else:
+			pais_residencia = ""
+
+		if s.data_investigacao != None:
+			data_investigacao = s.data_investigacao
+		else:
+			data_investigacao = ""
+
+		if s.ocupacao != None:
+			ocupacao = s.ocupacao
+		else:
+			ocupacao = ""
+
+		if s.ambientes_frequentados != None:
+			ambientes_frequentados = s.ambientes_frequentados
+		else:
+			ambientes_frequentados = ""
+
+		if s.animais_que_teve_contato != None:
+			animais_que_teve_contato = s.animais_que_teve_contato
+		else:
+			animais_que_teve_contato = ""
+
+		if s.natureza_contato_animais != None:
+			natureza_contato_animais = s.natureza_contato_animais
+		else:
+			natureza_contato_animais = ""
+
+		if s.relacao_animal_doente != None:
+			relacao_animal_doente = s.relacao_animal_doente
+		else:
+			relacao_animal_doente = ""
+
+		if s.exerce_atividade_contato_plantas != None:
+			exerce_atividade_contato_plantas = s.exerce_atividade_contato_plantas
+		else:
+			exerce_atividade_contato_plantas = ""
+
+		if s.historico_contato_material != None:
+			historico_contato_material = s.historico_contato_material
+		else:
+			historico_contato_material = ""
+
+		if s.presenca_lesao_pele != None:
+			presenca_lesao_pele = s.presenca_lesao_pele
+		else:
+			presenca_lesao_pele = ""
+
+		if s.natureza_lesao != None:
+			natureza_lesao = s.natureza_lesao
+		else:
+			natureza_lesao = ""
+
+		if s.natureza_lesao_outro != None:
+			natureza_lesao_outro = s.natureza_lesao_outro
+		else:
+			natureza_lesao_outro = ""
+
+		if s.local_lesao != None:
+			local_lesao = s.local_lesao
+		else:
+			local_lesao = ""
+
+		if s.local_lesao_outro != None:
+			local_lesao_outro = s.local_lesao_outro
+		else:
+			local_lesao_outro = ""
+
+		if s.diagnostico_forma_extrac_doenca != None:
+			diagnostico_forma_extrac_doenca = s.diagnostico_forma_extrac_doenca
+		else:
+			diagnostico_forma_extrac_doenca = ""
+
+		if s.localizacao_forma_extrac_doenca != None:
+			localizacao_forma_extrac_doenca = s.localizacao_forma_extrac_doenca
+		else:
+			localizacao_forma_extrac_doenca = ""
+
+		if s.houve_coleta_material != None:
+			houve_coleta_material = s.houve_coleta_material
+		else:
+			houve_coleta_material = ""
+
+		if s.data_coleta1 != None:
+			data_coleta1 = s.data_coleta1
+		else:
+			data_coleta1 = ""
+
+		if s.numero_gal1 != None:
+			numero_gal1 = s.numero_gal1
+		else:
+			numero_gal1 = ""
+
+		if s.data_coleta2 != None:
+			data_coleta2 = s.data_coleta2
+		else:
+			data_coleta2 = ""
+
+		if s.numero_gal2 != None:
+			numero_gal2 = s.numero_gal2
+		else:
+			numero_gal2 = ""
+
+		if s.data_coleta3 != None:
+			data_coleta3 = s.data_coleta3
+		else:
+			data_coleta3 = ""
+
+		if s.numero_gal3 != None:
+			numero_gal3 = s.numero_gal3
+		else:
+			numero_gal3 = ""
+
+		if s.resultado_isolamento != None:
+			resultado_isolamento = s.resultado_isolamento
+		else:
+			resultado_isolamento = ""
+
+		if s.agente != None:
+			agente = s.agente
+		else:
+			agente = ""
+
+		if s.histopatologia != None:
+			histopatologia = s.histopatologia
+		else:
+			histopatologia = ""
+
+		if s.data_resultado_exame1 != None:
+			data_resultado_exame1 = s.data_resultado_exame1
+		else:
+			data_resultado_exame1 = ""
+
+		if s.descricao_exame_1 != None:
+			descricao_exame_1 = s.descricao_exame_1
+		else:
+			descricao_exame_1 = ""
+
+		if s.resultado_exame1 != None:
+			resultado_exame1 = s.resultado_exame1
+		else:
+			resultado_exame1 = ""
+
+		if s.data_resultado_exame2 != None:
+			data_resultado_exame2 = s.data_resultado_exame2
+		else:
+			data_resultado_exame2 = ""
+
+		if s.descricao_exame_2 != None:
+			descricao_exame_2 = s.descricao_exame_2
+		else:
+			descricao_exame_2 = ""
+
+		if s.resultado_exame2 != None:
+			resultado_exame2 = s.resultado_exame2
+		else:
+			resultado_exame2 = ""
+
+		if s.data_resultado_exame3 != None:
+			data_resultado_exame3 = s.data_resultado_exame3
+		else:
+			data_resultado_exame3 = ""
+
+		if s.descricao_exame_3 != None:
+			descricao_exame_3 = s.descricao_exame_3
+		else:
+			descricao_exame_3 = ""
+
+		if s.resultado_exame3 != None:
+			resultado_exame3 = s.resultado_exame3
+		else:
+			resultado_exame3 = ""
+
+		if s.data_inicio_tratamento1 != None:
+			data_inicio_tratamento1 = s.data_inicio_tratamento1
+		else:
+			data_inicio_tratamento1 = ""
+
+		if s.droga_administrada1 != None:
+			droga_administrada1 = s.droga_administrada1
+		else:
+			droga_administrada1 = ""
+
+		if s.esquema_terapeutico1 != None:
+			esquema_terapeutico1 = s.esquema_terapeutico1
+		else:
+			esquema_terapeutico1 = ""
+
+		if s.data_inicio_tratamento2 != None:
+			data_inicio_tratamento2 = s.data_inicio_tratamento2
+		else:
+			data_inicio_tratamento2 = ""
+
+		if s.droga_administrada2 != None:
+			droga_administrada2 = s.droga_administrada2
+		else:
+			droga_administrada2 = ""
+
+		if s.esquema_terapeutico2 != None:
+			esquema_terapeutico2 = s.esquema_terapeutico2
+		else:
+			esquema_terapeutico2 = ""
+
+		if s.data_inicio_tratamento3 != None:
+			data_inicio_tratamento3 = s.data_inicio_tratamento3
+		else:
+			data_inicio_tratamento3 = ""
+
+		if s.droga_administrada3 != None:
+			droga_administrada3 = s.droga_administrada3
+		else:
+			droga_administrada3 = ""
+
+		if s.esquema_terapeutico3 != None:
+			esquema_terapeutico3 = s.esquema_terapeutico3
+		else:
+			esquema_terapeutico3 = ""
+
+		if s.hospitalizacao != None:
+			hospitalizacao = s.hospitalizacao
+		else:
+			hospitalizacao = ""
+
+		if s.data_internacao != None:
+			data_internacao = s.data_internacao
+		else:
+			data_internacao = ""
+
+		if s.data_da_alta != None:
+			data_da_alta = s.data_da_alta
+		else:
+			data_da_alta = ""
+
+		if s.uf_hospitalizacao != None:
+			uf_hospitalizacao = s.uf_hospitalizacao
+		else:
+			uf_hospitalizacao = ""
+
+		if s.municipio_hospitalizacao != None:
+			municipio_hospitalizacao = s.municipio_hospitalizacao
+		else:
+			municipio_hospitalizacao = ""
+
+		if s.codigo_ibge_hospitalizacao != None:
+			codigo_ibge_hospitalizacao = s.codigo_ibge_hospitalizacao
+		else:
+			codigo_ibge_hospitalizacao = ""
+
+		if s.nome_hospital_hospitalizacao != None:
+			nome_hospital_hospitalizacao = s.nome_hospital_hospitalizacao
+		else:
+			nome_hospital_hospitalizacao = ""
+
+		if s.classificacao_final != None:
+			classificacao_final = s.classificacao_final
+		else:
+			classificacao_final = ""
+
+		if s.criterio_confirmacao != None:
+			criterio_confirmacao = s.criterio_confirmacao
+		else:
+			criterio_confirmacao = ""
+
+		if s.caso_autoctone_municipio_residencia != None:
+			caso_autoctone_municipio_residencia = s.caso_autoctone_municipio_residencia
+		else:
+			caso_autoctone_municipio_residencia = ""
+
+		if s.uf_caso_autoctone != None:
+			uf_caso_autoctone = s.uf_caso_autoctone
+		else:
+			uf_caso_autoctone = ""
+
+		if s.pais_caso_autoctone != None:
+			pais_caso_autoctone = s.pais_caso_autoctone
+		else:
+			pais_caso_autoctone = ""
+
+		if s.municipio_caso_autoctone != None:
+			municipio_caso_autoctone = s.municipio_caso_autoctone
+		else:
+			municipio_caso_autoctone = ""
+
+		if s.codigo_ibge_caso_autoctone != None:
+			codigo_ibge_caso_autoctone = s.codigo_ibge_caso_autoctone
+		else:
+			codigo_ibge_caso_autoctone = ""
+
+		if s.distrito_caso_autoctone != None:
+			distrito_caso_autoctone = s.distrito_caso_autoctone
+		else:
+			distrito_caso_autoctone = ""
+
+		if s.bairro_caso_autoctone != None:
+			bairro_caso_autoctone = s.bairro_caso_autoctone
+		else:
+			bairro_caso_autoctone = ""
+
+		if s.area_provavel_infeccao_caso_autoctone != None:
+			area_provavel_infeccao_caso_autoctone = s.area_provavel_infeccao_caso_autoctone
+		else:
+			area_provavel_infeccao_caso_autoctone = ""
+
+		if s.ambiente_infeccao_caso_autoctone != None:
+			ambiente_infeccao_caso_autoctone = s.ambiente_infeccao_caso_autoctone
+		else:
+			ambiente_infeccao_caso_autoctone = ""
+
+		if s.doenca_rel_trabalho_caso_autoctone != None:
+			doenca_rel_trabalho_caso_autoctone = s.doenca_rel_trabalho_caso_autoctone
+		else:
+			doenca_rel_trabalho_caso_autoctone = ""
+
+		if s.evolucao_caso != None:
+			evolucao_caso = s.evolucao_caso
+		else:
+			evolucao_caso = ""
+
+		if s.data_obito != None:
+			data_obito = s.data_obito
+		else:
+			data_obito = ""
+
+		if s.data_encerramento != None:
+			data_encerramento = s.data_encerramento
+		else:
+			data_encerramento = ""
+
+		if s.observacao != None:
+			observacao = s.observacao
+		else:
+			observacao = ""
+
+		if s.nome_investigador != None:
+			nome_investigador = s.nome_investigador
+		else:
+			nome_investigador = ""
+
+		if s.funcao_investigador != None:
+			funcao_investigador = s.funcao_investigador
+		else:
+			funcao_investigador = ""
+
+		if s.email_investigador != None:
+			email_investigador = s.email_investigador
+		else:
+			email_investigador = ""
+
+		if s.telefone_investigador != None:
+			telefone_investigador = s.telefone_investigador
+		else:
+			telefone_investigador = ""
+
+		if s.conselho_classe_investigador != None:
+			conselho_classe_investigador = s.conselho_classe_investigador
+		else:
+			conselho_classe_investigador = ""
+
+		if s.numero_unico != None:
+			numero_unico = s.numero_unico
+		else:
+			numero_unico = ""
+
+		if s.gerencia_id != None:
+			gerencia_id = s.gerencia_id
+		else:
+			gerencia_id = ""
+
+		if s.responsavel_pelas_informacoes_id != None:
+			responsavel_pelas_informacoes_id = s.responsavel_pelas_informacoes_id
+		else:
+			responsavel_pelas_informacoes_id = ""
+
+		
+
+		row = [
+			tipo_notificacao,
+			agravo_doenca,
+			codigo_cib10,
+			data_notificacao,
+			estado,
+			municipio,
+			codigo_ibge,
+			data_primeiros_sintomas,
+			unidade_saude,
+			unidade_saude_outro,
+			nome_paciente,
+			data_nascimento_paciente,
+			idade_paciente,
+			sexo_paciente,
+			paciente_gestante,
+			raca_paciente,
+			escolaridade_paciente,
+			cartao_sus_paciente,
+			nome_mae_paciente,
+			cep_residencia,
+			uf_residencia,
+			municipio_residencia,
+			bairro_residencia,
+			codigo_ibge_residencia,
+			rua_residencia,
+			numero_residencia,
+			complemento_residencia,
+			distrito_residencia,
+			ponto_referencia_residencia,
+			telefone_residencia,
+			zona_residencia,
+			pais_residencia,
+			data_investigacao,
+			ocupacao,
+			ambientes_frequentados,
+			animais_que_teve_contato,
+			natureza_contato_animais,
+			relacao_animal_doente,
+			exerce_atividade_contato_plantas,
+			historico_contato_material,
+			presenca_lesao_pele,
+			natureza_lesao,
+			natureza_lesao_outro,
+			local_lesao,
+			local_lesao_outro,
+			diagnostico_forma_extrac_doenca,
+			localizacao_forma_extrac_doenca,
+			houve_coleta_material,
+			data_coleta1,
+			numero_gal1,
+			data_coleta2,
+			numero_gal2,
+			data_coleta3,
+			numero_gal3,
+			resultado_isolamento,
+			agente,
+			histopatologia,
+			data_resultado_exame1,
+			descricao_exame_1,
+			resultado_exame1,
+			data_resultado_exame2,
+			descricao_exame_2,
+			resultado_exame2,
+			data_resultado_exame3,
+			descricao_exame_3,
+			resultado_exame3,
+			data_inicio_tratamento1,
+			droga_administrada1,
+			esquema_terapeutico1,
+			data_inicio_tratamento2,
+			droga_administrada2,
+			esquema_terapeutico2,
+			data_inicio_tratamento3,
+			droga_administrada3,
+			esquema_terapeutico3,
+			hospitalizacao,
+			data_internacao,
+			data_da_alta,
+			uf_hospitalizacao,
+			municipio_hospitalizacao,
+			codigo_ibge_hospitalizacao,
+			nome_hospital_hospitalizacao,
+			classificacao_final,
+			criterio_confirmacao,
+			caso_autoctone_municipio_residencia,
+			uf_caso_autoctone,
+			pais_caso_autoctone,
+			municipio_caso_autoctone,
+			codigo_ibge_caso_autoctone,
+			distrito_caso_autoctone,
+			bairro_caso_autoctone,
+			area_provavel_infeccao_caso_autoctone,
+			ambiente_infeccao_caso_autoctone,
+			doenca_rel_trabalho_caso_autoctone,
+			evolucao_caso,
+			data_obito,
+			data_encerramento,
+			observacao,
+			nome_investigador,
+			funcao_investigador,
+			email_investigador,
+			telefone_investigador,
+			conselho_classe_investigador,
+			numero_unico,
+			gerencia_id,
+			responsavel_pelas_informacoes_id,
+
+		]
+		for col_num, cell_value in enumerate(row, 1):
+			cell = worksheet.cell(row=row_num, column=col_num)
+			cell_value_ = str(cell_value)
+			cell.value = cell_value_
+
+	
+	workbook.save(response)
+
+
+	return response
+
+'''
+
+
+	response = HttpResponse(content_type='text/csv')
+	response['Content-Disposition'] = 'attachment; filename="geral.csv"'
+
+	writer = csv.writer(response)
+	writer.writerow([
+		'id','tipo_notificacao','agravo_doenca','codigo_cib10','data_notificacao','estado','municipio','codigo_ibge',
+		'data_primeiros_sintomas','unidade_saude','unidade_saude_outro','nome_paciente','data_nascimento_paciente',
+		'idade_paciente','sexo_paciente','paciente_gestante','raca_paciente','escolaridade_paciente','cartao_sus_paciente',
+		'nome_mae_paciente','cep_residencia','uf_residencia','municipio_residencia','bairro_residencia',
+		'codigo_ibge_residencia','rua_residencia','numero_residencia','complemento_residencia','distrito_residencia',
+		'ponto_referencia_residencia','telefone_residencia','zona_residencia','pais_residencia','data_investigacao',
+		'ocupacao','ambientes_frequentados','animais_que_teve_contato','natureza_contato_animais','relacao_animal_doente',
+		'exerce_atividade_contato_plantas','historico_contato_material','presenca_lesao_pele','natureza_lesao',
+		'natureza_lesao_outro','local_lesao','local_lesao_outro','diagnostico_forma_extrac_doenca',
+		'localizacao_forma_extrac_doenca','houve_coleta_material','data_coleta1','numero_gal1','data_coleta2',
+		'numero_gal2','data_coleta3','numero_gal3','resultado_isolamento','agente','histopatologia','data_resultado_exame1',
+		'descricao_exame_1','resultado_exame1','data_resultado_exame2','descricao_exame_2','resultado_exame2',
+		'data_resultado_exame3','descricao_exame_3','resultado_exame3','data_inicio_tratamento1','droga_administrada1',
+		'esquema_terapeutico1','data_inicio_tratamento2','droga_administrada2','esquema_terapeutico2',
+		'data_inicio_tratamento3','droga_administrada3','esquema_terapeutico3','hospitalizacao','data_internacao',
+		'data_da_alta','uf_hospitalizacao','municipio_hospitalizacao','codigo_ibge_hospitalizacao',
+		'nome_hospital_hospitalizacao','classificacao_final','criterio_confirmacao','caso_autoctone_municipio_residencia',
+		'uf_caso_autoctone','pais_caso_autoctone','municipio_caso_autoctone','codigo_ibge_caso_autoctone',
+		'distrito_caso_autoctone','bairro_caso_autoctone','area_provavel_infeccao_caso_autoctone',
+		'ambiente_infeccao_caso_autoctone','doenca_rel_trabalho_caso_autoctone','evolucao_caso',
+		'data_obito','data_encerramento','observacao','nome_investigador','funcao_investigador','email_investigador',
+		'telefone_investigador','conselho_classe_investigador','numero_unico','gerencia_id',
+		'responsavel_pelas_informacoes_id'
+
+		])
+'''
