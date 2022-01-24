@@ -577,7 +577,10 @@ footer {
                   <div class="col-md-3">
                     <div class="form-group"><b>Município Notificador</b><i id="alert_municipio" style="color:red">**</i>
                       <select class="form-control" name="municipio_notificacao" id="municipio_id" required onchange="verificarNotifGeral()">
+                        <!--
                         <option value="" selected disabled><i>Selecionar</i></option>
+                        -->
+                        <option value="{{user.municipio.id}}"selected>{{user.municipio}}</option>
                         {% for municipio in municipios %}
                         <option value="{{municipio.id}}">{{municipio.nome}}</option>
                         {% endfor %}
@@ -589,7 +592,7 @@ footer {
                   <div class="col-md-2">
                     <div class="form-group"><b>Código IBGE</b>
                       <b ></b>
-                      <input type="text" name="codigo_ibge_dados_gerais" id="ibge_cod_id" class="form-control" readonly>
+                      <input type="text" name="codigo_ibge_dados_gerais" id="ibge_cod_id" class="form-control" value="{{user.municipio.ibge}}" readonly>
                       <!-- <select class="form-control" name="codigo_ibge_dados_gerais" id="ibge_cod_id">
 
                       </select> -->
@@ -626,8 +629,8 @@ footer {
                     <div class="form-group"><b>Unidade de Saúde  </b><i></i>
                       <select class="form-control" name="unidade_saude" id="unidade_saude_id">
                         <option value="" disabled selected>Escolha unidade</option>
-                        {% for unid_saude in unidades_saude %}
-                        <option value="{{unid_saude.id}}">{{unid_saude.id}}</option>
+                        {% for unid_saude in unidades_saude_municipio %}
+                        <option value="{{unid_saude.id}}">{{unid_saude.nome}}</option>
                         {% endfor %}
                       </select>
                     </div>
