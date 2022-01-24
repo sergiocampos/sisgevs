@@ -94,4 +94,7 @@ select{
         background: initial;
         page-break-after: always;        
     }
+    img{
+        width: 180px;
+    }
 }

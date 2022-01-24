@@ -16,20 +16,20 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.min.js"></script>
 
   <style>
-    .fakeimg {
-      height: 500px;
-      background: #aaa;
-    }
-  </style>
+  .fakeimg {
+    height: 500px;
+    background: #aaa;
+  }
+</style>
 
-  <style>
-    * {
-      box-sizing: border-box;
-    }
+<style>
+* {
+  box-sizing: border-box;
+}
 
-    body {
-      font-family: Arial, Helvetica, sans-serif;
-    }
+body {
+  font-family: Arial, Helvetica, sans-serif;
+}
 
 /* Style the header */
 header {
@@ -83,6 +83,32 @@ footer {
     flex-direction: column;
   }
 }
+#container{
+    margin: 0;    
+}
+.button{
+    margin: 0px 25px 0px 25px;
+    padding: 15px;
+    background-color:#F2CA64;
+    border-radius: 8px;
+    box-shadow: 2px 2px 5px rgba(0,0,0,0.5);
+}
+.button:hover{
+    background-color:#fdcb4c;
+    box-shadow: 4px 4px 10px rgba(0,0,0,0.5);
+    cursor: pointer;    
+}
+.vertical{
+    height: 25px;
+    border-left: 2px solid black;
+}
+.horizontal{
+    border: 2px solid black;
+    margin: 0 15% 0px 15%;
+    border-bottom: none;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+}
 </style>
 
 <link rel="shortcut icon" href="https://docs.google.com/uc?id=1h8jgyPDlDWWinD_VP50nqKXnmdCHEKH3" type="image/x-icon" />
@@ -134,16 +160,15 @@ footer {
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#">Localizar Notificação</a>
         <div class="dropdown-menu">
-            <a class="dropdown-item" href="/localizar_paciente_nome/">Nome Paciente</a>
-            <a class="dropdown-item" href="/localizar_paciente_data_coleta/">Data de Coleta</a>
-            <a class="dropdown-item" href="#">CPF</a>
-            <a class="dropdown-item" href="#">Telefone</a>
+          <a class="dropdown-item" href="/localizar_paciente_nome/">Nome Paciente</a>
+          <a class="dropdown-item" href="/localizar_paciente_data_coleta/">Data de Coleta</a>
+          <a class="dropdown-item" href="#">CPF</a>
+          <a class="dropdown-item" href="#">Telefone</a>
         </div>
-    </li>
+      </li>
       <li class="nav-item">
         <a class="nav-link" href="/all_forms/">Notificar</a>
       </li>
-      
       <li class="nav-item">
         <a class="nav-link" href="/logout/">Sair</a>
       </li>
@@ -158,11 +183,13 @@ footer {
           </li>
         </ul>
         <ul style="padding-left: 5%;">
-          <div id="demo" class="collapsed">
-            <li><a href="/all_forms/">Meus Dados</a></li>
+
+          <div id="" class="">
+
+            <li><a href="/dados_user/">Meus Dados</a></li>
             <hr>
             {% if user.funcao == 'admin' %}
-              <li><a href="/admin/">Gerenciar Contas</a></li>
+              <li><a href="/admin/account/user/">Gerenciar Contas</a></li>
               <hr>
               <li><a href="/organograma/">Organograma</a></li>
               <hr>
@@ -175,113 +202,68 @@ footer {
               <li><a href="/main/">Zika</a></li>
             </div>
             <hr>
-            <li>Notificações</li>
+            <li><a href="/my_datas/">Notificações</a></li>
             <hr>
+            <!--
             <li><a href="/download_ficha/" data-toggle="collapse" data-target="#_demo">Ficha</a></li>
             <div id="_demo" class="collapse"><br>
               <li><a href="/ficha_caso_esporotricose_preencher/" target="_blank" style="color: #4d94ff;">Novo Layout</a></li>
-              <!--<li><a href="/download_ficha/" download style="color: #4d94ff;">Imprimir Ficha</a></li>-->
+              <li><a href="/download_ficha/" download style="color: #4d94ff;">Imprimir Ficha</a></li>
             </div>
             <hr>
-            <li><a href="#"></a></li>
+          -->
+            <li><a href=""></a></li>
           </div>
         </ul>
       </nav>
-
-
       <article>
-
-        <div class="container" style="margin-left: 0;" id="container">
+        <div class="container" id="container">
           <div class="row">
             <div class="col-sm-12">
               <div class="alert alert-primary" style="text-align: center;">
-                <strong style="align-items: center;">Notificações</strong>
+                <strong style="align-items: center;">Organograma</strong>
               </div>
             </div>
           </div>
-
-          <div class="row">
-            <div class="col-sm-10"></div>
-            <div class="col-sm-2">
-              <a href="/export_data_csv/"><button type="button" class="btn btn-primary btn-sm">Exportar Dados</button></a>
+          <div class="container">
+            <div class="horizontal_line"></div>
+            <div class="vertical_line"></div>
+            <div class="row text-center">
+              <div class="col"></div>  
+              <div class="button col"><strong>Gerência Executiva</strong></div>
+              <div class="col"></div>  
             </div>
+            <div class="row"><div class="col"></div><div class="col vertical"></div></div>
+            <div class="row horizontal"><div class="col"></div><div class="col vertical"></div></div>
+            <div class="row text-center">
+              <div class="button col"><strong>Gerência Operacional</strong></div>
+              <div class="button col"><strong>Gerência Regional de Saúde</strong></div>
+              <div class="button col"><strong>Área Técnica</strong></div>
+            </div>
+            <div class="row"><div class="col"></div><div class="col vertical"></div></div>
+            <div class="row text-center">
+              <div class="col"></div>  
+              <div class="button col"><strong>Chefia de Núcleo</strong></div>
+              <div class="col"></div>  
+            </div>
+            <div class="row"><div class="col"></div><div class="col vertical"></div></div>
+            <div class="row text-center">
+              <div class="col"></div>  
+              <div class="button col"><strong>Municipal</strong></div>
+              <div class="col"></div>  
+            </div>
+            <div class="row"><div class="col"></div><div class="col vertical"></div></div>
+            <div class="row text-center" style="margin-bottom: 50px;">
+              <div class="col"></div>  
+              <div class="button col"><strong>AutoCadastro</strong></div>
+              <div class="col"></div>  
+            </div>            
           </div>
-          
-          <br>
-          
-          {% include 'messages/message.html' %}
-          <table class="table table-hover" style="font-size: 80%;">
-            <thead>
-              <tr>
-                <th>Data Notificação</th>
-                <th>Nome Paciente</th>
-                <th>Idade</th>
-                <th>Município de Residência</th>
-                <th>Município Notificador</th>
-                <th style="text-align: center;">Ações</th>
-
-              </tr>
-            </thead>
-            <tbody>
-
-              {% for registro in regs %}
-              <tr>
-                <td>{{registro.data_notificacao}}</td>
-                <td>{{registro.nome_paciente}}</td>
-                <td>{{registro.idade_paciente}}</td>
-                <td>{{registro.municipio_residencia}}</td>
-                <td>{{user.municipio}}</td>
-                <td align="center">
-                  {% if user.funcao == 'gerencia' %}
-                  {% else %}
-                  <a href="/caso_esporotricose_edit/{{registro.id}}"><button type="button" class="btn btn-info btn-sm">Editar
-                  </button></a>
-                  {%endif%}
-
-                  <a href="/caso_view_detail/{{registro.id}}/" target="_blank"><button type="button" class="btn btn-secondary btn-sm">Ver
-                  </button></a>
-
-                  <!--
-                  <a href="/remove_caso_esporotricose/{{registro.id}}/"><button type="button" class="btn btn-warning btn-sm">Excluir
-                  </button></a>
-                -->
-                </td>
-                
-              </tr>
-              {% endfor %}              
-
-            </tbody>
-          </table>
-        </div>
-
-
       </article>
-
-
     </section>
-
-    <br><br>
-
-    <div class="pagination">
-      <span class="step-links" style="margin: auto">
-        {% if regs.has_previous %}
-         <a href="?page={{regs.previous_page_number}}">Anterior</a>
-        {% endif %}
-        <span class="current">
-        {{regs.number}} de {{regs.paginator.num_pages}}
-        </span>
-        {% if regs.has_next %}
-         <a href="?page={{regs.next_page_number}}"> Próximo</a>
-         {% endif %}
-                
-      </span> 
-    </div>
-
-
     <div class="jumbotron text-center" style="margin-bottom:0">
       <p>Footer</p>
       <i class="fa">&#xf1f9;</i>
-    </div>
-    <br>
+    </div>    
   </body>
   </html>
