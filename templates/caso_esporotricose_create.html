@@ -35,6 +35,7 @@
       $("#outro_ibge_hospitalizacao").mask("99999999999999");
       $("#cep").mask("99999-999");
       $("#numero_residencia").mask("9999/AA");
+      $("#uf").mask("AA")
     });
   </script>
 
@@ -573,7 +574,7 @@ footer {
 
                   <div class="col-md-2">
                     <div class="form-group"><b>UF</b>
-                        <input class="form-control" type="text" name="uf_notificacao" placeholder="" value="PB" readonly id="estado">
+                        <input class="form-control" id= type="text" name="uf_notificacao" placeholder="" value="PB" readonly id="estado">
                     </div>
                   </div>
                   <div class="col-md-3">
@@ -947,7 +948,7 @@ footer {
                   </div>
                   <div class="col-md-3">
                     <div class="form-group"><b>UF</b>
-                      <input class="form-control" type="text" onkeypress="return limitcarc(event, 'letr')" name="uf_residencia" id="uf" placeholder="" value="">
+                      <input class="form-control" type="text" onkeypress="return limitcarc(event, 'letr')" name="uf_residencia" id="uf" placeholder="" value="" style="text-transform:uppercase">
                     </div>
                   </div>
                   <div class="col-md-3">
@@ -1037,7 +1038,7 @@ footer {
                   <div class="col-md-3"></div>
                   <div class="col-md-3">
                     <div class="form-group"><b>Data de Investigação</b><i id="alert_data_invest" style="color:red">**</i>
-                      <input class="form-control" type="date" name="data_investigacao" value="" id="data_investigacao_id" onchange="verificarNotifGeral()">
+                      <input class="form-control" type="date" name="data_investigacao" value="" id="data_investigacao_id" onclick="limitDataInv()" onchange="verificarNotifGeral()">
                     </div>
                   </div>
                   <div class="col-md-4">
@@ -1375,7 +1376,13 @@ footer {
                       }
                     });
                   });
-
+                  function limitDataInv(){
+                    dt_primeiros_s = document.getElementById('dt_primeiros_s').value;
+                    dt_investigacao = document.getElementById('data_investigacao_id');
+                    dt_atual = new Date().toISOString().split("T")[0];
+                    dt_investigacao.max = dt_atual;
+                    dt_investigacao.min = dt_primeiros_s;
+                  };
                   function active_deactive_1(){
                     if(document.getElementById('checkbox_1_id').checked == true){
                       $("#gal_id_1").prop("disabled", false);

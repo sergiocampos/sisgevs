@@ -32,6 +32,7 @@
       $("#telefone_investigador_id").mask("(99)99999-9999");
       $("#outro_ibge_hospitalizacao").mask("99999999999999");
       $("#cep").mask("99999-999");
+      $("#uf").mask("AA");
     });
   </script>
 
@@ -936,7 +937,7 @@ footer {
                   </div>
                   <div class="col-md-3">
                     <div class="form-group"><b>UF</b>
-                      <input class="form-control" type="text" onkeypress="return limitcarc(event, 'letr')" name="uf_residencia" id="uf" placeholder="" value="{{form.uf_residencia}}">
+                      <input class="form-control" type="text" onkeypress="return limitcarc(event, 'letr')" name="uf_residencia" id="uf" placeholder="" value="{{form.uf_residencia}}" style="text-transform:uppercase">
                     </div>
                   </div>
                   <div class="col-md-3">
@@ -1279,6 +1280,12 @@ footer {
                     $(document).ready(function(){
                       var dt_primeiros_s
                       $('[data-toggle="tooltip"]').tooltip();   
+                      data_investigacao = document.getElementById('data_investigacao_id')
+                      dt_primeiros_s = document.getElementById('dt_primeiros_s').value
+                      data_atual = new Date().toISOString().split("T")[0];
+                      
+                      data_investigacao.max = data_atual
+                      data_investigacao.min = dt_primeiros_s
                     });
                   </script>                                    
                 </div>
