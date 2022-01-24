@@ -2283,3 +2283,8 @@ def export_data_csv(request):
 
 		])
 '''
+
+
+@login_required(login_url='/login/')
+def organograma(request):
+	return render(request, 'organograma.html')
