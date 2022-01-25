@@ -1,3 +1,4 @@
+from operator import truediv
 from django.db import models
 from django.conf import settings
 from django.contrib.auth.models import User
@@ -260,6 +261,7 @@ class CasoEsporotricose(models.Model):
 	evolucao_caso = models.CharField(max_length = 100, null=True, blank=True)
 	data_obito = models.DateField(blank=True, null=True)
 	data_encerramento = models.DateField(blank=True, null=True)
+	status_caso = models.CharField(max_length=50, null=True, blank=True)
 
 	#Observacao
 	observacao = models.TextField(blank=True, default='', null=True)
