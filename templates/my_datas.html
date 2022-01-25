@@ -240,7 +240,6 @@ footer {
 
                   <a href="/caso_view_detail/{{registro.id}}/" target="_blank"><button type="button" class="btn btn-secondary btn-sm">Ver
                   </button></a>
-
                   <!--
                   <a href="/remove_caso_esporotricose/{{registro.id}}/"><button type="button" class="btn btn-warning btn-sm">Excluir
                   </button></a>
@@ -248,8 +247,7 @@ footer {
                 </td>
                 
               </tr>
-              {% endfor %}              
-
+              {% endfor %}
             </tbody>
           </table>
         </div>
@@ -262,18 +260,17 @@ footer {
 
     <br><br>
 
-    <div class="pagination">
+    <div class="pagination py-4">
       <span class="step-links" style="margin: auto">
         {% if regs.has_previous %}
          <a href="?page={{regs.previous_page_number}}">Anterior</a>
         {% endif %}
-        <span class="current">
+        <span class="current text-center" style="border: 1px solid #aaa; border-radius: 4px; padding: 5px; padding-right: 2px; margin: 10px;">
         {{regs.number}} de {{regs.paginator.num_pages}}
         </span>
         {% if regs.has_next %}
          <a href="?page={{regs.next_page_number}}"> Próximo</a>
-         {% endif %}
-                
+         {% endif %}                
       </span> 
     </div>
 

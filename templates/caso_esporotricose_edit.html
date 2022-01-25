@@ -32,6 +32,8 @@
       $("#telefone_investigador_id").mask("(99)99999-9999");
       $("#outro_ibge_hospitalizacao").mask("99999999999999");
       $("#cep").mask("99999-999");
+      $("#uf").mask("AA");
+      verificarNotifGeral()
     });
   </script>
 
@@ -889,6 +891,9 @@ footer {
                     var data_1_s = document.getElementById('dt_primeiros_s').value;
                     var municipio = document.getElementById('municipio_id').value.length;
                     var telefone = document.getElementById('telefone_residencia_id').value.length;
+                    var cidade = document.getElementById('cidade').value
+                    
+                    if (cidade.length >= 4) {$("#alert_municipio_residencia").hide()} else {$("#alert_municipio_residencia").show()}
                     
                     if (municipio != 0) {$('#alert_municipio').hide();} else {$('#alert_municipio').show();}
                     
@@ -907,16 +912,15 @@ footer {
                     if ((data_1_s != "") && (municipio != 0)){
                       $('#alert_dados_gerais').hide();
                     }
-                    if (telefone < 13){
-                      $("#alert_dados_residencia").show();
-                      $('#alert_telefone_paciente').show();
-                    } else {
-                      $("#alert_dados_residencia").hide();
-                      $('#alert_telefone_paciente').hide();
-                    }
+                    if (telefone != 14) {$('#alert_telefone_paciente').show()} else {$('#alert_telefone_paciente').hide()};
+
+                    if ((telefone == 14) && (cidade.length >= 4)) {
+                      $("#alert_dados_residencia").hide();                      
+                    } else{$("#alert_dados_residencia").show()}
                                      
                     if ((nome_paciente >= 10) && (nome_mae >= 10) && (date2 != "") 
-                        && (data_1_s != "") && (municipio != 0) && (telefone >= 13)){
+                        && (data_1_s != "") && (municipio != 0) && (telefone == 14)
+                        && (cidade.length >= 4)){
                       $("#btn_submit_id").prop("disabled", false);
                     } else {$("#btn_submit_id").prop("disabled", true);}
                     
@@ -936,12 +940,12 @@ footer {
                   </div>
                   <div class="col-md-3">
                     <div class="form-group"><b>UF</b>
-                      <input class="form-control" type="text" onkeypress="return limitcarc(event, 'letr')" name="uf_residencia" id="uf" placeholder="" value="{{form.uf_residencia}}">
+                      <input class="form-control" type="text" onkeypress="return limitcarc(event, 'letr')" name="uf_residencia" id="uf" placeholder="" value="{{form.uf_residencia}}" style="text-transform:uppercase">
                     </div>
                   </div>
                   <div class="col-md-3">
-                    <div class="form-group"><b>Município</b>
-                      <input class="form-control" type="text" onkeypress="return limitcarc(event, 'letr_acent')" name="cidade_residencia" id="cidade" placeholder="" value="{{form.municipio_residencia}}">
+                    <div class="form-group"><b>Município</b><i id="alert_municipio_residencia" style="color:red">**</i>
+                      <input class="form-control" type="text" onkeypress="return limitcarc(event, 'letr_acent')" name="cidade_residencia" id="cidade" placeholder="" value="{{form.municipio_residencia}}" onkeyup="verificarNotifGeral()">
                     </div>              
                   </div>
                   
@@ -997,7 +1001,7 @@ footer {
                 <div class="row">
                   <div class="col-md-2">
                     <div class="form-group"><b>Telefone</b><i id="alert_telefone_paciente" style="color:red">**</i>
-                      <input type="text" class="form-control" id="telefone_residencia_id" name="telefone_residencia" value="{{form.telefone_residencia}}" required onkeydown="verificarNotifGeral()">
+                      <input type="text" class="form-control" id="telefone_residencia_id" name="telefone_residencia" value="{{form.telefone_residencia}}" required onkeyup="verificarNotifGeral()">
                     </div>
                   </div>
                   <div class="col-md-3">
@@ -1279,6 +1283,12 @@ footer {
                     $(document).ready(function(){
                       var dt_primeiros_s
                       $('[data-toggle="tooltip"]').tooltip();   
+                      data_investigacao = document.getElementById('data_investigacao_id')
+                      dt_primeiros_s = document.getElementById('dt_primeiros_s').value
+                      data_atual = new Date().toISOString().split("T")[0];
+                      
+                      data_investigacao.max = data_atual
+                      data_investigacao.min = dt_primeiros_s
                     });
                   </script>                                    
                 </div>
@@ -2763,7 +2773,21 @@ footer {
                   
                   
                 </div>
-
+                <div class="row">
+                  <div class="input-group mb-3 col-4" id="">
+                    <div class="input-group-prepend" id="">
+                      <span class="input-group-text">Status do Caso</span>
+                    </div>
+                    <select class="form-control" name="status_caso" id="status_caso" onclick="activeDataEvoCaso()">
+                      <option value="" selected disabled>Selecionar</option>
+                      <option value="Notificado">Notificado</option>
+                      <option value="Em Análise">Em Análise</option>
+                      <option value="Evoluído">Evoluído</option>
+                      <option value="Confirmado">Confirmado</option>
+                      <option value="Concluído">Concluído</option>
+                    </select>
+                  </div>
+                </div>
               </div>
               <div id="menu7" class="container tab-pane fade"><br>
                 <div class="row">
