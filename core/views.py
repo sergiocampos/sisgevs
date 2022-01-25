@@ -256,10 +256,11 @@ def caso_view_detail(request, id):
 def caso_esporotricose_create(request):
 	estados = Estado.objects.all().order_by('nome')
 	municipios = Municipio.objects.all().order_by('nome')
+	unidades_saude_municipio = UnidadeSaude.objects.filter(municipio=request.user.municipio)
 	unidades_saude = []
 	codigos_ibge = []
 	return render(request, 'caso_esporotricose_create.html', {'municipios':municipios, 'unidades_saude':unidades_saude, 
-		'codigos_ibge':codigos_ibge, 'estados':estados})
+		'codigos_ibge':codigos_ibge, 'estados':estados, 'unidades_saude_municipio':unidades_saude_municipio, 'estados':estados})
 
 #############################views ajax dados gerais#####################################
 
@@ -323,7 +324,36 @@ def ajax_autoctone_distrito(request):
 	distrito = Distrito.objects.filter(municipio_id=municipio_id)
 	return render(request, 'municipios_distrito_ajax.html', {'distrito':distrito})
 
-##############################end#############################################################
+############################## View para dados residencia#########################################
+
+@login_required(login_url='/login/')
+def ajax_dados_residencia(request):
+	estado_id = request.GET.get('uf_dados_residencia_id')
+	municipios = Municipios.objects.filter(uf_id=estado_id)
+	return render(request, 'estado_municipios_ajax.html', {'municipios':municipios})
+
+
+
+@login_required(login_url='/login/')
+def ajax_ibge_municipio_residencia(request):
+	municipio_estado_id = request.GET.get('municipios_estado_id')
+	#municipios = Municipios.objects.filter(uf_id=estado_id)
+	municipio = Municipios.objects.get(id=municipio_estado_id)
+	#print("municipio:", municipio)
+	#ibge_str = MunicipioBr.objects.filter(ibge=)
+	#ibge_int = int(ibge_str)
+	
+	#ibge_municipiobr = municipio.ibge
+	#ibge_int = int(ibge_municipiobr)
+	#print("ibge:", ibge_municipiobr)
+	ibge = municipio.ibge
+	print("ibge:", ibge)
+	return render(request, 'municipio_ibge_ajax.html', {'ibge':ibge})
+
+
+
+
+#################################################################################################
 
 
 @login_required(login_url='/login/')
@@ -1058,9 +1088,9 @@ def ajax_exportar_index_aberto(request):
 		
 	data = []
 	for item in dados:
-		data.append([item.tipo_notificacao, item.agravo_doenca, item.codigo_cib10, item.data_notificacao, item.estado, item.municipio, item.codigo_ibge, item.data_primeiros_sintomas, item.unidade_saude, item.idade_paciente, item.sexo_paciente, item.paciente_gestante, item.raca_paciente, item.escolaridade_paciente,  item.uf_residencia, item.municipio_residencia,  item.codigo_ibge_residencia, item.distrito_residencia, item.zona_residencia, item.pais_residencia, item.data_investigacao, item.ocupacao, item.ambientes_frequentados, item.animais_que_teve_contato, item.natureza_contato_animais, item.relacao_animal_doente, item.exerce_atividade_contato_plantas, item.historico_contato_material, item.presenca_lesao_pele, item.natureza_lesao, item.local_lesao, item.diagnostico_forma_extrac_doenca, item.localizacao_forma_extrac_doenca, item.houve_coleta_material, item.data_coleta1, item.data_coleta2, item.data_coleta3, item.resultado_isolamento, item.agente, item.histopatologia, item.data_resultado_exame1, item.descricao_exame_1, item.resultado_exame1, item.data_resultado_exame2, item.descricao_exame_2, item.resultado_exame2, item.data_resultado_exame3, item.descricao_exame_3, item.resultado_exame3, item.data_inicio_tratamento1, item.droga_administrada1, item.esquema_terapeutico1, item.data_inicio_tratamento2, item.droga_administrada2, item.esquema_terapeutico2, item.data_inicio_tratamento3, item.droga_administrada3, item.esquema_terapeutico3, item.hospitalizacao, item.data_internacao, item.data_da_alta, item.uf_hospitalizacao, item.municipio_hospitalizacao, item.codigo_ibge_hospitalizacao, item.nome_hospital_hospitalizacao, item.classificacao_final, item.criterio_confirmacao, item.caso_autoctone_municipio_residencia, item.uf_caso_autoctone, item.pais_caso_autoctone, item.municipio_caso_autoctone, item.codigo_ibge_caso_autoctone, item.distrito_caso_autoctone, item.bairro_caso_autoctone, item.area_provavel_infeccao_caso_autoctone, item.ambiente_infeccao_caso_autoctone, item.doenca_rel_trabalho_caso_autoctone, item.evolucao_caso, item.data_obito, item.data_encerramento, item.observacao, item.responsavel_pelas_informacoes_id, item.unidade_saude_outro, item.gerencia_id])
+		data.append([item.tipo_notificacao, item.agravo_doenca, item.codigo_cib10, item.data_notificacao, item.estado, item.municipio, item.codigo_ibge, item.data_primeiros_sintomas, item.unidade_saude, item.idade_paciente, item.sexo_paciente, item.paciente_gestante, item.raca_paciente, item.escolaridade_paciente,  item.uf_residencia, item.municipio_residencia,  item.codigo_ibge_residencia, item.distrito_residencia, item.zona_residencia, item.pais_residencia, item.data_investigacao, item.ocupacao, item.ambientes_frequentados, item.animais_que_teve_contato, item.natureza_contato_animais, item.relacao_animal_doente, item.exerce_atividade_contato_plantas, item.historico_contato_material, item.presenca_lesao_pele, item.natureza_lesao, item.local_lesao, item.diagnostico_forma_extrac_doenca, item.localizacao_forma_extrac_doenca, item.houve_coleta_material, item.data_coleta1, item.data_coleta2, item.data_coleta3, item.resultado_isolamento, item.agente, item.histopatologia, item.data_resultado_exame1, item.descricao_exame_1, item.resultado_exame1, item.data_resultado_exame2, item.descricao_exame_2, item.resultado_exame2, item.data_resultado_exame3, item.descricao_exame_3, item.resultado_exame3, item.data_inicio_tratamento1, item.droga_administrada1, item.esquema_terapeutico1, item.data_inicio_tratamento2, item.droga_administrada2, item.esquema_terapeutico2, item.data_inicio_tratamento3, item.droga_administrada3, item.esquema_terapeutico3, item.hospitalizacao, item.data_internacao, item.data_da_alta, item.uf_hospitalizacao, item.municipio_hospitalizacao, item.codigo_ibge_hospitalizacao, item.nome_hospital_hospitalizacao, item.classificacao_final, item.criterio_confirmacao, item.caso_autoctone_municipio_residencia, item.uf_caso_autoctone, item.pais_caso_autoctone, item.municipio_caso_autoctone, item.codigo_ibge_caso_autoctone, item.distrito_caso_autoctone, item.bairro_caso_autoctone, item.area_provavel_infeccao_caso_autoctone, item.ambiente_infeccao_caso_autoctone, item.doenca_rel_trabalho_caso_autoctone, item.evolucao_caso, item.data_obito, item.data_encerramento, item.observacao, item.unidade_saude_outro])
 	
-	data = pd.DataFrame(data, columns=['Tipo de Notificação', 'Agravo/Doença', 'Codigo CID-10', 'Data de Notificação', 'Estado', 'Municipio', 'Codigo IBGE', 'Data dos Primeiros Sintomas', 'Unidade de Saúde', 'Idade do Paciente', 'Sexo do Paciente', 'Paciente Gestante', 'Raça do Paciente', 'Escolaridade do Paciente', 'UF da Residência', 'Municipio da Residência',  'Codigo IBGE da Residência', 'Distrito da Residência', 'Zona da Residência', 'País da Residência', 'Data de Investigação', 'Ocupação', 'Ambientes Frequentados', 'Animais que Teve Contato', 'Natureza do Contato com os Animais', 'Relação com o Animal Doente', 'Exerce Atividade Contato Plantas', 'Histórico Contato Material', 'Presença de Lesão na Pele', 'Natureza da Lesão', 'Local da Lesão', 'Diagnóstico Forma Extrac Doença', 'Localização Forma Extrac Doença', 'Houve Coleta de Material', 'Data da Coleta 1', 'Data da Coleta 2', 'Data da Coleta 3', 'Resultado de Isolamento', 'Agente', 'Histopatologia', 'Data do Restultado EXAME 1', 'Descrição EXAME 1', 'Resultado EXAME 1', 'Data do Resultado EXAME 2', 'Descrição EXAME 2', 'Resultado EXAME 2', 'Data do Resultado EXAME 3', 'Descrição EXAME 3', 'Resultado EXAME 3', 'Data de Início do Tratamento 1', 'Droga Administrada 1', 'Esquema Terapeutico 1', 'Data de Início do Tratamento 2', 'Droga Administrada 2', 'Esquema Terapeutico 2', 'Data de Início do Tratamento 3', 'Droga Administrada 3', 'Esquema Terapeutico 3', 'Hospitalizacão', 'Data de Internação', 'Data da Alta', 'UF da Hospitalização', 'Município da Hospitalização', 'Codigo IBGE da Hospitalização', 'Nome do Hospital da Hospitalização', 'Classificação Final', 'Critério de Confirmação', 'Caso Autoctone Municipio Residência', 'UF Caso Autoctone', 'País Caso Autoctone', 'Município Caso Autoctone', 'Codigo IBGE Caso Autoctone', 'Distrito Caso Autoctone', 'Bairro Caso Autoctone', 'Área Provável de Infecção Caso Autoctone', 'Ambiente Infecção Caso Autoctone', 'Doença Rel Trabalho Caso Autoctone', 'Evolução do Caso', 'Data do Óbito', 'Data de Encerramento', 'Observação', 'Responsável Pelas Informações ID', 'Unidade de Saude Outro', 'Gerencia ID'])
+	data = pd.DataFrame(data, columns=['Tipo de Notificação', 'Agravo/Doença', 'Codigo CID-10', 'Data de Notificação', 'Estado', 'Municipio', 'Codigo IBGE', 'Data dos Primeiros Sintomas', 'Unidade de Saúde', 'Idade do Paciente', 'Sexo do Paciente', 'Paciente Gestante', 'Raça do Paciente', 'Escolaridade do Paciente', 'UF da Residência', 'Municipio da Residência',  'Codigo IBGE da Residência', 'Distrito da Residência', 'Zona da Residência', 'País da Residência', 'Data de Investigação', 'Ocupação', 'Ambientes Frequentados', 'Animais que Teve Contato', 'Natureza do Contato com os Animais', 'Relação com o Animal Doente', 'Exerce Atividade Contato Plantas', 'Histórico Contato Material', 'Presença de Lesão na Pele', 'Natureza da Lesão', 'Local da Lesão', 'Diagnóstico Forma Extrac Doença', 'Localização Forma Extrac Doença', 'Houve Coleta de Material', 'Data da Coleta 1', 'Data da Coleta 2', 'Data da Coleta 3', 'Resultado de Isolamento', 'Agente', 'Histopatologia', 'Data do Restultado EXAME 1', 'Descrição EXAME 1', 'Resultado EXAME 1', 'Data do Resultado EXAME 2', 'Descrição EXAME 2', 'Resultado EXAME 2', 'Data do Resultado EXAME 3', 'Descrição EXAME 3', 'Resultado EXAME 3', 'Data de Início do Tratamento 1', 'Droga Administrada 1', 'Esquema Terapeutico 1', 'Data de Início do Tratamento 2', 'Droga Administrada 2', 'Esquema Terapeutico 2', 'Data de Início do Tratamento 3', 'Droga Administrada 3', 'Esquema Terapeutico 3', 'Hospitalizacão', 'Data de Internação', 'Data da Alta', 'UF da Hospitalização', 'Município da Hospitalização', 'Codigo IBGE da Hospitalização', 'Nome do Hospital da Hospitalização', 'Classificação Final', 'Critério de Confirmação', 'Caso Autoctone Municipio Residência', 'UF Caso Autoctone', 'País Caso Autoctone', 'Município Caso Autoctone', 'Codigo IBGE Caso Autoctone', 'Distrito Caso Autoctone', 'Bairro Caso Autoctone', 'Área Provável de Infecção Caso Autoctone', 'Ambiente Infecção Caso Autoctone', 'Doença Rel Trabalho Caso Autoctone', 'Evolução do Caso', 'Data do Óbito', 'Data de Encerramento', 'Observação', 'Unidade de Saude Outro'])
 	
 	if option == "csv":
 		response = HttpResponse(content_type = "text/csv")

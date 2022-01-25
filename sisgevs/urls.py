@@ -64,6 +64,9 @@ urlpatterns = [
     path('ajax_autoctone_municipio', views.ajax_autoctone_municipio, name='ajax_autoctone_municipio'),
     path('ajax_autoctone_distrito', views.ajax_autoctone_distrito, name='ajax_autoctone_distrito'),
 
+    path('ajax_dados_residencia', views.ajax_dados_residencia, name='ajax_dados_residencia'),
+    path('ajax_ibge_municipio_residencia', views.ajax_ibge_municipio_residencia, name='ajax_ibge_municipio_residencia'),
+
 
     path('login/',views.login_page, name='login_page'),
     path('login/submit', views.set_login_page),
