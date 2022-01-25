@@ -260,7 +260,7 @@ def caso_esporotricose_create(request):
 	unidades_saude = []
 	codigos_ibge = []
 	return render(request, 'caso_esporotricose_create.html', {'municipios':municipios, 'unidades_saude':unidades_saude, 
-		'codigos_ibge':codigos_ibge, 'estados':estados, 'unidades_saude_municipio':unidades_saude_municipio})
+		'codigos_ibge':codigos_ibge, 'estados':estados, 'unidades_saude_municipio':unidades_saude_municipio, 'estados':estados})
 
 #############################views ajax dados gerais#####################################
 
@@ -324,7 +324,36 @@ def ajax_autoctone_distrito(request):
 	distrito = Distrito.objects.filter(municipio_id=municipio_id)
 	return render(request, 'municipios_distrito_ajax.html', {'distrito':distrito})
 
-##############################end#############################################################
+############################## View para dados residencia#########################################
+
+@login_required(login_url='/login/')
+def ajax_dados_residencia(request):
+	estado_id = request.GET.get('uf_dados_residencia_id')
+	municipios = Municipios.objects.filter(uf_id=estado_id)
+	return render(request, 'estado_municipios_ajax.html', {'municipios':municipios})
+
+
+
+@login_required(login_url='/login/')
+def ajax_ibge_municipio_residencia(request):
+	municipio_estado_id = request.GET.get('municipios_estado_id')
+	#municipios = Municipios.objects.filter(uf_id=estado_id)
+	municipio = Municipios.objects.get(id=municipio_estado_id)
+	#print("municipio:", municipio)
+	#ibge_str = MunicipioBr.objects.filter(ibge=)
+	#ibge_int = int(ibge_str)
+	
+	#ibge_municipiobr = municipio.ibge
+	#ibge_int = int(ibge_municipiobr)
+	#print("ibge:", ibge_municipiobr)
+	ibge = municipio.ibge
+	print("ibge:", ibge)
+	return render(request, 'municipio_ibge_ajax.html', {'ibge':ibge})
+
+
+
+
+#################################################################################################
 
 
 @login_required(login_url='/login/')
