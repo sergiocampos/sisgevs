@@ -261,7 +261,7 @@ class CasoEsporotricose(models.Model):
 	evolucao_caso = models.CharField(max_length = 100, null=True, blank=True)
 	data_obito = models.DateField(blank=True, null=True)
 	data_encerramento = models.DateField(blank=True, null=True)
-	status = models.CharField(max_length=50, null=True, blank=True)
+	status_caso = models.CharField(max_length=50, null=True, blank=True)
 
 	#Observacao
 	observacao = models.TextField(blank=True, default='', null=True)
