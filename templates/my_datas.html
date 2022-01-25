@@ -262,12 +262,12 @@ footer {
 
     <br><br>
 
-    <div class="pagination">
+    <div class="pagination py-4">
       <span class="step-links" style="margin: auto">
         {% if regs.has_previous %}
          <a href="?page={{regs.previous_page_number}}">Anterior</a>
         {% endif %}
-        <span class="current">
+        <span class="current text-center" style="border: 1px solid #aaa; border-radius: 4px; padding: 5px; padding-right: 2px; margin: 10px;">
         {{regs.number}} de {{regs.paginator.num_pages}}
         </span>
         {% if regs.has_next %}

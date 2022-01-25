@@ -637,7 +637,8 @@ def set_caso_esporotricose_create(request):
 	ambiente_infeccao_caso_autoctone = request.POST.get('ambiente_infeccao_autoctone')
 	doenca_rel_trabalho_caso_autoctone = request.POST.get('doenca_rel_trabalho_autoctone')
 	evolucao_caso = request.POST.get('evolucao_caso_autoctone')
-	
+	status_caso = request.POST.get('status_caso')
+
 	data_obito_cap = request.POST.get('data_obito')
 	if data_obito_cap == '' or data_obito_cap == None:
 		data_obito = None
@@ -802,6 +803,7 @@ def set_caso_esporotricose_create(request):
 		ambiente_infeccao_caso_autoctone = ambiente_infeccao_caso_autoctone,
 		doenca_rel_trabalho_caso_autoctone = doenca_rel_trabalho_caso_autoctone,
 		evolucao_caso = evolucao_caso,
+		status_caso = status_caso,
 		data_obito = data_obito,
 		data_encerramento = data_encerramento,
 		observacao = observacao,
@@ -1420,6 +1422,7 @@ def set_caso_esporotricose_edit(request, id):
 	ambiente_infeccao_caso_autoctone = request.POST.get('ambiente_infeccao_autoctone')
 	doenca_rel_trabalho_caso_autoctone = request.POST.get('doenca_rel_trabalho_autoctone')
 	evolucao_caso = request.POST.get('evolucao_caso_autoctone')
+	status_caso = request.POST.get('status_caso')
 	
 	data_obito_cap = request.POST.get('data_obito')
 	if data_obito_cap == '' or data_obito_cap == None:
@@ -1543,6 +1546,7 @@ def set_caso_esporotricose_edit(request, id):
 		ambiente_infeccao_caso_autoctone = ambiente_infeccao_caso_autoctone,
 		doenca_rel_trabalho_caso_autoctone = doenca_rel_trabalho_caso_autoctone,
 		evolucao_caso = evolucao_caso,
+		status_caso = status_caso,
 		data_obito = data_obito,
 		data_encerramento = data_encerramento,
 		observacao = observacao,
@@ -1570,8 +1574,7 @@ def export_data_csv(request):
 	workbook = Workbook()
 	worksheet = workbook.active
 
-	columns = [
-		
+	columns = [		
 		'tipo_notificacao','agravo_doenca','codigo_cib10','data_notificacao','estado','municipio','codigo_ibge',
 		'data_primeiros_sintomas','unidade_saude','unidade_saude_outro','nome_paciente','data_nascimento_paciente',
 		'idade_paciente','sexo_paciente','paciente_gestante','raca_paciente','escolaridade_paciente','cartao_sus_paciente',

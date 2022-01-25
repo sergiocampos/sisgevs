@@ -2704,6 +2704,7 @@ footer {
                     </div>
                   </div>
                 </div><br>
+                
                 <div class="row evo-caso">
                   <div class="col-md-4">
                     <div class="input-group mb-3" id="">
@@ -2734,6 +2735,21 @@ footer {
                       </div>
                       <input type="date" class="form-control" name="data_encerramento" value="" id="data_encerramento_id">
                     </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="input-group mb-3 col-4" id="">
+                    <div class="input-group-prepend" id="">
+                      <span class="input-group-text">Status do Caso</span>
+                    </div>
+                    <select class="form-control" name="status_caso" id="status_caso" onclick="activeDataEvoCaso()">
+                      <option value="" selected disabled>Selecionar</option>
+                      <option value="Notificado">Notificado</option>
+                      <option value="Em Análise">Em Análise</option>
+                      <option value="Evoluído">Evoluído</option>
+                      <option value="Confirmado">Confirmado</option>
+                      <option value="Concluído">Concluído</option>
+                    </select>
                   </div>
                 </div>
                 {% endif %}
