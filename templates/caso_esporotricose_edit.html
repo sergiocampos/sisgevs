@@ -944,8 +944,13 @@ footer {
                     <div class="form-group"><b>UF</b>
                       <select class="form-control" name="uf_residencia" id="uf_dados_residencia_id">
                         
-                        <option value="{{form.uf_residencia}}" selected>{{form.uf_residencia}}</option>
-                        
+                        {% for e in estados %}
+                        {% if e.nome == 'Paraíba' %}
+                        <option value="{{e.id}}" selected>{{e.nome}}</option>
+                        {%else%}
+                        <option value="{{e.id}}">{{e.nome}}</option>
+                        {%endif%}
+                        {% endfor %}
                         
                       </select>
                       <!--<input class="form-control" type="text" onkeypress="return limitcarc(event, 'letr')" name="uf_residencia" id="uf" placeholder="" value="{{form.uf_residencia}}" style="text-transform:uppercase">
