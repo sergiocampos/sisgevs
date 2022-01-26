@@ -417,8 +417,13 @@ def remove_caso_esporotricose(request, id):
 
 @login_required(login_url='/login/')
 def set_caso_esporotricose_create(request):
-
+	# Dados do responsável pela criação do caso.
 	responsavel_pelas_informacoes = request.user
+	responsavel_gerencia_operacional = request.user.gerencia_operacional
+	responsavel_nucleo = request.user.nucleo
+	responsavel_area_tecnica = request.user.area_tecnica
+	responsavel_gerencia_regional = request.user.area_tecnica
+	responsavel_municipio = request.user.municipio
 
 	#Dados Gerais
 	tipo_notificacao = request.POST.get('tipo_notificacao')
@@ -724,6 +729,11 @@ def set_caso_esporotricose_create(request):
 
 	CasoEsporotricose.objects.create(
 		responsavel_pelas_informacoes = responsavel_pelas_informacoes,
+		responsavel_gerencia_operacional = responsavel_gerencia_operacional,
+		responsavel_nucleo = responsavel_nucleo,
+		responsavel_area_tecnica = responsavel_area_tecnica,
+		responsavel_gerencia_regional = responsavel_gerencia_regional,
+		responsavel_municipio = responsavel_municipio,
 		tipo_notificacao = tipo_notificacao,
 		agravo_doenca = agravo_doenca,
 		codigo_cib10 = codigo_cib10,
@@ -1204,8 +1214,13 @@ def caso_esporotricose_edit(request, id):
 
 @login_required(login_url='/login/')
 def set_caso_esporotricose_edit(request, id):
-	print("entrou no set caso esporotricose")
+	# Dados do responsável pela edição do caso.
 	responsavel_pelas_informacoes = request.user
+	responsavel_gerencia_operacional = request.user.gerencia_operacional
+	responsavel_nucleo = request.user.nucleo
+	responsavel_area_tecnica = request.user.area_tecnica
+	responsavel_gerencia_regional = request.user.area_tecnica
+	responsavel_municipio = request.user.municipio
 
 	#Dados Gerais
 	tipo_notificacao = request.POST.get('tipo_notificacao')
@@ -1467,6 +1482,11 @@ def set_caso_esporotricose_edit(request, id):
 
 	CasoEsporotricose.objects.filter(id = id).update(
 		responsavel_pelas_informacoes = responsavel_pelas_informacoes,
+		responsavel_gerencia_operacional = responsavel_gerencia_operacional,
+		responsavel_nucleo = responsavel_nucleo,
+		responsavel_area_tecnica = responsavel_area_tecnica,
+		responsavel_gerencia_regional = responsavel_gerencia_regional,
+		responsavel_municipio = responsavel_municipio,
 		tipo_notificacao = tipo_notificacao,
 		agravo_doenca = agravo_doenca,
 		codigo_cib10 = codigo_cib10,
