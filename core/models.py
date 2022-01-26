@@ -274,6 +274,13 @@ class CasoEsporotricose(models.Model):
 	conselho_classe_investigador = models.CharField(max_length = 100, null=True, blank=True)
 	numero_unico = models.CharField(max_length = 20, null=True, blank=True, default=None)
 
+	#atributos para registrar o perfil do responsável
+	responsavel_gerencia_operacional = models.CharField(max_length = 100, null=True, blank=True)
+	responsavel_nucleo = models.CharField(max_length = 100, null=True, blank=True)
+	responsavel_area_tecnica = models.CharField(max_length = 100, null=True, blank=True)
+	responsavel_gerencia_regional = models.CharField(max_length = 100, null=True, blank=True)
+	responsavel_municipio = models.CharField(max_length = 100, null=True, blank=True)
+
 	def __str__(self):
 		return self.tipo_notificacao
 
