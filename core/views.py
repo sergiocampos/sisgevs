@@ -335,45 +335,110 @@ def my_datas(request):
 	#municipio_nome = municipio_user.nome
 	if request.user.funcao == 'admin':
 		registros = CasoEsporotricose.objects.all()
-		paginator = Paginator(registros, 6)
-		page = request.GET.get('page')
-		regs = paginator.get_page(page)
-		return render(request, 'my_datas.html', {'regs':regs})
-
-	elif request.user.funcao == 'municipal':
-		registros = CasoEsporotricose.objects.filter(municipio=municipio_id_user)
-		
-		paginator = Paginator(registros, 6)
-		page = request.GET.get('page')
-		regs = paginator.get_page(page)
-
-		return render(request, 'my_datas.html', {'regs':regs})
-
-	elif request.user.funcao == 'gerencia_regional':
-		gerencia_user = municipio_user.gerencia
-		registros = CasoEsporotricose.objects.filter(gerencia=gerencia_user)
 
 		paginator = Paginator(registros, 6)
 		page = request.GET.get('page')
 		regs = paginator.get_page(page)
-		
+
 		return render(request, 'my_datas.html', {'regs':regs})
 
 	elif request.user.funcao == 'gerencia_executiva':
-		pass
+		registros = CasoEsporotricose.objects.all()
+		
+		paginator = Paginator(registros, 6)
+		page = request.GET.get('page')
+		regs = paginator.get_page(page)
+		
+		return render(request, 'my_datas.html', {'regs':regs})
 
 	elif request.user.funcao == 'gerencia_operacional':
-		pass
-
-	elif request.user.funcao == 'area_tecnica':
-		pass
+		user_gerencia_operacional = request.user.gerencia_operacional
+		registros = CasoEsporotricose.objects.filter(responsavel_gerencia_operacional=user_gerencia_operacional)
+		
+		paginator = Paginator(registros, 6)
+		page = request.GET.get('page')
+		regs = paginator.get_page(page)
+		
+		return render(request, 'my_datas.html', {'regs':regs})
 
 	elif request.user.funcao == 'chefia_nucleo':
-		pass
+		user_gerencia_operacional = request.user.gerencia_operacional
+		user_nucleo = request.user.nucleo
+		registros = CasoEsporotricose.objects.filter(
+			responsavel_gerencia_operacional=user_gerencia_operacional, 
+			responsavel_nucleo=user_nucleo
+			)
+		
+		paginator = Paginator(registros, 6)
+		page = request.GET.get('page')
+		regs = paginator.get_page(page)
+		
+		return render(request, 'my_datas.html', {'regs':regs})	
+
+	elif request.user.funcao == 'area_tecnica':
+		user_gerencia_operacional = request.user.gerencia_operacional
+		user_nucleo = request.user.nucleo
+		user_area_tecnica = request.user.area_tecnica
+		registros = CasoEsporotricose.objects.filter(
+			responsavel_gerencia_operacional=user_gerencia_operacional, 
+			responsavel_nucleo=user_nucleo,
+			responsavel_area_tecnica=user_area_tecnica
+			)
+		
+		paginator = Paginator(registros, 6)
+		page = request.GET.get('page')
+		regs = paginator.get_page(page)
+		
+		return render(request, 'my_datas.html', {'regs':regs})	
+
+	elif request.user.funcao == 'gerencia_regional':
+		user_gerencia_operacional = request.user.gerencia_operacional
+		user_nucleo = request.user.nucleo
+		user_area_tecnica = request.user.area_tecnica
+		user_gerencia_regional = request.user.gerencia_regional
+		registros = CasoEsporotricose.objects.filter(
+			responsavel_gerencia_operacional=user_gerencia_operacional, 
+			responsavel_nucleo=user_nucleo,
+			responsavel_area_tecnica=user_area_tecnica,
+			gerencia=user_gerencia_regional
+			)
+
+		paginator = Paginator(registros, 6)
+		page = request.GET.get('page')
+		regs = paginator.get_page(page)
+		
+		return render(request, 'my_datas.html', {'regs':regs})
+
+	elif request.user.funcao == 'municipal':
+		user_gerencia_operacional = request.user.gerencia_operacional
+		user_nucleo = request.user.nucleo
+		user_area_tecnica = request.user.area_tecnica
+		user_gerencia_regional = request.user.gerencia_regional
+		user_municipio = request.user.municipio
+		registros = CasoEsporotricose.objects.filter(
+			responsavel_gerencia_operacional=user_gerencia_operacional, 
+			responsavel_nucleo=user_nucleo,
+			responsavel_area_tecnica=user_area_tecnica,
+			gerencia=user_gerencia_regional,
+			responsavel_municipio=user_municipio
+			)
+		
+		paginator = Paginator(registros, 6)
+		page = request.GET.get('page')
+		regs = paginator.get_page(page)
+
+		return render(request, 'my_datas.html', {'regs':regs})
 
 	elif request.user.funcao == 'autocadastro':
-		pass
-
+		autocadastro_id = request.user.id
+		registros = CasoEsporotricose.objects.filter(responsavel_pelas_informacoes_id=autocadastro_id)
+		
+		paginator = Paginator(registros, 6)
+		page = request.GET.get('page')
+		regs = paginator.get_page(page)
+		
+		return render(request, 'my_datas.html', {'regs':regs})
+	
 	else:
 		return redirect('all_forms')
 	
