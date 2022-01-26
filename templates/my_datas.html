@@ -229,6 +229,18 @@ footer {
             <tbody>
 
               {% for registro in regs %}
+              {% if registro.status_caso == 'Cancelado' %}
+              <tr class="table table-warning">
+                <td>{{registro.data_notificacao}}</td>
+                <td>{{registro.nome_paciente}}</td>
+                <td>{{registro.idade_paciente}}</td>
+                <td>{{registro.municipio_residencia}}</td>
+                <td>{{user.municipio}}</td>
+                <td align="center">
+                  <button id="{{registro.id}}" type="button" class="btn cancelar_caso btn-warning btn-sm">Cancelar</button>                
+                </td>                
+              </tr>
+              {% else %}
               <tr>
                 <td>{{registro.data_notificacao}}</td>
                 <td>{{registro.nome_paciente}}</td>
@@ -237,16 +249,15 @@ footer {
                 <td>{{user.municipio}}</td>
                 <td align="center">
                   {% if user.funcao != 'gerencia_regional' %}
+
                   <a href="/caso_esporotricose_edit/{{registro.id}}"><button type="button" class="btn btn-info btn-sm">Editar</button></a>                  
                   {%endif%}
-                  <a href="/caso_view_detail/{{registro.id}}/" target="_blank"><button type="button" class="btn btn-secondary btn-sm">Ver</button></a>
-                  <!--
-                  <a href="/remove_caso_esporotricose/{{registro.id}}/"><button type="button" class="btn btn-warning btn-sm">Excluir
-                  </button></a>
-                -->
-                </td>
-                
+                  <a href="/caso_view_detail/{{registro.id}}/" target="_blank"><button type="button" class="btn btn-secondary btn-sm">Ver</button></a>                  
+
+                  <button id="{{registro.id}}" type="button" class="btn cancelar_caso btn-warning btn-sm">Cancelar</button>                
+                </td>                
               </tr>
+              {% endif %}
               {% endfor %}
             </tbody>
           </table>
@@ -280,5 +291,18 @@ footer {
       <i class="fa">&#xf1f9;</i>
     </div>
     <br>
+    <script>
+      $('.cancelar_caso').on('click', function(){
+        var id = this.id;
+        var data = {'id':id}
+        $.ajax({
+          url: 'cancelar_caso_esporotricose',
+          data: data,
+          success: function(data){
+            document.location.href='/my_datas/'
+          }          
+        })
+      });
+    </script>
   </body>
   </html>

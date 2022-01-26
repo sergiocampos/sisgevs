@@ -1,4 +1,5 @@
 
+from asyncio.windows_events import NULL
 from django.db.models.expressions import OrderBy, Value
 from django.utils.functional import empty
 import pandas as pd
@@ -364,7 +365,7 @@ def my_datas(request):
 	municipio_user = Municipio.objects.get(id=municipio_id_user)
 	#municipio_nome = municipio_user.nome
 	if request.user.funcao == 'admin':
-		registros = CasoEsporotricose.objects.all()
+		registros = CasoEsporotricose.objects.all().order_by('nome_paciente')
 
 		paginator = Paginator(registros, 6)
 		page = request.GET.get('page')
@@ -373,7 +374,7 @@ def my_datas(request):
 		return render(request, 'my_datas.html', {'regs':regs})
 
 	elif request.user.funcao == 'gerencia_executiva':
-		registros = CasoEsporotricose.objects.all()
+		registros = CasoEsporotricose.objects.all().order_by('nome_paciente')
 		
 		paginator = Paginator(registros, 6)
 		page = request.GET.get('page')
@@ -383,7 +384,7 @@ def my_datas(request):
 
 	elif request.user.funcao == 'gerencia_operacional':
 		user_gerencia_operacional = request.user.gerencia_operacional
-		registros = CasoEsporotricose.objects.filter(responsavel_gerencia_operacional=user_gerencia_operacional)
+		registros = CasoEsporotricose.objects.filter(responsavel_gerencia_operacional=user_gerencia_operacional).order_by('nome_paciente')
 		
 		paginator = Paginator(registros, 6)
 		page = request.GET.get('page')
@@ -397,7 +398,7 @@ def my_datas(request):
 		registros = CasoEsporotricose.objects.filter(
 			responsavel_gerencia_operacional=user_gerencia_operacional, 
 			responsavel_nucleo=user_nucleo
-			)
+			).order_by('nome_paciente')
 		
 		paginator = Paginator(registros, 6)
 		page = request.GET.get('page')
@@ -413,7 +414,7 @@ def my_datas(request):
 			responsavel_gerencia_operacional=user_gerencia_operacional, 
 			responsavel_nucleo=user_nucleo,
 			responsavel_area_tecnica=user_area_tecnica
-			)
+			).order_by('nome_paciente')
 		
 		paginator = Paginator(registros, 6)
 		page = request.GET.get('page')
@@ -431,7 +432,7 @@ def my_datas(request):
 			responsavel_nucleo=user_nucleo,
 			responsavel_area_tecnica=user_area_tecnica,
 			gerencia=user_gerencia_regional
-			)
+			).order_by('nome_paciente')
 
 		paginator = Paginator(registros, 6)
 		page = request.GET.get('page')
@@ -451,7 +452,7 @@ def my_datas(request):
 			responsavel_area_tecnica=user_area_tecnica,
 			responsavel_gerencia_regional=user_gerencia_regional,
 			responsavel_municipio=user_municipio
-			)
+			).order_by('nome_paciente')
 		
 		paginator = Paginator(registros, 6)
 		page = request.GET.get('page')
@@ -461,7 +462,7 @@ def my_datas(request):
 
 	elif request.user.funcao == 'autocadastro':
 		autocadastro_id = request.user.id
-		registros = CasoEsporotricose.objects.filter(responsavel_pelas_informacoes_id=autocadastro_id)
+		registros = CasoEsporotricose.objects.filter(responsavel_pelas_informacoes_id=autocadastro_id).order_by('nome_paciente')
 		
 		paginator = Paginator(registros, 6)
 		page = request.GET.get('page')
@@ -471,7 +472,22 @@ def my_datas(request):
 	
 	else:
 		return redirect('all_forms')
+
+@login_required(login_url='/login/')
+def cancelar_caso_esporotricose(request):
+	caso_id = request.GET.get('id')
+	registro = CasoEsporotricose.objects.all().filter(id=caso_id).values()
 	
+	if registro[0]['status_caso'] == 'Cancelado':
+		CasoEsporotricose.objects.filter(id=caso_id).update(
+		status_caso=None
+	)
+	else:		
+		CasoEsporotricose.objects.filter(id=caso_id).update(
+			status_caso='Cancelado'
+		)	
+	return redirect('all_forms')
+
 
 @login_required(login_url='/login/')
 def ficha_caso_esporotricose_preencher(request):
