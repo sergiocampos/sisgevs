@@ -140,9 +140,11 @@ footer {
             <a class="dropdown-item" href="#">Telefone</a>
           </div>
         </li>
+        {% if user.funcao == 'admin' or user.funcao == 'Municipal' or user.funcao == 'Autocadastro' %}
         <li class="nav-item">
           <a class="nav-link" href="/all_forms/">Notificar</a>
         </li>
+        {% endif %}
 
         <li class="nav-item">
           <a class="nav-link" href="/logout/">Sair</a>
@@ -168,14 +170,16 @@ footer {
           <li><a href="/organograma/">Organograma</a></li>
           <hr>
           {% endif %}
+          {% if user.funcao == 'admin' or user.funcao == 'Municipal' or user.funcao == 'Autocadastro' %}
           <li><a href="/all_forms/" data-toggle="collapse" data-target="#formularios">Formulários</a></li>
           <div id="formularios" class="collapse">
-            <li><a href="/all_forms/">Esporotricose Humana</a></li>
+            <li><a href="/caso_esporotricose_create/">Esporotricose Humana</a></li>
             <li><a href="/main/">Chikungunya</a></li>
             <li><a href="/main/">Dengue</a></li>
             <li><a href="/main/">Zika</a></li>
           </div>
           <hr>
+          {% endif %}
           <li><a href="/my_datas/">Notificações</a></li>
           <hr>
           <li><a href="/download_ficha/" data-toggle="collapse" data-target="#_demo">Ficha</a></li>

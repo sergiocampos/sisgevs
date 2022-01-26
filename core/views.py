@@ -62,6 +62,7 @@ def login_submit(request):
 		if result['success']:
 			if user is not None:
 				login(request, user)
+				print(request.user.funcao)
 				return redirect('/all_forms/')
 			else:
 				return render(request, 'login_page.html')
@@ -123,7 +124,12 @@ def main(request):
 
 @login_required(login_url='/login/')
 def all_forms(request):
-	return render(request, 'all_forms.html')
+	notificadores = ['Autocadastro', 'admin', 'Municipal']
+	if request.user.funcao in notificadores:
+		return render(request, 'all_forms.html')
+	else:
+		return redirect('/dados_user/')
+
 
 
 
