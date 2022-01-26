@@ -444,12 +444,12 @@ def my_datas(request):
 		user_nucleo = request.user.nucleo
 		user_area_tecnica = request.user.area_tecnica
 		user_gerencia_regional = request.user.gerencia_regional
-		user_municipio = request.user.municipio
+		user_municipio = request.user.municipio_nome
 		registros = CasoEsporotricose.objects.filter(
 			responsavel_gerencia_operacional=user_gerencia_operacional, 
 			responsavel_nucleo=user_nucleo,
 			responsavel_area_tecnica=user_area_tecnica,
-			gerencia=user_gerencia_regional,
+			responsavel_gerencia_regional=user_gerencia_regional,
 			responsavel_municipio=user_municipio
 			)
 		

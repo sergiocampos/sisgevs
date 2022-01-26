@@ -893,7 +893,7 @@ footer {
                     var data_1_s = document.getElementById('dt_primeiros_s').value;
                     var municipio = document.getElementById('municipio_id').value.length;
                     var telefone = document.getElementById('telefone_residencia_id').value.length;
-                    var cidade = document.getElementById('cidade').value
+                    var cidade = $("#municipios_estado_id option:selected").html();
                     
                     if (cidade.length >= 4) {$("#alert_municipio_residencia").hide()} else {$("#alert_municipio_residencia").show()}
                     

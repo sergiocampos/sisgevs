@@ -72,7 +72,8 @@ class User(AbstractBaseUser, PermissionsMixin):
 	gerencia_operacional = models.CharField(max_length=100, blank=True, null=True)
 	nucleo = models.CharField(max_length=100, blank=True, null=True)
 	area_tecnica = models.CharField(max_length=100, blank=True, null=True)
-	gerencia_regional = models.CharField(max_length=100, blank=True, null=True)	
+	gerencia_regional = models.CharField(max_length=100, blank=True, null=True)
+	municipio_nome = models.CharField(max_length=100, blank=True, null=True)
 	
 	
 	USERNAME_FIELD = 'login'
