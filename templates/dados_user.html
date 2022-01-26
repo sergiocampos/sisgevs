@@ -140,7 +140,7 @@ footer {
             <a class="dropdown-item" href="#">Telefone</a>
           </div>
         </li>
-        {% if user.funcao == 'admin' or user.funcao == 'Municipal' or user.funcao == 'Autocadastro' %}
+        {% if user.funcao == 'admin' or user.funcao == 'municipal' or user.funcao == 'autocadastro' %}
         <li class="nav-item">
           <a class="nav-link" href="/all_forms/">Notificar</a>
         </li>
@@ -170,7 +170,7 @@ footer {
           <li><a href="/organograma/">Organograma</a></li>
           <hr>
           {% endif %}
-          {% if user.funcao == 'admin' or user.funcao == 'Municipal' or user.funcao == 'Autocadastro' %}
+          {% if user.funcao == 'admin' or user.funcao == 'municipal' or user.funcao == 'autocadastro' %}
           <li><a href="/all_forms/" data-toggle="collapse" data-target="#formularios">Formulários</a></li>
           <div id="formularios" class="collapse">
             <li><a href="/caso_esporotricose_create/">Esporotricose Humana</a></li>

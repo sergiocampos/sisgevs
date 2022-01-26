@@ -30,8 +30,6 @@ from django.conf import settings
 
 import csv
 
-
-
 # Create your views here.
 
 def login_page(request):
@@ -62,7 +60,6 @@ def login_submit(request):
 		if result['success']:
 			if user is not None:
 				login(request, user)
-				print(request.user.funcao)
 				return redirect('/all_forms/')
 			else:
 				return render(request, 'login_page.html')
@@ -124,12 +121,11 @@ def main(request):
 
 @login_required(login_url='/login/')
 def all_forms(request):
-	notificadores = ['Autocadastro', 'admin', 'Municipal']
+	notificadores = ['autocadastro', 'admin', 'municipal']
 	if request.user.funcao in notificadores:
 		return render(request, 'all_forms.html')
 	else:
 		return redirect('/dados_user/')
-
 
 
 
@@ -344,7 +340,16 @@ def my_datas(request):
 		regs = paginator.get_page(page)
 		return render(request, 'my_datas.html', {'regs':regs})
 
-	elif request.user.funcao == 'gerencia':
+	elif request.user.funcao == 'municipal':
+		registros = CasoEsporotricose.objects.filter(municipio=municipio_id_user)
+		
+		paginator = Paginator(registros, 6)
+		page = request.GET.get('page')
+		regs = paginator.get_page(page)
+
+		return render(request, 'my_datas.html', {'regs':regs})
+
+	elif request.user.funcao == 'gerencia_regional':
 		gerencia_user = municipio_user.gerencia
 		registros = CasoEsporotricose.objects.filter(gerencia=gerencia_user)
 
@@ -354,14 +359,20 @@ def my_datas(request):
 		
 		return render(request, 'my_datas.html', {'regs':regs})
 
-	elif request.user.funcao == 'municipio':
-		registros = CasoEsporotricose.objects.filter(municipio=municipio_id_user)
-		
-		paginator = Paginator(registros, 6)
-		page = request.GET.get('page')
-		regs = paginator.get_page(page)
+	elif request.user.funcao == 'gerencia_executiva':
+		pass
 
-		return render(request, 'my_datas.html', {'regs':regs})
+	elif request.user.funcao == 'gerencia_operacional':
+		pass
+
+	elif request.user.funcao == 'area_tecnica':
+		pass
+
+	elif request.user.funcao == 'chefia_nucleo':
+		pass
+
+	elif request.user.funcao == 'autocadastro':
+		pass
 
 	else:
 		return redirect('all_forms')
