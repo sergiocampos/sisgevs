@@ -25,6 +25,8 @@
   <script src="https://code.highcharts.com/highcharts.src.js"></script>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 
   <script>
     $(document).ready(function($){
@@ -958,7 +960,7 @@ footer {
                   <div class="col-md-3">
                     <div class="form-group"><b>Município de Residência</b><i id="alert_municipio_residencia" style="color:red">**</i>
                       <select class="form-control" name="cidade_residencia" id="municipios_estado_id">
-                        <option value="{{form.municipio_residencia}}" selected>{{form.municipio_residencia}}</option>
+                        
                         {% for m in municipios %}                       
                 
                         <option value="{{m.id}}">{{m.nome}}</option>
@@ -2952,10 +2954,8 @@ footer {
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
   -->
 
-
-  <script type="text/javascript">
-
-    //ajax para endereço: estado e cidades
+<script>
+  //ajax para endereço: estado e cidades
 
       $("#uf_edit_endereco_id").change(function(){
         //const url = $('#Form').attr("data-autoctone-distrito-url");
@@ -2963,7 +2963,7 @@ footer {
         console.log(this.id);
 
         $.ajax({
-          url : '/ajax_edicao_uf_cidades/',
+          url : '{% url "ajax_edicao_uf_cidades" %}',
           data: { 'uf_edit_endereco_id': municipioId},
           success: function(data){
             console.log(data);
@@ -2992,6 +2992,9 @@ footer {
 
 
     //end
+</script>
+
+  <script type="text/javascript">   
 
 
 
