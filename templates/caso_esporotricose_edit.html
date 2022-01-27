@@ -2954,6 +2954,7 @@ footer {
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
   -->
 
+
 <script>
   //ajax para endereço: estado e cidades
 
@@ -2997,20 +2998,18 @@ footer {
   <script type="text/javascript">   
 
 
-
+    
     $("#municipio_id").change(function(){
         //const url = $('#Form').attr("data-unidadesaude-url");
         municipioId = $(this).val();
-
+        
         $.ajax({
           url : '{% url "ajax_load_unidadesaude" %}',
           data: { 'municipio_id': municipioId},
           success: function(data){
             $("#unidade_saude_id").html(data);
           }
-        });
-
-        
+        })
       });
 
       $("#unidade_saude_id").ready(function(){
@@ -3024,7 +3023,7 @@ footer {
             $("#unidade_saude_id").html(data);
             $('#unidade_saude_id').find('option[value='+unid+']').attr("selected", "selected");
           }
-        });
+        })
       });
 
     $("#municipio_id").change(function(){

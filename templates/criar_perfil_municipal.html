@@ -1,0 +1,497 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>SISGEVS - Sistema de Informação em Saúde da GEVS</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+  <script src="https://code.highcharts.com/highcharts.src.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.min.js"></script>
+
+  <style>
+  .fakeimg {
+    height: 500px;
+    background: #aaa;
+  }
+</style>
+
+<style>
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Style the header */
+header {
+  padding: 1px;
+  text-align: center;
+  font-size: 35px;
+  color: black;
+}
+
+/* Container for flexboxes */
+section {
+  display: -webkit-flex;
+  display: flex;
+}
+
+/* Style the navigation menu */
+nav {
+  -webkit-flex: 0.5;
+  -ms-flex: 0.5;
+  flex: 0.5;
+  background: #e6e6e6;
+  padding: 20px;
+}
+
+/* Style the list inside the menu */
+nav ul {
+  list-style-type: none;
+}
+
+/* Style the content */
+article {
+  -webkit-flex: 3;
+  -ms-flex: 3;
+  flex: 3;
+  background-color: #f1f1f1;
+  padding: 10px;
+}
+
+/* Style the footer */
+footer {
+  background-color: #777;
+  padding: 10px;
+  text-align: center;
+  color: white;
+}
+
+/* Responsive layout - makes the menu and the content (inside the section) sit on top of each other instead of next to each other */
+@media (max-width: 600px) {
+  section {
+    -webkit-flex-direction: column;
+    flex-direction: column;
+  }
+}
+#container{
+    margin: 0;    
+}
+.button{
+    margin: 0px 25px 0px 25px;
+    padding: 15px;
+    background-color:#F2CA64;
+    border-radius: 8px;
+    box-shadow: 2px 2px 5px rgba(0,0,0,0.5);
+}
+.button:hover{
+    background-color:#fdcb4c;
+    box-shadow: 4px 4px 10px rgba(0,0,0,0.5);
+    cursor: pointer;    
+}
+.vertical{
+    height: 25px;
+    border-left: 2px solid black;
+}
+.horizontal{
+    border: 2px solid black;
+    margin: 0 15% 0px 15%;
+    border-bottom: none;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+}
+</style>
+
+<link rel="shortcut icon" href="https://docs.google.com/uc?id=1h8jgyPDlDWWinD_VP50nqKXnmdCHEKH3" type="image/x-icon" />
+
+
+
+
+</head>
+<body>
+
+  <nav class="navbar navbar-expand-sm bg-info navbar-light" style="background-color: #e6e6e6;">
+    <ul class="navbar-nav">
+      <li class="nav-item active">
+        <a class="nav-link" href="#"></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#"></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#"></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link disabled" href="#"></a>
+      </li>
+    </ul>
+  </nav>
+  <header>
+    <div class="" style="background-color: #e6e6e6;">
+      <div class="row">
+        <div class="col" style="padding: 0; margin-top: 10px; text-align: center;">
+          <h4>SECRETARIA DE ESTADO DA SAÚDE</h4>
+          <h6>SISGEVS - Sistema de Informação em Saúde da GEVS</h6>
+          <h6><b>----</b></h6>
+        </div>
+      </div>
+    </div>
+  </header>
+
+<nav class="navbar navbar-expand-sm bg-secondary navbar-dark">
+  <a class="navbar-brand" href="#"></a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="collapsibleNavbar">
+    <ul class="navbar-nav">
+      <li class="nav-item">
+        <a class="nav-link" href="/all_forms/">Home</a>
+      </li>
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#">Localizar Notificação</a>
+        <div class="dropdown-menu">
+          <a class="dropdown-item" href="/localizar_paciente_nome/">Nome Paciente</a>
+          <a class="dropdown-item" href="/localizar_paciente_data_coleta/">Data de Coleta</a>
+          <a class="dropdown-item" href="#">CPF</a>
+          <a class="dropdown-item" href="#">Telefone</a>
+        </div>
+      </li>
+      {% if user.funcao == 'admin' or user.funcao == 'municipal' or user.funcao == 'autocadastro' %}
+      <li class="nav-item">
+        <a class="nav-link" href="/all_forms/">Notificar</a>
+      </li>
+      {% endif %}
+      <li class="nav-item">
+        <a class="nav-link" href="/logout/">Sair</a>
+      </li>
+    </ul>
+  </div>
+</nav>
+    <section>
+      <nav>
+        <ul style="padding:0;">
+          <li>
+            <button type="button" class="btn btn-info dropdown-toggle" data-toggle="collapse" data-target="#demo">Usuário: {{user.municipio}} | {{user.municipio.gerencia}}</button>
+          </li>
+        </ul>
+        <ul style="padding-left: 5%;">
+
+          <div id="" class="">
+
+            <li><a href="/dados_user/">Meus Dados</a></li>
+            <hr>
+            {% if user.funcao == 'admin' %}
+              <li><a href="/admin/account/user/">Gerenciar Contas</a></li>
+              <hr>
+              <li><a href="/organograma/">Organograma</a></li>
+              <hr>
+            {% endif %}
+            {% if user.funcao == 'admin' or user.funcao == 'municipal' or user.funcao == 'autocadastro' %}
+            <li><a href="/all_forms/" data-toggle="collapse" data-target="#formularios">Formulários</a></li>
+            <div id="formularios" class="collapse">
+              <li><a href="/caso_esporotricose_create/">Esporotricose Humana</a></li>
+              <li><a href="/main/">Chikungunya</a></li>
+              <li><a href="/main/">Dengue</a></li>
+              <li><a href="/main/">Zika</a></li>
+            </div>
+            <hr>
+            {% endif %}
+            <li><a href="/my_datas/">Notificações</a></li>
+            <hr>
+            <li><a href="/download_ficha/" data-toggle="collapse" data-target="#_demo">Ficha</a></li>
+            <div id="_demo" class="collapse"><br>
+              <li><a href="/ficha_caso_esporotricose_preencher/" target="_blank" style="color: #4d94ff;">Novo Layout</a></li>
+              <li><a href="/download_ficha/" download style="color: #4d94ff;">Imprimir Ficha</a></li>
+            </div>
+            <hr>
+            <li><a href=""></a></li>
+          </div>
+        </ul>
+      </nav>
+      <article>
+        <div class="container" id="container">
+          <div class="row">
+            <div class="col-sm-12">
+              <div class="alert alert-primary" style="text-align: center;">
+                <strong style="align-items: center;">Criar Perfil Municipal</strong>
+              </div>
+            </div>
+          </div>
+          <div class="success" hidden>
+            <div class="row">
+              <div class="col">
+                <div class="alert alert-success" style="text-align: center;">
+                  <strong style="align-items: center;">Cadastro realizado com successo!</strong>                
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col">
+                <div class="alert alert-success">
+                  <p style="text-align: center;"><strong>Dados de acesso:</strong></p>
+                  <h6 style="padding-left: 37%;"><strong>Login:</strong><input style="background: none; border: none;" type="text" id="response_login" disabled></h6>
+                  <h6 style="padding-left: 37%;"><strong>Senha:</strong><input style="background: none; border: none;" type="text" id="response_senha" disabled></h6>
+                </div>
+              </div>              
+            </div>
+          </div>
+
+          <i class="row px-3 py-2" style="font-size: 14px; margin-left: 35%;">* Inserir os dados de quem utilizará o perfil municipal.</i>
+          <form action="">
+
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="input-group mb-3" id="">
+                    <div class="input-group-prepend" id="">
+                      <span class="input-group-text">Nome</span>
+                    </div>
+                    <input onkeyup="verificarCampos()" type="text" class="form-control" name="nome_municipal" placeholder="Nome Completo" id="nome" required><i hidden id="nome_check" style="color:rgb(0, 196, 0); align-self: center; margin-left: 5px;"><strong>&check;</strong></i>
+                  </div>
+                </div>
+                
+                <div class="col-md-6">
+                  <div class="input-group mb-3" id="">
+                    <div class="input-group-prepend" id="">
+                      <span class="input-group-text">Email</span>
+                    </div>
+                    <input onkeyup="verificarCampos()" type="email" class="form-control" name="email" id="email" placeholder="exemplo@email.com" required><i hidden id="email_check" style="color:rgb(0, 196, 0); align-self: center; margin-left: 5px;"><strong>&check;</strong></i>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-4">
+                  <div class="input-group mb-3" id="">
+                    <div class="input-group-prepend" id="">
+                      <span class="input-group-text">CPF</span>
+                    </div>
+                    <input onkeyup="verificarCampos()" type="text" class="form-control" name="cpf" id="cpf" placeholder="Apenas números" required><i hidden id="cpf_check" style="color:rgb(0, 196, 0); align-self: center; margin-left: 5px;"><strong>&check;</strong></i>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="input-group mb-3" id="">
+                    <div class="input-group-prepend" id="">
+                      <span class="input-group-text">Celular</span>
+                    </div>
+                    <input onkeyup="verificarCampos()" type="text" class="form-control" name="celular" placeholder="Apenas números" id="celular" required><i hidden id="celular_check" style="color:rgb(0, 196, 0); align-self: center; margin-left: 5px;"><strong>&check;</strong></i>
+                  </div>
+                </div>
+
+                <div class="col-md-4">
+                  <div class="input-group mb-3" id="">
+                    <div class="input-group-prepend" id="">
+                      <span class="input-group-text">Login</span>
+                    </div>
+                    <input required placeholder="Login de acesso" id="login" type="text" class="form-control" aria-label="Default" name="login" aria-describedby="inputGroup-sizing-default"><i hidden id="login_uncheck" style="color:rgb(196, 0, 0); align-self: center; margin-left: 5px; margin-right: 5px;"><strong>&cross;</strong></i><i hidden id="login_check" style="color:rgb(0, 196, 0); align-self: center; margin-left: 5px; margin-right: 5px;"><strong>&check;</strong></i>
+                  </div>
+                </div>
+
+              </div>
+      
+              <div class="row">
+                <div class="col-md-3">
+                  <div class="input-group mb-3" id="">
+                    <div class="input-group-prepend" id="">
+                      <span class="input-group-text">Perfil</span>
+                    </div>
+                    <input type="text" class="form-control" name="perfil" value="municipal" id="perfil" disabled required>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="input-group mb-3" id="">
+                    <div class="input-group-prepend" id="">
+                      <span class="input-group-text">Município</span>
+                    </div>
+                    <select onclick="verificarCampos()" name="municipio" id="municipio" class="form-select form-control" required>
+                        {% for municipio in municipios %}
+                          {% if municipio.nome == 'João Pessoa' %}
+                          <option value="{{municipio.nome}}" id="" selected>{{municipio.nome}}</option>
+                          {% else %}
+                          <option value="{{municipio.nome}}">{{municipio.nome}}</option>
+                          {% endif %}
+                        {% endfor %}
+                    </select>
+                  </div>
+                </div>
+                <div class="col-md-5">
+                  <div class="input-group mb-3" id="">
+                    <div class="input-group-prepend" id="">
+                      <span class="input-group-text">Gerencia</span>
+                    </div>
+                    <input type="text" class="form-control" value="gerencia_atualizada_com_municipio" name="gerencia_regional" id="gerencia_regional" disabled required>
+                  </div>
+                </div>
+              </div>
+      
+              <div class="row">
+                <div class="col-md-4">
+                  <div class="input-group mb-3" id="">
+                    <div class="input-group-prepend" id="">
+                      <span class="input-group-text">Gerencia Operacional</span>
+                    </div>
+                    <select onclick="verificarCampos()" name="gerencia_operacional" id="gerencia_operacional" class="form-select form-control" required>
+                        <option value="g_o_v">Vigilancia</option>
+                        <option value="g_o_ASVDNT">Análise em Saúde e Vigilância de Doenças Não Transmissíveis</option>
+                        <option value="g_o_SA">Saúde Ambiental</option>
+                        <option value="g_o_CCI">Condições Crônicas e IST</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="input-group mb-3" id="">
+                    <div class="input-group-prepend" id="">
+                      <span class="input-group-text">Núcleo</span>
+                    </div>
+                    <select onclick="verificarCampos()" name="nucleo" id="nucleo" class="form-select form-control" required>
+                        <option value="nucleo_a">Núcleo A</option>
+                        <option value="nucleo_b">Núcleo B</option>
+                        <option value="nucleo_c">Núcleo C</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="input-group mb-3" id="">
+                    <div class="input-group-prepend" id="">
+                      <span class="input-group-text">Área Técnica</span>
+                    </div>
+                    <select onclick="verificarCampos()" name="area_tecnica" id="area_tecnica" class="form-select form-control" required>
+                      <option value="area_tecnica1">Área Técnica 1</option>
+                      <option value="area_tecnica2">Área Técnica 2</option>
+                      <option value="area_tecnica3">Área Técnica 3</option>
+                      <option value="area_tecnica4">Área Técnica 4</option>
+                      <option value="area_tecnica5">Área Técnica 5</option>                  
+                    </select>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="row">
+                <div class="col py-4 text-center">
+                  <button type="button" class="btn btn-secondary text-center" id="cadastrar" disabled>Cadastrar Perfil Municipal</button>                  
+                </div>
+              </div>
+          </form>          
+        </div>        
+      </article>
+    </section>
+    <div class="jumbotron text-center" style="margin-bottom:0">
+      <p>Footer</p>
+      <i class="fa">&#xf1f9;</i>
+    </div>
+    <script>
+        // Setando os validadores
+        var nome_confere = false;
+        var email_confere = false;
+        var cpf_confere = false;
+        var celular_confere = false;
+        var login_confere = false;
+        var perfil_confere = false;
+        var municipio_confere = false;
+        var gerencia_regional_confere = false;
+        var gerencia_operacional_confere = false;
+        var nucleo_confere = false;
+        var area_tecnica_confere = false;
+
+        $('#cadastrar').on('click', function(){
+            nome = document.getElementById('nome');
+            email = document.getElementById('email');
+            cpf = document.getElementById('cpf');
+            login = document.getElementById('login');
+            perfil = document.getElementById('perfil');
+            municipio = document.getElementById('municipio');
+            gerencia_regional = document.getElementById('gerencia_regional');
+            gerencia_operacional = document.getElementById('gerencia_operacional');
+            nucleo = document.getElementById('nucleo');
+            area_tecnica = document.getElementById('area_tecnica');
+
+            data = {
+                'nome':nome.value,
+                'email':email.value,
+                'cpf':cpf.value,
+                'login':login.value,
+                'perfil':perfil.value,
+                'municipio':municipio.value,
+                'gerencia_regional':gerencia_regional.value,
+                'gerencia_operacional':gerencia_operacional.value,
+                'nucleo':nucleo.value,
+                'area_tecnica':area_tecnica.value,
+            }
+            $.ajax({
+                url:'/criar_perfil_municipal/',
+                data: data,
+                success: function(data){
+                    console.log(data)
+                    $(nome).val('')
+                    $(email).val('')
+                    $(cpf).val('')
+                    $(login).val('')
+                    $('#response_login').val(data['login'])
+                    $('#response_senha').val(data['senha'])
+                    $('.success').prop('hidden', false)
+                }
+            });
+        });
+        $("#login").on('keyup', function(){
+            login = document.getElementById('login').value
+            
+            if (login.length > 4){
+                data = {'login':login}
+                $.ajax({
+                    url:'/checar_login_ajax/',
+                    data: data,
+                    success: function(data){
+                        if (data['data'] == 0){
+                            $('#login_uncheck').prop('hidden', true);
+                            $('#login_check').prop('hidden', false);
+                            login_confere = true;
+                        } else {
+                            $('#login_uncheck').prop('hidden', false);
+                            $('#login_check').prop('hidden', true);
+                            $("#cadastrar").prop('disabled', true).removeClass('btn-success').addClass('btn-secondary')
+                            login_confere = false;
+                        }
+                    }
+                })
+                $('#login_uncheck').prop('hidden', true);
+                verificarCampos()
+            } else{
+                $('#login_check').prop('hidden', true);
+                $('#login_uncheck').prop('hidden', true);
+                $("#cadastrar").prop('disabled', true).removeClass('btn-success').addClass('btn-secondary')
+            }
+        });
+        function verificarCampos(){
+            nome = document.getElementById('nome').value;
+            email = document.getElementById('email').value;
+            cpf = document.getElementById('cpf').value;
+            celular = document.getElementById('celular').value;
+            
+            if (nome.length > 10){$('#nome_check').prop('hidden', false); nome_confere = true} else {$('#nome_check').prop('hidden', true); nome_confere = false};
+            if (email.length > 10){$('#email_check').prop('hidden', false); email_confere = true} else {$('#email_check').prop('hidden', true); email_confere = false};
+            if (cpf.length == 11) {$('#cpf_check').prop('hidden', false); cpf_confere = true} else {$('#cpf_check').prop('hidden', true); cpf_confere = false};
+            if (celular.length == 11) {$('#celular_check').prop('hidden', false); celular_confere = true} else {$('#celular_check').prop('hidden', true); celular_confere = false};
+            
+            campos = [nome_confere, email_confere, cpf_confere, celular_confere, login_confere];
+
+            itens_vazios = 0;
+            $(campos).each(function(){
+                if (this == false){
+                    itens_vazios++;
+                }
+            });
+            if (itens_vazios == 0){
+                $("#cadastrar").prop('disabled', false).removeClass('btn-secondary').addClass('btn-success')
+            } else {$("#cadastrar").prop('disabled', true).removeClass('btn-success').addClass('btn-secondary')}
+        }
+    </script>    
+  </body>
+  </html>

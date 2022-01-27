@@ -13,7 +13,6 @@ from django.contrib.auth import authenticate, login, logout
 from datetime import datetime
 from django.contrib.auth.forms import PasswordChangeForm, UserCreationForm
 from django.contrib.auth import update_session_auth_hash, login, authenticate, logout
-
 from django.core.paginator import Paginator
 
 from django.http import HttpResponse, HttpResponseRedirect
@@ -23,12 +22,17 @@ from datetime import datetime
 from openpyxl import Workbook
 
 from pandas.core.frame import DataFrame
+from django.contrib.auth.models import User
+from django.contrib.auth import get_user_model
 
 from .models import *
 import json
 import urllib
 from django.conf import settings
 
+from django.contrib.auth.hashers import make_password, check_password
+from random import choice
+import string
 import csv
 
 # Create your views here.
@@ -359,8 +363,7 @@ def ajax_edicao_uf_cidades(request):
 
 @login_required(login_url='/login/')
 def my_datas(request):
-	municipio_id_user = request.user.municipio_id
-	municipio_user = Municipio.objects.get(id=municipio_id_user)
+	
 	#municipio_nome = municipio_user.nome
 	if request.user.funcao == 'admin':
 		registros = CasoEsporotricose.objects.all().order_by('nome_paciente')
@@ -439,6 +442,9 @@ def my_datas(request):
 		return render(request, 'my_datas.html', {'regs':regs})
 
 	elif request.user.funcao == 'municipal':
+		municipio_id_user = int(request.user.municipio_nome)
+		municipio_user = Municipio.objects.get(id=municipio_id_user)
+		
 		user_gerencia_operacional = request.user.gerencia_operacional
 		user_nucleo = request.user.nucleo
 		user_area_tecnica = request.user.area_tecnica
@@ -477,14 +483,73 @@ def cancelar_caso_esporotricose(request):
 	registro = CasoEsporotricose.objects.all().filter(id=caso_id).values()
 	
 	if registro[0]['status_caso'] == 'Cancelado':
-		CasoEsporotricose.objects.filter(id=caso_id).update(
-		status_caso=None
-	)
+		CasoEsporotricose.objects.filter(id=caso_id).update(status_caso=None)
 	else:		
-		CasoEsporotricose.objects.filter(id=caso_id).update(
-			status_caso='Cancelado'
-		)	
+		CasoEsporotricose.objects.filter(id=caso_id).update(status_caso='Cancelado')	
 	return redirect('all_forms')
+
+@login_required(login_url='/login/')
+def criar_perfil_municipal(request):
+	if request.method == 'GET':
+		data = request.GET.get('nome')
+		if data == None:
+			municipios = Municipio.objects.all().order_by('nome')
+			municipios = {'municipios':municipios}
+			return render(request, 'criar_perfil_municipal.html', municipios)
+		
+		# Recebendo dados de cadastro.
+		else:
+			nome = data
+			email = request.GET.get('email')
+			cpf = request.GET.get('cpf')
+			login = request.GET.get('login')
+			funcao = request.GET.get('perfil')
+			municipio = str(request.GET.get('municipio'))
+			gerencia_regional = request.GET.get('gerencia_regional')
+			gerencia_operacional = request.GET.get('gerencia_operacional')
+			nucleo = request.GET.get('nucleo')
+			area_tecnica = request.GET.get('area_tecnica')
+
+			tamanho = 8
+			valores = string.ascii_letters + string.digits
+			senha = ''
+			for i in range(tamanho):
+				senha += choice(valores)
+
+			print(senha)
+			password = make_password(password=senha, salt=None, hasher='pbkdf2_sha256')
+			print(password)
+
+			
+			User = get_user_model()
+			User.objects.create(
+				login=login,
+				funcao=funcao,
+				username=login,
+				cpf=cpf,
+				email=email,
+				first_name=nome,
+				gerencia_operacional=gerencia_operacional,
+				nucleo=nucleo,
+				area_tecnica=area_tecnica,
+				gerencia_regional=gerencia_regional,
+				municipio_nome=municipio,
+				password=password
+			)
+			
+			data = {'login':login, 'senha':senha}
+			return JsonResponse(data)
+
+
+@login_required(login_url='/login/')
+def checar_login_ajax(request):
+	User = get_user_model()
+	
+	login = request.GET.get('login')
+	usuarios = User.objects.filter(login=login)
+	data = {'data':len(usuarios)}
+	
+	return JsonResponse(data)
 
 
 @login_required(login_url='/login/')

@@ -97,7 +97,8 @@ urlpatterns = [
     path('export_data_csv/', views.export_data_csv, name='export_data_csv'),
     path('organograma/', views.organograma, name='organograma'),
     path('my_datas/cancelar_caso_esporotricose/', views.cancelar_caso_esporotricose, name='cancelar_caso_esporotricose'),
-
+    path('criar_perfil_municipal/', views.criar_perfil_municipal, name='criar_perfil_municipal'),
+    path('checar_login_ajax/', views.checar_login_ajax, name='checar_login_ajax'),
     
 ]
 
