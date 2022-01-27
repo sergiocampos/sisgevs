@@ -66,6 +66,7 @@ urlpatterns = [
 
     path('ajax_dados_residencia', views.ajax_dados_residencia, name='ajax_dados_residencia'),
     path('ajax_ibge_municipio_residencia', views.ajax_ibge_municipio_residencia, name='ajax_ibge_municipio_residencia'),
+    path('ajax_edicao_uf_cidades', views.ajax_edicao_uf_cidades, name='ajax_edicao_uf_cidades'),
 
 
     path('login/',views.login_page, name='login_page'),

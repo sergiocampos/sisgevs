@@ -356,8 +356,16 @@ def ajax_ibge_municipio_residencia(request):
 
 
 
-#################################################################################################
+#################################### views ajax para edição de endereço################################
+@login_required(login_url='/login/')
+def ajax_edicao_uf_cidades(request):
+	print("entrou na view")
+	estado_id = request.GET.get('uf_edit_endereco_id')
+	print("id estado:", estado_id)
 
+	municipios = Municipios.objects.filter(uf_id=estado_id)
+	return render(request, 'edit_estado_municipios_ajax.html', {'municipios':municipios})
+#######################################################################################################
 
 @login_required(login_url='/login/')
 def my_datas(request):
