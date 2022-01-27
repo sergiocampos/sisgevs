@@ -166,9 +166,11 @@ footer {
           <a class="dropdown-item" href="#">Telefone</a>
         </div>
       </li>
+      {% if user.funcao == 'admin' or user.funcao == 'municipal' or user.funcao == 'autocadastro' %}
       <li class="nav-item">
         <a class="nav-link" href="/all_forms/">Notificar</a>
       </li>
+      {% endif %}
       <li class="nav-item">
         <a class="nav-link" href="/logout/">Sair</a>
       </li>
@@ -194,6 +196,7 @@ footer {
               <li><a href="/organograma/">Organograma</a></li>
               <hr>
             {% endif %}
+            {% if user.funcao == 'admin' or user.funcao == 'municipal' or user.funcao == 'autocadastro' %}
             <li><a href="/all_forms/" data-toggle="collapse" data-target="#formularios">Formulários</a></li>
             <div id="formularios" class="collapse">
               <li><a href="/caso_esporotricose_create/">Esporotricose Humana</a></li>
@@ -202,16 +205,15 @@ footer {
               <li><a href="/main/">Zika</a></li>
             </div>
             <hr>
+            {% endif %}
             <li><a href="/my_datas/">Notificações</a></li>
             <hr>
-            <!--
             <li><a href="/download_ficha/" data-toggle="collapse" data-target="#_demo">Ficha</a></li>
             <div id="_demo" class="collapse"><br>
               <li><a href="/ficha_caso_esporotricose_preencher/" target="_blank" style="color: #4d94ff;">Novo Layout</a></li>
               <li><a href="/download_ficha/" download style="color: #4d94ff;">Imprimir Ficha</a></li>
             </div>
             <hr>
-          -->
             <li><a href=""></a></li>
           </div>
         </ul>

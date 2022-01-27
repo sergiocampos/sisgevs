@@ -1,4 +1,5 @@
 
+#from asyncio.windows_events import NULL
 from django.db.models.expressions import OrderBy, Value
 from django.utils.functional import empty
 import pandas as pd
@@ -29,8 +30,6 @@ import urllib
 from django.conf import settings
 
 import csv
-
-
 
 # Create your views here.
 
@@ -123,7 +122,11 @@ def main(request):
 
 @login_required(login_url='/login/')
 def all_forms(request):
-	return render(request, 'all_forms.html')
+	notificadores = ['autocadastro', 'admin', 'municipal']
+	if request.user.funcao in notificadores:
+		return render(request, 'all_forms.html')
+	else:
+		return redirect('/dados_user/')
 
 
 
@@ -337,15 +340,7 @@ def ajax_dados_residencia(request):
 @login_required(login_url='/login/')
 def ajax_ibge_municipio_residencia(request):
 	municipio_estado_id = request.GET.get('municipios_estado_id')
-	#municipios = Municipios.objects.filter(uf_id=estado_id)
 	municipio = Municipios.objects.get(id=municipio_estado_id)
-	#print("municipio:", municipio)
-	#ibge_str = MunicipioBr.objects.filter(ibge=)
-	#ibge_int = int(ibge_str)
-	
-	#ibge_municipiobr = municipio.ibge
-	#ibge_int = int(ibge_municipiobr)
-	#print("ibge:", ibge_municipiobr)
 	ibge = municipio.ibge
 	print("ibge:", ibge)
 	return render(request, 'municipio_ibge_ajax.html', {'ibge':ibge})
@@ -353,8 +348,14 @@ def ajax_ibge_municipio_residencia(request):
 
 
 
-#################################################################################################
+#################################### views ajax para edição de endereço################################
+@login_required(login_url='/login/')
+def ajax_edicao_uf_cidades(request):
+	estado_id = request.GET.get('uf_edit_endereco_id')
 
+	municipios = Municipios.objects.filter(uf_id=estado_id)
+	return render(request, 'edit_estado_municipios_ajax.html', {'municipios':municipios})
+#######################################################################################################
 
 @login_required(login_url='/login/')
 def my_datas(request):
@@ -362,15 +363,74 @@ def my_datas(request):
 	municipio_user = Municipio.objects.get(id=municipio_id_user)
 	#municipio_nome = municipio_user.nome
 	if request.user.funcao == 'admin':
-		registros = CasoEsporotricose.objects.all()
+		registros = CasoEsporotricose.objects.all().order_by('nome_paciente')
+
 		paginator = Paginator(registros, 6)
 		page = request.GET.get('page')
 		regs = paginator.get_page(page)
+
 		return render(request, 'my_datas.html', {'regs':regs})
 
-	elif request.user.funcao == 'gerencia':
-		gerencia_user = municipio_user.gerencia
-		registros = CasoEsporotricose.objects.filter(gerencia=gerencia_user)
+	elif request.user.funcao == 'gerencia_executiva':
+		registros = CasoEsporotricose.objects.all().order_by('nome_paciente')
+		
+		paginator = Paginator(registros, 6)
+		page = request.GET.get('page')
+		regs = paginator.get_page(page)
+		
+		return render(request, 'my_datas.html', {'regs':regs})
+
+	elif request.user.funcao == 'gerencia_operacional':
+		user_gerencia_operacional = request.user.gerencia_operacional
+		registros = CasoEsporotricose.objects.filter(responsavel_gerencia_operacional=user_gerencia_operacional).order_by('nome_paciente')
+		
+		paginator = Paginator(registros, 6)
+		page = request.GET.get('page')
+		regs = paginator.get_page(page)
+		
+		return render(request, 'my_datas.html', {'regs':regs})
+
+	elif request.user.funcao == 'chefia_nucleo':
+		user_gerencia_operacional = request.user.gerencia_operacional
+		user_nucleo = request.user.nucleo
+		registros = CasoEsporotricose.objects.filter(
+			responsavel_gerencia_operacional=user_gerencia_operacional, 
+			responsavel_nucleo=user_nucleo
+			).order_by('nome_paciente')
+		
+		paginator = Paginator(registros, 6)
+		page = request.GET.get('page')
+		regs = paginator.get_page(page)
+		
+		return render(request, 'my_datas.html', {'regs':regs})	
+
+	elif request.user.funcao == 'area_tecnica':
+		user_gerencia_operacional = request.user.gerencia_operacional
+		user_nucleo = request.user.nucleo
+		user_area_tecnica = request.user.area_tecnica
+		registros = CasoEsporotricose.objects.filter(
+			responsavel_gerencia_operacional=user_gerencia_operacional, 
+			responsavel_nucleo=user_nucleo,
+			responsavel_area_tecnica=user_area_tecnica
+			).order_by('nome_paciente')
+		
+		paginator = Paginator(registros, 6)
+		page = request.GET.get('page')
+		regs = paginator.get_page(page)
+		
+		return render(request, 'my_datas.html', {'regs':regs})	
+
+	elif request.user.funcao == 'gerencia_regional':
+		user_gerencia_operacional = request.user.gerencia_operacional
+		user_nucleo = request.user.nucleo
+		user_area_tecnica = request.user.area_tecnica
+		user_gerencia_regional = request.user.gerencia_regional
+		registros = CasoEsporotricose.objects.filter(
+			responsavel_gerencia_operacional=user_gerencia_operacional, 
+			responsavel_nucleo=user_nucleo,
+			responsavel_area_tecnica=user_area_tecnica,
+			gerencia=user_gerencia_regional
+			).order_by('nome_paciente')
 
 		paginator = Paginator(registros, 6)
 		page = request.GET.get('page')
@@ -378,8 +438,19 @@ def my_datas(request):
 		
 		return render(request, 'my_datas.html', {'regs':regs})
 
-	elif request.user.funcao == 'municipio':
-		registros = CasoEsporotricose.objects.filter(municipio=municipio_id_user)
+	elif request.user.funcao == 'municipal':
+		user_gerencia_operacional = request.user.gerencia_operacional
+		user_nucleo = request.user.nucleo
+		user_area_tecnica = request.user.area_tecnica
+		user_gerencia_regional = request.user.gerencia_regional
+		user_municipio = request.user.municipio_nome
+		registros = CasoEsporotricose.objects.filter(
+			responsavel_gerencia_operacional=user_gerencia_operacional, 
+			responsavel_nucleo=user_nucleo,
+			responsavel_area_tecnica=user_area_tecnica,
+			responsavel_gerencia_regional=user_gerencia_regional,
+			responsavel_municipio=user_municipio
+			).order_by('nome_paciente')
 		
 		paginator = Paginator(registros, 6)
 		page = request.GET.get('page')
@@ -387,9 +458,34 @@ def my_datas(request):
 
 		return render(request, 'my_datas.html', {'regs':regs})
 
+	elif request.user.funcao == 'autocadastro':
+		autocadastro_id = request.user.id
+		registros = CasoEsporotricose.objects.filter(responsavel_pelas_informacoes_id=autocadastro_id).order_by('nome_paciente')
+		
+		paginator = Paginator(registros, 6)
+		page = request.GET.get('page')
+		regs = paginator.get_page(page)
+		
+		return render(request, 'my_datas.html', {'regs':regs})
+	
 	else:
 		return redirect('all_forms')
+
+@login_required(login_url='/login/')
+def cancelar_caso_esporotricose(request):
+	caso_id = request.GET.get('id')
+	registro = CasoEsporotricose.objects.all().filter(id=caso_id).values()
 	
+	if registro[0]['status_caso'] == 'Cancelado':
+		CasoEsporotricose.objects.filter(id=caso_id).update(
+		status_caso=None
+	)
+	else:		
+		CasoEsporotricose.objects.filter(id=caso_id).update(
+			status_caso='Cancelado'
+		)	
+	return redirect('all_forms')
+
 
 @login_required(login_url='/login/')
 def ficha_caso_esporotricose_preencher(request):
@@ -430,8 +526,13 @@ def remove_caso_esporotricose(request, id):
 
 @login_required(login_url='/login/')
 def set_caso_esporotricose_create(request):
-
+	# Dados do responsável pela criação do caso.
 	responsavel_pelas_informacoes = request.user
+	responsavel_gerencia_operacional = request.user.gerencia_operacional
+	responsavel_nucleo = request.user.nucleo
+	responsavel_area_tecnica = request.user.area_tecnica
+	responsavel_gerencia_regional = request.user.area_tecnica
+	responsavel_municipio = request.user.municipio
 
 	#Dados Gerais
 	tipo_notificacao = request.POST.get('tipo_notificacao')
@@ -737,6 +838,11 @@ def set_caso_esporotricose_create(request):
 
 	CasoEsporotricose.objects.create(
 		responsavel_pelas_informacoes = responsavel_pelas_informacoes,
+		responsavel_gerencia_operacional = responsavel_gerencia_operacional,
+		responsavel_nucleo = responsavel_nucleo,
+		responsavel_area_tecnica = responsavel_area_tecnica,
+		responsavel_gerencia_regional = responsavel_gerencia_regional,
+		responsavel_municipio = responsavel_municipio,
 		tipo_notificacao = tipo_notificacao,
 		agravo_doenca = agravo_doenca,
 		codigo_cib10 = codigo_cib10,
@@ -1217,8 +1323,13 @@ def caso_esporotricose_edit(request, id):
 
 @login_required(login_url='/login/')
 def set_caso_esporotricose_edit(request, id):
-	print("entrou no set caso esporotricose")
+	# Dados do responsável pela edição do caso.
 	responsavel_pelas_informacoes = request.user
+	responsavel_gerencia_operacional = request.user.gerencia_operacional
+	responsavel_nucleo = request.user.nucleo
+	responsavel_area_tecnica = request.user.area_tecnica
+	responsavel_gerencia_regional = request.user.area_tecnica
+	responsavel_municipio = request.user.municipio.nome
 
 	#Dados Gerais
 	tipo_notificacao = request.POST.get('tipo_notificacao')
@@ -1480,6 +1591,11 @@ def set_caso_esporotricose_edit(request, id):
 
 	CasoEsporotricose.objects.filter(id = id).update(
 		responsavel_pelas_informacoes = responsavel_pelas_informacoes,
+		responsavel_gerencia_operacional = responsavel_gerencia_operacional,
+		responsavel_nucleo = responsavel_nucleo,
+		responsavel_area_tecnica = responsavel_area_tecnica,
+		responsavel_gerencia_regional = responsavel_gerencia_regional,
+		responsavel_municipio = responsavel_municipio,
 		tipo_notificacao = tipo_notificacao,
 		agravo_doenca = agravo_doenca,
 		codigo_cib10 = codigo_cib10,
