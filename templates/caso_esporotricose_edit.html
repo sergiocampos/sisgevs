@@ -2951,8 +2951,22 @@ footer {
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
   -->
-
-
+<!--
+  <script>
+    $("#municipio_id").change(function(){
+        //const url = $('#Form').attr("data-unidadesaude-url");
+        municipioId = $(this).val();
+        
+        $.ajax({
+          url : '{% url "ajax_load_unidadesaude" %}',
+          data: { 'municipio_id': municipioId},
+          success: function(data){
+            $("#unidade_saude_id").html(data);
+          }
+        })
+      });
+  </script>
+-->
   <script type="text/javascript">
 
     //ajax para endereço: estado e cidades
@@ -2993,20 +3007,18 @@ footer {
     //end
 
 
-
+    
     $("#municipio_id").change(function(){
         //const url = $('#Form').attr("data-unidadesaude-url");
         municipioId = $(this).val();
-
+        
         $.ajax({
           url : '{% url "ajax_load_unidadesaude" %}',
           data: { 'municipio_id': municipioId},
           success: function(data){
             $("#unidade_saude_id").html(data);
           }
-        });
-
-        
+        })
       });
 
       $("#unidade_saude_id").ready(function(){
@@ -3020,7 +3032,7 @@ footer {
             $("#unidade_saude_id").html(data);
             $('#unidade_saude_id').find('option[value='+unid+']').attr("selected", "selected");
           }
-        });
+        })
       });
 
     $("#municipio_id").change(function(){

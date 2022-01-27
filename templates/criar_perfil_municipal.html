@@ -314,9 +314,9 @@ footer {
                     <select onclick="verificarCampos()" name="municipio" id="municipio" class="form-select form-control" required>
                         {% for municipio in municipios %}
                           {% if municipio.nome == 'João Pessoa' %}
-                          <option value="{{municipio.id}}" selected>{{municipio.nome}}</option>
+                          <option value="{{municipio.nome}}" id="" selected>{{municipio.nome}}</option>
                           {% else %}
-                          <option value="{{municipio.id}}">{{municipio.nome}}</option>
+                          <option value="{{municipio.nome}}">{{municipio.nome}}</option>
                           {% endif %}
                         {% endfor %}
                     </select>
@@ -466,6 +466,7 @@ footer {
             } else{
                 $('#login_check').prop('hidden', true);
                 $('#login_uncheck').prop('hidden', true);
+                $("#cadastrar").prop('disabled', true).removeClass('btn-success').addClass('btn-secondary')
             }
         });
         function verificarCampos(){

@@ -365,8 +365,7 @@ def ajax_ibge_municipio_residencia(request):
 
 @login_required(login_url='/login/')
 def my_datas(request):
-	municipio_id_user = int(request.user.municipio_nome)
-	municipio_user = Municipio.objects.get(id=municipio_id_user)
+	
 	#municipio_nome = municipio_user.nome
 	if request.user.funcao == 'admin':
 		registros = CasoEsporotricose.objects.all().order_by('nome_paciente')
@@ -445,6 +444,9 @@ def my_datas(request):
 		return render(request, 'my_datas.html', {'regs':regs})
 
 	elif request.user.funcao == 'municipal':
+		municipio_id_user = int(request.user.municipio_nome)
+		municipio_user = Municipio.objects.get(id=municipio_id_user)
+		
 		user_gerencia_operacional = request.user.gerencia_operacional
 		user_nucleo = request.user.nucleo
 		user_area_tecnica = request.user.area_tecnica
