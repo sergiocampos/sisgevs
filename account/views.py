@@ -45,7 +45,6 @@ def signup(request, template_name='signup.html'):
 				nucleo = request.POST.get('nucleo'),
 				municipio = Municipio.objects.get(id=municipio_id)
 			)
-			return redirect('login_page'
-			)
+			return redirect('login_page')
 	municipios = Municipio.objects.all()
 	return render(request, template_name, {'municipios': municipios})

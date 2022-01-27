@@ -1,5 +1,11 @@
 {% extends 'base.html' %}
 
+{% block links %}
+<li class="nav-item">
+    <a href="{% url 'index_aberto' %}" class="nav-link">Página inicial</a>
+</li>
+{% endblock links %}
+
 {% block content %}
     <header class="container text-center my-2">
         <div class="row">
