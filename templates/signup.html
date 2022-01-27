@@ -1,5 +1,4 @@
 {% extends 'base.html' %}
-{% load myfilters %}
 
 {% block content %}
     <header class="container text-center my-2">
@@ -14,24 +13,22 @@
     <main class="container text-center my-3">
         <form action="" method="post">
             {% csrf_token %}
-            {% if form.errors %}
-                {% for field in form %}
-
-                    {% for error in field.errors %}
-                            <p class="my-1 text-danger">{{ error|escape }}</p>
+            {% if messages %}
+                <div class="mb-5">
+                    {% for message in messages %}
+                    <p class="my-1 text-danger">{{message}}</p>
                     {% endfor %}
-
-                {% endfor %}
+                </div>
             {% endif %}
             <div class="row my-3">
                 <div class="col-1"></div>
                 <div class="col-5">
                     <label for="username">Nome:</label>
-                    {{form.username|addclass:'form-control'}}
+                    <input type="text" class="form-control" id="nome" name="nome" required>
                 </div>
                 <div class="col-3">
                     <label for="login">Login:</label>
-                    {{form.login|addclass:'form-control'}}
+                    <input type="text" class="form-control" id="login" name="login" required>
                 </div>
                 <div class="col"></div>
             </div>
@@ -39,28 +36,52 @@
                 <div class="col-1"></div>
                 <div class="col-3">
                     <label for="cpf">Cpf:</label>
-                    {{form.cpf|addclass:'form-control'}}
+                    <input type="text" class="form-control" id="cpf" name="cpf" required>
                 </div>
                 <div class="col-3">
                     <label for="municipio">Municipio:</label>
-                    {{form.municipio|addclass:'form-control'}}
+                    <select name="municipio" id="municipio" class="form-control" required>
+                        {% for municipio in municipios %}
+                        <option value="{{municipio.id}}">{{municipio.nome}}</option>
+                        {% endfor %}
+                    </select>
                 </div>
                 <div class="col-3 tel">
                     <label for="telefone">Telefone:</label>
-                    {{form.telefone|addclass:'form-control'}}
+                    <input type="text" class="form-control" id="telefone" name="telefone" required>
                 </div>
                 <div class="col"></div>
             </div>
             <div class="row my-3">
                 <div class="col-1"></div>
+                <div class="col-4">
+                    <label for="gerenciaOp">Gerência operacional:</label>
+                    <select name="gerenciaOp" id="gerenciaOp" class="form-control" required>
+                        <option value="g_o_v">Gerência Operacional de Vigilancia</option>
+                        <option value="g_o_ASVDNT">Gerência Operacional de vigilácia</option>
+                        <option value="g_o_SA">Gerência Operacional de vigilácia</option>
+                        <option value="g_o_CCI">Gerência Operacional de vigilácia</option>
+                    </select>
+                </div>
+                <div class="col-3">
+                    <label for="nucleo">Núcleo:</label>
+                    <select name="nucleo" id="nucleo" class="form-control" required>
+                        <option value="nucleo_a">Nucleo A</option>
+                        <option value="nucleo_b">Nucleo B</option>
+                        <option value="nucleo_c">Nucleo C</option>
+                    </select>
+                </div>
+                <div class="col-3"></div>
+            </div>
+            <div class="row my-3">
+                <div class="col-1"></div>
                 <div class="col-3">
                     <label for="password1">Digite a senha:</label>
-                    {{form.password1|addclass:'form-control'}}
-                    
+                    <input type="text" class="form-control" id="password1" name="password1" required>
                 </div>
                 <div class="col-5">
                     <label for="password2">Confirme a senha:</label>
-                    {{form.password2|addclass:'form-control'}}
+                    <input type="text" class="form-control" id="password2" name="password2" required>
                 </div>
                 <div class="col"></div>
             </div>
@@ -75,7 +96,8 @@
         </form>
         <script>
             $(document).ready(function(){
-                $("#id_telefone").mask("(99)99999-9999")
+                $("#telefone").mask("(99)99999-9999")
+                $("#cpf").mask("999.999.999-99")
             })
             
         </script>
