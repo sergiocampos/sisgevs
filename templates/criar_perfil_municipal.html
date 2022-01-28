@@ -12,7 +12,6 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
   <script src="https://code.highcharts.com/highcharts.src.js"></script>
-
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.min.js"></script>
 
   <style>
@@ -157,6 +156,7 @@ footer {
       <li class="nav-item">
         <a class="nav-link" href="/all_forms/">Home</a>
       </li>
+      {% if user.funcao == 'gerencia_executiva' or user.funcao == 'admin' %}
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#">Localizar Notificação</a>
         <div class="dropdown-menu">
@@ -166,6 +166,7 @@ footer {
           <a class="dropdown-item" href="#">Telefone</a>
         </div>
       </li>
+      {% endif %}
       {% if user.funcao == 'admin' or user.funcao == 'municipal' or user.funcao == 'autocadastro' %}
       <li class="nav-item">
         <a class="nav-link" href="/all_forms/">Notificar</a>
@@ -181,7 +182,7 @@ footer {
       <nav>
         <ul style="padding:0;">
           <li>
-            <button type="button" class="btn btn-info dropdown-toggle" data-toggle="collapse" data-target="#demo">Usuário: {{user.municipio}} | {{user.municipio.gerencia}}</button>
+            <button type="button" class="btn btn-info dropdown-toggle" data-toggle="collapse" data-target="#demo">Usuário: {{user.login}}</button>
           </li>
         </ul>
         <ul style="padding-left: 5%;">
@@ -194,6 +195,10 @@ footer {
               <li><a href="/admin/account/user/">Gerenciar Contas</a></li>
               <hr>
               <li><a href="/organograma/">Organograma</a></li>
+              <hr>
+            {% endif %}
+            {% if user.funcao != 'gerencia_regional' and user.funcao != 'municipal' and user.funcao != 'autocadastro' %}
+              <li><a href="/criar_perfil_municipal/">Criar Perfil Municipal</a></li>
               <hr>
             {% endif %}
             {% if user.funcao == 'admin' or user.funcao == 'municipal' or user.funcao == 'autocadastro' %}
@@ -227,6 +232,7 @@ footer {
               </div>
             </div>
           </div>
+          <!-- MENSAGEM DE CADASTRO REALIZADO |HIDDEN| -->
           <div class="success" hidden>
             <div class="row">
               <div class="col">
@@ -247,45 +253,48 @@ footer {
           </div>
 
           <i class="row px-3 py-2" style="font-size: 14px; margin-left: 35%;">* Inserir os dados de quem utilizará o perfil municipal.</i>
+          <!-- CONTEUDO DO FORMULÁRIO -->
           <form action="">
-
-              <div class="row">
+            <div class="row">
+                <!-- NOME -->
                 <div class="col-md-6">
                   <div class="input-group mb-3" id="">
                     <div class="input-group-prepend" id="">
                       <span class="input-group-text">Nome</span>
                     </div>
-                    <input onkeyup="verificarCampos()" type="text" class="form-control" name="nome_municipal" placeholder="Nome Completo" id="nome" required><i hidden id="nome_check" style="color:rgb(0, 196, 0); align-self: center; margin-left: 5px;"><strong>&check;</strong></i>
+                    <input onkeypress = "return limitcarc(event, 'letr')" style="text-transform: uppercase" onkeyup="verificarCampos()" type="text" class="form-control" name="nome_municipal" placeholder="Nome Completo" id="nome" required><i hidden id="nome_check" style="color:rgb(0, 196, 0); align-self: center; margin-left: 5px;"><strong>&check;</strong></i>
                   </div>
                 </div>
-                
+                <!-- EMAIL -->
                 <div class="col-md-6">
                   <div class="input-group mb-3" id="">
                     <div class="input-group-prepend" id="">
                       <span class="input-group-text">Email</span>
                     </div>
-                    <input onkeyup="verificarCampos()" type="email" class="form-control" name="email" id="email" placeholder="exemplo@email.com" required><i hidden id="email_check" style="color:rgb(0, 196, 0); align-self: center; margin-left: 5px;"><strong>&check;</strong></i>
+                    <input onkeyup="validacaoEmail()" type="email" class="form-control" name="email" id="email" placeholder="exemplo@email.com" required><i hidden id="email_check" style="color:rgb(0, 196, 0); align-self: center; margin-left: 5px;"><strong>&check;</strong></i>
                   </div>
                 </div>
               </div>
               <div class="row">
+                <!-- CPF -->
                 <div class="col-md-4">
                   <div class="input-group mb-3" id="">
                     <div class="input-group-prepend" id="">
                       <span class="input-group-text">CPF</span>
                     </div>
-                    <input onkeyup="verificarCampos()" type="text" class="form-control" name="cpf" id="cpf" placeholder="Apenas números" required><i hidden id="cpf_check" style="color:rgb(0, 196, 0); align-self: center; margin-left: 5px;"><strong>&check;</strong></i>
+                    <input onkeypress = "return limitcarc(event, 'num')" onkeyup="verificarCampos()" type="text" class="form-control" name="cpf" id="cpf" placeholder="Apenas números" required><i hidden id="cpf_check" style="color:rgb(0, 196, 0); align-self: center; margin-left: 5px;"><strong>&check;</strong></i>
                   </div>
                 </div>
+                <!-- CELULAR -->
                 <div class="col-md-4">
                   <div class="input-group mb-3" id="">
                     <div class="input-group-prepend" id="">
                       <span class="input-group-text">Celular</span>
                     </div>
-                    <input onkeyup="verificarCampos()" type="text" class="form-control" name="celular" placeholder="Apenas números" id="celular" required><i hidden id="celular_check" style="color:rgb(0, 196, 0); align-self: center; margin-left: 5px;"><strong>&check;</strong></i>
+                    <input onkeypress = "return limitcarc(event, 'num')" onkeyup="verificarCampos()" type="text" class="form-control" name="celular" placeholder="Apenas números" id="celular" required><i hidden id="celular_check" style="color:rgb(0, 196, 0); align-self: center; margin-left: 5px;"><strong>&check;</strong></i>
                   </div>
                 </div>
-
+                <!-- LOGIN -->
                 <div class="col-md-4">
                   <div class="input-group mb-3" id="">
                     <div class="input-group-prepend" id="">
@@ -294,10 +303,9 @@ footer {
                     <input required placeholder="Login de acesso" id="login" type="text" class="form-control" aria-label="Default" name="login" aria-describedby="inputGroup-sizing-default"><i hidden id="login_uncheck" style="color:rgb(196, 0, 0); align-self: center; margin-left: 5px; margin-right: 5px;"><strong>&cross;</strong></i><i hidden id="login_check" style="color:rgb(0, 196, 0); align-self: center; margin-left: 5px; margin-right: 5px;"><strong>&check;</strong></i>
                   </div>
                 </div>
-
               </div>
-      
               <div class="row">
+                <!-- PERFIL -->
                 <div class="col-md-3">
                   <div class="input-group mb-3" id="">
                     <div class="input-group-prepend" id="">
@@ -306,6 +314,7 @@ footer {
                     <input type="text" class="form-control" name="perfil" value="municipal" id="perfil" disabled required>
                   </div>
                 </div>
+                <!-- MUNICIPIO -->
                 <div class="col-md-4">
                   <div class="input-group mb-3" id="">
                     <div class="input-group-prepend" id="">
@@ -322,6 +331,7 @@ footer {
                     </select>
                   </div>
                 </div>
+                <!-- GERENCIA -->
                 <div class="col-md-5">
                   <div class="input-group mb-3" id="">
                     <div class="input-group-prepend" id="">
@@ -333,6 +343,7 @@ footer {
               </div>
       
               <div class="row">
+                <!-- GERENCIA OPERACIONAL -->
                 <div class="col-md-4">
                   <div class="input-group mb-3" id="">
                     <div class="input-group-prepend" id="">
@@ -346,6 +357,7 @@ footer {
                     </select>
                   </div>
                 </div>
+                <!-- NUCLEO -->
                 <div class="col-md-4">
                   <div class="input-group mb-3" id="">
                     <div class="input-group-prepend" id="">
@@ -358,6 +370,7 @@ footer {
                     </select>
                   </div>
                 </div>
+                <!-- AREA TECNICA -->
                 <div class="col-md-4">
                   <div class="input-group mb-3" id="">
                     <div class="input-group-prepend" id="">
@@ -388,7 +401,7 @@ footer {
       <i class="fa">&#xf1f9;</i>
     </div>
     <script>
-        // Setando os validadores
+        // Setando os validadores. |Enquanto 'false' ele nao libera o botão de cadastro|
         var nome_confere = false;
         var email_confere = false;
         var cpf_confere = false;
@@ -401,45 +414,55 @@ footer {
         var nucleo_confere = false;
         var area_tecnica_confere = false;
 
-        $('#cadastrar').on('click', function(){
-            nome = document.getElementById('nome');
-            email = document.getElementById('email');
-            cpf = document.getElementById('cpf');
-            login = document.getElementById('login');
-            perfil = document.getElementById('perfil');
-            municipio = document.getElementById('municipio');
-            gerencia_regional = document.getElementById('gerencia_regional');
-            gerencia_operacional = document.getElementById('gerencia_operacional');
-            nucleo = document.getElementById('nucleo');
-            area_tecnica = document.getElementById('area_tecnica');
-
-            data = {
-                'nome':nome.value,
-                'email':email.value,
-                'cpf':cpf.value,
-                'login':login.value,
-                'perfil':perfil.value,
-                'municipio':municipio.value,
-                'gerencia_regional':gerencia_regional.value,
-                'gerencia_operacional':gerencia_operacional.value,
-                'nucleo':nucleo.value,
-                'area_tecnica':area_tecnica.value,
-            }
-            $.ajax({
-                url:'/criar_perfil_municipal/',
-                data: data,
-                success: function(data){
-                    console.log(data)
-                    $(nome).val('')
-                    $(email).val('')
-                    $(cpf).val('')
-                    $(login).val('')
-                    $('#response_login').val(data['login'])
-                    $('#response_senha').val(data['senha'])
-                    $('.success').prop('hidden', false)
-                }
-            });
+        // Criando as mascaras.
+        $(document).ready(function(){
+          $('#cpf').mask('000.000.000-00')
+          $('#celular').mask('(00)0.0000-0000')          
         });
+        
+      
+        // Limitando caracteres
+        function limitcarc(e, tipo) {
+          var chr = String.fromCharCode(e.which);
+          if (tipo == 'letr_acent'){
+            if ("áéíóúâêîôûãõ qwertyuioplkjhgfdsazxcvbnmQWERTYUIOPLKJHGFDSAZXCVBNM".indexOf(chr) < 0)
+              return false;
+          }else if (tipo == 'num') {
+            if ("0123456789".indexOf(chr) < 0)
+              return false;
+          }else if (tipo == 'letr'){
+            if ("qwertyuioplkjhgfdsazxcvbnm QWERTYUIOPLKJHGFDSAZXCVBNM".indexOf(chr) < 0)
+              return false;
+          }
+        }
+
+        // Validação de email
+        function validacaoEmail() {
+          campo = document.getElementById('email')
+
+          usuario = campo.value.substring(0, campo.value.indexOf("@"));
+          dominio = campo.value.substring(campo.value.indexOf("@")+ 1, campo.value.length);
+
+          if ((usuario.length >=1) &&
+              (dominio.length >=3) &&
+              (usuario.search("@")==-1) &&
+              (dominio.search("@")==-1) &&
+              (usuario.search(" ")==-1) &&
+              (dominio.search(" ")==-1) &&
+              (dominio.search(".")!=-1) &&
+              (dominio.indexOf(".") >=1)&&
+              (dominio.lastIndexOf(".") < dominio.length - 1)) {
+                $('#email_check').prop('hidden', false); 
+                email_confere = true
+                verificarCampos()
+              } else {
+                $('#email_check').prop('hidden', true); 
+                email_confere = false
+                verificarCampos()
+              };                    
+          };
+
+        // Validação do campo Login
         $("#login").on('keyup', function(){
             login = document.getElementById('login').value
             
@@ -469,16 +492,16 @@ footer {
                 $("#cadastrar").prop('disabled', true).removeClass('btn-success').addClass('btn-secondary')
             }
         });
+
+        // Verificando se todos os campos estão preenchidos corretamente para liberar o botao de cadastrar.
         function verificarCampos(){
             nome = document.getElementById('nome').value;
-            email = document.getElementById('email').value;
             cpf = document.getElementById('cpf').value;
             celular = document.getElementById('celular').value;
             
             if (nome.length > 10){$('#nome_check').prop('hidden', false); nome_confere = true} else {$('#nome_check').prop('hidden', true); nome_confere = false};
-            if (email.length > 10){$('#email_check').prop('hidden', false); email_confere = true} else {$('#email_check').prop('hidden', true); email_confere = false};
-            if (cpf.length == 11) {$('#cpf_check').prop('hidden', false); cpf_confere = true} else {$('#cpf_check').prop('hidden', true); cpf_confere = false};
-            if (celular.length == 11) {$('#celular_check').prop('hidden', false); celular_confere = true} else {$('#celular_check').prop('hidden', true); celular_confere = false};
+            if (cpf.length == 14) {$('#cpf_check').prop('hidden', false); cpf_confere = true} else {$('#cpf_check').prop('hidden', true); cpf_confere = false};
+            if (celular.length == 15) {$('#celular_check').prop('hidden', false); celular_confere = true} else {$('#celular_check').prop('hidden', true); celular_confere = false};
             
             campos = [nome_confere, email_confere, cpf_confere, celular_confere, login_confere];
 
@@ -491,7 +514,51 @@ footer {
             if (itens_vazios == 0){
                 $("#cadastrar").prop('disabled', false).removeClass('btn-secondary').addClass('btn-success')
             } else {$("#cadastrar").prop('disabled', true).removeClass('btn-success').addClass('btn-secondary')}
-        }
+        };
+
+        
+        // Enviando o cadastro via ajax.
+        $('#cadastrar').on('click', function(){
+            nome = document.getElementById('nome');
+            email = document.getElementById('email');
+            cpf = document.getElementById('cpf');
+            celular = document.getElementById('celular');
+            login = document.getElementById('login');
+            perfil = document.getElementById('perfil');
+            municipio = document.getElementById('municipio');
+            gerencia_regional = document.getElementById('gerencia_regional');
+            gerencia_operacional = document.getElementById('gerencia_operacional');
+            nucleo = document.getElementById('nucleo');
+            area_tecnica = document.getElementById('area_tecnica');
+
+            data = {
+                'nome':nome.value,
+                'email':email.value,
+                'cpf':cpf.value,
+                'login':login.value,
+                'telefone':celular.value,
+                'perfil':perfil.value,
+                'municipio':municipio.value,
+                'gerencia_regional':gerencia_regional.value,
+                'gerencia_operacional':gerencia_operacional.value,
+                'nucleo':nucleo.value,
+                'area_tecnica':area_tecnica.value,
+            }
+            $.ajax({
+                url:'/criar_perfil_municipal/',
+                data: data,
+                success: function(data){
+                    console.log(data)
+                    $(nome).val('')
+                    $(email).val('')
+                    $(cpf).val('')
+                    $(login).val('')
+                    $('#response_login').val(data['login'])
+                    $('#response_senha').val(data['senha'])
+                    $('.success').prop('hidden', false)
+                }
+            });
+        });
     </script>    
   </body>
   </html>
