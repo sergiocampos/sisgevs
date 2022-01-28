@@ -1283,10 +1283,19 @@ def ajax_exportar_index_aberto(request):
 def caso_esporotricose_edit(request, id):
 	caso = CasoEsporotricose.objects.get(id=id)
 	estados = Estado.objects.all().order_by('nome')
+	
+	estado_caso_str = int(caso.uf_residencia)
+	estado_caso = Estado.objects.get(id=estado_caso_str)
+
+	cidade_caso_id = int(caso.municipio_residencia)
+	cidade_caso = Municipios.objects.get(id=cidade_caso_id)
+
+	print("residencia do caso:", estado_caso)
+
 	municipios = Municipio.objects.all().order_by('nome')
 	unidades_saude = []
 	codigos_ibge = []
-	print(caso.codigo_ibge_caso_autoctone)
+	#print(caso.codigo_ibge_caso_autoctone)
 
 	if caso.municipio:
 		municipio_caso = caso.municipio
@@ -1384,7 +1393,8 @@ def caso_esporotricose_edit(request, id):
 		caso.data_encerramento = ""
 		
 	return render(request, 'caso_esporotricose_edit.html', {'form':caso, 'municipios':municipios, 'unidades_saude':unidades_saude, 
-		'codigos_ibge':codigos_ibge, 'estados':estados, 'codigo_ibge':codigo_ibge, 'unidade_saude_caso':unidade_saude_caso})
+		'codigos_ibge':codigos_ibge, 'estados':estados, 'codigo_ibge':codigo_ibge, 'unidade_saude_caso':unidade_saude_caso,
+		'estado_caso':estado_caso, 'cidade_caso':cidade_caso})
 
 @login_required(login_url='/login/')
 def set_caso_esporotricose_edit(request, id):

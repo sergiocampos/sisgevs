@@ -945,7 +945,7 @@ footer {
                   <div class="col-md-3">
                     <div class="form-group"><b>UF</b>
                       <select class="form-control" name="uf_residencia" id="uf_edit_endereco_id">
-                        <option value="{{form.estado}}" selected>{{form.estado}}</option>
+                        <option value="{{estado_caso}}" selected>{{estado_caso}}</option>
                         {% for e in estados %}
                         
                         <option value="{{e.id}}">{{e.nome}}</option>
@@ -960,7 +960,7 @@ footer {
                   <div class="col-md-3">
                     <div class="form-group"><b>Município de Residência</b><i id="alert_municipio_residencia" style="color:red">**</i>
                       <select class="form-control" name="cidade_residencia" id="municipios_estado_id">
-                        
+                        <option value="{{cidade_caso}}" selected>{{cidade_caso}}</option>
                         {% for m in municipios %}                       
                 
                         <option value="{{m.id}}">{{m.nome}}</option>
