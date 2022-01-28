@@ -1010,10 +1010,10 @@ def index_aberto(request):
 	return render(request, 'index_aberto.html')
 
 def ajax_index_aberto(request):
-	detectados = CasoEsporotricose.objects.filter(resultado_isolamento = 'Detectado')
-	nao_detectados = CasoEsporotricose.objects.filter(resultado_isolamento = 'Não detectado')
-	inconclusivo = CasoEsporotricose.objects.filter(resultado_isolamento = 'Inconclusivo')
-	nao_realizado = CasoEsporotricose.objects.filter(resultado_isolamento = 'Não Realizado')
+	detectados = CasoEsporotricose.objects.filter(resultado_isolamento__icontains = 'Detectado')
+	nao_detectados = CasoEsporotricose.objects.filter(resultado_isolamento__icontains = 'Não detectado')
+	inconclusivo = CasoEsporotricose.objects.filter(resultado_isolamento__icontains = 'Inconclusivo')
+	nao_realizado = CasoEsporotricose.objects.filter(resultado_isolamento__icontains = 'Não Realizado')
 	vazio = CasoEsporotricose.objects.filter(resultado_isolamento = None)
 	
 	len_detectados = len(detectados)
