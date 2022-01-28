@@ -131,6 +131,8 @@ footer {
       <li class="nav-item">
         <a class="nav-link" href="/all_forms/">Home</a>
       </li>
+
+      {% if user.funcao == 'gerencia_executiva' or user.funcao == 'admin' %}
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#">Localizar Notificação</a>
         <div class="dropdown-menu">
@@ -140,6 +142,7 @@ footer {
           <a class="dropdown-item" href="#">Telefone</a>
         </div>
       </li>
+      {% endif %}
       <li class="nav-item">
         <a class="nav-link" href="/all_forms/">Notificar</a>
       </li>
@@ -153,7 +156,7 @@ footer {
       <nav>
         <ul style="padding:0;">
           <li>
-            <button type="button" class="btn btn-info dropdown-toggle" data-toggle="collapse" data-target="#demo">Usuário: {{user.municipio}} | {{user.municipio.gerencia}}</button>
+            <button type="button" class="btn btn-info dropdown-toggle" data-toggle="collapse" data-target="#demo">Usuário: {{user.login}}</button>
           </li>
         </ul>
         <ul style="padding-left: 5%;">
@@ -166,6 +169,10 @@ footer {
               <li><a href="/admin/account/user/">Gerenciar Contas</a></li>
               <hr>
               <li><a href="/organograma/">Organograma</a></li>
+              <hr>
+            {% endif %}
+            {% if user.funcao != 'gerencia_regional' and user.funcao != 'municipal' and user.funcao != 'autocadastro' %}
+              <li><a href="/criar_perfil_municipal/">Criar Perfil Municipal</a></li>
               <hr>
             {% endif %}
             <li><a href="/all_forms/" data-toggle="collapse" data-target="#formularios">Formulários</a></li>
