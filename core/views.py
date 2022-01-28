@@ -1,5 +1,5 @@
 
-from asyncio.windows_events import NULL
+#from asyncio.windows_events import NULL
 from django.db.models.expressions import OrderBy, Value
 from django.utils.functional import empty
 import pandas as pd
@@ -329,15 +329,7 @@ def ajax_dados_residencia(request):
 @login_required(login_url='/login/')
 def ajax_ibge_municipio_residencia(request):
 	municipio_estado_id = request.GET.get('municipios_estado_id')
-	#municipios = Municipios.objects.filter(uf_id=estado_id)
 	municipio = Municipios.objects.get(id=municipio_estado_id)
-	#print("municipio:", municipio)
-	#ibge_str = MunicipioBr.objects.filter(ibge=)
-	#ibge_int = int(ibge_str)
-	
-	#ibge_municipiobr = municipio.ibge
-	#ibge_int = int(ibge_municipiobr)
-	#print("ibge:", ibge_municipiobr)
 	ibge = municipio.ibge
 	print("ibge:", ibge)
 	return render(request, 'municipio_ibge_ajax.html', {'ibge':ibge})
@@ -345,8 +337,14 @@ def ajax_ibge_municipio_residencia(request):
 
 
 
-#################################################################################################
+#################################### views ajax para edição de endereço################################
+@login_required(login_url='/login/')
+def ajax_edicao_uf_cidades(request):
+	estado_id = request.GET.get('uf_edit_endereco_id')
 
+	municipios = Municipios.objects.filter(uf_id=estado_id)
+	return render(request, 'edit_estado_municipios_ajax.html', {'municipios':municipios})
+#######################################################################################################
 
 @login_required(login_url='/login/')
 def my_datas(request):
@@ -1379,7 +1377,7 @@ def set_caso_esporotricose_edit(request, id):
 	responsavel_nucleo = request.user.nucleo
 	responsavel_area_tecnica = request.user.area_tecnica
 	responsavel_gerencia_regional = request.user.area_tecnica
-	responsavel_municipio = request.user.municipio
+	responsavel_municipio = request.user.municipio.nome
 
 	#Dados Gerais
 	tipo_notificacao = request.POST.get('tipo_notificacao')

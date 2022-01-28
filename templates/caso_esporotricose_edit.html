@@ -25,6 +25,8 @@
   <script src="https://code.highcharts.com/highcharts.src.js"></script>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 
   <script>
     $(document).ready(function($){
@@ -948,10 +950,13 @@ footer {
                   </div>
                   <div class="col-md-3">
                     <div class="form-group"><b>UF</b>
-                      <select class="form-control" name="uf_residencia" id="uf_dados_residencia_id">
+                      <select class="form-control" name="uf_residencia" id="uf_edit_endereco_id">
+                        <option value="{{form.estado}}" selected>{{form.estado}}</option>
+                        {% for e in estados %}
                         
-                        <option value="{{form.uf_residencia}}" selected>{{form.uf_residencia}}</option>
+                        <option value="{{e.id}}">{{e.nome}}</option>
                         
+                        {% endfor %}
                         
                       </select>
                       <!--<input class="form-control" type="text" onkeypress="return limitcarc(event, 'letr')" name="uf_residencia" id="uf" placeholder="" value="{{form.uf_residencia}}" style="text-transform:uppercase">
@@ -961,17 +966,14 @@ footer {
                   <div class="col-md-3">
                     <div class="form-group"><b>Município de Residência</b><i id="alert_municipio_residencia" style="color:red">**</i>
                       <select class="form-control" name="cidade_residencia" id="municipios_estado_id">
-                        {% for m in municipios %}
-                        {% if m.nome == "João Pessoa" %}
-                        <option value="{{m.id}}" selected>{{m.nome}}</option>
-                        {%else%}
+                        
+                        {% for m in municipios %}                       
+                
                         <option value="{{m.id}}">{{m.nome}}</option>
-                        {%endif%}
+                        
                         {%endfor%}
-                      </select>
-                      <!--
-                      <input class="form-control" type="text" onkeypress="return limitcarc(event, 'letr_acent')" name="cidade_residencia" id="cidade" placeholder="" value="{{form.municipio_residencia}}" onkeyup="verificarNotifGeral()">
-                    -->
+                      </select>                      
+                     
                     </div>              
                   </div>
                   
@@ -983,18 +985,18 @@ footer {
 
                   <div class="col-md-2">
                     <div class="form-group"><b>Código IBGE</b>
-
+                      
                       <select class="form-control" name="codigo_ibge_residencia" id="ibge_municipio_residencia_id" readonly>
+                        <option value="{{codigo_ibge}}" selected>{{codigo_ibge}}</option>
                         {% for m in municipios %}
-                        {% if m.nome == "João Pessoa" %}
-                        <option value="{{m.ibge}}" selected>{{m.ibge}}</option>
-                        {%else%}
+                        
                         <option value="{{m.ibge}}">{{m.ibge}}</option>
-                        {%endif%}
+                        
                         {%endfor%}
                       </select>
+                     
                       <!--
-                      <input class="form-control" type="text" onkeypress="return limitcarc(event, 'num')" name="codigo_ibge_residencia" id="ibge" placeholder="" value="{{form.codigo_ibge_residencia}}" readonly>
+                      <input class="form-control" type="text" onkeypress="return limitcarc(event, 'num')" name="codigo_ibge_residencia" id="ibge" placeholder="" value="{{codigo_ibge}}" readonly>
                     -->
                     </div>
                   </div>
@@ -2957,33 +2959,19 @@ footer {
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
   -->
-<!--
-  <script>
-    $("#municipio_id").change(function(){
-        //const url = $('#Form').attr("data-unidadesaude-url");
-        municipioId = $(this).val();
-        
-        $.ajax({
-          url : '{% url "ajax_load_unidadesaude" %}',
-          data: { 'municipio_id': municipioId},
-          success: function(data){
-            $("#unidade_saude_id").html(data);
-          }
-        })
-      });
-  </script>
--->
-  <script type="text/javascript">
 
-    //ajax para endereço: estado e cidades
 
-      $("#uf_dados_residencia_id").change(function(){
+<script>
+  //ajax para endereço: estado e cidades
+
+      $("#uf_edit_endereco_id").change(function(){
         //const url = $('#Form').attr("data-autoctone-distrito-url");
         municipioId = $(this).val();
+        console.log(this.id);
 
         $.ajax({
-          url : '{% url "ajax_dados_residencia" %}',
-          data: { 'uf_dados_residencia_id': municipioId},
+          url : '{% url "ajax_edicao_uf_cidades" %}',
+          data: { 'uf_edit_endereco_id': municipioId},
           success: function(data){
             console.log(data);
             $("#municipios_estado_id").html(data);
@@ -3009,6 +2997,9 @@ footer {
 
 
     //end
+</script>
+
+  <script type="text/javascript">   
 
 
     
