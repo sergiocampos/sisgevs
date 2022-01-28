@@ -337,7 +337,15 @@ footer {
                     <div class="input-group-prepend" id="">
                       <span class="input-group-text">Gerencia</span>
                     </div>
-                    <input type="text" class="form-control" value="gerencia_atualizada_com_municipio" name="gerencia_regional" id="gerencia_regional" disabled required>
+                    <select onclick="verificarCampos()" name="municipio" id="gerencial_regional" class="form-select form-control" required disabled>
+                      {% for municipio in municipios %}
+                        {% if municipio.nome == 'João Pessoa' %}
+                          <option class="option" value="{{municipio.nome}}" selected>{{municipio.gerencia}}</option>
+                        {% else %}
+                          <option class="option" value="{{municipio.nome}}">{{municipio.gerencia}}</option>
+                        {% endif %}
+                      {% endfor %}
+                  </select>
                   </div>
                 </div>
               </div>
@@ -413,14 +421,31 @@ footer {
         var gerencia_operacional_confere = false;
         var nucleo_confere = false;
         var area_tecnica_confere = false;
-
+        var gerencia_regional        
         // Criando as mascaras.
         $(document).ready(function(){
           $('#cpf').mask('000.000.000-00')
-          $('#celular').mask('(00)0.0000-0000')          
+          $('#celular').mask('(00)0.0000-0000')
+          options = document.getElementsByClassName('option');
+          $(options).each(function(){
+            if (this.selected){
+              gerencia_regional = this.text                     
+            }
+          });      
         });
         
-      
+        // Alterando campo gerencia.
+        $("#municipio").change(function(){
+          municipio = this.value;
+          options = document.getElementsByClassName('option');
+          $(options).each(function(){
+            if (this.value == municipio){
+              $(this).prop('selected', true)
+              gerencia_regional = this.text              
+            }
+          });
+        });
+        
         // Limitando caracteres
         function limitcarc(e, tipo) {
           var chr = String.fromCharCode(e.which);
@@ -526,11 +551,10 @@ footer {
             login = document.getElementById('login');
             perfil = document.getElementById('perfil');
             municipio = document.getElementById('municipio');
-            gerencia_regional = document.getElementById('gerencia_regional');
             gerencia_operacional = document.getElementById('gerencia_operacional');
             nucleo = document.getElementById('nucleo');
             area_tecnica = document.getElementById('area_tecnica');
-
+            
             data = {
                 'nome':nome.value,
                 'email':email.value,
@@ -539,16 +563,16 @@ footer {
                 'telefone':celular.value,
                 'perfil':perfil.value,
                 'municipio':municipio.value,
-                'gerencia_regional':gerencia_regional.value,
+                'gerencia_regional':gerencia_regional,
                 'gerencia_operacional':gerencia_operacional.value,
                 'nucleo':nucleo.value,
                 'area_tecnica':area_tecnica.value,
             }
+            
             $.ajax({
                 url:'/criar_perfil_municipal/',
                 data: data,
                 success: function(data){
-                    console.log(data)
                     $(nome).val('')
                     $(email).val('')
                     $(cpf).val('')
@@ -557,7 +581,7 @@ footer {
                     $('#response_senha').val(data['senha'])
                     $('.success').prop('hidden', false)
                 }
-            });
+            });            
         });
     </script>    
   </body>
