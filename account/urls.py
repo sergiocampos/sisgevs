@@ -1,8 +1,10 @@
+from inspect import signature
 from django.urls import path
-from .views import SignUpView
+from numpy import sign
+from .views import *
 from django.contrib.auth import views as auth_views
 
 urlpatterns = [
-    path('signup/', SignUpView.as_view(), name='signup'),
+    path('signup/', signup, name='signup'),
 
 ]

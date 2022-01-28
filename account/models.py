@@ -51,7 +51,7 @@ class User(AbstractBaseUser, PermissionsMixin):
 	cpf = models.CharField(max_length=11, null=True, blank=True)
 	telefone = models.CharField(max_length=15, null=True, blank=True)
 	#hospital = models.ForeignKey(Hospital, on_delete = models.CASCADE, default='', null=True)
-	municipio = models.ForeignKey(Municipio, on_delete=models.CASCADE, null=True)
+	municipio = models.ForeignKey(Municipio, on_delete=models.CASCADE, null=True, blank=True)
 	
 	unidade_saude = models.CharField(max_length=255, null=True, blank=True)
 	perfil = models.CharField(max_length=255, null=True, blank=True)
