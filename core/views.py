@@ -353,7 +353,7 @@ def my_datas(request):
 	municipios = Municipio.objects.all()
 	#municipio_nome = municipio_user.nome
 	if request.user.funcao == 'admin':
-		registros = CasoEsporotricose.objects.all().order_by('-data_notificacao')
+		registros = CasoEsporotricose.objects.all().order_by('-id')
 
 		paginator = Paginator(registros, 6)
 		page = request.GET.get('page')
@@ -362,7 +362,7 @@ def my_datas(request):
 		return render(request, 'my_datas.html', {'regs':regs, 'municipios':municipios})
 
 	elif request.user.funcao == 'gerencia_executiva':
-		registros = CasoEsporotricose.objects.all().order_by('-data_notificacao')
+		registros = CasoEsporotricose.objects.all().order_by('-id')
 		
 		paginator = Paginator(registros, 6)
 		page = request.GET.get('page')
@@ -372,7 +372,7 @@ def my_datas(request):
 
 	elif request.user.funcao == 'gerencia_operacional':
 		user_gerencia_operacional = request.user.gerencia_operacional
-		registros = CasoEsporotricose.objects.filter(responsavel_gerencia_operacional=user_gerencia_operacional).order_by('-data_notificacao')
+		registros = CasoEsporotricose.objects.filter(responsavel_gerencia_operacional=user_gerencia_operacional).order_by('-id')
 		
 		paginator = Paginator(registros, 6)
 		page = request.GET.get('page')
@@ -386,7 +386,7 @@ def my_datas(request):
 		registros = CasoEsporotricose.objects.filter(
 			responsavel_gerencia_operacional=user_gerencia_operacional, 
 			responsavel_nucleo=user_nucleo
-			).order_by('-data_notificacao')
+			).order_by('-id')
 		
 		paginator = Paginator(registros, 6)
 		page = request.GET.get('page')
@@ -402,7 +402,7 @@ def my_datas(request):
 			responsavel_gerencia_operacional=user_gerencia_operacional, 
 			responsavel_nucleo=user_nucleo,
 			responsavel_area_tecnica=user_area_tecnica
-			).order_by('-data_notificacao')
+			).order_by('-id')
 		
 		paginator = Paginator(registros, 6)
 		page = request.GET.get('page')
@@ -420,7 +420,7 @@ def my_datas(request):
 			responsavel_nucleo=user_nucleo,
 			responsavel_area_tecnica=user_area_tecnica,
 			gerencia=user_gerencia_regional
-			).order_by('-data_notificacao')
+			).order_by('-id')
 
 		paginator = Paginator(registros, 6)
 		page = request.GET.get('page')
@@ -437,7 +437,7 @@ def my_datas(request):
 		user_gerencia_regional = request.user.gerencia_regional
 		user_municipio_id = request.user.municipio_id
 		user_municipio_nome = str(Municipio.objects.filter(id=user_municipio_id)[0]).upper()
-		registros = CasoEsporotricose.objects.filter(Q(municipio_residencia=user_municipio_id) | Q(municipio_residencia=user_municipio_nome) | Q(municipio=user_municipio_id)).order_by('-data_notificacao')
+		registros = CasoEsporotricose.objects.filter(Q(municipio_residencia=user_municipio_id) | Q(municipio_residencia=user_municipio_nome) | Q(municipio=user_municipio_id)).order_by('-id')
 		
 		paginator = Paginator(registros, 6)
 		page = request.GET.get('page')
@@ -447,7 +447,7 @@ def my_datas(request):
 
 	elif request.user.funcao == 'autocadastro':
 		autocadastro_id = request.user.id
-		registros = CasoEsporotricose.objects.filter(responsavel_pelas_informacoes_id=autocadastro_id).order_by('-data_notificacao')
+		registros = CasoEsporotricose.objects.filter(responsavel_pelas_informacoes_id=autocadastro_id).order_by('-id')
 		
 		paginator = Paginator(registros, 6)
 		page = request.GET.get('page')
@@ -1270,10 +1270,20 @@ def caso_esporotricose_edit(request, id):
 	caso = CasoEsporotricose.objects.get(id=id)
 	estados = Estado.objects.all().order_by('nome')
 	
-	estado_caso_str = int(caso.uf_residencia)
-	estado_caso = Estado.objects.get(id=estado_caso_str)
+	try:
+		estado_caso_str = int(caso.uf_residencia)
+	except Exception as e:
+		estado_caso = None
+	else:
+		estado_caso = Estado.objects.get(id=estado_caso_str)
+	
+	cidade_caso_ = caso.municipio_residencia.title()
+	print("municipio do caso:", cidade_caso_, type(cidade_caso_))
 
-	cidade_caso_id = int(caso.municipio_residencia)
+	cidade_caso_registro = Municipio.objects.get(nome=cidade_caso_)
+	#print("cidade_caso_registro:", cidade_caso_registro[0])
+	cidade_caso_id = cidade_caso_registro.id
+
 	cidade_caso = Municipios.objects.get(id=cidade_caso_id)
 
 	print("residencia do caso:", estado_caso)
