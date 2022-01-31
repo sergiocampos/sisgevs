@@ -242,7 +242,11 @@ footer {
                 <td>{{registro.data_notificacao}}</td>
                 <td>{{registro.nome_paciente}}</td>
                 <td>{{registro.idade_paciente}}</td>
-                <td>{{registro.municipio_residencia}}</td>
+                {% if registro.municipio_residencia == None %}
+                  <td></td>
+                {% else %}
+                  <td>{{registro.municipio_residencia}}</td>
+                {% endif %}
                 {% if registro.municipio != None %}
                   {% for municipio in municipios %}
                     {% if registro.municipio == municipio.id %}
@@ -250,7 +254,7 @@ footer {
                     {% endif %}
                   {% endfor %}
                 {% else %}
-                  <td>{{registro.municipio}}</td>
+                  <td></td>
                 {% endif %}
                 <td align="center">
                   <button id="{{registro.id}}" type="button" class="btn cancelar_caso btn-secondary btn-sm">Revalidar</button>                
@@ -261,7 +265,11 @@ footer {
                 <td>{{registro.data_notificacao}}</td>
                 <td>{{registro.nome_paciente}}</td>
                 <td>{{registro.idade_paciente}}</td>
-                <td>{{registro.municipio_residencia}}</td>
+                {% if registro.municipio_residencia == None %}
+                  <td></td>
+                {% else %}
+                  <td>{{registro.municipio_residencia}}</td>
+                {% endif %}
                 {% if registro.municipio != None %}
                   {% for municipio in municipios %}
                     {% if registro.municipio == municipio.id %}
@@ -269,7 +277,7 @@ footer {
                     {% endif %}
                   {% endfor %}
                 {% else %}
-                  <td>{{registro.municipio}}</td>
+                  <td></td>
                 {% endif %}
                 <td align="center">
                   {% if user.funcao != 'gerencia_regional' %}

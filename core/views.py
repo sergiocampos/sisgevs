@@ -350,7 +350,7 @@ def ajax_edicao_uf_cidades(request):
 
 @login_required(login_url='/login/')
 def my_datas(request):
-	
+	municipios = Municipio.objects.all()
 	#municipio_nome = municipio_user.nome
 	if request.user.funcao == 'admin':
 		registros = CasoEsporotricose.objects.all().order_by('-data_notificacao')
@@ -359,7 +359,7 @@ def my_datas(request):
 		page = request.GET.get('page')
 		regs = paginator.get_page(page)
 
-		return render(request, 'my_datas.html', {'regs':regs})
+		return render(request, 'my_datas.html', {'regs':regs, 'municipios':municipios})
 
 	elif request.user.funcao == 'gerencia_executiva':
 		registros = CasoEsporotricose.objects.all().order_by('-data_notificacao')
@@ -368,7 +368,7 @@ def my_datas(request):
 		page = request.GET.get('page')
 		regs = paginator.get_page(page)
 		
-		return render(request, 'my_datas.html', {'regs':regs})
+		return render(request, 'my_datas.html', {'regs':regs, 'municipios':municipios})
 
 	elif request.user.funcao == 'gerencia_operacional':
 		user_gerencia_operacional = request.user.gerencia_operacional
@@ -378,7 +378,7 @@ def my_datas(request):
 		page = request.GET.get('page')
 		regs = paginator.get_page(page)
 		
-		return render(request, 'my_datas.html', {'regs':regs})
+		return render(request, 'my_datas.html', {'regs':regs, 'municipios':municipios})
 
 	elif request.user.funcao == 'chefia_nucleo':
 		user_gerencia_operacional = request.user.gerencia_operacional
@@ -392,7 +392,7 @@ def my_datas(request):
 		page = request.GET.get('page')
 		regs = paginator.get_page(page)
 		
-		return render(request, 'my_datas.html', {'regs':regs})	
+		return render(request, 'my_datas.html', {'regs':regs, 'municipios':municipios})	
 
 	elif request.user.funcao == 'area_tecnica':
 		user_gerencia_operacional = request.user.gerencia_operacional
@@ -408,7 +408,7 @@ def my_datas(request):
 		page = request.GET.get('page')
 		regs = paginator.get_page(page)
 		
-		return render(request, 'my_datas.html', {'regs':regs})	
+		return render(request, 'my_datas.html', {'regs':regs, 'municipios':municipios})	
 
 	elif request.user.funcao == 'gerencia_regional':
 		user_gerencia_operacional = request.user.gerencia_operacional
@@ -426,11 +426,11 @@ def my_datas(request):
 		page = request.GET.get('page')
 		regs = paginator.get_page(page)
 		
-		return render(request, 'my_datas.html', {'regs':regs})
+		return render(request, 'my_datas.html', {'regs':regs, 'municipios':municipios})
 
 	elif request.user.funcao == 'municipal':
 		#senha = mlfAIcGI
-		municipios = Municipio.objects.all()
+		
 		user_gerencia_operacional = request.user.gerencia_operacional
 		user_nucleo = request.user.nucleo
 		user_area_tecnica = request.user.area_tecnica
@@ -453,7 +453,7 @@ def my_datas(request):
 		page = request.GET.get('page')
 		regs = paginator.get_page(page)
 		
-		return render(request, 'my_datas.html', {'regs':regs})
+		return render(request, 'my_datas.html', {'regs':regs, 'municipios':municipios})
 	
 	else:
 		return redirect('all_forms')
