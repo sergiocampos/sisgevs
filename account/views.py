@@ -41,8 +41,8 @@ def signup(request, template_name='signup.html'):
 				password = password1,
 				cpf = cpf,
 				telefone = telefone,
-				gerencia_operacional = request.POST.get('gerenciaOp'),
-				nucleo = request.POST.get('nucleo'),
+				#gerencia_operacional = request.POST.get('gerenciaOp'),
+				#nucleo = request.POST.get('nucleo'),
 				municipio = Municipio.objects.get(id=municipio_id)
 			)
 			return redirect('login_page')
