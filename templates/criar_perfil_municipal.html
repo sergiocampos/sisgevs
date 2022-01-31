@@ -325,9 +325,9 @@ footer {
                     <select onclick="verificarCampos()" name="municipio" id="municipio" class="form-select form-control" required>
                         {% for municipio in municipios %}
                           {% if municipio.nome == 'João Pessoa' %}
-                          <option value="{{municipio.nome}}" id="" selected>{{municipio.nome}}</option>
+                          <option value="{{municipio.id}}" id="" selected>{{municipio.nome}}</option>
                           {% else %}
-                          <option value="{{municipio.nome}}">{{municipio.nome}}</option>
+                          <option value="{{municipio.id}}">{{municipio.nome}}</option>
                           {% endif %}
                         {% endfor %}
                     </select>
@@ -339,12 +339,12 @@ footer {
                     <div class="input-group-prepend" id="">
                       <span class="input-group-text">Gerencia</span>
                     </div>
-                    <select onclick="verificarCampos()" name="municipio" id="gerencial_regional" class="form-select form-control" required disabled>
+                    <select onclick="verificarCampos()" name="gerencia" id="gerencial_regional" class="form-select form-control" required disabled>
                       {% for municipio in municipios %}
                         {% if municipio.nome == 'João Pessoa' %}
-                          <option class="option" value="{{municipio.nome}}" selected>{{municipio.gerencia}}</option>
+                          <option class="option" value="{{municipio.id}}" selected>{{municipio.gerencia}}</option>
                         {% else %}
-                          <option class="option" value="{{municipio.nome}}">{{municipio.gerencia}}</option>
+                          <option class="option" value="{{municipio.id}}">{{municipio.gerencia}}</option>
                         {% endif %}
                       {% endfor %}
                   </select>

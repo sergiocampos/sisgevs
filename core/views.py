@@ -1,5 +1,6 @@
 
 #from asyncio.windows_events import NULL
+import imp
 from django.db.models.expressions import OrderBy, Value
 from django.utils.functional import empty
 import pandas as pd
@@ -14,6 +15,7 @@ from datetime import datetime
 from django.contrib.auth.forms import PasswordChangeForm, UserCreationForm
 from django.contrib.auth import update_session_auth_hash, login, authenticate, logout
 from django.core.paginator import Paginator
+from django.db.models import Q
 
 from django.http import HttpResponse, HttpResponseRedirect
 import os
@@ -351,7 +353,7 @@ def my_datas(request):
 	
 	#municipio_nome = municipio_user.nome
 	if request.user.funcao == 'admin':
-		registros = CasoEsporotricose.objects.all().order_by('nome_paciente')
+		registros = CasoEsporotricose.objects.all().order_by('-data_notificacao')
 
 		paginator = Paginator(registros, 6)
 		page = request.GET.get('page')
@@ -360,7 +362,7 @@ def my_datas(request):
 		return render(request, 'my_datas.html', {'regs':regs})
 
 	elif request.user.funcao == 'gerencia_executiva':
-		registros = CasoEsporotricose.objects.all().order_by('nome_paciente')
+		registros = CasoEsporotricose.objects.all().order_by('-data_notificacao')
 		
 		paginator = Paginator(registros, 6)
 		page = request.GET.get('page')
@@ -370,7 +372,7 @@ def my_datas(request):
 
 	elif request.user.funcao == 'gerencia_operacional':
 		user_gerencia_operacional = request.user.gerencia_operacional
-		registros = CasoEsporotricose.objects.filter(responsavel_gerencia_operacional=user_gerencia_operacional).order_by('nome_paciente')
+		registros = CasoEsporotricose.objects.filter(responsavel_gerencia_operacional=user_gerencia_operacional).order_by('-data_notificacao')
 		
 		paginator = Paginator(registros, 6)
 		page = request.GET.get('page')
@@ -384,7 +386,7 @@ def my_datas(request):
 		registros = CasoEsporotricose.objects.filter(
 			responsavel_gerencia_operacional=user_gerencia_operacional, 
 			responsavel_nucleo=user_nucleo
-			).order_by('nome_paciente')
+			).order_by('-data_notificacao')
 		
 		paginator = Paginator(registros, 6)
 		page = request.GET.get('page')
@@ -400,7 +402,7 @@ def my_datas(request):
 			responsavel_gerencia_operacional=user_gerencia_operacional, 
 			responsavel_nucleo=user_nucleo,
 			responsavel_area_tecnica=user_area_tecnica
-			).order_by('nome_paciente')
+			).order_by('-data_notificacao')
 		
 		paginator = Paginator(registros, 6)
 		page = request.GET.get('page')
@@ -418,7 +420,7 @@ def my_datas(request):
 			responsavel_nucleo=user_nucleo,
 			responsavel_area_tecnica=user_area_tecnica,
 			gerencia=user_gerencia_regional
-			).order_by('nome_paciente')
+			).order_by('-data_notificacao')
 
 		paginator = Paginator(registros, 6)
 		page = request.GET.get('page')
@@ -427,28 +429,25 @@ def my_datas(request):
 		return render(request, 'my_datas.html', {'regs':regs})
 
 	elif request.user.funcao == 'municipal':
+		#senha = mlfAIcGI
+		municipios = Municipio.objects.all()
 		user_gerencia_operacional = request.user.gerencia_operacional
 		user_nucleo = request.user.nucleo
 		user_area_tecnica = request.user.area_tecnica
 		user_gerencia_regional = request.user.gerencia_regional
-		user_municipio = request.user.municipio_nome
-		registros = CasoEsporotricose.objects.filter(
-			responsavel_gerencia_operacional=user_gerencia_operacional, 
-			responsavel_nucleo=user_nucleo,
-			responsavel_area_tecnica=user_area_tecnica,
-			responsavel_gerencia_regional=user_gerencia_regional,
-			responsavel_municipio=user_municipio
-			).order_by('nome_paciente')
+		user_municipio_id = request.user.municipio_id
+		user_municipio_nome = str(Municipio.objects.filter(id=user_municipio_id)[0]).upper()
+		registros = CasoEsporotricose.objects.filter(Q(municipio_residencia=user_municipio_id) | Q(municipio_residencia=user_municipio_nome) | Q(municipio=user_municipio_id)).order_by('-data_notificacao')
 		
 		paginator = Paginator(registros, 6)
 		page = request.GET.get('page')
 		regs = paginator.get_page(page)
 
-		return render(request, 'my_datas.html', {'regs':regs})
+		return render(request, 'my_datas.html', {'regs':regs, 'municipios':municipios})
 
 	elif request.user.funcao == 'autocadastro':
 		autocadastro_id = request.user.id
-		registros = CasoEsporotricose.objects.filter(responsavel_pelas_informacoes_id=autocadastro_id).order_by('nome_paciente')
+		registros = CasoEsporotricose.objects.filter(responsavel_pelas_informacoes_id=autocadastro_id).order_by('-data_notificacao')
 		
 		paginator = Paginator(registros, 6)
 		page = request.GET.get('page')
@@ -486,7 +485,7 @@ def criar_perfil_municipal(request):
 			cpf = request.GET.get('cpf')
 			login = request.GET.get('login')
 			funcao = request.GET.get('perfil')
-			municipio = str(request.GET.get('municipio'))
+			municipio = int(request.GET.get('municipio'))
 			gerencia_regional = request.GET.get('gerencia_regional')
 			gerencia_operacional = request.GET.get('gerencia_operacional')
 			nucleo = request.GET.get('nucleo')
@@ -497,26 +496,28 @@ def criar_perfil_municipal(request):
 			telefone = telefone.replace('(','').replace(')','').replace('.','').replace('-','')			
 			nome = str(nome).upper()			
 
+			# Criando senha.
 			tamanho = 8
 			valores = string.ascii_letters + string.digits
 			senha = ''
 			for i in range(tamanho):
 				senha += choice(valores)
 			password = make_password(password=senha, salt=None, hasher='pbkdf2_sha256')
-						
+				 		
 			User = get_user_model()
 			User.objects.create(
 				login=login,
 				funcao=funcao,
-				username=login,
+				username=nome,
 				cpf=cpf,
 				email=email,
+				telefone=telefone,
 				first_name=nome,
 				gerencia_operacional=gerencia_operacional,
 				nucleo=nucleo,
 				area_tecnica=area_tecnica,
 				gerencia_regional=gerencia_regional,
-				municipio_nome=municipio,
+				municipio = Municipio.objects.get(id=municipio),
 				password=password
 			)
 			
@@ -647,7 +648,9 @@ def set_caso_esporotricose_create(request):
 	#Dados Residencia
 	cep_residencia = request.POST.get('cep_residencia')
 	uf_residencia = request.POST.get('uf_residencia')
-	municipio_residencia = request.POST.get('cidade_residencia')
+	municipio_residencia = int(request.POST.get('cidade_residencia'))
+	municipio_residencia = Municipio.objects.get(id=municipio_residencia)
+	municipio_residencia = str(municipio_residencia.nome).upper()
 	bairro_residencia = request.POST.get('bairro_residencia')
 	codigo_ibge_residencia = request.POST.get('codigo_ibge_residencia')
 	rua_residencia = request.POST.get('rua_residencia')

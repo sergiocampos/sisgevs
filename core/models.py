@@ -105,6 +105,7 @@ class MunicipioBr(models.Model):
 		return self.nome
 
 #############Tabela usada para selects de caso autoctone################################
+
 class Municipios(models.Model):
 	nome = models.CharField(max_length=200, null=True)
 	uf = models.ForeignKey(Estado, on_delete=models.CASCADE, null=True)
