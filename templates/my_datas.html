@@ -131,18 +131,27 @@ footer {
       <li class="nav-item">
         <a class="nav-link" href="/all_forms/">Home</a>
       </li>
+
+      <li class="nav-item">
+        <a class="nav-link" href="/index_aberto/">Início</a>
+      </li>
+      
+      {% if user.funcao == 'gerencia_executiva' or user.funcao == 'admin' %}
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#">Localizar Notificação</a>
         <div class="dropdown-menu">
-            <a class="dropdown-item" href="/localizar_paciente_nome/">Nome Paciente</a>
-            <a class="dropdown-item" href="/localizar_paciente_data_coleta/">Data de Coleta</a>
-            <a class="dropdown-item" href="#">CPF</a>
-            <a class="dropdown-item" href="#">Telefone</a>
+          <a class="dropdown-item" href="/localizar_paciente_nome/">Nome Paciente</a>
+          <a class="dropdown-item" href="/localizar_paciente_data_coleta/">Data de Coleta</a>
+          <a class="dropdown-item" href="#">CPF</a>
+          <a class="dropdown-item" href="#">Telefone</a>
         </div>
-    </li>
+      </li>
+      {% endif %}
+      {% if user.funcao == 'admin' or user.funcao == 'municipal' or user.funcao == 'autocadastro' %}
       <li class="nav-item">
         <a class="nav-link" href="/all_forms/">Notificar</a>
       </li>
+      {% endif %}
       
       <li class="nav-item">
         <a class="nav-link" href="/logout/">Sair</a>
@@ -154,19 +163,26 @@ footer {
       <nav>
         <ul style="padding:0;">
           <li>
-            <button type="button" class="btn btn-info dropdown-toggle" data-toggle="collapse" data-target="#demo">Usuário: {{user.municipio}} | {{user.municipio.gerencia}}</button>
+            <button type="button" class="btn btn-info dropdown-toggle" data-toggle="collapse" data-target="#demo">Usuário: {{user.login}}</button>
           </li>
         </ul>
         <ul style="padding-left: 5%;">
           <div id="demo" class="collapsed">
-            <li><a href="/all_forms/">Meus Dados</a></li>
+            <li><a href="/dados_user/">Meus Dados</a></li>
             <hr>
             {% if user.funcao == 'admin' %}
               <li><a href="/admin/">Gerenciar Contas</a></li>
               <hr>
+              <!--
               <li><a href="/organograma/">Organograma</a></li>
               <hr>
+              -->
             {% endif %}
+            {% if user.funcao != 'gerencia_regional' and user.funcao != 'municipal' and user.funcao != 'autocadastro' %}
+              <li><a href="/criar_perfil_municipal/">Criar Perfil Municipal</a></li>
+              <hr>
+            {% endif %}
+            {% if user.funcao == 'admin' or user.funcao == 'municipal' or user.funcao == 'autocadastro' %}
             <li><a href="/all_forms/" data-toggle="collapse" data-target="#formularios">Formulários</a></li>
             <div id="formularios" class="collapse">
               <li><a href="/caso_esporotricose_create/">Esporotricose Humana</a></li>
@@ -175,6 +191,7 @@ footer {
               <li><a href="/main/">Zika</a></li>
             </div>
             <hr>
+            {% endif %}
             <li>Notificações</li>
             <hr>
             <li><a href="/download_ficha/" data-toggle="collapse" data-target="#_demo">Ficha</a></li>
@@ -225,28 +242,59 @@ footer {
             <tbody>
 
               {% for registro in regs %}
+              {% if registro.status_caso == 'Cancelado' %}
+              <tr class="table table-warning">
+                <td>{{registro.data_notificacao}}</td>
+                <td>{{registro.nome_paciente}}</td>
+                <td>{{registro.idade_paciente}}</td>
+                {% if registro.municipio_residencia == None %}
+                  <td></td>
+                {% else %}
+                  <td>{{registro.municipio_residencia}}</td>
+                {% endif %}
+                {% if registro.municipio != None %}
+                  {% for municipio in municipios %}
+                    {% if registro.municipio == municipio.id %}
+                      <td>{{municipio.nome}}</td>
+                    {% endif %}
+                  {% endfor %}
+                {% else %}
+                  <td></td>
+                {% endif %}
+                <td align="center">
+                  <button id="{{registro.id}}" type="button" class="btn cancelar_caso btn-secondary btn-sm">Revalidar</button>                
+                </td>                
+              </tr>
+              {% else %}
               <tr>
                 <td>{{registro.data_notificacao}}</td>
                 <td>{{registro.nome_paciente}}</td>
                 <td>{{registro.idade_paciente}}</td>
-                <td>{{registro.municipio_residencia}}</td>
-                <td>{{user.municipio}}</td>
+                {% if registro.municipio_residencia == None %}
+                  <td></td>
+                {% else %}
+                  <td>{{registro.municipio_residencia}}</td>
+                {% endif %}
+                {% if registro.municipio != None %}
+                  {% for municipio in municipios %}
+                    {% if registro.municipio == municipio.id %}
+                      <td>{{municipio.nome}}</td>
+                    {% endif %}
+                  {% endfor %}
+                {% else %}
+                  <td></td>
+                {% endif %}
                 <td align="center">
-                  {% if user.funcao == 'gerencia' %}
-                  {% else %}
-                  <a href="/caso_esporotricose_edit/{{registro.id}}"><button type="button" class="btn btn-info btn-sm">Editar
-                  </button></a>
-                  {%endif%}
+                  {% if user.funcao != 'gerencia_regional' %}
 
-                  <a href="/caso_view_detail/{{registro.id}}/" target="_blank"><button type="button" class="btn btn-secondary btn-sm">Ver
-                  </button></a>
-                  <!--
-                  <a href="/remove_caso_esporotricose/{{registro.id}}/"><button type="button" class="btn btn-warning btn-sm">Excluir
-                  </button></a>
-                -->
-                </td>
-                
+                  <a href="/caso_esporotricose_edit/{{registro.id}}"><button type="button" class="btn btn-info btn-sm">Editar</button></a>                  
+                  {%endif%}
+                  <a href="/caso_view_detail/{{registro.id}}/" target="_blank"><button type="button" class="btn btn-secondary btn-sm">Ver</button></a>                  
+
+                  <button id="{{registro.id}}" type="button" class="btn cancelar_caso btn-warning btn-sm">Cancelar</button>                
+                </td>                
               </tr>
+              {% endif %}
               {% endfor %}
             </tbody>
           </table>
@@ -280,5 +328,18 @@ footer {
       <i class="fa">&#xf1f9;</i>
     </div>
     <br>
+    <script>
+      $('.cancelar_caso').on('click', function(){
+        var id = this.id;
+        var data = {'id':id}
+        $.ajax({
+          url: 'cancelar_caso_esporotricose',
+          data: data,
+          success: function(data){
+            document.location.href='/my_datas/'
+          }          
+        })
+      });
+    </script>
   </body>
   </html>

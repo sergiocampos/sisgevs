@@ -46,13 +46,13 @@ class User(AbstractBaseUser, PermissionsMixin):
 	]
 
 	login = models.CharField(max_length = 200, help_text='Informe um login', unique=True)
-	funcao = models.CharField(max_length=50, choices=OPTIONS, default='padrao')
+	funcao = models.CharField(max_length=50, choices=OPTIONS, default='autocadastro')
 	username = models.CharField(max_length=100, null=True, blank=True)
 	cpf = models.CharField(max_length=11, null=True, blank=True)
 	telefone = models.CharField(max_length=15, null=True, blank=True)
 	#hospital = models.ForeignKey(Hospital, on_delete = models.CASCADE, default='', null=True)
+	municipio = models.ForeignKey(Municipio, on_delete=models.CASCADE, null=True, blank=True)
 	
-	municipio = models.ForeignKey(Municipio, on_delete=models.CASCADE, null=True)
 	unidade_saude = models.CharField(max_length=255, null=True, blank=True)
 	perfil = models.CharField(max_length=255, null=True, blank=True)
 	
@@ -68,6 +68,12 @@ class User(AbstractBaseUser, PermissionsMixin):
 
 	last_login = models.DateTimeField(null=True, blank=True)
 	date_joined = models.DateTimeField(_('data adesão'), default=timezone.now)
+
+	gerencia_operacional = models.CharField(max_length=100, blank=True, null=True)
+	nucleo = models.CharField(max_length=100, blank=True, null=True)
+	area_tecnica = models.CharField(max_length=100, blank=True, null=True)
+	gerencia_regional = models.CharField(max_length=100, blank=True, null=True)
+	municipio_nome = models.CharField(max_length=100, blank=True, null=True)
 	
 	
 	USERNAME_FIELD = 'login'

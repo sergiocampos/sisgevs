@@ -376,15 +376,22 @@ footer {
       <li class="nav-item">
         <a class="nav-link" href="/all_forms/">Home</a>
       </li>
+
+      <li class="nav-item">
+        <a class="nav-link" href="/index_aberto/">Início</a>
+      </li>
+      
+      {% if user.funcao == 'gerencia_executiva' or user.funcao == 'admin' %}
       <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" data-toggle="dropdown" data-target="#search" href="#">Localizar Notificação</a>
-        <div id="search" class="dropdown-menu">
+        <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#">Localizar Notificação</a>
+        <div class="dropdown-menu">
           <a class="dropdown-item" href="/localizar_paciente_nome/">Nome Paciente</a>
           <a class="dropdown-item" href="/localizar_paciente_data_coleta/">Data de Coleta</a>
           <a class="dropdown-item" href="#">CPF</a>
           <a class="dropdown-item" href="#">Telefone</a>
         </div>
       </li>
+      {% endif %}
       <li class="nav-item">
         <a class="nav-link" href="/all_forms/">Notificar</a>
       </li>
@@ -398,7 +405,7 @@ footer {
       <nav>
         <ul style="padding:0;">
           <li>
-            <button type="button" class="btn btn-info dropdown-toggle" data-toggle="collapse" data-target="#demo">Usuário: {{user.municipio}} | {{user.municipio.gerencia}}</button>
+            <button type="button" class="btn btn-info dropdown-toggle" data-toggle="collapse" data-target="#demo">Usuário: {{user.login}}</button>
           </li>
         </ul>
         <ul style="padding-left: 5%;">
@@ -411,7 +418,13 @@ footer {
             {% if user.funcao == 'admin' %}
               <li><a href="/admin/account/user/">Gerenciar Contas</a></li>
               <hr>
+              <!--
               <li><a href="/organograma/">Organograma</a></li>
+              <hr>
+              -->
+            {% endif %}
+            {% if user.funcao != 'gerencia_regional' and user.funcao != 'municipal' and user.funcao != 'autocadastro' %}
+              <li><a href="/criar_perfil_municipal/">Criar Perfil Municipal</a></li>
               <hr>
             {% endif %}
             <li><a href="/all_forms/" data-toggle="collapse" data-target="#formularios">Formulários</a></li>
@@ -496,7 +509,7 @@ footer {
               <li class="nav-item">
                 <a class="nav-link" data-toggle="tab" href="#menu5">Tratamento</a>
               </li>
-              {% if user.funcao != 'padrao' %}
+              {% if user.funcao != 'autocadastro' %}
               <li class="nav-item">
                 <a class="nav-link" data-toggle="tab" href="#menu6">Conclusão</a>
               </li>
@@ -889,8 +902,8 @@ footer {
                     var data_1_s = document.getElementById('dt_primeiros_s').value;
                     var telefone = document.getElementById('telefone_residencia_id').value.length;
                     var cep = document.getElementById('cep').value;
-                    var cidade = document.getElementById('cidade').value;
-
+                    var cidade = $("#municipios_estado_id option:selected").html();
+                    
                     if (cidade.length >= 4) {$("#alert_municipio_residencia").hide()} else {$("#alert_municipio_residencia").show()};
 
                     if (sexo != "") {$('#alert_sexo').hide();} else {$('#alert_sexo').show();};
@@ -3001,7 +3014,7 @@ footer {
   </div>
   <br>
 <!--
-    <script
+  <script
   src="https://code.jquery.com/jquery-3.4.1.min.js"
   integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
   crossorigin="anonymous"></script>

@@ -105,6 +105,7 @@ class MunicipioBr(models.Model):
 		return self.nome
 
 #############Tabela usada para selects de caso autoctone################################
+
 class Municipios(models.Model):
 	nome = models.CharField(max_length=200, null=True)
 	uf = models.ForeignKey(Estado, on_delete=models.CASCADE, null=True)
@@ -203,11 +204,11 @@ class CasoEsporotricose(models.Model):
 	#Dados Laboratoriais
 	houve_coleta_material = models.CharField(max_length = 10, null=True, blank=True)
 	data_coleta1 = models.DateField(blank=True, null=True)
-	numero_gal1 = models.IntegerField(blank=True, null=True)
+	numero_gal1 = models.CharField(max_length = 200, null=True, blank=True)
 	data_coleta2 = models.DateField(blank=True, null=True)
-	numero_gal2 = models.IntegerField(blank=True, null=True)
+	numero_gal2 = models.CharField(max_length = 200, null=True, blank=True)
 	data_coleta3 = models.DateField(blank=True, null=True)
-	numero_gal3 = models.IntegerField(blank=True, null=True)
+	numero_gal3 = models.CharField(max_length = 200, null=True, blank=True)
 	resultado_isolamento = models.CharField(max_length = 200, null=True, blank=True)
 	agente = models.CharField(max_length = 200, null=True, blank=True)
 	histopatologia = models.CharField(max_length = 100, null=True, blank=True)
@@ -273,6 +274,13 @@ class CasoEsporotricose(models.Model):
 	telefone_investigador = models.CharField(max_length = 100, null=True, blank=True)
 	conselho_classe_investigador = models.CharField(max_length = 100, null=True, blank=True)
 	numero_unico = models.CharField(max_length = 20, null=True, blank=True, default=None)
+
+	#atributos para registrar o perfil do responsável
+	responsavel_gerencia_operacional = models.CharField(max_length = 100, null=True, blank=True)
+	responsavel_nucleo = models.CharField(max_length = 100, null=True, blank=True)
+	responsavel_area_tecnica = models.CharField(max_length = 100, null=True, blank=True)
+	responsavel_gerencia_regional = models.CharField(max_length = 100, null=True, blank=True)
+	responsavel_municipio = models.CharField(max_length = 100, null=True, blank=True)
 
 	def __str__(self):
 		return self.tipo_notificacao
