@@ -1785,7 +1785,7 @@ def export_data_csv(request):
 	user = request.user
 	municipio_user_logado = user.municipio
 	print("municipio do usuário:", municipio_user_logado)
-	municipio_user_ = Municipio.objects.filter(nome=municipio_user_logado)
+	municipio_user_ = Municipio.objects.get(nome=municipio_user_logado)
 	print("id do municipio do user:", municipio_user_)
 	municipio_user = municipio_user_.id
 	print("id do municipio do user:", municipio_user)
