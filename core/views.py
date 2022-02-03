@@ -134,13 +134,6 @@ def all_forms(request):
 	else:
 		return redirect('/dados_user/')
 
-
-
-@login_required(login_url='/login/')
-def informar_dados_ficha(request):
-	return render(request, 'informar_dados_ficha.html')
-
-
 ########################  View de localização de uma notificação ##################################
 @login_required(login_url='/login/')
 def localizar_paciente_nome(request):
@@ -199,7 +192,7 @@ def csv_localizar_paciente_data_coleta(request):
 ###########View Renderiza a ficha para impressão######################################################
 @login_required(login_url='/login/')
 def download_ficha(request):
-	file_path = os.path.join(settings.MEDIA_ROOT, 'ficha_investigacao_esporotricose(1).pdf')
+	file_path = os.path.join(settings.MEDIA_ROOT, 'ficha_esporotricose_humana.pdf')
 	if os.path.exists(file_path):
 		with open(file_path, 'rb') as fh:
 			response = HttpResponse(fh.read(), content_type="application/pdf")
