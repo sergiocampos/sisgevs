@@ -71,7 +71,6 @@ urlpatterns = [
 
     path('login/',views.login_page, name='login_page'),
     path('login/submit', views.set_login_page),
-    path('informar_dados_ficha/', views.informar_dados_ficha, name='informar_dados_ficha'),
     path('localizar_paciente_nome/', views.localizar_paciente_nome, name='localizar_paciente_nome'),
     path('localizar_paciente_nome/submit', views.set_localizar_paciente_nome),
     path('search_paciente_nome/', views.search_paciente_nome, name='search_paciente_nome'),
