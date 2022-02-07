@@ -779,16 +779,12 @@ footer {
                         date2.max = new Date().toISOString().split("T")[0];
                       </script>
                       <div class="col-lg-3">
-                        <div class="form-group"><b>Identidade de Gênero</b>
+                        <div class="form-group"><b>Sexo</b>
                           <select class="form-control" name="sexo" id="genero_paciente" onclick="activeGestante()">
-
                             <option value="" disabled selected>Selecionar</option>
                             <option value="M">Masculino</option>
                             <option value="F">Feminino</option>
-                            <option value="M-Trans">Masculino Trans</option>
-                            <option value="F-Trans">Feminino Trans</option>
-                            <option value="Nao Binario">Não Binario</option>
-
+                            <option value="Ignorado">Ignorado</option>
                           </select>
                         </div>
                       </div>
@@ -947,7 +943,7 @@ footer {
 
                   <div class="col-md-2">
                     <div class="form-group"><b>CEP</b>
-                      <input class="form-control" type="text" onkeypress="return limitcarc(event, 'num')" name="cep_residencia" id="cep" placeholder="" value="{{form.cep_residencia}}" required>
+                      <input class="form-control" type="text" onkeypress="return limitcarc(event, 'num')" name="cep_residencia" id="cep" placeholder="" value="{{form.cep_residencia}}">
                     </div>
                   </div>
                   <div class="col-md-3">
