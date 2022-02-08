@@ -67,7 +67,8 @@ def login_submit(request):
 		if result['success']:
 			if user is not None:
 				login(request, user)
-				return redirect('/all_forms/')
+				#return redirect('/all_forms/')
+				return redirect('/principal/')
 			else:
 				return render(request, 'login_page.html')
 
@@ -229,6 +230,13 @@ def caso_view(request, id):
 @login_required(login_url='/login/')
 def caso_view_detail(request, id):
 	registro = CasoEsporotricose.objects.get(id=id)
+	registro_cidade_residencia_str = registro.municipio_residencia
+	registro_cidade_residencia_id = int(registro_cidade_residencia_str)
+
+
+
+
+	municipio_residencia = Municipio.objects.get(id=registro_cidade_residencia_id)
 
 	if registro.municipio != None:
 		municipio_id = registro.municipio
@@ -236,7 +244,8 @@ def caso_view_detail(request, id):
 	else:
 		municipio = None
 
-	return render(request, 'caso_view_detail.html', {'registro':registro, 'municipio':municipio})
+	return render(request, 'caso_view_detail.html', {'registro':registro, 'municipio':municipio, 'municipio_residencia':
+		municipio_residencia})
 
 
 @login_required(login_url='/login/')
@@ -290,7 +299,7 @@ def ajax_hospitalizacao_ibge(request):
 def ajax_autoctone_uf(request):
 	uf_id = request.GET.get('municipio_id')
 	#cod_ibge = JoinMunicipioIbgeUnidadeSaude.objects.filter(municipio=municipio).all()
-	municipio = MunicipioBr.objects.filter(uf_id=uf_id).all()
+	municipio = Municipios.objects.filter(uf_id=uf_id).all()
 	
 	return render(request, 'municipios_estado_ajax.html', {'municipio':municipio})
 
@@ -429,9 +438,16 @@ def my_datas(request):
 		user_area_tecnica = request.user.area_tecnica
 		user_gerencia_regional = request.user.gerencia_regional
 		user_municipio_id = request.user.municipio_id
-		user_municipio_nome = str(Municipio.objects.filter(id=user_municipio_id)[0]).upper()
-		registros = CasoEsporotricose.objects.filter(Q(municipio_residencia=user_municipio_id) | Q(municipio_residencia=user_municipio_nome) | Q(municipio=user_municipio_id)).order_by('-id')
+		#user_municipio_nome = str(Municipio.objects.filter(id=user_municipio_id)[0]).upper()
+		#registros = CasoEsporotricose.objects.filter(Q(municipio_residencia=user_municipio_id) | Q(municipio_residencia=user_municipio_nome) | Q(municipio=user_municipio_id)).order_by('-id')
 		
+		user_municipio_nome = Municipio.objects.get(id=user_municipio_id)
+
+		registros = CasoEsporotricose.objects.filter(municipio=user_municipio_id)
+
+		print("municipio do usuário:",user_municipio_id)
+		print("munhicpio do usuário:", user_municipio_nome)
+
 		paginator = Paginator(registros, 6)
 		page = request.GET.get('page')
 		regs = paginator.get_page(page)
@@ -642,8 +658,10 @@ def set_caso_esporotricose_create(request):
 	cep_residencia = request.POST.get('cep_residencia')
 	uf_residencia = request.POST.get('uf_residencia')
 	municipio_residencia = int(request.POST.get('cidade_residencia'))
-	municipio_residencia = Municipio.objects.get(id=municipio_residencia)
-	municipio_residencia = str(municipio_residencia.nome).upper()
+	print("municipio de residencia escolhido:", municipio_residencia)
+	municipio_residencia = Municipios.objects.get(id=municipio_residencia)
+	municipio_residencia = (municipio_residencia.nome).upper()
+	print(" segunda...municipio de residencia escolhido:", municipio_residencia)
 	bairro_residencia = request.POST.get('bairro_residencia')
 	codigo_ibge_residencia = request.POST.get('codigo_ibge_residencia')
 	rua_residencia = request.POST.get('rua_residencia')
@@ -1262,22 +1280,25 @@ def ajax_exportar_index_aberto(request):
 def caso_esporotricose_edit(request, id):
 	caso = CasoEsporotricose.objects.get(id=id)
 	estados = Estado.objects.all().order_by('nome')
-	
+
 	try:
 		estado_caso_str = int(caso.uf_residencia)
 	except Exception as e:
 		estado_caso = None
 	else:
 		estado_caso = Estado.objects.get(id=estado_caso_str)
+		print(estado_caso.id)
 	
-	cidade_caso_ = caso.municipio_residencia.title()
-	print("municipio do caso:", cidade_caso_, type(cidade_caso_))
-
-	cidade_caso_registro = Municipio.objects.get(nome=cidade_caso_)
+	#cidade_caso_ = caso.municipio_residencia.title()
+	cidade_caso = caso.municipio_residencia
+	#print("municipio do caso:", cidade_caso_, type(cidade_caso_))
+	codigo_ibge_residencia = caso.codigo_ibge_residencia
+	municipio_residencia = (caso.municipio_residencia).title()
+	#cidade_caso_registro = Municipio.objects.get(nome=cidade_caso_)
 	#print("cidade_caso_registro:", cidade_caso_registro[0])
-	cidade_caso_id = cidade_caso_registro.id
+	#cidade_caso_id = cidade_caso_registro.id
 
-	cidade_caso = Municipios.objects.get(id=cidade_caso_id)
+	#cidade_caso = Municipios.objects.get(id=cidade_caso_id)
 
 	print("residencia do caso:", estado_caso)
 
@@ -1383,7 +1404,7 @@ def caso_esporotricose_edit(request, id):
 		
 	return render(request, 'caso_esporotricose_edit.html', {'form':caso, 'municipios':municipios, 'unidades_saude':unidades_saude, 
 		'codigos_ibge':codigos_ibge, 'estados':estados, 'codigo_ibge':codigo_ibge, 'unidade_saude_caso':unidade_saude_caso,
-		'estado_caso':estado_caso, 'cidade_caso':cidade_caso})
+		'estado_caso':estado_caso, 'cidade_caso':cidade_caso, 'codigo_ibge_residencia': codigo_ibge_residencia, 'municipio_residencia': municipio_residencia})
 
 @login_required(login_url='/login/')
 def set_caso_esporotricose_edit(request, id):
@@ -1461,8 +1482,11 @@ def set_caso_esporotricose_edit(request, id):
 	cep_residencia = request.POST.get('cep_residencia')
 	uf_residencia = request.POST.get('uf_residencia')
 	municipio_residencia = request.POST.get('cidade_residencia')
+	municipio_residencia = Municipios.objects.get(id=municipio_residencia)
+	municipio_residencia = str(municipio_residencia.nome).upper()
 	bairro_residencia = request.POST.get('bairro_residencia')
 	codigo_ibge_residencia = request.POST.get('codigo_ibge_residencia')
+	print(codigo_ibge_residencia)
 	rua_residencia = request.POST.get('rua_residencia')
 	numero_residencia = request.POST.get('numero_residencia')
 	complemento_residencia = request.POST.get('complemento_residencia')
@@ -1775,13 +1799,14 @@ def set_caso_esporotricose_edit(request, id):
 
 @login_required(login_url='/login/')
 def export_data_csv(request):
-	user = request.user
-	municipio_user_logado = user.municipio
-	print("municipio do usuário:", municipio_user_logado)
-	municipio_user_ = Municipio.objects.get(nome=municipio_user_logado)
-	print("id do municipio do user:", municipio_user_)
+	#user = request.user
+	municipio_user_logado = request.user.municipio.id
+	#print("municipio do usuário:", municipio_user_logado)
+	municipio_user_ = Municipio.objects.get(id=municipio_user_logado)
 	municipio_user = municipio_user_.id
-	print("id do municipio do user:", municipio_user)
+	#print("id do municipio do user:", municipio_user_)
+	#municipio_user = municipio_user_.id
+	#print("id do municipio do user:", municipio_user)
 	#municipio_user = Municipio.objects.get(id=municipio_user_id)
 	casos_ = CasoEsporotricose.objects.all()
 
@@ -1824,7 +1849,7 @@ def export_data_csv(request):
 		cell.value = column_title
 
 	
-	if user.funcao == 'autocadastro':
+	if request.user.funcao == 'autocadastro':
 		casos = casos_.filter(municipio=municipio_user)
 
 		for s in casos:
@@ -2473,7 +2498,7 @@ def export_data_csv(request):
 		return response
 
 
-	elif user.funcao == 'municipal':
+	elif request.user.funcao == 'municipal':
 		casos = casos_.filter(municipio=municipio_user)
 
 		for s in casos:
@@ -3005,121 +3030,121 @@ def export_data_csv(request):
 
 		
 
-		row = [
-			tipo_notificacao,
-			agravo_doenca,
-			codigo_cib10,
-			data_notificacao,
-			estado,
-			municipio,
-			codigo_ibge,
-			data_primeiros_sintomas,
-			unidade_saude,
-			unidade_saude_outro,
-			nome_paciente,
-			data_nascimento_paciente,
-			idade_paciente,
-			sexo_paciente,
-			paciente_gestante,
-			raca_paciente,
-			escolaridade_paciente,
-			cartao_sus_paciente,
-			nome_mae_paciente,
-			cep_residencia,
-			uf_residencia,
-			municipio_residencia,
-			bairro_residencia,
-			codigo_ibge_residencia,
-			rua_residencia,
-			numero_residencia,
-			complemento_residencia,
-			distrito_residencia,
-			ponto_referencia_residencia,
-			telefone_residencia,
-			zona_residencia,
-			pais_residencia,
-			data_investigacao,
-			ocupacao,
-			ambientes_frequentados,
-			animais_que_teve_contato,
-			natureza_contato_animais,
-			relacao_animal_doente,
-			exerce_atividade_contato_plantas,
-			historico_contato_material,
-			presenca_lesao_pele,
-			natureza_lesao,
-			natureza_lesao_outro,
-			local_lesao,
-			local_lesao_outro,
-			diagnostico_forma_extrac_doenca,
-			localizacao_forma_extrac_doenca,
-			houve_coleta_material,
-			data_coleta1,
-			numero_gal1,
-			data_coleta2,
-			numero_gal2,
-			data_coleta3,
-			numero_gal3,
-			resultado_isolamento,
-			agente,
-			histopatologia,
-			data_resultado_exame1,
-			descricao_exame_1,
-			resultado_exame1,
-			data_resultado_exame2,
-			descricao_exame_2,
-			resultado_exame2,
-			data_resultado_exame3,
-			descricao_exame_3,
-			resultado_exame3,
-			data_inicio_tratamento1,
-			droga_administrada1,
-			esquema_terapeutico1,
-			data_inicio_tratamento2,
-			droga_administrada2,
-			esquema_terapeutico2,
-			data_inicio_tratamento3,
-			droga_administrada3,
-			esquema_terapeutico3,
-			hospitalizacao,
-			data_internacao,
-			data_da_alta,
-			uf_hospitalizacao,
-			municipio_hospitalizacao,
-			codigo_ibge_hospitalizacao,
-			nome_hospital_hospitalizacao,
-			classificacao_final,
-			criterio_confirmacao,
-			caso_autoctone_municipio_residencia,
-			uf_caso_autoctone,
-			pais_caso_autoctone,
-			municipio_caso_autoctone,
-			codigo_ibge_caso_autoctone,
-			distrito_caso_autoctone,
-			bairro_caso_autoctone,
-			area_provavel_infeccao_caso_autoctone,
-			ambiente_infeccao_caso_autoctone,
-			doenca_rel_trabalho_caso_autoctone,
-			evolucao_caso,
-			data_obito,
-			data_encerramento,
-			observacao,
-			nome_investigador,
-			funcao_investigador,
-			email_investigador,
-			telefone_investigador,
-			conselho_classe_investigador,
-			numero_unico,
+			row = [
+				tipo_notificacao,
+				agravo_doenca,
+				codigo_cib10,
+				data_notificacao,
+				estado,
+				municipio,
+				codigo_ibge,
+				data_primeiros_sintomas,
+				unidade_saude,
+				unidade_saude_outro,
+				nome_paciente,
+				data_nascimento_paciente,
+				idade_paciente,
+				sexo_paciente,
+				paciente_gestante,
+				raca_paciente,
+				escolaridade_paciente,
+				cartao_sus_paciente,
+				nome_mae_paciente,
+				cep_residencia,
+				uf_residencia,
+				municipio_residencia,
+				bairro_residencia,
+				codigo_ibge_residencia,
+				rua_residencia,
+				numero_residencia,
+				complemento_residencia,
+				distrito_residencia,
+				ponto_referencia_residencia,
+				telefone_residencia,
+				zona_residencia,
+				pais_residencia,
+				data_investigacao,
+				ocupacao,
+				ambientes_frequentados,
+				animais_que_teve_contato,
+				natureza_contato_animais,
+				relacao_animal_doente,
+				exerce_atividade_contato_plantas,
+				historico_contato_material,
+				presenca_lesao_pele,
+				natureza_lesao,
+				natureza_lesao_outro,
+				local_lesao,
+				local_lesao_outro,
+				diagnostico_forma_extrac_doenca,
+				localizacao_forma_extrac_doenca,
+				houve_coleta_material,
+				data_coleta1,
+				numero_gal1,
+				data_coleta2,
+				numero_gal2,
+				data_coleta3,
+				numero_gal3,
+				resultado_isolamento,
+				agente,
+				histopatologia,
+				data_resultado_exame1,
+				descricao_exame_1,
+				resultado_exame1,
+				data_resultado_exame2,
+				descricao_exame_2,
+				resultado_exame2,
+				data_resultado_exame3,
+				descricao_exame_3,
+				resultado_exame3,
+				data_inicio_tratamento1,
+				droga_administrada1,
+				esquema_terapeutico1,
+				data_inicio_tratamento2,
+				droga_administrada2,
+				esquema_terapeutico2,
+				data_inicio_tratamento3,
+				droga_administrada3,
+				esquema_terapeutico3,
+				hospitalizacao,
+				data_internacao,
+				data_da_alta,
+				uf_hospitalizacao,
+				municipio_hospitalizacao,
+				codigo_ibge_hospitalizacao,
+				nome_hospital_hospitalizacao,
+				classificacao_final,
+				criterio_confirmacao,
+				caso_autoctone_municipio_residencia,
+				uf_caso_autoctone,
+				pais_caso_autoctone,
+				municipio_caso_autoctone,
+				codigo_ibge_caso_autoctone,
+				distrito_caso_autoctone,
+				bairro_caso_autoctone,
+				area_provavel_infeccao_caso_autoctone,
+				ambiente_infeccao_caso_autoctone,
+				doenca_rel_trabalho_caso_autoctone,
+				evolucao_caso,
+				data_obito,
+				data_encerramento,
+				observacao,
+				nome_investigador,
+				funcao_investigador,
+				email_investigador,
+				telefone_investigador,
+				conselho_classe_investigador,
+				numero_unico,
 
-		]
-		for col_num, cell_value in enumerate(row, 1):
-			cell = worksheet.cell(row=row_num, column=col_num)
-			cell_value_ = str(cell_value)
-			cell.value = cell_value_
+			]
+			for col_num, cell_value in enumerate(row, 1):
+				cell = worksheet.cell(row=row_num, column=col_num)
+				cell_value_ = str(cell_value)
+				cell.value = cell_value_
 
-		workbook.save(response)
+			workbook.save(response)
 
-		return response
+			return response
 
 
 	else:
@@ -3812,3 +3837,8 @@ def export_data_csv(request):
 @login_required(login_url='/login/')
 def organograma(request):
 	return render(request, 'organograma.html')
+
+
+@login_required(login_url='/login/')
+def principal(request):
+	return render(request, 'principal.html')

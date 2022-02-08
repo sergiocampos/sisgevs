@@ -374,7 +374,7 @@ footer {
   <div class="collapse navbar-collapse" id="collapsibleNavbar">
     <ul class="navbar-nav">
       <li class="nav-item">
-        <a class="nav-link" href="/all_forms/">Início</a>
+        <a class="nav-link" href="/principal/">Principal</a>
       </li>
 
       {% if user.funcao == 'gerencia_executiva' or user.funcao == 'admin' %}
@@ -423,7 +423,9 @@ footer {
               <li><a href="/criar_perfil_municipal/">Criar Perfil Municipal</a></li>
               <hr>
             {% endif %}
+            <!--
             <li><a href="/all_forms/" data-toggle="collapse" data-target="#formularios">Formulários</a></li>
+            
             <div id="formularios" class="collapse">
               <li><a href="/all_forms/">Esporotricose Humana</a></li>
               <li><a href="/main/">Chikungunya</a></li>
@@ -431,6 +433,7 @@ footer {
               <li><a href="/main/">Zika</a></li>
             </div>
             <hr>
+          -->
             <li><a href="/my_datas/">Notificações</a></li>
             <hr>
             <li><a href="/download_ficha/" data-toggle="collapse" data-target="#_demo">Ficha</a></li>
@@ -538,7 +541,7 @@ footer {
                   </div>
                   <div class="col-md-2">
                     <div class="form-group"><b>Código CID-<input style="border:none; width: 40px; background-color:#f1f1f1" min="0" type="number" id="cid_number" disabled></b>
-                      <input class="form-control" type="text" name="codigo_cid" placeholder="" value="B42.9">
+                      <input class="form-control" type="text" name="codigo_cid" placeholder="" value="B42">
                     </div>
                   </div>
                   
@@ -583,7 +586,7 @@ footer {
 
                   <div class="col-md-2">
                     <div class="form-group"><b>UF</b>
-                        <input class="form-control" id= type="text" name="uf_notificacao" placeholder="" value="PB" readonly id="estado">
+                        <input class="form-control" type="text" name="uf_notificacao" placeholder="" value="PB" readonly id="estado">
                     </div>
                   </div>
                   <div class="col-md-3">
@@ -593,9 +596,7 @@ footer {
                         <option value="" selected disabled><i>Selecionar</i></option>
                         -->
                         <option value="{{user.municipio.id}}"selected>{{user.municipio}}</option>
-                        {% for municipio in municipios %}
-                        <option value="{{municipio.id}}">{{municipio.nome}}</option>
-                        {% endfor %}
+                        
 
                       </select>
                       
@@ -956,7 +957,7 @@ footer {
 
                   <div class="col-md-2">
                     <div class="form-group"><b>CEP</b>
-                      <input class="form-control" type="text" onkeypress="return limitcarc(event, 'num')" name="cep_residencia" id="cep" placeholder="" value="" required onkeydown="verificarNotifGeral()">
+                      <input class="form-control" type="text" onkeypress="return limitcarc(event, 'num')" name="cep_residencia" id="cep" placeholder="" value="" onkeydown="verificarNotifGeral()">
                     </div>
                   </div>
                   <div class="col-md-3">
@@ -1003,18 +1004,7 @@ footer {
 
                   <div class="col-md-2">
                     <div class="form-group"><b>Código IBGE</b>
-                      <select class="form-control" name="codigo_ibge_residencia" id="ibge_municipio_residencia_id" readonly>
-                        {% for m in municipios %}
-                        {% if m.nome == "João Pessoa" %}
-                        <option value="{{m.ibge}}" selected>{{m.ibge}}</option>
-                        {%else%}
-                        <option value="{{m.ibge}}">{{m.ibge}}</option>
-                        {%endif%}
-                        {%endfor%}
-                      </select>
-                      <!--
-                      <input class="form-control" type="text" onkeypress="return limitcarc(event, 'num')" name="codigo_ibge_residencia" id="ibge" placeholder="" value="">
-                    -->
+                      <input type="text" class="form-control" id="ibge_municipio_residencia_id" name="codigo_ibge_residencia" readonly>
                     </div>
                   </div>
                   
@@ -3164,7 +3154,7 @@ footer {
           data: { 'municipios_estado_id': municipioId},
           success: function(data){
             console.log(data);
-            $("#ibge_municipio_residencia_id").html(data);
+            $("#ibge_municipio_residencia_id").val(data);
           }
         });
 

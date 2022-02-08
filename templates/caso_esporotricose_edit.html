@@ -779,16 +779,12 @@ footer {
                         date2.max = new Date().toISOString().split("T")[0];
                       </script>
                       <div class="col-lg-3">
-                        <div class="form-group"><b>Identidade de Gênero</b>
+                        <div class="form-group"><b>Sexo</b>
                           <select class="form-control" name="sexo" id="genero_paciente" onclick="activeGestante()">
-
                             <option value="" disabled selected>Selecionar</option>
                             <option value="M">Masculino</option>
                             <option value="F">Feminino</option>
-                            <option value="M-Trans">Masculino Trans</option>
-                            <option value="F-Trans">Feminino Trans</option>
-                            <option value="Nao Binario">Não Binario</option>
-
+                            <option value="Ignorado">Ignorado</option>
                           </select>
                         </div>
                       </div>
@@ -947,17 +943,18 @@ footer {
 
                   <div class="col-md-2">
                     <div class="form-group"><b>CEP</b>
-                      <input class="form-control" type="text" onkeypress="return limitcarc(event, 'num')" name="cep_residencia" id="cep" placeholder="" value="{{form.cep_residencia}}" required>
+                      <input class="form-control" type="text" onkeypress="return limitcarc(event, 'num')" name="cep_residencia" id="cep" placeholder="" value="{{form.cep_residencia}}">
                     </div>
                   </div>
                   <div class="col-md-3">
                     <div class="form-group"><b>UF</b>
                       <select class="form-control" name="uf_residencia" id="uf_edit_endereco_id">
-                        <option value="{{estado_caso}}" selected>{{estado_caso}}</option>
                         {% for e in estados %}
-                        
+                        {% if e.id == estado_caso.id %}
+                        <option value="{{estado_caso.id}}" selected>{{estado_caso.nome}}</option>
+                        {% else %}
                         <option value="{{e.id}}">{{e.nome}}</option>
-                        
+                        {% endif %}
                         {% endfor %}
                         
                       </select>
@@ -968,12 +965,13 @@ footer {
                   <div class="col-md-3">
                     <div class="form-group"><b>Município de Residência</b><i id="alert_municipio_residencia" style="color:red">**</i>
                       <select class="form-control" name="cidade_residencia" id="municipios_estado_id">
-                        <option value="{{cidade_caso}}" selected>{{cidade_caso}}</option>
-                        {% for m in municipios %}                       
-                
+                        {% for m in municipios %}
+                        {% if m.nome == municipio_residencia %}                       
+                        <option value="{{m.id}}" selected>{{m.nome}}</option>
+                        {% else %}
                         <option value="{{m.id}}">{{m.nome}}</option>
-                        
-                        {%endfor%}
+                        {% endif %}
+                        {% endfor %}
                       </select>                      
                      
                     </div>              
@@ -987,7 +985,7 @@ footer {
 
                   <div class="col-md-2">
                     <div class="form-group"><b>Código IBGE</b>
-                      
+                     {% comment %}  
                       <select class="form-control" name="codigo_ibge_residencia" id="ibge_municipio_residencia_id" readonly>
                         <option value="{{codigo_ibge}}" selected>{{codigo_ibge}}</option>
                         {% for m in municipios %}
@@ -996,10 +994,8 @@ footer {
                         
                         {%endfor%}
                       </select>
-                     
-                      <!--
-                      <input class="form-control" type="text" onkeypress="return limitcarc(event, 'num')" name="codigo_ibge_residencia" id="ibge" placeholder="" value="{{codigo_ibge}}" readonly>
-                    -->
+                      {% endcomment %}
+                      <input class="form-control" type="text" onkeypress="return limitcarc(event, 'num')" name="codigo_ibge_residencia" id="ibge_municipio_residencia_id" placeholder="" value="{{codigo_ibge_residencia}}" readonly>
                     </div>
                   </div>
                   
@@ -2969,7 +2965,6 @@ footer {
       $("#uf_edit_endereco_id").change(function(){
         //const url = $('#Form').attr("data-autoctone-distrito-url");
         municipioId = $(this).val();
-        console.log(this.id);
 
         $.ajax({
           url : '{% url "ajax_edicao_uf_cidades" %}',
@@ -2992,7 +2987,7 @@ footer {
           data: { 'municipios_estado_id': municipioId},
           success: function(data){
             console.log(data);
-            $("#ibge_municipio_residencia_id").html(data);
+            $("#ibge_municipio_residencia_id").val(data);
           }
         });        
       });
