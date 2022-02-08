@@ -299,7 +299,7 @@ def ajax_hospitalizacao_ibge(request):
 def ajax_autoctone_uf(request):
 	uf_id = request.GET.get('municipio_id')
 	#cod_ibge = JoinMunicipioIbgeUnidadeSaude.objects.filter(municipio=municipio).all()
-	municipio = MunicipioBr.objects.filter(uf_id=uf_id).all()
+	municipio = Municipios.objects.filter(uf_id=uf_id).all()
 	
 	return render(request, 'municipios_estado_ajax.html', {'municipio':municipio})
 
@@ -659,8 +659,8 @@ def set_caso_esporotricose_create(request):
 	uf_residencia = request.POST.get('uf_residencia')
 	municipio_residencia = int(request.POST.get('cidade_residencia'))
 	print("municipio de residencia escolhido:", municipio_residencia)
-	municipio_residencia = MunicipioBr.objects.get(id=municipio_residencia)
-	municipio_residencia = str(municipio_residencia.nome).upper()
+	municipio_residencia = Municipios.objects.get(id=municipio_residencia)
+	municipio_residencia = (municipio_residencia.nome).upper()
 	print(" segunda...municipio de residencia escolhido:", municipio_residencia)
 	bairro_residencia = request.POST.get('bairro_residencia')
 	codigo_ibge_residencia = request.POST.get('codigo_ibge_residencia')
@@ -1280,18 +1280,20 @@ def ajax_exportar_index_aberto(request):
 def caso_esporotricose_edit(request, id):
 	caso = CasoEsporotricose.objects.get(id=id)
 	estados = Estado.objects.all().order_by('nome')
-	
+
 	try:
 		estado_caso_str = int(caso.uf_residencia)
 	except Exception as e:
 		estado_caso = None
 	else:
 		estado_caso = Estado.objects.get(id=estado_caso_str)
+		print(estado_caso.id)
 	
 	#cidade_caso_ = caso.municipio_residencia.title()
 	cidade_caso = caso.municipio_residencia
 	#print("municipio do caso:", cidade_caso_, type(cidade_caso_))
-
+	codigo_ibge_residencia = caso.codigo_ibge_residencia
+	municipio_residencia = (caso.municipio_residencia).title()
 	#cidade_caso_registro = Municipio.objects.get(nome=cidade_caso_)
 	#print("cidade_caso_registro:", cidade_caso_registro[0])
 	#cidade_caso_id = cidade_caso_registro.id
@@ -1402,7 +1404,7 @@ def caso_esporotricose_edit(request, id):
 		
 	return render(request, 'caso_esporotricose_edit.html', {'form':caso, 'municipios':municipios, 'unidades_saude':unidades_saude, 
 		'codigos_ibge':codigos_ibge, 'estados':estados, 'codigo_ibge':codigo_ibge, 'unidade_saude_caso':unidade_saude_caso,
-		'estado_caso':estado_caso, 'cidade_caso':cidade_caso})
+		'estado_caso':estado_caso, 'cidade_caso':cidade_caso, 'codigo_ibge_residencia': codigo_ibge_residencia, 'municipio_residencia': municipio_residencia})
 
 @login_required(login_url='/login/')
 def set_caso_esporotricose_edit(request, id):
@@ -1480,8 +1482,11 @@ def set_caso_esporotricose_edit(request, id):
 	cep_residencia = request.POST.get('cep_residencia')
 	uf_residencia = request.POST.get('uf_residencia')
 	municipio_residencia = request.POST.get('cidade_residencia')
+	municipio_residencia = Municipios.objects.get(id=municipio_residencia)
+	municipio_residencia = str(municipio_residencia.nome).upper()
 	bairro_residencia = request.POST.get('bairro_residencia')
 	codigo_ibge_residencia = request.POST.get('codigo_ibge_residencia')
+	print(codigo_ibge_residencia)
 	rua_residencia = request.POST.get('rua_residencia')
 	numero_residencia = request.POST.get('numero_residencia')
 	complemento_residencia = request.POST.get('complemento_residencia')
