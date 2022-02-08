@@ -580,14 +580,13 @@ footer {
                     </div>
                   </div>
                   <div class="col-md-3">
-                    <div class="form-group"><b>Município</b><i id="alert_municipio" style="color:red">**</i>
+                    <div class="form-group"><b>Município Notificador</b><i id="alert_municipio" style="color:red">**</i>
                       <select class="form-control" name="municipio_notificacao" id="municipio_id" required onchange="verificarNotifGeral()">
-                        <option value="" selected disabled><i>Selecionar</i></option>
+                        
                         {% for municipio in municipios %}
                           {% if municipio.id == form.municipio %}
                             <option value="{{municipio.id}}" selected>{{municipio.nome}}</option>
-                          {% else %}
-                            <option value="{{municipio.id}}">{{municipio.nome}}</option>
+                          
                           {% endif %}
                         {% endfor %}
 
@@ -965,6 +964,7 @@ footer {
                   <div class="col-md-3">
                     <div class="form-group"><b>Município de Residência</b><i id="alert_municipio_residencia" style="color:red">**</i>
                       <select class="form-control" name="cidade_residencia" id="municipios_estado_id">
+                        <option value="{{cidade_caso}}">{{cidade_caso}}</option>
                         {% for m in municipios %}
                         {% if m.nome == municipio_residencia %}                       
                         <option value="{{m.id}}" selected>{{m.nome}}</option>

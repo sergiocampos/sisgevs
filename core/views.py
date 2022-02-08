@@ -1290,15 +1290,15 @@ def caso_esporotricose_edit(request, id):
 		print(estado_caso.id)
 	
 	#cidade_caso_ = caso.municipio_residencia.title()
-	cidade_caso = caso.municipio_residencia
+	cidade_caso = int(caso.municipio_residencia)
 	#print("municipio do caso:", cidade_caso_, type(cidade_caso_))
 	codigo_ibge_residencia = caso.codigo_ibge_residencia
 	municipio_residencia = (caso.municipio_residencia).title()
 	#cidade_caso_registro = Municipio.objects.get(nome=cidade_caso_)
 	#print("cidade_caso_registro:", cidade_caso_registro[0])
-	#cidade_caso_id = cidade_caso_registro.id
+	cidade_caso_id = cidade_caso
 
-	#cidade_caso = Municipios.objects.get(id=cidade_caso_id)
+	cidade_caso = Municipios.objects.get(id=cidade_caso_id)
 
 	print("residencia do caso:", estado_caso)
 
