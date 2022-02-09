@@ -937,7 +937,12 @@ footer {
 
               </div>
               <div id="menu1" class="container tab-pane fade"><br>
+                <script>
+                  function activeMunicipio(){
+                    $("#municipios_estado_id").prop("disabled", false);
 
+                  }
+                                  </script>
                 <div class="row">
 
                   <div class="col-md-2">
@@ -947,7 +952,20 @@ footer {
                   </div>
                   <div class="col-md-3">
                     <div class="form-group"><b>UF</b>
-                      <select class="form-control" name="uf_residencia" id="uf_edit_endereco_id">
+                      <select class="form-control" name="uf_residencia" id="uf_edit_endereco_id" onclick="activeMunicipio()">
+                        {% if estado_caso != None %}
+                        <option value="{{estado_caso.id}}" selected>{{estado_caso.nome}}</option>
+                          {% for estado_caso in estados %}
+                          <option value="{{estado_caso.id}}">{{estado_caso.nome}}</option>
+                          {% endfor %}
+                        {%else%}
+                        <option value="" selected>escolha...</option>
+                        {% for estado_caso in estados %}
+                        <option value="{{estado_caso.id}}">{{estado_caso.nome}}</option>
+                        {% endfor %}
+                        {%endif%}
+
+                        <!--
                         {% for e in estados %}
                         {% if e.id == estado_caso.id %}
                         <option value="{{estado_caso.id}}" selected>{{estado_caso.nome}}</option>
@@ -955,7 +973,7 @@ footer {
                         <option value="{{e.id}}">{{e.nome}}</option>
                         {% endif %}
                         {% endfor %}
-                        
+                        -->
                       </select>
                       <!--<input class="form-control" type="text" onkeypress="return limitcarc(event, 'letr')" name="uf_residencia" id="uf" placeholder="" value="{{form.uf_residencia}}" style="text-transform:uppercase">
                     -->
@@ -963,8 +981,8 @@ footer {
                   </div>
                   <div class="col-md-3">
                     <div class="form-group"><b>Município de Residência</b><i id="alert_municipio_residencia" style="color:red">**</i>
-                      <select class="form-control" name="cidade_residencia" id="municipios_estado_id">
-                        <option value="{{cidade_caso}}">{{cidade_caso}}</option>
+                      <select class="form-control" name="cidade_residencia" id="municipios_estado_id" disabled>
+                        <option value="{{municipio_residencia}}" selected>{{municipio_residencia}}</option>
                         {% for m in municipios %}
                         {% if m.nome == municipio_residencia %}                       
                         <option value="{{m.id}}" selected>{{m.nome}}</option>

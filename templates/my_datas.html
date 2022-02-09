@@ -20,6 +20,11 @@
       height: 500px;
       background: #aaa;
     }
+
+    #content__table_id {
+      max-height: 400px;
+      overflow-y: scroll;
+    }
   </style>
 
   <style>
@@ -216,26 +221,52 @@ footer {
           </div>
 
           <div class="row">
-            <div class="col-sm-10"></div>
+            <div class="col-sm-6">
+              <input class="form-control" type="text" id="pesquisar">
+             
+            </div>
+            <div class="col-sm-4"></div>
             <div class="col-sm-2">
               <a href="/export_data_csv/"><button type="button" class="btn btn-primary btn-sm">Exportar Dados</button></a>
             </div>
           </div>
+
+          <style>
+            .table          { overflow-y: auto; height: 100px; }
+            .table thead th { position: sticky; top: 0; background-color: #d9d9d9;}
+
+          </style>
           
+
+          <script>
+            $(document).ready(function(){
+              $("#myInput").on("keyup", function() {
+                var value = $(this).val().toLowerCase();
+                $("#myTable tr").filter(function() {
+                  $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                });
+              });
+            });
+          </script>
+
+
+
           <br>
           
           {% include 'messages/message.html' %}
+          <div id="content__table_id">          
+          
           <table class="table table-hover" style="font-size: 80%;">
             <thead>
-              <tr>
+              
                 <th>Data Notificação</th>
                 <th>Nome Paciente</th>
-                <th>Idade</th>
+                <th>Data Nasc.</th>
+                <th>Nome da Mãe</th>
                 <th>Município de Residência</th>
-                <th>Município Notificador</th>
-                <th style="text-align: center;">Ações</th>
+                <th style="text-align: center; width: 280px">Ações</th>
 
-              </tr>
+              
             </thead>
             <tbody>
 
@@ -300,6 +331,11 @@ footer {
               {% endfor %}
             </tbody>
           </table>
+          </div>
+
+          
+
+
         </div>
 
 
@@ -310,6 +346,7 @@ footer {
 
     <br><br>
 
+    <!--
     <div class="pagination py-4">
       <span class="step-links" style="margin: auto">
         {% if regs.has_previous %}
@@ -323,7 +360,7 @@ footer {
          {% endif %}                
       </span> 
     </div>
-
+  -->
 
     <div class="jumbotron text-center" style="margin-bottom:0">
       <p>Footer</p>

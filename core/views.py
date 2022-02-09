@@ -361,7 +361,7 @@ def my_datas(request):
 		page = request.GET.get('page')
 		regs = paginator.get_page(page)
 
-		return render(request, 'my_datas.html', {'regs':regs, 'municipios':municipios})
+		return render(request, 'my_datas.html', {'regs':registros, 'municipios':municipios})
 
 	elif request.user.funcao == 'gerencia_executiva':
 		registros = CasoEsporotricose.objects.all().order_by('-id')
@@ -370,7 +370,7 @@ def my_datas(request):
 		page = request.GET.get('page')
 		regs = paginator.get_page(page)
 		
-		return render(request, 'my_datas.html', {'regs':regs, 'municipios':municipios})
+		return render(request, 'my_datas.html', {'regs':registros, 'municipios':municipios})
 
 	elif request.user.funcao == 'gerencia_operacional':
 		user_gerencia_operacional = request.user.gerencia_operacional
@@ -380,7 +380,7 @@ def my_datas(request):
 		page = request.GET.get('page')
 		regs = paginator.get_page(page)
 		
-		return render(request, 'my_datas.html', {'regs':regs, 'municipios':municipios})
+		return render(request, 'my_datas.html', {'regs':registros, 'municipios':municipios})
 
 	elif request.user.funcao == 'chefia_nucleo':
 		user_gerencia_operacional = request.user.gerencia_operacional
@@ -394,7 +394,7 @@ def my_datas(request):
 		page = request.GET.get('page')
 		regs = paginator.get_page(page)
 		
-		return render(request, 'my_datas.html', {'regs':regs, 'municipios':municipios})	
+		return render(request, 'my_datas.html', {'regs':registros, 'municipios':municipios})	
 
 	elif request.user.funcao == 'area_tecnica':
 		user_gerencia_operacional = request.user.gerencia_operacional
@@ -410,7 +410,7 @@ def my_datas(request):
 		page = request.GET.get('page')
 		regs = paginator.get_page(page)
 		
-		return render(request, 'my_datas.html', {'regs':regs, 'municipios':municipios})	
+		return render(request, 'my_datas.html', {'regs':registros, 'municipios':municipios})	
 
 	elif request.user.funcao == 'gerencia_regional':
 		user_gerencia_operacional = request.user.gerencia_operacional
@@ -428,7 +428,7 @@ def my_datas(request):
 		page = request.GET.get('page')
 		regs = paginator.get_page(page)
 		
-		return render(request, 'my_datas.html', {'regs':regs, 'municipios':municipios})
+		return render(request, 'my_datas.html', {'regs':registros, 'municipios':municipios})
 
 	elif request.user.funcao == 'municipal':
 		#senha = mlfAIcGI
@@ -438,12 +438,17 @@ def my_datas(request):
 		user_area_tecnica = request.user.area_tecnica
 		user_gerencia_regional = request.user.gerencia_regional
 		user_municipio_id = request.user.municipio_id
-		#user_municipio_nome = str(Municipio.objects.filter(id=user_municipio_id)[0]).upper()
-		#registros = CasoEsporotricose.objects.filter(Q(municipio_residencia=user_municipio_id) | Q(municipio_residencia=user_municipio_nome) | Q(municipio=user_municipio_id)).order_by('-id')
+		user_municipio_nome = str(Municipio.objects.filter(id=user_municipio_id)[0]).upper()
+		registros = CasoEsporotricose.objects.filter(Q(municipio_residencia=user_municipio_id) | 
+			Q(municipio_residencia=user_municipio_nome) | Q(municipio=user_municipio_id)).order_by('-id')
 		
 		user_municipio_nome = Municipio.objects.get(id=user_municipio_id)
 
-		registros = CasoEsporotricose.objects.filter(municipio=user_municipio_id)
+		#registros_user = CasoEsporotricose.objects.filter(municipio=user_municipio_id)
+
+		#registros_notificados_others = CasoEsporotricose.objects.filter(municipio_residencia=user_municipio_id)
+
+		#registros = registros_user + registros_notificados_others
 
 		print("municipio do usuário:",user_municipio_id)
 		print("munhicpio do usuário:", user_municipio_nome)
@@ -452,7 +457,7 @@ def my_datas(request):
 		page = request.GET.get('page')
 		regs = paginator.get_page(page)
 
-		return render(request, 'my_datas.html', {'regs':regs, 'municipios':municipios})
+		return render(request, 'my_datas.html', {'regs':registros, 'municipios':municipios})
 
 	elif request.user.funcao == 'autocadastro':
 		autocadastro_id = request.user.id
@@ -462,7 +467,7 @@ def my_datas(request):
 		page = request.GET.get('page')
 		regs = paginator.get_page(page)
 		
-		return render(request, 'my_datas.html', {'regs':regs, 'municipios':municipios})
+		return render(request, 'my_datas.html', {'regs':registros, 'municipios':municipios})
 	
 	else:
 		return redirect('all_forms')
@@ -1289,16 +1294,25 @@ def caso_esporotricose_edit(request, id):
 		estado_caso = Estado.objects.get(id=estado_caso_str)
 		print(estado_caso.id)
 	
-	#cidade_caso_ = caso.municipio_residencia.title()
-	cidade_caso = int(caso.municipio_residencia)
-	#print("municipio do caso:", cidade_caso_, type(cidade_caso_))
+	cidade_caso_ = caso.municipio_residencia
+	print("municipio do caso:", cidade_caso_, type(cidade_caso_))
+
+	cidade_caso_registro = Municipio.objects.filter(nome=cidade_caso_)
+
+	print("cidade_caso_registro:", cidade_caso_registro)
+
+	municipio_residencia_br = Municipios.objects.filter(nome=cidade_caso_)
+
+
+	#cidade_caso = int(caso.municipio_residencia)
+	cidade_caso = municipio_residencia_br
 	codigo_ibge_residencia = caso.codigo_ibge_residencia
 	municipio_residencia = (caso.municipio_residencia).title()
-	#cidade_caso_registro = Municipio.objects.get(nome=cidade_caso_)
-	#print("cidade_caso_registro:", cidade_caso_registro[0])
+	
+	
 	cidade_caso_id = cidade_caso
 
-	cidade_caso = Municipios.objects.get(id=cidade_caso_id)
+	#cidade_caso = Municipios.objects.get(id=cidade_caso_id)
 
 	print("residencia do caso:", estado_caso)
 
@@ -1404,7 +1418,8 @@ def caso_esporotricose_edit(request, id):
 		
 	return render(request, 'caso_esporotricose_edit.html', {'form':caso, 'municipios':municipios, 'unidades_saude':unidades_saude, 
 		'codigos_ibge':codigos_ibge, 'estados':estados, 'codigo_ibge':codigo_ibge, 'unidade_saude_caso':unidade_saude_caso,
-		'estado_caso':estado_caso, 'cidade_caso':cidade_caso, 'codigo_ibge_residencia': codigo_ibge_residencia, 'municipio_residencia': municipio_residencia})
+		'estado_caso':estado_caso, 'cidade_caso':cidade_caso, 'codigo_ibge_residencia': codigo_ibge_residencia, 
+		'municipio_residencia': municipio_residencia})
 
 @login_required(login_url='/login/')
 def set_caso_esporotricose_edit(request, id):
@@ -1481,9 +1496,16 @@ def set_caso_esporotricose_edit(request, id):
 	#Dados Residencia
 	cep_residencia = request.POST.get('cep_residencia')
 	uf_residencia = request.POST.get('uf_residencia')
+	
+
+
 	municipio_residencia = request.POST.get('cidade_residencia')
+	print("codigo do municipio de residencia:", municipio_residencia)
 	municipio_residencia = Municipios.objects.get(id=municipio_residencia)
 	municipio_residencia = str(municipio_residencia.nome).upper()
+	
+
+
 	bairro_residencia = request.POST.get('bairro_residencia')
 	codigo_ibge_residencia = request.POST.get('codigo_ibge_residencia')
 	print(codigo_ibge_residencia)
