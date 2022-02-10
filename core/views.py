@@ -443,7 +443,7 @@ def my_datas(request):
 		
 		user_municipio_nome = Municipio.objects.get(id=user_municipio_id)
 
-		registros = CasoEsporotricose.objects.filter(municipio=user_municipio_id)
+		registros = CasoEsporotricose.objects.filter(municipio=user_municipio_id).order_by('-id')
 
 		print("municipio do usuário:",user_municipio_id)
 		print("munhicpio do usuário:", user_municipio_nome)
@@ -1024,29 +1024,15 @@ def index_aberto(request):
 	return render(request, 'index_aberto.html')
 
 def ajax_index_aberto(request):
-	detectados = CasoEsporotricose.objects.filter(resultado_isolamento__icontains = 'Detectado')
-	nao_detectados = CasoEsporotricose.objects.filter(resultado_isolamento__icontains = 'Não detectado')
-	inconclusivo = CasoEsporotricose.objects.filter(resultado_isolamento__icontains = 'Inconclusivo')
-	nao_realizado = CasoEsporotricose.objects.filter(resultado_isolamento__icontains = 'Não Realizado')
-	vazio = CasoEsporotricose.objects.filter(resultado_isolamento = None)
-	
-	len_detectados = len(detectados)
-	len_nao_detectados = len(nao_detectados)
-	len_inconclusivo = len(inconclusivo)
-	len_nao_realizado = len(nao_realizado)
-	len_vazio = len(vazio)
-	soma_casos = len_detectados + len_nao_detectados + len_inconclusivo + len_nao_realizado + len_vazio
-	total_casos = "Total de Casos: " + str(soma_casos)
 	data = {
-		'doenca':"Esporotricose Humana",
-		'detectados':len_detectados,
-		'nao_detectados':len_nao_detectados,
-		'inconclusivo':len_inconclusivo,
-		'nao_realizado':len_nao_realizado,
-		'vazio':len_vazio,
-		'total':total_casos
-	}
-	
+		'doenca':"",
+		'detectados':0,
+		'nao_detectados':0,
+		'inconclusivo':0,
+		'nao_realizado':0,
+		'vazio':0,
+		'total':0
+	}	
 	return JsonResponse(data)
 
 
@@ -1054,142 +1040,68 @@ def ajax_index_aberto(request):
 
 
 def ajax_filtrar_index_aberto(request):
-	### APLICAR IF PARA TIPO DE FILTRO
+	# Dicionário para receber o Value do agravo e retornar o nome de forma mais adequada.
+	agravos = {'Selecione':'', 'ESPOROTRICOSE':'Esporotricose Humana', 'ZIKA':'Zika', 'CHIKUNGUNYA':'Chikungunya', 'DENGUE':'Dengue'}
+
+	# Capturando as informações
 	ano = request.GET.get('ano')
 	inicio = request.GET.get('inicio')
 	fim = request.GET.get('fim')
 	agravo = request.GET.get('agravo')
-	if inicio == "" and fim == "" and ano == "":
-		dados = CasoEsporotricose.objects.all().filter(agravo_doenca = agravo)
-		detectados = dados.filter(resultado_isolamento = 'Detectado')
-		nao_detectados = dados.filter(resultado_isolamento = 'Não detectado')
-		inconclusivo = dados.filter(resultado_isolamento = 'Inconclusivo')
-		nao_realizado = dados.filter(resultado_isolamento = 'Não Realizado')
-		vazio = dados.filter(resultado_isolamento = None)
-		
-		len_detectados = len(detectados)
-		len_nao_detectados = len(nao_detectados)
-		len_inconclusivo = len(inconclusivo)
-		len_nao_realizado = len(nao_realizado)
-		len_vazio = len(vazio)
-		soma_casos = len_detectados + len_nao_detectados + len_inconclusivo + len_nao_realizado + len_vazio
-		total_casos = "Total de Casos: " + str(soma_casos)
-		data = {
-			'doenca':"Esporotricose Humana",
-			'detectados':len_detectados,
-			'nao_detectados':len_nao_detectados,
-			'inconclusivo':len_inconclusivo,
-			'nao_realizado':len_nao_realizado,
-			'vazio':len_vazio,
-			'total':total_casos
-		}
-		return JsonResponse(data)
-	if inicio == "" and fim == "" and ano != "":
-		dados = CasoEsporotricose.objects.all().filter(agravo_doenca = agravo)
-		dados = dados.filter(data_notificacao__year=ano)
-		detectados = dados.filter(resultado_isolamento = 'Detectado')
-		nao_detectados = dados.filter(resultado_isolamento = 'Não detectado')
-		inconclusivo = dados.filter(resultado_isolamento = 'Inconclusivo')
-		nao_realizado = dados.filter(resultado_isolamento = 'Não Realizado')
-		vazio = dados.filter(resultado_isolamento = None)
-		
-		len_detectados = len(detectados)
-		len_nao_detectados = len(nao_detectados)
-		len_inconclusivo = len(inconclusivo)
-		len_nao_realizado = len(nao_realizado)
-		len_vazio = len(vazio)
-		soma_casos = len_detectados + len_nao_detectados + len_inconclusivo + len_nao_realizado + len_vazio
-		total_casos = "Total de Casos: " + str(soma_casos)
-		data = {
-			'doenca':"Esporotricose Humana",
-			'detectados':len_detectados,
-			'nao_detectados':len_nao_detectados,
-			'inconclusivo':len_inconclusivo,
-			'nao_realizado':len_nao_realizado,
-			'vazio':len_vazio,
-			'total':total_casos
-		}
-		return JsonResponse(data)
-	if inicio != "" and fim == "":
-		dados = CasoEsporotricose.objects.all().filter(agravo_doenca = agravo)
-		dados = dados.filter(data_notificacao__range=[inicio,inicio])
-		detectados = dados.filter(resultado_isolamento = 'Detectado')
-		nao_detectados = dados.filter(resultado_isolamento = 'Não detectado')
-		inconclusivo = dados.filter(resultado_isolamento = 'Inconclusivo')
-		nao_realizado = dados.filter(resultado_isolamento = 'Não Realizado')
-		vazio = dados.filter(resultado_isolamento = None)
-		
-		len_detectados = len(detectados)
-		len_nao_detectados = len(nao_detectados)
-		len_inconclusivo = len(inconclusivo)
-		len_nao_realizado = len(nao_realizado)
-		len_vazio = len(vazio)
-		soma_casos = len_detectados + len_nao_detectados + len_inconclusivo + len_nao_realizado + len_vazio
-		total_casos = "Total de Casos: " + str(soma_casos)
-		data = {
-			'doenca':"Esporotricose Humana",
-			'detectados':len_detectados,
-			'nao_detectados':len_nao_detectados,
-			'inconclusivo':len_inconclusivo,
-			'nao_realizado':len_nao_realizado,
-			'vazio':len_vazio,
-			'total':total_casos
-		}
-		return JsonResponse(data)
-	if inicio == "" and fim != "":
-		dados = CasoEsporotricose.objects.all().filter(agravo_doenca = agravo)
-		dados = dados.filter(data_notificacao__range=[fim,fim])
-		detectados = dados.filter(resultado_isolamento = 'Detectado')
-		nao_detectados = dados.filter(resultado_isolamento = 'Não detectado')
-		inconclusivo = dados.filter(resultado_isolamento = 'Inconclusivo')
-		nao_realizado = dados.filter(resultado_isolamento = 'Não Realizado')
-		vazio = dados.filter(resultado_isolamento = None)
-		
-		len_detectados = len(detectados)
-		len_nao_detectados = len(nao_detectados)
-		len_inconclusivo = len(inconclusivo)
-		len_nao_realizado = len(nao_realizado)
-		len_vazio = len(vazio)
-		soma_casos = len_detectados + len_nao_detectados + len_inconclusivo + len_nao_realizado + len_vazio
-		total_casos = "Total de Casos: " + str(soma_casos)
-		data = {
-			'doenca':"Esporotricose Humana",
-			'detectados':len_detectados,
-			'nao_detectados':len_nao_detectados,
-			'inconclusivo':len_inconclusivo,
-			'nao_realizado':len_nao_realizado,
-			'vazio':len_vazio,
-			'total':total_casos
-		}
-		return JsonResponse(data)
-	if inicio != "" and fim != "":
-		dados = CasoEsporotricose.objects.all().filter(agravo_doenca = agravo)
-		dados = dados.filter(data_notificacao__range=[inicio,fim])
-		detectados = dados.filter(resultado_isolamento = 'Detectado')
-		nao_detectados = dados.filter(resultado_isolamento = 'Não detectado')
-		inconclusivo = dados.filter(resultado_isolamento = 'Inconclusivo')
-		nao_realizado = dados.filter(resultado_isolamento = 'Não Realizado')
-		vazio = dados.filter(resultado_isolamento = None)
-		
-		len_detectados = len(detectados)
-		len_nao_detectados = len(nao_detectados)
-		len_inconclusivo = len(inconclusivo)
-		len_nao_realizado = len(nao_realizado)
-		len_vazio = len(vazio)
-		soma_casos = len_detectados + len_nao_detectados + len_inconclusivo + len_nao_realizado + len_vazio
-		total_casos = "Total de Casos: " + str(soma_casos)
-		data = {
-			'doenca':"Esporotricose Humana",
-			'detectados':len_detectados,
-			'nao_detectados':len_nao_detectados,
-			'inconclusivo':len_inconclusivo,
-			'nao_realizado':len_nao_realizado,
-			'vazio':len_vazio,
-			'total':total_casos
-		}
-		return JsonResponse(data)
-	return
+	
+	if agravo != 'Selecione':
 
+		# Se o agravo for diferente de 'Selecione' filtra os dados pelo agravo.
+		dados = CasoEsporotricose.objects.all().filter(agravo_doenca = agravo)
+		
+		# Filtrando por componentes preenchidos.
+		if inicio == "" and fim == "" and ano != "":
+			dados = dados.filter(data_notificacao__year=ano)
+		# Filtrando por componentes preenchidos.
+		elif inicio != "" and fim != "":
+			dados = dados.filter(data_notificacao__range=[inicio,fim])
+		# Filtrando por componentes preenchidos.
+		elif inicio != "" and fim == "":
+			dados = dados.filter(data_notificacao=inicio)
+		# Filtrando por componentes preenchidos.
+		elif inicio == "" and fim != "":
+			dados = dados.filter(data_notificacao=fim)
+
+		# Separando os dados em cinco colunas e pegando a quantidade de casos de cada um.
+		detectados = len(dados.filter(Q(resultado_isolamento = 'DETECTADO') | Q(resultado_isolamento = 'DETECTÁVEL')))
+		nao_detectados = len(dados.filter(Q(resultado_isolamento = 'NÃO DETECTADO') | Q(resultado_isolamento = 'NÃO DETECTÁVEL')))
+		inconclusivo = len(dados.filter(resultado_isolamento = 'INCONCLUSIVO'))
+		nao_realizado = len(dados.filter(resultado_isolamento = 'NÃO REALIZADO'))
+		vazio = len(dados.filter(resultado_isolamento = None))
+		
+		# Total de casos.
+		total_casos = "Total de Casos: " + str(detectados + nao_detectados + inconclusivo + nao_realizado + vazio)
+
+		# Devolvendo os dados para o front.
+		data = {
+			'doenca':agravos[agravo],
+			'detectados':detectados,
+			'nao_detectados':nao_detectados,
+			'inconclusivo':inconclusivo,
+			'nao_realizado':nao_realizado,
+			'vazio':vazio,
+			'total':total_casos
+		}
+
+		return JsonResponse(data)
+	# Caso o agravo não esteja selecionado.
+	else:
+		data = {
+			'doenca':'',
+			'detectados':0,
+			'nao_detectados':0,
+			'inconclusivo':0,
+			'nao_realizado':0,
+			'vazio':0,
+			'total':0
+		}
+		return JsonResponse(data)
+	
 def ajax_exportar_index_fechado(request):
 	ano = request.POST.get('ano')
 	inicio = request.POST.get('inicio')
