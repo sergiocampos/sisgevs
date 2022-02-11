@@ -240,7 +240,7 @@ footer {
 
           <script>
             $(document).ready(function(){
-              $("#myInput").on("keyup", function() {
+              $("#pesquisar").on("keyup", function() {
                 var value = $(this).val().toLowerCase();
                 $("#myTable tr").filter(function() {
                   $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
@@ -256,7 +256,7 @@ footer {
           {% include 'messages/message.html' %}
           <div id="content__table_id">          
           
-          <table class="table table-hover" style="font-size: 80%;">
+          <table class="table table-bordered" style="font-size: 80%;">
             <thead>
               
                 <th>Data Notificação</th>
@@ -268,55 +268,72 @@ footer {
 
               
             </thead>
-            <tbody>
+            <tbody id="myTable">
 
               {% for registro in regs %}
               {% if registro.status_caso == 'Cancelado' %}
               <tr class="table table-warning">
+                
+                {% if registro.data_notificacao != None %}
                 <td>{{registro.data_notificacao}}</td>
+                {%else%}
+                <td></td>
+                {%endif%}
+                
+
                 <td>{{registro.nome_paciente}}</td>
-                <td>{{registro.idade_paciente}}</td>
-                {% if registro.municipio_residencia == None %}
+                
+                {% if registro.data_nascimento_paciente != None %}
+                <td>{{registro.data_nascimento_paciente}}</td>
+                {%else%}
+                <td></td>
+                {%endif%}
+                
+                {% if registro.nome_mae_paciente == None %}
                   <td></td>
                 {% else %}
+                  <td>{{registro.nome_mae_paciente}}</td>
+                {% endif %}
+                {% if registro.municipio_residencia != None %}
                   <td>{{registro.municipio_residencia}}</td>
-                {% endif %}
-                {% if registro.municipio != None %}
-                  {% for municipio in municipios %}
-                    {% if registro.municipio == municipio.id %}
-                      <td>{{municipio.nome}}</td>
-                    {% endif %}
-                  {% endfor %}
                 {% else %}
                   <td></td>
                 {% endif %}
+
                 <td align="center">
                   <button id="{{registro.id}}" type="button" class="btn cancelar_caso btn-secondary btn-sm">Revalidar</button>                
                 </td>                
               </tr>
               {% else %}
               <tr>
+                
+                {% if registro.data_notificacao != None %}
                 <td>{{registro.data_notificacao}}</td>
+                {%else%}
+                <td></td>
+                {%endif%}
+
+
                 <td>{{registro.nome_paciente}}</td>
-                <td>{{registro.idade_paciente}}</td>
-                {% if registro.municipio_residencia == None %}
+                
+                {% if registro.data_nascimento_paciente != None %}
+                <td>{{registro.data_nascimento_paciente}}</td>
+                {%else%}
+                <td></td>
+                {%endif%}
+
+
+                {% if registro.nome_mae_paciente == None %}
                   <td></td>
                 {% else %}
-                  <td>{{registro.municipio_residencia}}</td>
+                  <td>{{registro.nome_mae_paciente}}</td>
                 {% endif %}
-                {% if registro.municipio != None %}
-                  
-
-                  {% for municipio in municipios %}
-                    {% if registro.municipio == municipio.id %}
-                      <td>{{municipio.nome}}</td>
-                    {% endif %}
-                  {% endfor %}
-                  
-
+                {% if registro.municipio_residencia != None %}
+                  <td>{{registro.municipio_residencia}}</td>                 
                 {% else %}
                   <td></td>
                 {% endif %}
+
                 <td align="center">
                   {% if user.funcao != 'gerencia_regional' %}
 
