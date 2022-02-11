@@ -68,6 +68,12 @@ $("#btn_filtrar").on('click', function(){
     $('#filtro_dt_inicio').val("");
     $('#filtro_dt_fim').val("");
   });
+  $('#filtro_dt_inicio').on('click', function(){
+    $('#filtro_ano').val("");    
+  });
+  $('#filtro_dt_fim').on('click', function(){
+    $('#filtro_ano').val("");    
+  });
 
 
   
