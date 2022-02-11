@@ -129,7 +129,7 @@ footer {
     <div class="collapse navbar-collapse" id="collapsibleNavbar">
       <ul class="navbar-nav">
         <li class="nav-item">
-          <a class="nav-link" href="/all_forms/">Principal</a>
+          <a class="nav-link" href="/principal/">Principal</a>
         </li>
       
         {% if user.funcao == 'gerencia_executiva' or user.funcao == 'admin' %}
@@ -180,6 +180,7 @@ footer {
             <hr>
           {% endif %}
           {% if user.funcao == 'admin' or user.funcao == 'municipal' or user.funcao == 'autocadastro' %}
+          <!--
           <li><a href="/all_forms/" data-toggle="collapse" data-target="#formularios">Formulários</a></li>
           <div id="formularios" class="collapse">
             <li><a href="/caso_esporotricose_create/">Esporotricose Humana</a></li>
@@ -188,6 +189,7 @@ footer {
             <li><a href="/main/">Zika</a></li>
           </div>
           <hr>
+        -->
           {% endif %}
           <li><a href="/my_datas/">Notificações</a></li>
           <hr>

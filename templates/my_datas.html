@@ -20,6 +20,11 @@
       height: 500px;
       background: #aaa;
     }
+
+    #content__table_id {
+      max-height: 400px;
+      overflow-y: scroll;
+    }
   </style>
 
   <style>
@@ -129,7 +134,7 @@ footer {
   <div class="collapse navbar-collapse" id="collapsibleNavbar">
     <ul class="navbar-nav">
       <li class="nav-item">
-        <a class="nav-link" href="/all_forms/">Início</a>
+        <a class="nav-link" href="/principal/">Principal</a>
       </li>
       
       {% if user.funcao == 'gerencia_executiva' or user.funcao == 'admin' %}
@@ -216,76 +221,119 @@ footer {
           </div>
 
           <div class="row">
-            <div class="col-sm-10"></div>
+            <div class="col-sm-6">
+              <input class="form-control" type="text" id="pesquisar">
+             
+            </div>
+            <div class="col-sm-4"></div>
             <div class="col-sm-2">
               <a href="/export_data_csv/"><button type="button" class="btn btn-primary btn-sm">Exportar Dados</button></a>
             </div>
           </div>
+
+          <style>
+            .table          { overflow-y: auto; height: 100px; }
+            .table thead th { position: sticky; top: 0; background-color: #d9d9d9;}
+
+          </style>
           
+
+          <script>
+            $(document).ready(function(){
+              $("#pesquisar").on("keyup", function() {
+                var value = $(this).val().toLowerCase();
+                $("#myTable tr").filter(function() {
+                  $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                });
+              });
+            });
+          </script>
+
+
+
           <br>
           
           {% include 'messages/message.html' %}
-          <table class="table table-hover" style="font-size: 80%;">
+          <div id="content__table_id">          
+          
+          <table class="table table-bordered" style="font-size: 80%;">
             <thead>
-              <tr>
+              
                 <th>Data Notificação</th>
                 <th>Nome Paciente</th>
-                <th>Idade</th>
+                <th>Data Nasc.</th>
+                <th>Nome da Mãe</th>
                 <th>Município de Residência</th>
-                <th>Município Notificador</th>
-                <th style="text-align: center;">Ações</th>
+                <th style="text-align: center; width: 280px">Ações</th>
 
-              </tr>
+              
             </thead>
-            <tbody>
+            <tbody id="myTable">
 
               {% for registro in regs %}
               {% if registro.status_caso == 'Cancelado' %}
               <tr class="table table-warning">
+                
+                {% if registro.data_notificacao != None %}
                 <td>{{registro.data_notificacao}}</td>
+                {%else%}
+                <td></td>
+                {%endif%}
+                
+
                 <td>{{registro.nome_paciente}}</td>
-                <td>{{registro.idade_paciente}}</td>
-                {% if registro.municipio_residencia == None %}
+                
+                {% if registro.data_nascimento_paciente != None %}
+                <td>{{registro.data_nascimento_paciente}}</td>
+                {%else%}
+                <td></td>
+                {%endif%}
+                
+                {% if registro.nome_mae_paciente == None %}
                   <td></td>
                 {% else %}
+                  <td>{{registro.nome_mae_paciente}}</td>
+                {% endif %}
+                {% if registro.municipio_residencia != None %}
                   <td>{{registro.municipio_residencia}}</td>
-                {% endif %}
-                {% if registro.municipio != None %}
-                  {% for municipio in municipios %}
-                    {% if registro.municipio == municipio.id %}
-                      <td>{{municipio.nome}}</td>
-                    {% endif %}
-                  {% endfor %}
                 {% else %}
                   <td></td>
                 {% endif %}
+
                 <td align="center">
                   <button id="{{registro.id}}" type="button" class="btn cancelar_caso btn-secondary btn-sm">Revalidar</button>                
                 </td>                
               </tr>
               {% else %}
               <tr>
+                
+                {% if registro.data_notificacao != None %}
                 <td>{{registro.data_notificacao}}</td>
+                {%else%}
+                <td></td>
+                {%endif%}
+
+
                 <td>{{registro.nome_paciente}}</td>
-                <td>{{registro.idade_paciente}}</td>
-                {% if registro.municipio_residencia == None %}
+                
+                {% if registro.data_nascimento_paciente != None %}
+                <td>{{registro.data_nascimento_paciente}}</td>
+                {%else%}
+                <td></td>
+                {%endif%}
+
+
+                {% if registro.nome_mae_paciente == None %}
                   <td></td>
                 {% else %}
-                  <td>{{registro.municipio_residencia}}</td>
+                  <td>{{registro.nome_mae_paciente}}</td>
                 {% endif %}
-                {% if registro.municipio != None %}
-                  
-
-                  {% for municipio in municipios %}
-                    {% if registro.municipio == municipio.id %}
-                      <td>{{municipio.nome}}</td>
-                    {% endif %}
-                  {% endfor %}
-                  
-
+                {% if registro.municipio_residencia != None %}
+                  <td>{{registro.municipio_residencia}}</td>                 
                 {% else %}
                   <td></td>
                 {% endif %}
+
                 <td align="center">
                   {% if user.funcao != 'gerencia_regional' %}
 
@@ -300,6 +348,11 @@ footer {
               {% endfor %}
             </tbody>
           </table>
+          </div>
+
+          
+
+
         </div>
 
 
@@ -310,6 +363,7 @@ footer {
 
     <br><br>
 
+    <!--
     <div class="pagination py-4">
       <span class="step-links" style="margin: auto">
         {% if regs.has_previous %}
@@ -323,7 +377,7 @@ footer {
          {% endif %}                
       </span> 
     </div>
-
+  -->
 
     <div class="jumbotron text-center" style="margin-bottom:0">
       <p>Footer</p>

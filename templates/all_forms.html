@@ -83,12 +83,37 @@ footer {
     flex-direction: column;
   }
 }
+
+
+#href_esporotricose,
+#href_dicionario,
+#href_download_ficha {
+  display: none;
+}
+
 </style>
 
 <link rel="shortcut icon" href="https://docs.google.com/uc?id=1h8jgyPDlDWWinD_VP50nqKXnmdCHEKH3" type="image/x-icon" />
 
 
+<script>
+  function exibeConteudo(){
+    if (document.getElementById('select_agravo_inicio_id').value == "Esporotricose Humana"){
 
+      $("#href_esporotricose").show();
+      $("#href_dicionario").show();
+      $("#href_download_ficha").show();
+
+    }
+    if (document.getElementById('select_agravo_inicio_id').value != "Esporotricose Humana"){
+
+      $("#href_esporotricose").hide();
+      $("#href_dicionario").hide();
+      $("#href_download_ficha").hide();
+
+    }
+  }
+</script>
 
 </head>
 <body>
@@ -216,17 +241,29 @@ footer {
             </div>
           </div>
 
+          <div class="row">
+            <div class="col-sm-4">
+              <label for="sel1">Selecione agravo:</label>
+                <select class="form-control" id="select_agravo_inicio_id" name="select_agravo_inicio" onclick="exibeConteudo()">
+                  <option value="" selected>selecione...</option>
+                  <option value="Esporotricose Humana">Esporotricose Humana</option>
+                </select>
+            </div>
+            <div class="col-sm-4"></div>
+            <div class="col-sm-4"></div>
+          </div>
+
            <div class="row py-5"></div>
            <div class="row" id="esporotricose_humana">
             <div class="col-sm-1"></div>
             <div class="col-sm-4">
-              <a href="/caso_esporotricose_create/" style="text-decoration: none;"><button type="button" class="btn btn-outline-warning btn-lg btn-block">Esporotricose Humana</button></a>
+              <a href="/caso_esporotricose_create/" style="text-decoration: none;"><button type="button" class="btn btn-outline-warning btn-lg btn-block" id="href_esporotricose">Esporotricose Humana</button></a>
             </div>
             <div class="col-sm-3">
-              <a href="/download_dicionario_dados/" style="text-decoration: none;" target="_blank"><button type="button" class="btn btn-outline-secondary btn-lg btn-block">Dicionário de Dados</button></a>
+              <a href="/download_dicionario_dados/" style="text-decoration: none;" target="_blank"><button type="button" class="btn btn-outline-secondary btn-lg btn-block" id="href_dicionario">Dicionário de Dados</button></a>
             </div>
             <div class="col-sm-3">
-              <a href="/download_ficha/" style="text-decoration: none;" download><button type="button" class="btn btn-outline-secondary btn-lg btn-block">Download Ficha</button></a>
+              <a href="/download_ficha/" style="text-decoration: none;" download><button type="button" class="btn btn-outline-secondary btn-lg btn-block" id="href_download_ficha">Download Ficha</button></a>
             </div>
             <div class="col-sm-1"></div>
            </div>
