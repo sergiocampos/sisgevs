@@ -76,16 +76,19 @@
                 </div>
                 <div class="col-4 arredondado">
                     <label>Data da Notificação</label>
-                    <input id="data_notificacao" class="data" type="date">
+                    <input id="data_notificacao" class="data" type="text">
                 </div>
             </div>
             <!-- LINHA -->
             <div class="row">
                 <div class="col-1 arredondado">
                     <label>UF</label>
+                    <input type="text">
+                    <!--
                     <select style="width: 130%; margin-left: -5px;" name="" id="">
                         {% include 'options/tp_uf.html' %}
                     </select>
+                -->
                 </div>
                 <div class="col-7 arredondado">
                     <label>Município de Notificação</label>
@@ -99,7 +102,7 @@
             <!-- LINHA -->
             <div class="row">
                 <div class="col-6 arredondado">
-                    <label>Unidade de Saude</label>
+                    <label>Unidade de Saúde</label>
                     <input type="text">
                 </div>
                 <div class="col-2 arredondado">
@@ -108,7 +111,7 @@
                 </div>
                 <div class="col-4 arredondado">
                     <label>Data dos Primeiros Sintomas</label>
-                    <input id="data_sintomas" onchange="limitandoData(this)" class="data" type="date">
+                    <input id="data_sintomas" onchange="limitandoData(this)" class="data" type="text">
                 </div>
             </div>
             <!-- LINHA -->
@@ -116,28 +119,29 @@
             <!-- LINHA -->
             <div class="row">
                 <div class="col-8 arredondado">
-                    <label>Nome do Paciente(Sem Abreviações)</label>
+                    <label>Nome do Paciente (Sem Abreviações)</label>
                     <input onkeypress="return limitcarc(event, 'letr_acent')" type="text">
                 </div>
                 <div class="col-4 arredondado">
                     <label>Data de Nascimento</label>
-                    <input onchange="idade('idade', this)" id="data_nascimento" class="data" type="date">
+                    <input onchange="idade('idade', this)" id="data_nascimento" class="data" type="text">
                 </div>
             </div>
             <!-- LINHA -->
             <div class="row">
                 <div class="col-1 arredondado">
                     <label>Idade</label>
-                    <input id="idade" type="number">
+                    <input id="idade" type="text">
                 </div>
                 <div class="col-2 arredondado">
                     <label>Sexo</label>
-                    <select style="width: 100%;">
+                    <input type="text">
+                    <!--<select style="width: 100%;">
                         <option value="" selected>Selecione</option>
                         <option value="masculino">Masculino</option>
                         <option value="feminino">Feminino</option>
                         <option value="outro">Outro</option>
-                    </select>
+                    </select>-->
                 </div>
                 <div class="col-5 arredondado">
                     <label>Gestante</label>
@@ -145,18 +149,20 @@
                 </div>
                 <div class="col-4 arredondado">
                     <label>Raça/Cor</label>
-                    <select style="width: 100%;" name="" id="">
+                    <input type="text">
+                    <!--<select style="width: 100%;" name="" id="">
                         {% include 'options/tp_racacor.html' %}
-                    </select>
+                    </select>-->
                 </div>
             </div>
             <!-- LINHA -->
             <div class="row">
                 <div class="col py-2 arredondado">
                     <label>Escolaridade</label>
-                    <select name="" id="">
+                    <input type="text">
+                    <!--<select name="" id="">
                         {% include 'options/tp_escolaridade.html' %}
-                    </select>
+                    </select>-->
                 </div>
             </div>
             <!-- LINHA -->
@@ -262,7 +268,7 @@
             <div class="row">
                 <div class="col-4 arredondado">
                     <label>Data da Investigação</label>
-                    <input class="data" type="date">
+                    <input class="data" type="text">
                 </div>
                 <div class="col-8 arredondado">
                     <label>Ocupação</label>
@@ -373,7 +379,7 @@
                 <div class="row" style="padding-left: 2%;">
                     <div class="col">
                         <label>Relação com o animal doente</label>
-                        <select name="" id="">{% include 'options/tp_simnao.html' %}</select>
+                        <!--<select name="" id="">{% include 'options/tp_simnao.html' %}</select>-->
                     </div>
                 </div>
                 <div class="row text-center" style="padding-left: 5%;">
@@ -412,9 +418,10 @@
                     </label>
                 </div>
                 <div class="col-3" style="margin-top: 5px;">
-                    <select>
+                    <input type="text">
+                    <!--<select>
                         {% include 'options/tp_simnao.html' %}
-                    </select>
+                    </select>-->
                 </div>
             </div>
             <!-- LINHA -->
@@ -427,9 +434,10 @@
                     </label>
                 </div>
                 <div class="col-3" style="margin-top: 15px;">
-                    <select>
+                    <input type="text">
+                    <!--<select>
                         {% include 'options/tp_simnao.html' %}
-                    </select>
+                    </select>-->
                 </div>
             </div>
             <div class="pagebreaker"></div>
@@ -517,7 +525,7 @@
                     </label>
                 </div>
                 <div class="col-5 py-2">
-                    <select name="" id="">{% include 'options/tp_simnao.html' %}</select>
+                    <!--<select name="" id="">{% include 'options/tp_simnao.html' %}</select>-->
                 </div>
                 <label style="margin-left: 2%;">Qual Localização?</label>
                 <input onkeypress = "return limitcarc(event, 'letr_acent')" style="width: 40%;" type="text" >
@@ -530,13 +538,14 @@
                     <label>
                         Houve coleta de material para exame laboratorial?
                     </label>
-                    <select style="width: 25%; margin-left: 5%;margin-top: 2%;">
+                    <input type="text">
+                    <!--<select style="width: 25%; margin-left: 5%;margin-top: 2%;">
                         {% include 'options/tp_simnao.html' %}
-                    </select>
+                    </select>-->
                 </div>
                 <div class="col-3 arredondado">
                     <label>Data da coleta</label>
-                    <input class="data" type="date">
+                    <input class="data" type="text">
                 </div>
             </div> 
             <!-- LINHA -->
@@ -545,13 +554,14 @@
                     <label>
                         Resultado do Isolamento
                     </label>
-                    <select style="width: 25%; margin-left: 5%;margin-top: 2%;">
+                    <input type="text">
+                    <!--<select style="width: 25%; margin-left: 5%;margin-top: 2%;">
                         <option value="" selected>Selecionar</option>
                         <option value="Detectado">Detectado</option>
                         <option value="Não compativel">Não compativel</option>
                         <option value="Inconclusivo">Inconclusivo</option>
                         <option value="Não realizado">Não realizado</option>
-                    </select>
+                    </select>-->
                 </div>
                 <div class="col-3 arredondado">
                     <label>Agente</label>
@@ -564,13 +574,14 @@
                     <label>
                         Histopatologia
                     </label>
-                    <select style="width: 25%; margin-left: 5%;">
+                    <input type="text">
+                    <!--<select style="width: 25%; margin-left: 5%;">
                         <option value="" selected>Selecionar</option>
                         <option value="Detectado">Detectado</option>
                         <option value="Não compativel">Não compativel</option>
                         <option value="Inconclusivo">Inconclusivo</option>
                         <option value="Não realizado">Não realizado</option>
-                    </select>
+                    </select>-->
                 </div>
             </div>
             <!-- LINHA -->
@@ -580,7 +591,7 @@
             <div class="row">
                 <div class="col-3 arredondado">
                     <label>Data</label>
-                    <input class="data" type="date">
+                    <input class="data" type="text">
                 </div>
                 <div class="col-4 arredondado">
                     <label>Descrição</label>
@@ -594,7 +605,7 @@
             <div class="row arredondado">
                 <div class="col-3 arredondado">
                     <label>Data</label>
-                    <input class="data" type="date">
+                    <input class="data" type="text">
                 </div>
                 <div class="col-4 arredondado">
                     <label>Descrição</label>
@@ -608,7 +619,7 @@
             <div class="row arredondado">
                 <div class="col-3 arredondado">
                     <label>Data</label>
-                    <input class="data" type="date">
+                    <input class="data" type="text">
                 </div>
                 <div class="col-4 arredondado">
                     <label>Descrição</label>
@@ -624,8 +635,8 @@
             <!-- Linha -->
             <div class="row">
                 <div class="col-4 arredondado">
-                    <label>Data de Inicio do Tratamento</label>
-                    <input class="data" type="date">
+                    <label>Data de Início do Tratamento</label>
+                    <input class="data" type="text">
                 </div>
                 <div class="col-3 arredondado">
                     <label>Droga Administrada</label>
@@ -640,23 +651,27 @@
             <div class="row">
                 <div class="col-4 arredondado">
                     <label>Ocorreu Hospitalização?</label>
-                    <select style="width: 80%; margin-left: 5%;margin-top: 2%;">
+                    <input type="text">
+                    <!--<select style="width: 80%; margin-left: 5%;margin-top: 2%;">
                         {% include 'options/tp_simnao.html' %}
-                    </select>
+                    </select>-->
                 </div>
                 <div class="col-4 arredondado">
                     <label>Data da Internação</label>
-                    <input class="data" type="date">
+                    <input class="data" type="text">
                 </div>
                 <div class="col-3 arredondado">
                     <label>Data da Alta</label>
-                    <input class="data" type="date">
+                    <input class="data" type="text">
                 </div>
                 <div class="col-1 arredondado">
                     <label>UF</label>
+                    <input type="text">
+                    <!--
                     <select style="width: 130%; margin-left: -5px;" name="" id="">
                         {% include 'options/tp_uf.html' %}
                     </select>
+                -->
                 </div>
             </div>
             <!-- LINHA -->
@@ -666,7 +681,7 @@
                     <input type="text">
                 </div>
                 <div class="col-3 arredondado">
-                    <label>Codigo do IBGE</label>
+                    <label>Código IBGE</label>
                     <input type="text">
                 </div>
             </div>
@@ -677,7 +692,7 @@
                     <input type="text">
                 </div>
                 <div class="col-3 arredondado">
-                    <label>Codigo</label>
+                    <label>Código</label>
                     <input type="text">
                 </div>
             </div>
@@ -687,37 +702,41 @@
             <div class="row">
                 <div class="col-6 arredondado" style="padding:5px; padding-left: 5%;">
                     <label>Classificação Final</label>
-                    <select style="margin-left: 5%;margin-top: 2%;">
+                    <input type="text">
+                    <!--<select style="margin-left: 5%;margin-top: 2%;">
                         <option value="" selected>Selecionar</option>
                         <option value="Confirmado">Confirmado</option>
                         <option value="Descartado">Descartado</option>
-                    </select>
+                    </select>-->
                 </div>
                 <div class="col-6 arredondado" style="padding:5px; padding-left: 2%;">
                     <label>Critério de confirmação</label>
-                    <select style="width: 60%;margin-top: 2%;">
+                    <input type="text">
+                    <!--<select style="width: 60%;margin-top: 2%;">
                         <option value="" selected>Selecionar</option>
                         <option value="Clínico Laboratorial">Clínico Laboratorial</option>
                         <option value="Clínico Epidemiológico">Clínico Epidemiológico</option>
-                    </select>
+                    </select>-->
                 </div>
             </div>
             <!-- Linha -->
             <div class="row">
                 <div class="col-9 arredondado">
-                    <label>Caso Autoctone do Município de Residência?</label>
-                    <select style="width: 40%; margin-left: 5%;margin-top: 2%;">
+                    <label>Caso Autóctone do Município de Residência?</label>
+                    <input type="text">
+                    <!--<select style="width: 40%; margin-left: 5%;margin-top: 2%;">
                         <option value="" selected>Selecionar</option>
                         <option value="Sim">Sim</option>
                         <option value="Não">Não</option>
                         <option value="Indeterminado">Indeterminado</option>
-                    </select>
+                    </select>-->
                 </div>
                 <div class="col-1 arredondado">
                     <label>UF</label>
-                    <select style="width: 130%; margin-left: -5px;" name="" id="">
+                    <input type="text">
+                    <!--<select style="width: 130%; margin-left: -5px;" name="" id="">
                         {% include 'options/tp_uf.html' %}
-                    </select>
+                    </select>-->
                 </div>
                 <div class="col-2 arredondado">
                     <label>País</label>
@@ -731,7 +750,7 @@
                     <input type="text">
                 </div>
                 <div class="col-3 arredondado">
-                    <label>Codigo do IBGE</label>
+                    <label>Código do IBGE</label>
                     <input type="text">
                 </div>
             </div>
@@ -747,54 +766,62 @@
                 </div>
                 <div class="col-4 arredondado">
                     <label>Área Provável de Infecção</label>
-                    <select style="width: 70%; margin-left: 5%;margin-top: 2%;">
+                    <input type="text">
+                    <!--<select style="width: 70%; margin-left: 5%;margin-top: 2%;">
                         <option value="" selected>Selecionar</option>
                         <option value="Urbana">Urbana</option>
                         <option value="Rural">Rural</option>
                         <option value="Periurbana">Periurbana</option>
                         <option value="Ignorado">Ignorado</option>
-                    </select>
+                    </select>-->
                 </div>
             </div>
             <!-- Linha -->
             <div class="row">
                 <div class="col-6 arredondado" style="padding:5px; padding-left: 5%;">
                     <label>Ambiente de Infecção</label>
-                    <select style="margin-left: 5%;margin-top: 2%;">
+                    <input type="text">
+                    <!--<select style="margin-left: 5%;margin-top: 2%;">
                         <option value="" selected>Selecionar</option>
                         <option value="Domiciliar">Domiciliar</option>
                         <option value="Trabalho">Trabalho</option>
                         <option value="Lazer">Lazer</option>
                         <option value="Outro">Outro</option>
                         <option value="Ignorado">Ignorado</option>
-                    </select>
+                    </select>-->
                 </div>
                 <div class="col-6 arredondado" style="padding:5px; padding-left: 5%;">
                     <label>Doença relacionada ao trabalho?</label>
+                    <input type="text">
+                    <!--
                     <select style="width: 40%;margin-top: 2%;">
                         {% include 'options/tp_simnao.html' %}
                     </select>
+                    -->
                 </div>
             </div>
             <!-- Linha -->
             <div class="row">
                 <div class="col-6 arredondado">
                     <label>Evolução do caso</label>
+                    <input type="text">
+                    <!--
                     <select style="width: 60%; margin-left: 5%;margin-top: 2%;">
                         <option value="" selected>Selecionar</option>
                         <option value="Cura">Cura</option>
-                        <option value="Obito pelo Agravo">Obito pelo Agravo</option>
-                        <option value="Obito outras Causas">Obito outras Causas</option>
+                        <option value="Obito pelo Agravo">Óbito pelo Agravo</option>
+                        <option value="Obito outras Causas">Óbito outras Causas</option>
                         <option value="Ignorado">Ignorado</option>
                     </select>
+                -->
                 </div>
                 <div class="col-3 arredondado">
-                    <label>Data do Obito</label>
-                    <input class="data" type="date">
+                    <label>Data do Óbito</label>
+                    <input class="data" type="text">
                 </div>
                 <div class="col-3 arredondado">
-                    <label>Data Encerramento</label>
-                    <input class="data" type="date">
+                    <label>Data de Encerramento</label>
+                    <input class="data" type="text">
                 </div>
             </div>
             <!-- Linha -->
@@ -844,7 +871,7 @@
         <hr>
         <div id="botao" class="row text-center">
             <div class="col">
-                <button class="btn btn-primary" type="button" id="salvar_imprimir_bottom">Salvar ou Imprimir</button>
+                <button class="btn btn-primary" type="button" id="" onclick="window.print();">Salvar ou Imprimir</button>
             </div>
         </div>
     </div>

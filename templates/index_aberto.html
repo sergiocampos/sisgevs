@@ -63,7 +63,7 @@
 
   <!-- Carrosel -->
   <div style="margin-top: 3%; width: 40%;" class="container">
-    <div id="carouselExampleSlidesOnly" class="carousel slide" data-ride="carousel" data-interval="3000">
+    <div id="carouselExampleSlidesOnly" class="carousel slide" data-ride="carousel" data-interval="30000">
       <div class="carousel-inner">
         <div class="carousel-item">
           <img style="width: 208px; height: 100x;" class="d-block w-100" src="{% static 'sisgevs/simposio-cortada.jpg' %}" alt="First slide">
@@ -109,6 +109,19 @@
       <div class="text-center" id="filtros_box">
         <form name="" id="" enctype="multipart/form-data" action="submit" method="POST">{% csrf_token %}
 
+          <div class="input-group mb-3">
+            <label class="input-group-text" for="agravo">Agravo/Doença</label>
+            <select name="agravo" class="form-select form-control" id="agravo">
+              <option selected>Selecione</option>
+              <option value="ESPOROTRICOSE">Esporotricose Humana</option>
+              <!--
+              <option value="ZIKA">Zika</option>
+              <option value="CHIKUNGUNYA">Chikungunya</option>
+              <option value="DENGUE">Dengue</option>
+            -->
+            </select>
+          </div>
+
           <h6>Filtrar por ano</h6>
           <div class="input-group mb-3" id="">
             <div class="input-group-prepend" id="">
@@ -129,16 +142,7 @@
             </div>
             <input type="date" class="form-control text-center" name="fim" id="filtro_dt_fim">
           </div>
-          <div class="input-group mb-3">
-            <label class="input-group-text" for="agravo">Agravo/Doença</label>
-            <select name="agravo" class="form-select form-control" id="agravo">
-              <option selected>Selecione</option>
-              <option value="ESPOROTRICOSE">Esporotricose Humana</option>
-              <option value="ZIKA">Zika</option>
-              <option value="CHIKUNGUNYA">Chikungunya</option>
-              <option value="DENGUE">Dengue</option>
-            </select>
-          </div>
+          
           <button type="button" class="btn btn-primary" id="btn_filtrar">Filtrar</button>
           <hr id="hr_filtros">
           
