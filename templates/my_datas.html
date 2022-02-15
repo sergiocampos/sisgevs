@@ -264,6 +264,7 @@ footer {
                 <th>Data Nasc.</th>
                 <th>Nome da Mãe</th>
                 <th>Município de Residência</th>
+                <th>Município Notificador</th>
                 <th style="text-align: center; width: 280px">Ações</th>
 
               
@@ -299,6 +300,8 @@ footer {
                 {% else %}
                   <td></td>
                 {% endif %}
+                
+                  <td>teste</td>
 
                 <td align="center">
                   <button id="{{registro.id}}" type="button" class="btn cancelar_caso btn-secondary btn-sm">Revalidar</button>                
@@ -334,6 +337,16 @@ footer {
                   <td></td>
                 {% endif %}
 
+                {% if registro.municipio != None %}
+                  {% for i in municipios %}
+                    {% if i.id == registro.municipio %}
+                      <td>{{i}}</td>                 
+                    {% endif %}
+                  {% endfor %}
+                {% else %}
+                  <td></td>
+                {% endif %}
+                  
                 <td align="center">
                   {% if user.funcao != 'gerencia_regional' %}
 

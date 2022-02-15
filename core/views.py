@@ -356,7 +356,7 @@ def my_datas(request):
 	#municipio_nome = municipio_user.nome
 	if request.user.funcao == 'admin':
 		registros = CasoEsporotricose.objects.all().order_by('-id')
-
+		
 		paginator = Paginator(registros, 6)
 		page = request.GET.get('page')
 		regs = paginator.get_page(page)
