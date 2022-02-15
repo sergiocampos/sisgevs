@@ -301,7 +301,15 @@ footer {
                   <td></td>
                 {% endif %}
                 
-                  <td>teste</td>
+                {% if registro.municipio != None %}
+                  {% for i in municipios %}
+                    {% if i.id == registro.municipio %}
+                      <td>{{i}}</td>                 
+                    {% endif %}                    
+                  {% endfor %}
+                {% else %}
+                  <td></td>
+                {% endif %}
 
                 <td align="center">
                   <button id="{{registro.id}}" type="button" class="btn cancelar_caso btn-secondary btn-sm">Revalidar</button>                
