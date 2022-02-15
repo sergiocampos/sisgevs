@@ -685,10 +685,10 @@ def set_caso_esporotricose_create(request):
 
 
 	ocupacao = request.POST.get('ocupacao')
-	ambientes_frequentados = request.POST.getlist('ambientes_frequentados')
-	animais_que_teve_contato = request.POST.getlist('animais_que_teve_contato')
-	natureza_contato_animais = request.POST.getlist('natureza_contato_animais')
-	relacao_animal_doente = request.POST.getlist('relacao_animal_doente')
+	ambientes_frequentados = request.POST.getlist('ambientes_frequentados')	
+	animais_que_teve_contato = request.POST.getlist('animais_que_teve_contato')	
+	natureza_contato_animais = request.POST.getlist('natureza_contato_animais')	
+	relacao_animal_doente = request.POST.getlist('relacao_animal_doente')	
 	exerce_atividade_contato_plantas = request.POST.get('exerc_ativ_contato_plantas')
 	historico_contato_material = request.POST.get('lesao_manuseio')
 	
@@ -900,7 +900,7 @@ def set_caso_esporotricose_create(request):
 		
 	# CODIGO NUMERO UNICO #
 
-
+	
 	CasoEsporotricose.objects.create(
 		responsavel_pelas_informacoes = responsavel_pelas_informacoes,
 		responsavel_gerencia_operacional = responsavel_gerencia_operacional,
