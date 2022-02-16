@@ -1006,7 +1006,7 @@ footer {
 
                   <div class="col-md-2">
                     <div class="form-group"><b>Código IBGE</b>
-                      <input type="text" class="form-control" id="ibge_municipio_residencia_id" name="codigo_ibge_residencia" readonly>
+                      <input type="text" class="form-control" id="ibge_municipio_residencia_id" value="2507507" name="codigo_ibge_residencia" readonly>
                     </div>
                   </div>
                   
@@ -3183,12 +3183,12 @@ footer {
       //Ajax para autoprencher o código ibge se alterar município
       $("#municipios_estado_id").change(function(){
         municipioId = $(this).val();
-
+        uf_id = $('#uf_dados_residencia_id').val();
+        
         $.ajax({
           url : '{% url "ajax_ibge_municipio_residencia" %}',
-          data: { 'municipios_estado_id': municipioId},
+          data: { 'municipios_estado_id': municipioId, 'uf_estado_id':uf_id},
           success: function(data){
-            console.log(data);
             $("#ibge_municipio_residencia_id").val(data);
           }
         });

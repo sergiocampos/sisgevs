@@ -333,9 +333,15 @@ def ajax_dados_residencia(request):
 @login_required(login_url='/login/')
 def ajax_ibge_municipio_residencia(request):
 	municipio_estado_id = request.GET.get('municipios_estado_id')
-	municipio = Municipios.objects.get(id=municipio_estado_id)
+	uf_estado_id = request.GET.get('uf_estado_id')
+	
+	if uf_estado_id == '12':
+		municipio = Municipio.objects.get(id=municipio_estado_id)
+	else:
+		municipio = Municipios.objects.get(id=municipio_estado_id)
 	ibge = municipio.ibge
-	print("ibge:", ibge)
+	
+	
 	return render(request, 'municipio_ibge_ajax.html', {'ibge':ibge})
 
 
@@ -661,10 +667,13 @@ def set_caso_esporotricose_create(request):
 	cep_residencia = request.POST.get('cep_residencia')
 	uf_residencia = request.POST.get('uf_residencia')
 	municipio_residencia = int(request.POST.get('cidade_residencia'))
-	print("municipio de residencia escolhido:", municipio_residencia)
-	municipio_residencia = Municipios.objects.get(id=municipio_residencia)
+
+	if uf_residencia == '12': # Se o uf for PB pega dados no modelo Municipio
+		municipio_residencia = Municipio.objects.get(id=municipio_residencia)
+	else: # Caso contrário pega os dados no modelo Municipios
+		municipio_residencia = Municipios.objects.get(id=municipio_residencia)
 	municipio_residencia = (municipio_residencia.nome).upper()
-	print(" segunda...municipio de residencia escolhido:", municipio_residencia)
+
 	bairro_residencia = request.POST.get('bairro_residencia')
 	codigo_ibge_residencia = request.POST.get('codigo_ibge_residencia')
 	rua_residencia = request.POST.get('rua_residencia')
@@ -1414,19 +1423,16 @@ def set_caso_esporotricose_edit(request, id):
 	#Dados Residencia
 	cep_residencia = request.POST.get('cep_residencia')
 	uf_residencia = request.POST.get('uf_residencia')
-	
-
-
 	municipio_residencia = request.POST.get('cidade_residencia')
-	print("codigo do municipio de residencia:", municipio_residencia)
-	municipio_residencia = Municipios.objects.get(id=municipio_residencia)
-	municipio_residencia = str(municipio_residencia.nome).upper()
 	
-
+	if uf_residencia == '12': # Se o uf for PB pega dados no modelo Municipio
+		municipio_residencia = Municipio.objects.get(id=municipio_residencia)
+	else: # Caso contrário pega os dados no modelo Municipios
+		municipio_residencia = Municipios.objects.get(id=municipio_residencia)
+	municipio_residencia = (municipio_residencia.nome).upper()
 
 	bairro_residencia = request.POST.get('bairro_residencia')
 	codigo_ibge_residencia = request.POST.get('codigo_ibge_residencia')
-	print(codigo_ibge_residencia)
 	rua_residencia = request.POST.get('rua_residencia')
 	numero_residencia = request.POST.get('numero_residencia')
 	complemento_residencia = request.POST.get('complemento_residencia')
