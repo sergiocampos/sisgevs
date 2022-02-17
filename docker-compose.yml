@@ -17,11 +17,7 @@ services:
     environment:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
-    ports:
-      - 8001:5432
     volumes:
-      - ./dados/sql_insert/insert_dados.sql:/insert/insert.sql
-      - ./dados/sql_insert/test.sql:/insert/test.sql
       - postgres_data:/var/lib/postgresql/data/      
 
 volumes:
