@@ -325,7 +325,11 @@ def ajax_autoctone_distrito(request):
 @login_required(login_url='/login/')
 def ajax_dados_residencia(request):
 	estado_id = request.GET.get('uf_dados_residencia_id')
-	municipios = Municipios.objects.filter(uf_id=estado_id)
+	if estado_id == '12':
+		municipios = Municipio.objects.all()
+	else:
+		municipios = Municipios.objects.filter(uf_id=estado_id)
+
 	return render(request, 'estado_municipios_ajax.html', {'municipios':municipios})
 
 
@@ -345,14 +349,15 @@ def ajax_ibge_municipio_residencia(request):
 	return render(request, 'municipio_ibge_ajax.html', {'ibge':ibge})
 
 
-
-
 #################################### views ajax para edição de endereço################################
 @login_required(login_url='/login/')
 def ajax_edicao_uf_cidades(request):
 	estado_id = request.GET.get('uf_edit_endereco_id')
+	if estado_id == '12':
+		municipios = Municipio.objects.all()
+	else:
+		municipios = Municipios.objects.filter(uf_id=estado_id)
 
-	municipios = Municipios.objects.filter(uf_id=estado_id)
 	return render(request, 'edit_estado_municipios_ajax.html', {'municipios':municipios})
 #######################################################################################################
 
