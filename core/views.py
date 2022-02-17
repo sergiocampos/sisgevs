@@ -1234,7 +1234,12 @@ def caso_esporotricose_edit(request, id):
 	#cidade_caso = int(caso.municipio_residencia)
 	cidade_caso = municipio_residencia_br
 	codigo_ibge_residencia = caso.codigo_ibge_residencia
-	municipio_residencia = (caso.municipio_residencia).title()
+	
+	if caso.municipio_residencia != None or caso.municipio_residencia != '':
+		#municipio_residencia = (caso.municipio_residencia).title()
+		municipio_residencia = caso.municipio_residencia
+	else:
+		municipio_residencia = None
 	
 	
 	cidade_caso_id = cidade_caso
