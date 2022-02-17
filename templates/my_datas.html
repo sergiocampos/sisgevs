@@ -264,6 +264,7 @@ footer {
                 <th>Data Nasc.</th>
                 <th>Nome da Mãe</th>
                 <th>Município de Residência</th>
+                <th>Município Notificador</th>
                 <th style="text-align: center; width: 280px">Ações</th>
 
               
@@ -296,6 +297,16 @@ footer {
                 {% endif %}
                 {% if registro.municipio_residencia != None %}
                   <td>{{registro.municipio_residencia}}</td>
+                {% else %}
+                  <td></td>
+                {% endif %}
+                
+                {% if registro.municipio != None %}
+                  {% for i in municipios %}
+                    {% if i.id == registro.municipio %}
+                      <td>{{i}}</td>                 
+                    {% endif %}                    
+                  {% endfor %}
                 {% else %}
                   <td></td>
                 {% endif %}
@@ -334,6 +345,16 @@ footer {
                   <td></td>
                 {% endif %}
 
+                {% if registro.municipio != None %}
+                  {% for i in municipios %}
+                    {% if i.id == registro.municipio %}
+                      <td>{{i}}</td>                 
+                    {% endif %}
+                  {% endfor %}
+                {% else %}
+                  <td></td>
+                {% endif %}
+                  
                 <td align="center">
                   {% if user.funcao != 'gerencia_regional' %}
 
