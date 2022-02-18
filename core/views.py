@@ -230,22 +230,22 @@ def caso_view(request, id):
 @login_required(login_url='/login/')
 def caso_view_detail(request, id):
 	registro = CasoEsporotricose.objects.get(id=id)
+	uf_residencia = registro.uf_residencia
 	registro_cidade_residencia_str = registro.municipio_residencia
-	registro_cidade_residencia_id = int(registro_cidade_residencia_str)
-
-
-
-
-	municipio_residencia = Municipio.objects.get(id=registro_cidade_residencia_id)
-
+	try:
+		uf = Estado.objects.get(id=uf_residencia)
+	except:
+		uf = None
+	
 	if registro.municipio != None:
 		municipio_id = registro.municipio
 		municipio = Municipio.objects.get(id=municipio_id)
 	else:
 		municipio = None
+	
+	
 
-	return render(request, 'caso_view_detail.html', {'registro':registro, 'municipio':municipio, 'municipio_residencia':
-		municipio_residencia})
+	return render(request, 'caso_view_detail.html', {'registro':registro, 'municipio':municipio, 'uf_residencia':uf})
 
 
 @login_required(login_url='/login/')
