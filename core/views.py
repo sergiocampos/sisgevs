@@ -230,22 +230,22 @@ def caso_view(request, id):
 @login_required(login_url='/login/')
 def caso_view_detail(request, id):
 	registro = CasoEsporotricose.objects.get(id=id)
+	uf_residencia = registro.uf_residencia
 	registro_cidade_residencia_str = registro.municipio_residencia
-	registro_cidade_residencia_id = int(registro_cidade_residencia_str)
-
-
-
-
-	municipio_residencia = Municipio.objects.get(id=registro_cidade_residencia_id)
-
+	try:
+		uf = Estado.objects.get(id=uf_residencia)
+	except:
+		uf = None
+	
 	if registro.municipio != None:
 		municipio_id = registro.municipio
 		municipio = Municipio.objects.get(id=municipio_id)
 	else:
 		municipio = None
+	
+	
 
-	return render(request, 'caso_view_detail.html', {'registro':registro, 'municipio':municipio, 'municipio_residencia':
-		municipio_residencia})
+	return render(request, 'caso_view_detail.html', {'registro':registro, 'municipio':municipio, 'uf_residencia':uf})
 
 
 @login_required(login_url='/login/')
@@ -677,7 +677,7 @@ def set_caso_esporotricose_create(request):
 		municipio_residencia = Municipio.objects.get(id=municipio_residencia)
 	else: # Caso contrário pega os dados no modelo Municipios
 		municipio_residencia = Municipios.objects.get(id=municipio_residencia)
-	municipio_residencia = (municipio_residencia.nome).upper()
+	municipio_residencia = municipio_residencia.nome
 
 	bairro_residencia = request.POST.get('bairro_residencia')
 	codigo_ibge_residencia = request.POST.get('codigo_ibge_residencia')
@@ -1436,11 +1436,19 @@ def set_caso_esporotricose_edit(request, id):
 	municipio_residencia = request.POST.get('cidade_residencia')
 	
 	if uf_residencia == '12': # Se o uf for PB pega dados no modelo Municipio
-		municipio_residencia = Municipio.objects.get(id=municipio_residencia)
+		try:
+			municipio_residencia = Municipio.objects.get(id=municipio_residencia)
+			municipio_residencia = municipio_residencia.nome
+		except:
+			pass
 	else: # Caso contrário pega os dados no modelo Municipios
-		municipio_residencia = Municipios.objects.get(id=municipio_residencia)
-	municipio_residencia = (municipio_residencia.nome).upper()
-
+		try:
+			municipio_residencia = Municipios.objects.get(id=municipio_residencia)
+			municipio_residencia = municipio_residencia.nome
+		except:
+			pass	
+	municipio_residencia = municipio_residencia
+	
 	bairro_residencia = request.POST.get('bairro_residencia')
 	codigo_ibge_residencia = request.POST.get('codigo_ibge_residencia')
 	rua_residencia = request.POST.get('rua_residencia')

@@ -948,8 +948,7 @@ footer {
               <div id="menu1" class="container tab-pane fade"><br>
                 <script>
                   function activeMunicipio(){
-                    $("#municipios_estado_id").prop("disabled", false);
-
+                    continue
                   }
                                   </script>
                 <div class="row">
@@ -990,15 +989,8 @@ footer {
                   </div>
                   <div class="col-md-3">
                     <div class="form-group"><b>Município de Residência</b><i id="alert_municipio_residencia" style="color:red">**</i>
-                      <select class="form-control" name="cidade_residencia" id="municipios_estado_id" disabled>
-                        <option value="{{municipio_residencia}}" selected>{{municipio_residencia}}</option>
-                        {% for m in municipios %}
-                        {% if m.nome == municipio_residencia %}                       
-                        <option value="{{m.id}}" selected>{{m.nome}}</option>
-                        {% else %}
-                        <option value="{{m.id}}">{{m.nome}}</option>
-                        {% endif %}
-                        {% endfor %}
+                      <select class="form-control" name="cidade_residencia" id="municipios_estado_id">
+                        <option value="{{municipio_residencia}}" selected>{{municipio_residencia}}</option>                        
                       </select>                      
                      
                     </div>              
@@ -1178,51 +1170,6 @@ footer {
                   <div class="col"></div>
                 </div>
                 <br>
-                <script>
-                  antec_epid = document.querySelector("#container > form > ul > li:nth-child(4) > a");
-                  $(antec_epid).on('click', verificarOutros());
-                  function verificarOutros(){
-                    input_1 = document.getElementsByClassName('outros_id')[0]
-                    input_2 = document.getElementsByClassName('outros_animais_id')[0]
-                    input_3 = document.getElementsByClassName('outros_a_id')[0]
-                    input_4 = document.getElementsByClassName('outros_p_id')[0]
-                    
-                    checkbox_1 = document.getElementById('outros_id')
-                    checkbox_2 = document.getElementById('outros_animais_id')
-                    checkbox_3 = document.getElementById('outros_a_id')
-                    checkbox_4 = document.getElementById('outros_p_id')
-
-                    if (checkbox_1.checked){
-                      input_1.hidden = false;
-                      input_1.disabled = false;
-                    } else{
-                      input_1.hidden = true;
-                      input_1.disabled = true;
-                    }
-                    if (checkbox_2.checked){
-                      input_2.hidden = false;
-                      input_2.disabled = false;
-                    } else{
-                      input_2.hidden = true;
-                      input_2.disabled = true;
-                    }
-                    if (checkbox_3.checked){
-                      input_3.hidden = false;
-                      input_3.disabled = false;
-                    } else{
-                      input_3.hidden = true;
-                      input_3.disabled = true;
-                    }
-                    if (checkbox_4.checked){
-                      input_4.hidden = false;
-                      input_4.disabled = false;
-                    } else{
-                      input_4.hidden = true;
-                      input_4.disabled = true;
-                    }
-                  };
-                </script>
-
                 <div class="row">
                   <div class="col-sm-12">
                     <div class="alert alert-success" style="text-align: center;">
@@ -1409,6 +1356,50 @@ footer {
                   </div>
                   <script>
                       $("input[name='exerc_ativ_contato_plantas'][value='{{form.exerce_atividade_contato_plantas}}']").prop("checked", true)
+                  </script>
+                  <script>
+                    antec_epid = document.querySelector("#container > form > ul > li:nth-child(4) > a")
+                    $(antec_epid).on('click', verificarOutros());
+                    function verificarOutros(){
+                      input_1 = document.getElementsByClassName('outros_id')[0]
+                      input_2 = document.getElementsByClassName('outros_animais_id')[0]
+                      input_3 = document.getElementsByClassName('outros_a_id')[0]
+                      input_4 = document.getElementsByClassName('outros_p_id')[0]
+                      
+                      checkbox_1 = document.getElementById('outros_id')
+                      checkbox_2 = document.getElementById('outros_animais_id')
+                      checkbox_3 = document.getElementById('outros_a_id')
+                      checkbox_4 = document.getElementById('outros_p_id')
+  
+                      if (checkbox_1.checked){
+                        input_1.hidden = false;
+                        input_1.disabled = false;
+                      } else{
+                        input_1.hidden = true;
+                        input_1.disabled = true;
+                      }
+                      if (checkbox_2.checked){
+                        input_2.hidden = false;
+                        input_2.disabled = false;
+                      } else{
+                        input_2.hidden = true;
+                        input_2.disabled = true;
+                      }
+                      if (checkbox_3.checked){
+                        input_3.hidden = false;
+                        input_3.disabled = false;
+                      } else{
+                        input_3.hidden = true;
+                        input_3.disabled = true;
+                      }
+                      if (checkbox_4.checked){
+                        input_4.hidden = false;
+                        input_4.disabled = false;
+                      } else{
+                        input_4.hidden = true;
+                        input_4.disabled = true;
+                      }
+                    };
                   </script>
 
                   <script>
