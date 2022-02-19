@@ -333,14 +333,14 @@ footer {
                 <td></td>
                 {%endif%}
 
-
                 {% if registro.nome_mae_paciente == None %}
                   <td></td>
                 {% else %}
                   <td>{{registro.nome_mae_paciente}}</td>
                 {% endif %}
+
                 {% if registro.municipio_residencia != None %}
-                  <td>{{registro.municipio_residencia}}</td>                 
+                  <td style="text-transform:uppercase;">{{registro.municipio_residencia}}</td>                 
                 {% else %}
                   <td></td>
                 {% endif %}
@@ -348,7 +348,7 @@ footer {
                 {% if registro.municipio != None %}
                   {% for i in municipios %}
                     {% if i.id == registro.municipio %}
-                      <td>{{i}}</td>                 
+                      <td style="text-transform:uppercase;">{{i}}</td>                 
                     {% endif %}
                   {% endfor %}
                 {% else %}
@@ -416,7 +416,7 @@ footer {
             document.location.href='/my_datas/'
           }          
         })
-      });
+      });      
     </script>
   </body>
   </html>
