@@ -363,6 +363,7 @@ def ajax_edicao_uf_cidades(request):
 
 @login_required(login_url='/login/')
 def my_datas(request):
+	print(request.user.funcao)
 	municipios = Municipio.objects.all()
 	#municipio_nome = municipio_user.nome
 	if request.user.funcao == 'admin':
@@ -424,16 +425,12 @@ def my_datas(request):
 		return render(request, 'my_datas.html', {'regs':registros, 'municipios':municipios})	
 
 	elif request.user.funcao == 'gerencia_regional':
+		
 		user_gerencia_operacional = request.user.gerencia_operacional
 		user_nucleo = request.user.nucleo
 		user_area_tecnica = request.user.area_tecnica
 		user_gerencia_regional = request.user.gerencia_regional
-		registros = CasoEsporotricose.objects.filter(
-			responsavel_gerencia_operacional=user_gerencia_operacional, 
-			responsavel_nucleo=user_nucleo,
-			responsavel_area_tecnica=user_area_tecnica,
-			gerencia=user_gerencia_regional
-			).order_by('-id')
+		registros = CasoEsporotricose.objects.filter(responsavel_gerencia_regional=user_gerencia_regional).order_by('-id')
 
 		paginator = Paginator(registros, 6)
 		page = request.GET.get('page')

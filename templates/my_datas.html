@@ -272,7 +272,7 @@ footer {
             <tbody id="myTable">
 
               {% for registro in regs %}
-              {% if registro.status_caso == 'Cancelado' %}
+              {% if registro.status_caso == 'Cancelado' and user.funcao == 'gerencia_regional'  %}
               <tr class="table table-warning">
                 
                 {% if registro.data_notificacao != None %}
@@ -315,6 +315,7 @@ footer {
                   <button id="{{registro.id}}" type="button" class="btn cancelar_caso btn-secondary btn-sm">Revalidar</button>                
                 </td>                
               </tr>
+              {% elif registro.status_caso == 'Cancelado' and user.funcao != 'gerencia_regional' %}
               {% else %}
               <tr>
                 
