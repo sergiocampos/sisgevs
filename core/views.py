@@ -442,21 +442,25 @@ def my_datas(request):
 		return render(request, 'my_datas.html', {'regs':registros, 'municipios':municipios})
 
 	elif request.user.funcao == 'municipal':
-		#senha = mlfAIcGI
-		
+		# login = testebayeux
+		# senha = JjT1C5B6
+		#---------------------
+		# login = testecabedelo
+		# senha = L3Nqdv4Q
+
 		user_gerencia_operacional = request.user.gerencia_operacional
 		user_nucleo = request.user.nucleo
 		user_area_tecnica = request.user.area_tecnica
 		user_gerencia_regional = request.user.gerencia_regional
 		user_municipio_id = request.user.municipio_id
 		user_municipio_nome = str(Municipio.objects.filter(id=user_municipio_id)[0]).upper()
-		registros = CasoEsporotricose.objects.filter(Q(municipio_residencia=user_municipio_id) | 
-			Q(municipio_residencia=user_municipio_nome) | Q(municipio=user_municipio_id)).order_by('-id')
+		registros = CasoEsporotricose.objects.filter(Q(municipio=user_municipio_id) | 
+			Q(municipio_residencia=user_municipio_nome)).order_by('-id')
 		
-		user_municipio_nome = Municipio.objects.get(id=user_municipio_id)
+		#user_municipio_nome = Municipio.objects.get(id=user_municipio_id)
 
 
-		registros = CasoEsporotricose.objects.filter(municipio=user_municipio_id).order_by('-id')
+		#registros = CasoEsporotricose.objects.filter(municipio=user_municipio_id).order_by('-id')
 
 
 		print("municipio do usuário:",user_municipio_id)
@@ -603,7 +607,7 @@ def set_caso_esporotricose_create(request):
 	responsavel_gerencia_operacional = request.user.gerencia_operacional
 	responsavel_nucleo = request.user.nucleo
 	responsavel_area_tecnica = request.user.area_tecnica
-	responsavel_gerencia_regional = request.user.area_tecnica
+	responsavel_gerencia_regional = request.user.gerencia_regional
 	responsavel_municipio = request.user.municipio
 
 	#Dados Gerais
@@ -925,7 +929,7 @@ def set_caso_esporotricose_create(request):
 		responsavel_nucleo = responsavel_nucleo,
 		responsavel_area_tecnica = responsavel_area_tecnica,
 		responsavel_gerencia_regional = responsavel_gerencia_regional,
-		responsavel_municipio = responsavel_municipio,
+		responsavel_municipio = str(responsavel_municipio).upper(),
 		tipo_notificacao = tipo_notificacao,
 		agravo_doenca = agravo_doenca,
 		codigo_cib10 = codigo_cib10,
@@ -948,7 +952,7 @@ def set_caso_esporotricose_create(request):
 		nome_mae_paciente = nome_mae_paciente,
 		cep_residencia = cep_residencia,
 		uf_residencia = uf_residencia,
-		municipio_residencia = municipio_residencia,
+		municipio_residencia = str(municipio_residencia).upper(),
 		bairro_residencia = bairro_residencia,
 		codigo_ibge_residencia = codigo_ibge_residencia,
 		rua_residencia = rua_residencia,
@@ -1647,7 +1651,7 @@ def set_caso_esporotricose_edit(request, id):
 		responsavel_nucleo = responsavel_nucleo,
 		responsavel_area_tecnica = responsavel_area_tecnica,
 		responsavel_gerencia_regional = responsavel_gerencia_regional,
-		responsavel_municipio = responsavel_municipio,
+		responsavel_municipio = str(responsavel_municipio).upper(),
 		tipo_notificacao = tipo_notificacao,
 		agravo_doenca = agravo_doenca,
 		codigo_cib10 = codigo_cib10,
@@ -1670,7 +1674,7 @@ def set_caso_esporotricose_edit(request, id):
 		nome_mae_paciente = nome_mae_paciente,
 		cep_residencia = cep_residencia,
 		uf_residencia = uf_residencia,
-		municipio_residencia = municipio_residencia,
+		municipio_residencia = str(municipio_residencia).upper(),
 		bairro_residencia = bairro_residencia,
 		codigo_ibge_residencia = codigo_ibge_residencia,
 		rua_residencia = rua_residencia,

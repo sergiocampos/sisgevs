@@ -584,7 +584,6 @@ footer {
                       <select class="form-control" name="municipio_notificacao" id="municipio_id" required onchange="verificarNotifGeral()">
 
                         {% if form.municipio == None or form.municipio == '' %}
-                        
                           <option value="" selected>...</option>
                           {% for municipio in municipios %}
                           <option value="{{municipio.id}}" >{{municipio.nome}}</option>
