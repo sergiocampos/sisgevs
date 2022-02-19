@@ -1224,9 +1224,11 @@ def caso_esporotricose_edit(request, id):
 		estado_caso = None
 	else:
 		estado_caso = Estado.objects.get(id=estado_caso_str)
+		print('########################################################################################')
 		print(estado_caso.id)
 	
 	cidade_caso_ = caso.municipio_residencia
+	
 	print("municipio do caso:", cidade_caso_, type(cidade_caso_))
 
 	cidade_caso_registro = Municipio.objects.filter(nome=cidade_caso_)
