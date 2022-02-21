@@ -19,6 +19,7 @@ from django.db.models import Q
 
 from django.http import HttpResponse, HttpResponseRedirect
 import os
+from io import BytesIO
 from datetime import datetime
 
 from openpyxl import Workbook
@@ -1763,6 +1764,65 @@ def set_caso_esporotricose_edit(request, id):
 
 @login_required(login_url='/login/')
 def export_data_csv(request):
+
+	# Pegando todos os casos registrados
+	casos = CasoEsporotricose.objects.all().values()
+	
+	# Filtrando se houver filtro.
+	data_inicio = '1900-01-01'
+	data_fim = '2025-01-21'
+	casos_filtrados = casos.filter(data_notificacao__range=[data_inicio,data_fim]).order_by('-id')
+	
+	# Filtrando o tipo de perfil para limitar os casos.
+	if request.user.funcao == 'autocadastro':
+		# Perfil Auto-Cadastro
+		auto_cadastro_id = request.user.id
+		casos_response = casos.filter(responsavel_pelas_informacoes_id=autocadastro_id).order_by('-id')
+
+
+	elif request.user.funcao == 'municipal':
+		# Perfil Municipal
+		user_municipio_id = request.user.municipio_id
+		user_municipio_nome = str(Municipio.objects.filter(id=user_municipio_id)[0]).upper()
+		casos_response = casos_filtrados.filter(Q(municipio_residencia=user_municipio_id) | 
+			Q(municipio_residencia=user_municipio_nome) | Q(municipio=user_municipio_id)).order_by('-id')
+
+
+	elif request.user.funcao == 'gerencia_regional':
+		# Perfil Gerencia Regional
+		user_gerencia_regional = request.user.gerencia_regional
+		casos_response = casos_filtrados.filter(responsavel_gerencia_regional=user_gerencia_regional).order_by('-id')
+	
+
+	else: # Qualquer outro tipo de perfil
+		casos_response = casos_filtrados
+		
+	# Convertendo em dataframe e alterando o campo município.
+	df = pd.DataFrame(list(casos_response.order_by('-id')))
+	for i in df.municipio:
+		try:
+			i = int(i)
+		except:
+			continue
+		else:
+			municipio = Municipio.objects.get(id=i)
+			df.municipio = df.municipio.replace([i], municipio.nome)
+
+	# Escrevendo o excel e enviando o response.
+	with BytesIO() as b:
+		# Use the StringIO object as the filehandle.
+		writer = pd.ExcelWriter(b, engine='openpyxl')
+		df.to_excel(writer, sheet_name='Sheet1')
+		writer.save()
+		# Set up the Http response.
+		filename = 'casos_esporotricose_humana.xlsx'
+		response = HttpResponse(b.getvalue(),content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
+		response['Content-Disposition'] = 'attachment; filename=%s' % filename
+		
+		return response
+
+	
+	'''
 	#user = request.user
 	municipio_user_logado = request.user.municipio.id
 	#print("municipio do usuário:", municipio_user_logado)
@@ -3760,7 +3820,7 @@ def export_data_csv(request):
 		return response
 
 
-	
+	'''
 
 '''
 
