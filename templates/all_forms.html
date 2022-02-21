@@ -317,5 +317,10 @@ footer {
         $("#zika").hide();
       })
     </script>
+    <script>
+      window.onbeforeunload = (event) => {
+        event.preventDefault()
+      }
+    </script>
   </body>
   </html>
