@@ -230,22 +230,22 @@ def caso_view(request, id):
 @login_required(login_url='/login/')
 def caso_view_detail(request, id):
 	registro = CasoEsporotricose.objects.get(id=id)
+	uf_residencia = registro.uf_residencia
 	registro_cidade_residencia_str = registro.municipio_residencia
-	registro_cidade_residencia_id = int(registro_cidade_residencia_str)
-
-
-
-
-	municipio_residencia = Municipio.objects.get(id=registro_cidade_residencia_id)
-
+	try:
+		uf = Estado.objects.get(id=uf_residencia)
+	except:
+		uf = None
+	
 	if registro.municipio != None:
 		municipio_id = registro.municipio
 		municipio = Municipio.objects.get(id=municipio_id)
 	else:
 		municipio = None
+	
+	
 
-	return render(request, 'caso_view_detail.html', {'registro':registro, 'municipio':municipio, 'municipio_residencia':
-		municipio_residencia})
+	return render(request, 'caso_view_detail.html', {'registro':registro, 'municipio':municipio, 'uf_residencia':uf})
 
 
 @login_required(login_url='/login/')
@@ -325,7 +325,11 @@ def ajax_autoctone_distrito(request):
 @login_required(login_url='/login/')
 def ajax_dados_residencia(request):
 	estado_id = request.GET.get('uf_dados_residencia_id')
-	municipios = Municipios.objects.filter(uf_id=estado_id)
+	if estado_id == '12':
+		municipios = Municipio.objects.all()
+	else:
+		municipios = Municipios.objects.filter(uf_id=estado_id)
+
 	return render(request, 'estado_municipios_ajax.html', {'municipios':municipios})
 
 
@@ -333,30 +337,38 @@ def ajax_dados_residencia(request):
 @login_required(login_url='/login/')
 def ajax_ibge_municipio_residencia(request):
 	municipio_estado_id = request.GET.get('municipios_estado_id')
-	municipio = Municipios.objects.get(id=municipio_estado_id)
+	uf_estado_id = request.GET.get('uf_estado_id')
+	
+	if uf_estado_id == '12':
+		municipio = Municipio.objects.get(id=municipio_estado_id)
+	else:
+		municipio = Municipios.objects.get(id=municipio_estado_id)
 	ibge = municipio.ibge
-	print("ibge:", ibge)
+	
+	
 	return render(request, 'municipio_ibge_ajax.html', {'ibge':ibge})
-
-
 
 
 #################################### views ajax para edição de endereço################################
 @login_required(login_url='/login/')
 def ajax_edicao_uf_cidades(request):
 	estado_id = request.GET.get('uf_edit_endereco_id')
+	if estado_id == '12':
+		municipios = Municipio.objects.all()
+	else:
+		municipios = Municipios.objects.filter(uf_id=estado_id)
 
-	municipios = Municipios.objects.filter(uf_id=estado_id)
 	return render(request, 'edit_estado_municipios_ajax.html', {'municipios':municipios})
 #######################################################################################################
 
 @login_required(login_url='/login/')
 def my_datas(request):
+	print(request.user.funcao)
 	municipios = Municipio.objects.all()
 	#municipio_nome = municipio_user.nome
 	if request.user.funcao == 'admin':
 		registros = CasoEsporotricose.objects.all().order_by('-id')
-
+		
 		paginator = Paginator(registros, 6)
 		page = request.GET.get('page')
 		regs = paginator.get_page(page)
@@ -413,16 +425,12 @@ def my_datas(request):
 		return render(request, 'my_datas.html', {'regs':registros, 'municipios':municipios})	
 
 	elif request.user.funcao == 'gerencia_regional':
+		
 		user_gerencia_operacional = request.user.gerencia_operacional
 		user_nucleo = request.user.nucleo
 		user_area_tecnica = request.user.area_tecnica
 		user_gerencia_regional = request.user.gerencia_regional
-		registros = CasoEsporotricose.objects.filter(
-			responsavel_gerencia_operacional=user_gerencia_operacional, 
-			responsavel_nucleo=user_nucleo,
-			responsavel_area_tecnica=user_area_tecnica,
-			gerencia=user_gerencia_regional
-			).order_by('-id')
+		registros = CasoEsporotricose.objects.filter(responsavel_gerencia_regional=user_gerencia_regional).order_by('-id')
 
 		paginator = Paginator(registros, 6)
 		page = request.GET.get('page')
@@ -431,21 +439,25 @@ def my_datas(request):
 		return render(request, 'my_datas.html', {'regs':registros, 'municipios':municipios})
 
 	elif request.user.funcao == 'municipal':
-		#senha = mlfAIcGI
-		
+		# login = testebayeux
+		# senha = JjT1C5B6
+		#---------------------
+		# login = testecabedelo
+		# senha = L3Nqdv4Q
+
 		user_gerencia_operacional = request.user.gerencia_operacional
 		user_nucleo = request.user.nucleo
 		user_area_tecnica = request.user.area_tecnica
 		user_gerencia_regional = request.user.gerencia_regional
 		user_municipio_id = request.user.municipio_id
 		user_municipio_nome = str(Municipio.objects.filter(id=user_municipio_id)[0]).upper()
-		registros = CasoEsporotricose.objects.filter(Q(municipio_residencia=user_municipio_id) | 
-			Q(municipio_residencia=user_municipio_nome) | Q(municipio=user_municipio_id)).order_by('-id')
+		registros = CasoEsporotricose.objects.filter(Q(municipio=user_municipio_id) | 
+			Q(municipio_residencia=user_municipio_nome)).order_by('-id')
 		
-		user_municipio_nome = Municipio.objects.get(id=user_municipio_id)
+		#user_municipio_nome = Municipio.objects.get(id=user_municipio_id)
 
 
-		registros = CasoEsporotricose.objects.filter(municipio=user_municipio_id).order_by('-id')
+		#registros = CasoEsporotricose.objects.filter(municipio=user_municipio_id).order_by('-id')
 
 
 		print("municipio do usuário:",user_municipio_id)
@@ -592,7 +604,7 @@ def set_caso_esporotricose_create(request):
 	responsavel_gerencia_operacional = request.user.gerencia_operacional
 	responsavel_nucleo = request.user.nucleo
 	responsavel_area_tecnica = request.user.area_tecnica
-	responsavel_gerencia_regional = request.user.area_tecnica
+	responsavel_gerencia_regional = request.user.gerencia_regional
 	responsavel_municipio = request.user.municipio
 
 	#Dados Gerais
@@ -661,10 +673,13 @@ def set_caso_esporotricose_create(request):
 	cep_residencia = request.POST.get('cep_residencia')
 	uf_residencia = request.POST.get('uf_residencia')
 	municipio_residencia = int(request.POST.get('cidade_residencia'))
-	print("municipio de residencia escolhido:", municipio_residencia)
-	municipio_residencia = Municipios.objects.get(id=municipio_residencia)
-	municipio_residencia = (municipio_residencia.nome).upper()
-	print(" segunda...municipio de residencia escolhido:", municipio_residencia)
+
+	if uf_residencia == '12': # Se o uf for PB pega dados no modelo Municipio
+		municipio_residencia = Municipio.objects.get(id=municipio_residencia)
+	else: # Caso contrário pega os dados no modelo Municipios
+		municipio_residencia = Municipios.objects.get(id=municipio_residencia)
+	municipio_residencia = municipio_residencia.nome
+
 	bairro_residencia = request.POST.get('bairro_residencia')
 	codigo_ibge_residencia = request.POST.get('codigo_ibge_residencia')
 	rua_residencia = request.POST.get('rua_residencia')
@@ -685,10 +700,14 @@ def set_caso_esporotricose_create(request):
 
 
 	ocupacao = request.POST.get('ocupacao')
-	ambientes_frequentados = request.POST.getlist('ambientes_frequentados')
-	animais_que_teve_contato = request.POST.getlist('animais_que_teve_contato')
-	natureza_contato_animais = request.POST.getlist('natureza_contato_animais')
-	relacao_animal_doente = request.POST.getlist('relacao_animal_doente')
+	ambientes_frequentados = request.POST.getlist('ambientes_frequentados')	
+	ambientes_frequentados_outros = request.POST.get('ambientes_frequentados_outros')	
+	animais_que_teve_contato = request.POST.getlist('animais_que_teve_contato')	
+	animais_que_teve_contato_outros = request.POST.get('animais_que_teve_contato_outros')	
+	natureza_contato_animais = request.POST.getlist('natureza_contato_animais')	
+	natureza_contato_animais_outros = request.POST.get('natureza_contato_animais_outros')	
+	relacao_animal_doente = request.POST.getlist('relacao_animal_doente')	
+	relacao_animal_doente_outros = request.POST.get('relacao_animal_doente_outros')	
 	exerce_atividade_contato_plantas = request.POST.get('exerc_ativ_contato_plantas')
 	historico_contato_material = request.POST.get('lesao_manuseio')
 	
@@ -900,14 +919,14 @@ def set_caso_esporotricose_create(request):
 		
 	# CODIGO NUMERO UNICO #
 
-
+	
 	CasoEsporotricose.objects.create(
 		responsavel_pelas_informacoes = responsavel_pelas_informacoes,
 		responsavel_gerencia_operacional = responsavel_gerencia_operacional,
 		responsavel_nucleo = responsavel_nucleo,
 		responsavel_area_tecnica = responsavel_area_tecnica,
 		responsavel_gerencia_regional = responsavel_gerencia_regional,
-		responsavel_municipio = responsavel_municipio,
+		responsavel_municipio = str(responsavel_municipio).upper(),
 		tipo_notificacao = tipo_notificacao,
 		agravo_doenca = agravo_doenca,
 		codigo_cib10 = codigo_cib10,
@@ -930,7 +949,7 @@ def set_caso_esporotricose_create(request):
 		nome_mae_paciente = nome_mae_paciente,
 		cep_residencia = cep_residencia,
 		uf_residencia = uf_residencia,
-		municipio_residencia = municipio_residencia,
+		municipio_residencia = str(municipio_residencia).upper(),
 		bairro_residencia = bairro_residencia,
 		codigo_ibge_residencia = codigo_ibge_residencia,
 		rua_residencia = rua_residencia,
@@ -944,9 +963,13 @@ def set_caso_esporotricose_create(request):
 		data_investigacao = data_investigacao,
 		ocupacao = ocupacao,
 		ambientes_frequentados = ambientes_frequentados,
+		ambientes_frequentados_outros = ambientes_frequentados_outros,
 		animais_que_teve_contato = animais_que_teve_contato,
+		animais_que_teve_contato_outros = animais_que_teve_contato_outros,
 		natureza_contato_animais = natureza_contato_animais,
+		natureza_contato_animais_outros = natureza_contato_animais_outros,
 		relacao_animal_doente = relacao_animal_doente,
+		relacao_animal_doente_outros = relacao_animal_doente_outros,
 		exerce_atividade_contato_plantas = exerce_atividade_contato_plantas,
 		historico_contato_material = historico_contato_material,
 		presenca_lesao_pele = presenca_lesao_pele,
@@ -1217,7 +1240,12 @@ def caso_esporotricose_edit(request, id):
 	#cidade_caso = int(caso.municipio_residencia)
 	cidade_caso = municipio_residencia_br
 	codigo_ibge_residencia = caso.codigo_ibge_residencia
-	municipio_residencia = (caso.municipio_residencia).title()
+	
+	if caso.municipio_residencia != None or caso.municipio_residencia != '':
+		#municipio_residencia = (caso.municipio_residencia).title()
+		municipio_residencia = caso.municipio_residencia
+	else:
+		municipio_residencia = None
 	
 	
 	cidade_caso_id = cidade_caso
@@ -1406,19 +1434,24 @@ def set_caso_esporotricose_edit(request, id):
 	#Dados Residencia
 	cep_residencia = request.POST.get('cep_residencia')
 	uf_residencia = request.POST.get('uf_residencia')
-	
-
-
 	municipio_residencia = request.POST.get('cidade_residencia')
-	print("codigo do municipio de residencia:", municipio_residencia)
-	municipio_residencia = Municipios.objects.get(id=municipio_residencia)
-	municipio_residencia = str(municipio_residencia.nome).upper()
 	
-
-
+	if uf_residencia == '12': # Se o uf for PB pega dados no modelo Municipio
+		try:
+			municipio_residencia = Municipio.objects.get(id=municipio_residencia)
+			municipio_residencia = municipio_residencia.nome
+		except:
+			pass
+	else: # Caso contrário pega os dados no modelo Municipios
+		try:
+			municipio_residencia = Municipios.objects.get(id=municipio_residencia)
+			municipio_residencia = municipio_residencia.nome
+		except:
+			pass	
+	municipio_residencia = municipio_residencia
+	
 	bairro_residencia = request.POST.get('bairro_residencia')
 	codigo_ibge_residencia = request.POST.get('codigo_ibge_residencia')
-	print(codigo_ibge_residencia)
 	rua_residencia = request.POST.get('rua_residencia')
 	numero_residencia = request.POST.get('numero_residencia')
 	complemento_residencia = request.POST.get('complemento_residencia')
@@ -1615,7 +1648,7 @@ def set_caso_esporotricose_edit(request, id):
 		responsavel_nucleo = responsavel_nucleo,
 		responsavel_area_tecnica = responsavel_area_tecnica,
 		responsavel_gerencia_regional = responsavel_gerencia_regional,
-		responsavel_municipio = responsavel_municipio,
+		responsavel_municipio = str(responsavel_municipio).upper(),
 		tipo_notificacao = tipo_notificacao,
 		agravo_doenca = agravo_doenca,
 		codigo_cib10 = codigo_cib10,
@@ -1638,7 +1671,7 @@ def set_caso_esporotricose_edit(request, id):
 		nome_mae_paciente = nome_mae_paciente,
 		cep_residencia = cep_residencia,
 		uf_residencia = uf_residencia,
-		municipio_residencia = municipio_residencia,
+		municipio_residencia = str(municipio_residencia).upper(),
 		bairro_residencia = bairro_residencia,
 		codigo_ibge_residencia = codigo_ibge_residencia,
 		rua_residencia = rua_residencia,

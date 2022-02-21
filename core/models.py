@@ -186,9 +186,13 @@ class CasoEsporotricose(models.Model):
 	data_investigacao = models.DateField(blank=True, null=True)
 	ocupacao = models.CharField(max_length = 100, null=True, blank=True)
 	ambientes_frequentados = ArrayField(models.CharField(max_length=100), blank=True, null=True)
+	ambientes_frequentados_outros = models.CharField(max_length = 100, null=True, blank=True)
 	animais_que_teve_contato = ArrayField(models.CharField(max_length=100), blank=True, null=True)
+	animais_que_teve_contato_outros = models.CharField(max_length = 100, null=True, blank=True)
 	natureza_contato_animais = ArrayField(models.CharField(max_length=200), blank=True, null=True)
+	natureza_contato_animais_outros = models.CharField(max_length = 100, null=True, blank=True)
 	relacao_animal_doente = ArrayField(models.CharField(max_length=200), blank=True, null=True)
+	relacao_animal_doente_outros = models.CharField(max_length = 100, null=True, blank=True)
 	exerce_atividade_contato_plantas = models.CharField(max_length = 100, null=True, blank=True)
 	historico_contato_material = models.CharField(max_length = 100, null=True, blank=True)
 

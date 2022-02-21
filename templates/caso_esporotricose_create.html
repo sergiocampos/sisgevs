@@ -401,7 +401,7 @@ footer {
       <nav>
         <ul style="padding:0;">
           <li>
-            <button type="button" class="btn btn-info dropdown-toggle" data-toggle="collapse" data-target="#demo">Usuário: {{user.login}}</button>
+            <button type="menu" class="btn btn-info" disabled>Usuário: {{user.login}}</button>
           </li>
         </ul>
         <ul style="padding-left: 5%;">
@@ -1006,7 +1006,7 @@ footer {
 
                   <div class="col-md-2">
                     <div class="form-group"><b>Código IBGE</b>
-                      <input type="text" class="form-control" id="ibge_municipio_residencia_id" name="codigo_ibge_residencia" readonly>
+                      <input type="text" class="form-control" id="ibge_municipio_residencia_id" value="2507507" name="codigo_ibge_residencia" readonly>
                     </div>
                   </div>
                   
@@ -1142,12 +1142,17 @@ footer {
                   </div>
                   <div class="col-md-2">
                     <div class="custom-control custom-checkbox mb-3">
-                      <input type="checkbox" class="custom-control-input" id="outros_id" name="ambientes_frequentados" value="Outros">
+                      <input type="checkbox" class="custom-control-input" id="outros_id" onclick="verificarOutros(this)" name="ambientes_frequentados" value="Outros">
                       <label class="custom-control-label" for="outros_id">Outros</label>
                     </div>
                   </div>
-                  
-                </div><br>
+                </div>
+                <div class="row">
+                  <div class="col"></div>
+                  <div class="col-sm-6"><input hidden disabled placeholder="Outros:" name="ambientes_frequentados_outros" type="text" class="form-control outros_id"></div>
+                  <div class="col"></div>
+                </div>
+                <br>
 
                 <div class="row">
                   <div class="col-sm-12">
@@ -1180,12 +1185,18 @@ footer {
                   </div>
                   <div class="col-md-2">
                     <div class="custom-control custom-checkbox mb-3">
-                      <input type="checkbox" class="custom-control-input" id="outros_animais_id" name="animais_que_teve_contato" value="Outros Animais">
+                      <input type="checkbox" class="custom-control-input" id="outros_animais_id" onclick="verificarOutros(this)" name="animais_que_teve_contato" value="Outros Animais">
                       <label class="custom-control-label" for="outros_animais_id">Outros Animais</label>
                     </div>
                   </div>
 
-                </div><br>
+                </div>
+                <div class="row">
+                  <div class="col"></div>
+                  <div class="col-sm-6"><input hidden disabled placeholder="Outros:" name="animais_que_teve_contato_outros" type="text" class="form-control outros_animais_id"></div>
+                  <div class="col"></div>
+                </div>
+                <br>
 
                 <div class="row">
                   <div class="col-sm-12">
@@ -1222,12 +1233,18 @@ footer {
                   </div>
                   <div class="col-md-1">
                     <div class="custom-control custom-checkbox mb-3">
-                      <input type="checkbox" class="custom-control-input" id="outros_a_id" name="natureza_contato_animais" value="Outros">
+                      <input type="checkbox" class="custom-control-input" id="outros_a_id" onclick="verificarOutros(this)" name="natureza_contato_animais" value="Outros">
                       <label class="custom-control-label" for="outros_a_id">Outros</label>
                     </div>
                   </div>
 
-                </div><br>
+                </div>
+                <div class="row">
+                  <div class="col"></div>
+                  <div class="col-sm-6"><input hidden disabled placeholder="Outros:" name="natureza_contato_animais_outros" type="text" class="form-control outros_a_id"></div>
+                  <div class="col"></div>
+                </div>
+                <br>
 
                 <div class="row">
                   <div class="col-sm-12">
@@ -1274,14 +1291,31 @@ footer {
                   
                   <div class="col-md-1">
                     <div class="custom-control custom-checkbox mb-3">
-                      <input type="checkbox" class="custom-control-input" id="outros_p_id" name="relacao_animal_doente" value="Outros">
+                      <input type="checkbox" class="custom-control-input" id="outros_p_id" onclick="verificarOutros(this)" name="relacao_animal_doente" value="Outros">
                       <label class="custom-control-label" for="outros_p_id">Outros</label>
                     </div>
                   </div>
-
+                </div>
+                <div class="row">
+                  <div class="col"></div>
+                  <div class="col-sm-6"><input hidden disabled placeholder="Outros:" name="relacao_animal_doente_outros" type="text" class="form-control outros_p_id"></div>
+                  <div class="col"></div>
                 </div>
                 <br>
-                
+                <script>
+                  function verificarOutros(outro){
+                    class_outro_input = '.'+String(outro.id)
+                    input_outro = $(class_outro_input)[0]
+                    if (outro.checked){
+                      input_outro.hidden = false
+                      input_outro.disabled = false
+                    } else {
+                      input_outro.hidden = true;
+                      input_outro.disabled = true
+                      input_outro.value = null
+                    }
+                  };
+                </script>
                 <div class="row">
                   <div class="col-sm-12">
                     <div class="alert alert-success" style="text-align: center;">
@@ -1361,6 +1395,7 @@ footer {
                       $('[data-toggle="tooltip"]').tooltip();   
                     });
                   </script>                                    
+                  
                 </div>
 
 
@@ -1617,9 +1652,7 @@ footer {
                   <div class="col-md-1">
                     <div class="custom-control custom-checkbox mb-3">
                       <input type="checkbox" class="custom-control-input" id="natureza_lesao_outros_id" name="natureza_lesao" value="Outros">
-                      <label class="custom-control-label" for="natureza_lesao_outros_id">Outros
-
-                      </label>
+                      <label class="custom-control-label" for="natureza_lesao_outros_id">Outros</label>
                     </div>
                   </div>
                   <div class="col-md-3">
@@ -3150,12 +3183,12 @@ footer {
       //Ajax para autoprencher o código ibge se alterar município
       $("#municipios_estado_id").change(function(){
         municipioId = $(this).val();
-
+        uf_id = $('#uf_dados_residencia_id').val();
+        
         $.ajax({
           url : '{% url "ajax_ibge_municipio_residencia" %}',
-          data: { 'municipios_estado_id': municipioId},
+          data: { 'municipios_estado_id': municipioId, 'uf_estado_id':uf_id},
           success: function(data){
-            console.log(data);
             $("#ibge_municipio_residencia_id").val(data);
           }
         });
