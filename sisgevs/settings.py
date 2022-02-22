@@ -85,9 +85,11 @@ AUTH_USER_MODEL = 'account.User'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': os.environ.get('DB_NAME', 'sisgevs'),
+        'NAME': os.environ.get('DB_NAME', 'postgres'),
         'USER': os.environ.get('DB_USER', 'postgres'),
-        'PASSWORD': 'admin'
+        'PASSWORD': 'postgres',
+        'HOST': 'db',
+        'PORT': 5432,
     }
 }
 
@@ -145,6 +147,8 @@ MEDIA_URL = '/media/'
 STATIC_ROOT = os.path.join(os.path.dirname(BASE_DIR), 'static')
 
 SESSION_EXPIRE_AT_BROWSER_CLOSE = True
+SESSION_COOKIE_AGE = 900
+SESSION_SAVE_EVERY_REQUEST = True
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
