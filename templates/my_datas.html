@@ -164,7 +164,7 @@ footer {
       <nav>
         <ul style="padding:0;">
           <li>
-            <button type="button" class="btn btn-info dropdown-toggle" data-toggle="collapse" data-target="#demo">Usuário: {{user.login}}</button>
+            <button type="menu" class="btn btn-info" disabled>Usuário: {{user.login}}</button>
           </li>
         </ul>
         <ul style="padding-left: 5%;">
@@ -272,7 +272,7 @@ footer {
             <tbody id="myTable">
 
               {% for registro in regs %}
-              {% if registro.status_caso == 'Cancelado' %}
+              {% if registro.status_caso == 'Cancelado' and user.funcao == 'gerencia_regional'  %}
               <tr class="table table-warning">
                 
                 {% if registro.data_notificacao != None %}
@@ -315,6 +315,7 @@ footer {
                   <button id="{{registro.id}}" type="button" class="btn cancelar_caso btn-secondary btn-sm">Revalidar</button>                
                 </td>                
               </tr>
+              {% elif registro.status_caso == 'Cancelado' and user.funcao != 'gerencia_regional' %}
               {% else %}
               <tr>
                 
@@ -333,14 +334,14 @@ footer {
                 <td></td>
                 {%endif%}
 
-
                 {% if registro.nome_mae_paciente == None %}
                   <td></td>
                 {% else %}
                   <td>{{registro.nome_mae_paciente}}</td>
                 {% endif %}
+
                 {% if registro.municipio_residencia != None %}
-                  <td>{{registro.municipio_residencia}}</td>                 
+                  <td style="text-transform:uppercase;">{{registro.municipio_residencia}}</td>                 
                 {% else %}
                   <td></td>
                 {% endif %}
@@ -348,7 +349,7 @@ footer {
                 {% if registro.municipio != None %}
                   {% for i in municipios %}
                     {% if i.id == registro.municipio %}
-                      <td>{{i}}</td>                 
+                      <td style="text-transform:uppercase;">{{i}}</td>                 
                     {% endif %}
                   {% endfor %}
                 {% else %}
@@ -416,7 +417,7 @@ footer {
             document.location.href='/my_datas/'
           }          
         })
-      });
+      });      
     </script>
   </body>
   </html>
