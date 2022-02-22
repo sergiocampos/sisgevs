@@ -581,21 +581,24 @@ footer {
                   </div>
                   <div class="col-md-3">
                     <div class="form-group"><b>Município Notificador</b><i id="alert_municipio" style="color:red">**</i>
+                      
                       <select class="form-control" name="municipio_notificacao" id="municipio_id" required onchange="verificarNotifGeral()">
 
-                        {% if form.municipio == None or form.municipio == '' %}
+                        {% if form.municipio == None or form.municipio == '' %}                        
+
                           <option value="" selected>...</option>
                           {% for municipio in municipios %}
                           <option value="{{municipio.id}}" >{{municipio.nome}}</option>
                           {% endfor %}
                           
                         {% else %}
-
-                          <option value="{{municipio.id}}" selected>{{municipio.nome}}</option>
                           {% for municipio in municipios %}
-                          <option value="{{municipio.id}}" >{{municipio.nome}}</option>
-                          {% endfor %}
-                        
+                          {% if form.municipio == municipio.id %}
+                          <option value="{{municipio.id}}" selected>{{municipio.nome}}</option>
+                          {% else %}
+                          <option value="{{municipio.id}}">{{municipio.nome}}</option>
+                          {% endif %}
+                          {% endfor %}                        
                         {% endif %}
 
                       </select>
@@ -947,9 +950,11 @@ footer {
               <div id="menu1" class="container tab-pane fade"><br>
                 <script>
                   function activeMunicipio(){
-                    continue
+                    selected = $("#uf_edit_endereco_id").find('option');
+                    selected = selected[0];
+                    $(selected).text('')
                   }
-                                  </script>
+                </script>
                 <div class="row">
 
                   <div class="col-md-2">
@@ -961,7 +966,7 @@ footer {
                     <div class="form-group"><b>UF</b>
                       <select class="form-control" name="uf_residencia" id="uf_edit_endereco_id" onclick="activeMunicipio()">
                         {% if estado_caso != None %}
-                        <option value="{{estado_caso.id}}" selected>{{estado_caso.nome}}</option>
+                        <option value="{{estado_caso.id}}" selected disabled>{{estado_caso.nome}}</option>
                           {% for estado_caso in estados %}
                           <option value="{{estado_caso.id}}">{{estado_caso.nome}}</option>
                           {% endfor %}
@@ -990,8 +995,7 @@ footer {
                     <div class="form-group"><b>Município de Residência</b><i id="alert_municipio_residencia" style="color:red">**</i>
                       <select class="form-control" name="cidade_residencia" id="municipios_estado_id">
                         <option value="{{municipio_residencia}}" selected>{{municipio_residencia}}</option>                        
-                      </select>                      
-                     
+                      </select>                     
                     </div>              
                   </div>
                   
@@ -3073,7 +3077,7 @@ footer {
             $("#ibge_municipio_residencia_id").val(data);
           }
         });        
-      });
+      }); 
 
 
     //end
