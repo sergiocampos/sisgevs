@@ -118,7 +118,7 @@ footer {
     <div class="" style="background-color: #e6e6e6;">
       <div class="row">
         <div class="col" style="padding: 0; margin-top: 10px; text-align: center;">
-          <h4>SECRETARIA DE ESTADO DA SAÚDE</h4>
+          <h4>SECRETARIA DE ESTADO DA SAÚDE DA PARAÍBA</h4>
           <h6>SISGEVS - Sistema de Informação em Saúde da GEVS</h6>
           <h6><b>----</b></h6>
         </div>
@@ -164,7 +164,7 @@ footer {
       <nav>
         <ul style="padding:0;">
           <li>
-            <button type="button" class="btn btn-info dropdown-toggle" data-toggle="collapse" data-target="#demo">Usuário: {{user.login}}</button>
+            <button type="menu" class="btn btn-info" disabled>Usuário: {{user.login}}</button>
           </li>
         </ul>
         <ul style="padding-left: 5%;">
@@ -199,7 +199,7 @@ footer {
             <hr>
             <li><a href="/download_ficha/" data-toggle="collapse" data-target="#_demo">Ficha</a></li>
             <div id="_demo" class="collapse"><br>
-              <li><a href="/ficha_caso_esporotricose_preencher/" target="_blank" style="color: #4d94ff;">Esporotricose Humana</a></li>
+              <li><a href="/download_ficha/" style="color: #4d94ff;" style="text-decoration: none;" download>Esporotricose Humana</a></li>
               <!--<li><a href="/download_ficha/" download style="color: #4d94ff;">Imprimir Ficha</a></li>-->
             </div>
             <hr>
@@ -219,17 +219,33 @@ footer {
               </div>
             </div>
           </div>
+          <form action="/export_data_csv/" method="get">
+            <div class="row">
+              <div class="col-4">
+                <input class="form-control" type="text" id="pesquisar" placeholder="digite algo para pesquisar">             
+              </div>
+              <div class="col-3">
+                <div class="input-group" id="">
+                  <div class="input-group-prepend" id="">
+                    <span class="input-group-text">Inicio</span>
+                  </div>
+                  <input type="date" id="filtro_data_inicio" name="filtro_data_inicio" class="form-control">
+                </div>
+              </div>
+              <div class="col-3">
+                <div class="input-group" id="">
+                  <div class="input-group-prepend" id="">
+                    <span class="input-group-text">Fim</span>
+                  </div>
+                  <input type="date" id="filtro_data_fim" name="filtro_data_fim" class="form-control">
+                </div>
+              </div>
+              <div class="col-2">
+                <button type="submit" class="btn btn-primary btn-sm">Exportar Dados</button>
+              </div>
+            </div>
 
-          <div class="row">
-            <div class="col-sm-6">
-              <input class="form-control" type="text" id="pesquisar" placeholder="digite algo para pesquisar">
-             
-            </div>
-            <div class="col-sm-4"></div>
-            <div class="col-sm-2">
-              <a href="/export_data_csv/"><button type="button" class="btn btn-primary btn-sm">Exportar Dados</button></a>
-            </div>
-          </div>
+          </form>
 
           <style>
             .table          { overflow-y: auto; height: 100px; }
@@ -272,7 +288,7 @@ footer {
             <tbody id="myTable">
 
               {% for registro in regs %}
-              {% if registro.status_caso == 'Cancelado' %}
+              {% if registro.status_caso == 'Cancelado' and user.funcao == 'gerencia_regional'  %}
               <tr class="table table-warning">
                 
                 {% if registro.data_notificacao != None %}
@@ -315,6 +331,7 @@ footer {
                   <button id="{{registro.id}}" type="button" class="btn cancelar_caso btn-secondary btn-sm">Revalidar</button>                
                 </td>                
               </tr>
+              {% elif registro.status_caso == 'Cancelado' and user.funcao != 'gerencia_regional' %}
               {% else %}
               <tr>
                 
@@ -333,14 +350,14 @@ footer {
                 <td></td>
                 {%endif%}
 
-
                 {% if registro.nome_mae_paciente == None %}
                   <td></td>
                 {% else %}
                   <td>{{registro.nome_mae_paciente}}</td>
                 {% endif %}
+
                 {% if registro.municipio_residencia != None %}
-                  <td>{{registro.municipio_residencia}}</td>                 
+                  <td style="text-transform:uppercase;">{{registro.municipio_residencia}}</td>                 
                 {% else %}
                   <td></td>
                 {% endif %}
@@ -348,7 +365,7 @@ footer {
                 {% if registro.municipio != None %}
                   {% for i in municipios %}
                     {% if i.id == registro.municipio %}
-                      <td>{{i}}</td>                 
+                      <td style="text-transform:uppercase;">{{i}}</td>                 
                     {% endif %}
                   {% endfor %}
                 {% else %}
@@ -416,7 +433,7 @@ footer {
             document.location.href='/my_datas/'
           }          
         })
-      });
+      });      
     </script>
   </body>
   </html>

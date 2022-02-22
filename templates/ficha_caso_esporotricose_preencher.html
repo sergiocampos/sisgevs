@@ -133,36 +133,74 @@
                     <label>Idade</label>
                     <input id="idade" type="text">
                 </div>
-                <div class="col-2 arredondado">
-                    <label>Sexo</label>
-                    <input type="text">
-                    <!--<select style="width: 100%;">
-                        <option value="" selected>Selecione</option>
-                        <option value="masculino">Masculino</option>
-                        <option value="feminino">Feminino</option>
-                        <option value="outro">Outro</option>
-                    </select>-->
+                <div class="col-3 arredondado" style="background-color: ;">
+                    
+
+                    <div class="col" style="display:; background-color: ;">
+                        <label style="background-color: ;">Sexo</label>
+                        <input style="width: 22px; height: 22px; margin:5px;margin-left: 40px;" type="checkbox" disabled>                        
+                    </div>
+
+                    <label style="font-size: 60%;">1 - Masculino 2 - Feminino</label>
+                    
+                    
                 </div>
-                <div class="col-5 arredondado">
-                    <label>Gestante</label>
-                    <input type="text">
+                <div class="col-8 arredondado">
+                    
+                    <div class="col" style="display:; background-color: ;">
+                        <label style="background-color: ;">Gestante</label>
+                        <input style="width: 22px; height: 22px; margin:5px;margin-left: 40px;" type="checkbox" disabled>                        
+                    </div>
+
+                    <label style="font-size: 60%;"><b style="font-size: 120%">1</b> - 1° Trimestre</label>
+                    <label style="font-size: 60%;"><b style="font-size: 120%">2</b> - 2° Trimestre</label>
+                    <label style="font-size: 60%;"><b style="font-size: 120%">3</b> - 3° Trimestre</label>
+                    <label style="font-size: 60%;"><b style="font-size: 120%">4</b> - Idade Gestacional Ignorada</label>
+                    <label style="font-size: 60%;"><b style="font-size: 120%">5</b> - Não</label>
+                    <label style="font-size: 60%;"><b style="font-size: 120%">6</b> - Não se Aplica</label>
+                    <label style="font-size: 60%;"><b style="font-size: 120%">9</b> - Ignorado</label>
+
                 </div>
-                <div class="col-4 arredondado">
-                    <label>Raça/Cor</label>
-                    <input type="text">
-                    <!--<select style="width: 100%;" name="" id="">
-                        {% include 'options/tp_racacor.html' %}
-                    </select>-->
+                
+            </div>
+            <!-- LINHA -->
+            <div class="row">
+                <div class="col-12 arredondado">
+                    <div class="col" style="display:; background-color: ;">
+                        <label style="background-color: ;">RAÇA/COR</label>
+                        <input style="width: 22px; height: 22px; margin:5px;margin-left: 40px;" type="checkbox" disabled>
+
+                        <label style="font-size: 60%;">1 - BRANCA</label>
+                    <label style="font-size: 60%;margin-left: 7px;">2 - PRETA</label>
+                    <label style="font-size: 60%;margin-left: 7px;">3 - AMARELA</label>
+                    <label style="font-size: 60%;margin-left: 7px;">4 - PARDA</label>
+                    <label style="font-size: 60%;margin-left: 7px;">5 - INDÍGENA</label>
+                    <label style="font-size: 60%;margin-left: 7px;">9 - Ignorado</label>
+
+                    </div>
+
+                    
                 </div>
             </div>
             <!-- LINHA -->
             <div class="row">
                 <div class="col py-2 arredondado">
-                    <label>Escolaridade</label>
-                    <input type="text">
-                    <!--<select name="" id="">
-                        {% include 'options/tp_escolaridade.html' %}
-                    </select>-->
+                    <div class="col" style="display:; background-color: ;">
+                        <label style="background-color: ;">ESCOLARIDADE</label>
+                        <input style="width: 22px; height: 22px; margin:5px;margin-left: 40px;" type="checkbox" disabled>
+
+                    <label style="font-size: 60%;margin-left: 7px;"><b style="font-weight: bold; font-size: 120%">0</b> - Analfabeto</label>
+                    <label style="font-size: 60%;margin-left: 30px;"><b style="font-weight: bold; font-size: 120%">1</b> - 1ª a 4ª Série Incompleta do EF(antigo primário ou 1º grau)</label>
+                    <label style="font-size: 60%;margin-left: 7px;"><b style="font-weight: bold; font-size: 120%">2</b> - 4ª Série completa do EF(antigo primário ou 1º grau)</label>
+                    <label style="font-size: 60%;margin-left: 7px;"><b style="font-weight: bold; font-size: 120%">3</b> - 5ª a 8ª Série Incompleta do EF(antigo ginásio ou 1º grau)</label>
+                    <label style="font-size: 60%;margin-left: 7px;"><b style="font-weight: bold; font-size: 120%">4</b> - Ensino Fundamental(antigo ginásio ou 1º grau)</label>
+                    <label style="font-size: 60%;margin-left: 7px;"><b style="font-weight: bold; font-size: 120%">5</b> - Ensino Médio Incompleto(antigo colegial ou 2º grau)</label>
+                    <label style="font-size: 60%;margin-left: 7px;"><b style="font-weight: bold; font-size: 120%">6</b> - Ensino Médio completo(antigo colegial ou 2º grau)</label>
+                    <label style="font-size: 60%;margin-left: 7px;"><b style="font-weight: bold; font-size: 120%">7</b> - Educação Superior Incompleta</label>
+                    <label style="font-size: 60%;margin-left: 7px;"><b style="font-weight: bold; font-size: 120%">8</b> - Educação Superior completa</label>
+                    <label style="font-size: 60%;margin-left: 7px;"><b style="font-weight: bold; font-size: 120%">9</b> - Ignorado</label>
+
+                    </div>
                 </div>
             </div>
             <!-- LINHA -->
@@ -245,15 +283,21 @@
             </div>
             <!-- LINHA -->
             <div class="row">
-                <div class="col-5 arredondado">
+                <div class="col-4 arredondado">
                     <label>(DDD) Telefone</label>
                     <input id="fone" type="text">
                 </div>
-                <div class="col-2 arredondado">
-                    <label>Zona</label>
-                    <input type="text">
-                </div>
                 <div class="col-5 arredondado">
+                    
+                    <div class="col" style="display:; background-color: ;">
+                        <label style="background-color: ;">ZONA</label>
+                        <input style="width: 22px; height: 22px; margin:5px;margin-left: 40px;" type="checkbox" disabled>                        
+                    </div>
+
+                    <label style="font-size: 70%;">1-URBANA  2-RURAL  3-PERIURBANA  4-IGNORADO</label>
+
+                </div>
+                <div class="col-3 arredondado">
                     <label>País (Se residir no exterior)</label>
                     <input type="text">
                 </div>
@@ -283,34 +327,33 @@
             <div class="row arredondado">
                 <div class="row" style="padding-left: 2%;">
                     <div class="col">
-                        <label>Frequentou Ambientes com Mata, Floresta, Rios, Cachoeiras, Sítios, Outros?</label>
-                        <input type="text">
-                        <!--<select name="" id="">{% include 'options/tp_simnao.html' %}</select>-->
+                        <label>Frequentou Ambientes com Mata, Floresta, Rios, Cachoeiras, Sítios, Outros?</label><label style="margin-left: 10px;">1-SIM</label><label style="margin-left: 10px;">2-NÃO</label><label style="margin-left: 10px;">9-IGNORADO</label>
+                        
                     </div>
                 </div>
-                <div class="row text-center" style="padding-left: 10%;">
+                <div class="row" style="padding-left: 10%; width: 150%;">
                     <div class="col" style="display:inline-flex;" style="display:inline-flex;">
-                        <input style="width: 16px; height: 16px; margin:5px;margin-top: 0;" type="checkbox">
+                        <input style="width: 20px; height: 20px; margin:5px;margin-top: 0;" type="checkbox" disabled>
                         <label>Mata</label>
                     </div>
                     <div class="col" style="display:inline-flex;" style="display:inline-flex;">
-                        <input style="width: 16px; height: 16px; margin:5px;margin-top: 0;" type="checkbox">
+                        <input style="width: 20px; height: 20px; margin:5px;margin-top: 0;" type="checkbox" disabled>
                         <label>Floresta</label>
                     </div>
                     <div class="col" style="display:inline-flex;" style="display:inline-flex;">
-                        <input style="width: 16px; height: 16px; margin:5px;margin-top: 0;" type="checkbox">
+                        <input style="width: 20px; height: 20px; margin:5px;margin-top: 0;" type="checkbox" disabled>
                         <label>Rios</label>
                     </div>
                     <div class="col" style="display:inline-flex;" style="display:inline-flex;">
-                        <input style="width: 16px; height: 16px; margin:5px;margin-top: 0;" type="checkbox">
+                        <input style="width: 20px; height: 20px; margin:5px;margin-top: 0;" type="checkbox" disabled>
                         <label>Cachoeiras</label>
                     </div>
                     <div class="col" style="display:inline-flex;" style="display:inline-flex;">
-                        <input style="width: 16px; height: 16px; margin:5px;margin-top: 0;" type="checkbox">
+                        <input style="width: 20px; height: 20px; margin:5px;margin-top: 0;" type="checkbox" disabled>
                         <label>Sítios</label>
                     </div>
                     <div class="col" style="display:inline-flex;" style="display:inline-flex;">
-                        <input style="width: 16px; height: 16px; margin:5px;margin-top: 0;" type="checkbox">
+                        <input style="width: 20px; height: 20px; margin:5px;margin-top: 0;" type="checkbox" disabled>
                         <label>Outros</label>
                     </div>
                 </div>
@@ -320,128 +363,138 @@
                 <div class="row" style="padding-left: 2%;">
                     <div class="col">
                         <label>TEVE CONTATO COM ANIMAIS?</label>
-                        <!--<select name="" id="">{% include 'options/tp_simnao.html' %}</select>-->
-                        <input type="text">
+                        <label style="margin-left: 10px;">1-SIM</label><label style="margin-left: 10px;">2-NÃO</label><label style="margin-left: 10px;">9-IGNORADO</label>
+                        
                     </div>
                 </div>
-                <div class="row text-center" style="padding-left: 10%;">
-                    <div class="col-2" style="display:inline-flex;">
-                        <input style="width: 16px; height: 16px; margin:5px;margin-top: 0;" type="checkbox">
-                        <label>Cão</label>
+                <div class="row" style="padding-left: 10%; width: 150%;">
+                    <div class="col" style="display:inline-flex;" style="display:inline-flex;">
+                        <input style="width: 20px; height: 20px; margin:5px;margin-top: 0;" type="checkbox" disabled>
+                        <label>CÃO</label>
                     </div>
-                    <div class="col-2" style="display:inline-flex;">
-                        <input style="width: 16px; height: 16px; margin:5px;margin-top: 0;" type="checkbox">
-                        <label>Gato</label>
+                    <div class="col" style="display:inline-flex;" style="display:inline-flex;">
+                        <input style="width: 20px; height: 20px; margin:5px;margin-top: 0;" type="checkbox" disabled>
+                        <label>GATO</label>
                     </div>
-                    <div class="col-3" style="display:inline-flex;">
-                        <input style="width: 16px; height: 16px; margin:5px;margin-top: 0;" type="checkbox">
-                        <label>Equinos</label>
+                    <div class="col" style="display:inline-flex;" style="display:inline-flex;">
+                        <input style="width: 20px; height: 20px; margin:5px;margin-top: 0;" type="checkbox" disabled>
+                        <label>EQUINOS</label>
                     </div>
-                    <div class="col-5">
-                        <label>Outros Animais</label>
-                        <input onkeypress = "return limitcarc(event, 'letr_acent')" style="width: 50%;" type="text" >
+                    <div class="col-sm-4" style="display:inline-flex;" style="display:inline-flex;">
+                        <input style="width: 20px; height: 20px; margin:5px;margin-top: 0;" type="checkbox" disabled>
+                        <label>OUTROS ANIMAIS</label>
                     </div>
+                    
                 </div>
+
             </div>
             <!-- LINHA -->
             <div class="row arredondado">
                 <div class="row" style="padding-left: 2%;">
                     <div class="col">
                         <label>Natureza do contato com animais</label>
+                        <label style="margin-left: 10px;">1-SIM</label><label style="margin-left: 10px;">2-NÃO</label><label style="margin-left: 10px;">9-IGNORADO</label>
                         <!--<select name="" id="">{% include 'options/tp_simnao.html' %}</select>-->
-                        <input type="text">
+                        
                     </div>
                 </div>
-                <div class="row text-center" style="padding-left: 12%;">
-                    <div class="col-3.5" style="display:inline-flex;">
-                        <input style="width: 16px; height: 16px; margin:5px;margin-top: 0;" type="checkbox">
+                <div class="row" style="padding-left: 5%; width: 150%; background-color: ;">
+                    <div class="col-3.5" style="">
+                        <input style="width: 20px; height: 20px; margin-top: ; background-color: ;" type="checkbox" disabled>
                         <label>MORDEDURA</label>
                     </div>
-                    <div class="col-4" style="display:inline-flex;">
-                        <input style="width: 16px; height: 16px; margin:5px;margin-top: 0;" type="checkbox">
+                    <div class="col-2.5" style="">
+                        <input style="width: 20px; height: 20px; margin-top: ; margin-left: 10px;" type="checkbox" disabled>
                         <label>Arranhadura</label>
                     </div>
-                    <div class="col">
+                    <div class="col-2.5">
+                        <input style="width: 20px; height: 20px; margin-top: ; margin-left: 8px;" type="checkbox" disabled>
                         <label>Outros Animais</label>
-                        <input onkeypress = "return limitcarc(event, 'letr_acent')" style="width: 50%;" type="text" >
                     </div>
-                </div>
-                <div class="row text-center" style="padding-left: 10%;">
-                    <div class="col" style="display:inline-flex;">
-                        <input style="width: 16px; height: 16px; margin:5px;margin-top: 0;" type="checkbox">
+                    <div class="col-3.5">
+                        <input style="width: 20px; height: 20px; margin-top: ; margin-left: 7px;" type="checkbox" disabled>
                         <label>Lesões mucosas do animal</label>
-                        <div class="col" style="display:inline-flex;">
-                            <input style="width: 16px; height: 16px; margin:5px;margin-top: 0;" type="checkbox">
-                            <label>Lesões cutâneas do animal</label>
-                        </div>
                     </div>
+                    <div class="col-3.5">
+                        <input style="width: 20px; height: 20px; margin-top: ; margin-left: 7px;" type="checkbox" disabled>
+                        <label>Lesões cutâneas do animal</label>
+                    </div>
+
                 </div>
+                
             </div>
             <!-- LINHA -->
-            <div class="row arredondado">
-                <div class="row" style="padding-left: 2%;">
+            <div class="row arredondado" style="background-color: ;">
+                <div class="row" style="padding-left: 2%; background-color: ;">
                     <div class="col">
                         <label>Relação com o animal doente</label>
+                        <label style="margin-left: 30px;">1-SIM</label><label style="margin-left: 10px;">2-NÃO</label><label style="margin-left: 10px;">9-IGNORADO</label>
                         <!--<select name="" id="">{% include 'options/tp_simnao.html' %}</select>-->
                     </div>
                 </div>
-                <div class="row text-center" style="padding-left: 5%;">
+                
+                <div class="" style="padding-left: 5%; background-color: ; width: 150%;">
                     <div class="col-3.5" style="display:inline-flex;">
-                        <input style="width: 16px; height: 16px; margin:5px;margin-top: 0;" type="checkbox">
+                        <input style="width: 20px; height: 20px; margin:5px;margin-top: 0;" type="checkbox" disabled>
                         <label>Tratador/Propietário do Animal</label>
                     </div>
-                    <div class="col-4" style="display:inline-flex;">
-                        <input style="width: 16px; height: 16px; margin:5px;margin-top: 0;" type="checkbox">
+                    <div class="col-5" style="display:inline-flex;">
+                        <input style="width: 20px; height: 20px; margin:5px;margin-top: 0;" type="checkbox" disabled>
                         <label>Profissional de Saúde(*)</label>
                     </div>
-                    <div class="col">
+                    <div class="col-3.5" style="display:inline-flex;">
+                        <input style="width: 20px; height: 20px; margin:5px;margin-top: 0;" type="checkbox" disabled>
                         <label>Outro</label>
-                        <input onkeypress = "return limitcarc(event, 'letr_acent')" style="width: 78%;" type="text" >
                     </div>
                 </div>
                 <div class="row text-center" style="padding-left: 3%;">
-                    <div class="col" style="display:inline-flex;">
-                        <input style="width: 16px; height: 16px; margin:5px;margin-top: 0;" type="checkbox">
+                    <div class="col" style="display:inline-flex; margin-left: 15px;">
+                        <input style="width: 20px; height: 20px; margin:5px;margin-top: 0;" type="checkbox" disabled>
                         <label>Abrigo/ong</label>
                         <div class="col" style="display:inline-flex;">
-                            <input style="width: 16px; height: 16px; margin:5px;margin-top: 0;" type="checkbox">
+                            <input style="width: 20px; height: 20px; margin:5px;margin-top: 0;" type="checkbox" disabled>
                             <label>Lesões cutâneas do animal</label>
                         </div>
-                        <label>(*) Veterinário, enfermeiro, tratador de animal em clínicas</label>
+                        <label style="font-size: 60%;">(*) Veterinário, enfermeiro, tratador de animal em clínicas</label>
                     </div>
                 </div>
             </div>
             <!-- LINHA -->
             <div class="row arredondado">
-                <div class="col-9">
+                <div class="col-12">
                     <label>
                         Exerce atividade que resulte em contato constante com plantas?
                         (Jardineiros, agricultores, horticultores, exploradores de madeira,
                         trabalhadores ruais)
+                        <input style="width: 22px; height: 22px; margin:5px;margin-left: 40px;" type="checkbox" disabled>
+                        <label style="margin-left: 20px;">1 - SIM</label>
+                        <label style="margin-left: 20px;">2 - NÃO</label>
+                        <label style="margin-left: 20px;">9 - IGNORADO</label>
                     </label>
                 </div>
-                <div class="col-3" style="margin-top: 5px;">
-                    <input type="text">
-                    <!--<select>
-                        {% include 'options/tp_simnao.html' %}
-                    </select>-->
-                </div>
+                
             </div>
             <!-- LINHA -->
             <div class="row arredondado">
-                <div class="col-9">
+                <div class="col-12">
                     <label>
                         História de corte, lesão ou trauma durante o manuseio de plantas 
                         ou material orgânico suspeito de contaminação pelo fungo? (EX:
                         tábuas úmidas de madeira, solo, palhas, farpas, espinhos, vegetais)
                     </label>
+
+                    <div class="col" style="display:; background-color: ;">
+                        
+                        <input style="width: 22px; height: 22px; margin:5px;margin-left: 40px;" type="checkbox" disabled>
+
+                        <label style="margin-left: 20px;">1 - SIM</label>
+                        <label style="margin-left: 20px;">2 - NÃO</label>
+                        <label style="margin-left: 20px;">9 - IGNORADO</label>
+
+                    </div>
+
                 </div>
-                <div class="col-3" style="margin-top: 15px;">
-                    <input type="text">
-                    <!--<select>
-                        {% include 'options/tp_simnao.html' %}
-                    </select>-->
-                </div>
+                
             </div>
             <div class="pagebreaker"></div>
             <!-- LINHA -->
@@ -452,35 +505,44 @@
             </div>
             <!-- LINHA -->
             <div class="row">
-                <div class="col-4 arredondado" style="padding-left: 5%;">
+                <div class="col-5 arredondado" style="padding-left: 5%;">
                     <label>
                         Presença de lesão na pele?
+                        <input style="width: 22px; height: 22px; margin:5px;margin-left: 40px;" type="checkbox" disabled>
                     </label>
-                    <!--<select style="margin-left: 15%;margin-top: 5%;">
-                        {% include 'options/tp_simnao.html' %}
-                    </select>-->
-                    <input type="text">
+
+                    <div class="col" style="display:; background-color: ;">
+                        
+                       
+
+                        <label style="margin-left: 20px;">1 - SIM</label>
+                        <label style="margin-left: 20px;">2 - NÃO</label>
+                        <label style="margin-left: 20px;">9 - IGNORADO</label>
+
+
+                    </div>
+                    
                 </div>
-                <div class="col-8 arredondado">
+                <div class="col-7 arredondado">
                     <div class="row text-center" style="padding-left: 40%; padding-bottom: 2%;">
                         <label>Natureza da Lesão</label>
                     </div>
                     <div class="row text-center" style="padding-left: 2%;">
-                        <div class="col-4" style="display:inline-flex;">
-                            <input style="width: 16px; height: 16px; margin:5px;margin-top: 0;" type="checkbox">
+                        <div class="col-3" style="display:inline-flex;">
+                            <input style="width: 20px; height: 20px; margin:5px;margin-top: 0;" type="checkbox" disabled>
                             <label>pápula</label>
                         </div>
-                        <div class="col-4" style="display:inline-flex;">
-                            <input style="width: 16px; height: 16px; margin:5px;margin-top: 0;" type="checkbox">
+                        <div class="col-3" style="display:inline-flex;">
+                            <input style="width: 20px; height: 20px; margin:5px;margin-top: 0;" type="checkbox" disabled>
                             <label>úlcera</label>
                         </div>
-                        <div class="col-4" style="display:inline-flex;">
-                            <input style="width: 16px; height: 16px; margin:5px;margin-top: 0;" type="checkbox">
+                        <div class="col-3" style="display:inline-flex;">
+                            <input style="width: 20px; height: 20px; margin:5px;margin-top: 0;" type="checkbox" disabled>
                             <label>linfonodos</label>
                         </div>
-                        <div class="col">
-                            <label>Outros</label>
-                            <input style="width: 50%;" type="text" >
+                        <div class="col-3">
+                            <input style="width: 20px; height: 20px; margin:5px;margin-top: 0;" type="checkbox" disabled>
+                            <label>OUTROS</label>
                         </div>
                     </div>
                 </div>
@@ -492,33 +554,59 @@
                         <label>Localização da lesão (parte do corpo atingida)</label>
                     </div>
                 </div>
-                <div class="row text-center" style="padding-left: 10%;">
-                    <div class="row">
-                        <input style="width: 16px; height: 16px; margin:5px;margin-top: 0;" type="checkbox">
+                <div class="row" style="padding-left: 10%; width: 150%">
+                    
+                        <div class="col-1.5" style="display:inline-flex; margin-left: -50px;">
+                        <input style="width: 20px; height: 20px; margin:5px;margin-top: 0;" type="checkbox" disabled>
                         <label>Mão</label>
-                        <input style="width: 16px; height: 16px; margin:5px;margin-top: 0;" type="checkbox">
-                        <label>Membro superior</label>
-                        <input style="width: 16px; height: 16px; margin:5px;margin-top: 0;" type="checkbox">
-                        <label>cabeça</label>
-                        <input style="width: 16px; height: 16px; margin:5px;margin-top: 0;" type="checkbox">
-                        <label>Pescoço</label>
-                        <input style="width: 16px; height: 16px; margin:5px;margin-top: 0;" type="checkbox">
-                        <label>Abdome</label>
-                    </div>
-                    <div class="row">
-                        <input style="width: 16px; height: 16px; margin:5px;margin-top: 0;" type="checkbox">
-                        <label>Tórax</label>
-                        <input style="width: 16px; height: 16px; margin:5px;margin-top: 0;" type="checkbox">
-                        <label>Pé</label>
-                        <input style="width: 16px; height: 16px; margin:5px;margin-top: 0;" type="checkbox">
-                        <label>Membro inferior</label>
-                        <input style="width: 16px; height: 16px; margin:5px;margin-top: 0;" type="checkbox">
-                        <label>Todo o corpo</label>
-                        <div class="col">
-                            <label>Outro</label>
-                            <input onkeypress = "return limitcarc(event, 'letr_acent')" style="width: 80%;" type="text" >
                         </div>
-                    </div>
+
+                        <div class="col-3" style="display:inline-flex; margin-left: -5px;">
+                        <input style="width: 20px; height: 20px; margin:5px;margin-top: 0;" type="checkbox" disabled>
+                        <label>Membro superior</label>
+                        </div>
+                        
+                        <div class="col-1.5" style="display:inline-flex; margin-left: ;">    
+                        <input style="width: 20px; height: 20px; margin:5px;margin-top: 0;" type="checkbox" disabled>
+                        <label>cabeça</label>
+                        </div>
+
+                        <div class="col-2" style="display:inline-flex; margin-left: ;">
+                        <input style="width: 20px; height: 20px; margin:5px;margin-top: 0;" type="checkbox" disabled>
+                        <label>Pescoço</label>
+                        </div>
+                        
+                        <div class="col-2" style="display:inline-flex; margin-left: ;">
+                        <input style="width: 20px; height: 20px; margin:5px;margin-top: 0;" type="checkbox" disabled>
+                        <label>Abdome</label>
+                        </div>
+                    
+                        <div class="col-2" style="display:inline-flex; margin-left: ;">
+                        <input style="width: 20px; height: 20px; margin:5px;margin-top: 0;" type="checkbox" disabled>
+                        <label>Tórax</label>
+                        </div>
+
+                        <div class="col-1.5" style="display:inline-flex; margin-left: ;">
+                        <input style="width: 20px; height: 20px; margin:5px;margin-top: 0;" type="checkbox" disabled>
+                        <label>Pé</label>
+                        </div>
+                        
+                        <div class="col-3" style="display:inline-flex; margin-left: -65px;">
+                        <input style="width: 20px; height: 20px; margin:5px;margin-top: 0;" type="checkbox" disabled>
+                        <label>Membro inferior</label>
+
+                        </div>
+                        
+                        <div class="col-3" style="display:inline-flex; margin-left: -10px;">
+                        <input style="width: 20px; height: 20px; margin:5px;margin-top: 0;" type="checkbox" disabled>
+                        <label>Todo o corpo</label>
+                        </div>
+
+                        <div class="col-1.5" style="display:inline-flex; margin-left: ;">
+                        <input style="width: 20px; height: 20px; margin:5px;margin-top: 0;" type="checkbox" disabled>
+                        <label>OUTROS</label>
+                        </div>
+                    
                 </div>
             </div>   
             <!-- LINHA -->
@@ -527,12 +615,22 @@
                     <label>
                         Diagnóstico de forma extracutânea da doença?
                     </label>
+
+
                 </div>
                 <div class="col-5 py-2">
-                    <!--<select name="" id="">{% include 'options/tp_simnao.html' %}</select>-->
+                    
+                    <div class="col" style="display:; background-color: ;">
+                        <input style="width: 20px; height: 20px; margin:5px;margin-top: 0;" type="checkbox" disabled>
+
+                        <label style="margin-left: 20px;">1 - SIM</label>
+                        <label style="margin-left: 20px;">2 - NÃO</label>
+                        <label style="margin-left: 20px;">9 - IGNORADO</label>
+                    </div>
+
                 </div>
-                <label style="margin-left: 2%;">Qual Localização?</label>
-                <input onkeypress = "return limitcarc(event, 'letr_acent')" style="width: 40%;" type="text" >
+                <label style="margin-left: 2%;">Qual Localização?__________________________________________________________</label>
+                
             </div>
             <!-- LINHA -->
             <div class="barra dados_laboratoriais">Dados Laboratoriais</div>
@@ -542,10 +640,16 @@
                     <label>
                         Houve coleta de material para exame laboratorial?
                     </label>
-                    <input type="text">
-                    <!--<select style="width: 25%; margin-left: 5%;margin-top: 2%;">
-                        {% include 'options/tp_simnao.html' %}
-                    </select>-->
+                    
+                    <div class="" style="display:; background-color: ;">
+                        <input style="width: 20px; height: 20px; margin:5px;margin-top: 0;" type="checkbox" disabled>
+
+                        <label style="margin-left: 20px;">1 - SIM</label>
+                        <label style="margin-left: 20px;">2 - NÃO</label>
+                        <label style="margin-left: 20px;">9 - IGNORADO</label>
+                    </div>
+
+
                 </div>
                 <div class="col-3 arredondado">
                     <label>Data da coleta</label>
@@ -558,14 +662,15 @@
                     <label>
                         Resultado do Isolamento
                     </label>
-                    <input type="text">
-                    <!--<select style="width: 25%; margin-left: 5%;margin-top: 2%;">
-                        <option value="" selected>Selecionar</option>
-                        <option value="Detectado">Detectado</option>
-                        <option value="Não compativel">Não compativel</option>
-                        <option value="Inconclusivo">Inconclusivo</option>
-                        <option value="Não realizado">Não realizado</option>
-                    </select>-->
+                    <div class="" style="display:; background-color: ;">
+                        <input style="width: 20px; height: 20px; margin:5px;margin-top: 0;" type="checkbox" disabled>
+
+                        <label style="margin-left: 20px;">1 - DETECTADO</label>
+                        <label style="margin-left: 20px;">2 - NÃO DETECTADO</label>
+                        <label style="margin-left: 20px;">3 - INCONCLUSIVO</label>
+                        <label style="margin-left: 20px;">4 - NÃO REALIZADO</label>
+                    </div>
+
                 </div>
                 <div class="col-3 arredondado">
                     <label>Agente</label>
@@ -578,14 +683,17 @@
                     <label>
                         Histopatologia
                     </label>
-                    <input type="text">
-                    <!--<select style="width: 25%; margin-left: 5%;">
-                        <option value="" selected>Selecionar</option>
-                        <option value="Detectado">Detectado</option>
-                        <option value="Não compativel">Não compativel</option>
-                        <option value="Inconclusivo">Inconclusivo</option>
-                        <option value="Não realizado">Não realizado</option>
-                    </select>-->
+
+                    <div class="" style="display:; background-color: ;">
+                        <input style="width: 20px; height: 20px; margin:5px;margin-top: 0;" type="checkbox" disabled>
+
+                        <label style="margin-left: 20px;">1 - DETECTADO</label>
+                        <label style="margin-left: 20px;">2 - NÃO COMPATÍVEL</label>
+                        <label style="margin-left: 20px;">3 - INCONCLUSIVO</label>
+                        <label style="margin-left: 20px;">4 - NÃO REALIZADO</label>
+                    </div>
+
+
                 </div>
             </div>
             <!-- LINHA -->
@@ -705,35 +813,36 @@
             <!-- Linha -->
             <div class="row">
                 <div class="col-6 arredondado" style="padding:5px; padding-left: 5%;">
-                    <label>Classificação Final</label>
-                    <input type="text">
-                    <!--<select style="margin-left: 5%;margin-top: 2%;">
-                        <option value="" selected>Selecionar</option>
-                        <option value="Confirmado">Confirmado</option>
-                        <option value="Descartado">Descartado</option>
-                    </select>-->
+                    <label style="margin-left: -25px;">Classificação Final</label>
+                    <input style="width: 20px; height: 20px; margin:5px;margin-top: 0;" type="checkbox" disabled>
+                    <div class="" style="margin-left: -27px;">                       
+                        <label style="margin-left: 20px;">1 - CONFIRMADO</label>
+                        <label style="margin-left: 20px;">2 - DESCARTADO</label>
+                    </div>
+
+                    
                 </div>
                 <div class="col-6 arredondado" style="padding:5px; padding-left: 2%;">
                     <label>Critério de confirmação</label>
-                    <input type="text">
-                    <!--<select style="width: 60%;margin-top: 2%;">
-                        <option value="" selected>Selecionar</option>
-                        <option value="Clínico Laboratorial">Clínico Laboratorial</option>
-                        <option value="Clínico Epidemiológico">Clínico Epidemiológico</option>
-                    </select>-->
+                    <input style="width: 20px; height: 20px; margin:5px;margin-top: 0;" type="checkbox" disabled>
+                    <div class="" style="display:; background-color: ;">
+                        <label style="margin-left: 20px;">1 - CLÍNICO LABORATORIAL</label>
+                        <label style="margin-left: 20px;">2 - CLÍNICO EPIDEMIOLÓGICO</label>
+                    </div>
+
                 </div>
             </div>
             <!-- Linha -->
             <div class="row">
                 <div class="col-9 arredondado">
                     <label>Caso Autóctone do Município de Residência?</label>
-                    <input type="text">
-                    <!--<select style="width: 40%; margin-left: 5%;margin-top: 2%;">
-                        <option value="" selected>Selecionar</option>
-                        <option value="Sim">Sim</option>
-                        <option value="Não">Não</option>
-                        <option value="Indeterminado">Indeterminado</option>
-                    </select>-->
+                    <input style="width: 20px; height: 20px; margin:5px;margin-top: 0;" type="checkbox" disabled>
+                    <div class="" style="display:; background-color: ;">
+                        <label style="margin-left: 20px;">1 - SIM</label>
+                        <label style="margin-left: 20px;">2 - NÃO</label>
+                        <label style="margin-left: 20px;">3 - INDETERMINADO</label>
+                    </div>
+
                 </div>
                 <div class="col-1 arredondado">
                     <label>UF</label>
@@ -760,64 +869,62 @@
             </div>
             <!-- LINHA -->
             <div class="row">
-                <div class="col-4 arredondado">
+                <div class="col-3 arredondado">
                     <label>Distrito</label>
                     <input type="text">
                 </div>
-                <div class="col-4 arredondado">
+                <div class="col-3 arredondado">
                     <label>Bairro</label>
                     <input type="text">
                 </div>
-                <div class="col-4 arredondado">
+                <div class="col-6 arredondado">
                     <label>Área Provável de Infecção</label>
-                    <input type="text">
-                    <!--<select style="width: 70%; margin-left: 5%;margin-top: 2%;">
-                        <option value="" selected>Selecionar</option>
-                        <option value="Urbana">Urbana</option>
-                        <option value="Rural">Rural</option>
-                        <option value="Periurbana">Periurbana</option>
-                        <option value="Ignorado">Ignorado</option>
-                    </select>-->
+                    <input style="width: 20px; height: 20px; margin:5px;margin-top: 0;" type="checkbox" disabled>
+                    <div class="" style="display:; background-color: ;">
+                        <label style="margin-left: 20px;">1 - URBANA</label>
+                        <label style="margin-left: 20px;">2 - RURAL</label>
+                        <label style="margin-left: 20px;">3 - PERIURBANA</label>
+                        <label style="margin-left: 20px;">9 - IGNORADO</label>
+                    </div>
+
                 </div>
             </div>
             <!-- Linha -->
             <div class="row">
                 <div class="col-6 arredondado" style="padding:5px; padding-left: 5%;">
-                    <label>Ambiente de Infecção</label>
-                    <input type="text">
-                    <!--<select style="margin-left: 5%;margin-top: 2%;">
-                        <option value="" selected>Selecionar</option>
-                        <option value="Domiciliar">Domiciliar</option>
-                        <option value="Trabalho">Trabalho</option>
-                        <option value="Lazer">Lazer</option>
-                        <option value="Outro">Outro</option>
-                        <option value="Ignorado">Ignorado</option>
-                    </select>-->
+                    <label style="margin-left: -30px">Ambiente de Infecção</label>
+                    <input style="width: 20px; height: 20px; margin:5px;margin-top: 0;" type="checkbox" disabled>
+                    <div class="" style="display:; background-color: ; margin-left: -30px;">
+                        <label style="margin-left: 20px;">1 - DOMICILIAR</label>
+                        <label style="margin-left: 20px;">2 - TRABALHO</label>
+                        <label style="margin-left: 20px;">3 - LAZER</label>
+                        <label style="margin-left: 20px;">4 - OUTRO</label>
+                        <label style="margin-left: 20px;">9 - IGNORADO</label>
+                    </div>
                 </div>
                 <div class="col-6 arredondado" style="padding:5px; padding-left: 5%;">
-                    <label>Doença relacionada ao trabalho?</label>
-                    <input type="text">
-                    <!--
-                    <select style="width: 40%;margin-top: 2%;">
-                        {% include 'options/tp_simnao.html' %}
-                    </select>
-                    -->
+                    <label style="margin-left: -30px">Doença relacionada ao trabalho?</label>
+                    
+                    <input style="width: 20px; height: 20px; margin:5px;margin-top: 0;" type="checkbox" disabled>
+                    <div class="" style="display:; background-color: ; margin-left: -30px;">
+                        <label style="margin-left: 20px;">1 - SIM</label>
+                        <label style="margin-left: 20px;">2 - NÃO</label>
+                        <label style="margin-left: 20px;">9 - IGNORADO</label>
+                    </div>
                 </div>
             </div>
             <!-- Linha -->
             <div class="row">
                 <div class="col-6 arredondado">
                     <label>Evolução do caso</label>
-                    <input type="text">
-                    <!--
-                    <select style="width: 60%; margin-left: 5%;margin-top: 2%;">
-                        <option value="" selected>Selecionar</option>
-                        <option value="Cura">Cura</option>
-                        <option value="Obito pelo Agravo">Óbito pelo Agravo</option>
-                        <option value="Obito outras Causas">Óbito outras Causas</option>
-                        <option value="Ignorado">Ignorado</option>
-                    </select>
-                -->
+                    
+                    <input style="width: 20px; height: 20px; margin:5px;margin-top: 0;" type="checkbox" disabled>
+                    <div class="" style="display:; background-color: ; margin-left: ;">
+                        <label style="margin-left: 20px;">1 - CURA</label>
+                        <label style="margin-left: 20px;">2 - ÓBITO PELO AGRAVO</label>
+                        <label style="margin-left: 20px;">3 - ÓBITO OUTRAS CAUSAS</label>
+                        <label style="margin-left: 20px;">9 - IGNORADO</label>
+                    </div>
                 </div>
                 <div class="col-3 arredondado">
                     <label>Data do Óbito</label>

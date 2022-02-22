@@ -19,6 +19,7 @@ from django.db.models import Q
 
 from django.http import HttpResponse, HttpResponseRedirect
 import os
+from io import BytesIO
 from datetime import datetime
 
 from openpyxl import Workbook
@@ -363,6 +364,7 @@ def ajax_edicao_uf_cidades(request):
 
 @login_required(login_url='/login/')
 def my_datas(request):
+	print(request.user.funcao)
 	municipios = Municipio.objects.all()
 	#municipio_nome = municipio_user.nome
 	if request.user.funcao == 'admin':
@@ -424,16 +426,12 @@ def my_datas(request):
 		return render(request, 'my_datas.html', {'regs':registros, 'municipios':municipios})	
 
 	elif request.user.funcao == 'gerencia_regional':
+		
 		user_gerencia_operacional = request.user.gerencia_operacional
 		user_nucleo = request.user.nucleo
 		user_area_tecnica = request.user.area_tecnica
 		user_gerencia_regional = request.user.gerencia_regional
-		registros = CasoEsporotricose.objects.filter(
-			responsavel_gerencia_operacional=user_gerencia_operacional, 
-			responsavel_nucleo=user_nucleo,
-			responsavel_area_tecnica=user_area_tecnica,
-			gerencia=user_gerencia_regional
-			).order_by('-id')
+		registros = CasoEsporotricose.objects.filter(responsavel_gerencia_regional=user_gerencia_regional).order_by('-id')
 
 		paginator = Paginator(registros, 6)
 		page = request.GET.get('page')
@@ -442,21 +440,25 @@ def my_datas(request):
 		return render(request, 'my_datas.html', {'regs':registros, 'municipios':municipios})
 
 	elif request.user.funcao == 'municipal':
-		#senha = mlfAIcGI
-		
+		# login = testebayeux
+		# senha = JjT1C5B6
+		#---------------------
+		# login = testecabedelo
+		# senha = L3Nqdv4Q
+
 		user_gerencia_operacional = request.user.gerencia_operacional
 		user_nucleo = request.user.nucleo
 		user_area_tecnica = request.user.area_tecnica
 		user_gerencia_regional = request.user.gerencia_regional
 		user_municipio_id = request.user.municipio_id
 		user_municipio_nome = str(Municipio.objects.filter(id=user_municipio_id)[0]).upper()
-		registros = CasoEsporotricose.objects.filter(Q(municipio_residencia=user_municipio_id) | 
-			Q(municipio_residencia=user_municipio_nome) | Q(municipio=user_municipio_id)).order_by('-id')
+		registros = CasoEsporotricose.objects.filter(Q(municipio=user_municipio_id) | 
+			Q(municipio_residencia=user_municipio_nome)).order_by('-id')
 		
-		user_municipio_nome = Municipio.objects.get(id=user_municipio_id)
+		#user_municipio_nome = Municipio.objects.get(id=user_municipio_id)
 
 
-		registros = CasoEsporotricose.objects.filter(municipio=user_municipio_id).order_by('-id')
+		#registros = CasoEsporotricose.objects.filter(municipio=user_municipio_id).order_by('-id')
 
 
 		print("municipio do usuário:",user_municipio_id)
@@ -603,7 +605,7 @@ def set_caso_esporotricose_create(request):
 	responsavel_gerencia_operacional = request.user.gerencia_operacional
 	responsavel_nucleo = request.user.nucleo
 	responsavel_area_tecnica = request.user.area_tecnica
-	responsavel_gerencia_regional = request.user.area_tecnica
+	responsavel_gerencia_regional = request.user.gerencia_regional
 	responsavel_municipio = request.user.municipio
 
 	#Dados Gerais
@@ -925,7 +927,7 @@ def set_caso_esporotricose_create(request):
 		responsavel_nucleo = responsavel_nucleo,
 		responsavel_area_tecnica = responsavel_area_tecnica,
 		responsavel_gerencia_regional = responsavel_gerencia_regional,
-		responsavel_municipio = responsavel_municipio,
+		responsavel_municipio = str(responsavel_municipio).upper(),
 		tipo_notificacao = tipo_notificacao,
 		agravo_doenca = agravo_doenca,
 		codigo_cib10 = codigo_cib10,
@@ -948,7 +950,7 @@ def set_caso_esporotricose_create(request):
 		nome_mae_paciente = nome_mae_paciente,
 		cep_residencia = cep_residencia,
 		uf_residencia = uf_residencia,
-		municipio_residencia = municipio_residencia,
+		municipio_residencia = str(municipio_residencia).upper(),
 		bairro_residencia = bairro_residencia,
 		codigo_ibge_residencia = codigo_ibge_residencia,
 		rua_residencia = rua_residencia,
@@ -1649,7 +1651,7 @@ def set_caso_esporotricose_edit(request, id):
 		responsavel_nucleo = responsavel_nucleo,
 		responsavel_area_tecnica = responsavel_area_tecnica,
 		responsavel_gerencia_regional = responsavel_gerencia_regional,
-		responsavel_municipio = responsavel_municipio,
+		responsavel_municipio = str(responsavel_municipio).upper(),
 		tipo_notificacao = tipo_notificacao,
 		agravo_doenca = agravo_doenca,
 		codigo_cib10 = codigo_cib10,
@@ -1672,7 +1674,7 @@ def set_caso_esporotricose_edit(request, id):
 		nome_mae_paciente = nome_mae_paciente,
 		cep_residencia = cep_residencia,
 		uf_residencia = uf_residencia,
-		municipio_residencia = municipio_residencia,
+		municipio_residencia = str(municipio_residencia).upper(),
 		bairro_residencia = bairro_residencia,
 		codigo_ibge_residencia = codigo_ibge_residencia,
 		rua_residencia = rua_residencia,
@@ -1765,6 +1767,78 @@ def set_caso_esporotricose_edit(request, id):
 
 @login_required(login_url='/login/')
 def export_data_csv(request):
+
+	# Pegando todos os casos registrados
+	casos = CasoEsporotricose.objects.all().values()
+	
+	# Filtrando se houver filtro.
+	filtro_data_inicio = request.GET.get('filtro_data_inicio')
+	filtro_data_fim = request.GET.get('filtro_data_fim')
+	filtros_data = [filtro_data_inicio, filtro_data_fim]
+	
+	for filtro in filtros_data:
+		if filtro == '' or filtro == None:
+			filtros_data.remove(filtro)
+	
+
+	if len(filtros_data) == 2:
+		casos_filtrados = casos.filter(data_notificacao__range=[filtro_data_inicio,filtro_data_fim]).order_by('-id')
+	
+	elif len(filtros_data) == 1 and filtros_data[0] != '':
+		filtro_unico_dia = filtros_data[0]
+		casos_filtrados = casos.filter(data_notificacao=filtro_unico_dia).order_by('-id')
+	
+	else:
+		casos_filtrados = casos
+	
+	# Filtrando o tipo de perfil para limitar os casos.
+	if request.user.funcao == 'autocadastro':
+		# Perfil Auto-Cadastro
+		auto_cadastro_id = request.user.id
+		casos_response = casos_filtrados.filter(responsavel_pelas_informacoes_id=auto_cadastro_id).order_by('-id')
+
+	elif request.user.funcao == 'municipal':
+		# Perfil Municipal
+		user_municipio_id = request.user.municipio_id
+		user_municipio_nome = str(Municipio.objects.filter(id=user_municipio_id)[0]).upper()
+		casos_response = casos_filtrados.filter(Q(municipio_residencia=user_municipio_id) | 
+			Q(municipio_residencia=user_municipio_nome) | Q(municipio=user_municipio_id)).order_by('-id')
+
+	elif request.user.funcao == 'gerencia_regional':
+		# Perfil Gerencia Regional
+		user_gerencia_regional = request.user.gerencia_regional
+		casos_response = casos_filtrados.filter(responsavel_gerencia_regional=user_gerencia_regional).order_by('-id')
+
+	else: # Qualquer outro tipo de perfil
+		casos_response = casos_filtrados
+		
+	# Convertendo em dataframe e alterando o campo município.
+	df = pd.DataFrame(list(casos_response.order_by('-id')))
+	for i in df.municipio:
+		
+		try: # Checando se o valor é diferente de NaN
+			i = int(i)
+		except:
+			continue
+		else: # Buscando no modelo municipio o nome de municipio pelo id e alterando o dataframe
+			municipio = Municipio.objects.get(id=i)
+			df.municipio = df.municipio.replace([i], municipio.nome)
+	
+	# Escrevendo o excel e enviando o response.
+	with BytesIO() as b:
+		
+		writer = pd.ExcelWriter(b, engine='openpyxl')
+		df.to_excel(writer, sheet_name='Sheet1', index=False)
+		writer.save()
+		
+		filename = 'casos_esporotricose_humana.xlsx'
+		response = HttpResponse(b.getvalue(),content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
+		response['Content-Disposition'] = 'attachment; filename=%s' % filename
+		
+		return response
+	
+	
+	'''
 	#user = request.user
 	municipio_user_logado = request.user.municipio.id
 	#print("municipio do usuário:", municipio_user_logado)
@@ -3762,7 +3836,7 @@ def export_data_csv(request):
 		return response
 
 
-	
+	'''
 
 '''
 
