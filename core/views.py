@@ -1781,6 +1781,7 @@ def export_data_csv(request):
 			filtros_data.remove(filtro)
 	
 
+	print(filtros_data)
 	if len(filtros_data) == 2:
 		casos_filtrados = casos.filter(data_notificacao__range=[filtro_data_inicio,filtro_data_fim]).order_by('-id')
 	
@@ -1813,30 +1814,35 @@ def export_data_csv(request):
 		casos_response = casos_filtrados
 		
 	# Convertendo em dataframe e alterando o campo município.
-	df = pd.DataFrame(list(casos_response.order_by('-id')))
-	for i in df.municipio:
-		
-		try: # Checando se o valor é diferente de NaN
-			i = int(i)
-		except:
-			continue
-		else: # Buscando no modelo municipio o nome de municipio pelo id e alterando o dataframe
-			municipio = Municipio.objects.get(id=i)
-			df.municipio = df.municipio.replace([i], municipio.nome)
+	try:
+		df = pd.DataFrame(list(casos_response.order_by('-id')))
+		for i in df.municipio:
+			
+			try: # Checando se o valor é diferente de NaN
+				i = int(i)
+			except:
+				continue
+			else: # Buscando no modelo municipio o nome de municipio pelo id e alterando o dataframe
+				municipio = Municipio.objects.get(id=i)
+				df.municipio = df.municipio.replace([i], municipio.nome)
 	
-	# Escrevendo o excel e enviando o response.
-	with BytesIO() as b:
+	except:
+		return redirect('/my_datas/')
+
+	else:
+		# Escrevendo o excel e enviando o response.
+		with BytesIO() as b:
+			
+			writer = pd.ExcelWriter(b, engine='openpyxl')
+			df.to_excel(writer, sheet_name='Sheet1', index=False)
+			writer.save()
+			
+			filename = 'casos_esporotricose_humana.xlsx'
+			response = HttpResponse(b.getvalue(),content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
+			response['Content-Disposition'] = 'attachment; filename=%s' % filename
+			
+			return response
 		
-		writer = pd.ExcelWriter(b, engine='openpyxl')
-		df.to_excel(writer, sheet_name='Sheet1', index=False)
-		writer.save()
-		
-		filename = 'casos_esporotricose_humana.xlsx'
-		response = HttpResponse(b.getvalue(),content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
-		response['Content-Disposition'] = 'attachment; filename=%s' % filename
-		
-		return response
-	
 	
 	'''
 	#user = request.user

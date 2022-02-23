@@ -219,12 +219,12 @@ footer {
               </div>
             </div>
           </div>
-          <form action="/export_data_csv/" method="get">
-            <div class="row">
-              <div class="col-4">
-                <input class="form-control" type="text" id="pesquisar" placeholder="digite algo para pesquisar">             
-              </div>
-              <div class="col-3">
+          <div class="row">
+            <div class="col-4">
+              <input class="form-control" type="text" id="pesquisar" placeholder="digite algo para pesquisar">             
+            </div>
+            <form class="row" name="" id="" enctype="multipart/form-data" action="/export_data_csv/" method="get">{% csrf_token %}
+              <div class="col">
                 <div class="input-group" id="">
                   <div class="input-group-prepend" id="">
                     <span class="input-group-text">Inicio</span>
@@ -232,7 +232,7 @@ footer {
                   <input type="date" id="filtro_data_inicio" name="filtro_data_inicio" class="form-control">
                 </div>
               </div>
-              <div class="col-3">
+              <div class="col">
                 <div class="input-group" id="">
                   <div class="input-group-prepend" id="">
                     <span class="input-group-text">Fim</span>
@@ -240,12 +240,12 @@ footer {
                   <input type="date" id="filtro_data_fim" name="filtro_data_fim" class="form-control">
                 </div>
               </div>
-              <div class="col-2">
-                <button type="submit" class="btn btn-primary btn-sm">Exportar Dados</button>
+              <div class="col">
+                <button type="submit" class="btn btn-primary btn-sm">Exportar Dados</button>                
               </div>
-            </div>
+            </form>            
+          </div>
 
-          </form>
 
           <style>
             .table          { overflow-y: auto; height: 100px; }
@@ -434,6 +434,6 @@ footer {
           }          
         })
       });      
-    </script>
+    </script>    
   </body>
   </html>
