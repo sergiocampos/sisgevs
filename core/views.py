@@ -86,7 +86,7 @@ def login_submit(request):
 @login_required(login_url='/login/')
 def logout_user(request):
     logout(request)
-    return redirect('/login/')
+    return redirect('/')
 
 
 @login_required
@@ -472,7 +472,11 @@ def my_datas(request):
 
 	elif request.user.funcao == 'autocadastro':
 		autocadastro_id = request.user.id
-		registros = CasoEsporotricose.objects.filter(responsavel_pelas_informacoes_id=autocadastro_id).order_by('-id')
+		municipio_user = request.user.municipio
+
+		#registros = CasoEsporotricose.objects.filter(responsavel_pelas_informacoes_id=autocadastro_id).order_by('-id')
+		registros = CasoEsporotricose.objects.filter(municipio_residencia=municipio_user).order_by('-id')
+
 		
 		paginator = Paginator(registros, 6)
 		page = request.GET.get('page')
@@ -950,7 +954,7 @@ def set_caso_esporotricose_create(request):
 		nome_mae_paciente = nome_mae_paciente,
 		cep_residencia = cep_residencia,
 		uf_residencia = uf_residencia,
-		municipio_residencia = str(municipio_residencia).upper(),
+		municipio_residencia = municipio_residencia,
 		bairro_residencia = bairro_residencia,
 		codigo_ibge_residencia = codigo_ibge_residencia,
 		rua_residencia = rua_residencia,
@@ -1068,7 +1072,7 @@ def ajax_index_aberto(request):
 
 def ajax_filtrar_index_aberto(request):
 	# Dicionário para receber o Value do agravo e retornar o nome de forma mais adequada.
-	agravos = {'Selecione':'', 'ESPOROTRICOSE':'Esporotricose Humana', 'ZIKA':'Zika', 'CHIKUNGUNYA':'Chikungunya', 'DENGUE':'Dengue'}
+	agravos = {'Selecione':'', 'ESPOROTRICOSE':'Casos notificacos para Esporotricose Humana segundo classificação final', 'ZIKA':'Zika', 'CHIKUNGUNYA':'Chikungunya', 'DENGUE':'Dengue'}
 
 	# Capturando as informações
 	ano = request.GET.get('ano')
