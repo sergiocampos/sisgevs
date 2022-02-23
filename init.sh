@@ -1,6 +1,6 @@
 #!/bin/bash
 echo '#### Criando imagem docker ####'
-docker-compose up -d
+docker-compose up -d --build
 sleep 10
 echo '#### Copiando o insert.sql ####'
 docker cp ./dados/sql_insert/insert_dados.sql sisgevs_db_1:/tmp
