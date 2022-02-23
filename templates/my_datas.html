@@ -215,30 +215,32 @@ footer {
             </div>
           </div>
           <div class="row">
-            <div class="col-4">
+            <div class="col col-sm-4">
               <input class="form-control" type="text" id="pesquisar" placeholder="digite algo para pesquisar">             
             </div>
-            <form class="row" name="" id="" enctype="multipart/form-data" action="/export_data_csv/" method="get">{% csrf_token %}
-              <div class="col">
-                <div class="input-group" id="">
-                  <div class="input-group-prepend" id="">
-                    <span class="input-group-text">Início</span>
+            <div class="col">
+              <form class="row" name="" id="" enctype="multipart/form-data" action="/export_data_csv/" method="get">{% csrf_token %}
+                <div class="col">
+                  <div class="input-group" id="">
+                    <div class="input-group-prepend" id="">
+                      <span class="input-group-text">Início</span>
+                    </div>
+                    <input type="date" id="filtro_data_inicio" name="filtro_data_inicio" class="form-control">
                   </div>
-                  <input type="date" id="filtro_data_inicio" name="filtro_data_inicio" class="form-control">
                 </div>
-              </div>
-              <div class="col">
-                <div class="input-group" id="">
-                  <div class="input-group-prepend" id="">
-                    <span class="input-group-text">Fim</span>
+                <div class="col">
+                  <div class="input-group" id="">
+                    <div class="input-group-prepend" id="">
+                      <span class="input-group-text">Fim</span>
+                    </div>
+                    <input type="date" id="filtro_data_fim" name="filtro_data_fim" class="form-control">
                   </div>
-                  <input type="date" id="filtro_data_fim" name="filtro_data_fim" class="form-control">
                 </div>
-              </div>
-              <div class="col">
-                <button type="submit" class="btn btn-primary btn-sm">Exportar Dados</button>                
-              </div>
-            </form>            
+                <div class="col col-sm-3">
+                  <button type="submit" class="btn btn-primary btn-sm">Exportar Dados</button>                
+                </div>
+              </form>            
+            </div>
           </div>
 
 

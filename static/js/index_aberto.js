@@ -4,10 +4,15 @@ $(document).ready(function(){
     success: function(data){
       $('#container2').highcharts({
         title: {
-            text: data['doenca']
+            text: 'Casos notificados para Esposotricose Humana, segundo classificação final'
         },
         xAxis: {
             categories: ['Detectáveis', 'Não detectáveis', 'Inconclusivo', 'Descartado', 'Vazio']
+        },
+        yAxis: {
+            title: {
+                text: 'N° de notificações'
+          }
         },
         series: [{
             name: [data['total']],
