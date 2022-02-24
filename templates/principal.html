@@ -14,6 +14,7 @@
   <script src="https://code.highcharts.com/highcharts.src.js"></script>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.min.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
 
   <style>
   .fakeimg {
@@ -82,6 +83,13 @@ footer {
     -webkit-flex-direction: column;
     flex-direction: column;
   }
+}
+.usuario_log{
+  margin: 3px;
+  border-radius: 8px;
+  background-color: #17a2b8;
+  color: white;
+  cursor: default;
 }
 </style>
 
@@ -156,7 +164,12 @@ footer {
       <nav>
         <ul style="padding:0;">
           <li>
-            <button type="menu" class="btn btn-info" disabled>Usuário: {{user.login}}</button>
+            <div class="usuario_log">
+              <div style="padding: 5px;">
+                <span><b>Usuário:</b> {{user.login}}</span><br>
+                <b>Perfil: </b><span id="user_funcao">{{user.funcao}}</span>
+              </div>
+            </div>            
           </li>
         </ul>
         <ul style="padding-left: 5%;">
@@ -292,7 +305,8 @@ footer {
         $("#dengue").hide();
         $("#chiconguya").hide();
         $("#zika").hide();
-      })
+      })      
     </script>
+    <script src="{% static 'js/funcao_user.js' %}"></script>
   </body>
   </html>
