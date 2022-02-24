@@ -451,18 +451,15 @@ def my_datas(request):
 		user_area_tecnica = request.user.area_tecnica
 		user_gerencia_regional = request.user.gerencia_regional
 		user_municipio_id = request.user.municipio_id
-		user_municipio_nome = str(Municipio.objects.filter(id=user_municipio_id)[0]).upper()
+		#user_municipio_nome = str(Municipio.objects.filter(id=user_municipio_id)[0]).upper()
+		municipio_user = request.user.municipio
 		registros = CasoEsporotricose.objects.filter(Q(municipio=user_municipio_id) | 
-			Q(municipio_residencia=user_municipio_nome)).order_by('-id')
+			Q(municipio_residencia=municipio_user)).order_by('-id')
 		
 		#user_municipio_nome = Municipio.objects.get(id=user_municipio_id)
 
 
 		#registros = CasoEsporotricose.objects.filter(municipio=user_municipio_id).order_by('-id')
-
-
-		print("municipio do usuário:",user_municipio_id)
-		print("munhicpio do usuário:", user_municipio_nome)
 
 		paginator = Paginator(registros, 6)
 		page = request.GET.get('page')
