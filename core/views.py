@@ -1220,16 +1220,14 @@ def ajax_exportar_index_aberto(request):
 def caso_esporotricose_edit(request, id):
 	caso = CasoEsporotricose.objects.get(id=id)
 	estados = Estado.objects.all().order_by('nome')
-
+	print('UF = ', caso.uf_residencia)
 	try:
 		estado_caso_str = int(caso.uf_residencia)
 	except Exception as e:
 		estado_caso = None
 	else:
 		estado_caso = Estado.objects.get(id=estado_caso_str)
-		print('########################################################################################')
-		print(estado_caso.id)
-	
+			
 	cidade_caso_ = caso.municipio_residencia
 	
 	print("municipio do caso:", cidade_caso_, type(cidade_caso_))
@@ -1438,6 +1436,7 @@ def set_caso_esporotricose_edit(request, id):
 	#Dados Residencia
 	cep_residencia = request.POST.get('cep_residencia')
 	uf_residencia = request.POST.get('uf_residencia')
+	print('uf_residencia: ', uf_residencia)	
 	municipio_residencia = request.POST.get('cidade_residencia')
 	
 	if uf_residencia == '12': # Se o uf for PB pega dados no modelo Municipio
@@ -1675,7 +1674,7 @@ def set_caso_esporotricose_edit(request, id):
 		nome_mae_paciente = nome_mae_paciente,
 		cep_residencia = cep_residencia,
 		uf_residencia = uf_residencia,
-		municipio_residencia = str(municipio_residencia).upper(),
+		municipio_residencia = municipio_residencia,
 		bairro_residencia = bairro_residencia,
 		codigo_ibge_residencia = codigo_ibge_residencia,
 		rua_residencia = rua_residencia,
