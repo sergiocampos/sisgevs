@@ -109,6 +109,13 @@ footer {
     border-top-left-radius: 8px;
     border-top-right-radius: 8px;
 }
+.usuario_log{
+  margin: 3px;
+  border-radius: 8px;
+  background-color: #17a2b8;
+  color: white;
+  cursor: default;
+}
 </style>
 
 <link rel="shortcut icon" href="https://docs.google.com/uc?id=1h8jgyPDlDWWinD_VP50nqKXnmdCHEKH3" type="image/x-icon" />
@@ -184,7 +191,12 @@ footer {
       <nav>
         <ul style="padding:0;">
           <li>
-            <button type="button" class="btn btn-info dropdown-toggle" data-toggle="collapse" data-target="#demo">Usuário: {{user.login}}</button>
+            <div class="usuario_log">
+              <div style="padding: 5px;">
+                <span><b>Usuário:</b> {{user.login}}</span><br>
+                <b>Perfil: </b><span id="user_funcao">{{user.funcao}}</span>
+              </div>
+            </div>            
           </li>
         </ul>
         <ul style="padding-left: 5%;">
@@ -274,5 +286,6 @@ footer {
       <p>Footer</p>
       <i class="fa">&#xf1f9;</i>
     </div>    
+    <script src="{% static 'js/funcao_user.js' %}"></script>
   </body>
   </html>
