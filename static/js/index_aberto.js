@@ -1,10 +1,10 @@
 $(document).ready(function(){
   $.ajax({
-    url : 'ajax_index_aberto',
+    url : '/ajax_index_aberto',
     success: function(data){
       $('#container2').highcharts({
         title: {
-            text: 'Casos notificados para Esposotricose Humana, segundo classificação final'
+            text: data['doenca']
         },
         xAxis: {
             categories: ['Detectáveis', 'Não detectáveis', 'Inconclusivo', 'Descartado', 'Vazio']
@@ -44,6 +44,11 @@ $("#btn_filtrar").on('click', function(){
       },
       xAxis: {
           categories: ['Detectáveis', 'Não detectáveis', 'Inconclusivo', 'Descartado', 'Vazio']
+      },
+      yAxis: {
+        title: {
+            text: 'N° de notificações'
+        }
       },
       series: [{
           name: [data['total']],

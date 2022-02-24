@@ -368,7 +368,7 @@ def my_datas(request):
 	municipios = Municipio.objects.all()
 	#municipio_nome = municipio_user.nome
 	if request.user.funcao == 'admin':
-		registros = CasoEsporotricose.objects.all().order_by('-id')
+		registros = CasoEsporotricose.objects.all().order_by('-data_notificacao')
 		
 		paginator = Paginator(registros, 6)
 		page = request.GET.get('page')
@@ -377,7 +377,7 @@ def my_datas(request):
 		return render(request, 'my_datas.html', {'regs':registros, 'municipios':municipios})
 
 	elif request.user.funcao == 'gerencia_executiva':
-		registros = CasoEsporotricose.objects.all().order_by('-id')
+		registros = CasoEsporotricose.objects.all().order_by('-data_notificacao')
 		
 		paginator = Paginator(registros, 6)
 		page = request.GET.get('page')
@@ -387,7 +387,7 @@ def my_datas(request):
 
 	elif request.user.funcao == 'gerencia_operacional':
 		user_gerencia_operacional = request.user.gerencia_operacional
-		registros = CasoEsporotricose.objects.filter(responsavel_gerencia_operacional=user_gerencia_operacional).order_by('-id')
+		registros = CasoEsporotricose.objects.filter(responsavel_gerencia_operacional=user_gerencia_operacional).order_by('-data_notificacao')
 		
 		paginator = Paginator(registros, 6)
 		page = request.GET.get('page')
@@ -401,7 +401,7 @@ def my_datas(request):
 		registros = CasoEsporotricose.objects.filter(
 			responsavel_gerencia_operacional=user_gerencia_operacional, 
 			responsavel_nucleo=user_nucleo
-			).order_by('-id')
+			).order_by('-data_notificacao')
 		
 		paginator = Paginator(registros, 6)
 		page = request.GET.get('page')
@@ -417,7 +417,7 @@ def my_datas(request):
 			responsavel_gerencia_operacional=user_gerencia_operacional, 
 			responsavel_nucleo=user_nucleo,
 			responsavel_area_tecnica=user_area_tecnica
-			).order_by('-id')
+			).order_by('-data_notificacao')
 		
 		paginator = Paginator(registros, 6)
 		page = request.GET.get('page')
@@ -431,7 +431,7 @@ def my_datas(request):
 		user_nucleo = request.user.nucleo
 		user_area_tecnica = request.user.area_tecnica
 		user_gerencia_regional = request.user.gerencia_regional
-		registros = CasoEsporotricose.objects.filter(responsavel_gerencia_regional=user_gerencia_regional).order_by('-id')
+		registros = CasoEsporotricose.objects.filter(responsavel_gerencia_regional=user_gerencia_regional).order_by('-data_notificacao')
 
 		paginator = Paginator(registros, 6)
 		page = request.GET.get('page')
@@ -453,12 +453,12 @@ def my_datas(request):
 		user_municipio_id = request.user.municipio_id
 		user_municipio_nome = str(Municipio.objects.filter(id=user_municipio_id)[0]).upper()
 		registros = CasoEsporotricose.objects.filter(Q(municipio=user_municipio_id) | 
-			Q(municipio_residencia=user_municipio_nome)).order_by('-id')
+			Q(municipio_residencia=user_municipio_nome)).order_by('-data_notificacao')
 		
 		#user_municipio_nome = Municipio.objects.get(id=user_municipio_id)
 
 
-		#registros = CasoEsporotricose.objects.filter(municipio=user_municipio_id).order_by('-id')
+		#registros = CasoEsporotricose.objects.filter(municipio=user_municipio_id).order_by('-data_notificacao')
 
 
 		print("municipio do usuário:",user_municipio_id)
@@ -474,8 +474,8 @@ def my_datas(request):
 		autocadastro_id = request.user.id
 		municipio_user = request.user.municipio
 
-		#registros = CasoEsporotricose.objects.filter(responsavel_pelas_informacoes_id=autocadastro_id).order_by('-id')
-		registros = CasoEsporotricose.objects.filter(municipio_residencia=municipio_user).order_by('-id')
+		#registros = CasoEsporotricose.objects.filter(responsavel_pelas_informacoes_id=autocadastro_id).order_by('-data_notificacao')
+		registros = CasoEsporotricose.objects.filter(municipio_residencia=municipio_user).order_by('-data_notificacao')
 
 		
 		paginator = Paginator(registros, 6)
@@ -1072,7 +1072,7 @@ def ajax_index_aberto(request):
 
 def ajax_filtrar_index_aberto(request):
 	# Dicionário para receber o Value do agravo e retornar o nome de forma mais adequada.
-	agravos = {'Selecione':'', 'ESPOROTRICOSE':'Casos notificacos para Esporotricose Humana segundo classificação final', 'ZIKA':'Zika', 'CHIKUNGUNYA':'Chikungunya', 'DENGUE':'Dengue'}
+	agravos = {'Selecione':'', 'ESPOROTRICOSE':'Casos notificacos para Esporotricose Humana, segundo classificação final', 'ZIKA':'Zika', 'CHIKUNGUNYA':'Chikungunya', 'DENGUE':'Dengue'}
 
 	# Capturando as informações
 	ano = request.GET.get('ano')
@@ -1794,7 +1794,7 @@ def export_data_csv(request):
 		casos_filtrados = casos.filter(data_primeiros_sintomas=filtro_unico_dia).order_by('-id')
 	
 	else:
-		casos_filtrados = casosdata_primeiros_sintomas
+		casos_filtrados = casos.order_by('-id')
 	
 	# Filtrando o tipo de perfil para limitar os casos.
 	if request.user.funcao == 'autocadastro':
