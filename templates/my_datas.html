@@ -246,7 +246,7 @@ footer {
 
           <style>
             .table          { overflow-y: auto; height: 100px; }
-            .table thead th { position: sticky; top: 0; background-color: #d9d9d9;}
+            .table thead th { position: sticky; top: -1px; background-color: #d9d9d9; z-index: 2;}
 
           </style>
           
@@ -372,7 +372,7 @@ footer {
                 <td align="center">
                   {% if user.funcao != 'gerencia_regional' %}
 
-                    {% if user.municipio.nome == registro.municipio_residencia %}
+                    {% if user.municipio.nome.upper == registro.municipio_residencia.upper %}
                     <a href="/caso_esporotricose_edit/{{registro.id}}"><button type="button" class="btn btn-info btn-sm">Editar</button></a>                  
                     {% else %}
                     <a href=""><button type="button" class="btn btn-info btn-sm" disabled>Editar</button></a>
