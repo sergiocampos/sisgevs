@@ -235,7 +235,10 @@ footer {
             </div>
             <hr>
           -->
-            <li><a href=""></a></li>
+            {% if user.funcao == 'admin' %}
+            <li><a href="/casos_cancelados">Casos cancelados</a></li>
+            <hr>
+            {% endif %}
           </div>
         </ul>
       </nav>

@@ -363,12 +363,21 @@ def ajax_edicao_uf_cidades(request):
 #######################################################################################################
 
 @login_required(login_url='/login/')
+def casos_cancelados(request):
+	municipios = Municipio.objects.all()
+	if request.user.funcao == 'admin':
+		registros = CasoEsporotricose.objects.filter(status_caso='Cancelado').order_by('-data_notificacao')
+		return render(request, 'casos_cancelados.html', {'regs':registros, 'municipios':municipios})
+	else:
+		return redirect('all_forms')
+
+@login_required(login_url='/login/')
 def my_datas(request):
 	print(request.user.funcao)
 	municipios = Municipio.objects.all()
 	#municipio_nome = municipio_user.nome
 	if request.user.funcao == 'admin':
-		registros = CasoEsporotricose.objects.all().order_by('-data_notificacao')
+		registros = CasoEsporotricose.objects.all().order_by('-data_notificacao').exclude(status_caso='Cancelado')
 		
 		paginator = Paginator(registros, 6)
 		page = request.GET.get('page')
@@ -377,7 +386,7 @@ def my_datas(request):
 		return render(request, 'my_datas.html', {'regs':registros, 'municipios':municipios})
 
 	elif request.user.funcao == 'gerencia_executiva':
-		registros = CasoEsporotricose.objects.all().order_by('-data_notificacao')
+		registros = CasoEsporotricose.objects.all().order_by('-data_notificacao').exclude(status_caso='Cancelado')
 		
 		paginator = Paginator(registros, 6)
 		page = request.GET.get('page')
@@ -387,7 +396,7 @@ def my_datas(request):
 
 	elif request.user.funcao == 'gerencia_operacional':
 		user_gerencia_operacional = request.user.gerencia_operacional
-		registros = CasoEsporotricose.objects.filter(responsavel_gerencia_operacional=user_gerencia_operacional).order_by('-data_notificacao')
+		registros = CasoEsporotricose.objects.filter(responsavel_gerencia_operacional=user_gerencia_operacional).order_by('-data_notificacao').exclude(status_caso='Cancelado')
 		
 		paginator = Paginator(registros, 6)
 		page = request.GET.get('page')
@@ -401,7 +410,7 @@ def my_datas(request):
 		registros = CasoEsporotricose.objects.filter(
 			responsavel_gerencia_operacional=user_gerencia_operacional, 
 			responsavel_nucleo=user_nucleo
-			).order_by('-data_notificacao')
+			).order_by('-data_notificacao').exclude(status_caso='Cancelado')
 		
 		paginator = Paginator(registros, 6)
 		page = request.GET.get('page')
@@ -417,7 +426,7 @@ def my_datas(request):
 			responsavel_gerencia_operacional=user_gerencia_operacional, 
 			responsavel_nucleo=user_nucleo,
 			responsavel_area_tecnica=user_area_tecnica
-			).order_by('-data_notificacao')
+			).order_by('-data_notificacao').exclude(status_caso='Cancelado')
 		
 		paginator = Paginator(registros, 6)
 		page = request.GET.get('page')
@@ -428,7 +437,7 @@ def my_datas(request):
 	elif request.user.funcao == 'gerencia_regional':
 		
 		user_gerencia_regional = Municipio.objects.get(id=request.user.municipio_id).gerencia_id
-		registros = CasoEsporotricose.objects.filter(gerencia_id=user_gerencia_regional).order_by('-data_notificacao')
+		registros = CasoEsporotricose.objects.filter(gerencia_id=user_gerencia_regional).order_by('-data_notificacao').exclude(status_caso='Cancelado')
 
 		paginator = Paginator(registros, 6)
 		page = request.GET.get('page')
@@ -441,7 +450,7 @@ def my_datas(request):
 		#user_municipio_nome = str(Municipio.objects.filter(id=user_municipio_id)[0]).upper()
 		user_municipio_id = request.user.municipio_id
 		municipio_user = request.user.municipio
-		registros = CasoEsporotricose.objects.filter(Q(municipio=user_municipio_id) | Q(municipio_residencia=municipio_user)).order_by('-data_notificacao')
+		registros = CasoEsporotricose.objects.filter(Q(municipio=user_municipio_id) | Q(municipio_residencia=municipio_user)).order_by('-data_notificacao').exclude(status_caso='Cancelado')
 
 		paginator = Paginator(registros, 6)
 		page = request.GET.get('page')
@@ -453,7 +462,7 @@ def my_datas(request):
 		autocadastro_id = request.user.id
 		municipio_user = request.user.municipio
 
-		registros = CasoEsporotricose.objects.filter(responsavel_pelas_informacoes_id=autocadastro_id).order_by('-data_notificacao')
+		registros = CasoEsporotricose.objects.filter(responsavel_pelas_informacoes_id=autocadastro_id).order_by('-data_notificacao').exclude(status_caso='Cancelado')
 		#registros = CasoEsporotricose.objects.filter(municipio_residencia=municipio_user).order_by('-data_notificacao')
 
 		
@@ -469,13 +478,14 @@ def my_datas(request):
 @login_required(login_url='/login/')
 def cancelar_caso_esporotricose(request):
 	caso_id = request.GET.get('id')
-	registro = CasoEsporotricose.objects.all().filter(id=caso_id).values()
+	redirect_url = request.GET.get('url_redirect')
+	registro = CasoEsporotricose.objects.filter(id=caso_id).values()
 	
 	if registro[0]['status_caso'] == 'Cancelado':
 		CasoEsporotricose.objects.filter(id=caso_id).update(status_caso=None)
 	else:		
 		CasoEsporotricose.objects.filter(id=caso_id).update(status_caso='Cancelado')	
-	return redirect('all_forms')
+	return redirect(redirect_url)
 
 @login_required(login_url='/login/')
 def criar_perfil_municipal(request):
