@@ -961,7 +961,7 @@ footer {
                     <div class="form-group"><b>UF</b>
                       <select class="form-control" name="uf_residencia" id="uf_edit_endereco_id" onclick="activeMunicipio()">
                         {% if estado_caso != None %}
-                        <option value="{{estado_caso.id}}" selected disabled>{{estado_caso.nome}}</option>
+                        <option value="{{estado_caso.id}}" selected>{{estado_caso.nome}}</option>
                           {% for estado_caso in estados %}
                           <option value="{{estado_caso.id}}">{{estado_caso.nome}}</option>
                           {% endfor %}
