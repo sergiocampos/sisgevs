@@ -1069,7 +1069,7 @@ def ajax_index_aberto(request):
 
 def ajax_filtrar_index_aberto(request):
 	# Dicionário para receber o Value do agravo e retornar o nome de forma mais adequada.
-	agravos = {'Selecione':'', 'ESPOROTRICOSE':'Casos notificacos para Esporotricose Humana, segundo classificação final', 'ZIKA':'Zika', 'CHIKUNGUNYA':'Chikungunya', 'DENGUE':'Dengue'}
+	agravos = {'Selecione':'', 'ESPOROTRICOSE':'Casos notificacos para Esporotricose Humana, segundo classificação final.', 'ZIKA':'Zika', 'CHIKUNGUNYA':'Chikungunya', 'DENGUE':'Dengue'}
 
 	# Capturando as informações
 	ano = request.GET.get('ano')

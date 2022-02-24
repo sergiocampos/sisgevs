@@ -47,7 +47,7 @@ $("#btn_filtrar").on('click', function(){
       },
       yAxis: {
         title: {
-            text: 'N° de notificações'
+            text: 'N° de notificações.'
         }
       },
       series: [{
