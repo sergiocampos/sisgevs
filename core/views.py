@@ -427,11 +427,8 @@ def my_datas(request):
 
 	elif request.user.funcao == 'gerencia_regional':
 		
-		user_gerencia_operacional = request.user.gerencia_operacional
-		user_nucleo = request.user.nucleo
-		user_area_tecnica = request.user.area_tecnica
-		user_gerencia_regional = request.user.gerencia_regional
-		registros = CasoEsporotricose.objects.filter(responsavel_gerencia_regional=user_gerencia_regional).order_by('-data_notificacao')
+		user_gerencia_regional = Municipio.objects.get(id=request.user.municipio_id).gerencia_id
+		registros = CasoEsporotricose.objects.filter(gerencia_id=user_gerencia_regional).order_by('-data_notificacao')
 
 		paginator = Paginator(registros, 6)
 		page = request.GET.get('page')
@@ -440,26 +437,11 @@ def my_datas(request):
 		return render(request, 'my_datas.html', {'regs':registros, 'municipios':municipios})
 
 	elif request.user.funcao == 'municipal':
-		# login = testebayeux
-		# senha = JjT1C5B6
-		#---------------------
-		# login = testecabedelo
-		# senha = L3Nqdv4Q
-
-		user_gerencia_operacional = request.user.gerencia_operacional
-		user_nucleo = request.user.nucleo
-		user_area_tecnica = request.user.area_tecnica
-		user_gerencia_regional = request.user.gerencia_regional
-		user_municipio_id = request.user.municipio_id
+		
 		#user_municipio_nome = str(Municipio.objects.filter(id=user_municipio_id)[0]).upper()
+		user_municipio_id = request.user.municipio_id
 		municipio_user = request.user.municipio
 		registros = CasoEsporotricose.objects.filter(Q(municipio=user_municipio_id) | Q(municipio_residencia=municipio_user)).order_by('-data_notificacao')
-
-		
-		#user_municipio_nome = Municipio.objects.get(id=user_municipio_id)
-
-
-		#registros = CasoEsporotricose.objects.filter(municipio=user_municipio_id).order_by('-data_notificacao')
 
 		paginator = Paginator(registros, 6)
 		page = request.GET.get('page')
@@ -1395,7 +1377,6 @@ def set_caso_esporotricose_edit(request, id):
 	municipio_id = municipio
 	municipio_ = Municipio.objects.get(id=municipio_id)
 
-
 	gerencia = municipio_.gerencia
 
 	codigo_ibge = request.POST.get('codigo_ibge_dados_gerais')
@@ -1807,9 +1788,9 @@ def export_data_csv(request):
 
 	elif request.user.funcao == 'gerencia_regional':
 		# Perfil Gerencia Regional
-		user_gerencia_regional = request.user.gerencia_regional
-		casos_response = casos_filtrados.filter(responsavel_gerencia_regional=user_gerencia_regional).order_by('-id')
-
+		user_gerencia_regional = Municipio.objects.get(id=request.user.municipio_id).gerencia_id
+		casos_response = casos_filtrados.filter(gerencia_id=user_gerencia_regional).order_by('-id')
+	
 	else: # Qualquer outro tipo de perfil
 		casos_response = casos_filtrados
 		
