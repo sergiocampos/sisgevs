@@ -471,8 +471,8 @@ def my_datas(request):
 		autocadastro_id = request.user.id
 		municipio_user = request.user.municipio
 
-		#registros = CasoEsporotricose.objects.filter(responsavel_pelas_informacoes_id=autocadastro_id).order_by('-data_notificacao')
-		registros = CasoEsporotricose.objects.filter(municipio_residencia=municipio_user).order_by('-data_notificacao')
+		registros = CasoEsporotricose.objects.filter(responsavel_pelas_informacoes_id=autocadastro_id).order_by('-data_notificacao')
+		#registros = CasoEsporotricose.objects.filter(municipio_residencia=municipio_user).order_by('-data_notificacao')
 
 		
 		paginator = Paginator(registros, 6)
