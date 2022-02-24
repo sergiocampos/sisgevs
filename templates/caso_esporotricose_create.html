@@ -512,7 +512,9 @@ footer {
                 <a class="nav-link" data-toggle="tab" href="#menu7">Observação</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" data-toggle="tab" href="#menu8">Investigador</a>
+                <a class="nav-link" data-toggle="tab" href="#menu8">Investigador
+                  <i id="alert_investigador" style="color: red;">*</i>
+                </a>
               </li>
             </ul>
 
@@ -934,11 +936,12 @@ footer {
                     if ((telefone == 14) && (cidade.length >= 4)) {
                       $("#alert_dados_residencia").hide();                      
                     } else{$("#alert_dados_residencia").show()}
-                    
+                    alert_investigador = $('#alert_investigador').prop('hidden')                   
+
                     if ((nome_paciente >= 10) && (nome_mae >= 10) && (date2 != "") 
                         && (data_1_s != "") && (municipio != 0) && (telefone == 14)
                         && (data_notificacao != "") && (sexo != "") && (data_invest != "")
-                        && (cidade.length >= 4)){
+                        && (cidade.length >= 4) && (alert_investigador == true)){
                       $("#btn_submit_id").prop("disabled", false);
                     } else {$("#btn_submit_id").prop("disabled", true);}
                     
@@ -2933,12 +2936,14 @@ footer {
               <div id="menu8" class="container tab-pane fade"><br>
                 <div class="row">
                   <div class="col-md-1"></div>
-                  <div class="col-md-9">
+                  <div class="col-md-9">                    
                     <div class="input-group mb-3" id="">
                       <div class="input-group-prepend" id="">
-                        <span class="input-group-text">Nome</span>
+                        <span class="input-group-text">Nome
+                          <i id="alert_investigador_nome" style="color:red">**</i>
+                        </span>
                       </div>
-                      <input type="text" class="form-control" name="nome_investigador" value="" id="nome_investigador_id" onkeypress="return limitcarc(event, 'letr')" onkeyup="maiuscula(event)">
+                      <input type="text" class="form-control" name="nome_investigador" value="" id="nome_investigador_id" onkeydown="verificarInvestigador()" onkeypress="return limitcarc(event, 'letr')" onkeyup="maiuscula(event)">
                     </div>
                   </div>
 
@@ -2958,9 +2963,11 @@ footer {
                   <div class="col-md-5">
                     <div class="input-group mb-3" id="">
                       <div class="input-group-prepend" id="">
-                        <span class="input-group-text">Email</span>
+                        <span class="input-group-text">Email
+                          <i id="alert_investigador_email" style="color:red">**</i>
+                        </span>
                       </div>
-                      <input type="text" class="form-control" name="email_investigador" value="" id="">
+                      <input type="text" class="form-control" name="email_investigador" value="" id="email_investigador_id" onkeyup="verificarInvestigador()">
                     </div>
                   </div>                 
                   
@@ -2971,9 +2978,11 @@ footer {
                   <div class="col-md-4">
                     <div class="input-group mb-3" id="">
                       <div class="input-group-prepend" id="">
-                        <span class="input-group-text">Telefone</span>
+                        <span class="input-group-text">Telefone
+                          <i id="alert_investigador_telefone" style="color:red">**</i>
+                        </span>
                       </div>
-                      <input type="text" class="form-control" id="telefone_investigador_id" name="telefone_investigador" placeholder="apenas números">
+                      <input type="text" class="form-control" id="telefone_investigador_id" name="telefone_investigador" placeholder="apenas números" onkeyup="verificarInvestigador()">
 
                     </div>
                   </div>
@@ -3010,6 +3019,34 @@ footer {
               return (code == 13) ? false : true;
             });
            });
+         </script>
+         <!-- Obrigatoriedade de nome, email e telefone do investigador -->
+         <script>
+          function verificarInvestigador(){
+            var nome_investigador = $('#nome_investigador_id').val();
+            var email_investigador = $('#email_investigador_id').val();
+            var telefone_investigador = $('#telefone_investigador_id').val();
+            
+            // Variável 're' serve para testar se um email é valido
+            var re = /\S+@\S+\.\S+/;
+            // Testando se o campo email é válido e armazenando a resposta (false ou true) na variável 'email_valid'
+            var email_valid = re.test(email_investigador);            
+            
+            if (nome_investigador.length > 10) {$('#alert_investigador_nome').prop('hidden', true)} else {$('#alert_investigador_nome').prop('hidden', false)};            
+            if (telefone_investigador.length >= 13) {$('#alert_investigador_telefone').prop('hidden', true)} else {$('#alert_investigador_telefone').prop('hidden', false)};            
+            if (email_valid == true) {$('#alert_investigador_email').prop('hidden', true)} else {$('#alert_investigador_email').prop('hidden', false); email_valid = false;};
+
+            if (
+              ($('#alert_investigador_nome').prop('hidden') == true) &&
+              ($('#alert_investigador_email').prop('hidden') == true) &&
+              ($('#alert_investigador_telefone').prop('hidden') == true) 
+            ) {
+              $('#alert_investigador').prop('hidden', true)
+            } else {
+              $('#alert_investigador').prop('hidden', false)
+            }
+            verificarNotifGeral()
+          }
          </script>
 
 
