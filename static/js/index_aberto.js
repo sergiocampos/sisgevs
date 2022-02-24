@@ -1,6 +1,6 @@
 $(document).ready(function(){
   $.ajax({
-    url : 'ajax_index_aberto',
+    url : '/ajax_index_aberto',
     success: function(data){
       $('#container2').highcharts({
         title: {
@@ -8,6 +8,11 @@ $(document).ready(function(){
         },
         xAxis: {
             categories: ['Detectáveis', 'Não detectáveis', 'Inconclusivo', 'Descartado', 'Vazio']
+        },
+        yAxis: {
+            title: {
+                text: 'N° de notificações'
+          }
         },
         series: [{
             name: [data['total']],
@@ -39,6 +44,11 @@ $("#btn_filtrar").on('click', function(){
       },
       xAxis: {
           categories: ['Detectáveis', 'Não detectáveis', 'Inconclusivo', 'Descartado', 'Vazio']
+      },
+      yAxis: {
+        title: {
+            text: 'N° de notificações'
+        }
       },
       series: [{
           name: [data['total']],
