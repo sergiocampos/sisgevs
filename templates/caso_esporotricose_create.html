@@ -448,8 +448,10 @@ footer {
           -->
             <li><a href="/my_datas/">Notificações</a></li>
             <hr>
+            {% if user.funcao == 'admin' %}
+            <li><a href="/casos_cancelados">Casos cancelados</a></li>
             <hr>
-            <li><a href=""></a></li>
+            {% endif %}
           </div>
         </ul>
       </nav>

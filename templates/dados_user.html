@@ -211,10 +211,12 @@ footer {
             <li><a href="/ficha_caso_esporotricose_preencher/" target="_blank" style="color: #4d94ff;">Novo Layout</a></li>
             -->
             <!--<li><a href="/download_ficha/" download style="color: #4d94ff;">Imprimir Ficha</a></li>-->
-          </div>
           <hr>
-
-          <li><a href="#"></a></li>
+          {% if user.funcao == 'admin' %}
+            <li><a href="/casos_cancelados">Casos cancelados</a></li>
+            <hr>
+          {% endif %}
+          </div>
 
         </div>
       </ul>

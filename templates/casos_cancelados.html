@@ -207,10 +207,10 @@ footer {
             <hr>
           -->
             {% endif %}
-            <li>Notificações</li>
+            <li><a href="/my_datas/">Notificações</a></li>
             <hr>
             {% if user.funcao == 'admin' %}
-            <li><a href="/casos_cancelados">Casos cancelados</a></li>
+            <li>Casos cancelados</li>
             <hr>
             {% endif %}
           </div>
@@ -224,10 +224,11 @@ footer {
           <div class="row">
             <div class="col-sm-12">
               <div class="alert alert-primary" style="text-align: center;">
-                <strong style="align-items: center;">Notificações</strong>
+                <strong style="align-items: center;">Casos Cancelados</strong>
               </div>
             </div>
           </div>
+          {% if regs %}
           <div class="row">
             <div class="col col-sm-4">
               <input class="form-control" type="text" id="pesquisar" placeholder="digite algo para pesquisar">             
@@ -282,7 +283,6 @@ footer {
           
           {% include 'messages/message.html' %}
           <div id="content__table_id">          
-          
           <table class="table table-bordered" style="font-size: 80%;">
             <thead>
               
@@ -297,9 +297,7 @@ footer {
               
             </thead>
             <tbody id="myTable">
-
               {% for registro in regs %}
-              {% if registro.status_caso == 'Cancelado' and user.funcao == 'gerencia_regional'  %}
               <tr class="table table-warning">
                 
                 {% if registro.data_notificacao != None %}
@@ -342,78 +340,16 @@ footer {
                   <button id="{{registro.id}}" type="button" class="btn cancelar_caso btn-secondary btn-sm">Revalidar</button>                
                 </td>                
               </tr>
-              {% elif registro.status_caso == 'Cancelado' and user.funcao != 'gerencia_regional' %}
-              {% else %}
-              <tr>
-                
-                {% if registro.data_notificacao != None %}
-                <td>{{registro.data_notificacao}}</td>
-                {%else%}
-                <td></td>
-                {%endif%}
-
-
-                <td>{{registro.nome_paciente}}</td>
-                
-                {% if registro.data_nascimento_paciente != None %}
-                <td>{{registro.data_nascimento_paciente}}</td>
-                {%else%}
-                <td></td>
-                {%endif%}
-
-                {% if registro.nome_mae_paciente == None %}
-                  <td></td>
-                {% else %}
-                  <td>{{registro.nome_mae_paciente}}</td>
-                {% endif %}
-
-                {% if registro.municipio_residencia != None %}
-                  <td style="text-transform:uppercase;">{{registro.municipio_residencia}}</td>                 
-                {% else %}
-                  <td></td>
-                {% endif %}
-
-                {% if registro.municipio != None %}
-                  {% for i in municipios %}
-                    {% if i.id == registro.municipio %}
-                      <td style="text-transform:uppercase;">{{i}}</td>                 
-                    {% endif %}
-                  {% endfor %}
-                {% else %}
-                  <td></td>
-                {% endif %}
-                  
-                <td align="center">
-                  {% if user.funcao != 'gerencia_regional' %}
-
-                    {% if user.municipio.nome.upper == registro.municipio_residencia.upper %}
-                    <a href="/caso_esporotricose_edit/{{registro.id}}"><button type="button" class="btn btn-info btn-sm">Editar</button></a>                  
-                    {% else %}
-                    <a href=""><button type="button" class="btn btn-info btn-sm" disabled>Editar</button></a>
-                    {% endif %}
-                  {%endif%}
-                  <a href="/caso_view_detail/{{registro.id}}/" target="_blank"><button type="button" class="btn btn-secondary btn-sm">Ver</button></a>                  
-
-                  <button id="{{registro.id}}" type="button" class="btn cancelar_caso btn-warning btn-sm">Cancelar</button>                
-                </td>                
-              </tr>
-              {% endif %}
               {% endfor %}
             </tbody>
           </table>
+          {% else %}
+          <h5 class="font-weight-bolder text-center mt-3">Nenhum caso cancelado.</h5>
+          {% endif %}
           </div>
-
-          
-
-
         </div>
-
-
       </article>
-
-
     </section>
-
     <br><br>
 
     <!--
@@ -445,10 +381,10 @@ footer {
                       'url_redirect': 'my_datas'
                    }
         $.ajax({
-          url: 'cancelar_caso_esporotricose',
+          url: "{% url 'cancelar_caso_esporotricose' %}",
           data: data,
           success: function(data){
-            document.location.href='/my_datas/'
+            document.location.href='casos_cancelados'
           }          
         })
       });      
