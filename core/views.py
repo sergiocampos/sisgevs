@@ -1,6 +1,6 @@
 
 #from asyncio.windows_events import NULL
-import imp
+from django.core.exceptions import PermissionDenied
 from django.db.models.expressions import OrderBy, Value
 from django.utils.functional import empty
 import pandas as pd
@@ -395,44 +395,48 @@ def my_datas(request):
 		return render(request, 'my_datas.html', {'regs':registros, 'municipios':municipios})
 
 	elif request.user.funcao == 'gerencia_operacional':
-		user_gerencia_operacional = request.user.gerencia_operacional
-		registros = CasoEsporotricose.objects.filter(responsavel_gerencia_operacional=user_gerencia_operacional).order_by('-data_notificacao').exclude(status_caso='Cancelado')
+		if request.user.has_perm('core.acessa_esporotricose'):
+			user_gerencia_operacional = request.user.gerencia_operacional
+			registros = CasoEsporotricose.objects.filter(responsavel_gerencia_operacional=user_gerencia_operacional).order_by('-data_notificacao').exclude(status_caso='Cancelado')
+			
+			paginator = Paginator(registros, 6)
+			page = request.GET.get('page')
+			regs = paginator.get_page(page)
 		
-		paginator = Paginator(registros, 6)
-		page = request.GET.get('page')
-		regs = paginator.get_page(page)
+			return render(request, 'my_datas.html', {'regs':registros, 'municipios':municipios})
 		
-		return render(request, 'my_datas.html', {'regs':registros, 'municipios':municipios})
 
 	elif request.user.funcao == 'chefia_nucleo':
-		user_gerencia_operacional = request.user.gerencia_operacional
-		user_nucleo = request.user.nucleo
-		registros = CasoEsporotricose.objects.filter(
-			responsavel_gerencia_operacional=user_gerencia_operacional, 
-			responsavel_nucleo=user_nucleo
-			).order_by('-data_notificacao').exclude(status_caso='Cancelado')
-		
-		paginator = Paginator(registros, 6)
-		page = request.GET.get('page')
-		regs = paginator.get_page(page)
-		
-		return render(request, 'my_datas.html', {'regs':registros, 'municipios':municipios})	
+		if request.user.has_perm('core.acessa_esporotricose'):
+			user_gerencia_operacional = request.user.gerencia_operacional
+			user_nucleo = request.user.nucleo
+			registros = CasoEsporotricose.objects.filter(
+				responsavel_gerencia_operacional=user_gerencia_operacional, 
+				responsavel_nucleo=user_nucleo
+				).order_by('-data_notificacao').exclude(status_caso='Cancelado')
+			
+			paginator = Paginator(registros, 6)
+			page = request.GET.get('page')
+			regs = paginator.get_page(page)
+			
+			return render(request, 'my_datas.html', {'regs':registros, 'municipios':municipios})	
 
 	elif request.user.funcao == 'area_tecnica':
-		user_gerencia_operacional = request.user.gerencia_operacional
-		user_nucleo = request.user.nucleo
-		user_area_tecnica = request.user.area_tecnica
-		registros = CasoEsporotricose.objects.filter(
-			responsavel_gerencia_operacional=user_gerencia_operacional, 
-			responsavel_nucleo=user_nucleo,
-			responsavel_area_tecnica=user_area_tecnica
-			).order_by('-data_notificacao').exclude(status_caso='Cancelado')
-		
-		paginator = Paginator(registros, 6)
-		page = request.GET.get('page')
-		regs = paginator.get_page(page)
-		
-		return render(request, 'my_datas.html', {'regs':registros, 'municipios':municipios})	
+		if request.user.has_perm('core.acessa_esporotricose'):
+			user_gerencia_operacional = request.user.gerencia_operacional
+			user_nucleo = request.user.nucleo
+			user_area_tecnica = request.user.area_tecnica
+			registros = CasoEsporotricose.objects.filter(
+				responsavel_gerencia_operacional=user_gerencia_operacional, 
+				responsavel_nucleo=user_nucleo,
+				responsavel_area_tecnica=user_area_tecnica
+				).order_by('-data_notificacao').exclude(status_caso='Cancelado')
+			
+			paginator = Paginator(registros, 6)
+			page = request.GET.get('page')
+			regs = paginator.get_page(page)
+			
+			return render(request, 'my_datas.html', {'regs':registros, 'municipios':municipios})	
 
 	elif request.user.funcao == 'gerencia_regional':
 		
@@ -471,9 +475,8 @@ def my_datas(request):
 		regs = paginator.get_page(page)
 		
 		return render(request, 'my_datas.html', {'regs':registros, 'municipios':municipios})
-	
-	else:
-		return redirect('all_forms')
+
+	return redirect('all_forms')
 
 @login_required(login_url='/login/')
 def cancelar_caso_esporotricose(request):
