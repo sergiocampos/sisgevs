@@ -37,12 +37,12 @@ class User(AbstractBaseUser, PermissionsMixin):
 	OPTIONS = [
 		('admin', 'Admin'),
 		('gerencia_executiva','Gerência Executiva'),
-		('gerencia_regional', 'Gerência Regional de Saúde'),
 		('gerencia_operacional', 'Gerência Operacional'),
-		('area_tecnica', 'Área Técnica'),
 		('chefia_nucleo', 'Chefia de Núcleo'),
+		('area_tecnica', 'Área Técnica'),
+		('gerencia_regional', 'Gerência Regional de Saúde'),
 		('municipal', 'Municipal'),
-		('autocadastro', 'Autocadastro')
+		('autocadastro', 'Autocadastro'),
 	]
 
 	login = models.CharField(max_length = 200, help_text='Informe um login', unique=True)
