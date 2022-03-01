@@ -1198,6 +1198,8 @@ def ajax_exportar_index_aberto(request):
 		data.to_csv(response, index=False)
 
 		return response
+	else:
+		return redirect('index')
 
 	if option =="excel":
 		response = HttpResponse(content_type = "application/ms-excel")
@@ -1205,6 +1207,8 @@ def ajax_exportar_index_aberto(request):
 
 		data.to_excel(response, index=False)
 		return response
+	else:
+		return redirect('index')
 
 # INDEX ABERTO
 
