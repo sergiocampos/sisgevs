@@ -1,0 +1,78 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+:root {
+    --cor-fundo: #e6e6e6;
+    --primaria: #35a8e0;
+    --secundaria: #153d89;
+}
+
+body {
+    height: 100vh;
+    max-height: 100vh;
+    overflow-y: scroll;
+    font-family: 'Roboto', sans-serif;
+}
+
+main {
+    height: 100%;
+}
+
+.nav-blue {
+    background-color: var(--primaria);
+    height: 3vh;
+}
+
+.nav-logo {
+    background-color: var(--cor-fundo);
+}
+
+.nav-options {
+    background-color: var(--secundaria) !important;
+}
+
+.options-ocultos {
+    display: none;
+}
+
+
+.menu-lateral {
+    background-color: var(--cor-fundo);
+}
+
+.user-name {
+    color: var(--secundaria);
+    font-weight: 900;
+}
+
+.pagina {
+    display: block;
+}
+
+@media screen and (max-height:710px) {
+    body {
+        overflow-y: scroll;
+    }
+}
+
+@media screen and (max-width:850px) {
+    .logo-estado {
+        display: none;
+    }
+}
+
+@media screen and (max-width: 950px) {
+    body {
+        overflow-y: scroll;
+    }
+
+    .options-ocultos {
+        display: block;
+    }
+
+    .menu-lateral {
+        display: none !important;
+    }
+}

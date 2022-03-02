@@ -1,129 +1,80 @@
-{% extends 'base.html' %}
-
-{% block links %}
-<li class="nav-item">
-    <a href="" class="nav-link"></a>
-    <!--
-    <a href="{% url 'index_aberto' %}" class="nav-link">Página inicial</a>
--->
-</li>
-{% endblock links %}
+{% extends 'base1.html' %}
 
 {% block content %}
-<br>
-<div class="row">
-      <div class="col-sm-9"></div>
-      <div class="col-sm-1">
-        <button type="button" class="btn btn-primary btn-sm" onclick="goBack()">Voltar</button>
-      </div>
-      <div class="col-sm-2"></div>
-    </div>
-    <script>
-    function goBack() {
-      window.history.back();
-    }
-    </script>
-    <header class="container text-center my-2">
-        <div class="row">
-            <div class="col">
-              <div class="alert alert-primary text-center">
-                <h2 class="font-weight-bolder">Autocadastro para notificar doenças e agravos</h2>
-              </div>
-            </div>
-          </div>
-    </header>
-    <main class="container text-center my-3">
-        <form action="" method="post">
-            {% csrf_token %}
-            {% if messages %}
-                <div class="mb-5">
-                    {% for message in messages %}
-                    <p class="my-1 text-danger">{{message}}</p>
-                    {% endfor %}
-                </div>
-            {% endif %}
-            <div class="row my-3">
-                <div class="col-1"></div>
-                <div class="col-5">
-                    <label for="username">Nome:</label>
-                    <input type="text" class="form-control" id="nome" name="nome" required>
-                </div>
-                <div class="col-3">
-                    <label for="login">Login:</label>
-                    <input type="text" class="form-control" id="login" name="login" required>
-                </div>
-                <div class="col"></div>
-            </div>
-            <div class="row my-3">
-                <div class="col-1"></div>
-                <div class="col-3">
-                    <label for="cpf">CPF:</label>
-                    <input type="text" class="form-control" id="cpf" name="cpf" required>
-                </div>
-                <div class="col-3">
-                    <label for="municipio">Município:</label>
-                    <select name="municipio" id="municipio" class="form-control" required>
-                        {% for municipio in municipios %}
-                        <option value="{{municipio.id}}">{{municipio.nome}}</option>
+<div class="mt-3">
+        <div class="alert alert-primary text-center">
+            <h1 class="fs-2">Autocadastro para notificar doenças e agravos</h1>
+        </div>
+        <div class="container text-center my-4">
+            <form method="post">
+                {% csrf_token %}
+                {% if messages %}
+                    <div class="mb-5">
+                        {% for message in messages %}
+                        <p class="my-1 text-danger">{{message}}</p>
                         {% endfor %}
-                    </select>
+                    </div>
+                {% endif %}
+                <div class="row justify-content-center">
+                    <div class="col-md-5 mt-3">
+                        <label for="username">Nome:</label>
+                        <input type="text" class="form-control" id="nome" name="nome" required>
+                    </div>
+                    <div class="col-md-4 mt-3">
+                        <label for="login">Login:</label>
+                        <input type="text" class="form-control" id="login" name="login" required>
+                    </div>
                 </div>
-                <div class="col-3 tel">
-                    <label for="telefone">Telefone:</label>
-                    <input type="text" class="form-control" id="telefone" name="telefone" required>
+                <div class="row justify-content-center">
+                    <div class="col-md-3 mt-3">
+                        <label for="cpf">CPF:</label>
+                        <input type="text" class="form-control cpf" id="cpf" name="cpf" required>
+                    </div>
+                    <div class="col-md-3 mt-3">
+                        <label for="municipio">Município:</label>
+                        <select name="municipio" id="municipio" class="form-select" required>
+                            {% for municipio in municipios %}
+                            <option value="{{municipio.id}}">{{municipio.nome}}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="col-md-3 mt-3">
+                        <label for="telefone">Telefone:</label>
+                        <input type="text" class="form-control telefone" id="telefone" name="telefone" required>
+                    </div>
                 </div>
-                <div class="col"></div>
-            </div>
-            <!--
-            <div class="row my-3">
-                <div class="col-1"></div>
-                <div class="col-4">
-                    <label for="gerenciaOp">Gerência operacional:</label>
-                    <select name="gerenciaOp" id="gerenciaOp" class="form-control" required>
-                        <option value="g_o_v">Gerência Operacional de Vigilancia</option>
-                        <option value="g_o_ASVDNT">Gerência Operacional de vigilácia</option>
-                        <option value="g_o_SA">Gerência Operacional de vigilácia</option>
-                        <option value="g_o_CCI">Gerência Operacional de vigilácia</option>
-                    </select>
+                <div class="row justify-content-center">
+                    <div class="col-md-3 mt-3">
+                        <label for="password1">Digite a senha:</label>
+                        <input type="password" class="form-control" id="password1" name="password1" required>
+                    </div>
+                    <div class="col-md-5 mt-3">
+                        <label for="password2">Confirme a senha:</label>
+                        <input type="password" class="form-control" id="password2" name="password2" required>
+                    </div>
                 </div>
-                <div class="col-3">
-                    <label for="nucleo">Núcleo:</label>
-                    <select name="nucleo" id="nucleo" class="form-control" required>
-                        <option value="nucleo_a">Nucleo A</option>
-                        <option value="nucleo_b">Nucleo B</option>
-                        <option value="nucleo_c">Nucleo C</option>
-                    </select>
+                <div class="mt-2">
+                    <input type="checkbox" id="mostrar-senha" onclick="return mostrarSenha(this)">
+                    <label for="mostrar-senha">Mostrar senha</label>
                 </div>
-                <div class="col-3"></div>
-            </div>
-        -->
-            <div class="row my-3">
-                <div class="col-1"></div>
-                <div class="col-3">
-                    <label for="password1">Digite a senha:</label>
-                    <input type="password" class="form-control" id="password1" name="password1" required>
+                <div class="mt-4">
+                    <div class="d-grid gap-2 d-md-block">
+                        <button class="btn btn-success"><i class="bi bi-check2 me-1"></i>Criar</button>
+                        <button type="button" class="btn btn-primary" onclick="goBack()"><i class="bi bi-arrow-left-circle me-1"></i>Voltar</button>
+                    </div>
                 </div>
-                <div class="col-5">
-                    <label for="password2">Confirme a senha:</label>
-                    <input type="password" class="form-control" id="password2" name="password2" required>
-                </div>
-                <div class="col"></div>
-            </div>
-            <hr>
-            <div class="row">
-                <div class="col"></div>
-                <div class="col">
-                    <input type="submit" value="Criar" class="btn btn-success">
-                </div>
-                <div class="col"></div>
-            </div>
-        </form>
-        <script>
-            $(document).ready(function(){
-                $("#telefone").mask("(99)99999-9999")
-                $("#cpf").mask("999.999.999-99")
-            })
-            
-        </script>
-    </main>
+            </form>
+        </div>
+</div>
+<script>
+    function mostrarSenha(input){
+        if (input.checked == true) {
+            document.getElementById('password1').type = "text";
+            document.getElementById('password2').type = "text";
+        } else {
+            document.getElementById('password1').type = "password";
+            document.getElementById('password2').type = "password";
+        };
+    };
+</script>
 {% endblock content %}
