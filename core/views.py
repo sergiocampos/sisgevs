@@ -373,7 +373,7 @@ def casos_cancelados(request):
 
 @login_required(login_url='/login/')
 def my_datas(request):
-	print(request.user.funcao)
+	
 	municipios = Municipio.objects.all()
 	#municipio_nome = municipio_user.nome
 	if request.user.funcao == 'admin':
@@ -447,10 +447,10 @@ def my_datas(request):
 
 	elif request.user.funcao == 'municipal':
 		
-		#user_municipio_nome = str(Municipio.objects.filter(id=user_municipio_id)[0]).upper()
 		user_municipio_id = request.user.municipio_id
 		municipio_user = request.user.municipio
-		registros = CasoEsporotricose.objects.filter(Q(municipio=user_municipio_id) | Q(municipio_residencia=municipio_user)).order_by('-data_notificacao').exclude(status_caso='Cancelado')
+		user_municipio_nome = str(Municipio.objects.filter(id=user_municipio_id)[0]).upper()
+		registros = CasoEsporotricose.objects.filter(Q(municipio_residencia=user_municipio_id) | Q(municipio_residencia=user_municipio_nome) | Q(responsavel_pelas_informacoes_id=user_municipio_id)).order_by('-data_notificacao').exclude(status_caso='Cancelado')
 
 		paginator = Paginator(registros, 6)
 		page = request.GET.get('page')
@@ -1775,8 +1775,6 @@ def export_data_csv(request):
 		if filtro == '' or filtro == None:
 			filtros_data.remove(filtro)
 	
-
-	print(filtros_data)
 	if len(filtros_data) == 2:
 		casos_filtrados = casos.filter(data_primeiros_sintomas__range=[filtro_data_inicio,filtro_data_fim]).order_by('-id')
 	
@@ -1798,7 +1796,7 @@ def export_data_csv(request):
 		user_municipio_id = request.user.municipio_id
 		user_municipio_nome = str(Municipio.objects.filter(id=user_municipio_id)[0]).upper()
 		casos_response = casos_filtrados.filter(Q(municipio_residencia=user_municipio_id) | 
-			Q(municipio_residencia=user_municipio_nome) | Q(municipio=user_municipio_id)).order_by('-id')
+			Q(municipio_residencia=user_municipio_nome) | Q(responsavel_pelas_informacoes_id=user_municipio_id)).order_by('-id')
 
 	elif request.user.funcao == 'gerencia_regional':
 		# Perfil Gerencia Regional
