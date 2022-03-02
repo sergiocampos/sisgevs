@@ -4,7 +4,7 @@ services:
 
   web:
     build: .
-    command: bash -c 'python manage.py makemigrations && python manage.py migrate && python manage.py runserver 0.0.0.0:8000'
+    command: sh -c 'python manage.py makemigrations && python manage.py migrate && python manage.py runserver 0.0.0.0:8000'
     volumes:
       - .:/sisgevs_docker
     ports:
@@ -17,6 +17,8 @@ services:
     environment:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
+    ports:
+      - 8002:5432
     volumes:
       - postgres_data:/var/lib/postgresql/data/      
 

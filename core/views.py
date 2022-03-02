@@ -44,6 +44,9 @@ def login_page(request):
 	return render(request, 'login_page.html')
 
 
+def teste(request):
+	return render(request, 'base1.html')
+	
 @csrf_protect
 def login_submit(request):
 	if request.POST:
