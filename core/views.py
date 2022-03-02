@@ -3875,5 +3875,4 @@ def organograma(request):
 
 @login_required(login_url='/login/')
 def principal(request):
-	print(request.user.id)
 	return render(request, 'principal.html')
