@@ -1360,7 +1360,7 @@ def caso_esporotricose_edit(request, id):
 @login_required(login_url='/login/')
 def set_caso_esporotricose_edit(request, id):
 	# Dados do responsável pela edição do caso.
-	responsavel_pelas_informacoes = request.user
+	responsavel_pelas_informacoes = request.user.id
 	responsavel_gerencia_operacional = request.user.gerencia_operacional
 	responsavel_nucleo = request.user.nucleo
 	responsavel_area_tecnica = request.user.area_tecnica
@@ -1641,12 +1641,7 @@ def set_caso_esporotricose_edit(request, id):
 	conselho_classe_investigador = request.POST.get('conselho_classe_investigador')
 
 	CasoEsporotricose.objects.filter(id = id).update(
-		responsavel_pelas_informacoes = responsavel_pelas_informacoes,
-		responsavel_gerencia_operacional = responsavel_gerencia_operacional,
-		responsavel_nucleo = responsavel_nucleo,
-		responsavel_area_tecnica = responsavel_area_tecnica,
-		responsavel_gerencia_regional = responsavel_gerencia_regional,
-		responsavel_municipio = str(responsavel_municipio).upper(),
+		responsavel_edicao = responsavel_pelas_informacoes,
 		tipo_notificacao = tipo_notificacao,
 		agravo_doenca = agravo_doenca,
 		codigo_cib10 = codigo_cib10,
@@ -3880,4 +3875,5 @@ def organograma(request):
 
 @login_required(login_url='/login/')
 def principal(request):
+	print(request.user.id)
 	return render(request, 'principal.html')
