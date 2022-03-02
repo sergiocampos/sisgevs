@@ -3874,5 +3874,90 @@ def organograma(request):
 
 
 @login_required(login_url='/login/')
-def principal(request):
+def principal(request):	
+	print(request.user.funcao)
 	return render(request, 'principal.html')
+
+@login_required(login_url='/login/')
+def export_users(request):
+	if request.user.funcao == 'admin':
+		
+		Users = get_user_model().objects.all().order_by('id')
+		lista_users =[]
+		for i in Users:
+			user_id = i.id
+			funcao = i.funcao
+			login = i.login
+			username = i.username
+			cpf = i.cpf
+			telefone = i.telefone
+			unidade_saude = i.unidade_saude
+			perfil = i.perfil
+			email = i.email
+			nome = i.first_name
+			is_superuser = i.is_superuser
+			is_staff = i.is_staff
+			is_active = i.is_active
+			last_login = i.last_login
+			date_joined = i.date_joined
+			gerencia_operacional = i.gerencia_operacional
+			nucleo = i.nucleo
+			area_tecnica = i.area_tecnica
+			gerencia_regional = i.gerencia_regional
+			municipio_nome = i.municipio_nome
+			municipio_id = i.municipio_id
+			lista_users.append({
+				'user_id':user_id,
+				'funcao':funcao,
+				'login':login,
+				'username':username,
+				'cpf':cpf,
+				'telefone':telefone,
+				'unidade_saude':unidade_saude,
+				'perfil':perfil,
+				'email':email,
+				'nome':nome,
+				'is_superuser':is_superuser,
+				'is_staff':is_staff,
+				'is_active':is_active,
+				'last_login':last_login,
+				'date_joined':date_joined,
+				'gerencia_operacional':gerencia_operacional,
+				'nucleo':nucleo,
+				'area_tecnica':area_tecnica,
+				'gerencia_regional':gerencia_regional,
+				'municipio_nome':municipio_nome,
+				'municipio_id':municipio_id,
+				})	
+		
+		df = pd.DataFrame(lista_users)
+		try:
+			for i in df['municipio_id']:
+				
+				try: # Checando se o valor é diferente de NaN
+					i = int(i)
+				except:
+					continue
+				else: # Buscando no modelo municipio o nome de municipio pelo id e alterando o dataframe
+					municipio = Municipio.objects.get(id=i)
+					df['municipio_nome'] = municipio.nome
+
+			df['last_login'] = df['last_login'].apply(lambda a: pd.to_datetime(a).date())
+			df['date_joined'] = df['date_joined'].apply(lambda a: pd.to_datetime(a).date())
+			# Escrevendo o excel e enviando o response.
+		except:
+			redirect('/principal/')
+		else:
+			with BytesIO() as b:
+				
+				writer = pd.ExcelWriter(b, engine='openpyxl')
+				df.to_excel(writer, sheet_name='Sheet1', index=False)
+				writer.save()
+				
+				filename = 'Usuarios-SISGEVS.xlsx'
+				response = HttpResponse(b.getvalue(),content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
+				response['Content-Disposition'] = 'attachment; filename=%s' % filename
+				
+				return response
+	else:
+		redirect('/principal/')
