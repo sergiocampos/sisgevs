@@ -24,6 +24,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js" integrity="sha512-pHVGpX7F/27yZ0ISY+VVjyULApbDlD0/X0rgGbTqCE7WFW5MezNTWG/dnhtbBuICzsd0WQPgpE4REBLv+UqChw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="{% static 'js/base.js' %}" defer></script>
+    <script src="{% static 'js/funcao_user.js' %}" defer></script>
     
     {% block head %}{% endblock head %}
 </head>
@@ -94,7 +95,7 @@
         <div class="d-flex flex-column flex-shrink-0 menu-lateral p-3">
             <div class="user-name fs-6 mx-3">
                 <p class="mb-1"> Usuário: {{user.login}}</p>
-                <p class="mb-0">Função: {{user.funcao}}</p>
+                <p class="mb-0">Função: <span id="user_funcao">{{user.funcao}}</span></p>
             </div>
             <hr>
             <ul class="nav nav-pills flex-column mb-auto">
@@ -127,6 +128,6 @@
             {% block content %}{% endblock content %}
         </div>
     </main>
-    {% block endbody %}{% endblock endbody %}
+    {% block endbody %}{% endblock endbody %}    
 </body>
 </html>

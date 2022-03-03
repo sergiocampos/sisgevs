@@ -12,8 +12,7 @@ $(document).ready(function(){
     
     user_funcao = $('#user_funcao').text();
     user_funcao = String(user_funcao)
-
     user_funcao = funcoes[user_funcao]
-    console.log(user_funcao)
+    
     $('#user_funcao').text(user_funcao)
 })
