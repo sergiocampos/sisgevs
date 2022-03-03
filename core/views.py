@@ -376,7 +376,7 @@ def casos_cancelados(request):
 
 @login_required(login_url='/login/')
 def my_datas(request):
-	print(request.user.funcao)
+	
 	municipios = Municipio.objects.all()
 	#municipio_nome = municipio_user.nome
 	if request.user.funcao == 'admin':
@@ -454,10 +454,10 @@ def my_datas(request):
 
 	elif request.user.funcao == 'municipal':
 		
-		#user_municipio_nome = str(Municipio.objects.filter(id=user_municipio_id)[0]).upper()
 		user_municipio_id = request.user.municipio_id
 		municipio_user = request.user.municipio
-		registros = CasoEsporotricose.objects.filter(Q(municipio=user_municipio_id) | Q(municipio_residencia=municipio_user)).order_by('-data_notificacao').exclude(status_caso='Cancelado')
+		user_municipio_nome = str(Municipio.objects.filter(id=user_municipio_id)[0]).upper()
+		registros = CasoEsporotricose.objects.filter(Q(municipio_residencia=user_municipio_id) | Q(municipio_residencia=user_municipio_nome) | Q(responsavel_pelas_informacoes_id=user_municipio_id)).order_by('-data_notificacao').exclude(status_caso='Cancelado')
 
 		paginator = Paginator(registros, 6)
 		page = request.GET.get('page')
@@ -1366,7 +1366,7 @@ def caso_esporotricose_edit(request, id):
 @login_required(login_url='/login/')
 def set_caso_esporotricose_edit(request, id):
 	# Dados do responsável pela edição do caso.
-	responsavel_pelas_informacoes = request.user
+	responsavel_pelas_informacoes = request.user.id
 	responsavel_gerencia_operacional = request.user.gerencia_operacional
 	responsavel_nucleo = request.user.nucleo
 	responsavel_area_tecnica = request.user.area_tecnica
@@ -1647,12 +1647,7 @@ def set_caso_esporotricose_edit(request, id):
 	conselho_classe_investigador = request.POST.get('conselho_classe_investigador')
 
 	CasoEsporotricose.objects.filter(id = id).update(
-		responsavel_pelas_informacoes = responsavel_pelas_informacoes,
-		responsavel_gerencia_operacional = responsavel_gerencia_operacional,
-		responsavel_nucleo = responsavel_nucleo,
-		responsavel_area_tecnica = responsavel_area_tecnica,
-		responsavel_gerencia_regional = responsavel_gerencia_regional,
-		responsavel_municipio = str(responsavel_municipio).upper(),
+		responsavel_edicao = responsavel_pelas_informacoes,
 		tipo_notificacao = tipo_notificacao,
 		agravo_doenca = agravo_doenca,
 		codigo_cib10 = codigo_cib10,
@@ -1781,8 +1776,6 @@ def export_data_csv(request):
 		if filtro == '' or filtro == None:
 			filtros_data.remove(filtro)
 	
-
-	print(filtros_data)
 	if len(filtros_data) == 2:
 		casos_filtrados = casos.filter(data_primeiros_sintomas__range=[filtro_data_inicio,filtro_data_fim]).order_by('-id')
 	
@@ -1804,7 +1797,7 @@ def export_data_csv(request):
 		user_municipio_id = request.user.municipio_id
 		user_municipio_nome = str(Municipio.objects.filter(id=user_municipio_id)[0]).upper()
 		casos_response = casos_filtrados.filter(Q(municipio_residencia=user_municipio_id) | 
-			Q(municipio_residencia=user_municipio_nome) | Q(municipio=user_municipio_id)).order_by('-id')
+			Q(municipio_residencia=user_municipio_nome) | Q(responsavel_pelas_informacoes_id=user_municipio_id)).order_by('-id')
 
 	elif request.user.funcao == 'gerencia_regional':
 		# Perfil Gerencia Regional
@@ -3887,5 +3880,90 @@ def organograma(request):
 
 
 @login_required(login_url='/login/')
-def principal(request):
+def principal(request):	
+	print(request.user.funcao)
 	return render(request, 'principal.html')
+
+@login_required(login_url='/login/')
+def export_users(request):
+	if request.user.funcao == 'admin':
+		
+		Users = get_user_model().objects.all().order_by('id')
+		lista_users =[]
+		for i in Users:
+			user_id = i.id
+			funcao = i.funcao
+			login = i.login
+			username = i.username
+			cpf = i.cpf
+			telefone = i.telefone
+			unidade_saude = i.unidade_saude
+			perfil = i.perfil
+			email = i.email
+			nome = i.first_name
+			is_superuser = i.is_superuser
+			is_staff = i.is_staff
+			is_active = i.is_active
+			last_login = i.last_login
+			date_joined = i.date_joined
+			gerencia_operacional = i.gerencia_operacional
+			nucleo = i.nucleo
+			area_tecnica = i.area_tecnica
+			gerencia_regional = i.gerencia_regional
+			municipio_nome = i.municipio_nome
+			municipio_id = i.municipio_id
+			lista_users.append({
+				'user_id':user_id,
+				'funcao':funcao,
+				'login':login,
+				'username':username,
+				'cpf':cpf,
+				'telefone':telefone,
+				'unidade_saude':unidade_saude,
+				'perfil':perfil,
+				'email':email,
+				'nome':nome,
+				'is_superuser':is_superuser,
+				'is_staff':is_staff,
+				'is_active':is_active,
+				'last_login':last_login,
+				'date_joined':date_joined,
+				'gerencia_operacional':gerencia_operacional,
+				'nucleo':nucleo,
+				'area_tecnica':area_tecnica,
+				'gerencia_regional':gerencia_regional,
+				'municipio_nome':municipio_nome,
+				'municipio_id':municipio_id,
+				})	
+		
+		df = pd.DataFrame(lista_users)
+		try:
+			for i in df['municipio_id']:
+				
+				try: # Checando se o valor é diferente de NaN
+					i = int(i)
+				except:
+					continue
+				else: # Buscando no modelo municipio o nome de municipio pelo id e alterando o dataframe
+					municipio = Municipio.objects.get(id=i)
+					df['municipio_nome'] = municipio.nome
+
+			df['last_login'] = df['last_login'].apply(lambda a: pd.to_datetime(a).date())
+			df['date_joined'] = df['date_joined'].apply(lambda a: pd.to_datetime(a).date())
+			# Escrevendo o excel e enviando o response.
+		except:
+			redirect('/principal/')
+		else:
+			with BytesIO() as b:
+				
+				writer = pd.ExcelWriter(b, engine='openpyxl')
+				df.to_excel(writer, sheet_name='Sheet1', index=False)
+				writer.save()
+				
+				filename = 'Usuarios-SISGEVS.xlsx'
+				response = HttpResponse(b.getvalue(),content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
+				response['Content-Disposition'] = 'attachment; filename=%s' % filename
+				
+				return response
+	else:
+		redirect('/principal/')

@@ -140,6 +140,7 @@ class JoinDistritoMunicipioIbgeEstado(models.Model):
 class CasoEsporotricose(models.Model):
 
 	responsavel_pelas_informacoes = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, null=True)
+	responsavel_edicao = models.IntegerField(blank=True, null=True)
 
 	tipo_notificacao = models.CharField(max_length = 200, null=True, blank=True)
 	agravo_doenca = models.CharField(max_length = 200, null=True, blank=True)
