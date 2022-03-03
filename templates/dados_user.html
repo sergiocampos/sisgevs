@@ -1,382 +1,57 @@
-{% load static %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <title>SISGEVS - Sistema de Informação em Saúde da GEVS</title>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+{% extends 'base1.html' %}
 
-  <script src="https://code.highcharts.com/highcharts.src.js"></script>
-
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.min.js"></script>
-
-  <style>
-    .fakeimg {
-      height: 500px;
-      background: #aaa;
-    }
-  </style>
-
-  <style>
-    * {
-      box-sizing: border-box;
-    }
-
-    body {
-      font-family: Arial, Helvetica, sans-serif;
-    }
-
-/* Style the header */
-header {
-  padding: 1px;
-  text-align: center;
-  font-size: 35px;
-  color: black;
-}
-
-/* Container for flexboxes */
-section {
-  display: -webkit-flex;
-  display: flex;
-}
-
-/* Style the navigation menu */
-nav {
-  -webkit-flex: 0.5;
-  -ms-flex: 0.5;
-  flex: 0.5;
-  background: #e6e6e6;
-  padding: 20px;
-}
-
-/* Style the list inside the menu */
-nav ul {
-  list-style-type: none;
-}
-
-/* Style the content */
-article {
-  -webkit-flex: 3;
-  -ms-flex: 3;
-  flex: 3;
-  background-color: #f1f1f1;
-  padding: 10px;
-}
-
-/* Style the footer */
-footer {
-  background-color: #777;
-  padding: 10px;
-  text-align: center;
-  color: white;
-}
-
-/* Responsive layout - makes the menu and the content (inside the section) sit on top of each other instead of next to each other */
-@media (max-width: 600px) {
-  section {
-    -webkit-flex-direction: column;
-    flex-direction: column;
-  }
-}
-.usuario_log{
-  margin: 3px;
-  border-radius: 8px;
-  background-color: #17a2b8;
-  color: white;
-  cursor: default;
-}
-</style>
-
-<link rel="shortcut icon" href="https://docs.google.com/uc?id=1h8jgyPDlDWWinD_VP50nqKXnmdCHEKH3" type="image/x-icon" />
-
-
-
-
-</head>
-<body>
-
-  <nav class="navbar navbar-expand-sm bg-info navbar-light" style="background-color: #e6e6e6;">
-    <ul class="navbar-nav">
-      <li class="nav-item active">
-        <a class="nav-link" href="#"></a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#"></a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#"></a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link disabled" href="#"></a>
-      </li>
-    </ul>
-  </nav>
-  <header>
-    <div class="" style="background-color: #e6e6e6;">
-      <div class="row">
-        <div class="col" style="padding: 0; margin-top: 10px; text-align: center;">
-          <h4>SECRETARIA DE ESTADO DA SAÚDE DA PARAÍBA</h4>
-          <h6>SISGEVS - Sistema de Informação em Saúde da GEVS</h6>
-          <h6><b>----</b></h6>
-        </div>
-      </div>
+{% block content %}
+<div class="mt-3">
+    <div class="alert alert-primary text-center">
+        <h1 class="fs-2">Informações da Conta</h1>
     </div>
-  </header>
-
-  <nav class="navbar navbar-expand-sm bg-secondary navbar-dark">
-    <a class="navbar-brand" href="#"></a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="collapsibleNavbar">
-      <ul class="navbar-nav">
-        <li class="nav-item">
-          <a class="nav-link" href="/principal/">Principal</a>
-        </li>
-      <!--
-        {% if user.funcao == 'gerencia_executiva' or user.funcao == 'admin' %}
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#">Localizar Notificação</a>
-          <div class="dropdown-menu">
-            <a class="dropdown-item" href="/localizar_paciente_nome/">Nome Paciente</a>
-            <a class="dropdown-item" href="/localizar_paciente_data_coleta/">Data de Coleta</a>
-            <a class="dropdown-item" href="#">CPF</a>
-            <a class="dropdown-item" href="#">Telefone</a>
-          </div>
-        </li>
-        {% endif %}
-        -->
-        {% if user.funcao == 'admin' or user.funcao == 'municipal' or user.funcao == 'autocadastro' %}
-        <li class="nav-item">
-          <a class="nav-link" href="/all_forms/">Notificar</a>
-        </li>
-        {% endif %}
-
-        <li class="nav-item">
-          <a class="nav-link" href="/logout/">Sair</a>
-        </li>
-
-      </ul>
-    </div>
-  </nav>
-  <section>
-    <nav>
-      <ul style="padding:0;">
-        <li>
-          <div class="usuario_log">
-            <div style="padding: 5px;">
-              <span><b>Usuário:</b> {{user.login}}</span><br>
-              <b>Perfil: </b><span id="user_funcao">{{user.funcao}}</span>
-            </div>
-          </div>            
-        </li>
-      </ul>
-      <ul style="padding-left: 5%;">
-        <div id="" class="">
-          <li>Meus Dados</li>
-          <hr>
-          {% if user.funcao == 'admin' %}
-          <li><a href="/admin/account/user/" target="_blank">Gerenciar Contas</a></li>
-          <hr>
-          <!--
-          <li><a href="/organograma/">Organograma</a></li>
-          <hr>
-          -->
-          {% endif %}
-          {% if user.funcao != 'gerencia_regional' and user.funcao != 'municipal' and user.funcao != 'autocadastro' %}
-            <li><a href="/criar_perfil_municipal/">Criar Perfil Municipal</a></li>
-            <hr>
-          {% endif %}
-          {% if user.funcao == 'admin' or user.funcao == 'municipal' or user.funcao == 'autocadastro' %}
-          <!--
-          <li><a href="/all_forms/" data-toggle="collapse" data-target="#formularios">Formulários</a></li>
-          <div id="formularios" class="collapse">
-            <li><a href="/caso_esporotricose_create/">Esporotricose Humana</a></li>
-            <li><a href="/main/">Chikungunya</a></li>
-            <li><a href="/main/">Dengue</a></li>
-            <li><a href="/main/">Zika</a></li>
-          </div>
-          <hr>
-        -->
-          {% endif %}
-          <li><a href="/my_datas/">Notificações</a></li>
-          
-          <!--
-          <li><a href="/download_ficha/" data-toggle="collapse" data-target="#_demo">Ficha</a></li>
-          <div id="_demo" class="collapse"><br>
-            <li><a href="/ficha_caso_esporotricose_preencher/" target="_blank" style="color: #4d94ff;">Novo Layout</a></li>
-            -->
-            <!--<li><a href="/download_ficha/" download style="color: #4d94ff;">Imprimir Ficha</a></li>-->
-          <hr>
-          {% if user.funcao == 'admin' %}
-            <li><a href="/casos_cancelados">Casos cancelados</a></li>
-            <hr>
-          {% endif %}
-          </div>
-
-        </div>
-      </ul>
-    </nav>
-
-
-    <article>
-
-      <div class="container" style="margin-left: 0;" id="container">
-
-        <div class="row">
-          <div class="col-sm-12">
-            <div class="alert alert-primary" style="text-align: center;">
-              <strong style="align-items: center;">Informações da Conta</strong>
-            </div>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-md-5">
-            <div class="input-group mb-3" id="">
-              <div class="input-group-prepend" id="">
+    <div class="row mt-5">
+        <div class="col-md-5">
+            <div class="input-group mb-3">
                 <span class="input-group-text">Usuário</span>
-              </div>
-              <input type="text" class="form-control" name="bairro_autoctone" value="{{user.username}}" id="bairro_autoctone_id" disabled>
+                <input type="text" class="form-control" value="{{user.username}}" disabled>
             </div>
-          </div>
-          <div class="col-md-3">
-            <div class="input-group mb-3" id="">
-              <div class="input-group-prepend" id="">
+        </div>
+        <div class="col-md-3">
+            <div class="input-group mb-3">
                 <span class="input-group-text">Login</span>
-              </div>
-              <input type="text" class="form-control" name="bairro_autoctone" value="{{user.login}}" id="bairro_autoctone_id" disabled>
+                <input type="text" class="form-control" value="{{user.login}}" disabled>
             </div>
-          </div>
-          <div class="col-md-4">
-            <div class="input-group mb-3" id="">
-              <div class="input-group-prepend" id="">
-                <span class="input-group-text">Password</span>
-              </div>
-              <input type="text" class="form-control" name="bairro_autoctone" value="{{user.password}}" id="bairro_autoctone_id" disabled>
-            </div>
-          </div>
         </div>
-
-        <div class="row">
-          <div class="col-md-3">
-            <div class="input-group mb-3" id="">
-              <div class="input-group-prepend" id="">
-                <span class="input-group-text">Perfil</span>
-              </div>
-              <input type="text" class="form-control" name="bairro_autoctone" value="{{user.funcao}}" id="bairro_autoctone_id" disabled>
-            </div>
-          </div>
-          <div class="col-md-4">
-            <div class="input-group mb-3" id="">
-              <div class="input-group-prepend" id="">
-                <span class="input-group-text">Município</span>
-              </div>
-              <input type="text" class="form-control" name="bairro_autoctone" value="{{user.municipio}}" id="bairro_autoctone_id" disabled>
-            </div>
-          </div>
-          <div class="col-md-5">
-            <div class="input-group mb-3" id="">
-              <div class="input-group-prepend" id="">
-                <span class="input-group-text">Email</span>
-              </div>
-              <input type="text" class="form-control" name="bairro_autoctone" value="{{user.email}}" id="bairro_autoctone_id" disabled>
-            </div>
-          </div>
-        </div>
-
-        <div class="row">
-          <div class="col-md-4">
-            <div class="input-group mb-3" id="">
-              <div class="input-group-prepend" id="">
-                <span class="input-group-text">Telefone</span>
-              </div>
-              <input type="text" class="form-control" name="bairro_autoctone" value="{{user.telefone}}" id="bairro_autoctone_id" disabled>
-            </div>
-          </div>
-          <div class="col-md-4">
-            <div class="input-group mb-3" id="">
-              <div class="input-group-prepend" id="">
+        <div class="col-md-4">
+            <div class="input-group mb-3">
                 <span class="input-group-text">CPF</span>
-              </div>
-              <input type="text" class="form-control" name="bairro_autoctone" value="{{user.cpf}}" id="bairro_autoctone_id" disabled>
+                <input type="text" class="form-control" value="{{user.cpf}}" disabled>
             </div>
-          </div>
-          <div class="col-md-4">
-            
-          </div>
         </div>
-
-          <!--
-           <div class="row py-5"></div>
-           <div class="row" id="esporotricose_humana">
-            <div class="col-sm-1"></div>
-            <div class="col-sm-4">
-              <a href="/caso_esporotricose_create/" style="text-decoration: none;"><button type="button" class="btn btn-outline-warning btn-lg btn-block">Esporotricose Humana</button></a>
+    </div>
+    <div class="row">
+        <div class="col-md-3">
+            <div class="input-group mb-3">
+                <span class="input-group-text">Perfil</span>
+                <input type="text" class="form-control" value="{{user.funcao}}" disabled>
             </div>
-            <div class="col-sm-3">
-              <a href="#" style="text-decoration: none;"><button type="button" class="btn btn-outline-secondary btn-lg btn-block">Dicionário de Dados</button></a>
+        </div>
+        <div class="col-md-4">
+            <div class="input-group mb-3">
+                <span class="input-group-text">Município</span>
+                <input type="text" class="form-control" value="{{user.municipio}}" disabled>
             </div>
-            <div class="col-sm-3">
-              <a href="/ficha_caso_esporotricose_preenchido/" style="text-decoration: none;"><button type="button" class="btn btn-outline-secondary btn-lg btn-block">Download Ficha</button></a>
+        </div>
+        <div class="col-md-5">
+            <div class="input-group mb-3">
+                <span class="input-group-text">Email</span>
+                <input type="text" class="form-control" value="{{user.email}}" disabled>
             </div>
-            <div class="col-sm-1"></div>
-           </div>
-           <br>
-           <div class="row" id="dengue">
-            <div class="col-sm-4"></div>
-            <div class="col-sm-4">
-              <a href="" style="text-decoration: none;"><button type="button" class="btn btn-outline-success btn-lg btn-block">Dengue</button></a>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+            <div class="input-group mb-3">
+                <span class="input-group-text">Telefone</span>
+                <input type="text" class="form-control" value="{{user.telefone}}" disabled>
             </div>
-            <div class="col-sm-4"></div>
-           </div>
-           <br>
-           <div class="row" id="chiconguya">
-            <div class="col-sm-4"></div>
-            <div class="col-sm-4">
-              <a href="" style="text-decoration: none;"><button type="button" class="btn btn-outline-info btn-lg btn-block">Chiconguya</button></a>
-            </div>
-            <div class="col-sm-4"></div>
-           </div>
-           <br>
-           <div class="row" id="zika">
-            <div class="col-sm-4"></div>
-            <div class="col-sm-4">
-              <a href="" style="text-decoration: none;"><button type="button" class="btn btn-outline-secondary btn-lg btn-block">Zika</button></a>
-            </div>
-            <div class="col-sm-4"></div>
-           </div>
-         -->
-
-
-       </div>
-
-
-     </article>
-
-
-   </section>
-
-   <br><br>
-
-
-   <div class="jumbotron text-center" style="margin-bottom:0">
-    <p>Footer</p>
-    <i class="fa">&#xf1f9;</i>
-  </div>
-  <br>
-  <script>
-      //Escondendo As Outras Doenças(Temporário)
-      $(document).ready(function(){
-        $("#dengue").hide();
-        $("#chiconguya").hide();
-        $("#zika").hide();
-      })
-    </script>
-    <script src="{% static 'js/funcao_user.js' %}"></script>
-  </body>
-  </html>
+        </div>
+    </div>
+</div>
+{% endblock content %}
