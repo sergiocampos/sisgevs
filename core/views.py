@@ -41,6 +41,8 @@ import csv
 # Create your views here.
 
 def login_page(request):
+	storage = messages.get_messages(request)
+	storage.used = True
 	return render(request, 'login_page.html')
 
 
