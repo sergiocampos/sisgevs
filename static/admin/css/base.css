@@ -6,17 +6,17 @@
 
 /* VARIABLE DEFINITIONS */
 :root {
-  --primary: #79aec8;
-  --secondary: #417690;
-  --accent: #f5dd5d;
+  --primary: #35a8e0;
+  --secondary: #153d89;
+  --accent: #fff;
   --primary-fg: #fff;
 
   --body-fg: #333;
-  --body-bg: #fff;
+  --body-bg: #e6e6e6;
   --body-quiet-color: #666;
   --body-loud-color: #000;
 
-  --header-color: #ffc;
+  --header-color: rgb(255, 255, 255);
   --header-branding-color: var(--accent);
   --header-bg: var(--secondary);
   --header-link-color: var(--primary-fg);
@@ -29,7 +29,7 @@
   --link-hover-color: #036;
   --link-selected-fg: #5b80b2;
 
-  --hairline-color: #e8e8e8;
+  --hairline-color: #d0d0d0;
   --border-color: #ccc;
 
   --error-fg: #ba2121;
@@ -38,8 +38,8 @@
   --message-warning-bg: #ffc;
   --message-error-bg: #ffefef;
 
-  --darkened-bg: #f8f8f8; /* A bit darker than --body-bg */
-  --selected-bg: #e4e4e4; /* E.g. selected table cells */
+  --darkened-bg: #d8d8d8; /* A bit darker than --body-bg */
+  --selected-bg: #d1d1d1; /* E.g. selected table cells */
   --selected-row: #ffc;
 
   --button-fg: #fff;
@@ -806,6 +806,7 @@ a.deletelink:focus, a.deletelink:hover {
 }
 
 #container > .main {
+    margin-top: 1vh;
     display: flex;
     flex: 1 0 auto;
 }
@@ -1068,4 +1069,19 @@ a.deletelink:focus, a.deletelink:hover {
 .paginator a:focus, .paginator a:hover {
     color: white;
     background: var(--link-hover-color);
+}
+
+.sisgevs-admin-logo {
+    color: #ffffff;
+}
+
+.admin-logo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.admin-logo > h1 {
+    font-weight: 500 !important;
+    margin: 0 0 5px 20px !important; 
 }
