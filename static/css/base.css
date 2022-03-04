@@ -61,6 +61,10 @@ main {
     .logo-estado {
         display: none;
     }
+
+    .logo-sistema {
+        text-align: center;
+    }
 }
 
 @media screen and (max-width: 950px) {
