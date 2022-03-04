@@ -1781,11 +1781,11 @@ def export_data_csv(request):
 			filtros_data.remove(filtro)
 	
 	if len(filtros_data) == 2:
-		casos_filtrados = casos.filter(data_notificacao__range=[filtro_data_inicio,filtro_data_fim]).order_by('-id')
+		casos_filtrados = casos.filter(data_primeiros_sintomas__range=[filtro_data_inicio,filtro_data_fim]).order_by('-id')
 	
 	elif len(filtros_data) == 1 and filtros_data[0] != '':
 		filtro_unico_dia = filtros_data[0]
-		casos_filtrados = casos.filter(data_notificacao=filtro_unico_dia).order_by('-id')
+		casos_filtrados = casos.filter(data_primeiros_sintomas=filtro_unico_dia).order_by('-id')
 	
 	else:
 		casos_filtrados = casos.order_by('-id')
