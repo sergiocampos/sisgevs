@@ -49,7 +49,8 @@ body{
   height: 3vh;
 }
 .header img{
-  margin-left: 1vw;
+  margin-left: 3vw;
+  width: 250px;
 }
 .footer{
   position:absolute;
@@ -168,8 +169,13 @@ body{
   -moz-osx-font-smoothing: grayscale;      
 } */
 @media screen and (max-width: 800px) {
-  .header img{
-    margin-left: 25vw;
+  .header .div-img{
+    display: flex;
+    align-content: center;
+    justify-content: center;
+  }
+  .header .div-img img{
+    width: 250px;
   }
   .footer p{
     display: none;
@@ -179,8 +185,6 @@ body{
   }  
   .footer img{
     margin: 0;
-    align-self: center;
-    justify-self: center;
     margin-right: 15vw;    
   }
   .footer {
@@ -188,7 +192,7 @@ body{
   }
 }
 @media screen and (min-width:800px),(max-width: 1366px) {
-  .header img{width: 200px;}
+  .header img{width: 250px;}
   .footer {height: 115px}
   .footer img{width: 200px;}
   .footer p {font-size: 12px;}
@@ -198,7 +202,7 @@ body{
     transform: scale(0.8);
   }  
 }
-@media screen and (max-height: 625px) {
+@media screen and (max-height: 480px) {
   .header{display: none;}
   .footer{display: none;}
 }
@@ -214,8 +218,8 @@ body{
 <body>
   <div class="header">
     <div class="linha-superior"></div>
-    <div style="background-color: #143c8c;">
-      <a href="/"><img src="{% static 'sisgevs/sisgevs_marca.svg' %}" alt="" width="300px" height="100px"></a>      
+    <div style="background-color: #143c8c;" class="div-img">
+      <a href="/" style="width: fit-content;"><img src="{% static 'img/logo-sisgevs-white.svg' %}" alt=""></a>      
     </div>
   </div>
 	<div class="login-page">
