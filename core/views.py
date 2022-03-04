@@ -41,6 +41,8 @@ import csv
 # Create your views here.
 
 def login_page(request):
+	storage = messages.get_messages(request)
+	storage.used = True
 	return render(request, 'login_page.html')
 
 
@@ -456,9 +458,11 @@ def my_datas(request):
 		
 		user_municipio_id = request.user.municipio_id
 		municipio_user = request.user.municipio
-		user_municipio_nome = str(Municipio.objects.filter(id=user_municipio_id)[0]).upper()
-		registros = CasoEsporotricose.objects.filter(Q(municipio_residencia=user_municipio_id) | Q(municipio_residencia=user_municipio_nome) | Q(responsavel_pelas_informacoes_id=user_municipio_id)).order_by('-data_notificacao').exclude(status_caso='Cancelado')
-
+		user_municipio_nome = str(Municipio.objects.filter(id=user_municipio_id)[0])
+		user_municipio_nome_upper = str(Municipio.objects.filter(id=user_municipio_id)[0]).upper()
+		
+		registros = CasoEsporotricose.objects.filter(Q(municipio_residencia=user_municipio_id) | Q(municipio_residencia=user_municipio_nome) | Q(municipio_residencia=user_municipio_nome_upper) | Q(responsavel_pelas_informacoes_id=user_municipio_id)).order_by('-data_notificacao').exclude(status_caso='Cancelado')
+		
 		paginator = Paginator(registros, 6)
 		page = request.GET.get('page')
 		regs = paginator.get_page(page)
