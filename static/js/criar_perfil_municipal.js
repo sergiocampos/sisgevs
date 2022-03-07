@@ -11,6 +11,70 @@ var nucleo_confere = false;
 var area_tecnica_confere = false;
 var gerencia_regional
 
+$(document).ready(function () {
+    $('#cpf').mask('000.000.000-00')
+    $('#celular').mask('(00)0.0000-0000')
+    options = document.getElementsByClassName('option');
+    $(options).each(function () {
+        if (this.selected) {
+            gerencia_regional = this.text
+        }
+    });
+});
+
+// Alterando campo gerencia.
+$("#municipio").change(function () {
+    municipio = this.value;
+    options = document.getElementsByClassName('option');
+    $(options).each(function () {
+        if (this.value == municipio) {
+            $(this).prop('selected', true)
+            gerencia_regional = this.text
+        }
+    });
+});
+
+// Limitando caracteres
+function limitcarc(e, tipo) {
+    var chr = String.fromCharCode(e.which);
+    if (tipo == 'letr_acent') {
+        if ("áéíóúâêîôûãõ qwertyuioplkjhgfdsazxcvbnmQWERTYUIOPLKJHGFDSAZXCVBNM".indexOf(chr) < 0)
+            return false;
+    } else if (tipo == 'num') {
+        if ("0123456789".indexOf(chr) < 0)
+            return false;
+    } else if (tipo == 'letr') {
+        if ("qwertyuioplkjhgfdsazxcvbnm QWERTYUIOPLKJHGFDSAZXCVBNM".indexOf(chr) < 0)
+            return false;
+    }
+}
+
+// Validação de email
+function validacaoEmail() {
+    campo = document.getElementById('email')
+
+    usuario = campo.value.substring(0, campo.value.indexOf("@"));
+    dominio = campo.value.substring(campo.value.indexOf("@") + 1, campo.value.length);
+
+    if ((usuario.length >= 1) &&
+        (dominio.length >= 3) &&
+        (usuario.search("@") == -1) &&
+        (dominio.search("@") == -1) &&
+        (usuario.search(" ") == -1) &&
+        (dominio.search(" ") == -1) &&
+        (dominio.search(".") != -1) &&
+        (dominio.indexOf(".") >= 1) &&
+        (dominio.lastIndexOf(".") < dominio.length - 1)) {
+        $('#email_check').prop('hidden', false);
+        email_confere = true
+        verificarCampos()
+    } else {
+        $('#email_check').prop('hidden', true);
+        email_confere = false
+        verificarCampos()
+    };
+};
+
 $("#login").on('keyup', function () {
     login = document.getElementById('login').value
 
@@ -62,3 +126,44 @@ function verificarCampos() {
         $("#cadastrar").prop('disabled', false).removeClass('btn-secondary').addClass('btn-success')
     } else { $("#cadastrar").prop('disabled', true).removeClass('btn-success').addClass('btn-secondary') }
 };
+
+$('#cadastrar').on('click', function () {
+    nome = document.getElementById('nome');
+    email = document.getElementById('email');
+    cpf = document.getElementById('cpf');
+    celular = document.getElementById('celular');
+    login = document.getElementById('login');
+    perfil = document.getElementById('perfil');
+    municipio = document.getElementById('municipio');
+    gerencia_operacional = document.getElementById('gerencia_operacional');
+    nucleo = document.getElementById('nucleo');
+    area_tecnica = document.getElementById('area_tecnica');
+
+    data = {
+        'nome': nome.value,
+        'email': email.value,
+        'cpf': cpf.value,
+        'login': login.value,
+        'telefone': celular.value,
+        'perfil': perfil.value,
+        'municipio': municipio.value,
+        'gerencia_regional': gerencia_regional,
+        'gerencia_operacional': gerencia_operacional.value,
+        'nucleo': nucleo.value,
+        'area_tecnica': area_tecnica.value,
+    }
+
+    $.ajax({
+        url: '/criar_perfil_municipal/',
+        data: data,
+        success: function (data) {
+            $(nome).val('')
+            $(email).val('')
+            $(cpf).val('')
+            $(login).val('')
+            $('#response_login').val(data['login'])
+            $('#response_senha').val(data['senha'])
+            $('.success').prop('hidden', false)
+        }
+    });
+});

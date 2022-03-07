@@ -15,18 +15,16 @@ $(document).ready(function () {
         });
     });
 });
-
-$('.cancelar_caso').on('click', function () {
-    var id = this.id;
+function cancelar_revalidar(url, id) {
     var data = {
         'id': id,
-        'url_redirect': 'my_datas'
+        'url_redirect': url
     }
     $.ajax({
-        url: 'cancelar_caso_esporotricose',
+        url: '/cancelar_caso_esporotricose',
         data: data,
-        success: function (data) {
-            document.location.href = '/my_datas/'
+        success: (data) => {
+            document.location.href = url
         }
     })
-});
+}

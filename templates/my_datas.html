@@ -149,7 +149,7 @@
                             {%endif%}
                             <a href="/caso_view_detail/{{registro.id}}/" target="_blank" class="btn btn-secondary btn-sm">Ver</a>
                             <button id="{{registro.id}}" type="button"
-                                class="btn cancelar_caso btn-warning btn-sm">Cancelar</button>
+                                class="btn cancelar_caso btn-warning btn-sm" onclick="cancelar_revalidar('{% url 'my_datas' %}', {{registro.id}})">Cancelar</button>
                         </td>
                     </tr>
                     {% endif %}
