@@ -1,0 +1,203 @@
+@import url(https://fonts.googleapis.com/css?family=Roboto:300);
+*{
+    font-family: "Roboto", sans-serif;
+}
+body{
+    margin: 0;
+    padding: 0;
+}
+.login-page {
+    width: 360px;  
+    margin: auto auto;
+    margin-top: 5%;
+    border-radius: 12px;
+    box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);  
+}
+.login_head{
+    background-color: #34ace4;
+    color: #fff;
+    padding: 15px;
+    margin-bottom: 15px;
+    border-top-right-radius: 12px;
+    border-top-left-radius: 12px;
+}
+.login_head h1{
+    text-align: left;
+    font-weight: 800;
+    margin: 0px;
+    font-size: 30px;
+    cursor: default;
+}
+.header .linha-superior{
+    background-color: #34ace4;
+    height: 3vh;
+}
+.header img{
+    margin-left: 3vw;
+    width: 250px;
+}
+.footer{
+    position:absolute;
+    width: 100%;
+    height: 160px;
+    bottom: 0px;  
+    padding: 20px 50px;
+    background-color: #143c8c;  
+    cursor: default;
+    overflow-y: hidden;
+}
+.footer img{
+    width: 300px;
+    margin-left: 20vw;
+}
+.footer p {
+    color: #fff;
+    margin: auto;  
+}
+.footer #ses_footer{
+    margin-top: 40px;
+    text-align: center;
+    margin: auto;
+    color: #fff;
+    font-size: 18px;
+}
+
+.form {
+    position: relative;
+    z-index: 1;
+    max-width: 360px;
+    margin: 0 auto 100px;
+    padding: 15px 45px 45px 45px;  
+    text-align: center;  
+}
+.form input {
+    font-family: "Roboto", sans-serif;
+    outline: 0;
+    background: #f2f2f2;
+    width: 100%;
+    border: 0;
+    margin: 0 0 15px;
+    padding: 15px;
+    box-sizing: border-box;
+    font-size: 14px;
+}
+.form button {
+    font-family: "Roboto", sans-serif;
+    text-transform: uppercase;
+    outline: 0;
+    background: #34ace4;
+    width: 100%;
+    border: 0;
+    padding: 15px;
+    color: #FFFFFF;
+    font-size: 14px;
+    -webkit-transition: all 0.3 ease;
+    transition: all 0.3 ease;
+    cursor: pointer;
+}
+.form button:hover,.form button:active,.form button:focus {
+    background: #218dbe;
+}
+.form .message {
+    margin: 15px 0 0;
+    color: #b3b3b3;
+    font-size: 12px;
+    cursor: default;
+}
+.form .message a {
+    color: #34ace4;
+    text-decoration: none;
+}
+.form .register-form {
+    display: none;
+}
+.container {
+    position: relative;
+    z-index: 1;
+    max-width: 300px;
+    margin: 0 auto;
+}
+.container:before, .container:after {
+    content: "";
+    display: block;
+    clear: both;
+}
+.container .info {
+    margin: 50px auto;
+    text-align: center;
+}
+.container .info h1 {
+    margin: 0 0 15px;
+    padding: 0;
+    font-size: 36px;
+    font-weight: 300;
+    color: #1a1a1a;
+}
+.container .info span {
+    color: #4d4d4d;
+    font-size: 12px;
+}
+.container .info span a {
+    color: #000000;
+    text-decoration: none;
+}
+.container .info span .fa {
+    color: #EF3B3A;
+}
+/* {
+background: #f0f5f5; /* fallback for old browsers 
+background: -webkit-linear-gradient(right, #f0f5f5, #ffffff);
+background: -moz-linear-gradient(right, #f0f5f5, #ffffff);
+background: -o-linear-gradient(right, #f0f5f5, #ffffff);
+background: linear-gradient(to left, #f0f5f5, #ffffff);
+font-family: "Roboto", sans-serif;
+-webkit-font-smoothing: antialiased;
+-moz-osx-font-smoothing: grayscale;      
+} */
+@media screen and (max-width: 824px) {
+    .header .div-img{
+        display: flex;
+        align-content: center;
+        justify-content: center;
+    }
+    .header .div-img img{
+        width: 250px;
+    }
+    .footer p{
+        display: none;
+    }
+    .footer #ses_footer{
+        display: none;
+    }  
+    .footer img{
+        margin: 0;
+        margin-right: 15vw;    
+    }
+    .footer {
+        height: fit-content;
+    }
+}
+@media screen and (min-width:825px),(max-width: 1366px) {
+    .header img{width: 250px;}
+    .footer {height: 115px}
+    .footer img{width: 200px;}
+    .footer p {font-size: 12px;}
+    .footer b {font-size: 14px;}
+    .login-page {
+        margin-top: 0.5vh;
+        transform: scale(0.8);
+    }  
+}
+@media screen and (max-height: 480px) {
+    .header{display: none;}
+    .footer{display: none;}
+}
+@media (max-width: 1280px) and (max-height:630px) {
+    .header img{transform: scale(0.6); margin-top: -2vh;}
+    .header .div-img{height:15vh;}
+    .login-page{transform: scale(0.6); margin-top: -10vh;}
+    .footer {height: 15vh;padding: 0;}
+    .footer p{font-size: 10px;margin-top: 1.5vw;}
+    .footer img{transform: scale(0.6);}
+    .footer #ses_footer{text-align: right;}
+}
