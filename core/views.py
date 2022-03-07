@@ -1,5 +1,7 @@
 
 #from asyncio.windows_events import NULL
+from genericpath import exists
+from inspect import Attribute
 from django.core.exceptions import PermissionDenied
 from django.db.models.expressions import OrderBy, Value
 from django.utils.functional import empty
@@ -1762,7 +1764,40 @@ def set_caso_esporotricose_edit(request, id):
 
 	return redirect('my_datas')
 
+@login_required(login_url='/login/')
+def export_casos_cancelados(request):
+	if request.user.funcao == 'admin':
+		casos_cancelados = CasoEsporotricose.objects.filter(status_caso='Cancelado')
+		filtro_data_inicio = request.POST.get('filtro_data_inicio')
+		filtro_data_fim = request.POST.get('filtro_data_fim')
+		if filtro_data_inicio:
+			if filtro_data_fim:
+				casos = casos_cancelados.filter(data_notificacao__range=[filtro_data_inicio, filtro_data_fim])
+			else:
+				casos = casos_cancelados.filter(data_notificacao__range=[filtro_data_inicio, datetime.now()])
+		else:
+			casos = casos_cancelados
+		df = pd.DataFrame(list(casos.order_by('-data_notificacao').values()))
+		try:
+			for i in df.municipio:
+				try: # Checando se o valor é diferente de NaN
+					i = int(i)
+				except:
+					continue
+				else: # Buscando no modelo municipio o nome de municipio pelo id e alterando o dataframe
+					municipio = Municipio.objects.get(id=i)
+					df.municipio = df.municipio.replace([i], municipio.nome)
+		except AttributeError:
+			pass
+		response = HttpResponse(content_type='text/csv')
+		response['Content-Disposition'] = 'attachment; filename=casos_cancelados.csv'
+		df.to_csv(response, index=False)
+		
+		return response
+	else:
+		return redirect('casos_cancelados')
 
+	
 
 @login_required(login_url='/login/')
 def export_data_csv(request):

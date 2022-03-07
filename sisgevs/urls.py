@@ -45,7 +45,7 @@ urlpatterns = [
 
     path('my_datas/', views.my_datas, name='my_datas'),
     path('casos_cancelados', views.casos_cancelados, name='casos_cancelados'),
-
+    path('casos_cancelados/submit', views.export_casos_cancelados, name='export_casos_cancelados'),
     path('login/',views.login_page, name='login_page'),
     path('login/submit', views.login_submit),
 
