@@ -490,7 +490,6 @@ def cancelar_caso_esporotricose(request):
 	caso_id = request.GET.get('id')
 	redirect_url = request.GET.get('url_redirect')
 	registro = CasoEsporotricose.objects.filter(id=caso_id).values()
-	
 	if registro[0]['status_caso'] == 'Cancelado':
 		CasoEsporotricose.objects.filter(id=caso_id).update(status_caso=None)
 	else:		

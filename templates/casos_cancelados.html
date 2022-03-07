@@ -98,7 +98,7 @@
     
                         <td align="center">
                             <button id="{{registro.id}}" type="button"
-                                class="btn cancelar_caso btn-secondary btn-sm">Revalidar</button>
+                                class="btn cancelar_caso btn-secondary btn-sm" onclick="cancelar_revalidar('{% url 'casos_cancelados' %}', {{registro.id}})">Revalidar</button>
                         </td>
                     </tr>
                     {% endfor %}
