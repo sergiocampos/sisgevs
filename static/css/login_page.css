@@ -50,7 +50,7 @@ body{
     width: 300px;
     margin-left: 20vw;
 }
-.footer p {
+.footer .container-fluid p {
     color: #fff;
     margin: auto;  
 }
@@ -60,6 +60,11 @@ body{
     margin: auto;
     color: #fff;
     font-size: 18px;
+}
+.footer .author{
+    color: #fff;
+    font-size: 0.7rem;
+    margin-top: 10px !important;
 }
 
 .form {
@@ -163,7 +168,7 @@ font-family: "Roboto", sans-serif;
     .header .div-img img{
         width: 250px;
     }
-    .footer p{
+    .footer .container-fluid p{
         display: none;
     }
     .footer #ses_footer{
@@ -181,7 +186,7 @@ font-family: "Roboto", sans-serif;
     .header img{width: 250px;}
     .footer {height: 115px}
     .footer img{width: 200px;}
-    .footer p {font-size: 12px;}
+    .footer .container-fluid p {font-size: 12px;}
     .footer b {font-size: 14px;}
     .login-page {
         margin-top: 0.5vh;
@@ -197,7 +202,7 @@ font-family: "Roboto", sans-serif;
     .header .div-img{height:15vh;}
     .login-page{transform: scale(0.6); margin-top: -10vh;}
     .footer {height: 15vh;padding: 0;}
-    .footer p{font-size: 10px;margin-top: 1.5vw;}
+    .footer .container-fluid p{font-size: 9px;margin-top: 1vw;}
     .footer img{transform: scale(0.6);}
-    .footer #ses_footer{text-align: right;}
+    .footer #ses_footer{text-align: right; margin-top: 5vh;}
 }
