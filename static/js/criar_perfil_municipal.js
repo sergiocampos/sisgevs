@@ -51,28 +51,17 @@ function limitcarc(e, tipo) {
 
 // Validação de email
 function validacaoEmail() {
-    campo = document.getElementById('email')
-
-    usuario = campo.value.substring(0, campo.value.indexOf("@"));
-    dominio = campo.value.substring(campo.value.indexOf("@") + 1, campo.value.length);
-
-    if ((usuario.length >= 1) &&
-        (dominio.length >= 3) &&
-        (usuario.search("@") == -1) &&
-        (dominio.search("@") == -1) &&
-        (usuario.search(" ") == -1) &&
-        (dominio.search(" ") == -1) &&
-        (dominio.search(".") != -1) &&
-        (dominio.indexOf(".") >= 1) &&
-        (dominio.lastIndexOf(".") < dominio.length - 1)) {
+    email = document.getElementById('email').value;
+    var re = /\S+@\S+\.\S+/;
+    email_confere = re.test(email);
+    
+    if (email_confere){
         $('#email_check').prop('hidden', false);
-        email_confere = true
-        verificarCampos()
-    } else {
+        verificarCampos();
+    } else{
         $('#email_check').prop('hidden', true);
-        email_confere = false
-        verificarCampos()
-    };
+        verificarCampos();
+    }
 };
 
 $("#login").on('keyup', function () {
