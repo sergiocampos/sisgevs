@@ -76,7 +76,7 @@ def login_submit(request):
 			if user is not None:
 				login(request, user)
 				#return redirect('/all_forms/')
-				return redirect('/principal/')
+				return redirect('principal')
 			else:
 				return render(request, 'login_page.html')
 
@@ -84,7 +84,7 @@ def login_submit(request):
 			messages.success(request, 'New comment added with success!')
 
 		else:
-			messages.error(request, 'Invalid reCAPTCHA. Please try again.')
+			messages.error(request, 'CAPTCHA inválido. Tente novamente.')
 		
 			#messages.error(request, 'Usuário e/ou senha inválido!')
 	return redirect('/login/')
@@ -4001,7 +4001,7 @@ def export_users(request):
 			df['date_joined'] = df['date_joined'].apply(lambda a: pd.to_datetime(a).date())
 			# Escrevendo o excel e enviando o response.
 		except:
-			redirect('/principal/')
+			redirect('principal')
 		else:
 			with BytesIO() as b:
 				
@@ -4015,4 +4015,4 @@ def export_users(request):
 				
 				return response
 	else:
-		redirect('/principal/')
+		redirect('principal')
