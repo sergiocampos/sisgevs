@@ -28,7 +28,7 @@ urlpatterns = [
     path('account/', include('account.urls')),
     path('account/', include('django.contrib.auth.urls')),
     path('accounts/', include('django.contrib.auth.urls')),
-    path('', views.index_aberto, name='index_aberto'),
+    #path('', views.index_aberto, name='index_aberto'),
     #path('',views.principal, name='index'),
     #path('login/',views.login_page, name='login_page'),
     path('login/submit', views.login_submit),
@@ -37,7 +37,6 @@ urlpatterns = [
     path('index/ajax_index_aberto', views.ajax_index_aberto, name='ajax_index_aberto'),
     path('index/ajax_filtrar_index_aberto', views.ajax_filtrar_index_aberto, name='ajax_filtrar_index_aberto'),
     path('index/submit', views.ajax_exportar_index_fechado, name='ajax_exportar_index_fechado'),
-
 
     path('main/', views.main, name='main'),
 
@@ -103,7 +102,7 @@ urlpatterns = [
     path('criar_perfil_municipal/', views.criar_perfil_municipal, name='criar_perfil_municipal'),
     path('checar_login_ajax/', views.checar_login_ajax, name='checar_login_ajax'),
 
-    path('principal/', views.principal, name='principal'),
+    path('', views.principal, name='principal'),
     
 ]
 
