@@ -56,7 +56,8 @@ body{
 }
 .footer .container-fluid p {
     color: #fff;
-    margin: auto;  
+    margin: auto;      
+    font-weight: 800;
 }
 .footer #ses_footer{
     margin-top: 40px;
@@ -64,11 +65,13 @@ body{
     margin: auto;
     color: #fff;
     font-size: 18px;
+    font-weight: 800;
 }
 .footer .author{
     color: #fff;
     font-size: 0.7rem;
     margin-top: 10px !important;
+    font-weight: 800;
 }
 
 .form {
@@ -191,6 +194,7 @@ font-family: "Roboto", sans-serif;
     .footer {height: 115px}
     .footer img{width: 200px;}
     .footer .container-fluid p {font-size: 12px;}
+    .author{font-size: 14px;}
     .footer b {font-size: 14px;}
     .login-page {
         margin-top: 0.5vh;

@@ -1,3 +1,8 @@
+@import url(https://fonts.googleapis.com/css?family=Roboto:300);
+*{
+    font-family: "Roboto", sans-serif;
+}
+
 #titulo_foto{
     background-color: rgba(0, 0, 0, 0.70);
     padding: 10px;
@@ -58,9 +63,6 @@ hr{
     background-color: #153d89;
     padding: 1vh 2vw;
 }
-.conteudo-central{
-    
-}
 .header .linha-superior{
     background-color: #34ace4;
     height: 3vh;
@@ -87,6 +89,7 @@ hr{
 .footer .container-fluid p {
     color: #fff;
     margin: auto;  
+    font-weight: 800;
 }
 .footer #ses_footer{
     margin-top: 40px;
@@ -94,6 +97,7 @@ hr{
     margin: auto;
     color: #fff;
     font-size: 18px;
+    font-weight: 800;
 }
 .footer .author{
     color: #fff;

@@ -78,6 +78,7 @@ def login_submit(request):
 				#return redirect('/all_forms/')
 				return redirect('principal')
 			else:
+				messages.error(request, 'Senha ou usuário inválidos.')
 				return render(request, 'login_page.html')
 
 			#form.save()
