@@ -11,13 +11,12 @@
 
 body {
     height: 100vh;
-    max-height: 100vh;
     overflow-y: scroll;
     font-family: 'Roboto', sans-serif;
 }
 
 main {
-    height: 100%;
+    min-height: 100vh;
 }
 
 .nav-blue {
