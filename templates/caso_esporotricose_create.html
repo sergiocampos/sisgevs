@@ -456,7 +456,7 @@
             var telefone = document.getElementById('telefone_residencia_id').value.length;
             var cep = document.getElementById('cep').value;
             var cidade = $("#municipios_estado_id option:selected").html();
-            
+            console.log(data_notificacao);
             if (cidade.length >= 4) {$("#alert_municipio_residencia").hide()} else {$("#alert_municipio_residencia").show()};
 
             if (sexo != "") {$('#alert_sexo').hide();} else {$('#alert_sexo').show();};
@@ -2563,6 +2563,27 @@
       <button type="submit" class="btn btn-primary" style="align-items: center;" id="btn_submit_id" disabled>Salvar</button>  
     </div>
   </form>
+
+  <!-- Mascaras de inputs -->
+  <script>
+    $(document).ready(function($){
+      $("#telefone_residencia_id").mask("(00)00000-0000");
+      $("#telefone_investigador_id").mask("(00)00000-0000");
+      $("#outro_ibge_hospitalizacao").mask("00000000000000");
+      $("#cep").mask("00000-000");
+      $("#numero_residencia").mask("0000/AA");
+      $("#uf").mask("AA")
+    });
+  </script>
+
+  <!-- Ao alterar a data dos primeiros sintomas, limpa o campo de data notificacao e data investigacao. -->
+  <script>
+    $('#dt_primeiros_s').on('click', function(){
+      $('#datanotificacao').val("");
+      $('#data_investigacao_id').val("");
+    });
+    verificarNotifGeral();
+  </script>
   
   <!-- Scrip abaixo bloqueia envio formulário com ENTER -->
   <script>

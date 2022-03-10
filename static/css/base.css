@@ -77,6 +77,20 @@ main {
     .logo-sistema {
         text-align: center;
     }
+
+    .footer #ses_footer{
+        display: none;
+    }
+
+    .footer p{
+        text-align: center;
+        
+    }
+
+    .footer .footer-img img{
+        float: none !important;
+        margin-left: 15vw;
+    }
 }
 
 @media screen and (max-width: 950px) {
