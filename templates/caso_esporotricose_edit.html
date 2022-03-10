@@ -2843,6 +2843,26 @@
 {% endblock content %}
 
 {% block endbody %}
+<!-- Mascaras dos Inputs -->
+<script>
+    $(document).ready(function($){
+      $("#telefone_residencia_id").mask("(00)00000-0000");
+      $("#telefone_investigador_id").mask("(00)00000-0000");
+      $("#outro_ibge_hospitalizacao").mask("00000000000000");
+      $("#cep").mask("00000-000");
+      $("#uf").mask("AA");
+      verificarNotifGeral()
+    });
+</script>
+<!-- Ao alterar a data dos primeiros sintomas, limpa o campo de data notificacao e data investigacao. -->
+<script>
+    $('#dt_primeiros_s').on('click', function(){
+        $('#datanotificacao').val("");
+        $('#data_investigacao_id').val("");
+    });
+    verificarNotifGeral();
+</script>
+
 <script>
   //ajax para endereço: estado e cidades
 
