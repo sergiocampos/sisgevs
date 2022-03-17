@@ -150,7 +150,7 @@
                             <a href="/caso_esporotricose_edit/{{registro.id}}" class="btn btn-info btn-sm">Editar</a>
                             {%endif%}
                             <a href="/caso_view_detail/{{registro.id}}/" target="_blank" class="btn btn-secondary btn-sm">Ver</a>
-                            {% if user.funcao != 'gerencia_regional' and user.funcao != 'autocadastro' %}
+                            {% if user.funcao != 'gerencia_regional' %}
                             <button id="{{registro.id}}" type="button"
                                 class="btn cancelar_caso btn-warning btn-sm" onclick="cancelar_revalidar('{% url 'my_datas' %}', {{registro.id}})">Cancelar</button>
                             {% endif %}

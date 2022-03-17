@@ -1,44 +1,39 @@
 
 #from asyncio.windows_events import NULL
-from genericpath import exists
-from inspect import Attribute
-from django.core.exceptions import PermissionDenied
-from django.db.models.expressions import OrderBy, Value
-from django.utils.functional import empty
-import pandas as pd
-from django.http.response import JsonResponse
-from django.shortcuts import render, redirect
-from django.contrib import messages
-from django.utils.translation import gettext as _
-from django.views.decorators.csrf import csrf_protect
-from django.contrib.auth.decorators import login_required
-from django.contrib.auth import authenticate, login, logout
+import csv
+import json
+import os
+import string
+import urllib
 from datetime import datetime
+from inspect import Attribute
+from io import BytesIO
+from random import choice
+
+import pandas as pd
+from django.conf import settings
+from django.contrib import messages
+from django.contrib.auth import (authenticate, get_user_model, login, logout,
+                                 update_session_auth_hash)
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import PasswordChangeForm, UserCreationForm
-from django.contrib.auth import update_session_auth_hash, login, authenticate, logout
+from django.contrib.auth.hashers import check_password, make_password
+from django.contrib.auth.models import User
+from django.core.exceptions import PermissionDenied
 from django.core.paginator import Paginator
 from django.db.models import Q
-
+from django.db.models.expressions import OrderBy, Value
 from django.http import HttpResponse, HttpResponseRedirect
-import os
-from io import BytesIO
-from datetime import datetime
-
+from django.http.response import JsonResponse
+from django.shortcuts import redirect, render
+from django.utils.functional import empty
+from django.utils.translation import gettext as _
+from django.views.decorators.csrf import csrf_protect
+from genericpath import exists
 from openpyxl import Workbook
-
 from pandas.core.frame import DataFrame
-from django.contrib.auth.models import User
-from django.contrib.auth import get_user_model
 
 from .models import *
-import json
-import urllib
-from django.conf import settings
-
-from django.contrib.auth.hashers import make_password, check_password
-from random import choice
-import string
-import csv
 
 # Create your views here.
 
@@ -138,8 +133,8 @@ def main(request):
 
 @login_required(login_url='/login/')
 def all_forms(request):
-	notificadores = ['autocadastro', 'admin', 'municipal']
-	if request.user.funcao in notificadores:
+	# notificadores = ['autocadastro', 'admin', 'municipal', 'gerencia_executiva', 'gerencia_operacional', 'chefia_nucleo', 'area_tecnica']
+	if request.user.funcao != 'gerencia_regional':
 		return render(request, 'all_forms.html')
 	else:
 		return redirect('/dados_user/')
