@@ -140,7 +140,7 @@
                         {% endif %}
     
                         <td class="d-grid gap-2 d-md-block">
-                            {% if user.funcao != 'gerencia_regional' and user.funcao != 'autocadastro' %}
+                            {% if user.funcao != 'autocadastro' %}
                                 {% if user.municipio.nome.upper == registro.municipio_residencia.upper %}
                                 <a href="/caso_esporotricose_edit/{{registro.id}}" class="btn btn-info btn-sm">Editar</a>
                                 {% else %}
