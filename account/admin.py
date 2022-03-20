@@ -35,7 +35,7 @@ class UserAdmin(BaseUserAdmin):
 	#list_display = ['id', 'username', 'email', 'cpf', 'funcao']
 
 admin.site.register(User, UserAdmin)
-ct = ContentType.objects.get_for_model(CasoEsporotricose)
-acesso_esporo, acesso_esporo_criado = Group.objects.get_or_create(name='Acesso esporotricose')
-permission_esporotricose = Permission.objects.get(codename='acessa_esporotricose')
-acesso_esporo.permissions.add(permission_esporotricose)
+#ct = ContentType.objects.get_for_model(CasoEsporotricose)
+#acesso_esporo, acesso_esporo_criado = Group.objects.get_or_create(name='Acesso esporotricose')
+#permission_esporotricose = Permission.objects.get(codename='acessa_esporotricose')
+#acesso_esporo.permissions.add(permission_esporotricose)
