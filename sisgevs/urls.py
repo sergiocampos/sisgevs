@@ -28,6 +28,8 @@ urlpatterns = [
     path('account/', include('account.urls')),
     path('account/', include('django.contrib.auth.urls')),
     path('accounts/', include('django.contrib.auth.urls')),
+    path('acidente_transito/', include('_acidente_transito.urls')),
+    path('esporotricose_humana/', include('_esporotricose_humana.urls')),
     #path('', views.index_aberto, name='index_aberto'),
     #path('',views.principal, name='index'),
     #path('login/',views.login_page, name='login_page'),
