@@ -52,15 +52,15 @@
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav">
                         <li class="nav-item">
-                            <a href="{% url 'principal' %}" class="nav-link">Principal</a>
+                            <a href="/esp-hum/" class="nav-link">Principal</a>
                         </li>
                         <li class="nav-item">
-                            <a href="{% url 'all_forms' %}" class="nav-link">Notificar</a>
+                            <a href="/esp-hum/all_forms" class="nav-link">Notificar</a>
                         </li>
                         {% if user.is_authenticated %}
                         <div class="options-ocultos">
                             <li class="nav-item">
-                                <a href="{% url 'dados_user' %}" class="nav-link">Meus Dados</a>
+                                <a href="/esp-hum/dados_user" class="nav-link">Meus Dados</a>
                             </li>
                             {% if user.funcao == 'admin' %}
                             <li class="nav-item">
@@ -70,21 +70,21 @@
             
                             {% if user.funcao != 'gerencia_regional' and user.funcao != 'municipal' and user.funcao != 'autocadastro' %}
                             <li class="nav-item">
-                                <a href="{% url 'criar_perfil_municipal' %}" class="nav-link">Criar Perfil Municipal</a>
+                                <a href="/esp-hum/criar_perfil_municipal" class="nav-link">Criar Perfil Municipal</a>
                             </li>
                             {% endif %}
                             <li class="nav-item">
-                                <a href="{% url 'my_datas' %}" class="nav-link">Notificações</a>
+                                <a href="/esp-hum/my_datas/" class="nav-link">Notificações</a>
                             </li>
                             {% if user.funcao == 'admin' %}
                             <li class="nav-item">
-                                <a href="{% url 'casos_cancelados' %}" class="nav-link">Casos Cancelados</a>
+                                <a href="/esp-hum/casos_cancelados" class="nav-link">Casos Cancelados</a>
                             </li>
                             {% endif %}
                         </div>
                         {% endif %}
                         <li class="nav-item">
-                            <a href="{% url 'logout' %}" class="nav-link">Sair</a>
+                            <a href="/esp-hum/logout" class="nav-link">Sair</a>
                         </li>
                     </ul>
                 </div>
@@ -102,7 +102,7 @@
             <hr>
             <ul class="nav nav-pills flex-column mb-auto">
                 <li class="nav-item">
-                    <a href="{% url 'dados_user' %}" class="nav-link">Meus Dados</a>
+                    <a href="/esp-hum/dados_user" class="nav-link">Meus Dados</a>
                 </li>
                 {% if user.funcao == 'admin' %}
                 <li class="nav-item">
@@ -112,15 +112,15 @@
 
                 {% if user.funcao != 'gerencia_regional' and user.funcao != 'municipal' and user.funcao != 'autocadastro' %}
                 <li class="nav-item">
-                    <a href="{% url 'criar_perfil_municipal' %}" class="nav-link">Criar Perfil Municipal</a>
+                    <a href="/esp-hum/criar_perfil_municipal" class="nav-link">Criar Perfil Municipal</a>
                 </li>
                 {% endif %}
                 <li class="nav-item">
-                    <a href="{% url 'my_datas' %}" class="nav-link">Notificações</a>
+                    <a href="/esp-hum/my_datas" class="nav-link">Notificações</a>
                 </li>
                 {% if user.funcao == 'admin' %}
                 <li class="nav-item">
-                    <a href="{% url 'casos_cancelados' %}" class="nav-link">Casos Cancelados</a>
+                    <a href="/esp-hum/casos_cancelados" class="nav-link">Casos Cancelados</a>
                 </li>
                 {% endif %}
             </ul>
@@ -136,7 +136,7 @@
         <div class="row container-fluid justify-content-between">
             <div class="col">
                 <p>
-                    E-mail de suporte: <a class="link-light" href="mailto:sisgevs@ses.com.br">sisgevs@ses.pb.gov.br</a> 
+                    E-mail de suporte: <a class="link-light" href="mailto:sisgevs@ses.pb.gov.br">sisgevs@ses.pb.gov.br</a> 
                 </p>
                 <p class="author">Desenvolvido pela Gerência de Tecnologia da Informação - SES | Todos os direitos reservados</p>
             </div>

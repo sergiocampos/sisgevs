@@ -1509,7 +1509,7 @@
           $("#btn_gal_id_1").on('click', function(){
             gal_value = document.getElementById('gal_id_1').value;
             $.ajax({
-              url: "{% url 'ajax_gal' %}",
+              url: "/esp-hum/ajax_gal",
               data: {
                 'n_gal':gal_value
               },
@@ -1534,7 +1534,7 @@
           $("#btn_gal_id_2").on('click', function(){
             gal_value = document.getElementById('gal_id_2').value;
             $.ajax({
-              url: "{% url 'ajax_gal' %}",
+              url: "/esp-hum/ajax_gal",
               data: {
                 'n_gal':gal_value
               },
@@ -1558,7 +1558,7 @@
           $("#btn_gal_id_3").on('click', function(){
             gal_value = document.getElementById('gal_id_3').value;
             $.ajax({
-              url: "{% url 'ajax_gal' %}",
+              url: "/esp-hum/ajax_gal",
               data: {
                 'n_gal':gal_value
               },
@@ -2776,7 +2776,7 @@ $("#municipio_id").change(function() {
     municipioId = $(this).val();
 
     $.ajax({
-        url: '{% url "ajax_load_unidadesaude" %}',
+        url: '/esp-hum/ajax_load_unidadesaude',
         data: { 'municipio_id': municipioId },
         success: function(data) {
             $("#unidade_saude_id").html(data);
@@ -2790,7 +2790,7 @@ $("#municipio_id").change(function() {
     //const url = $('#Form').attr("data-ibge-url");
     const municipioId = $(this).val();
     $.ajax({
-        url: '{% url "ajax_load_ibge" %}',
+        url: '/esp-hum/ajax_load_ibge',
         data: { 'municipio_id': municipioId },
         success: function(data) {
             $("#ibge_cod_id").val(data);
@@ -2812,7 +2812,7 @@ $("#mun_hosp_id").change(function() {
     municipioId = $(this).val();
 
     $.ajax({
-        url: '{% url "ajax_hospitalizacao" %}',
+        url: '/esp-hum/ajax_hospitalizacao',
         data: { 'municipio_id': municipioId },
         success: function(data) {
             $("#nome_hosp_id").html(data);
@@ -2826,7 +2826,7 @@ $("#mun_hosp_id").change(function() {
     //const url = $('#Form').attr("data-hospitalizacaoibge-url");
     const municipioId = $(this).val();
     $.ajax({
-        url: '{% url "ajax_hospitalizacao_ibge" %}',
+        url: '/esp-hum/ajax_hospitalizacao_ibge',
         data: { 'municipio_id': municipioId },
         success: function(data) {
             $("#cod_ibge_id").val(data);
@@ -2841,7 +2841,7 @@ $("#uf_caso_autoctone_id").change(function() {
     municipioId = $(this).val();
 
     $.ajax({
-        url: '{% url "ajax_autoctone_uf" %}',
+        url: '/esp-hum/ajax_autoctone_uf',
         data: { 'municipio_id': municipioId },
         success: function(data) {
             $("#municipio_autoctone_id").html(data);
@@ -2856,7 +2856,7 @@ $("#municipio_autoctone_id").change(function() {
     municipioId = $(this).val();
 
     $.ajax({
-        url: '{% url "ajax_autoctone_municipio" %}',
+        url: '/esp-hum/ajax_autoctone_municipio',
         data: { 'municipio_id': municipioId },
         success: function(data) {
             console.log(data);
@@ -2872,7 +2872,7 @@ $("#municipio_autoctone_id").change(function() {
     municipioId = $(this).val();
 
     $.ajax({
-        url: '{% url "ajax_autoctone_distrito" %}',
+        url: '/esp-hum/ajax_autoctone_distrito',
         data: { 'municipio_id': municipioId },
         success: function(data) {
             console.log(data);
@@ -2890,7 +2890,7 @@ $("#uf_dados_residencia_id").change(function() {
     municipioId = $(this).val();
 
     $.ajax({
-        url: '{% url "ajax_dados_residencia" %}',
+        url: '/esp-hum/ajax_dados_residencia',
         data: { 'uf_dados_residencia_id': municipioId },
         success: function(data) {
             console.log(data);
@@ -2907,7 +2907,7 @@ $("#municipios_estado_id").change(function() {
     uf_id = $('#uf_dados_residencia_id').val();
 
     $.ajax({
-        url: '{% url "ajax_ibge_municipio_residencia" %}',
+        url: '/esp-hum/ajax_ibge_municipio_residencia',
         data: { 'municipios_estado_id': municipioId, 'uf_estado_id': uf_id },
         success: function(data) {
             $("#ibge_municipio_residencia_id").val(data);

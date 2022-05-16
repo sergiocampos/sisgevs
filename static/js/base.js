@@ -21,7 +21,7 @@ function cancelar_revalidar(url, id) {
         'url_redirect': url
     }
     $.ajax({
-        url: '/cancelar_caso_esporotricose',
+        url: '/esp-hum/cancelar_caso_esporotricose',
         data: data,
         success: (data) => {
             document.location.href = url

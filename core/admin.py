@@ -1,5 +1,6 @@
 from django.contrib import admin
-from .models import Municipio, CasoEsporotricose, UnidadeSaude
+from .models import Municipio, UnidadeSaude
+from _esporotricose_humana.models import CasoEsporotricose
 
 # Register your models here.
 

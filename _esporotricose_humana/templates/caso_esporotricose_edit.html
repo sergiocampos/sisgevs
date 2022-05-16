@@ -2871,7 +2871,7 @@
         municipioId = $(this).val();
 
         $.ajax({
-          url : '{% url "ajax_edicao_uf_cidades" %}',
+          url : '/esp-hum/ajax_edicao_uf_cidades',
           data: { 'uf_edit_endereco_id': municipioId},
           success: function(data){
             console.log(data);
@@ -2887,7 +2887,7 @@
         municipioId = $(this).val();
         uf_id = $('#uf_edit_endereco_id').val();
         $.ajax({
-          url : '{% url "ajax_ibge_municipio_residencia" %}',
+          url : '/esp-hum/ajax_ibge_municipio_residencia',
           data: { 'municipios_estado_id': municipioId, 'uf_estado_id':uf_id},
           success: function(data){
             $("#ibge_municipio_residencia_id").val(data);
@@ -2908,7 +2908,7 @@
         municipioId = $(this).val();
         
         $.ajax({
-          url : '{% url "ajax_load_unidadesaude" %}',
+          url : '/esp-hum/ajax_load_unidadesaude',
           data: { 'municipio_id': municipioId},
           success: function(data){
             $("#unidade_saude_id").html(data);
@@ -2921,7 +2921,7 @@
         municipioId = $("#municipio_id").val();
         unid = {{form.unidade_saude}}        
         $.ajax({
-          url : '{% url "ajax_load_unidadesaude" %}',
+          url : '/esp-hum/ajax_load_unidadesaude',
           data: { 'municipio_id': municipioId},
           success: function(data){
             $("#unidade_saude_id").html(data);
@@ -2935,7 +2935,7 @@
           const municipioId = $(this).val();
           console.log(municipioId)
           $.ajax({
-            url : '{% url "ajax_load_ibge" %}',
+            url : '/esp-hum/ajax_load_ibge',
             data: { 'municipio_id': municipioId},
             success: function(data){
               $("#ibge_cod_id").val(data);
@@ -2948,7 +2948,7 @@
         //const url = $('#Form').attr("data-ibge-url");
         const municipioId = $("#municipio_id").val();
         $.ajax({
-          url : '{% url "ajax_load_ibge" %}',
+          url : '/esp-hum/ajax_load_ibge',
           data: { 'municipio_id': municipioId},
           success: function(data){
             $("#ibge_cod_id").val(data);
@@ -2970,7 +2970,7 @@
         municipioId = $(this).val();
 
         $.ajax({
-          url : '{% url "ajax_hospitalizacao" %}',
+          url : '/esp-hum/ajax_hospitalizacao',
           data: { 'municipio_id': municipioId},
           success: function(data){
             $("#nome_hosp_id").html(data);
@@ -2985,7 +2985,7 @@
           municipioId = $("#mun_hosp_id").val();
   
           $.ajax({
-            url : '{% url "ajax_hospitalizacao" %}',
+            url : '/esp-hum/ajax_hospitalizacao',
             data: { 'municipio_id': municipioId},
             success: function(data){
               $("#nome_hosp_id").html(data);
@@ -3001,7 +3001,7 @@
           //const url = $('#Form').attr("data-hospitalizacaoibge-url");
           const municipioId = $(this).val();
           $.ajax({
-            url : '{% url "ajax_hospitalizacao_ibge" %}',
+            url : '/esp-hum/ajax_hospitalizacao_ibge',
             data: { 'municipio_id': municipioId},
             success: function(data){
               $("#cod_ibge_id").val(data);
@@ -3016,7 +3016,7 @@
         municipioId = $(this).val();
 
         $.ajax({
-          url : '{% url "ajax_autoctone_uf" %}',
+          url : '/esp-hum/ajax_autoctone_uf',
           data: { 'municipio_id': municipioId},
           success: function(data){
             $("#municipio_autoctone_id").html(data);
@@ -3031,7 +3031,7 @@
         municipioId = $("#uf_caso_autoctone_id").val();
 
         $.ajax({
-          url : '{% url "ajax_autoctone_uf" %}',
+          url : '/esp-hum/ajax_autoctone_uf',
           data: { 'municipio_id': municipioId},
           success: function(data){
             $("#municipio_autoctone_id").html(data);
@@ -3039,7 +3039,7 @@
             municipioId = $('#municipio_autoctone_id').val();
 
             $.ajax({
-              url : '{% url "ajax_autoctone_distrito" %}',
+              url : '/esp-hum/ajax_autoctone_distrito',
               data: { 'municipio_id': municipioId},
               success: function(data){
                 console.log(data);
@@ -3058,7 +3058,7 @@
         console.log(municipioId)
 
         $.ajax({
-          url : '{% url "ajax_autoctone_municipio" %}',
+          url : '/esp-hum/ajax_autoctone_municipio',
           data: { 'municipio_id': municipioId},
           success: function(data){
             console.log(data);
@@ -3074,7 +3074,7 @@
         municipioId = $(this).val();
 
         $.ajax({
-          url : '{% url "ajax_autoctone_distrito" %}',
+          url : '/esp-hum/ajax_autoctone_distrito',
           data: { 'municipio_id': municipioId},
           success: function(data){
             console.log(data);
