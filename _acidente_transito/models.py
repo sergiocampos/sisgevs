@@ -55,7 +55,4 @@ class acidente(models.Model):
 
 
 	class Meta:
-		verbose_name_plural='Casos Esporotricose'
-		permissions = (
-			('acessa_esporotricose', 'Acessa a sessão de esporotricose do sistema'),
-		)
+		verbose_name_plural='Acidentes de Trânsito'
