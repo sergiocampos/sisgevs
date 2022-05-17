@@ -15,7 +15,7 @@ urlpatterns = [
 
     path('my_datas/', views.my_datas, name='my_datas'),
     path('casos_cancelados', views.casos_cancelados, name='casos_cancelados'),
-    path('casos_cancelados/submit', views.export_casos_cancelados, name='export_casos_cancelados'),
+    path('export_casos_cancelados/', views.export_casos_cancelados, name='export_casos_cancelados'),
     
 
     path('all_forms/', views.all_forms, name='all_forms'),

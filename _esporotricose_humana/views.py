@@ -1684,7 +1684,7 @@ def set_caso_esporotricose_edit(request, id):
 		)
 
 
-	return redirect('my_datas')
+	return redirect('/esp-hum/my_datas')
 
 @login_required(login_url='/login/')
 def export_casos_cancelados(request):
