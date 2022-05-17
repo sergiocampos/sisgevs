@@ -19,6 +19,7 @@
 
     <!--css-->
     <link rel="stylesheet" href="{% static 'base/css/base.css' %}">
+    <link rel="stylesheet" href="{% static '_esporotricose_humana/css/all_forms.css' %}">
 
     <!--js-->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
@@ -34,7 +35,7 @@
         <nav class="navbar nav-logo">
             <div class="row container-fluid justify-content-between">
                 <div class="col logo-sistema">
-                    <a class="navbar-brand" href="/esp-hum/">
+                    <a class="navbar-brand" href="/">
                         <img src="{% static 'base/img/logo-sisgevs.svg' %}" alt="Sisgevs" width="300" height="100">
                     </a>
                 </div>
@@ -69,17 +70,37 @@
         </div>
         {% endif %}
         <div class="container-fluid pagina">
-            <div class="container text-center p-5">
-                <div class="row mb-3">
-                    <a href="/esp-hum/"><button class="btn btn-outline-success">Esporotricose Humana</button></a>
+            <div class="mt-3">
+                <div class="alert alert-primary text-center">
+                    <h1 class="fs-2">Sistema de Informação em Saúde da Gerência Executiva de Vigilância em Saúde (SISGEVS)</h1>
                 </div>
-                <div class="row mb-3">
-                    <a href="/act/"><button class="btn btn-outline-warning">Acidente de Trânsito</button></a>
+              
+              <div class="row">
+                <div class="col-md-12">
+                  <p style="font-size: 82%; background-color: #e6e6e6; padding: 8px; text-align: justify;">
+              
+                    <b>O Sistema de Informação em Saúde da Gerência Executiva de Vigilância em Saúde (SISGEVS)</b> é um sistema utilizado para estruturar toda a organização de dados em saúde do estado da Paraíba, sendo complementar aos sistemas oficiais do Ministério da Saúde. O sistema possui dados da população paraibana sob vigilância, com dados coletados por meio de formulários de acordo com a necessidade de cada agravo ou doença.
+                    
+                  </p>
+              
+                </div>
+              </div>  
+            </div>
+            <div class="container row m-3 mx-auto">
+                <div class="col text-center mb-3">
+                    <a href="/esp-hum" class="btn btn-outline-primary p-5 pt-1 pb-1 mx-3">
+                        <span class="legenda-botao">Clique aqui para visualizar</span><br><span>Esporotricose Humana</span>
+                    </a>
+                </div>
+                <div class="col text-center mb-3">
+                    
+                    <a href="/act" class="btn btn-outline-success p-5 pt-1 pb-1 mx-3">
+                        <span class="legenda-botao">Clique aqui para visualizar</span><br><span>Acidente de Trânsito</span>
+                    </a>
                 </div>
             </div>
         </div>
     </main>
-    {% block endbody %}{% endblock endbody %}    
     <!-- Footer -->
     <div class="footer">
         <div class="row container-fluid justify-content-between">
