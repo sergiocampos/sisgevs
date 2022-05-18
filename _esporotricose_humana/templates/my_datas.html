@@ -1,0 +1,166 @@
+{% extends 'base1.html' %}
+{% load static %}
+
+{% block head %}
+<link rel="stylesheet" href="{% static '_esporotricose_humana/css/registros.css' %}">
+{% endblock head %}
+
+{% block content %}
+<div class="mt-3">
+    <div class="alert alert-primary text-center">
+        <h1 class="fs-2">Notificações</h1>
+    </div>
+    <div class="row">
+        <div class="col-md-4 mb-3">
+            <input class="form-control" type="text" id="pesquisar-registros" placeholder="digite algo para pesquisar">
+        </div>
+        <form class="col" enctype="multipart/form-data" action="/esp-hum/export_data_csv/" method="get">
+            {% csrf_token %}
+            <div class="row">
+                <div class="col mb-3">
+                    <div class="input-group">
+                        <span class="input-group-text">Início</span>
+                        <input type="date" id="filtro_data_inicio" name="filtro_data_inicio" class="form-control">
+                    </div>
+                </div>
+                <div class="col mb-3">
+                    <div class="input-group">
+                        <span class="input-group-text">Fim</span>
+                        <input type="date" id="filtro_data_fim" name="filtro_data_fim" class="form-control">
+                    </div>
+                </div>
+                <div class="col-md-auto mb-3">
+                    <div class="d-grid gap-2 d-md-block">
+                        <button type="submit" class="btn btn-primary">Exportar Dados</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    
+    {% include 'messages/message.html' %}
+    <div class="mt-4">
+        <div class="table-responsive">
+            <table class="table table-bordered">
+                <thead>
+                    <th>Data Notificação</th>
+                    <th>Nome Paciente</th>
+                    <th class="th-data">Data Nasc.</th>
+                    <th>Nome da Mãe</th>
+                    <th>Município de Residência</th>
+                    <th>Município Notificador</th>
+                    <th>Ações</th>
+                </thead>
+                <tbody id="table-registros">
+    
+                    {% for registro in regs %}
+                    {% if registro.status_caso == 'Cancelado' and user.funcao == 'gerencia_regional' %}
+                    <tr class="table table-warning">
+    
+                        {% if registro.data_notificacao != None %}
+                        <td>{{registro.data_notificacao}}</td>
+                        {%else%}
+                        <td></td>
+                        {%endif%}
+    
+    
+                        <td>{{registro.nome_paciente}}</td>
+    
+                        {% if registro.data_nascimento_paciente != None %}
+                        <td>{{registro.data_nascimento_paciente}}</td>
+                        {%else%}
+                        <td></td>
+                        {%endif%}
+    
+                        {% if registro.nome_mae_paciente == None %}
+                        <td></td>
+                        {% else %}
+                        <td>{{registro.nome_mae_paciente}}</td>
+                        {% endif %}
+                        {% if registro.municipio_residencia != None %}
+                        <td>{{registro.municipio_residencia}}</td>
+                        {% else %}
+                        <td></td>
+                        {% endif %}
+    
+                        {% if registro.municipio != None %}
+                        {% for i in municipios %}
+                        {% if i.id == registro.municipio %}
+                        <td>{{i}}</td>
+                        {% endif %}
+                        {% endfor %}
+                        {% else %}
+                        <td></td>
+                        {% endif %}
+    
+                        <td align="center">
+                            <button id="{{registro.id}}" type="button"
+                                class="btn cancelar_caso btn-secondary btn-sm">Revalidar</button>
+                        </td>
+                    </tr>
+                    {% elif registro.status_caso == 'Cancelado' and user.funcao != 'gerencia_regional' %}
+                    {% else %}
+                    <tr>
+    
+                        {% if registro.data_notificacao != None %}
+                        <td>{{registro.data_notificacao}}</td>
+                        {%else%}
+                        <td></td>
+                        {%endif%}
+    
+    
+                        <td>{{registro.nome_paciente}}</td>
+    
+                        {% if registro.data_nascimento_paciente != None %}
+                        <td>{{registro.data_nascimento_paciente}}</td>
+                        {%else%}
+                        <td></td>
+                        {%endif%}
+    
+                        {% if registro.nome_mae_paciente == None %}
+                        <td></td>
+                        {% else %}
+                        <td>{{registro.nome_mae_paciente}}</td>
+                        {% endif %}
+    
+                        {% if registro.municipio_residencia != None %}
+                        <td style="text-transform:uppercase;">{{registro.municipio_residencia}}</td>
+                        {% else %}
+                        <td></td>
+                        {% endif %}
+    
+                        {% if registro.municipio != None %}
+                        {% for i in municipios %}
+                        {% if i.id == registro.municipio %}
+                        <td style="text-transform:uppercase;">{{i}}</td>
+                        {% endif %}
+                        {% endfor %}
+                        {% else %}
+                        <td></td>
+                        {% endif %}
+    
+                        <td class="d-grid gap-2 d-md-block">
+                            {% if user.funcao != 'gerencia_regional' and user.funcao != 'autocadastro' %}
+                                {% if user.municipio.nome.upper == registro.municipio_residencia.upper %}
+                                <a href="/esp-hum/caso_esporotricose_edit/{{registro.id}}" class="btn btn-info btn-sm">Editar</a>
+                                {% else %}
+                                <button type="button" class="btn btn-info btn-sm" disabled>Editar</button>
+                                {% endif %}
+                            {% elif user.funcao == 'autocadastro' %}
+                            <a href="/esp-hum/caso_esporotricose_edit/{{registro.id}}" class="btn btn-info btn-sm">Editar</a>
+                            {%endif%}
+                            <a href="/esp-hum/caso_view_detail/{{registro.id}}/" target="_blank" class="btn btn-secondary btn-sm">Ver</a>
+                            {% if user.funcao != 'gerencia_regional' %}
+                            <button id="{{registro.id}}" type="button"
+                                class="btn cancelar_caso btn-warning btn-sm" onclick="cancelar_revalidar('/esp-hum/my_datas', {{registro.id}})">Cancelar</button>
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% endif %}
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock content %}

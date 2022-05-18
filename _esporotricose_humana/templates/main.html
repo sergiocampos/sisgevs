@@ -1,0 +1,229 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>SISGEVS - Sistema de Informação em Saúde da GEVS</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+  <script src="https://code.highcharts.com/highcharts.src.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.min.js"></script>
+
+  <style>
+  .fakeimg {
+    height: 500px;
+    background: #aaa;
+  }
+</style>
+
+<style>
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Style the header */
+header {
+  padding: 1px;
+  text-align: center;
+  font-size: 35px;
+  color: black;
+}
+
+/* Container for flexboxes */
+section {
+  display: -webkit-flex;
+  display: flex;
+}
+
+/* Style the navigation menu */
+nav {
+  -webkit-flex: 0.5;
+  -ms-flex: 0.5;
+  flex: 0.5;
+  background: #e6e6e6;
+  padding: 20px;
+}
+
+/* Style the list inside the menu */
+nav ul {
+  list-style-type: none;
+}
+
+/* Style the content */
+article {
+  -webkit-flex: 3;
+  -ms-flex: 3;
+  flex: 3;
+  background-color: #f1f1f1;
+  padding: 10px;
+}
+
+/* Style the footer */
+footer {
+  background-color: #777;
+  padding: 10px;
+  text-align: center;
+  color: white;
+}
+
+/* Responsive layout - makes the menu and the content (inside the section) sit on top of each other instead of next to each other */
+@media (max-width: 600px) {
+  section {
+    -webkit-flex-direction: column;
+    flex-direction: column;
+  }
+}
+</style>
+
+<link rel="shortcut icon" href="https://docs.google.com/uc?id=1h8jgyPDlDWWinD_VP50nqKXnmdCHEKH3" type="image/x-icon" />
+
+
+
+
+</head>
+<body>
+
+  <nav class="navbar navbar-expand-sm bg-info navbar-light" style="background-color: #e6e6e6;">
+    <ul class="navbar-nav">
+      <li class="nav-item active">
+        <a class="nav-link" href="#"></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#"></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#"></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link disabled" href="#"></a>
+      </li>
+    </ul>
+  </nav>
+  <header>
+    <div class="" style="background-color: #e6e6e6;">
+      <div class="row">
+        <div class="col" style="padding: 0; margin-top: 10px; text-align: center;">
+          <h4>SECRETARIA DE ESTADO DA SAÚDE DA PARAÍBA</h4>
+          <h6>SISGEVS - Sistema de Informação em Saúde da GEVS</h6>
+          <h6><b>----</b></h6>
+        </div>
+      </div>
+    </div>
+  </header>
+
+<nav class="navbar navbar-expand-sm bg-secondary navbar-dark">
+  <a class="navbar-brand" href="#"></a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="collapsibleNavbar">
+    <ul class="navbar-nav">
+      <li class="nav-item">
+        <a class="nav-link" href="/all_forms/">Início</a>
+      </li>
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#">Localizar Notificação</a>
+        <div class="dropdown-menu">
+            <a class="dropdown-item" href="/localizar_paciente_nome/">Nome Paciente</a>
+            <a class="dropdown-item" href="/localizar_paciente_data_coleta/">Data de Coleta</a>
+            <a class="dropdown-item" href="#">CPF</a>
+            <a class="dropdown-item" href="#">Telefone</a>
+        </div>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/all_forms/">Notificar</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/logout/">Sair</a>
+      </li>
+    </ul>
+  </div>
+</nav>
+    <section>
+      <nav>
+        <ul style="padding:0;">
+          <li>
+            <button type="menu" class="btn btn-info" disabled>Usuário: {{user.login}}</button>
+          </li>
+        </ul>
+        <ul style="padding-left: 5%;">
+          <div id="demo" class="collapsed">
+            <li><a href="#">Meus Dados</a></li>
+            <hr>
+            {% if user.funcao == 'admin' %}
+              <li><a href="/admin/">Gerenciar Contas</a></li>
+              <hr>
+            {% endif %}
+            <li><a href="/all_forms/" data-toggle="collapse" data-target="#formularios">Formulários</a></li>
+            <div id="formularios" class="collapse">
+              <li><a href="/all_forms/">Esporotricose Humana</a></li>
+              <li><a href="/main/">Chikungunya</a></li>
+              <li><a href="/main/">Dengue</a></li>
+              <li><a href="/main/">Zika</a></li>
+            </div>
+            <hr>
+            <li><a href="/my_datas/">Notificações</a></li>
+            <hr>
+            <li><a href="/download_ficha/" data-toggle="collapse" data-target="#_demo">Ficha</a></li>
+            <div id="_demo" class="collapse"><br>
+              <li><a href="/ficha_caso_esporotricose_preencher/" target="_blank" style="color: #4d94ff;">Novo Layout</a></li>
+              <!--<li><a href="/download_ficha/" download style="color: #4d94ff;">Imprimir Ficha</a></li>-->
+            </div>
+            <hr>
+            <li><a href=""></a></li>
+          </div>
+        </ul>
+      </nav>
+      
+
+      <article>
+
+        <div class="container" style="margin-left: 0;" id="container">
+
+          <div class="row">
+            <div class="col-sm-12">
+              <div class="alert alert-primary" style="text-align: center;">
+                <strong style="align-items: center;">------------</strong>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="fakeimg"></div>
+          </div>
+
+
+
+
+
+          
+
+        </div>
+
+
+      </article>
+
+
+    </section>
+
+    <br><br>
+
+
+    <div class="jumbotron text-center" style="margin-bottom:0">
+      <p>Footer</p>
+      <i class="fa">&#xf1f9;</i>
+    </div>
+    <br>
+
+  </body>
+  </html>
