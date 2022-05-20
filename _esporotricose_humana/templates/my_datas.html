@@ -151,8 +151,7 @@
                             {%endif%}
                             <a href="/esp-hum/caso_view_detail/{{registro.id}}/" target="_blank" class="btn btn-secondary btn-sm">Ver</a>
                             {% if user.funcao != 'gerencia_regional' %}
-                            <button id="{{registro.id}}" type="button"
-                                class="btn cancelar_caso btn-warning btn-sm" onclick="cancelar_revalidar('/esp-hum/my_datas', {{registro.id}})">Cancelar</button>
+                            <a href="/esp-hum/cancelar_caso_esporotricose/{{registro.id}}/" class="btn btn-warning btn-sm">Cancelar</a>
                             {% endif %}
                         </td>
                     </tr>
