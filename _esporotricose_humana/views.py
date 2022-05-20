@@ -42,12 +42,6 @@ def index(request):
 	return render(request, 'index.html')
 
 
-
-@login_required(login_url='/login/')
-def dados_user(request):
-	return render(request, 'dados_user.html')
-
-
 @login_required(login_url='/login/')
 def main(request):
 	return render(request, 'main.html')
@@ -1706,10 +1700,4 @@ def export_users(request):
 				return response
 	else:
 		redirect('principal')
-
-
-@login_required(login_url='/login/')
-def principal(request):	
-	print(request.user.funcao)
-	return render(request, 'principal.html')
 
