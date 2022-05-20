@@ -2,7 +2,7 @@ from django.db import models
 
 # Create your models here.
 
-class acidente(models.Model):
+class Acidente(models.Model):
 
 	#Informações Gerais do acidente
 	data_acidente = models.DateField(blank=True, null=True)
