@@ -2,8 +2,10 @@ from django.urls import path
 from django.conf.urls.static import static, settings
 
 from . import views
+from core import base_views
 
 app_name = '_esporotricose_humana'
+
 
 urlpatterns = [
     path('index/', views.index, name='index'),
@@ -14,8 +16,8 @@ urlpatterns = [
     path('main/', views.main, name='main'),
 
     path('my_datas/', views.my_datas, name='my_datas'),
-    path('casos_cancelados', views.casos_cancelados, name='casos_cancelados'),
-    path('export_casos_cancelados/', views.export_casos_cancelados, name='export_casos_cancelados'),
+    path('casos_cancelados/', views.casos_cancelados, name='casos_cancelados'),
+    path('export_casos_cancelados/', base_views.export_data_excel, name='export_casos_cancelados'),
     
 
     path('all_forms/', views.all_forms, name='all_forms'),
@@ -61,10 +63,11 @@ urlpatterns = [
     path('submit', views.ajax_exportar_index_aberto, name='ajax_exportar_index_aberto'),
     path('ajax_gal', views.ajax_gal, name='ajax_gal'),
 
-    path('export_data_csv/', views.export_data_csv, name='export_data_csv'),
+    path('export_data_csv/', base_views.export_data_excel, name='export_data_csv'),
+
     path('export_users/', views.export_users, name='export_users'),
     path('organograma/', views.organograma, name='organograma'),
-    path('cancelar_caso_esporotricose', views.cancelar_caso_esporotricose, name='cancelar_caso_esporotricose'),
+    path('cancelar_caso_esporotricose/<int:id>/', base_views.cancelar_caso, name='cancelar_caso_esporotricose'),
     path('criar_perfil_municipal/', views.criar_perfil_municipal, name='criar_perfil_municipal'),
     path('checar_login_ajax/', views.checar_login_ajax, name='checar_login_ajax'),
     

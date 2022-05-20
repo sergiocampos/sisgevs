@@ -32,6 +32,7 @@ from pandas.core.frame import DataFrame
 
 from .models import *
 from core.models import *
+from core.base_views import my_datas as base_notificacoes
 
 # Create your views here.
 
@@ -292,113 +293,10 @@ def casos_cancelados(request):
 
 
 @login_required(login_url='/login/')
-def my_datas(request):
+def my_datas(request):	
+	return render(request, 'my_datas.html', base_notificacoes(request))
 	
-	municipios = Municipio.objects.all()
-	#municipio_nome = municipio_user.nome
-	if request.user.funcao == 'admin':
-		registros = CasoEsporotricose.objects.all().order_by('-data_notificacao').exclude(status_caso='Cancelado')
-		
-		paginator = Paginator(registros, 6)
-		page = request.GET.get('page')
-		regs = paginator.get_page(page)
 
-		return render(request, 'my_datas.html', {'regs':registros, 'municipios':municipios})
-
-	elif request.user.funcao == 'gerencia_executiva':
-		registros = CasoEsporotricose.objects.all().order_by('-data_notificacao').exclude(status_caso='Cancelado')
-		
-		paginator = Paginator(registros, 6)
-		page = request.GET.get('page')
-		regs = paginator.get_page(page)
-		
-		return render(request, 'my_datas.html', {'regs':registros, 'municipios':municipios})
-
-	elif request.user.funcao == 'gerencia_operacional':
-		if request.user.has_perm('core.acessa_esporotricose'):
-			user_gerencia_operacional = request.user.gerencia_operacional
-			registros = CasoEsporotricose.objects.filter(responsavel_gerencia_operacional=user_gerencia_operacional).order_by('-data_notificacao').exclude(status_caso='Cancelado')
-			
-			paginator = Paginator(registros, 6)
-			page = request.GET.get('page')
-			regs = paginator.get_page(page)
-		
-			return render(request, 'my_datas.html', {'regs':registros, 'municipios':municipios})
-		
-
-	elif request.user.funcao == 'chefia_nucleo':
-		if request.user.has_perm('core.acessa_esporotricose'):
-			user_gerencia_operacional = request.user.gerencia_operacional
-			user_nucleo = request.user.nucleo
-			registros = CasoEsporotricose.objects.filter(
-				responsavel_gerencia_operacional=user_gerencia_operacional, 
-				responsavel_nucleo=user_nucleo
-				).order_by('-data_notificacao').exclude(status_caso='Cancelado')
-			
-			paginator = Paginator(registros, 6)
-			page = request.GET.get('page')
-			regs = paginator.get_page(page)
-			
-			return render(request, 'my_datas.html', {'regs':registros, 'municipios':municipios})	
-
-	elif request.user.funcao == 'area_tecnica':
-		if request.user.has_perm('core.acessa_esporotricose'):
-			user_gerencia_operacional = request.user.gerencia_operacional
-			user_nucleo = request.user.nucleo
-			user_area_tecnica = request.user.area_tecnica
-			registros = CasoEsporotricose.objects.filter(
-				responsavel_gerencia_operacional=user_gerencia_operacional, 
-				responsavel_nucleo=user_nucleo,
-				responsavel_area_tecnica=user_area_tecnica
-				).order_by('-data_notificacao').exclude(status_caso='Cancelado')
-			
-			paginator = Paginator(registros, 6)
-			page = request.GET.get('page')
-			regs = paginator.get_page(page)
-			
-			return render(request, 'my_datas.html', {'regs':registros, 'municipios':municipios})	
-
-	elif request.user.funcao == 'gerencia_regional':
-		
-		user_gerencia_regional = Municipio.objects.get(id=request.user.municipio_id).gerencia_id
-		registros = CasoEsporotricose.objects.filter(gerencia_id=user_gerencia_regional).order_by('-data_notificacao').exclude(status_caso='Cancelado')
-
-		paginator = Paginator(registros, 6)
-		page = request.GET.get('page')
-		regs = paginator.get_page(page)
-		
-		return render(request, 'my_datas.html', {'regs':registros, 'municipios':municipios})
-
-	elif request.user.funcao == 'municipal':
-		
-		user_municipio_id = request.user.municipio_id
-		municipio_user = request.user.municipio
-		user_municipio_nome = str(Municipio.objects.filter(id=user_municipio_id)[0])
-		user_municipio_nome_upper = str(Municipio.objects.filter(id=user_municipio_id)[0]).upper()
-		
-		registros = CasoEsporotricose.objects.filter(Q(municipio_residencia=user_municipio_id) | Q(municipio_residencia=user_municipio_nome) | Q(municipio_residencia=user_municipio_nome_upper) | Q(responsavel_pelas_informacoes_id=user_municipio_id)).order_by('-data_notificacao').exclude(status_caso='Cancelado')
-		
-		paginator = Paginator(registros, 6)
-		page = request.GET.get('page')
-		regs = paginator.get_page(page)
-
-		return render(request, 'my_datas.html', {'regs':registros, 'municipios':municipios})
-
-	elif request.user.funcao == 'autocadastro':
-		autocadastro_id = request.user.id
-		municipio_user = request.user.municipio
-
-		registros = CasoEsporotricose.objects.filter(responsavel_pelas_informacoes_id=autocadastro_id).order_by('-data_notificacao').exclude(status_caso='Cancelado')
-		#registros = CasoEsporotricose.objects.filter(municipio_residencia=municipio_user).order_by('-data_notificacao')
-
-		
-		paginator = Paginator(registros, 6)
-		page = request.GET.get('page')
-		regs = paginator.get_page(page)
-		
-		return render(request, 'my_datas.html', {'regs':registros, 'municipios':municipios})
-
-	return redirect('all_forms')
 
 @login_required(login_url='/login/')
 def cancelar_caso_esporotricose(request):
@@ -1713,83 +1611,6 @@ def export_casos_cancelados(request):
 	else:
 		return redirect('casos_cancelados')
 
-	
-
-@login_required(login_url='/login/')
-def export_data_csv(request):
-
-	# Pegando todos os casos registrados
-	casos = CasoEsporotricose.objects.all().values()
-	
-	# Filtrando se houver filtro.
-	filtro_data_inicio = request.GET.get('filtro_data_inicio')
-	filtro_data_fim = request.GET.get('filtro_data_fim')
-	filtros_data = [filtro_data_inicio, filtro_data_fim]
-	
-	for filtro in filtros_data:
-		if filtro == '' or filtro == None:
-			filtros_data.remove(filtro)
-	
-	if len(filtros_data) == 2:
-		casos_filtrados = casos.filter(data_primeiros_sintomas__range=[filtro_data_inicio,filtro_data_fim]).order_by('-id')
-	
-	elif len(filtros_data) == 1 and filtros_data[0] != '':
-		filtro_unico_dia = filtros_data[0]
-		casos_filtrados = casos.filter(data_primeiros_sintomas=filtro_unico_dia).order_by('-id')
-	
-	else:
-		casos_filtrados = casos.order_by('-id')
-	
-	# Filtrando o tipo de perfil para limitar os casos.
-	if request.user.funcao == 'autocadastro':
-		# Perfil Auto-Cadastro
-		auto_cadastro_id = request.user.id
-		casos_response = casos_filtrados.filter(responsavel_pelas_informacoes_id=auto_cadastro_id).order_by('-id')
-
-	elif request.user.funcao == 'municipal':
-		# Perfil Municipal
-		user_municipio_id = request.user.municipio_id
-		user_municipio_nome = str(Municipio.objects.filter(id=user_municipio_id)[0]).upper()
-		casos_response = casos_filtrados.filter(Q(municipio_residencia=user_municipio_id) | 
-			Q(municipio_residencia=user_municipio_nome) | Q(responsavel_pelas_informacoes_id=user_municipio_id)).order_by('-id')
-
-	elif request.user.funcao == 'gerencia_regional':
-		# Perfil Gerencia Regional
-		user_gerencia_regional = Municipio.objects.get(id=request.user.municipio_id).gerencia_id
-		casos_response = casos_filtrados.filter(gerencia_id=user_gerencia_regional).order_by('-id')
-	
-	else: # Qualquer outro tipo de perfil
-		casos_response = casos_filtrados
-		
-	# Convertendo em dataframe e alterando o campo município.
-	try:
-		df = pd.DataFrame(list(casos_response.order_by('-id')))
-		for i in df.municipio:
-			
-			try: # Checando se o valor é diferente de NaN
-				i = int(i)
-			except:
-				continue
-			else: # Buscando no modelo municipio o nome de municipio pelo id e alterando o dataframe
-				municipio = Municipio.objects.get(id=i)
-				df.municipio = df.municipio.replace([i], municipio.nome)
-	
-	except:
-		return redirect('/esp-hum/my_datas/')
-
-	else:
-		# Escrevendo o excel e enviando o response.
-		with BytesIO() as b:
-			
-			writer = pd.ExcelWriter(b, engine='openpyxl')
-			df.to_excel(writer, sheet_name='Sheet1', index=False)
-			writer.save()
-			
-			filename = 'casos_esporotricose_humana.xlsx'
-			response = HttpResponse(b.getvalue(),content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
-			response['Content-Disposition'] = 'attachment; filename=%s' % filename
-			
-			return response
 		
 @login_required(login_url='/login/')
 def organograma(request):

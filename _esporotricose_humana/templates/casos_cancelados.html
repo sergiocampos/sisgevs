@@ -19,7 +19,7 @@
         <div class="col-md-4 mb-3">
             <input class="form-control" type="text" id="pesquisar-registros" placeholder="digite algo para pesquisar">
         </div>
-        <form class="col" enctype="multipart/form-data" action="/esp-hum/export_casos_cancelados" method="post">
+        <form class="col" enctype="multipart/form-data" action="/esp-hum/export_casos_cancelados/" method="post">
             {% csrf_token %}
             <div class="row">
                 <div class="col mb-3">
@@ -97,8 +97,7 @@
                         {% endif %}
     
                         <td align="center">
-                            <button id="{{registro.id}}" type="button"
-                                class="btn cancelar_caso btn-secondary btn-sm" onclick="cancelar_revalidar('/esp-hum/casos_cancelados', {{registro.id}})">Revalidar</button>
+                            <a href="/esp-hum/cancelar_caso_esporotricose/{{registro.id}}/" class="btn btn-secondary btn-sm">Revalidar</a>                            
                         </td>
                     </tr>
                     {% endfor %}
