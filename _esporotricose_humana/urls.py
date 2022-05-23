@@ -19,9 +19,6 @@ urlpatterns = [
     path('casos_cancelados/', views.casos_cancelados, name='casos_cancelados'),
     path('export_casos_cancelados/', base_views.export_data_excel, name='export_casos_cancelados'),
     
-
-    path('all_forms/', views.all_forms, name='all_forms'),
-
     path('caso_esporotricose_create/', views.caso_esporotricose_create, name='caso_esporotricose_create'),
     path('caso_esporotricose_edit/<int:id>/', views.caso_esporotricose_edit, name='caso_esporotricose_edit'),
     path('caso_esporotricose_edit/<int:id>/submit', views.set_caso_esporotricose_edit),

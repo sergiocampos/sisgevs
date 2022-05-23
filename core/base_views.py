@@ -269,3 +269,11 @@ def cancelar_caso(request, id):
         agravo.filter(id=id).update(status_caso='Cancelado')
 
     return redirect(redirect_url)
+
+@login_required(login_url='/login/')
+def all_forms(request):
+	
+	if request.user.funcao != 'gerencia_regional':
+		return render(request, 'all_forms.html')
+	else:
+		return redirect('principal')

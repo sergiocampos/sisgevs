@@ -39,6 +39,7 @@ main {
 
 .menu-lateral {
     background-color: var(--cor-fundo);
+    min-width: 230px;
 }
 
 .user-name {
