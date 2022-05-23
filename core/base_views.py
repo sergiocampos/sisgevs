@@ -13,13 +13,13 @@ from .models import *
 
 
 
-# TODO: Função responsável por retornar a pagina principal.
+# Função responsável por retornar a pagina principal.
 @login_required(login_url='/login/')
 def principal(request):	
 	print(request.user.funcao)
 	return render(request, 'principal.html')
 
-# TODO: Função responsável por retornar a pagina dos dados do usuário.
+# Função responsável por retornar a pagina dos dados do usuário.
 @login_required(login_url='/login/')
 def dados_user(request):
 	return render(request, 'dados_user.html')
@@ -28,8 +28,6 @@ def dados_user(request):
 # TODO: Função responsável por retornar a pagina sub-admin.
 
 
-
-#######################################################################
 # Função responsável por retornar as notificações referente a pesquisa.
 @login_required(login_url='/login/')
 def my_datas(request):
@@ -123,7 +121,6 @@ def my_datas(request):
     return {'regs':registros, 'municipios':municipios}
     
 
-########################################
 # Função responsável por exportar dados.
 @login_required(login_url='/login/')
 def export_data_excel(request):
@@ -270,6 +267,8 @@ def cancelar_caso(request, id):
 
     return redirect(redirect_url)
 
+
+# Função responsável por renderizar a pagina de escolha de agravo para notificar.
 @login_required(login_url='/login/')
 def all_forms(request):
 	
