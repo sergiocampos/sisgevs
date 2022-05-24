@@ -12,6 +12,12 @@ from _acidente_transito.models import Acidente
 from .models import *
 
 
+# KEY: AGRAVO URL | VALUE: DADOS DO AGRAVO
+AGRAVOS = {
+    'esp-hum':CasoEsporotricose.objects.all(),
+    'act':Acidente.objects.all(),
+}
+
 
 # Função responsável por retornar a pagina principal.
 @login_required(login_url='/login/')
@@ -34,15 +40,9 @@ def my_datas(request):
     
     # Identificando o agravo pela url.
     agravo_url = str(request.path).split('/')[1]
-    
-    # Dicionario que pega a url e filtra o models referente.
-    agravos = {
-        'esp-hum':CasoEsporotricose.objects.all(),
-        'act':Acidente.objects.all(),
-    }
 
     # Registros da doença escolhida.
-    registros = agravos[agravo_url]
+    registros = AGRAVOS[agravo_url]
 
 	# Pegando os dados de municipio.
     municipios = Municipio.objects.all()
@@ -132,14 +132,8 @@ def export_data_excel(request):
     # Nome do arquivo de acordo com a doença.
     file_name = f'notificacoes_{agravo_url}.xlsx'
 
-    # Dicionario que pega a url e filtra o models referente.
-    agravos = {
-        'esp-hum':CasoEsporotricose.objects.all().values(),
-        'act':Acidente.objects.all().values(),
-    }
-    
     # Pegando todos os casos registrados
-    casos = agravos[agravo_url]
+    casos = AGRAVOS[agravo_url]
 
     # Se for para exportar apenas casos cancelados.
     if filtro_url == 'export_casos_cancelados':
@@ -244,15 +238,9 @@ def cancelar_caso(request, id):
     
     # Redirecionamento url.
     redirect_url = f'/{agravo_url}/casos_cancelados/'
-
-    # Dicionario que pega a url e filtra o models referente.
-    agravos = {
-        'esp-hum':CasoEsporotricose.objects.all(),
-        'act':Acidente.objects.all(),
-    }
     
     # Pegando todos os dados.
-    agravo = agravos[agravo_url]
+    agravo = AGRAVOS[agravo_url]
     
     # Filtrando pelo id
     registro = agravo.filter(id=id).values()
