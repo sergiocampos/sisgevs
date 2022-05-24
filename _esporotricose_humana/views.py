@@ -46,16 +46,6 @@ def index(request):
 def main(request):
 	return render(request, 'main.html')
 
-
-
-@login_required(login_url='/login/')
-def all_forms(request):
-	# notificadores = ['autocadastro', 'admin', 'municipal', 'gerencia_executiva', 'gerencia_operacional', 'chefia_nucleo', 'area_tecnica']
-	if request.user.funcao != 'gerencia_regional':
-		return render(request, 'all_forms.html')
-	else:
-		return redirect('principal')
-
 ########################  View de localização de uma notificação ##################################
 @login_required(login_url='/login/')
 def localizar_paciente_nome(request):
@@ -296,18 +286,6 @@ def casos_cancelados(request):
 def my_datas(request):	
 	return render(request, 'my_datas.html', base_notificacoes(request))
 	
-
-
-@login_required(login_url='/login/')
-def cancelar_caso_esporotricose(request):
-	caso_id = request.GET.get('id')
-	redirect_url = request.GET.get('url_redirect')
-	registro = CasoEsporotricose.objects.filter(id=caso_id).values()
-	if registro[0]['status_caso'] == 'Cancelado':
-		CasoEsporotricose.objects.filter(id=caso_id).update(status_caso=None)
-	else:		
-		CasoEsporotricose.objects.filter(id=caso_id).update(status_caso='Cancelado')	
-	return redirect(redirect_url)
 
 @login_required(login_url='/login/')
 def criar_perfil_municipal(request):
@@ -1578,40 +1556,7 @@ def set_caso_esporotricose_edit(request, id):
 
 	return redirect('/esp-hum/my_datas')
 
-@login_required(login_url='/login/')
-def export_casos_cancelados(request):
-	if request.user.funcao == 'admin':
-		casos_cancelados = CasoEsporotricose.objects.filter(status_caso='Cancelado')
-		filtro_data_inicio = request.POST.get('filtro_data_inicio')
-		filtro_data_fim = request.POST.get('filtro_data_fim')
-		if filtro_data_inicio:
-			if filtro_data_fim:
-				casos = casos_cancelados.filter(data_notificacao__range=[filtro_data_inicio, filtro_data_fim])
-			else:
-				casos = casos_cancelados.filter(data_notificacao__range=[filtro_data_inicio, datetime.now()])
-		else:
-			casos = casos_cancelados
-		df = pd.DataFrame(list(casos.order_by('-data_notificacao').values()))
-		try:
-			for i in df.municipio:
-				try: # Checando se o valor é diferente de NaN
-					i = int(i)
-				except:
-					continue
-				else: # Buscando no modelo municipio o nome de municipio pelo id e alterando o dataframe
-					municipio = Municipio.objects.get(id=i)
-					df.municipio = df.municipio.replace([i], municipio.nome)
-		except AttributeError:
-			pass
-		response = HttpResponse(content_type='text/csv')
-		response['Content-Disposition'] = 'attachment; filename=casos_cancelados.csv'
-		df.to_csv(response, index=False)
-		
-		return response
-	else:
-		return redirect('casos_cancelados')
-
-		
+	
 @login_required(login_url='/login/')
 def organograma(request):
 	return render(request, 'organograma.html')

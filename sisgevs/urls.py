@@ -38,9 +38,10 @@ urlpatterns = [
     path('login/submit', views.login_submit),
     path('logout/', views.logout_user, name='logout'),
 
-    path('', views.pagina_redirecionamento, name='redirecionamento'),
-    
+    path('', base_views.principal, name='redirecionamento'),
     path('dados_user/', base_views.dados_user, name='dados_user'),
+    path('all_forms/', base_views.all_forms, name='all_forms'),
+    
 ]
 
 urlpatterns += static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)
