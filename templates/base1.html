@@ -118,6 +118,12 @@
                 </li>
                 {% endif %}
 
+                {% if user.funcao != "gerencia_regional" and user.funcao != "autocadastro" and user.funcao != "municipal" %}
+                <li class="nav-item">
+                    <a href="/usuarios" class="nav-link">Usuários</a>
+                </li>
+                {% endif %}
+
                 {% if user.funcao != 'gerencia_regional' and user.funcao != 'municipal' and user.funcao != 'autocadastro' %}
                 <li class="nav-item">
                     <a href="/esp-hum/criar_perfil_municipal" class="nav-link">Criar Perfil Municipal</a>

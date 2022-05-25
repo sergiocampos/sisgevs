@@ -41,6 +41,7 @@ urlpatterns = [
     path('', base_views.principal, name='redirecionamento'),
     path('dados_user/', base_views.dados_user, name='dados_user'),
     path('all_forms/', base_views.all_forms, name='all_forms'),
+    path('usuarios/', base_views.usuarios, name='usuarios'),
     
 ]
 
