@@ -78,7 +78,8 @@ class User(AbstractBaseUser, PermissionsMixin):
 
 	lista_agravos_possivel = ArrayField(models.CharField(max_length=50), null=True, blank=True)
 	lista_agravos_permite = ArrayField(models.CharField(max_length=50), null=True, blank=True)
-	
+
+	numero_hierarquia = models.IntegerField(null=True, blank=True)	
 	
 	USERNAME_FIELD = 'login'
 	CPF_FIELD = 'login'
