@@ -70,7 +70,7 @@ $("#login").on('keyup', function () {
     if (login.length > 4) {
         data = { 'login': login }
         $.ajax({
-            url: '/checar_login_ajax/',
+            url: '/esp-hum/checar_login_ajax/',
             data: data,
             success: function (data) {
                 if (data['data'] == 0) {
@@ -143,7 +143,7 @@ $('#cadastrar').on('click', function () {
     }
 
     $.ajax({
-        url: '/criar_perfil_municipal/',
+        url: '/esp-hum/criar_perfil_municipal/',
         data: data,
         success: function (data) {
             $(nome).val('')

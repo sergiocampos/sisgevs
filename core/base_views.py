@@ -300,6 +300,14 @@ def usuarios(request, id=None):
                     user.numero_hierarquia = hierarquia[user.funcao]
                     user.save()
             
+            # Gravando os agravos no admin.
+            admin_sem_agravos = get_user_model().objects.all().filter(funcao="admin", lista_agravos_permite=None)
+            if admin_sem_agravos:
+                for user in admin_sem_agravos:        
+                    user.lista_agravos_permite = ["esp-hum", "act"]
+                    user.save()
+                    return redirect("/usuarios")
+
 
             user_agravos = request.user.lista_agravos_permite
             user_hierarquia = request.user.numero_hierarquia

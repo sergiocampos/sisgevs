@@ -336,7 +336,9 @@ def criar_perfil_municipal(request):
 				area_tecnica=area_tecnica,
 				gerencia_regional=gerencia_regional,
 				municipio = Municipio.objects.get(id=municipio),
-				password=password
+				password=password,
+				lista_agravos_possivel = [],
+				lista_agravos_permite = [],
 			)
 			
 			data = {'login':login, 'senha':senha}

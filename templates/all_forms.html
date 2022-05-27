@@ -11,7 +11,7 @@
     <div class="alert alert-primary text-center">
         <h1 class="fs-3">Doenças e Agravos</h1>
     </div>
-    <div class="row">
+    <!-- <div class="row">
         <div class="col-md-4">
             <label for="select_agravo_inicio_id">Selecione agravo:</label>
             <select class="form-select" id="select_agravo_inicio_id" name="select_agravo_inicio"
@@ -20,15 +20,50 @@
                 <option value="Esporotricose Humana">Esporotricose Humana</option>
             </select>
         </div>
-    </div>
-    <div class="text-center mt-5 d-none" id="options">
-        <div class="d-grid gap-2 d-md-block">
+    </div> -->
+    <div class="text-center mt-5" id="options">
+    {% if user.lista_agravos_permite %}
+    {% for agravo in user.lista_agravos_permite %}
+        
+        {% if agravo == 'esp-hum' %}
+        <div class="d-grid gap-2 mb-3 d-md-block">
             <a href="/esp-hum/caso_esporotricose_create" class="btn btn-primary mx-3">
                 <span class="legenda-botao">Clique aqui para notificar</span><br><span>Esporotricose Humana</span>
             </a>
             <a href="/esp-hum/download_dicionario_dados/" class="btn btn-outline-secondary mx-3" style="padding: 19px 12px 19px;" target="_blank"><p style="margin: 0px;">Dicionário de Dados</p></a>
             <a href="/esp-hum/download_ficha/" class="btn btn-outline-secondary mx-3" style="padding: 19px 12px 19px;" download><p style="margin: 0;">Download Ficha</p></a>
         </div>
+
+        {% elif agravo == 'act' %}
+        <div class="d-grid gap-2 mb-3 d-md-block">
+            <a href="/act/caso_create" class="btn btn-success mx-3">
+                <span class="legenda-botao">Clique aqui para notificar</span><br><span>Acidentes de Trânsito</span>
+            </a>
+            <a href="/act/download_dicionario_dados/" class="btn btn-outline-secondary mx-3" style="padding: 19px 12px 19px;" target="_blank"><p style="margin: 0px;">Dicionário de Dados</p></a>
+            <a href="/act/download_ficha/" class="btn btn-outline-secondary mx-3" style="padding: 19px 12px 19px;" download><p style="margin: 0;">Download Ficha</p></a>
+        </div>
+
+        {% elif agravo == 'dengue' %}
+        <div class="d-grid gap-2 mb-3 d-md-block">
+            <a href="/dengue/caso_create" class="btn btn-danger mx-3">
+                <span class="legenda-botao">Clique aqui para notificar</span><br><span>Dengue</span>
+            </a>
+            <a href="/dengue/download_dicionario_dados/" class="btn btn-outline-secondary mx-3" style="padding: 19px 12px 19px;" target="_blank"><p style="margin: 0px;">Dicionário de Dados</p></a>
+            <a href="/dengue/download_ficha/" class="btn btn-outline-secondary mx-3" style="padding: 19px 12px 19px;" download><p style="margin: 0;">Download Ficha</p></a>
+        </div>
+
+        {% elif agravo == 'chik' %}
+        <div class="d-grid gap-2 mb-3 d-md-block">
+            <a href="/chik/caso_create" class="btn btn-secondary mx-3">
+                <span class="legenda-botao">Clique aqui para notificar</span><br><span>Chikungunya</span>
+            </a>
+            <a href="/chik/download_dicionario_dados/" class="btn btn-outline-secondary mx-3" style="padding: 19px 12px 19px;" target="_blank"><p style="margin: 0px;">Dicionário de Dados</p></a>
+            <a href="/chik/download_ficha/" class="btn btn-outline-secondary mx-3" style="padding: 19px 12px 19px;" download><p style="margin: 0;">Download Ficha</p></a>
+        </div>
+
+        {% endif %}
+    {% endfor %}        
+    {% endif %}
     </div>
 </div>
 {% endblock content %}
