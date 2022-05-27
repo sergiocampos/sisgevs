@@ -1,11 +1,14 @@
 from django.contrib.auth.decorators import login_required
+from django.views.decorators.csrf import csrf_exempt
+from django.contrib.auth import get_user_model
 from django.shortcuts import redirect, render
 from django.core.paginator import Paginator
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from django.db.models import Q
 
 from io import BytesIO
 import pandas as pd
+import json
 
 from _esporotricose_humana.models import CasoEsporotricose
 from _acidente_transito.models import Acidente
@@ -17,6 +20,9 @@ AGRAVOS = {
     'esp-hum':CasoEsporotricose.objects.all(),
     'act':Acidente.objects.all(),
 }
+
+# Funcoes SES
+FUNCOES_SES = ["admin", "gerencia_executiva", "gerencia_operacional","chefia_nucleo", "area_tecnica"]
 
 
 # Função responsável por retornar a pagina principal.
@@ -264,3 +270,103 @@ def all_forms(request):
 		return render(request, 'all_forms.html')
 	else:
 		return redirect('principal')
+
+
+# Função que renderiza a pagina de usuarios.
+@csrf_exempt
+@login_required(login_url='/login/')
+def usuarios(request, id=None):
+
+    if request.user.funcao in FUNCOES_SES: 
+
+        # Renderizando a pagina.
+        if request.method == "GET":
+
+            hierarquia = {
+                'admin':1,
+                'gerencia_executiva':2,
+                'gerencia_operacional':3,
+                'chefia_nucleo':4,
+                'area_tecnica':5,
+                'gerencia_regional':6,
+                'municipal':7,
+                'autocadastro':8,
+            }
+            
+            # Gravando a hierarquia em usuarios que ainda nao a tem.
+            usuarios_sem_hierarquia = get_user_model().objects.all().filter(numero_hierarquia=None)
+            if usuarios_sem_hierarquia:
+                for user in usuarios_sem_hierarquia:        
+                    user.numero_hierarquia = hierarquia[user.funcao]
+                    user.save()
+            
+            # Gravando os agravos no admin.
+            admin_sem_agravos = get_user_model().objects.all().filter(funcao="admin", lista_agravos_permite=None)
+            if admin_sem_agravos:
+                for user in admin_sem_agravos:        
+                    user.lista_agravos_permite = ["esp-hum", "act"]
+                    user.save()
+                    return redirect("/usuarios")
+
+
+            user_agravos = request.user.lista_agravos_permite
+            user_hierarquia = request.user.numero_hierarquia
+                    
+            # Separando os usuários com nivel hierarquico menor que o user.
+            usuarios_lista = get_user_model().objects.all().filter(numero_hierarquia__gt=user_hierarquia).order_by('id')
+
+            # Filtrando usuários que tem acesso ao agravo que o user gerencia.
+            usuarios = []
+            for usuario in usuarios_lista:
+                user_dict = {
+                    'id':usuario.id,
+                    'email':usuario.email,
+                    'municipio':usuario.municipio,
+                    'funcao':usuario.funcao,
+                    'telefone':usuario.telefone,
+                    'esp_hum':False,
+                    'act':False,
+                    'act_solicit':False,
+                    'esp_hum_solicit':False,
+                }
+
+                # Adicionando marcador para o checkbox de agravos permite
+                for agravo in usuario.lista_agravos_permite:
+                    if agravo in user_agravos:
+                        if agravo == 'esp-hum':
+                            user_dict['esp_hum'] = True
+                        elif agravo == 'act':
+                            user_dict['act'] = True
+                
+                # Adicionando marcador para o checkbox de solicitaçao de agravos
+                for agravo_solicit in usuario.lista_agravos_possivel:
+                    if agravo_solicit in user_agravos:
+                        if agravo_solicit == 'esp-hum':
+                            user_dict['esp_hum_solicit'] = True
+                        elif agravo_solicit == 'act':
+                            user_dict['act_solicit'] = True                        
+                
+                usuarios.append(user_dict)
+
+            return render(request, 'usuarios.html', {'usuarios':usuarios})
+        
+        # Alterando no banco.
+        elif request.method == "POST":
+            data = json.loads(request.POST.get('data'))
+            obj_user = get_user_model().objects.get(id=data['id'])
+
+            if data['checked']:
+                if data['agravo'] in obj_user.lista_agravos_possivel:
+                    obj_user.lista_agravos_possivel.remove(data['agravo'])
+                
+                obj_user.lista_agravos_permite.append(data['agravo'])
+            
+            elif not data['checked']:
+                obj_user.lista_agravos_permite.remove(data['agravo'])
+
+            obj_user.save()                
+            
+            return JsonResponse({"response":203})
+
+
+
