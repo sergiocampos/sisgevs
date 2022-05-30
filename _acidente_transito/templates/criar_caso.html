@@ -1,0 +1,107 @@
+{% extends 'base1.html' %}
+{% load static %}
+
+{% block head %}
+
+
+{% endblock head %}
+
+{% block content %}
+<form class="mb-3" name="" id="" enctype="multipart/form-data" action="submit" method="POST" onsubmit="return validaDtPrimeirosSintomas();">{% csrf_token %}
+
+    <!-- Navegador do formulário -->
+    <ul class="nav nav-tabs mt-3 mb-3" id="myTab" role="tablist">
+
+        <!-- [NAV-TAB] Dados Gerais -->
+        <li class="nav-item" role="presentation">
+            <a class="nav-link active" id="menu1-tab" data-bs-toggle="tab" data-bs-target="#menu1" href="#menu1" aria-selected="true">Dados Gerais
+                <i id="alert_dados_gerais" style="color:red">*</i>
+            </a>
+        </li>
+
+        <!-- [NAV-TAB] Notificação Individual -->
+        <li class="nav-item" role="presentation">
+            <a class="nav-link" id="menu2-tab" data-bs-toggle="tab" data-bs-target="#menu2" href="#menu2" aria-selected="false">Notificação Individual
+                <i id="alert_notificacao_individual" style="color:red">*</i>
+            </a>
+        </li>
+
+        <!-- [NAV-TAB] Dados de Residência -->
+        <li class="nav-item" role="presentation">
+            <a class="nav-link" id="menu3-tab" data-bs-toggle="tab" data-bs-target="#menu3" href="#menu3" aria-selected="false">Dados de Residência
+                <i id="alert_dados_residencia" style="color:red">*</i>
+            </a>
+        </li>
+
+        <!-- [NAV-TAB] Antecedentes Epidemiológicos -->
+        <li class="nav-item" role="presentation">
+            <a class="nav-link" id="menu4-tab" data-bs-toggle="tab" data-bs-target="#menu4" href="#menu4" aria-selected="false">Antecedentes Epidemiológicos
+                <i id="alert_anteced_epid" style="color: red;">*</i>
+            </a>
+        </li>
+
+        <!-- [NAV-TAB] Dados Clínicos -->
+        <li class="nav-item" role="presentation">
+            <a class="nav-link" id="menu5-tab" data-bs-toggle="tab" data-bs-target="#menu5" href="#menu5" aria-selected="false">Dados Clínicos</a>
+        </li>
+
+        <!-- [NAV-TAB] Dados Laboratoriais -->
+        <li class="nav-item" role="presentation">
+            <a class="nav-link" id="menu6-tab" data-bs-toggle="tab" data-bs-target="#menu6" href="#menu6" aria-selected="false">Dados Laboratoriais</a>
+        </li>
+
+    </ul>
+
+    <!-- Paineis do formulário -->
+    <div class="tab-content mb-5">
+
+        <!-- [FORM] Dados Gerais -->
+        <div id="menu1" class="container tab-pane fade show active" role="tabpanel" aria-labelledby="menu1-tab">
+        {% include 'formulario/act_informacoes_gerais.html' %}    
+        </div>
+
+        <!-- [FORM] Notificação Individual -->
+        <div id="menu2" class="container tab-pane fade" role="tabpanel" aria-labelledby="menu2-tab">
+        {% include 'formulario/act_informacoes_paciente.html' %}    
+        </div>
+
+        <!-- [FORM] Dados de Residência -->
+        <div id="menu3" class="container tab-pane fade" role="tabpanel" aria-labelledby="menu3-tab">
+        {% include 'formulario/act_outras_informacoes_paciente.html' %}    
+        </div>
+
+        <!-- [FORM] Antecedentes Epidemiológicos -->
+        <div id="menu4" class="container tab-pane fade" role="tabpanel" aria-labelledby="menu4-tab">
+        {% include 'formulario/act_severidade_acidente_vitimas.html' %}    
+        </div>
+
+        <!-- [FORM] Dados Clínicos -->
+        <div id="menu5" class="container tab-pane fade" role="tabpanel" aria-labelledby="menu5-tab">
+        {% include 'formulario/act_unidade_notificadora.html' %}    
+        </div>
+
+        <!-- [FORM] Dados Laboratoriais -->
+        <div id="menu6" class="container tab-pane fade" role="tabpanel" aria-labelledby="menu6-tab">
+        {% include 'formulario/act_equipe_acionada_local-acidente.html' %}
+        </div>
+
+    </div>
+
+</form>
+
+{% endblock content %}
+{% block endbody %}
+<script>
+    function active_hospital(){
+        var opt=document.getElementById('hospital_transferencia');
+        var radio_sim = document.getElementById("radio_sim");
+
+        if (radio_sim.checked) {
+            opt.removeAttribute("class","d-none");
+
+        } else{
+            opt.setAttribute("class","d-none")
+        }
+    }
+</script>
+{% endblock endbody %}

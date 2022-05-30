@@ -1,0 +1,59 @@
+<div class="row">
+    <div class="alert col-sm-12 alert-success" style="text-align: center;">
+        <strong style="align-items: center;">O Paciente Envolvido no Acidente</strong>
+        <strong style="color:red">*</strong>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <p style="font-size: 100%; background-color: #e6e6e6; padding: 8px;">
+            <b>Atenção:</b>Foi transferido para um hospital de referência?
+        </p>
+    </div>
+</div>
+<div class="mb-3 row pt-1 text-center">
+    <div class="radio col">
+        <input type="radio" name="act_outras_informacoes_acidente" id="radio_sim" value="Sim" onchange="active_hospital()">
+        <label for="radio_sim">Sim</label>
+    </div>
+    <div class="radio col">
+        <input type="radio" name="act_outras_informacoes_acidente" value="Nao" id="radio_nao" onchange="active_hospital()">
+        <label for="radio_nao">Não</label>
+    </div>
+</div>
+<div class="m-0 mt-3 d-none" id="hospital_transferencia">
+    <div class="row">
+        <div class="alert col-sm-12 alert-success" style="text-align: center;">
+            <strong style="align-items: center;">Hospital de Transferência</strong>
+            <strong style="color:red">*</strong>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-4 mx-auto">
+            <action class="was-validated">
+                <label for="municipio">Municipio</label>
+                <select name="municipio" id="municipio" class="form-control" placeholder="dfdfd" required>
+                    <option value=""></option>
+                    <option value="Joao Pessoa">João Pessoa</option>
+                </select>
+                <div class="valid-feedback text-center">Valido</div>
+                <div class="invalid-feedback text-center">Invalido</div>
+            </action>
+        </div>    
+    </div>
+</div>
+
+<div class="row m-0 mt-3">
+    <div class="alert col-sm-12 alert-success" style="text-align: center;">
+        <strong style="align-items: center;">Informações Complementares:</strong>
+        <strong style="color:red"></strong>
+    </div>
+</div>
+<div class="row">
+    <action class="was-validated">
+        <div class="col-sm-4  mx-auto">
+            <label for="comment">Comentários:</label>
+            <textarea class="form-control" rows="3" id="comment" name="text"></textarea>
+        </div>
+    </action>
+</div>
