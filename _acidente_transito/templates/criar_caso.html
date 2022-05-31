@@ -14,40 +14,40 @@
 
         <!-- [NAV-TAB] Dados Gerais -->
         <li class="nav-item" role="presentation">
-            <a class="nav-link active" id="menu1-tab" data-bs-toggle="tab" data-bs-target="#menu1" href="#menu1" aria-selected="true">Dados Gerais
+            <a class="nav-link active" id="menu1-tab" data-bs-toggle="tab" data-bs-target="#menu1" href="#menu1" aria-selected="true">Informações Gerais
                 <i id="alert_dados_gerais" style="color:red">*</i>
             </a>
         </li>
 
         <!-- [NAV-TAB] Notificação Individual -->
         <li class="nav-item" role="presentation">
-            <a class="nav-link" id="menu2-tab" data-bs-toggle="tab" data-bs-target="#menu2" href="#menu2" aria-selected="false">Notificação Individual
+            <a class="nav-link" id="menu2-tab" data-bs-toggle="tab" data-bs-target="#menu2" href="#menu2" aria-selected="false">Severidade do Acidente e Quantidade de Vítimas
                 <i id="alert_notificacao_individual" style="color:red">*</i>
             </a>
         </li>
 
         <!-- [NAV-TAB] Dados de Residência -->
         <li class="nav-item" role="presentation">
-            <a class="nav-link" id="menu3-tab" data-bs-toggle="tab" data-bs-target="#menu3" href="#menu3" aria-selected="false">Dados de Residência
+            <a class="nav-link" id="menu3-tab" data-bs-toggle="tab" data-bs-target="#menu3" href="#menu3" aria-selected="false">Equipe Acionada para o Local do Acidente
                 <i id="alert_dados_residencia" style="color:red">*</i>
             </a>
         </li>
 
         <!-- [NAV-TAB] Antecedentes Epidemiológicos -->
         <li class="nav-item" role="presentation">
-            <a class="nav-link" id="menu4-tab" data-bs-toggle="tab" data-bs-target="#menu4" href="#menu4" aria-selected="false">Antecedentes Epidemiológicos
+            <a class="nav-link" id="menu4-tab" data-bs-toggle="tab" data-bs-target="#menu4" href="#menu4" aria-selected="false">Informações do Paciente
                 <i id="alert_anteced_epid" style="color: red;">*</i>
             </a>
         </li>
 
         <!-- [NAV-TAB] Dados Clínicos -->
         <li class="nav-item" role="presentation">
-            <a class="nav-link" id="menu5-tab" data-bs-toggle="tab" data-bs-target="#menu5" href="#menu5" aria-selected="false">Dados Clínicos</a>
+            <a class="nav-link" id="menu5-tab" data-bs-toggle="tab" data-bs-target="#menu5" href="#menu5" aria-selected="false">Outras Informações Sobre o Paciente</a>
         </li>
 
         <!-- [NAV-TAB] Dados Laboratoriais -->
         <li class="nav-item" role="presentation">
-            <a class="nav-link" id="menu6-tab" data-bs-toggle="tab" data-bs-target="#menu6" href="#menu6" aria-selected="false">Dados Laboratoriais</a>
+            <a class="nav-link" id="menu6-tab" data-bs-toggle="tab" data-bs-target="#menu6" href="#menu6" aria-selected="false">Unidade Notificadora</a>
         </li>
 
     </ul>
@@ -62,27 +62,27 @@
 
         <!-- [FORM] Notificação Individual -->
         <div id="menu2" class="container tab-pane fade" role="tabpanel" aria-labelledby="menu2-tab">
-        {% include 'formulario/act_informacoes_paciente.html' %}    
+        {% include 'formulario/act_severidade_acidente_vitimas.html' %}    
         </div>
 
         <!-- [FORM] Dados de Residência -->
         <div id="menu3" class="container tab-pane fade" role="tabpanel" aria-labelledby="menu3-tab">
-        {% include 'formulario/act_outras_informacoes_paciente.html' %}    
-        </div>
+        {% include 'formulario/act_equipe_acionada_local-acidente.html' %}
+        </div>        
 
         <!-- [FORM] Antecedentes Epidemiológicos -->
         <div id="menu4" class="container tab-pane fade" role="tabpanel" aria-labelledby="menu4-tab">
-        {% include 'formulario/act_severidade_acidente_vitimas.html' %}    
+        {% include 'formulario/act_informacoes_paciente.html' %}    
         </div>
 
         <!-- [FORM] Dados Clínicos -->
         <div id="menu5" class="container tab-pane fade" role="tabpanel" aria-labelledby="menu5-tab">
-        {% include 'formulario/act_unidade_notificadora.html' %}    
+        {% include 'formulario/act_outras_informacoes_paciente.html' %}    
         </div>
 
         <!-- [FORM] Dados Laboratoriais -->
         <div id="menu6" class="container tab-pane fade" role="tabpanel" aria-labelledby="menu6-tab">
-        {% include 'formulario/act_equipe_acionada_local-acidente.html' %}
+        {% include 'formulario/act_unidade_notificadora.html' %}
         </div>
 
     </div>
