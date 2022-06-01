@@ -3,7 +3,7 @@
 
 {% block head %}
 
-
+<script src="{% static '_act/js/validacoes_form.js' %}" defer></script>
 {% endblock head %}
 
 {% block content %}
@@ -90,18 +90,4 @@
 </form>
 
 {% endblock content %}
-{% block endbody %}
-<script>
-    function active_hospital(){
-        var opt=document.getElementById('hospital_transferencia');
-        var radio_sim = document.getElementById("radio_sim");
 
-        if (radio_sim.checked) {
-            opt.removeAttribute("class","d-none");
-
-        } else{
-            opt.setAttribute("class","d-none")
-        }
-    }
-</script>
-{% endblock endbody %}
