@@ -1,7 +1,7 @@
 <div class="row">
     <div class="alert alert-success" style="text-align: center;">
         <strong style="align-items: center;">Nome do Paciente</strong>
-        <strong style="color:red">*</strong><br>
+        <strong id="alert_nome_paciente"style="color:red">*</strong><br>
         <strong style="font-size:0.7em">(Sem Abreviações)</strong>
     </div>
 </div>
@@ -21,7 +21,7 @@
     <div class="col-sm-12 pt-3">
         <div class="alert alert-success" style="text-align: center;">
             <strong style="align-items: center;">Data de Nascimento:</strong>
-            <strong style="color:red"></strong>
+            <strong id="alert_data_nascimento" style="color:red">*</strong>
             <p></p>
         </div>
     </div>
@@ -39,7 +39,7 @@
 <div class="row mt-4">
     <div class="alert alert-success" style="text-align: center;">
         <strong style="align-items: center;">Idade do Paciente:</strong>
-        <strong style="color:red">*</strong>                    
+        <strong id="alert_idade_paciente"style="color:red">*</strong>
     </div>
 </div>
 <div class="row pt-3 text-center">
@@ -52,7 +52,7 @@
     <div class="col-sm-12 pt-3 mt-4">
         <div class="alert alert-success" style="text-align: center;">
             <strong style="align-items: center;">Sexo:</strong>
-            <strong style="color:red">*</strong>                    
+            <strong id="alert_sexo"style="color:red">*</strong>
         </div>
     </div>
 </div>
@@ -65,12 +65,16 @@
         <input type="radio" id="masculino" name="masculino" value="">
         <label for="masculino">Masculino</label>
     </div>
+    <div class="radio col">
+        <input type="radio" id="sexo_outros" name="sexo_outros" value="">
+        <label for="sexo_outros">Outros</label>
+    </div>
 </div>
 <div class="row">
-    <div class="col-sm-12 pt-3">
+    <div class="col-sm-12 pt-4">
         <div class="alert alert-success" style="text-align: center;">
             <strong style="align-items: center;">Nome da Mãe:</strong>
-            <strong style="color:red">*</strong>                            
+            <strong id="alert_nome_mae"style="color:red">*</strong>
         </div>
     </div>
 </div>
@@ -88,7 +92,7 @@
     <div class="col-sm-12 pt-3">
         <div class="alert alert-success" style="text-align: center;">
             <strong style=" align-items: center;">Endereço do Paciente:</strong>
-            <strong style="color:red">*</strong>
+            <strong id="alert_endereco_paciente"style="color:red">*</strong>
             <strong style="font-size:0.7em"><br>Av/Rua; Nº; Município</strong>
         </div>
     </div>
@@ -103,10 +107,10 @@
         </action>
     </div>
 </div>
-<div class="row mt-4">
+<div class="row mt-4 pt-3">
     <div class="alert alert-success" style="text-align: center;">
         <strong style="align-items: center;">Contato Telefônico:</strong>
-        <strong style="color:red">*</strong>
+        <strong id="alert_tel"style="color:red">*</strong>
         <p></p>
     </div>
 </div>
