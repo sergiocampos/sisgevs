@@ -154,7 +154,6 @@ function verificatipoEmbriagues(){
 // -------------------------------- SEVERIDADE DO ACIDENTE E QUANTIDADE DE VÍTIMAS ---------------------------- //
 // H. Vítimas fatais
 
-
 var vitimaFatal = false;
 var alert_houve_vitimas_fatais = document.getElementById('alert_houve_vitimas_fatais');
 function verificaVitimaFatal(){
@@ -167,7 +166,47 @@ function verificaVitimaFatal(){
 }
 // Número de vítimas fatais envolvidas no acidente
 
+var envolvidoFeridos = false;
+var alert_envolvidos_feridos = document.getElementById('alert_envolvidos_feridos');
+
+var envolvidoFatal = false;
+var alert_qtd_vitima_fatal = document.getElementById('alert_qtd_vitima_fatal');
+
+function verificaNumeros(elemento, campo){
+
+    if (elemento.value > 100){
+        elemento.value = 100
+    }else if(elemento.value < 0){
+        elemento.value = 0
+    }
+
+    if(elemento.value != ''){
+        if(campo == 'vitimasFatais') {
+            alert_qtd_vitima_fatal.setAttribute('hidden', true)
+            envolvidoFatal = true
+        }else if(campo == 'vitimasFeridas'){
+            alert_envolvidos_feridos.setAttribute('hidden', true)
+            envolvidoFeridos = true
+        }
+    }else{
+        if(campo == 'vitimasFatais') {
+            alert_qtd_vitima_fatal.removeAttribute('hidden')
+            envolvidoFatal = false
+        }else if(campo == 'vitimasFeridas'){
+            alert_envolvidos_feridos.removeAttribute('hidden')
+            envolvidoFeridos = false
+        }
+    }
+}
+
+
+
 // Número de Feridos envolvidos no Acidente
+
+
+
+
+
 
 //Quadro lesões
 
@@ -187,20 +226,109 @@ function verificalesoes(){
 //Em caso de obito
 
 
+
+
+
+
 // ----------------------------------- EQUIPE ACIONADA PARA O LOCAL DO ACIDENTE ------------------------------- //
 
 // Quem foi responsável por prestar apoio no local: *
+var responsavelApoio = false
+var alert_responsavel_apoio = document.getElementById('alert_responsavel_apoio')
+var equipe_acionada = document.getElementById('equipe-acionada')
+$('.reponsaveis-prestar-socorro').on('change',function () {
+    var cbx = document.getElementsByClassName('reponsaveis-prestar-socorro')
+    for (var i in cbx){
+        if (cbx[i].checked){
+            responsavelApoio = true
+            break
+        }
+        var responsavelApoio = false
+    }
 
+    if(responsavelApoio){
+        alert_responsavel_apoio.setAttribute('hidden', true)
+        equipe_acionada.setAttribute('hidden',true)
+
+    }else{
+        alert_responsavel_apoio.removeAttribute('hidden')
+        equipe_acionada.removeAttribute('hidden')
+
+    }
+})
 
 // ------------------------------------------- INFORMACÕES DO PACIENTE ---------------------------------------- //
 
 // Nome do Paciente *
+var nomePaciente = false
 
+
+$('#nome_paciente').on('keyup', function () {
+
+    var re = /^[a-zA-Z\u00C0-\u00FF]{4,}(?: [a-zA-Z]+){0,6}$/
+
+    if(re.test(this.value)) {
+        nomePaciente = true
+        $('#alert_nome_paciente').attr('hidden', true)
+    }else{
+        nomePaciente = false
+        $('#alert_nome_paciente').attr('hidden', false)
+    }
+})
 // Idade do Paciente: *
+
+var dn = document.getElementById('dn');
+dn.max = new Date().toISOString().split("T")[0];
+
+$('#dn').on('change', function () {
+    if(this.value != ''){
+        nascimento = this.value.split('-')[0]
+        var today = new Date().toISOString().split('T')[0].split('-')[0]
+        console.log(today-nascimento)
+        $('#alert_data_nascimento').attr('hidden',true)
+    }else{
+        $('#alert_data_nascimento').attr('hidden',false)
+
+    }
+
+})
+
 
 // Sexo: *
 
+
+var tipoSexo = false;
+var alertSexo = document.getElementById('alert_sexo');
+function verificasexo(){
+    tipoSexo = true;
+    if (tipoSexo) {
+        alert_sexo.setAttribute('hidden', true)
+    } else {
+        alert_sexo.removeAttribute('hidden')
+    }
+}
+
+
+
+
 // Nome da Mãe: *
+
+var nomeMae = false
+
+
+$('#nome_mae').on ('keyup', function () {
+
+    var re = /^[a-zA-Z\u00C0-\u00FF]{4,}(?: [a-zA-Z]+){0,6}$/
+
+    if(re.test(this.value)) {
+        nomeMae = true
+        $('#alert_nome_mae').attr('hidden', true)
+    }else{
+        nomeMae = false
+        $('#alert_nome_mae').attr('hidden', false)
+    }
+})
+
 
 // Endereço do Paciente: *
 

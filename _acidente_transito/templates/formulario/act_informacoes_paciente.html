@@ -10,7 +10,7 @@
         <div class="col-4 mx-auto">
             <action class="was-validated">
                 <label for="nome_paciente"></label>
-                <input type="text" class="form-control" id="nome_paciente" placeholder="Digite o nome do paciente, por favor." name="nome_paciente" pattern="^[a-zA-Z]{4,}(?: [a-zA-Z]+){0,6}$" required>
+                <input type="text" class="form-control" id="nome_paciente" placeholder="Digite o nome do paciente, por favor." name="nome_paciente" pattern="^[a-zA-Z\u00C0-\u00FF]{4,}(?: [a-zA-Z]+){0,6}$" required>
                 <div class="valid-feedback" style="text-align: center;font-size: 0.7em">Correto</div>
                 <div class="invalid-feedback" style="font-size: 0.7em; text-align: center">Digite o nome com sobrenome (Apenas letras sem acentos)</div>
             </action>
@@ -44,7 +44,7 @@
 </div>
 <div class="row pt-3 text-center">
     <div class="col-1 mx-auto">
-        <input type="number" class="form-control form-control-sm"min="0"max="100" style="border-color: red" name="idade">
+        <input type="number" id="idade" class="form-control form-control-sm"min="0"max="100" style="border-color: red" name="idade">
     </div>
 </div>
 
@@ -58,15 +58,15 @@
 </div>
 <div class="row col-sm-12 pt-3 text-center">
     <div class="radio col">
-        <input type="radio" id="feminino" name="radio_sexo" value="">
+        <input onchange="verificasexo()" type="radio" id="feminino" name="radio_sexo" value="">
         <label for="feminino">Feminino</label>
     </div>
     <div class="radio col">
-        <input type="radio" id="masculino" name="radio_sexo" value="">
+        <input onchange="verificasexo()" type="radio" id="masculino" name="radio_sexo" value="">
         <label for="masculino">Masculino</label>
     </div>
     <div class="radio col">
-        <input type="radio" id="sexo_outros" name="radio_sexo" value="">
+        <input onchange="verificasexo()" type="radio" id="sexo_outros" name="radio_sexo" value="">
         <label for="sexo_outros">Outros</label>
     </div>
 </div>
@@ -82,9 +82,9 @@
     <div class="col-4 mx-auto">
         <action class="was-validated">
             <label for="nome_mae"></label>
-            <input type="text" class="form-control" id="nome_mae" placeholder="Digite o nome da mãe, por favor." name="nome_mae" pattern="^[a-zA-Z]{4,}(?: [a-zA-Z]+){0,6}$" required>
+            <input type="text" class="form-control" id="nome_mae" placeholder="Digite o nome da mãe, por favor." name="nome_mae" pattern="^[a-zA-Z\u00C0-\u00FF]{4,}(?: [a-zA-Z]+){0,6}$" required>
             <div class="valid-feedback" style="text-align: center;font-size: 0.7em">Correto</div>
-            <div class="invalid-feedback" style="font-size: 0.7em; text-align: center">Digite o nome com sobrenome (Apenas letras sem acentos)</div>
+            <div class="invalid-feedback" style="font-size: 0.7em; text-align: center">Digite o nome com sobrenome</div>
         </action>
     </div>
 </div>
