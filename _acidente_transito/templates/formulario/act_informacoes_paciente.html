@@ -12,7 +12,7 @@
                 <label for="nome_paciente"></label>
                 <input type="text" class="form-control" id="nome_paciente" placeholder="Digite o nome do paciente, por favor." name="nome_paciente" pattern="^[a-zA-Z\u00C0-\u00FF]{4,}(?: [a-zA-Z]+){0,6}$" required>
                 <div class="valid-feedback" style="text-align: center;font-size: 0.7em">Correto</div>
-                <div class="invalid-feedback" style="font-size: 0.7em; text-align: center">Digite o nome com sobrenome (Apenas letras sem acentos)</div>
+                <div class="invalid-feedback" style="font-size: 0.7em; text-align: center">Digite o nome com sobrenome</div>
             </action>
         </div>
     </div>
@@ -39,12 +39,12 @@
 <div class="row mt-4">
     <div class="alert alert-success" style="text-align: center;">
         <strong style="align-items: center;">Idade do Paciente:</strong>
-        <strong id="alert_idade_paciente"style="color:red">*</strong>
+
     </div>
 </div>
 <div class="row pt-3 text-center">
     <div class="col-1 mx-auto">
-        <input type="number" id="idade" class="form-control form-control-sm"min="0"max="100" style="border-color: red" name="idade">
+        <input type="number" id="idade" class="form-control form-control-sm"min="0"max="100" style="border-color: green" name="idade" readonly>
     </div>
 </div>
 
@@ -101,7 +101,7 @@
     <div class="col-4 mx-auto">
         <action class="was-validated">
             <label for="endereco_paciente"></label>
-            <input type="text" class="form-control" id="endereco_paciente" placeholder="Digite o endereço, por favor." name="endereco_paciente" required>
+            <input type="text" class="form-control" pattern="^[a-zA-Z \u00C0-\u00FF]{4,}(?: [a-zA-Z]+){0,6}$" id="endereco_paciente" placeholder="Digite o endereço, por favor." name="endereco_paciente" required>
             <div class="valid-feedback" style="text-align: center;"></div>
             <div class="invalid-feedback"></div>
         </action>
@@ -118,7 +118,7 @@
     <div class="col-sm-3  mx-auto">
         <action class="was-validated">
             <label for="tel"></label><br>
-            <input id="tel" class="form-control" name="tel" type="tel" pattern="^\d{3}-\d{4}-\d{4}$"placeholder="Formato: 000-0000-0000" required >
+            <input id="tel" class="form-control" name="tel" type="tel" pattern="^[0-9 ()-]{15}$"placeholder="(00) 00000-0000" required >
             <div class=" col row-1"></div>
         </action>
     </div>

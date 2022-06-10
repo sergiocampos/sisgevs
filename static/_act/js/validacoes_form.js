@@ -225,7 +225,16 @@ function verificalesoes(){
 
 //Em caso de obito
 
-
+var casoObito = false;
+var radioObito = document.getElementById('radioObito');
+function verificaObito(){
+    casoObito = true;
+    if (casoObito) {
+        radioObito.setAttribute('hidden', true)
+    } else {
+        radioObito.removeAttribute('hidden')
+    }
+}
 
 
 
@@ -280,18 +289,22 @@ $('#nome_paciente').on('keyup', function () {
 var dn = document.getElementById('dn');
 dn.max = new Date().toISOString().split("T")[0];
 
-$('#dn').on('change', function () {
+$('#dn').on('focusout', function () {
     if(this.value != ''){
         nascimento = this.value.split('-')[0]
         var today = new Date().toISOString().split('T')[0].split('-')[0]
-        console.log(today-nascimento)
+        $('#idade').val(today-nascimento)
         $('#alert_data_nascimento').attr('hidden',true)
     }else{
         $('#alert_data_nascimento').attr('hidden',false)
+        $('#idade').val('')
 
     }
 
 })
+
+
+
 
 
 // Sexo: *
@@ -332,12 +345,83 @@ $('#nome_mae').on ('keyup', function () {
 
 // Endereço do Paciente: *
 
+var enderecoPaciente = false
+
+$('#endereco_paciente').on('keyup', function () {
+
+    var re = /^[a-zA-Z\u00C0-\u00FF]{4,}(?: [a-zA-Z]+){0,6}$/
+
+    if(re.test(this.value)) {
+        enderecoPaciente = true
+        $('#alert_endereco_paciente').attr('hidden', true)
+    }else{
+        enderecoPaciente = false
+        $('#alert_endereco_paciente').attr('hidden', false)
+    }
+})
+
+
+
+
 // Contato Telefônico: *
+
+
+
+var contatoTel = false
+$('#tel').mask('(00) 00000-0000')
+$('#tel').on ('keyup', function () {
+
+    var re = /^[0-9 ()-]{16}$/
+
+    if(re.test(this.value)) {
+        contatoTel = true
+        $('#alert_tel').attr('hidden', true)
+    }else{
+        contatoTel = false
+        $('#alert_tel').attr('hidden', false)
+    }
+})
+
+
+
+
+
+
+
+
+
+
+
 
 
 // ------------------------------------- OUTRAS INFORMAÇÕES SOBRE O PACIENTE ---------------------------------- //
 
 // O Paciente Envolvido no Acidente *
+
+
+var hospitalTransferencia = false;
+var alert_hospital_transferencia = document.getElementById('alert_hospital_transferencia');
+function verificaHospital(){
+    hospitalTransferencia = true;
+    if (hospitalTransferencia) {
+        alert_hospital_transferencia.setAttribute('hidden', true)
+    } else {
+        alert_hospital_transferencia.removeAttribute('hidden')
+    }
+}
+
+
+
+
+// informações complementares
+
+
+
+
+
+
+
+
 
 
 // -------------------------------------------- UNIDADE NOTIFICADORA ------------------------------------------ //
@@ -349,4 +433,21 @@ $('#nome_mae').on ('keyup', function () {
 // Cargo ou Função do Notificador *
 
 // Contato do Notificador *
+
+
+var contatoNotificador = false
+
+$('#contato_notificador').mask('(00) 00000-0000')
+$('#contato_notificador').on ('keyup', function () {
+
+    var re = /^[0-9 ()-]{16}$/
+
+    if(re.test(this.value)) {
+        contatoNotificador = true
+        $('#alert_contato_notificador').attr('hidden', true)
+    }else{
+        contatoNotificador = false
+        $('#alert_contato_notificador').attr('hidden', false)
+    }
+})
 
