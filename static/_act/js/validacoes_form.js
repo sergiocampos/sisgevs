@@ -164,7 +164,7 @@ function verificaVitimaFatal(){
         alert_houve_vitimas_fatais.removeAttribute('hidden')
     }
 }
-// Número de vítimas fatais envolvidas no acidente
+// Número de vítimas fatais envolvidas no acidente e Feridos
 
 var envolvidoFeridos = false;
 var alert_envolvidos_feridos = document.getElementById('alert_envolvidos_feridos');
@@ -198,15 +198,6 @@ function verificaNumeros(elemento, campo){
         }
     }
 }
-
-
-
-// Número de Feridos envolvidos no Acidente
-
-
-
-
-
 
 //Quadro lesões
 
@@ -303,10 +294,6 @@ $('#dn').on('focusout', function () {
 
 })
 
-
-
-
-
 // Sexo: *
 
 
@@ -382,18 +369,6 @@ $('#tel').on ('keyup', function () {
     }
 })
 
-
-
-
-
-
-
-
-
-
-
-
-
 // ------------------------------------- OUTRAS INFORMAÇÕES SOBRE O PACIENTE ---------------------------------- //
 
 // O Paciente Envolvido no Acidente *
@@ -411,26 +386,76 @@ function verificaHospital(){
 }
 
 
-
-
-// informações complementares
-
-
-
-
-
-
-
-
+// informações complementares(texto area)
 
 
 // -------------------------------------------- UNIDADE NOTIFICADORA ------------------------------------------ //
 
 // Nome da Instituição *
 
+var nomeInstituicao = false
+
+
+$('#nome_instituicao').on('keyup', function () {
+
+   var re = /^[a-zA-Z\u00C0-\u00FF]{4,}(?: [a-zA-Z]+){0,6}$/
+
+
+    if(re.test(this.value)) {
+        nomeInstituicao = true
+        $('#alert_instituicao').attr('hidden', true)
+    }else{
+        nomeInstituicao = false
+        $('#alert_instituicao').attr('hidden', false)
+    }
+})
+
+
+
+
+
+
+
 // Nome do Secretário(a) Municipal de Saúde *
 
+var nomeSecretario = false
+
+
+$('#nome_secretario').on('keyup', function () {
+
+    var re = /^[a-zA-Z\u00C0-\u00FF]{4,}(?: [a-zA-Z]+){0,6}$/
+
+
+    if(re.test(this.value)) {
+        nomeSecretario = true
+        $('#alert_nome_secretario').attr('hidden', true)
+    }else{
+        nomeSecretario = false
+        $('#alert_nome_secretario').attr('hidden', false)
+    }
+})
+
 // Cargo ou Função do Notificador *
+
+
+var funcaoNotificador = false
+
+
+$('#funcao_notificador').on('keyup', function () {
+
+    var re = /^[a-zA-Z\u00C0-\u00FF]{4,}(?: [a-zA-Z]+){0,6}$/
+    if(re.test(this.value)) {
+        funcaoNotificador = true
+        $('#alert_funcao_notificador').attr('hidden', true)
+    }else{
+        funcaoNotificador = false
+        $('#alert_funcao_notificador').attr('hidden', false)
+    }
+})
+
+
+
+
 
 // Contato do Notificador *
 
