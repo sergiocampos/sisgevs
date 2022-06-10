@@ -164,7 +164,7 @@ function verificaVitimaFatal(){
         alert_houve_vitimas_fatais.removeAttribute('hidden')
     }
 }
-// Número de vítimas fatais envolvidas no acidente
+// Número de vítimas fatais envolvidas no acidente - Feridos envolvidos no Acidente
 
 var envolvidoFeridos = false;
 var alert_envolvidos_feridos = document.getElementById('alert_envolvidos_feridos');
@@ -200,14 +200,6 @@ function verificaNumeros(elemento, campo){
 }
 
 
-
-// Número de Feridos envolvidos no Acidente
-
-
-
-
-
-
 //Quadro lesões
 
 var lesoes = false;
@@ -225,7 +217,16 @@ function verificalesoes(){
 
 //Em caso de obito
 
-
+var casoObito = false;
+var alert_Obito = document.getElementById('alert_obito');
+function verificacaso_obito(){
+    casoObito = true;
+    if (casoObito) {
+        alert_obito.setAttribute('hidden', true)
+    } else {
+        alert_obito.removeAttribute('hidden')
+    }
+}
 
 
 
@@ -289,9 +290,15 @@ $('#dn').on('change', function () {
     }else{
         $('#alert_data_nascimento').attr('hidden',false)
 
-    }
+    })
 
 })
+
+
+//idade: *
+
+
+
 
 
 // Sexo: *
