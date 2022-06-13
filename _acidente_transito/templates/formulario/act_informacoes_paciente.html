@@ -10,7 +10,7 @@
         <div class="col-4 mx-auto">
             <action class="was-validated">
                 <label for="nome_paciente"></label>
-                <input type="text" class="form-control" id="nome_paciente" placeholder="Digite o nome do paciente, por favor." name="nome_paciente" pattern="^[a-zA-Z\u00C0-\u00FF]{4,}(?: [a-zA-Z]+){0,6}$" required>
+                <input type="text" class="form-control" id="nome_paciente" placeholder="Digite o nome do paciente, por favor." name="nome_paciente" pattern="^[a-z .*,A-Z.*\u00C0-\u00FF]{10,}$" required>
                 <div class="valid-feedback" style="text-align: center;font-size: 0.7em">Correto</div>
                 <div class="invalid-feedback" style="font-size: 0.7em; text-align: center">Digite o nome com sobrenome</div>
             </action>
@@ -18,7 +18,7 @@
     </div>
 </div>
 <div class="row">
-    <div class="col-sm-12 pt-3">
+    <div class="col pt-4">
         <div class="alert alert-success" style="text-align: center;">
             <strong style="align-items: center;">Data de Nascimento:</strong>
             <strong id="alert_data_nascimento" style="color:red">*</strong>
@@ -36,18 +36,17 @@
         </action>
     </div>
 </div>
-<div class="row mt-4">
-    <div class="alert alert-success" style="text-align: center;">
-        <strong style="align-items: center;">Idade do Paciente:</strong>
+        <div class="row sm-0 mt-4">
+            <div class="alert alert-success" style="text-align: center;">
+                <strong style="align-items: center;">Idade do Paciente:</strong>
+            </div>
+        </div>
 
-    </div>
-</div>
 <div class="row pt-3 text-center">
     <div class="col-1 mx-auto">
         <input type="number" id="idade" class="form-control form-control-sm"min="0"max="100" style="border-color: green" name="idade" readonly>
     </div>
 </div>
-
 <div class="row">
     <div class="col-sm-12 pt-3 mt-4">
         <div class="alert alert-success" style="text-align: center;">
@@ -61,6 +60,7 @@
         <input onchange="verificasexo()" type="radio" id="feminino" name="radio_sexo" value="">
         <label for="feminino">Feminino</label>
     </div>
+
     <div class="radio col">
         <input onchange="verificasexo()" type="radio" id="masculino" name="radio_sexo" value="">
         <label for="masculino">Masculino</label>
@@ -82,7 +82,7 @@
     <div class="col-4 mx-auto">
         <action class="was-validated">
             <label for="nome_mae"></label>
-            <input type="text" class="form-control" id="nome_mae" placeholder="Digite o nome da mãe, por favor." name="nome_mae" pattern="^[a-zA-Z\u00C0-\u00FF]{4,}(?: [a-zA-Z]+){0,6}$" required>
+            <input type="text" class="form-control" id="nome_mae" placeholder="Digite o nome da mãe, por favor." name="nome_mae" pattern="^[a-z .*,A-Z.*\u00C0-\u00FF]{10,}$" required>
             <div class="valid-feedback" style="text-align: center;font-size: 0.7em">Correto</div>
             <div class="invalid-feedback" style="font-size: 0.7em; text-align: center">Digite o nome com sobrenome</div>
         </action>
@@ -101,25 +101,27 @@
     <div class="col-4 mx-auto">
         <action class="was-validated">
             <label for="endereco_paciente"></label>
-            <input type="text" class="form-control" pattern="^[a-zA-Z \u00C0-\u00FF]{4,}(?: [a-zA-Z]+){0,6}$" id="endereco_paciente" placeholder="Digite o endereço, por favor." name="endereco_paciente" required>
-            <div class="valid-feedback" style="text-align: center;"></div>
-            <div class="invalid-feedback"></div>
+            <input type="text" class="form-control" pattern= "^[a-z .*,A-Z.*, 0-9\u00C0-\u00FF]{10,}$"  id= "endereco_paciente" placeholder="Digite o endereço, por favor." name="endereco_paciente" required>
+            <div class="valid-feedback" style="text-align: center;font-size: 0.7em">Correto</div>
+            <div class="invalid-feedback" style="font-size: 0.7em; text-align: center">Digite o endereço</div>
         </action>
     </div>
 </div>
-<div class="row mt-4 pt-3">
-    <div class="alert alert-success" style="text-align: center;">
-        <strong style="align-items: center;">Contato Telefônico:</strong>
-        <strong id="alert_tel"style="color:red">*</strong>
-        <p></p>
+    <div class="row  pt-4">
+        <div class="alert alert-success" style="text-align: center;">
+            <strong style="align-items: center;">Contato Telefônico:</strong>
+            <strong id="alert_tel"style="color:red">*</strong>
+            <p></p>
+        </div>
     </div>
-</div>
-<div class="row mt-2">
-    <div class="col-sm-3  mx-auto">
-        <action class="was-validated">
-            <label for="tel"></label><br>
-            <input id="tel" class="form-control" name="tel" type="tel" pattern="^[0-9 ()-]{15}$"placeholder="(00) 00000-0000" required >
-            <div class=" col row-1"></div>
-        </action>
-    </div>
-</div>
+        <div class="row ">
+            <div class="col-sm-3  mx-auto">
+                <action class="was-validated">
+                    <label for="tel"></label><br>
+                    <input id="tel" class="form-control" name="tel" type="tel" pattern="^[0-9 ()-]{15}$"placeholder="(00) 00000-0000" required >
+                    <div class=" col row-1"></div>
+                    <div class="valid-feedback" style="text-align: center;font-size: 0.7em">Correto</div>
+                    <div class="invalid-feedback" style="font-size: 0.7em; text-align: center">Digite um telefone para contato</div>
+                </action>
+            </div>
+        </div>

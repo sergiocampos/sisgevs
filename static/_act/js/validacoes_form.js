@@ -217,13 +217,13 @@ function verificalesoes(){
 //Em caso de obito
 
 var casoObito = false;
-var radioObito = document.getElementById('radioObito');
+var alert_obito = document.getElementById('alert_obito');
 function verificaObito(){
     casoObito = true;
     if (casoObito) {
-        radioObito.setAttribute('hidden', true)
+        alert_obito.setAttribute('hidden', true)
     } else {
-        radioObito.removeAttribute('hidden')
+        alert_obito.removeAttribute('hidden')
     }
 }
 
@@ -265,7 +265,7 @@ var nomePaciente = false
 
 $('#nome_paciente').on('keyup', function () {
 
-    var re = /^[a-zA-Z\u00C0-\u00FF]{4,}(?: [a-zA-Z]+){0,6}$/
+    var re = /^[a-z .*,A-Z.*\u00C0-\u00FF]{10,}$/
 
     if(re.test(this.value)) {
         nomePaciente = true
@@ -318,7 +318,7 @@ var nomeMae = false
 
 $('#nome_mae').on ('keyup', function () {
 
-    var re = /^[a-zA-Z\u00C0-\u00FF]{4,}(?: [a-zA-Z]+){0,6}$/
+    var re = /"^[a-z .*,A-Z.*\u00C0-\u00FF]{10,}$"/
 
     if(re.test(this.value)) {
         nomeMae = true
@@ -336,7 +336,7 @@ var enderecoPaciente = false
 
 $('#endereco_paciente').on('keyup', function () {
 
-    var re = /^[a-zA-Z\u00C0-\u00FF]{4,}(?: [a-zA-Z]+){0,6}$/
+    var re = /^[a-z .*,A-Z.*, 0-9\u00C0-\u00FF]{10,}$/
 
     if(re.test(this.value)) {
         enderecoPaciente = true
@@ -398,7 +398,7 @@ var nomeInstituicao = false
 
 $('#nome_instituicao').on('keyup', function () {
 
-   var re = /^[a-zA-Z\u00C0-\u00FF]{4,}(?: [a-zA-Z]+){0,6}$/
+    var re = /^[a-zA-Z\u00C0-\u00FF]{4,}(?: [a-zA-Z]+){0,6}$/
 
 
     if(re.test(this.value)) {
@@ -423,7 +423,7 @@ var nomeSecretario = false
 
 $('#nome_secretario').on('keyup', function () {
 
-    var re = /^[a-zA-Z\u00C0-\u00FF]{4,}(?: [a-zA-Z]+){0,6}$/
+    var re = /^[a-z .*,A-Z.*\u00C0-\u00FF]{10,}$/
 
 
     if(re.test(this.value)) {
@@ -476,4 +476,3 @@ $('#contato_notificador').on ('keyup', function () {
         $('#alert_contato_notificador').attr('hidden', false)
     }
 })
-

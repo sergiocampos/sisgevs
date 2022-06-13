@@ -73,12 +73,14 @@
 <!--------------------------------------------Em Caso de Obito:--------------------------------------------------->
 <div class="row m-0 mt-4">
     <div class="alert col-sm-12 alert-success" style="text-align: center;">
-        <strong style="align-items: center;">Em caso de Óbito:</strong>
+        <strong  style="align-items: center;">Em caso de Óbito:</strong>
+        <strong id="alert_obito" style="color:red">*</strong>
     </div>
 </div>
 <div class="mb-3 row mt-4 text-center">
     <div class="radio col">
-        <input  onchange="verificaObito()" type="radio" id="radioObito" name="caso_obito" value="">
+
+        <input onchange="verificaObito()" type="radio" id="radioObito" name="caso_obito" value="">
         <label for="radioObito">Óbito Local</label>
     </div>
     <div class="radio col">
@@ -88,5 +90,6 @@
     <div class="radio col">
         <input onchange="verificaObito()" type="radio" id="radioObito" name="caso_obito" value="">
         <label for="radioObito">Obito no Hospital</label>
+
     </div>
 </div>
