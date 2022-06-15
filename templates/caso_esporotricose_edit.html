@@ -571,6 +571,13 @@
 
                 <script>
                     // Calculando IDADE
+                    $(document).ready(function(){
+                        let data = document.getElementById('date2');
+                        let idade = calcula(data);
+                        document.getElementById('result').value = idade;
+                    })
+
+
                     $('#date2').on('change', function() {
                         var data = document.getElementById('date2');
                         var idade = calcula(data);

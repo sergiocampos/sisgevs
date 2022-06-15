@@ -400,7 +400,7 @@ def my_datas(request):
 	elif request.user.funcao == 'gerencia_operacional':
 		if request.user.has_perm('core.acessa_esporotricose'):
 			user_gerencia_operacional = request.user.gerencia_operacional
-			registros = CasoEsporotricose.objects.filter(responsavel_gerencia_operacional=user_gerencia_operacional).order_by('-data_notificacao').exclude(status_caso='Cancelado')
+			registros = CasoEsporotricose.objects.all().order_by('-data_notificacao').exclude(status_caso='Cancelado')
 			
 			paginator = Paginator(registros, 6)
 			page = request.GET.get('page')
@@ -413,10 +413,7 @@ def my_datas(request):
 		if request.user.has_perm('core.acessa_esporotricose'):
 			user_gerencia_operacional = request.user.gerencia_operacional
 			user_nucleo = request.user.nucleo
-			registros = CasoEsporotricose.objects.filter(
-				responsavel_gerencia_operacional=user_gerencia_operacional, 
-				responsavel_nucleo=user_nucleo
-				).order_by('-data_notificacao').exclude(status_caso='Cancelado')
+			registros = CasoEsporotricose.objects.all().order_by('-data_notificacao').exclude(status_caso='Cancelado')
 			
 			paginator = Paginator(registros, 6)
 			page = request.GET.get('page')
@@ -429,11 +426,7 @@ def my_datas(request):
 			user_gerencia_operacional = request.user.gerencia_operacional
 			user_nucleo = request.user.nucleo
 			user_area_tecnica = request.user.area_tecnica
-			registros = CasoEsporotricose.objects.filter(
-				responsavel_gerencia_operacional=user_gerencia_operacional, 
-				responsavel_nucleo=user_nucleo,
-				responsavel_area_tecnica=user_area_tecnica
-				).order_by('-data_notificacao').exclude(status_caso='Cancelado')
+			registros = CasoEsporotricose.objects.all().order_by('-data_notificacao').exclude(status_caso='Cancelado')
 			
 			paginator = Paginator(registros, 6)
 			page = request.GET.get('page')
@@ -454,12 +447,18 @@ def my_datas(request):
 
 	elif request.user.funcao == 'municipal':
 		
+		user_id = request.user.id
 		user_municipio_id = request.user.municipio_id
 		municipio_user = request.user.municipio
 		user_municipio_nome = str(Municipio.objects.filter(id=user_municipio_id)[0])
 		user_municipio_nome_upper = str(Municipio.objects.filter(id=user_municipio_id)[0]).upper()
 		
-		registros = CasoEsporotricose.objects.filter(Q(municipio_residencia=user_municipio_id) | Q(municipio_residencia=user_municipio_nome) | Q(municipio_residencia=user_municipio_nome_upper) | Q(responsavel_pelas_informacoes_id=user_municipio_id)).order_by('-data_notificacao').exclude(status_caso='Cancelado')
+		registros = CasoEsporotricose.objects.filter(
+			Q(municipio_residencia=user_municipio_id) | 
+			Q(municipio_residencia=user_municipio_nome) | 
+			Q(municipio_residencia=user_municipio_nome_upper) | 
+			Q(responsavel_pelas_informacoes_id=user_id)
+			).order_by('-data_notificacao').exclude(status_caso='Cancelado')
 		
 		paginator = Paginator(registros, 6)
 		page = request.GET.get('page')
@@ -1435,7 +1434,7 @@ def set_caso_esporotricose_edit(request, id):
 	sexo_paciente = request.POST.get('sexo')
 	
 	idade_paciente_cap = request.POST.get('result')
-	if idade_paciente_cap == '' or idade_paciente_cap == None:
+	if idade_paciente_cap == '' or idade_paciente_cap == None or idade_paciente_cap == "None":
 		idade_paciente = None
 	else:
 		idade_paciente = int(idade_paciente_cap)
