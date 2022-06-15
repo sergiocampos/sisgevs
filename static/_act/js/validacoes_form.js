@@ -316,9 +316,9 @@ function verificasexo(){
 var nomeMae = false
 
 
-$('#nome_mae').on ('keyup', function () {
+$('#nome_mae').on('keyup', function () {
 
-    var re = /"^[a-z .*,A-Z.*\u00C0-\u00FF]{10,}$"/
+    var re = /^[a-z .*,A-Z.*\u00C0-\u00FF]{10,}$/
 
     if(re.test(this.value)) {
         nomeMae = true
@@ -358,7 +358,7 @@ var contatoTel = false
 $('#tel').mask('(00) 00000-0000')
 $('#tel').on ('keyup', function () {
 
-    var re = /^[0-9 ()-]{16}$/
+    var re = /^[0-9 ()-]{15}$/
 
     if(re.test(this.value)) {
         contatoTel = true
