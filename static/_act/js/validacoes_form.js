@@ -527,3 +527,9 @@ $('#contato_notificador').on ('keyup', function () {
         $('#alert_contato_notificador').attr('hidden', false)
     }
 })
+
+
+//function envia dados**<script language=JavaScript>
+
+
+
