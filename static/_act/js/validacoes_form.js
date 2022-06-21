@@ -1,4 +1,9 @@
+
+//Act_validacoes
+
+
 // Ativa e desativa o hospital de referencia
+
 function active_hospital(){
     var opt=document.getElementById('hospital_transferencia');
     var radio_sim = document.getElementById("radio_sim");
@@ -8,36 +13,57 @@ function active_hospital(){
 
     } else{
         opt.setAttribute("class","d-none")
+        document.getElementById('hospital').value=''
     }
 }
-// VALIDAÇÕES
+
 // --------------------------------------------- INFORMAÇÕES GERAIS ------------------------------------------- //
 
 // Data do Acidente
-var dateAcidente = document.getElementById('date_acidente');
-dateAcidente.max = new Date().toISOString().split("T")[0];
+
+var dataacidenteValid = false;
+
+$('#date_acidente').on('change', function () {
+    if(this.value != ''){
+        dataacidenteValid=true
+        $('#alert_data_acidente').attr('hidden',true)
+    }else{
+        dataacidenteValid=false
+        $('#alert_data_acidente').attr('hidden',false)
+    }
+})
 
 // Período do dia *
 
 var valide_periodo = false;
 var alert_periodo_dia = document.getElementById('alert_periodo_dia');
 function verificaPeriodoDia(){
-    valide_periodo = true;
+    valide_periodo = true
+
     if (valide_periodo) {
-        alert_periodo_dia.setAttribute('hidden', true)
+         alert_periodo_dia.setAttribute('hidden', true)
+        valide_periodo = true
+
     } else {
-        alert_periodo_dia.setAttribute('hidden', false)
+        alert_periodo_dia.removeAttribute('hidden', false)
+        valide_periodo = false
     }
 }
 
 // Em que dia da semana ocorreu o acidente *
+
 var diaSemanaValid = false;
 var alert_dia_semana = document.getElementById('alert_dia_semana');
 function verificadiaSemana(){
     diaSemanaValid = true;
+
     if (diaSemanaValid) {
+        diaSemanaValid = true;
+
         alert_dia_semana.setAttribute('hidden', true)
     } else {
+        diaSemanaValid = false;
+
         alert_dia_semana.setAttribute('hidden', false)
     }
 }
@@ -48,9 +74,12 @@ var acidenteDiaFeriado = false;
 var alert_acidente_dia_feriado = document.getElementById('alert_acidente_dia_feriado');
 function verificaAcidenteDiaFeriado(){
     acidenteDiaFeriado = true;
+
     if (acidenteDiaFeriado) {
+        acidenteDiaFeriado = true;
         alert_acidente_dia_feriado.setAttribute('hidden', true)
     } else {
+        acidenteDiaFeriado = false;
         alert_acidente_dia_feriado.removeAttribute('hidden')
     }
 }
@@ -58,12 +87,15 @@ function verificaAcidenteDiaFeriado(){
 
 // Município de Ocorrência do Acidente *
 
+
 function validarMunicipio(valorMunicipio){
     var alert_municipio = document.getElementById("alert_municipio");
 
     if (valorMunicipio != ""){
+        valorMunicipioValid=true
         alert_municipio.setAttribute('hidden', true)
     } else {
+        valorMunicipioValid=false
         alert_municipio.removeAttribute('hidden')
     }
 }
@@ -71,7 +103,7 @@ function validarMunicipio(valorMunicipio){
 
 // Endereço do local do Acidente: *
 
-var alert_endereco_acidente = false;
+var enderecoAcidenteValid = false;
 var alert_endereco_acidente = document.getElementById('alert_endereco_acidente');
 var alert_front = document.getElementById('alert_front')
 function verificaEndrecoLocalAcidente(valor_campo_endereco){
@@ -80,29 +112,26 @@ function verificaEndrecoLocalAcidente(valor_campo_endereco){
 
     if (re.test(valor_campo_endereco)) {
         alert_endereco_acidente.setAttribute('hidden', true)
-        endereco_acidente = true
+        enderecoAcidenteValid = true
 
     } else {
         alert_endereco_acidente.removeAttribute('hidden')
-        endereco_acidente = false
+        enderecoAcidenteValid = false
     }
 }
-
-
-
-
-
-
 
 // Tipo de Acidente: *
 
 var tipoAcidente = false;
 var alert_tipo_acidente = document.getElementById('alert_tipo_acidente');
 function verificatipoAcidente(){
-    tipoAcidente = true;
+    tipoAcidente = true
+
     if (tipoAcidente) {
+        tipoAcidente = true
         alert_tipo_acidente.setAttribute('hidden', true)
     } else {
+        tipoAcidente = false
         alert_tipo_acidente.removeAttribute('hidden')
     }
 }
@@ -111,13 +140,16 @@ function verificatipoAcidente(){
 // Tipo de veiculos envolvidos no acidente: *
 
 
-var tipoVeiculo = false;
+var tipoVeiculoValid = false
 var alert_tipo_veiculo = document.getElementById('alert_tipo_veiculo');
 function verificatipoVeiculo(){
-    tipoVeiculo = true;
-    if (tipoVeiculo) {
+    tipoVeiculoValid = true;
+
+    if (tipoVeiculoValid) {
+        tipoVeiculoValid = true
         alert_tipo_veiculo.setAttribute('hidden', true)
     } else {
+        tipoVeiculoValid = false
         alert_tipo_veiculo.removeAttribute('hidden')
     }
 }
@@ -127,26 +159,32 @@ function verificatipoVeiculo(){
 // O Paciente envolvido no acidente era: *
 
 
-var tipoCondutor = false;
+var tipoCondutorValid = false;
 var alert_tipo_condutor = document.getElementById('alert_paciente_envolvido');
 function verificatipoPaciente(){
-    tipoCondutor = true;
-    if (tipoCondutor) {
+    tipoCondutorValid = true
+
+    if (tipoCondutorValid) {
+        tipoCondutorValid = true
         alert_paciente_envolvido.setAttribute('hidden', true)
     } else {
+        tipoCondutorValid = false
         alert_paciente_envolvido.removeAttribute('hidden')
     }
 }
 
 // A vítima apresenta sinais de embriagues e/ou cosumo de bebidas alcoolicas: *
 
-var sinalAcoolico = false;
+var sinalAcoolicoValid = false;
 var alert_sinal_alcoolico = document.getElementById('alert_sinal_alcoolico');
 function verificatipoEmbriagues(){
-    sinalAcoolico = true;
-    if (sinalAcoolico) {
+    sinalAcoolicoValid = true;
+
+    if (sinalAcoolicoValid) {
+        sinalAcoolicoValid = true;
         alert_sinal_alcoolico.setAttribute('hidden', true)
     } else {
+        sinalAcoolicoValid = false;
         alert_sinal_alcoolico.removeAttribute('hidden')
     }
 }
@@ -159,8 +197,10 @@ var alert_houve_vitimas_fatais = document.getElementById('alert_houve_vitimas_fa
 function verificaVitimaFatal(){
     vitimaFatal = true;
     if (vitimaFatal) {
+        vitimaFatal = true;
         alert_houve_vitimas_fatais.setAttribute('hidden', true)
     } else {
+        vitimaFatal = false;
         alert_houve_vitimas_fatais.removeAttribute('hidden')
     }
 }
@@ -206,8 +246,10 @@ var quadroLesoes = document.getElementById('quadroLesoes');
 function verificalesoes(){
     lesoes = true;
     if (lesoes) {
+        lesoes = true;
         quadroLesoes.setAttribute('hidden', true)
     } else {
+        lesoes = false;
         quadroLesoes.removeAttribute('hidden')
     }
 }
@@ -221,8 +263,10 @@ var alert_obito = document.getElementById('alert_obito');
 function verificaObito(){
     casoObito = true;
     if (casoObito) {
+        casoObito = true;
         alert_obito.setAttribute('hidden', true)
     } else {
+        casoObito = false;
         alert_obito.removeAttribute('hidden')
     }
 }
@@ -233,6 +277,7 @@ function verificaObito(){
 // ----------------------------------- EQUIPE ACIONADA PARA O LOCAL DO ACIDENTE ------------------------------- //
 
 // Quem foi responsável por prestar apoio no local: *
+
 var responsavelApoio = false
 var alert_responsavel_apoio = document.getElementById('alert_responsavel_apoio')
 var equipe_acionada = document.getElementById('equipe-acionada')
@@ -302,8 +347,12 @@ var alertSexo = document.getElementById('alert_sexo');
 function verificasexo(){
     tipoSexo = true;
     if (tipoSexo) {
+        tipoSexo = true;
+
         alert_sexo.setAttribute('hidden', true)
     } else {
+        tipoSexo = false;
+
         alert_sexo.removeAttribute('hidden')
     }
 }
@@ -339,10 +388,10 @@ $('#endereco_paciente').on('keyup', function () {
     var re = /^[a-z .*,A-Z.*, 0-9\u00C0-\u00FF]{10,}$/
 
     if(re.test(this.value)) {
-        enderecoPaciente = true
+        enderecoPaciente = true;
         $('#alert_endereco_paciente').attr('hidden', true)
     }else{
-        enderecoPaciente = false
+        enderecoPaciente = false;
         $('#alert_endereco_paciente').attr('hidden', false)
     }
 })
@@ -379,8 +428,10 @@ var alert_hospital_transferencia = document.getElementById('alert_hospital_trans
 function verificaHospital(){
     hospitalTransferencia = true;
     if (hospitalTransferencia) {
+        hospitalTransferencia = true;
         alert_hospital_transferencia.setAttribute('hidden', true)
     } else {
+        hospitalTransferencia = false;
         alert_hospital_transferencia.removeAttribute('hidden')
     }
 }
