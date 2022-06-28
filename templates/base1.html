@@ -60,7 +60,7 @@
 
                         {% if request.user.is_superuser and request.user.funcao == 'admin' %}
                         <li class="nav-item">
-                            <a href="{% url 'gerenciar-dados' %}" class="nav-link">Gerenciar Dados</a>
+                            <a href="{% url 'gerenciar-dados-get' %}" class="nav-link">Gerenciar Dados</a>
                         </li>
                         {% endif %}
 

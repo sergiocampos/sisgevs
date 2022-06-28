@@ -11,30 +11,33 @@
   <div class="row">
       <div class="col-sm-12">
           <div class="alert alert-primary" style="text-align: center;">
-              <span>Gerenciar Dados de Esporotricose Humana</span>
+              <span class="h4">Gerenciar Dados de Esporotricose Humana</span>
           </div>
       </div>
   </div>
-  {% include 'messages/message.html' %}
+  <hr>
   <div align="center" class="alerta">  
     <!--Conteúdo dinâmico-->
   </div>
-  <div class="row text-center">
-    <div class="col h6 text-muted">Deletar Casos</div>
-    <div class="col h6 text-muted">Adicionar Casos</div>    
-  </div>
-  
-  <div class="row text-center">
-    <div class="col">
-      <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#modalConfirmacao">
-        Deletar
-      </button>
+
+  <div class="m-3">
+    <div class="row text-center">
+      <div class="col h6 text-muted">Adicionar Casos</div>    
+      <div class="col h6 text-muted">Deletar Casos</div>
     </div>
-    <div class="col">
-      <form method="post" class="input-group mb-3">
-        <input type="file" name="arquivo" id="arquivo" class="form-control" aria-describedby="botao-enviar">
-        <button class="btn btn-outline-primary" id="botao-enviar" disabled>Enviar</button>
-      </form>
+    
+    <div class="row text-center">
+      <div class="col">
+        <form method="post" class="input-group mb-3 my-auto">
+          <input type="file" name="arquivo" id="arquivo" class="form-control" aria-describedby="botao-enviar">
+          <button class="btn btn-outline-primary" id="botao-enviar" disabled>Enviar</button>
+        </form>
+      </div>
+      <div class="col">
+        <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#modalConfirmacao">
+          Deletar
+        </button>
+      </div>    
     </div>
   </div>
   <hr>
@@ -51,6 +54,9 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
+        <div align="center" class="alerta-modal">  
+          <!--Conteúdo dinâmico-->
+        </div>
         Ao prosseguir todos os dados de esporotricose humana serão permanentemente deletados.
       </div>
       <div class="modal-footer">
@@ -117,7 +123,7 @@ $('form').on('submit', function(e){
   var formData = new FormData(e.target)
 
   $.ajax({
-    url: '',
+    url: 'set',
     type: 'POST',
     data: formData,
     async: false,
@@ -125,30 +131,34 @@ $('form').on('submit', function(e){
     contentType: false,
     enctype: 'multipart/form-data',
     processData: false,    
-    success: function (response) {
-      if (response.msg == "success"){
-        $('.alerta').html(`
-          <div class="alerta alert alert-success alert-dismissible fade show" role="alert">
-            <i class="bi bi-check-circle m-2"></i> 
-            Dados carregados com sucesso!
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-          </div>
-        `)
-      } else {
-        $('.alerta').html(`
-          <div class="alerta alert alert-danger alert-dismissible fade show" role="alert">
-            <i class="bi bi-exclamation-circle m-2"></i> 
-            Houve algum problema ao tentar carregar os dados, tente novamente mais tarde.
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-          </div>
-        `)
-      }
+
+    success: res => {
+      
+      $('.alerta').html(`
+        <div class="alerta alert alert-success alert-dismissible fade show" role="alert">
+          <i class="bi bi-check-circle m-2"></i> 
+          Dados carregados com sucesso!
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+      `)      
+    },
+
+    error: err => {
+    
+      $('.alerta').html(`
+        <div class="alerta alert alert-danger alert-dismissible fade show" role="alert">
+          <i class="bi bi-exclamation-circle m-2"></i> 
+          Houve algum problema ao tentar carregar os dados, tente novamente mais tarde.
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+      `)
     }
+
   });
 
 })
 
-  
+// Deletar a tabela EsporotricoseHumana
 $('#botao-deletar').on('click', () => {
 
   $.ajaxSetup({
@@ -158,10 +168,30 @@ $('#botao-deletar').on('click', () => {
   });
 
   $.ajax({
-    url:"",
+    url:"del",
     method:"delete"    ,
     data: JSON.stringify({"password":$('#senha-confirmacao').val()}),
     dataType:"json",
+    
+    success: res => {
+      $('.alerta-modal').html(`
+        <div class="alerta alert alert-success alert-dismissible fade show" role="alert">
+          <i class="bi bi-check-circle m-2"></i> 
+          ${res.msg}
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+      `)      
+    },
+
+    error: err => {
+      $('.alerta-modal').html(`
+        <div class="alerta alert alert-danger alert-dismissible fade show" role="alert">
+          <i class="bi bi-exclamation-circle m-2"></i> 
+          ${err.responseJSON.msg}
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+      `)      
+    }    
     
   })
 })

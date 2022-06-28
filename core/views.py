@@ -34,6 +34,8 @@ from genericpath import exists
 from openpyxl import Workbook
 from pandas.core.frame import DataFrame
 
+from sqlalchemy import create_engine
+
 from .models import *
 
 # Create your views here.
@@ -4047,16 +4049,25 @@ def export_users(request):
 
 
 @login_required(login_url="/login/")
-def gerenciar_dados(request):
+def gerenciar_dados_get(request):
+	
+	# Renderiza a pagina.
+	if request.user.is_superuser and request.user.funcao == 'admin':
+		if request.method == "GET":
+			return render(request, 'gerenciar_dados.html')		
 
+	# Caso não seja super usuario.
+	else:
+		return redirect('principal')
+
+
+@login_required(login_url='/login/')
+def gerenciar_dados_set(request):
+	
+	# Adiciona à entidade casos_esporotricose os novos dados.
 	if request.user.is_superuser and request.user.funcao == 'admin':
 
-		# Renderiza a pagina.
-		if request.method == "GET":
-			return render(request, 'gerenciar_dados.html')
-		
-		# Adiciona à entidade casos_esporotricose os novos dados.
-		elif request.method == "POST":
+		if request.method == "POST":
 
 			# CSV FILE
 			if request.FILES['arquivo'].content_type == 'text/csv':
@@ -4072,39 +4083,39 @@ def gerenciar_dados(request):
 
 			else:
 				return JsonResponse({"msg":"error"}, status=HTTPStatus.NOT_ACCEPTABLE)
-
-
-			for row in arquivo.values:
-				print(row)
-				break			
-
-			return JsonResponse({"msg":"success"}, status=HTTPStatus.OK)
-
-		# Deleta toda a entidade casos_esporotricose.
-		elif request.method == "DELETE":
 			
-			body = json.loads(request.body)
-
-			if request.user.check_password(body['password']):
-
-				try:
-					CasoEsporotricose.objects.all().delete()
-				except:
-					return JsonResponse({"msg":"error"}, status=HTTPStatus.NOT_FOUND)
-				else:
-					return JsonResponse({"msg":"success"}, status=HTTPStatus.OK)
-
+			# Inserindo os dados.
+			engine = create_engine('postgresql+psycopg2://postgres:postgres@db:5432/postgres')
+			try:
+				arquivo.to_sql('core_casoesporotricose', engine, if_exists='append', index=False)				
+			except:
+				return JsonResponse({"msg":"Algo deu errado, verifique as colunas e tente novamente."}, status=HTTPStatus.NOT_ACCEPTABLE)	
 			else:
-				return JsonResponse({"msg":"error"}, status=HTTPStatus.UNAUTHORIZED)
-
-
-
-
-			
-			
+				return JsonResponse({"msg":"Dados adicionados com sucesso!"}, status=HTTPStatus.OK)
 
 	# Caso não seja super usuario.
 	else:
-		redirect('principal')
+		return redirect('principal')
 
+
+
+@login_required(login_url='/login/')
+def gerenciar_dados_del(request):
 	
+	# Deleta toda a entidade casos_esporotricose.
+	if request.user.is_superuser and request.user.funcao == 'admin':
+
+		if request.method == "DELETE":
+			body = json.loads(request.body)
+			if request.user.check_password(body['password']):
+				CasoEsporotricose.objects.all().delete()
+				return JsonResponse({"msg":"Tabela deletada com sucesso!"}, status=HTTPStatus.OK)
+
+			else:
+				return JsonResponse({"msg":"Senha inválida!"}, status=HTTPStatus.UNAUTHORIZED)
+			
+	# Caso não seja super usuario.
+	else:
+		return redirect('principal')
+		
+

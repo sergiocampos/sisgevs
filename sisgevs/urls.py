@@ -103,7 +103,9 @@ urlpatterns = [
     path('checar_login_ajax/', views.checar_login_ajax, name='checar_login_ajax'),
 
     path('', views.principal, name='principal'),
-    path('gerenciar-dados/', views.gerenciar_dados, name="gerenciar-dados")
+    path('gerenciar-dados/', views.gerenciar_dados_get, name="gerenciar-dados-get"),
+    path('gerenciar-dados/set', views.gerenciar_dados_set, name="gerenciar-dados-set"),
+    path('gerenciar-dados/del', views.gerenciar_dados_del, name="gerenciar-dados-del"),
     
 ]
 

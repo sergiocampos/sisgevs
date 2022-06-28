@@ -13,3 +13,4 @@ python-stdnum==1.17
 pytz==2021.1
 six==1.16.0
 sqlparse==0.4.1
+SQLAlchemy==1.4.31
