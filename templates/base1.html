@@ -57,6 +57,13 @@
                         <li class="nav-item">
                             <a href="{% url 'all_forms' %}" class="nav-link">Notificar</a>
                         </li>
+
+                        {% if request.user.is_superuser and request.user.funcao == 'admin' %}
+                        <li class="nav-item">
+                            <a href="{% url 'gerenciar-dados' %}" class="nav-link">Gerenciar Dados</a>
+                        </li>
+                        {% endif %}
+
                         {% if user.is_authenticated %}
                         <div class="options-ocultos">
                             <li class="nav-item">

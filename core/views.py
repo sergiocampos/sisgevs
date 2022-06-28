@@ -1,6 +1,7 @@
 
 #from asyncio.windows_events import NULL
 import csv
+from http import HTTPStatus
 import json
 import os
 import string
@@ -4043,3 +4044,67 @@ def export_users(request):
 				return response
 	else:
 		redirect('principal')
+
+
+@login_required(login_url="/login/")
+def gerenciar_dados(request):
+
+	if request.user.is_superuser and request.user.funcao == 'admin':
+
+		# Renderiza a pagina.
+		if request.method == "GET":
+			return render(request, 'gerenciar_dados.html')
+		
+		# Adiciona à entidade casos_esporotricose os novos dados.
+		elif request.method == "POST":
+
+			# CSV FILE
+			if request.FILES['arquivo'].content_type == 'text/csv':
+				arquivo = pd.read_csv(request.FILES['arquivo'])               
+			
+			# XLS FILE
+			elif request.FILES['arquivo'].content_type == 'application/vnd.ms-excel':
+				arquivo = pd.read_excel(request.FILES['arquivo'])
+
+			# XLSX FILE
+			elif request.FILES['arquivo'].content_type == 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet':
+				arquivo = pd.read_excel(request.FILES['arquivo'])
+
+			else:
+				return JsonResponse({"msg":"error"}, status=HTTPStatus.NOT_ACCEPTABLE)
+
+
+			for row in arquivo.values:
+				print(row)
+				break			
+
+			return JsonResponse({"msg":"success"}, status=HTTPStatus.OK)
+
+		# Deleta toda a entidade casos_esporotricose.
+		elif request.method == "DELETE":
+			
+			body = json.loads(request.body)
+
+			if request.user.check_password(body['password']):
+
+				try:
+					CasoEsporotricose.objects.all().delete()
+				except:
+					return JsonResponse({"msg":"error"}, status=HTTPStatus.NOT_FOUND)
+				else:
+					return JsonResponse({"msg":"success"}, status=HTTPStatus.OK)
+
+			else:
+				return JsonResponse({"msg":"error"}, status=HTTPStatus.UNAUTHORIZED)
+
+
+
+
+			
+			
+
+	# Caso não seja super usuario.
+	else:
+		redirect('principal')
+
+	
