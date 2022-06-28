@@ -4083,7 +4083,7 @@ def gerenciar_dados_set(request):
 
 			else:
 				return JsonResponse({"msg":"error"}, status=HTTPStatus.NOT_ACCEPTABLE)
-			
+
 			# Inserindo os dados.
 			engine = create_engine('postgresql+psycopg2://postgres:postgres@db:5432/postgres')
 			try:

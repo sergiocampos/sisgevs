@@ -90,7 +90,7 @@ $("#senha-confirmacao").on('keyup', function(){
 
 // Validar tipo do arquivo.
 $('#arquivo').on('change', function(){
-  const extensoesValidas = ['csv', 'xlsx']
+  const extensoesValidas = ['csv', 'xlsx', 'xls']
   const fileArray = this.value.split('.')
   const extensao = fileArray[fileArray.length-1]
 
