@@ -1,3 +1,8 @@
+//FUNÇÃO GERAL DE VALIDAÇÃO
+
+function valid_geral(){
+
+}
 
 //Act_validacoes
 
@@ -19,8 +24,30 @@ function active_hospital(){
 
 // --------------------------------------------- INFORMAÇÕES GERAIS ------------------------------------------- //
 
-// Data do Acidente
+//Validação da pagina informções gerais
+function validInforGerais (){
+    if(
+        dataacidenteValid == true &&
+        valide_periodo == true &&
+        diaSemanaValid == true &&
+        acidenteDiaFeriado == true &&
+        valorMunicipioValid == true &&
+        enderecoAcidenteValid == true &&
+        tipoAcidente == true &&
+        tipoVeiculoValid == true &&
+        tipoCondutorValid == true &&
+        sinalAcoolicoValid == true
+    ){
+        $('#alert_informacoes_gerais').attr('hidden',true)
+        return true
+    } else{
+        $('#alert_informacoes_gerais').attr('hidden',false)
+        return false
 
+    }
+}
+
+// Data do Acidente
 var dataacidenteValid = false;
 
 $('#date_acidente').on('change', function () {
@@ -31,6 +58,7 @@ $('#date_acidente').on('change', function () {
         dataacidenteValid=false
         $('#alert_data_acidente').attr('hidden',false)
     }
+    validInforGerais()
 })
 
 // Período do dia *
@@ -48,6 +76,7 @@ function verificaPeriodoDia(){
         alert_periodo_dia.removeAttribute('hidden', false)
         valide_periodo = false
     }
+    validInforGerais()
 }
 
 // Em que dia da semana ocorreu o acidente *
@@ -66,6 +95,7 @@ function verificadiaSemana(){
 
         alert_dia_semana.setAttribute('hidden', false)
     }
+    validInforGerais()
 }
 
 // O Acidente ocorreu em dia de feriado *
@@ -82,13 +112,14 @@ function verificaAcidenteDiaFeriado(){
         acidenteDiaFeriado = false;
         alert_acidente_dia_feriado.removeAttribute('hidden')
     }
+    validInforGerais()
 }
 
 
 // Município de Ocorrência do Acidente *
-
-
+var valorMunicipioValid = false
 function validarMunicipio(valorMunicipio){
+
     var alert_municipio = document.getElementById("alert_municipio");
 
     if (valorMunicipio != ""){
@@ -98,6 +129,7 @@ function validarMunicipio(valorMunicipio){
         valorMunicipioValid=false
         alert_municipio.removeAttribute('hidden')
     }
+    validInforGerais()
 }
 
 
@@ -118,6 +150,7 @@ function verificaEndrecoLocalAcidente(valor_campo_endereco){
         alert_endereco_acidente.removeAttribute('hidden')
         enderecoAcidenteValid = false
     }
+    validInforGerais()
 }
 
 // Tipo de Acidente: *
@@ -134,6 +167,7 @@ function verificatipoAcidente(){
         tipoAcidente = false
         alert_tipo_acidente.removeAttribute('hidden')
     }
+    validInforGerais()
 }
 
 
@@ -152,6 +186,7 @@ function verificatipoVeiculo(){
         tipoVeiculoValid = false
         alert_tipo_veiculo.removeAttribute('hidden')
     }
+    validInforGerais()
 }
 
 
@@ -171,6 +206,7 @@ function verificatipoPaciente(){
         tipoCondutorValid = false
         alert_paciente_envolvido.removeAttribute('hidden')
     }
+    validInforGerais()
 }
 
 // A vítima apresenta sinais de embriagues e/ou cosumo de bebidas alcoolicas: *
@@ -187,9 +223,34 @@ function verificatipoEmbriagues(){
         sinalAcoolicoValid = false;
         alert_sinal_alcoolico.removeAttribute('hidden')
     }
+    validInforGerais()
 }
 
 // -------------------------------- SEVERIDADE DO ACIDENTE E QUANTIDADE DE VÍTIMAS ---------------------------- //
+
+//Validação da pagina Severidade
+function validSeverAcident (){
+    if(
+        vitimaFatal == true &&
+        envolvidoFeridos == true &&
+        envolvidoFatal == true &&
+        lesoes == true &&
+        casoObito == true
+
+    ){
+        $('#alert_severidade').attr('hidden',true)
+        return true
+    } else{
+        $('#alert_severidade').attr('hidden',false)
+        return false
+
+    }
+}
+
+
+
+
+
 // H. Vítimas fatais
 
 var vitimaFatal = false;
@@ -203,6 +264,7 @@ function verificaVitimaFatal(){
         vitimaFatal = false;
         alert_houve_vitimas_fatais.removeAttribute('hidden')
     }
+    validSeverAcident ()
 }
 // Número de vítimas fatais envolvidas no acidente e Feridos
 
@@ -237,6 +299,7 @@ function verificaNumeros(elemento, campo){
             envolvidoFeridos = false
         }
     }
+    validSeverAcident ()
 }
 
 //Quadro lesões
@@ -252,6 +315,7 @@ function verificalesoes(){
         lesoes = false;
         quadroLesoes.removeAttribute('hidden')
     }
+    validSeverAcident ()
 }
 
 
@@ -269,12 +333,18 @@ function verificaObito(){
         casoObito = false;
         alert_obito.removeAttribute('hidden')
     }
+    validSeverAcident ()
 }
 
 
 
 
 // ----------------------------------- EQUIPE ACIONADA PARA O LOCAL DO ACIDENTE ------------------------------- //
+//Validação da pagina Equipe Acionada
+
+//o mesmo ja desativa o alert da pagina
+
+
 
 // Quem foi responsável por prestar apoio no local: *
 
@@ -303,6 +373,23 @@ $('.reponsaveis-prestar-socorro').on('change',function () {
 })
 
 // ------------------------------------------- INFORMACÕES DO PACIENTE ---------------------------------------- //
+//Validação da pagina Informacoes do Paciente
+function validInfoPacient() {
+    if(
+        nomePaciente  == true &&
+        dn  == true
+
+
+    ){
+        $('#alert_informacoes_paciente').attr('hidden',true)
+        return true
+    } else{
+        $('#alert_informacoes_paciente').attr('hidden',false)
+        return false
+
+    }
+}
+
 
 // Nome do Paciente *
 var nomePaciente = false
@@ -319,6 +406,7 @@ $('#nome_paciente').on('keyup', function () {
         nomePaciente = false
         $('#alert_nome_paciente').attr('hidden', false)
     }
+    validInfoPacient()
 })
 // Idade do Paciente: *
 

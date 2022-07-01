@@ -20,8 +20,7 @@
 <body>
 
 <div class="container">
-  <div class="container-fluid">
-
+  <div class="row">
     <div class="mt-3">
       <div class="alert alert-success" style="text-align: center;">
         <h1 class="fs-2">Notificações-ACT</h1>
@@ -59,7 +58,7 @@
         <div class="table-responsive">
           <table class="table table-hover table-bordered">
             <thead class="table-active">
-
+            <th>Seleção</th>
             <th>Data do Acidente</th>
             <th>Nome Paciente</th>
             <th class="th-data">Data Nasc.</th>
@@ -67,11 +66,14 @@
             <th>Município de Ocorrência</th>
             <th>Hospital que foi transferido</th>
             <th>Contato</th>
-            <th>Ação</th>
 
             </thead>
             <tbody id="table-registros">
-            <tr>
+            <tr style="cursor:pointer;">
+              <td><div class="form-check" >
+                <input class="form-check-input"  type="checkbox" id="check1" name="option1" value="something" checked>
+                <label class="form-check-label"></label>
+              </div></td>
               <td>02/06/2025</td>
               <td>julio</td>
               <td>02/02/2000</td>
@@ -79,17 +81,6 @@
               <td>Joao Pessoa</td>
               <td>Metropolitano</td>
               <td>83-98888-8888</td>
-            </tr>
-            <tr>
-              <td>02/06/2025</td>
-              <td>julio</td>
-              <td>02/02/2000</td>
-              <td>Elisa Santos</td>
-              <td>Joao Pessoa</td>
-              <td>Metropolitano</td>
-              <td>83-98888-8888</td>
-              <td> <button type="button" class="btn btn-outline-primary btn-sm">Editar</button> <button type="button" class="btn btn-outline-danger btn-sm">Excluir </button> </td>
-
             </tr>
 
 
@@ -100,7 +91,25 @@
       </div>
     </div>
 
-</div>
+  </div>
+      <div class="row">
+        <div class="col ">
+          <button type="button" class="btn btn-outline-primary btn-sm">Editar</button>
+          <button type="button" class="btn btn-outline-danger btn-sm">Excluir</button>
+       </div>
+       <div class="col ">
+            <ul class="pagination justify-content-end">
+            <li class="page-item"><a class="page-link" href="#">Antes</a></li>
+            <li class="page-item"><a class="page-link" href="#">1</a></li>
+            <li class="page-item active"><a class="page-link" href="#">2</a></li>
+            <li class="page-item"><a class="page-link" href="#">3</a></li>
+            <li class="page-item"><a class="page-link" href="#">Depois</a></li>
+            </ul>
+          </div>
 
-</body>
+    </div>
+  </body>
+
+
+
 </html>
