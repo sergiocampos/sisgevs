@@ -1,8 +1,6 @@
 //FUNÇÃO GERAL DE VALIDAÇÃO
 
-function valid_geral(){
 
-}
 
 //Act_validacoes
 
@@ -374,10 +372,14 @@ $('.reponsaveis-prestar-socorro').on('change',function () {
 
 // ------------------------------------------- INFORMACÕES DO PACIENTE ---------------------------------------- //
 //Validação da pagina Informacoes do Paciente
-function validInfoPacient() {
+function validinfoPaciente() {
     if(
-        nomePaciente  == true &&
-        dn  == true
+        nomePaciente == true &&
+       // dn == true &&   //verificar essa validação
+        tipoSexo == true &&
+        nomeMae == true &&
+        enderecoPaciente == true &&
+        contatoTel == true
 
 
     ){
@@ -406,9 +408,11 @@ $('#nome_paciente').on('keyup', function () {
         nomePaciente = false
         $('#alert_nome_paciente').attr('hidden', false)
     }
-    validInfoPacient()
+    validinfoPaciente()
 })
+
 // Idade do Paciente: *
+
 
 var dn = document.getElementById('dn');
 dn.max = new Date().toISOString().split("T")[0];
@@ -416,14 +420,17 @@ dn.max = new Date().toISOString().split("T")[0];
 $('#dn').on('focusout', function () {
     if(this.value != ''){
         nascimento = this.value.split('-')[0]
-        var today = new Date().toISOString().split('T')[0].split('-')[0]
-        $('#idade').val(today-nascimento)
+        var diaAtual = new Date().toISOString().split('T')[0].split('-')[0]
+
+        $('#idade').val(diaAtual-nascimento)
+
         $('#alert_data_nascimento').attr('hidden',true)
     }else{
         $('#alert_data_nascimento').attr('hidden',false)
         $('#idade').val('')
 
     }
+    validinfoPaciente()
 
 })
 
@@ -443,6 +450,7 @@ function verificasexo(){
 
         alert_sexo.removeAttribute('hidden')
     }
+    validinfoPaciente()
 }
 
 
@@ -464,6 +472,7 @@ $('#nome_mae').on('keyup', function () {
         nomeMae = false
         $('#alert_nome_mae').attr('hidden', false)
     }
+    validinfoPaciente()
 })
 
 
@@ -482,6 +491,7 @@ $('#endereco_paciente').on('keyup', function () {
         enderecoPaciente = false;
         $('#alert_endereco_paciente').attr('hidden', false)
     }
+    validinfoPaciente()
 })
 
 
@@ -520,7 +530,7 @@ function verificaHospital(){
         alert_hospital_transferencia.setAttribute('hidden', true)
     } else {
         hospitalTransferencia = false;
-        alert_hospital_transferencia.removeAttribute('hidden')
+        alert_hospital_transferencia.removeAttribute('hidden', false)
     }
 }
 
@@ -529,6 +539,25 @@ function verificaHospital(){
 
 
 // -------------------------------------------- UNIDADE NOTIFICADORA ------------------------------------------ //
+
+//Validação da pagina Unidade Notificadora
+function validinfoUnidadeNotificadora() {
+    if(
+        nomeInstituicao == true &&
+        nomeSecretario == true &&
+        funcaoNotificador == true &&
+        contatoNotificador == true
+
+    ){
+        $('#alert_unidade_notificadora').attr('hidden',true)
+        return true
+    } else{
+        $('#alert_unidade_notificadora').attr('hidden',false)
+        return false
+
+    }
+}
+
 
 // Nome da Instituição *
 
@@ -547,6 +576,7 @@ $('#nome_instituicao').on('keyup', function () {
         nomeInstituicao = false
         $('#alert_instituicao').attr('hidden', false)
     }
+    validinfoUnidadeNotificadora()
 })
 
 
@@ -591,6 +621,7 @@ $('#funcao_notificador').on('keyup', function () {
         funcaoNotificador = false
         $('#alert_funcao_notificador').attr('hidden', false)
     }
+    validinfoUnidadeNotificadora()
 })
 
 
@@ -605,7 +636,7 @@ var contatoNotificador = false
 $('#contato_notificador').mask('(00) 00000-0000')
 $('#contato_notificador').on ('keyup', function () {
 
-    var re = /^[0-9 ()-]{16}$/
+    var re = /^[0-9 ()-]{15}$/
 
     if(re.test(this.value)) {
         contatoNotificador = true
@@ -614,10 +645,11 @@ $('#contato_notificador').on ('keyup', function () {
         contatoNotificador = false
         $('#alert_contato_notificador').attr('hidden', false)
     }
+    validinfoUnidadeNotificadora()
 })
 
 
-//function envia dados**<script language=JavaScript>
+
 
 
 
