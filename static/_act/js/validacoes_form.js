@@ -510,35 +510,53 @@ $('#tel').on ('keyup', function () {
 // ------------------------------------- OUTRAS INFORMAÇÕES SOBRE O PACIENTE ---------------------------------- //
 
 // O Paciente Envolvido no Acidente *
-
-
-
-
+var validPacientEnvolvido = false;
 var hospitalTransferencia = false;
+
+var alert_outros_paciente = document.getElementById('alert_outros_paciente');
 var alert_hospital_transferencia = document.getElementById('alert_hospital_transferencia');
-function verificaHospital(){
+var alert_pac_envolvido = document.getElementById('alert_pac_envolvido');
+
+function verificaHospital(elemento){
+
     hospitalTransferencia = true;
-    if (hospitalTransferencia) {
+    
+    if (elemento.value) {
         hospitalTransferencia = true;
+        validPacientEnvolvido = true;
         alert_hospital_transferencia.setAttribute('hidden', true)
+        alert_pac_envolvido.setAttribute('hidden', true)
+        alert_outros_paciente.setAttribute('hidden', true)
+
     } else {
+        validPacientEnvolvido = false
         hospitalTransferencia = false;
         alert_hospital_transferencia.removeAttribute('hidden')
+        alert_outros_paciente.removeAttribute('hidden')
+        alert_pac_envolvido.removeAttribute('hidden')
     }
 }
 
 // Ativa e desativa o hospital de referencia
 
 function active_hospital(){
+
     var opt=document.getElementById('hospital_transferencia');
     var radioSim = document.getElementById("radio_sim");
-
+    alert_pac_envolvido.setAttribute('hidden', true)
+    
     if (radioSim.checked) {
         opt.removeAttribute("class","d-none");
+        alert_pac_envolvido.removeAttribute('hidden');        
+        alert_outros_paciente.removeAttribute('hidden')
+        validPacientEnvolvido = false;
 
     } else{
-        opt.setAttribute("class","d-none")
+        validPacientEnvolvido = true;
+        opt.setAttribute("class","d-none");
         document.getElementById('hospital').value=''
+        alert_hospital_transferencia.removeAttribute('hidden')
+        alert_outros_paciente.setAttribute('hidden', true)
     }
 }
 
