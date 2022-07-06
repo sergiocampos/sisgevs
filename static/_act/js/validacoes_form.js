@@ -5,20 +5,6 @@
 //Act_validacoes
 
 
-// Ativa e desativa o hospital de referencia
-
-function active_hospital(){
-    var opt=document.getElementById('hospital_transferencia');
-    var radio_sim = document.getElementById("radio_sim");
-
-    if (radio_sim.checked) {
-        opt.removeAttribute("class","d-none");
-
-    } else{
-        opt.setAttribute("class","d-none")
-        document.getElementById('hospital').value=''
-    }
-}
 
 // --------------------------------------------- INFORMAÇÕES GERAIS ------------------------------------------- //
 
@@ -375,7 +361,7 @@ $('.reponsaveis-prestar-socorro').on('change',function () {
 function validinfoPaciente() {
     if(
         nomePaciente == true &&
-       // dn == true &&   //verificar essa validação
+        idadPaciente  == true &&
         tipoSexo == true &&
         nomeMae == true &&
         enderecoPaciente == true &&
@@ -413,19 +399,24 @@ $('#nome_paciente').on('keyup', function () {
 
 // Idade do Paciente: *
 
-
+idadPaciente  = false
 var dn = document.getElementById('dn');
 dn.max = new Date().toISOString().split("T")[0];
 
 $('#dn').on('focusout', function () {
     if(this.value != ''){
-        nascimento = this.value.split('-')[0]
-        var diaAtual = new Date().toISOString().split('T')[0].split('-')[0]
+       nascimento = this.value.split('-')[0]
+       diaAtual = new Date().toISOString().split('T')[0].split('-')[0]
 
         $('#idade').val(diaAtual-nascimento)
 
+
         $('#alert_data_nascimento').attr('hidden',true)
+        idadPaciente  = true
+
     }else{
+        idadPaciente  = false
+
         $('#alert_data_nascimento').attr('hidden',false)
         $('#idade').val('')
 
@@ -521,6 +512,8 @@ $('#tel').on ('keyup', function () {
 // O Paciente Envolvido no Acidente *
 
 
+
+
 var hospitalTransferencia = false;
 var alert_hospital_transferencia = document.getElementById('alert_hospital_transferencia');
 function verificaHospital(){
@@ -530,12 +523,30 @@ function verificaHospital(){
         alert_hospital_transferencia.setAttribute('hidden', true)
     } else {
         hospitalTransferencia = false;
-        alert_hospital_transferencia.removeAttribute('hidden', false)
+        alert_hospital_transferencia.removeAttribute('hidden')
     }
 }
 
+// Ativa e desativa o hospital de referencia
+
+function active_hospital(){
+    var opt=document.getElementById('hospital_transferencia');
+    var radioSim = document.getElementById("radio_sim");
+
+    if (radioSim.checked) {
+        opt.removeAttribute("class","d-none");
+
+    } else{
+        opt.setAttribute("class","d-none")
+        document.getElementById('hospital').value=''
+    }
+}
 
 // informações complementares(texto area)
+
+
+
+
 
 
 // -------------------------------------------- UNIDADE NOTIFICADORA ------------------------------------------ //
