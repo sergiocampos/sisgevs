@@ -324,10 +324,6 @@ function verificaObito(){
 
 
 // ----------------------------------- EQUIPE ACIONADA PARA O LOCAL DO ACIDENTE ------------------------------- //
-//Validação da pagina Equipe Acionada
-
-//o mesmo ja desativa o alert da pagina
-
 
 
 // Quem foi responsável por prestar apoio no local: *
@@ -403,7 +399,7 @@ idadPaciente  = false
 var dn = document.getElementById('dn');
 dn.max = new Date().toISOString().split("T")[0];
 
-$('#dn').on('focusout', function () {
+$('#dn').on('change', function () {
     if(this.value != ''){
        nascimento = this.value.split('-')[0]
        diaAtual = new Date().toISOString().split('T')[0].split('-')[0]
