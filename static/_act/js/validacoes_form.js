@@ -1,5 +1,15 @@
-//FUNÇÃO GERAL DE VALIDAÇÃO
+//FUNÇÃO GERAL DE ATIVAÇÃO DO BOTAO
 
+$(document).ready(function () {
+    $('#contato_notificador').on('input change', function () {
+        if ($(this).val() != '') {
+            $('#btn_submit_id').prop('disabled', false);
+        }
+        else {
+            $('#btn_submit_id').prop('disabled', true);
+        }
+    });
+});
 
 
 //Act_validacoes
@@ -9,6 +19,9 @@
 // --------------------------------------------- INFORMAÇÕES GERAIS ------------------------------------------- //
 
 //Validação da pagina informções gerais
+
+
+
 function validInforGerais (){
     if(
         dataacidenteValid == true &&
@@ -24,6 +37,7 @@ function validInforGerais (){
     ){
         $('#alert_informacoes_gerais').attr('hidden',true)
         return true
+
     } else{
         $('#alert_informacoes_gerais').attr('hidden',false)
         return false
