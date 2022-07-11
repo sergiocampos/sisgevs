@@ -1,15 +1,19 @@
 //FUNÇÃO GERAL DE ATIVAÇÃO DO BOTAO
 
-$(document).ready(function () {
-    $('#contato_notificador').on('input change', function () {
-        if ($(this).val() != '') {
-            $('#btn_submit_id').prop('disabled', false);
-        }
-        else {
-            $('#btn_submit_id').prop('disabled', true);
-        }
-    });
-});
+//$(document).ready(function () {
+  //  $('#contato_notificador').on('input change', function () {
+   //     if ($(this).val() != '') {
+    //        $('#btn_submit_id').prop('disabled', false);
+     //   }
+     //   else {
+      //      $('#btn_submit_id').prop('disabled', true);
+      //  }
+   // });
+//});
+
+
+
+
 
 
 //Act_validacoes
@@ -579,7 +583,10 @@ function active_hospital(){
 
 // -------------------------------------------- UNIDADE NOTIFICADORA ------------------------------------------ //
 
-//Validação da pagina Unidade Notificadora
+//Validação da pagina Unidade Notificadora, alert
+
+
+
 function validinfoUnidadeNotificadora() {
     if(
         nomeInstituicao == true &&
@@ -588,14 +595,40 @@ function validinfoUnidadeNotificadora() {
         contatoNotificador == true
 
     ){
+        $('#alert_unidade_notificadora').attr('hidden',false)
+        uniNotifi = false
+
+    } else{
         $('#alert_unidade_notificadora').attr('hidden',true)
+        uniNotifi = true
+
+
+    }ativarButtonUnidadeNotificadora()
+}
+
+//Validação da pagina Unidade Notificadora, submit
+
+
+
+function ativarButtonUnidadeNotificadora() {
+    if(
+        uniNotifi == true
+
+
+    ){
+        $('#btn_submit_id').prop('disabled',true)
+
         return true
     } else{
-        $('#alert_unidade_notificadora').attr('hidden',false)
+        $('#btn_submit_id').prop('disabled',false)
+
         return false
 
     }
 }
+
+
+
 
 
 // Nome da Instituição *
@@ -616,6 +649,8 @@ $('#nome_instituicao').on('keyup', function () {
         $('#alert_instituicao').attr('hidden', false)
     }
     validinfoUnidadeNotificadora()
+
+
 })
 
 
@@ -640,7 +675,8 @@ $('#nome_secretario').on('keyup', function () {
     }else{
         nomeSecretario = false
         $('#alert_nome_secretario').attr('hidden', false)
-    }
+    }validinfoUnidadeNotificadora()
+
 })
 
 
@@ -661,6 +697,8 @@ $('#funcao_notificador').on('keyup', function () {
         $('#alert_funcao_notificador').attr('hidden', false)
     }
     validinfoUnidadeNotificadora()
+
+
 })
 
 
@@ -685,6 +723,8 @@ $('#contato_notificador').on ('keyup', function () {
         $('#alert_contato_notificador').attr('hidden', false)
     }
     validinfoUnidadeNotificadora()
+
+
 })
 
 
