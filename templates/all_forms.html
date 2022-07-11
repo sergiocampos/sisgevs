@@ -26,7 +26,7 @@
     {% for agravo in user.lista_agravos_permite %}
         
         {% if agravo == 'esp-hum' %}
-        <div class="d-grid gap-2 mb-3 d-md-block">
+        <div class="d-grid gap-2 justify-content-center mb-3 d-md-flex">
             <a href="/esp-hum/caso_esporotricose_create" class="btn btn-primary mx-3">
                 <span class="legenda-botao">Clique aqui para notificar</span><br><span>Esporotricose Humana</span>
             </a>
@@ -35,8 +35,8 @@
         </div>
 
         {% elif agravo == 'act' %}
-        <div class="d-grid gap-2 mb-3 d-md-block">
-            <a href="/act/caso_create" class="btn btn-success mx-3">
+        <div class="d-grid gap-2 justify-content-center mb-3 d-md-flex">
+            <a href="/act/criar-caso" class="btn btn-success mx-3">
                 <span class="legenda-botao">Clique aqui para notificar</span><br><span>Acidentes de Trânsito</span>
             </a>
             <a href="/act/download_dicionario_dados/" class="btn btn-outline-secondary mx-3" style="padding: 19px 12px 19px;" target="_blank"><p style="margin: 0px;">Dicionário de Dados</p></a>
