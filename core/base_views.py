@@ -41,77 +41,64 @@ def dados_user(request):
 
 
 # Função responsável por retornar as notificações referente a pesquisa.
-@login_required(login_url='/login/')
-def my_datas(request):
+def my_data(dados):
     
     # Identificando o agravo pela url.
-    agravo_url = str(request.path).split('/')[1]
-
+    agravo_url = str(dados.path).split('/')[1]
+    
     # Registros da doença escolhida.
-    registros = AGRAVOS[agravo_url]
-
+    registros =  AGRAVOS[agravo_url]
+    
 	# Pegando os dados de municipio.
     municipios = Municipio.objects.all()
 	
     # Filtrando dados por função do usuário.
-    if request.user.funcao == 'admin':
+    if dados.user.funcao == 'admin':
 
-        registros = registros.all().order_by('-data_notificacao').exclude(status_caso='Cancelado')
+        registros = registros.order_by('-data_notificacao').exclude(status_caso='Cancelado')
         
     
-    elif request.user.funcao == 'gerencia_executiva':
+    elif dados.user.funcao == 'gerencia_executiva':
 
-        registros = registros.all().order_by('-data_notificacao').exclude(status_caso='Cancelado')
+        registros = registros.order_by('-data_notificacao').exclude(status_caso='Cancelado')
         
         
-    elif request.user.funcao == 'gerencia_operacional':
-    
-        user_gerencia_operacional = request.user.gerencia_operacional
-        registros = registros.filter(responsavel_gerencia_operacional=user_gerencia_operacional).order_by('-data_notificacao').exclude(status_caso='Cancelado')
+    elif dados.user.funcao == 'gerencia_operacional':
+        registros = registros.order_by('-data_notificacao').exclude(status_caso='Cancelado')
         
     
-    elif request.user.funcao == 'chefia_nucleo':
-    
-        user_gerencia_operacional = request.user.gerencia_operacional
-        user_nucleo = request.user.nucleo
-        registros = registros.filter(
-            responsavel_gerencia_operacional=user_gerencia_operacional, 
-            responsavel_nucleo=user_nucleo
-            ).order_by('-data_notificacao').exclude(status_caso='Cancelado')
+    elif dados.user.funcao == 'chefia_nucleo':
+        registros = registros.order_by('-data_notificacao').exclude(status_caso='Cancelado')
         
-        
-    elif request.user.funcao == 'area_tecnica':    
 
-        user_gerencia_operacional = request.user.gerencia_operacional
-        user_nucleo = request.user.nucleo
-        user_area_tecnica = request.user.area_tecnica
-        registros = registros.filter(
-            responsavel_gerencia_operacional=user_gerencia_operacional, 
-            responsavel_nucleo=user_nucleo,
-            responsavel_area_tecnica=user_area_tecnica
-            ).order_by('-data_notificacao').exclude(status_caso='Cancelado')
+    elif dados.user.funcao == 'area_tecnica':    
+        registros = registros.order_by('-data_notificacao').exclude(status_caso='Cancelado')
         
     
-    elif request.user.funcao == 'gerencia_regional':
+    elif dados.user.funcao == 'gerencia_regional':
         
-        user_gerencia_regional = Municipio.objects.get(id=request.user.municipio_id).gerencia_id
+        user_gerencia_regional = Municipio.objects.get(id=dados.user.municipio_id).gerencia_id
         registros = registros.filter(gerencia_id=user_gerencia_regional).order_by('-data_notificacao').exclude(status_caso='Cancelado')
 
     
-    elif request.user.funcao == 'municipal':
+    elif dados.user.funcao == 'municipal':
         
-        user_municipio_id = request.user.municipio_id
-        municipio_user = request.user.municipio
+        user_municipio_id = dados.user.municipio_id
+        user_id = dados.user.id
         user_municipio_nome = str(Municipio.objects.filter(id=user_municipio_id)[0])
         user_municipio_nome_upper = str(Municipio.objects.filter(id=user_municipio_id)[0]).upper()
         
-        registros = registros.filter(Q(municipio_residencia=user_municipio_id) | Q(municipio_residencia=user_municipio_nome) | Q(municipio_residencia=user_municipio_nome_upper) | Q(responsavel_pelas_informacoes_id=user_municipio_id)).order_by('-data_notificacao').exclude(status_caso='Cancelado')
+        registros = registros.filter(
+			Q(municipio_residencia=user_municipio_id) | 
+			Q(municipio_residencia=user_municipio_nome) | 
+			Q(municipio_residencia=user_municipio_nome_upper) | 
+			Q(responsavel_pelas_informacoes_id=user_id)
+			).order_by('-data_notificacao').exclude(status_caso='Cancelado')
         
     
-    elif request.user.funcao == 'autocadastro':
+    elif dados.user.funcao == 'autocadastro':
 
-        autocadastro_id = request.user.id
-        municipio_user = request.user.municipio
+        autocadastro_id = dados.user.id        
 
         registros = registros.filter(responsavel_pelas_informacoes_id=autocadastro_id).order_by('-data_notificacao').exclude(status_caso='Cancelado')
         #registros = CasoEsporotricose.objects.filter(municipio_residencia=municipio_user).order_by('-data_notificacao')
@@ -122,8 +109,7 @@ def my_datas(request):
     # paginator = Paginator(registros, 6)
     # page = request.GET.get('page')
     # regs = paginator.get_page(page)    
-             
-
+    
     return {'regs':registros, 'municipios':municipios}
     
 

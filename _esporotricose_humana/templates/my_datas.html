@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block head %}
-<link rel="stylesheet" href="{% static '_esporotricose_humana/css/registros.css' %}">
+<link rel="stylesheet" href="{% static 'css/registros.css' %}">
 {% endblock head %}
 
 {% block content %}
@@ -14,7 +14,7 @@
         <div class="col-md-4 mb-3">
             <input class="form-control" type="text" id="pesquisar-registros" placeholder="digite algo para pesquisar">
         </div>
-        <form class="col" enctype="multipart/form-data" action="/esp-hum/export_data_csv/" method="get">
+        <form class="col" enctype="multipart/form-data" action="/export_data_csv/" method="get">
             {% csrf_token %}
             <div class="row">
                 <div class="col mb-3">
@@ -140,18 +140,26 @@
                         {% endif %}
     
                         <td class="d-grid gap-2 d-md-block">
-                            {% if user.funcao != 'gerencia_regional' and user.funcao != 'autocadastro' %}
-                                {% if user.municipio.nome.upper == registro.municipio_residencia.upper %}
+                            
+                            {% if user.funcao != 'gerencia_regional' and user.funcao != 'autocadastro' and user.funcao != 'municipal' %}
                                 <a href="/esp-hum/caso_esporotricose_edit/{{registro.id}}" class="btn btn-info btn-sm">Editar</a>
+
+                            {% elif user.funcao == 'municipal' %}
+                                {% if user.municipio.nome.upper == registro.municipio_residencia.upper or user.id == registro.responsavel_pelas_informacoes_id %}
+                                    <a href="/esp-hum/caso_esporotricose_edit/{{registro.id}}" class="btn btn-info btn-sm">Editar</a>
                                 {% else %}
-                                <button type="button" class="btn btn-info btn-sm" disabled>Editar</button>
+                                    <button type="button" class="btn btn-info btn-sm" disabled>Editar</button>
                                 {% endif %}
-                            {% elif user.funcao == 'autocadastro' %}
-                            <a href="/esp-hum/caso_esporotricose_edit/{{registro.id}}" class="btn btn-info btn-sm">Editar</a>
-                            {%endif%}
+
+                            {% elif user.funcao == 'autocadastro' and user.id == registro.responsavel_pelas_informacoes_id %}
+                                <a href="/esp-hum/caso_esporotricose_edit/{{registro.id}}" class="btn btn-info btn-sm">Editar</a>
+
+                            {% endif %}
+                                                        
                             <a href="/esp-hum/caso_view_detail/{{registro.id}}/" target="_blank" class="btn btn-secondary btn-sm">Ver</a>
                             {% if user.funcao != 'gerencia_regional' %}
-                            <a href="/esp-hum/cancelar_caso_esporotricose/{{registro.id}}/" class="btn btn-warning btn-sm">Cancelar</a>
+                            <button id="{{registro.id}}" type="button"
+                                class="btn cancelar_caso btn-warning btn-sm" onclick="cancelar_revalidar('/esp-hum/my_datas', {{registro.id}})">Cancelar</button>
                             {% endif %}
                         </td>
                     </tr>

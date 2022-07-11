@@ -67,6 +67,10 @@ urlpatterns = [
     path('cancelar_caso_esporotricose/<int:id>/', base_views.cancelar_caso, name='cancelar_caso_esporotricose'),
     path('criar_perfil_municipal/', views.criar_perfil_municipal, name='criar_perfil_municipal'),
     path('checar_login_ajax/', views.checar_login_ajax, name='checar_login_ajax'),
+
+    path('gerenciar-dados/', views.gerenciar_dados_get, name="gerenciar-dados-get"),
+    path('gerenciar-dados/set', views.gerenciar_dados_set, name="gerenciar-dados-set"),
+    path('gerenciar-dados/del', views.gerenciar_dados_del, name="gerenciar-dados-del"),
     
 ]
 
