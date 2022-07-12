@@ -1,16 +1,29 @@
 //FUNÇÃO GERAL DE ATIVAÇÃO DO BOTAO
 
-//$(document).ready(function () {
-  //  $('#contato_notificador').on('input change', function () {
-   //     if ($(this).val() != '') {
-    //        $('#btn_submit_id').prop('disabled', false);
-     //   }
-     //   else {
-      //      $('#btn_submit_id').prop('disabled', true);
-      //  }
-   // });
-//});
 
+
+function ativarButtonUnidadeNotificadora() {
+    if(
+        uniNotifi == true &&
+        infogeral == true &&
+        servAcidente == true &&
+        equipAcionada == true &&
+        infPaciente == true &&
+        hospitalTransferencia == true &&
+        validPacientEnvolvido == true
+
+
+    ){
+        $('#btn_submit_id').prop('disabled',false)
+
+        return false
+    } else{
+        $('#btn_submit_id').prop('disabled',true)
+
+        return true
+
+    }
+}
 
 
 
@@ -40,13 +53,15 @@ function validInforGerais (){
         sinalAcoolicoValid == true
     ){
         $('#alert_informacoes_gerais').attr('hidden',true)
-        return true
+        infogeral = true
+
 
     } else{
         $('#alert_informacoes_gerais').attr('hidden',false)
-        return false
+        infogeral = false
 
-    }
+
+    }ativarButtonUnidadeNotificadora()
 }
 
 // Data do Acidente
@@ -241,12 +256,12 @@ function validSeverAcident (){
 
     ){
         $('#alert_severidade').attr('hidden',true)
-        return true
+        servAcidente = true
     } else{
         $('#alert_severidade').attr('hidden',false)
-        return false
+        servAcidente = false
 
-    }
+    }ativarButtonUnidadeNotificadora()
 }
 
 
@@ -346,7 +361,7 @@ function verificaObito(){
 
 // Quem foi responsável por prestar apoio no local: *
 
-var responsavelApoio = false
+//var responsavelApoio = false
 var alert_responsavel_apoio = document.getElementById('alert_responsavel_apoio')
 var equipe_acionada = document.getElementById('equipe-acionada')
 $('.reponsaveis-prestar-socorro').on('change',function () {
@@ -362,12 +377,14 @@ $('.reponsaveis-prestar-socorro').on('change',function () {
     if(responsavelApoio){
         alert_responsavel_apoio.setAttribute('hidden', true)
         equipe_acionada.setAttribute('hidden',true)
+        equipAcionada = true
 
     }else{
         alert_responsavel_apoio.removeAttribute('hidden')
         equipe_acionada.removeAttribute('hidden')
+        equipAcionada = false
 
-    }
+    }ativarButtonUnidadeNotificadora()
 })
 
 // ------------------------------------------- INFORMACÕES DO PACIENTE ---------------------------------------- //
@@ -384,12 +401,14 @@ function validinfoPaciente() {
 
     ){
         $('#alert_informacoes_paciente').attr('hidden',true)
-        return true
+        infPaciente = true
+
     } else{
         $('#alert_informacoes_paciente').attr('hidden',false)
-        return false
+        infPaciente = false
 
-    }
+
+    }ativarButtonUnidadeNotificadora()
 }
 
 
@@ -548,7 +567,7 @@ function verificaHospital(elemento){
         alert_hospital_transferencia.removeAttribute('hidden')
         alert_outros_paciente.removeAttribute('hidden')
         alert_pac_envolvido.removeAttribute('hidden')
-    }
+    }ativarButtonUnidadeNotificadora()
 }
 
 // Ativa e desativa o hospital de referencia
@@ -595,38 +614,17 @@ function validinfoUnidadeNotificadora() {
         contatoNotificador == true
 
     ){
+        $('#alert_unidade_notificadora').attr('hidden',true)
+        uniNotifi = true
+
+    } else{
         $('#alert_unidade_notificadora').attr('hidden',false)
         uniNotifi = false
 
-    } else{
-        $('#alert_unidade_notificadora').attr('hidden',true)
-        uniNotifi = true
 
 
     }ativarButtonUnidadeNotificadora()
 }
-
-//Validação da pagina Unidade Notificadora, submit
-
-
-
-function ativarButtonUnidadeNotificadora() {
-    if(
-        uniNotifi == true
-
-
-    ){
-        $('#btn_submit_id').prop('disabled',true)
-
-        return true
-    } else{
-        $('#btn_submit_id').prop('disabled',false)
-
-        return false
-
-    }
-}
-
 
 
 
