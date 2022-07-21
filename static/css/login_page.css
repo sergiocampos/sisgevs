@@ -51,8 +51,7 @@ body{
     overflow-y: hidden;
 }
 .footer img{
-    width: 300px;
-    margin-left: 20vw;
+    width: 300px;    
 }
 .footer .container-fluid p {
     color: #fff;
@@ -192,7 +191,7 @@ font-family: "Roboto", sans-serif;
 @media screen and (min-width:825px),(max-width: 1366px) {
     .header img{width: 250px;}
     .footer {height: 115px}
-    .footer img{width: 200px;}
+    .footer img{width: 150px;}
     .footer .container-fluid p {font-size: 12px;}
     .author{font-size: 14px;}
     .footer b {font-size: 14px;}
