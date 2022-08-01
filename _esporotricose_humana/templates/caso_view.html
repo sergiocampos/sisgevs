@@ -1,0 +1,2184 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>SISGEVS - Sistema de Informação em Saúde da GEVS</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+  <script src="https://code.highcharts.com/highcharts.src.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.min.js"></script>
+
+  <style>
+    .fakeimg {
+      height: 500px;
+      background: #aaa;
+    }
+  </style>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+/* Style the header */
+header {
+  background-color: ;
+  padding: 1px;
+  text-align: center;
+  font-size: 35px;
+  color: black;
+}
+
+/* Container for flexboxes */
+section {
+  display: -webkit-flex;
+  display: flex;
+}
+
+/* Style the navigation menu */
+nav {
+  -webkit-flex: 0.5;
+  -ms-flex: 0.5;
+  flex: 0.5;
+  background: #e6e6e6;
+  padding: 20px;
+}
+
+/* Style the list inside the menu */
+nav ul {
+  list-style-type: none;
+  padding: ;
+}
+
+/* Style the content */
+article {
+  -webkit-flex: 3;
+  -ms-flex: 3;
+  flex: 3;
+  background-color: #f1f1f1;
+  padding: 10px;
+}
+
+/* Style the footer */
+footer {
+  background-color: #777;
+  padding: 10px;
+  text-align: center;
+  color: white;
+}
+
+/* Responsive layout - makes the menu and the content (inside the section) sit on top of each other instead of next to each other */
+@media (max-width: 600px) {
+  section {
+    -webkit-flex-direction: column;
+    flex-direction: column;
+  }
+}
+.usuario_log{
+  margin: 3px;
+  border-radius: 8px;
+  background-color: #17a2b8;
+  color: white;
+  cursor: default;
+}
+</style>
+
+<link rel="shortcut icon" href="https://docs.google.com/uc?id=1h8jgyPDlDWWinD_VP50nqKXnmdCHEKH3" type="image/x-icon" />
+
+
+
+
+</head>
+<body>
+
+  <nav class="navbar navbar-expand-sm bg-info navbar-light" style="background-color: #e6e6e6;">
+    <ul class="navbar-nav">
+      <li class="nav-item active">
+        <a class="nav-link" href="#"></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#"></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#"></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link disabled" href="#"></a>
+      </li>
+    </ul>
+  </nav>
+  <header>
+    <div class="" style="background-color: #e6e6e6;">
+      <div class="row">
+        <div class="col" style="padding: 0; margin-top: 10px; text-align: center;">
+          <h4>SECRETARIA DE ESTADO DA SAÚDE DA PARAÍBA</h4>
+          <h6>SISGEVS - Sistema de Informação em Saúde da GEVS</h6>
+          <h6><b>----</b></h6>
+        </div>
+      </div>
+    </div>
+  </header>
+
+<nav class="navbar navbar-expand-sm bg-secondary navbar-dark">
+  <a class="navbar-brand" href="#"></a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="collapsibleNavbar">
+    <ul class="navbar-nav">
+      <li class="nav-item">
+        <a class="nav-link" href="/all_forms/">Início</a>
+      </li>
+      {% if user.funcao == 'gerencia_executiva' or user.funcao == 'admin' %}
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#">Localizar Notificação</a>
+        <div class="dropdown-menu">
+          <a class="dropdown-item" href="/localizar_paciente_nome/">Nome Paciente</a>
+          <a class="dropdown-item" href="/localizar_paciente_data_coleta/">Data de Coleta</a>
+          <a class="dropdown-item" href="#">CPF</a>
+          <a class="dropdown-item" href="#">Telefone</a>
+        </div>
+      </li>
+      {% endif %}
+      <li class="nav-item">
+        <a class="nav-link" href="/all_forms/">Notificar</a>
+      </li>
+    </ul>
+  </div>
+</nav>
+    <section>
+      <nav>
+        <ul style="padding:0;">
+          <li>
+            <div class="usuario_log">
+              <div style="padding: 5px;">
+                <span><b>Usuário:</b> {{user.login}}</span><br>
+                <b>Perfil: </b><span id="user_funcao">{{user.funcao}}</span>
+              </div>
+            </div>            
+          </li>
+        </ul>
+        <ul style="padding-left: 5%;">
+          <div id="demo" class="collapsed">
+            <li><a href="#">Meus Dados</a></li>
+            <hr>
+            {% if user.funcao == 'admin' %}
+              <li><a href="/admin/">Gerenciar Contas</a></li>
+              <hr>
+            {% endif %}
+            <li><a href="/all_forms/" data-toggle="collapse" data-target="#formularios">Formulários</a></li>
+            <div id="formularios" class="collapse">
+              <li><a href="/all_forms/">Esporotricose Humana</a></li>
+              <li><a href="/main/">Chikungunya</a></li>
+              <li><a href="/main/">Dengue</a></li>
+              <li><a href="/main/">Zika</a></li>
+            </div>
+            <hr>
+            <li><a href="/my_datas/">Notificações</a></li>
+            <hr>
+            <li><a href="/download_ficha/" data-toggle="collapse" data-target="#_demo">Ficha</a></li>
+            <div id="_demo" class="collapse"><br>
+              <li><a href="/ficha_caso_esporotricose_preencher/" target="_blank" style="color: #4d94ff;">Novo Layout</a></li>
+              <!--<li><a href="/download_ficha/" download style="color: #4d94ff;">Imprimir Ficha</a></li>-->
+            </div>
+            <hr>
+            <li><a href="/logout/">Sair</a></li>
+          </div>
+        </ul>
+      </nav>
+
+
+      <article>
+
+        <div class="container" style="margin-left: 0;" id="container">
+
+          <div class="row">
+            <div class="col-sm-12">
+              <div class="alert alert-primary" style="text-align: center;">
+                <strong style="align-items: center;">Edição de Caso</strong>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-12">
+              <p style="font-size: 72%; background-color: #e6e6e6; padding: 8px;">
+
+                <b>CASO SUSPEITO:</b> INDIVÍDUO QUE APRESENTE LESÕES NA PELE, QUE SE INICIAM COMO UMA PEQUENA PÁPILA, QUE PODEM EVOLUIR PARA UMA FORMA ULCERADA, COM OU SEM SECREÇÃO SEROPULENTA, DISPOSTAS OU NÃO EM FILEIRA; COM HISTÓRIA EPIDEMIOLÓGICA DE TRAUMA CUTÂNEO POR MATERIAL DE ORIGEM VEGETAL POTENCIALMENTE CONTAMINADO COM FUNGO OU ARRANHADURA/MORDEDURA POR GATOS OU CONTATO COM FERIDAS DESSES ANIMAIS.
+                
+              </p>
+          
+          </div>
+          </div>
+
+
+          <form name="Form" id="Form" enctype="multipart/form-data" class="needs-validation" novalidate action="submit" method="POST" action="" data-unidadesaude-url="{% url 'ajax_load_unidadesaude' %}" data-ibge-url="{% url 'ajax_load_ibge' %}">{% csrf_token %}
+            
+            <!-- Nav tabs -->
+            <ul class="nav nav-tabs" role="tablist">
+              <li class="nav-item">
+                <a class="nav-link active" data-toggle="tab" href="#home_">Dados Gerais</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" data-toggle="tab" href="#home">Notificação Individual</a>
+              </li>
+
+              <li class="nav-item">
+                <a class="nav-link" data-toggle="tab" href="#menu1">Dados de Residência</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" data-toggle="tab" href="#menu2">Antecedentes Epidemiológicos</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" data-toggle="tab" href="#menu3">Dados Clínicos</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" data-toggle="tab" href="#menu4">Dados Laboratoriais</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" data-toggle="tab" href="#menu5">Tratamento</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" data-toggle="tab" href="#menu6">Conclusão</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" data-toggle="tab" href="#menu7">Observação</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" data-toggle="tab" href="#menu8">Investigador</a>
+              </li>
+            </ul>
+
+            <!-- Tab panes -->
+            <div class="tab-content">
+
+              <div id="home_" class="container tab-pane active"><br>
+
+
+                <div class="row">
+
+                  <div class="col-md-3">
+                    <div class="form-group"><b>Tipo de Notificação</b>
+                      <select class="form-control" name="tipo_notificacao" id="" readonly>
+                        <option value="{{registro.tipo_notificacao}}" selected>{{registro.tipo_notificacao}}</option>
+                        <option value="Individual">Individual</option>
+
+                      </select>
+                    </div>
+                  </div>
+                  <div class="col-md-2">
+                    <div class="form-group"><b>Agravo/Doença</b>
+                      <select class="form-control" name="agravo_doenca" id="" readonly>
+                        <option value="{{registro.agravo_doenca}}" selected>{{registro.agravo_doenca}}</option>
+                        <option value="Esporotricose">Esporotricose</option>
+
+                      </select>
+                    </div>              
+                  </div>
+                  <div class="col-md-2">
+                    <div class="form-group"><b>Código CIB 10</b>
+                      {% if registro.codigo_cib10 %}
+                      <input class="form-control" type="text" name="codigo_cib" placeholder="" value="{{registro.codigo_cib10}}" readonly>
+                      {%else%}
+                      <input class="form-control" type="text" name="codigo_cib" placeholder="" value="B42.9" readonly>
+                      {%endif%}
+                    </div>
+                  </div>
+                  <div class="col-md-3">
+                    <div class="form-group"><b>Data de notificação</b>
+                      {% if registro.data_notificacao %}
+                      <input class="form-control" type="" name="data_notificacao" value="{{registro.data_notificacao}}" readonly>
+                      {%else%}
+                      <input class="form-control" type="date" name="data_notificacao" value="" readonly>
+                      {%endif%}
+                    </div>
+                  </div>
+
+                </div>
+
+                <div class="row">
+
+                  <div class="col-md-2">
+                    <div class="form-group"><b>UF</b>
+                      <select class="form-control" name="uf_notificacao" id="estado" readonly>
+                        <option value="{{registro.estado}}" selected>{{registro.estado}}</option>
+                        <option value=""></option>
+
+                      </select>
+                    </div>
+                  </div>
+                  <div class="col-md-3">
+                    <div class="form-group"><b>Município</b>
+                      <select class="form-control" name="municipio_notificacao" id="municipio_id" required readonly>
+                        <option value="{{municipio}}" selected>{{municipio}}</option>
+                        
+
+                      </select>
+                      
+                    </div>              
+                  </div>
+                  <div class="col-md-2">
+                    <div class="form-group"><b>Código IBGE</b>
+                      <b ></b>
+                      <select class="form-control" name="codigo_ibge_dados_gerais" id="ibge_cod_id" readonly>
+                        <option value="{{ibge}}">{{ibge}}</option>
+                      
+                        
+                      </select>
+                    </div>
+                  </div>
+                  <div class="col-md-3">
+                    <div class="form-group"><b>Data dos Primeiros Sintomas</b>
+                      <input class="form-control" type="date" name="data_primeiros_sintomas" value="" required readonly>
+                      <div class="valid-feedback">Valid.</div>
+                      <div class="invalid-feedback">Data obrigatória.</div>
+                    </div>
+                  </div>
+
+
+                </div>
+
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="form-group"><b>Unidade de Saúde  </b><i></i>
+                      <select class="form-control" name="unidade_saude" id="unidade_saude_id" readonly>
+                        {% for unid_saude in unidades_saude %}
+                        <option value="{{unid_saude.id}}">{{unid_saude.id}}</option>
+                        {% endfor %}
+                      </select>
+                    </div>
+                  </div>
+
+                  
+                  
+
+                </div>
+                <br>
+
+                <div class="row">
+                  <div class="col-md-12">
+                    <div class="input-group mb-3" id="">
+                      <div class="input-group-prepend" id="">
+                        <span class="input-group-text">Outra Unidade</span>
+                      </div>
+                      <input type="text" class="form-control" name="unidade_saude_outro" value="" id="" readonly>
+                    </div>
+                  </div>
+                </div>
+                
+
+              </div>
+              
+
+              <div id="home" class="container tab-pane"><br>
+
+
+                <div class="row">                  
+                  <div class="col-md-2">
+                    <div class="form-group">
+                      <input type="date" class="form-control" id="dateDefault" / style="display: none;">
+                    </div>                                
+                  </div>                  
+                </div>
+
+                <script>
+                function setInputDate(_id){
+                    var _dat = document.querySelector(_id);
+                    var hoy = new Date(),
+                        d = hoy.getDate(),
+                        m = hoy.getMonth()+1, 
+                        y = hoy.getFullYear(),
+                        data;
+
+                    if(d < 10){
+                        d = "0"+d;
+                    };
+                    if(m < 10){
+                        m = "0"+m;
+                    };
+
+                    data = y+"-"+m+"-"+d;
+                    console.log(data);
+                    _dat.value = data;
+                };
+
+                setInputDate("#dateDefault");
+              </script>
+
+                <div class="row">
+
+                  <div class="col-md-6"><b>Paciente</b>
+                    <div class="form-group">
+                      <input class="form-control" type="text" name="nome_paciente" value="" required readonly>
+                      <div class="valid-feedback">Valid.</div>
+                      <div class="invalid-feedback">Nome obrigatório.</div>
+                    </div>
+                  </div>
+                  <div class="col-md-2">
+                    <div class="form-group"><b>Data Nasc</b>
+                      <input class="form-control" type="date" name="data_nasc" id="date2" placeholder="" value="" required readonly>
+                      <div class="valid-feedback">Valid.</div>
+                      <div class="invalid-feedback">Data nascimento obrigatória.</div>
+                    </div>                                
+                  </div>
+                  <div class="col-md-2">
+                    <div class="form-group"><b>Sexo</b>
+                      <select class="form-control" name="sexo" id="span_id" readonly>
+                        
+                        <option value=""></option>
+                        <option value="M">Masculino</option>
+                        <option value="F">Feminino</option>
+                        
+                      </select>
+                    </div>
+                  </div>
+                  <div class="col-md-2">
+                    <div class="form-group"><b>Idade</b>
+                      <input class="form-control" type="text" name="result" placeholder="" value="" id="result" readonly>
+                    </div>
+                  </div>
+
+                </div>
+
+                <script>
+                  $('#span_id').click(function(){
+                    var dt1 = $('#dateDefault').val();
+                    var dt2 = $('#date2').val();
+                    
+                    $('#result').text(calcula(dt1,dt2))
+                    //console.log(dt1);
+                    //console.log(dt2);
+
+                  });
+
+                  function calcula(data1, data2){
+                    data1 = new Date(data1);
+                    data2 = new Date(data2);
+                    
+                    idade = parseInt(((data1 - data2)/(1000*3600*24))/365);
+                    console.log(idade);
+                    document.getElementById("result").value = idade;
+                    //$('#result').text(idade);
+                    return idade;
+                    
+                  }
+
+                </script>
+
+                <div class="row">
+                  
+                  
+                    <div class="col-md-3">
+                      <div class="form-group"><b>Gestante</b>
+                        <select class="form-control" name="gestacao" id="" required readonly>
+                          
+                          <option value=""></option>
+                          <option value="1º Trimente">1º Trimente</option>
+                          <option value="2º Trimestre">2º Trimestre</option>
+                          <option value="3º Trimestre">3º Trimestre</option>
+                          <option value="Idade Gestacional Ignorada">Idade Gestacional Ignorada</option>
+                          <option value="Ignorado">Ignorado</option>
+                          <option value="Não se aplica">Não se aplica</option>
+                          <option value="Não">Não</option>
+                          
+                        </select>
+                        <div class="valid-feedback">Valid.</div>
+                        <div class="invalid-feedback">Seleção obrigatória.</div>
+                      </div>
+                    </div>
+                  <div class="col-md-2">
+                    <div class="form-group"><b>Raça</b>
+                      <select class="form-control" name="raca" id="" readonly>
+                        
+                        <option value=""></option>
+                        <option value="Branca">Branca</option>
+                        <option value="Preta">Preta</option>
+                        <option value="Amarela">Amarela</option>
+                        <option value="Parda">Parda</option>
+                        <option value="Indígena">Indígena</option>
+                        <option value="Ignorado">Ignorado</option>
+                        
+                      </select>
+                    </div>
+                  </div>
+
+                  <div class="col-md-4">
+                    <div class="form-group"><b>Escolaridade</b>
+                      <select class="form-control" name="escolaridade" id="" readonly>
+                        
+                        <option value=""></option>
+                        <option value="Analfabeto">Analfabeto</option>
+                        <option value="1ª a 4ª serie incompleto">1ª a 4ª série incompleto</option>
+                        <option value="4ª serie completa">4ª série completa</option>
+                        <option value="5ª a 8ª serie incompleto">5ª a 8ª série incompleto</option>
+                        <option value="Ensido Fundamental Completo">Ensido Fundamental Completo</option>
+                        <option value="Ensino Medio incompleto">Ensino Médio incompleto</option>
+                        <option value="Ensino Medio Completo">Ensino Médio Completo</option>
+                        <option value="Superior Incompleto">Superior Incompleto</option>
+                        <option value="Superior completo">Superior completo</option>
+                        <option value="Nao se aplica">Não se aplica</option>
+                        
+                      </select>
+                    </div>
+                  </div>
+                  <div class="col-md-3">
+                    <div class="form-group"><b>Cartão SUS</b>
+                      <input class="form-control" type="text" name="cartao_sus" placeholder="" value="" readonly>
+                    </div>              
+                  </div>
+                </div>
+
+                <script>
+                  function active_submit(){
+                    $("#btn_submit_id").prop("disabled", false);
+                  }
+                </script>
+
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="form-group"><b>Nome da Mãe</b>
+                      <input class="form-control" type="text" name="nome_mae" placeholder="" value="" required onclick="active_submit()" readonly>
+                      <div class="valid-feedback">Valid.</div>
+                      <div class="invalid-feedback">nome da mãe obrigatório.</div>
+                    </div>              
+                  </div>
+                  <div class="col-md-5">
+                             
+                  </div>
+
+                </div>
+                
+
+              </div>
+              <div id="menu1" class="container tab-pane fade"><br>
+
+                <div class="row">
+
+                  <div class="col-md-2">
+                    <div class="form-group"><b>CEP</b>
+                      <input class="form-control" type="text" name="cep_residencia" id="cep" placeholder="" value="" required readonly>
+                    </div>
+                  </div>
+                  <div class="col-md-3">
+                    <div class="form-group"><b>UF</b>
+                      <input class="form-control" type="text" name="uf_residencia" id="uf" placeholder="" value="" readonly>
+                    </div>
+                  </div>
+                  <div class="col-md-3">
+                    <div class="form-group"><b>Município</b>
+                      <input class="form-control" type="text" name="cidade_residencia" id="cidade" placeholder="" value="" readonly>
+                    </div>              
+                  </div>
+                  
+                  <div class="col-md-2">
+                    <div class="form-group"><b>Bairro</b>
+                      <input class="form-control" type="text" name="bairro_residencia" id="bairro" placeholder="" value="" readonly>
+                    </div>
+                  </div>
+
+                  <div class="col-md-2">
+                    <div class="form-group"><b>Código IBGE</b>
+                      <input class="form-control" type="text" name="codigo_ibge_residencia" id="ibge" placeholder="" value="" readonly>
+                    </div>
+                  </div>
+                  
+                </div>
+                
+                <div class="row">
+
+                  <div class="col-md-6">
+                    <div class="form-group"><b>Rua</b>
+                      <input class="form-control" type="text" name="rua_residencia" id="rua" placeholder="" value="" readonly>
+                    </div>
+                  </div>
+                  <div class="col-md-2">
+                    <div class="form-group"><b>Número</b>
+                      <input class="form-control" type="text" name="numero_residencia" id="" placeholder="" value="" readonly>
+                    </div>
+                  </div>
+                  <div class="col-md-4">
+                    <div class="form-group"><b>Complemento</b>
+                      <input class="form-control" type="text" name="complemento_residencia" id="" placeholder="" value="" readonly>
+                    </div>
+                  </div>
+                  
+                  
+
+                </div>
+                <div class="row">
+
+                  <div class="col-md-3">
+                    <div class="form-group"><b>Distrito</b>
+                      <input class="form-control" type="text" name="distrito_residencia" id="rua" placeholder="" value="" readonly>
+                    </div>
+                  </div>
+                  <!--
+                  <div class="col-md-3">
+                    <div class="form-group"><b>Geo Campo1</b>
+                      <input class="form-control" type="text" name="numero" id="" placeholder="" value="">
+                    </div>
+                  </div>
+                  <div class="col-md-3">
+                    <div class="form-group"><b>Geo Campo2</b>
+                      <input class="form-control" type="text" name="complemento" id="" placeholder="" value="">
+                    </div>
+                  </div>
+                -->
+                  <div class="col-md-3">
+                    <div class="form-group"><b>Ponto de Referência</b>
+                      <input class="form-control" type="text" name="ponto_referencia_residencia" id="" placeholder="" value="" readonly>
+                    </div>
+                  </div>                
+                  
+                </div>
+                <div class="row">
+                  <div class="col-md-2">
+                    <div class="form-group"><b>Telefone</b>
+                      <input type="text" class="form-control" id="telefone_residencia_id" name="telefone_residencia" placeholder="apenas números" readonly>
+                    </div>
+                  </div>
+                  <div class="col-md-3">
+                    <div class="form-group"><b>Zona</b>
+                      <select class="form-control" name="zona_residencia" id="" readonly>
+                        <option value=""></option>
+                        <option value="Rural">Rural</option>
+                        <option value="Urbana">Urbana</option>
+                        <option value="Periurbana">Periurbana</option>
+                        <option value="Ignorado">Ignorado</option>                        
+                      </select>
+                    </div>
+                  </div>
+                  <div class="col-md-7">
+                    <div class="form-group"><b>Pais - </b><i>Se residem fora do Brasil</i>
+                      <input class="form-control" type="text" name="pais_residente_fora_pais" id="" placeholder="" value="" readonly>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  
+                </div>
+              </div>
+              <div id="menu2" class="container tab-pane fade"><br>
+                <div class="row">
+                  <div class="col-md-3"></div>
+                  <div class="col-md-3">
+                    <div class="form-group"><b>Data de Investigação</b>
+                      <input class="form-control" type="date" name="data_investigacao" value="" readonly>
+                    </div>
+                  </div>
+                  <div class="col-md-4">
+                    <div class="form-group"><b>Ocupação</b>
+                      <input class="form-control" type="text" name="ocupacao" placeholder="" value="" readonly>
+                    </div>
+                  </div>
+                </div>
+                <hr>
+                <div class="row">
+                  <div class="col-sm-3"></div>
+                  <div class="col-sm-6">
+                    <div class="alert alert-warning" style="text-align: center;">
+                      <strong style="align-items: center;">Situação de Risco nas últimas semanas: <i>14 dias</i></strong>
+                    </div>
+                  </div>
+                  <div class="col-sm-3"></div>
+                </div><br>
+
+
+                <div class="row">
+                  <div class="col-sm-12">
+                    <div class="alert alert-success" style="text-align: center;">
+                      <strong style="align-items: center;">Frequentou Ambientes</strong>
+                    </div>
+                  </div>
+                </div>
+
+
+                <div class="row">
+                  <div class="col-md-2">
+                      <div class="custom-control custom-checkbox mb-3">
+                        <input type="checkbox" class="custom-control-input" id="mata_id" name="ambientes_frequentados" value="Mata" disabled>
+                        <label class="custom-control-label" for="mata_id">Mata</label>
+                      </div>
+                  </div>
+                  <div class="col-md-2">
+                      <div class="custom-control custom-checkbox mb-3">
+                        <input type="checkbox" class="custom-control-input" id="floresta_id" name="ambientes_frequentados" value="Floresta" disabled>
+                        <label class="custom-control-label" for="floresta_id">Floresta</label>
+                      </div>
+                  </div>
+                  <div class="col-md-2">
+                      <div class="custom-control custom-checkbox mb-3">
+                        <input type="checkbox" class="custom-control-input" id="rios_id" name="ambientes_frequentados" value="Rios" disabled>
+                        <label class="custom-control-label" for="rios_id">Rios</label>
+                      </div>
+                  </div>
+                  <div class="col-md-2">
+                      <div class="custom-control custom-checkbox mb-3">
+                        <input type="checkbox" class="custom-control-input" id="cachoeira_id" name="ambientes_frequentados" value="Cachoeiras" disabled>
+                        <label class="custom-control-label" for="cachoeira_id">Cachoeiras</label>
+                      </div>
+                  </div>
+                  <div class="col-md-2">
+                      <div class="custom-control custom-checkbox mb-3">
+                        <input type="checkbox" class="custom-control-input" id="sitios_id" name="ambientes_frequentados" value="Sítios" disabled>
+                        <label class="custom-control-label" for="sitios_id">Sítios</label>
+                      </div>
+                  </div>
+                  <div class="col-md-2">
+                      <div class="custom-control custom-checkbox mb-3">
+                        <input type="checkbox" class="custom-control-input" id="outros_id" name="ambientes_frequentados" value="Outros" disabled>
+                        <label class="custom-control-label" for="outros_id">Outros</label>
+                      </div>
+                  </div>
+                  
+                </div><br>
+
+                <div class="row">
+                  <div class="col-sm-12">
+                    <div class="alert alert-success" style="text-align: center;">
+                      <strong style="align-items: center;">Teve contato com Animais</strong>
+                    </div>
+                  </div>
+                </div><br>
+
+
+                <div class="row">
+                  <div class="col-md-2"></div>
+                  <div class="col-md-2">
+                      <div class="custom-control custom-checkbox mb-3">
+                        <input type="checkbox" class="custom-control-input" id="gato_id" name="animais_que_teve_contato" value="Gato" disabled>
+                        <label class="custom-control-label" for="gato_id">Gato</label>
+                      </div>
+                  </div>
+                  <div class="col-md-2">
+                      <div class="custom-control custom-checkbox mb-3">
+                        <input type="checkbox" class="custom-control-input" id="cao_id" name="animais_que_teve_contato" value="Cão" disabled>
+                        <label class="custom-control-label" for="cao_id">Cão</label>
+                      </div>
+                  </div>
+                  <div class="col-md-2">
+                      <div class="custom-control custom-checkbox mb-3">
+                        <input type="checkbox" class="custom-control-input" id="equinos_id" name="animais_que_teve_contato" value="Equinos" disabled>
+                        <label class="custom-control-label" for="equinos_id">Equinos</label>
+                      </div>
+                  </div>
+                  <div class="col-md-2">
+                      <div class="custom-control custom-checkbox mb-3">
+                        <input type="checkbox" class="custom-control-input" id="outros_animais_id" name="animais_que_teve_contato" value="Outros Animais" disabled>
+                        <label class="custom-control-label" for="outros_animais_id">Outros Animais</label>
+                      </div>
+                  </div>
+                                    
+                </div><br>
+
+                <div class="row">
+                  <div class="col-sm-12">
+                    <div class="alert alert-success" style="text-align: center;">
+                      <strong style="align-items: center;">Natureza do contato com animais</strong>
+                    </div>
+                  </div>
+                </div><br>
+
+                <div class="row">
+                  <div class="col-md-2">
+                      <div class="custom-control custom-checkbox mb-3">
+                        <input type="checkbox" class="custom-control-input" id="mordida_id" name="natureza_contato_animais" value="Mordedura" disabled>
+                        <label class="custom-control-label" for="mordida_id">Mordedura</label>
+                      </div>
+                  </div>
+                  <div class="col-md-2">
+                      <div class="custom-control custom-checkbox mb-3">
+                        <input type="checkbox" class="custom-control-input" id="arranhadura_id" name="natureza_contato_animais" value="Arranhadura" disabled>
+                        <label class="custom-control-label" for="arranhadura_id">Arranhadura</label>
+                      </div>
+                  </div>
+                  <div class="col-md-4">
+                      <div class="custom-control custom-checkbox mb-3">
+                        <input type="checkbox" class="custom-control-input" id="lesoes_cutaneas_id" name="natureza_contato_animais" value="Lesões Cutâneas (Úlceras) do animal" disabled>
+                        <label class="custom-control-label" for="lesoes_cutaneas_id">Lesões Cutâneas (Úlceras) do animal</label>
+                      </div>
+                  </div>
+                  <div class="col-md-3">
+                      <div class="custom-control custom-checkbox mb-3">
+                        <input type="checkbox" class="custom-control-input" id="lesoes_mucosas_id" name="natureza_contato_animais" value="Lesões Mucosas do Animal" disabled>
+                        <label class="custom-control-label" for="lesoes_mucosas_id">Lesões Mucosas do Animal</label>
+                      </div>
+                  </div>
+                  <div class="col-md-1">
+                      <div class="custom-control custom-checkbox mb-3">
+                        <input type="checkbox" class="custom-control-input" id="outros_a_id" name="natureza_contato_animais" value="Outros" disabled>
+                        <label class="custom-control-label" for="outros_a_id">Outros</label>
+                      </div>
+                  </div>
+                                    
+                </div><br>
+
+                <div class="row">
+                  <div class="col-sm-12">
+                    <div class="alert alert-success" style="text-align: center;">
+                      <strong style="align-items: center;">Relação com Animal doente</strong>
+                    </div>
+                  </div>
+                </div><br>
+
+
+                <div class="row">
+                  <div class="col-md-1"></div>
+                  <div class="col-md-3">
+                      <div class="custom-control custom-checkbox mb-3">
+                        <input type="checkbox" class="custom-control-input" id="tratador_proprietario_id" name="relacao_animal_doente" value="Tratador/Proprietário do animal" disabled>
+                        <label class="custom-control-label" for="tratador_proprietario_id">Tratador/Proprietário do animal</label>
+                      </div>
+                  </div>
+                  <div class="col-md-3">
+                      <div class="custom-control custom-checkbox mb-3">
+                        <input type="checkbox" class="custom-control-input" id="prof_saude_id" name="relacao_animal_doente" value="Profissional de Saúde" disabled>
+                        <label class="custom-control-label" for="prof_saude_id">Profissional de Saúde
+                          <a href="#" data-toggle="tooltip" data-placement="right" title="Veterinário, Enfermeiro, Tratador de Animal em Clínicas!">(*)</a>
+                        </label>
+                      </div>
+                  </div>
+
+                  <script>
+                  $(document).ready(function(){
+                    $('[data-toggle="tooltip"]').tooltip();   
+                  });
+                  </script>
+
+                  <div class="col-md-2">
+                      <div class="custom-control custom-checkbox mb-3">
+                        <input type="checkbox" class="custom-control-input" id="abrigo_id" name="relacao_animal_doente" value="Abrigo/ONG" disabled>
+                        <label class="custom-control-label" for="abrigo_id">Abrigo/ONG</label>
+                      </div>
+                  </div>
+                  
+                  <div class="col-md-1">
+                      <div class="custom-control custom-checkbox mb-3">
+                        <input type="checkbox" class="custom-control-input" id="outros_p_id" name="relacao_animal_doente" value="Outros" disabled>
+                        <label class="custom-control-label" for="outros_p_id">Outros</label>
+                      </div>
+                  </div>
+                                    
+                </div>
+                <br>
+                
+                <div class="row">
+                  <div class="col-sm-12">
+                    <div class="alert alert-success" style="text-align: center;">
+                      <strong style="align-items: center;">Exerce atividade que Resulte em CONTATO CONSTANTE COM PLANTAS?
+                        <a href="#" data-toggle="tooltip" data-placement="right" title="Jardineiros, Agricultores, Horticultores, Exploradores de Madeira, Trabalhadores Rurais!">(*)</a>
+                      </strong>
+                    </div>
+                  </div>
+                </div><br>
+
+                <div class="row">
+                  <div class="col-md-2"></div>
+                  <div class="col-md-3">
+                      <div class="custom-control custom-radio custom-control-inline">
+                        <input type="radio" class="custom-control-input" id="customRadio25" name="exerc_ativ_contato_plantas" value="Sim" disabled>
+                        <label class="custom-control-label" for="customRadio25">Sim</label>
+                      </div>
+                  </div>
+
+                  <div class="col-md-3">
+                      <div class="custom-control custom-radio custom-control-inline">
+                        <input type="radio" class="custom-control-input" id="customRadio26" name="exerc_ativ_contato_plantas" value="Não" disabled>
+                        <label class="custom-control-label" for="customRadio26">Não</label>
+                      </div>
+                  </div>
+                  
+                  <div class="col-md-3">
+                      <div class="custom-control custom-radio custom-control-inline">
+                        <input type="radio" class="custom-control-input" id="customRadio27" name="exerc_ativ_contato_plantas" value="Ignorado" disabled>
+                        <label class="custom-control-label" for="customRadio27">Ignorado</label>
+                      </div>
+                  </div>
+
+
+                  <script>
+                  $(document).ready(function(){
+                    $('[data-toggle="tooltip"]').tooltip();   
+                  });
+                  </script>                                    
+                </div>
+                <br>
+
+                <div class="row">
+                  <div class="col-sm-12">
+                    <div class="alert alert-success" style="text-align: center;">
+                      <strong style="align-items: center; font-size: 95%;">História de Corte, Lesão ou Trauma durante o manuseio de Plantas ou Material Orgânico SUSPEITO DE CONTAMINAÇÃO PELO FUNGO?
+                        <a href="#" data-toggle="tooltip" data-placement="right" title="Tábuas Úmidas de Madeira, Solo, Palha, Farpas, Espinhos, Vegetais!">(*)</a>
+                      </strong>
+                    </div>
+                  </div>
+                </div><br>
+
+                <div class="row">
+                  <div class="col-md-2"></div>
+                  <div class="col-md-3">
+                      <div class="custom-control custom-radio custom-control-inline">
+                        <input type="radio" class="custom-control-input" id="customRadio28" name="lesao_manuseio" value="Sim" disabled>
+                        <label class="custom-control-label" for="customRadio28">Sim</label>
+                      </div>
+                  </div>
+                  <div class="col-md-3">
+                      <div class="custom-control custom-radio custom-control-inline">
+                        <input type="radio" class="custom-control-input" id="customRadio29" name="lesao_manuseio" value="Não" disabled>
+                        <label class="custom-control-label" for="customRadio29">Não</label>
+                      </div>
+                  </div>
+                  <div class="col-md-3">
+                      <div class="custom-control custom-radio custom-control-inline">
+                        <input type="radio" class="custom-control-input" id="customRadio30" name="lesao_manuseio" value="Ignorado" disabled>
+                        <label class="custom-control-label" for="customRadio30">Ignorado</label>
+                      </div>
+                  </div>
+
+                  
+                  <script>
+                  $(document).ready(function(){
+                    $('[data-toggle="tooltip"]').tooltip();   
+                  });
+                  </script>                                    
+                </div>
+
+
+              </div>
+
+              <div id="menu3" class="container tab-pane fade"><br>
+
+                <div class="row">
+                  <div class="col-sm-12">
+                    <div class="alert alert-success" style="text-align: center;">
+                      <strong style="align-items: center;">Presença de Lesão na Pele</strong>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-sm-2"></div>
+
+                  <div class="col-md-3">
+                      <div class="custom-control custom-radio custom-control-inline">
+                        <input type="radio" class="custom-control-input" id="customRadio19" name="presenca_lesao_pele" value="Sim" disabled>
+                        <label class="custom-control-label" for="customRadio19">Sim</label>
+                      </div>
+                  </div>
+
+                  <div class="col-md-3">
+                      <div class="custom-control custom-radio custom-control-inline">
+                        <input type="radio" class="custom-control-input" id="customRadio20" name="presenca_lesao_pele" value="Não" disabled>
+                        <label class="custom-control-label" for="customRadio20">Não</label>
+                      </div>
+                  </div>
+                  <div class="col-md-3">
+                      <div class="custom-control custom-radio custom-control-inline">
+                        <input type="radio" class="custom-control-input" id="customRadio21" name="presenca_lesao_pele" value="Ignorado" disabled>
+                        <label class="custom-control-label" for="customRadio21">Ignorado</label>
+                      </div>
+                  </div>
+                  
+                </div><br>
+
+                <style>
+                  #nat_lesao_outros_id,
+                  #loc_lesao_outros_id,
+                  #lb_data_coleta_material,
+                  #data_coleta_material_id{
+                    display: none;
+                  }
+                </style>
+                <script>
+                  $(function() {
+                    $(document).on('click','#natureza_lesao_outros_id', function (e) {
+                      if ($(this).is(":checked")) {
+                        $("#nat_lesao_outros_id").show();
+                      } else {
+                        $("#nat_lesao_outros_id").hide();
+                        $("#nat_lesao_outros_id").val("");
+                      }
+                    });
+                  });
+
+                  $(function() {
+                    $(document).on('click','#local_lesao_outros_id', function (e) {
+                      if ($(this).is(":checked")) {
+                        $("#loc_lesao_outros_id").show();
+                      } else {
+                        $("#loc_lesao_outros_id").hide();
+                        $("#loc_lesao_outros_id").val("");
+                      }
+                    });
+                  });
+
+                  $(function() {
+                    $(document).on('click','#coleta_exame_labo_sim_id', function (e) {
+                      if ($(this).is(":checked")) {
+                        $("#lb_data_coleta_material").show();
+                        $("#data_coleta_material_id").show();
+                      } else {
+                        $("#lb_data_coleta_material").hide();
+                        $("#data_coleta_material_id").hide();
+                        $("#data_coleta_material_id").val("");
+                      }
+                    });
+                  });
+
+                  $(function() {
+                    $(document).on('click','#coleta_exame_nao_id', function (e) {
+                      if ($(this).is(":checked")) {
+                        $("#lb_data_coleta_material").hide();
+                        $("#data_coleta_material_id").hide();
+                        $("#data_coleta_material_id").val("");
+                      }
+                    });
+                  }) ;
+
+                  $(function() {
+                    $(document).on('click','#coleta_exame_ignorado_id', function (e) {
+                      if ($(this).is(":checked")) {
+                        $("#lb_data_coleta_material").hide();
+                        $("#data_coleta_material_id").hide();
+                        $("#data_coleta_material_id").val("");
+                      }
+                    });
+                  }) ;
+
+                  $(function() {
+                    $(document).on('click','#customRadio22', function (e) {
+                      $("#local_diag_extracutaneo").prop("disabled", false);
+                    });
+                  });
+
+                  $(function() {
+                    $(document).on('click','#customRadio23', function (e) {
+                      $("#local_diag_extracutaneo").prop("disabled", true);
+                      $("#local_diag_extracutaneo").val("");
+                    });
+                  });
+
+                  $(function() {
+                    $(document).on('click','#customRadio24', function (e) {
+                      $("#local_diag_extracutaneo").prop("disabled", true);
+                      $("#local_diag_extracutaneo").val("");
+                    });
+                  });
+
+
+                </script>
+
+                <br>
+                <div class="row">
+                  <div class="col-sm-12">
+                    <div class="alert alert-success" style="text-align: center;">
+                      <strong style="align-items: center;">Natureza da Lesão</strong>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-sm-1"></div>
+                  <div class="col-md-2">
+                      <div class="custom-control custom-checkbox mb-3">
+                        <input type="checkbox" class="custom-control-input" id="papula_id" name="natureza_lesao" value="Pápula" disabled>
+                        <label class="custom-control-label" for="papula_id">Pápula</label>
+                      </div>
+                  </div>
+                  
+                  <div class="col-md-2">
+                      <div class="custom-control custom-checkbox mb-3">
+                        <input type="checkbox" class="custom-control-input" id="ulcera_id" name="natureza_lesao" value="Úlcera" disabled>
+                        <label class="custom-control-label" for="ulcera_id">Úlcera</label>
+                      </div>
+                  </div>
+                  <div class="col-md-2">
+                      <div class="custom-control custom-checkbox mb-3">
+                        <input type="checkbox" class="custom-control-input" id="linfonodos_id" name="natureza_lesao" value="Linfonodos" disabled>
+                        <label class="custom-control-label" for="linfonodos_id">Linfonodos
+                          
+                        </label>
+                      </div>
+                  </div>
+                  <div class="col-md-1">
+                      <div class="custom-control custom-checkbox mb-3">
+                        <input type="checkbox" class="custom-control-input" id="natureza_lesao_outros_id" name="natureza_lesao" value="Outros">
+                        <label class="custom-control-label" for="natureza_lesao_outros_id">Outros
+                          
+                        </label>
+                      </div>
+                  </div>
+                  <div class="col-md-3">
+                      <div class="form-group">
+                      <input class="form-control" type="text" id="nat_lesao_outros_id" name="natureza_lesao_outros" value="">
+                      </div>
+                  </div>
+                </div><br>
+                
+                <div class="row">
+                  <div class="col-sm-12">
+                    <div class="alert alert-success" style="text-align: center;">
+                      <strong style="align-items: center;">Localização da Lesão(PARTE DO CORPO ATINGIDA)</strong>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-md-1"></div>
+                  <div class="col-md-2">
+                      <div class="custom-control custom-checkbox mb-3">
+                        <input type="checkbox" class="custom-control-input" id="mao_id" name="local_lesao" value="Mão" disabled>
+                        <label class="custom-control-label" for="mao_id">Mão</label>
+                      </div>
+                  </div>
+                  
+                  <div class="col-md-2">
+                      <div class="custom-control custom-checkbox mb-3">
+                        <input type="checkbox" class="custom-control-input" id="membro_superir_id" name="local_lesao" value="Membro Superior" disabled>
+                        <label class="custom-control-label" for="membro_superir_id">Membro Superior</label>
+                      </div>
+                  </div>
+                  <div class="col-md-2">
+                      <div class="custom-control custom-checkbox mb-2">
+                        <input type="checkbox" class="custom-control-input" id="cabeca_id" name="local_lesao" value="Cabeça" disabled>
+                        <label class="custom-control-label" for="cabeca_id">Cabeça
+                          
+                        </label>
+                      </div>
+                  </div>
+                  <div class="col-md-2">
+                      <div class="custom-control custom-checkbox mb-3">
+                        <input type="checkbox" class="custom-control-input" id="pescoco_id" name="local_lesao" value="Pescoço" disabled>
+                        <label class="custom-control-label" for="pescoco_id">Pescoço
+                          
+                        </label>
+                      </div>
+                  </div>
+                  <div class="col-md-1">
+                      <div class="custom-control custom-checkbox mb-3">
+                        <input type="checkbox" class="custom-control-input" id="torax_id" name="local_lesao" value="Tórax" disabled>
+                        <label class="custom-control-label" for="torax_id">Tórax
+                          
+                        </label>
+                      </div>
+                  </div> 
+                </div>
+
+
+                <div class="row">
+                  <div class="col-md-1"></div>
+                  <div class="col-md-2">
+                      <div class="custom-control custom-checkbox mb-3">
+                        <input type="checkbox" class="custom-control-input" id="abdome_id" name="local_lesao" value="Abdome" disabled>
+                        <label class="custom-control-label" for="abdome_id">Abdome
+                          
+                        </label>
+                      </div>
+                  </div>
+                  <div class="col-md-2">
+                      <div class="custom-control custom-checkbox mb-3">
+                        <input type="checkbox" class="custom-control-input" id="pe_id" name="local_lesao" value="Pé" disabled>
+                        <label class="custom-control-label" for="pe_id">Pé
+                          
+                        </label>
+                      </div>
+                  </div>
+                  <div class="col-md-2">
+                      <div class="custom-control custom-checkbox mb-3">
+                        <input type="checkbox" class="custom-control-input" id="membro_inferior_id" name="local_lesao" value="Membro Inferior" disabled>
+                        <label class="custom-control-label" for="membro_inferior_id">Membro Inferior
+                          
+                        </label>
+                      </div>
+                  </div>
+                  <div class="col-md-2">
+                      <div class="custom-control custom-checkbox mb-3">
+                        <input type="checkbox" class="custom-control-input" id="todo_corpo_id" name="local_lesao" value="Todo Corpo" disabled>
+                        <label class="custom-control-label" for="todo_corpo_id">Todo Corpo
+                          
+                        </label>
+                      </div>
+                  </div>
+                  <div class="col-md-1">
+                      <div class="custom-control custom-checkbox mb-3">
+                        <input type="checkbox" class="custom-control-input" id="local_lesao_outros_id" name="local_lesao" value="Outros" disabled>
+                        <label class="custom-control-label" for="local_lesao_outros_id">Outros
+                          
+                        </label>
+                      </div>
+                  </div>
+                  <div class="col-md-4">
+                      <div class="form-group">
+                      <input class="form-control" type="text" id="loc_lesao_outros_id" name="local_lesao_outros" value="">
+                      </div>
+                  </div>
+
+                </div>
+                <br>
+                <div class="row">
+                  <div class="col-sm-12">
+                    <div class="alert alert-success" style="text-align: center;">
+                      <strong style="align-items: center;">Diagnóstico de FORMA EXTRACUTANEA DA DOENÇA</strong>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-sm-2"></div>
+                  <div class="col-md-3">
+                      <div class="custom-control custom-radio custom-control-inline">
+                        <input type="radio" class="custom-control-input" id="customRadio22" name="diagnostico_extracutaneo" value="Sim" disabled>
+                        <label class="custom-control-label" for="customRadio22">Sim</label>
+                      </div>
+                  </div>
+
+                  <div class="col-md-3">
+                      <div class="custom-control custom-radio custom-control-inline">
+                        <input type="radio" class="custom-control-input" id="customRadio23" name="diagnostico_extracutaneo" value="Não" disabled>
+                        <label class="custom-control-label" for="customRadio23">Não</label>
+                      </div>
+                  </div>
+                  <div class="col-md-3">
+                      <div class="custom-control custom-radio custom-control-inline">
+                        <input type="radio" class="custom-control-input" id="customRadio24" name="diagnostico_extracutaneo" value="Ignorado" disabled>
+                        <label class="custom-control-label" for="customRadio24">Ignorado</label>
+                      </div>
+                  </div>
+
+                </div><br>
+
+              <div class="row">
+                <div class="col-sm-2"></div>
+                 <div class="col-md-4">
+                      <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                          <span class="input-group-text">Qual Localização</span>
+                        </div>
+                        <input type="text" class="form-control" name="local_extra_cutanea" value="" id="local_diag_extracutaneo" disabled>
+                      </div>
+                  </div>
+              </div><br>
+
+              </div>
+
+              <div id="menu4" class="container tab-pane fade"><br>
+                <br>
+                <div class="row">
+                  <div class="col-sm-12">
+                    <div class="alert alert-success" style="text-align: center;">
+                      <strong style="align-items: center;">Houve coleta de Material para EXAME LABORATORIAL</strong>
+                    </div>
+                  </div>
+                </div><br>
+
+                <div class="row">
+                  <div class="col-sm-2"></div>
+                  
+
+                  <div class="col-md-3">
+                      <div class="custom-control custom-radio custom-control-inline">
+                        <input type="radio" class="custom-control-input" id="coleta_exame_labo_sim_id" name="coleta_exame_labo_sim" value="Sim" disabled>
+                        <label class="custom-control-label" for="coleta_exame_labo_sim_id">Sim</label>
+                        <div class="valid-feedback">Valid.</div>
+                        <div class="invalid-feedback">Escolha obrigatória.</div>
+                      </div>
+                  </div>
+
+                  <div class="col-md-3">
+                      <div class="custom-control custom-radio custom-control-inline">
+                        <input type="radio" class="custom-control-input" id="coleta_exame_nao_id" name="coleta_exame_labo_sim" value="Não" disabled>
+                        <label class="custom-control-label" for="coleta_exame_nao_id">Não</label>
+                      </div>
+                  </div>
+
+                  <div class="col-md-3">
+                      <div class="custom-control custom-radio custom-control-inline">
+                        <input type="radio" class="custom-control-input" id="coleta_exame_ignorado_id" name="coleta_exame_labo_sim" value="Ignorado" disabled>
+                        <label class="custom-control-label" for="coleta_exame_ignorado_id">Ignorado</label>
+                      </div>
+                  </div>
+                  
+                </div><br>
+                <div class="row">
+                  <div class="col-md-2"></div>
+                  <div class="col-md-3">
+                      <div class="input-group mb-3" id="">
+                        <div class="input-group-prepend" id="lb_data_coleta_material">
+                          <span class="input-group-text">Data Coleta</span>
+                        </div>
+                        <input type="date" class="form-control" name="data_coleta_mat_exame" value="" id="data_coleta_material_id" readonly>
+                      </div>
+                  </div>
+
+                </div>
+
+                <br>
+                <div class="row">
+                  <div class="col-sm-12">
+                    <div class="alert alert-success" style="text-align: center;">
+                      <strong style="align-items: center;">Resultado do Isolamento</strong>
+                    </div>
+                  </div>
+                </div><br>
+
+                <div class="row">
+                  <div class="col-sm-2"></div>
+                  <div class="col-md-2">
+                      <div class="custom-control custom-radio custom-control-inline">
+                        <input type="radio" class="custom-control-input" id="customRadio1" name="resultado_isolamento" value="Detectado" disabled>
+                        <label class="custom-control-label" for="customRadio1">Detectado</label>
+                      </div>
+                  </div>
+
+                  <div class="col-md-2">
+                      <div class="custom-control custom-radio custom-control-inline">
+                        <input type="radio" class="custom-control-input" id="customRadio2" name="resultado_isolamento" value="Não detectado" disabled>
+                        <label class="custom-control-label" for="customRadio2">Não detectado</label>
+                      </div>
+                  </div>
+                  <div class="col-md-2">
+                      <div class="custom-control custom-radio custom-control-inline">
+                        <input type="radio" class="custom-control-input" id="customRadio3" name="resultado_isolamento" value="Inconclusivo" disabled>
+                        <label class="custom-control-label" for="customRadio3">Inconclusivo</label>
+                      </div>
+                  </div>
+
+                  <div class="col-md-2">
+                      <div class="custom-control custom-radio custom-control-inline">
+                        <input type="radio" class="custom-control-input" id="customRadio4" name="resultado_isolamento" value="Não Realizado" disabled>
+                        <label class="custom-control-label" for="customRadio4">Não Realizado</label>
+                      </div>
+                  </div>
+                  
+                </div><br>
+
+                <div class="row">
+                  <div class="col-md-3"></div>
+                  <div class="col-md-5">
+                      <div class="input-group mb-3" id="">
+                        <div class="input-group-prepend" id="">
+                          <span class="input-group-text">Agente</span>
+                        </div>
+                        <input type="text" class="form-control" name="agente_isolamento" value="" id="" readonly>
+                      </div>
+                  </div>
+                </div>
+
+                <br>
+                <div class="row">
+                  <div class="col-sm-12">
+                    <div class="alert alert-success" style="text-align: center;">
+                      <strong style="align-items: center;">Histopatologia</strong>
+                    </div>
+                  </div>
+                </div><br>
+                <div class="row">
+                  <div class="col-sm-2"></div>
+                  <div class="col-md-2">
+                      <div class="custom-control custom-radio custom-control-inline">
+                        <input type="radio" class="custom-control-input" id="customRadio5" name="histopatologia" value="Compatível" disabled>
+                        <label class="custom-control-label" for="customRadio5">Compatível</label>
+                      </div>
+                  </div>
+
+                  <div class="col-md-2">
+                      <div class="custom-control custom-radio custom-control-inline">
+                        <input type="radio" class="custom-control-input" id="customRadio6" name="histopatologia" value="Não compatível" disabled>
+                        <label class="custom-control-label" for="customRadio6">Não compatível</label>
+                      </div>
+                  </div>
+                  <div class="col-md-2">
+                      <div class="custom-control custom-radio custom-control-inline">
+                        <input type="radio" class="custom-control-input" id="customRadio7" name="histopatologia" value="Inconclusivo" disabled>
+                        <label class="custom-control-label" for="customRadio7">Inconclusivo</label>
+                      </div>
+                  </div>
+
+                  <div class="col-md-2">
+                      <div class="custom-control custom-radio custom-control-inline">
+                        <input type="radio" class="custom-control-input" id="customRadio8" name="histopatologia" value="Não Realizado" disabled>
+                        <label class="custom-control-label" for="customRadio8">Não Realizado</label>
+                      </div>
+                  </div>
+                  
+                </div><br><br>
+                <div class="row">
+                  <div class="col-sm-12">
+                    <div class="alert alert-success" style="text-align: center;">
+                      <strong style="align-items: center;">Outros Exames Realizados</strong>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-3">
+                      <div class="input-group mb-3" id="">
+                        <div class="input-group-prepend" id="">
+                          <span class="input-group-text">Data</span>
+                        </div>
+                        <input type="date" class="form-control" name="data_outros_exames_1" value="" id="" readonly>
+                      </div>
+                  </div>
+                  <div class="col-md-4">
+                      <div class="input-group mb-3" id="">
+                        <div class="input-group-prepend" id="">
+                          <span class="input-group-text">Descricao</span>
+                        </div>
+                        <input type="text" class="form-control" name="descricao_outros_exames_1" value="" id="" readonly>
+                      </div>
+                  </div>
+                  <div class="col-md-5">
+                      <div class="input-group mb-3" id="">
+                        <div class="input-group-prepend" id="">
+                          <span class="input-group-text">Resultado</span>
+                        </div>
+                        <input type="text" class="form-control" name="resultado_outros_exames_1" value="" id="" readonly>
+                      </div>
+                  </div>
+                  
+                </div>
+                <div class="row">
+                  <div class="col-md-3">
+                      <div class="input-group mb-3" id="">
+                        <div class="input-group-prepend" id="">
+                          <span class="input-group-text">Data</span>
+                        </div>
+                        <input type="date" class="form-control" name="data_outros_exames_2" value="" id="" readonly>
+                      </div>
+                  </div>
+                  <div class="col-md-4">
+                      <div class="input-group mb-3" id="">
+                        <div class="input-group-prepend" id="">
+                          <span class="input-group-text">Descricao</span>
+                        </div>
+                        <input type="text" class="form-control" name="descricao_outros_exames_2" value="" id="" readonly>
+                      </div>
+                  </div>
+                  <div class="col-md-5">
+                      <div class="input-group mb-3" id="">
+                        <div class="input-group-prepend" id="">
+                          <span class="input-group-text">Resultado</span>
+                        </div>
+                        <input type="text" class="form-control" name="resultado_outros_exames_2" value="" id="" readonly>
+                      </div>
+                  </div>
+
+                  
+                  
+                </div>
+                <div class="row">
+                  <div class="col-md-3">
+                      <div class="input-group mb-3" id="">
+                        <div class="input-group-prepend" id="">
+                          <span class="input-group-text">Data</span>
+                        </div>
+                        <input type="date" class="form-control" name="data_outros_exames_3" value="" id="" readonly>
+                      </div>
+                  </div>
+                  <div class="col-md-4">
+                      <div class="input-group mb-3" id="">
+                        <div class="input-group-prepend" id="">
+                          <span class="input-group-text">Descricao</span>
+                        </div>
+                        <input type="text" class="form-control" name="descricao_outros_exames_3" value="" id="" readonly>
+                      </div>
+                  </div>
+                  <div class="col-md-5">
+                      <div class="input-group mb-3" id="">
+                        <div class="input-group-prepend" id="">
+                          <span class="input-group-text">Resultado</span>
+                        </div>
+                        <input type="text" class="form-control" name="resultado_outros_exames_3" value="" id="" readonly>
+                      </div>
+                  </div>
+                </div><br><br>
+                
+
+
+
+
+              </div>
+              <div id="menu5" class="container tab-pane fade"><br>
+
+                <div class="row">
+                  <div class="col-sm-12">
+                    <div class="alert alert-success" style="text-align: center;">
+                      <strong style="align-items: center;">Tratamento</strong>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-3">
+                      <div class="input-group mb-3" id="">
+                        <div class="input-group-prepend" id="">
+                          <span class="input-group-text">Início</span>
+                        </div>
+                        <input type="date" class="form-control" name="data_inicio_tratamento" value="" id="" readonly>
+                      </div>
+                  </div>
+                  <div class="col-md-5">
+                      <div class="input-group mb-3" id="">
+                        <div class="input-group-prepend" id="">
+                          <span class="input-group-text">Droga Administrada</span>
+                        </div>
+                        <input type="text" class="form-control" name="droga_admin_tratamento" value="" id="" readonly>
+                      </div>
+                  </div>
+                  <div class="col-md-4">
+                      <div class="input-group mb-3" id="">
+                        <div class="input-group-prepend" id="">
+                          <span class="input-group-text">Esquema Terapeutico</span>
+                        </div>
+                        <input type="text" class="form-control" name="esquema_terapeutico" value="" id="" readonly>
+                      </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-3">
+                      <div class="input-group mb-3" id="">
+                        <div class="input-group-prepend" id="">
+                          <span class="input-group-text">Início</span>
+                        </div>
+                        <input type="date" class="form-control" name="data_inicio_tratamento2" value="" id="" readonly>
+                      </div>
+                  </div>
+                  <div class="col-md-5">
+                      <div class="input-group mb-3" id="">
+                        <div class="input-group-prepend" id="">
+                          <span class="input-group-text">Droga Administrada</span>
+                        </div>
+                        <input type="text" class="form-control" name="droga_admin_tratamento2" value="" id="" readonly>
+                      </div>
+                  </div>
+                  <div class="col-md-4">
+                      <div class="input-group mb-3" id="">
+                        <div class="input-group-prepend" id="">
+                          <span class="input-group-text">Esquema Terapeutico</span>
+                        </div>
+                        <input type="text" class="form-control" name="esquema_terapeutico2" value="" id="" readonly>
+                      </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-3">
+                      <div class="input-group mb-3" id="">
+                        <div class="input-group-prepend" id="">
+                          <span class="input-group-text">Início</span>
+                        </div>
+                        <input type="date" class="form-control" name="data_inicio_tratamento3" value="" id="" readonly>
+                      </div>
+                  </div>
+                  <div class="col-md-5">
+                      <div class="input-group mb-3" id="">
+                        <div class="input-group-prepend" id="">
+                          <span class="input-group-text">Droga Administrada</span>
+                        </div>
+                        <input type="text" class="form-control" name="droga_admin_tratamento3" value="" id="" readonly>
+                      </div>
+                  </div>
+                  <div class="col-md-4">
+                      <div class="input-group mb-3" id="">
+                        <div class="input-group-prepend" id="">
+                          <span class="input-group-text">Esquema Terapeutico</span>
+                        </div>
+                        <input type="text" class="form-control" name="esquema_terapeutico3" value="" id="" readonly>
+                      </div>
+                  </div>
+                </div><br><br>
+
+                <div class="row">
+                  <div class="col-sm-12">
+                    <div class="alert alert-success" style="text-align: center;">
+                      <strong style="align-items: center;">Hospitalização</strong>
+                    </div>
+                  </div>
+                </div>
+                
+                <script>
+                  function activeDadosHos(){
+                    if (document.getElementById("customRadio11").checked == true){
+                      //$("#row_dados_hospitalizacao_id").show();
+                      $("#div_g").show();
+                      $("#div_lb").show();
+                      
+                      $("#input_internacao").prop("disabled", false);
+                      $("#input_d_a").prop("disabled", false);
+                      $("#sel_uf_t").prop("disabled", false);
+                      $("#mun_hosp_id").prop("disabled", false);
+                      $("#cod_ibge_id").prop("disabled", false);
+                      $("#nome_hosp_id").prop("disabled", false);
+                      $("#cod_hosp_id").prop("disabled", false);
+
+                      
+                      $("#div_g_da").show();
+                      $("#div_lb_da").show();
+                      $("#input_d_a").show();
+
+                      $("#div_sel_uf").show();
+                      $("#div_ls_sel").show();
+                      $("#sel_uf_t").show();
+                    }
+                  }
+
+                  function desactiveDadosHos(){
+                    if (document.getElementById("customRadio9").checked == true){
+                      $("#input_internacao").val("");
+                      $("#input_d_a").val("");
+                      $("#sel_uf_t").val("");
+                      $("#mun_hosp_id").val("");
+                      $("#cod_ibge_id").val("");
+                      $("#nome_hosp_id").val("");
+                      $("#cod_hosp_id").val("");
+
+                      $("#input_internacao").prop("disabled", true);
+                      $("#input_d_a").prop("disabled", true);
+                      $("#sel_uf_t").prop("disabled", true);
+                      $("#mun_hosp_id").prop("disabled", true);
+                      $("#cod_ibge_id").prop("disabled", true);
+                      $("#nome_hosp_id").prop("disabled", true);
+                      $("#cod_hosp_id").prop("disabled", true);
+                    }
+                  }
+
+                  function desactiveDadosHosI(){
+                    if (document.getElementById("customRadio10").checked == true){
+                      $("#input_internacao").val("");
+                      $("#input_d_a").val("");
+                      $("#sel_uf_t").val("");
+                      $("#mun_hosp_id").val("");
+                      $("#cod_ibge_id").val("");
+                      $("#nome_hosp_id").val("");
+                      $("#cod_hosp_id").val("");
+
+                      $("#input_internacao").prop("disabled", true);
+                      $("#input_d_a").prop("disabled", true);
+                      $("#sel_uf_t").prop("disabled", true);
+                      $("#mun_hosp_id").prop("disabled", true);
+                      $("#cod_ibge_id").prop("disabled", true);
+                      $("#nome_hosp_id").prop("disabled", true);
+                      $("#cod_hosp_id").prop("disabled", true);
+                    }
+                  }
+                </script>
+
+                <div class="row">
+                  <div class="col-md-2"></div>
+
+                  <div class="col-md-3">
+                      <div class="custom-control custom-radio custom-control-inline">
+                        <input type="radio" class="custom-control-input" id="customRadio11" name="hospitalizado" value="Sim" onclick="activeDadosHos()" disabled>
+                        <label class="custom-control-label" for="customRadio11">Sim</label>
+                      </div>
+                  </div>
+
+                  <div class="col-md-3">
+                      <div class="custom-control custom-radio custom-control-inline">
+                        <input type="radio" class="custom-control-input" id="customRadio9" name="hospitalizado" value="Não" onclick="desactiveDadosHos()" disabled>
+                        <label class="custom-control-label" for="customRadio9">Não</label>
+                      </div>
+                  </div>
+                  <div class="col-md-3">
+                      <div class="custom-control custom-radio custom-control-inline">
+                        <input type="radio" class="custom-control-input" id="customRadio10" name="hospitalizado" value="Ignorado" onclick="desactiveDadosHosI()" disabled>
+                        <label class="custom-control-label" for="customRadio10">Ignorado</label>
+                      </div>
+                  </div>
+
+                  
+                  
+                </div><br>
+                
+
+                <div class="row" id="row_dados_hospitalizacao_id">
+                  
+                  <div class="col-md-4">
+                      <div class="input-group mb-3" id="div_g">
+                        <div class="input-group-prepend" id="div_lb">
+                          <span class="input-group-text">Data Internação</span>
+                        </div>
+                        <input type="date" class="form-control" name="data_internacao" value="" id="input_internacao" disabled>
+                      </div>
+                  </div>
+                  <div class="col-md-3">
+                      <div class="input-group mb-3" id="div_g_da">
+                        <div class="input-group-prepend" id="div_lb_da">
+                          <span class="input-group-text">Data Alta</span>
+                        </div>
+                        <input type="date" class="form-control" name="data_alta" value="" id="input_d_a" disabled>
+                      </div>
+                  </div>
+                  <div class="col-md-3">
+                      <div class="input-group mb-3" id="div_sel_uf">
+                        <div class="input-group-prepend" id="div_ls_sel">
+                          <span class="input-group-text">UF</span>
+                        </div>
+                        <select class="form-control" name="uf_internacao" id="sel_uf_t" disabled>
+                          <option value=""></option>
+                          <option value="AC">Acre</option>
+                          <option value="AL">Alagoas</option>
+                          <option value="AP">Amapá</option>
+                          <option value="AM">Amazonas</option>
+                          <option value="BA">Bahia</option>
+                          <option value="CE">Ceará</option>
+                          <option value="DF">Distrito Federal</option>
+                          <option value="ES">Espírito Santo</option>
+                          <option value="GO">Goiás</option>
+                          <option value="MA">Maranhão</option>
+                          <option value="MT">Mato Grosso</option>
+                          <option value="MS">Mato Grosso do Sul</option>
+                          <option value="MG">Minas Gerais</option>
+                          <option value="PA">Pará</option>
+                          <option value="PB">Paraíba</option>
+                          <option value="PR">Paraná</option>
+                          <option value="PE">Pernambuco</option>
+                          <option value="PI">Piauí</option>
+                          <option value="RJ">Rio de Janeiro</option>
+                          <option value="RN">Rio Grande do Norte</option>
+                          <option value="RS">Rio Grande do Sul</option>
+                          <option value="RO">Rondônia</option>
+                          <option value="RR">Roraima</option>
+                          <option value="SC">Santa Catarina</option>
+                          <option value="SP">São Paulo</option>
+                          <option value="SE">Sergipe</option>
+                          <option value="TO">Tocantins</option>
+                        </select>
+                      </div>
+                  </div>
+
+                  <div class="col-md-6">
+                      <div class="input-group mb-3" id="">
+                        <div class="input-group-prepend" id="">
+                          <span class="input-group-text">Município do Hospital</span>
+                        </div>
+                        <input type="text" class="form-control" name="municipio_hospital" value="" id="mun_hosp_id" disabled>
+                      </div>
+                  </div>
+                  <div class="col-md-3">
+                      <div class="input-group mb-3" id="">
+                        <div class="input-group-prepend" id="">
+                          <span class="input-group-text">Código IBGE</span>
+                        </div>
+                        <input type="text" class="form-control" name="codigo_ibge_municipio_hospitalizacao" value="" id="cod_ibge_id" disabled>
+                      </div>
+                  </div>
+                  <div class="col-md-3">
+                      
+                  </div>
+
+                  <div class="col-md-6">
+                      <div class="input-group mb-3" id="">
+                        <div class="input-group-prepend" id="">
+                          <span class="input-group-text">Nome do Hospital</span>
+                        </div>
+                        <input type="text" class="form-control" name="nome_hospital_hospitalizacao" value="" id="nome_hosp_id" disabled>
+                      </div>
+                  </div>
+                  <div class="col-md-3">
+                      
+                  </div>
+                  <div class="col-md-3">
+                      
+                  </div>
+                </div><br>
+                
+              </div>
+              <div id="menu6" class="container tab-pane fade"><br>
+                <div class="row">
+                  <div class="col-sm-12">
+                    <div class="alert alert-success" style="text-align: center;">
+                      <strong style="align-items: center;">Classificação Final
+                        <a href="#" data-toggle="tooltip" data-placement="right" title="Obrigatório após 180 dias da notificação!">(*)</a>
+                      </strong>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-3"></div>
+
+                  <div class="col-md-4">
+                      <div class="custom-control custom-radio custom-control-inline">
+                        <input type="radio" class="custom-control-input" id="customRadio12" name="classificacao" value="Confirmado" disabled>
+                        <label class="custom-control-label" for="customRadio12">Confirmado</label>
+                      </div>
+                  </div>
+
+                  <div class="col-md-4">
+                      <div class="custom-control custom-radio custom-control-inline">
+                        <input type="radio" class="custom-control-input" id="customRadio13" name="classificacao" value="Descartado" disabled>
+                        <label class="custom-control-label" for="customRadio13">Descartado</label>
+                      </div>
+                  </div>
+                  
+                </div><br><br>
+                <div class="row">
+                  <div class="col-sm-12">
+                    <div class="alert alert-success" style="text-align: center;">
+                      <strong style="align-items: center;">Critério de Confirmação</strong>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-3"></div>
+
+                  <div class="col-md-4">
+                      <div class="custom-control custom-radio custom-control-inline">
+                        <input type="radio" class="custom-control-input" id="customRadio14" name="criterio" value="Clinico Laboratorial" disabled>
+                        <label class="custom-control-label" for="customRadio14">Clinico Laboratorial</label>
+                      </div>
+                  </div>
+
+                  <div class="col-md-4">
+                      <div class="custom-control custom-radio custom-control-inline">
+                        <input type="radio" class="custom-control-input" id="customRadio15" name="criterio" value="Clinico Epidemiológico" disabled>
+                        <label class="custom-control-label" for="customRadio15">Clinico Epidemiológico</label>
+                      </div>
+                  </div>
+                  
+                </div>
+                <br><br>
+                <div class="row">
+                  <div class="col-sm-12">
+                    <div class="alert alert-success" style="text-align: center;">
+                      <strong style="align-items: center;">Caso Autoctone do Município de Residência</strong>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-1"></div>
+
+                  <div class="col-md-1">
+                      <div class="custom-control custom-radio custom-control-inline">
+                        <input type="radio" class="custom-control-input" id="customRadio16" name="autoctone" value="Sim" disabled>
+                        <label class="custom-control-label" for="customRadio16">Sim</label>
+                      </div>
+                  </div>
+
+                  <div class="col-md-1">
+                      <div class="custom-control custom-radio custom-control-inline">
+                        <input type="radio" class="custom-control-input" id="customRadio17" name="autoctone" value="Não" disabled>
+                        <label class="custom-control-label" for="customRadio17">Não</label>
+                      </div>
+                  </div>
+                  <div class="col-md-2">
+                      <div class="custom-control custom-radio custom-control-inline">
+                        <input type="radio" class="custom-control-input" id="customRadio18" name="autoctone" value="Indeterminado" disabled>
+                        <label class="custom-control-label" for="customRadio18">Indeterminado</label>
+                      </div>
+                  </div>
+                  <div class="col-md-3">
+                      <div class="input-group mb-3" id="">
+                        <div class="input-group-prepend" id="">
+                          <span class="input-group-text">UF</span>
+                        </div>
+                        <select class="form-control" name="uf_caso_autoctone_municipio" id="" disabled>
+                          <option value="" selected></option>
+                          <option value="AC">Acre</option>
+                          <option value="AL">Alagoas</option>
+                          <option value="AP">Amapá</option>
+                          <option value="AM">Amazonas</option>
+                          <option value="BA">Bahia</option>
+                          <option value="CE">Ceará</option>
+                          <option value="DF">Distrito Federal</option>
+                          <option value="ES">Espírito Santo</option>
+                          <option value="GO">Goiás</option>
+                          <option value="MA">Maranhão</option>
+                          <option value="MT">Mato Grosso</option>
+                          <option value="MS">Mato Grosso do Sul</option>
+                          <option value="MG">Minas Gerais</option>
+                          <option value="PA">Pará</option>
+                          <option value="PB">Paraíba</option>
+                          <option value="PR">Paraná</option>
+                          <option value="PE">Pernambuco</option>
+                          <option value="PI">Piauí</option>
+                          <option value="RJ">Rio de Janeiro</option>
+                          <option value="RN">Rio Grande do Norte</option>
+                          <option value="RS">Rio Grande do Sul</option>
+                          <option value="RO">Rondônia</option>
+                          <option value="RR">Roraima</option>
+                          <option value="SC">Santa Catarina</option>
+                          <option value="SP">São Paulo</option>
+                          <option value="SE">Sergipe</option>
+                          <option value="TO">Tocantins</option>
+                        </select>
+                      </div>
+                  </div>
+                  <div class="col-md-3">
+                      <div class="input-group mb-3" id="">
+                        <div class="input-group-prepend" id="">
+                          <span class="input-group-text">País</span>
+                        </div>
+                        <input type="text" class="form-control" name="pais_autoctone_municipio" value="" id="" readonly>
+                      </div>
+                  </div>
+                  
+                </div><br>
+                <div class="row">
+                  <div class="col-md-1"></div>
+                  <div class="col-md-4">
+                      <div class="input-group mb-3" id="">
+                        <div class="input-group-prepend" id="">
+                          <span class="input-group-text">Município</span>
+                        </div>
+                        <input type="text" class="form-control" name="municipio_autoctone" value="" id="" readonly>
+                      </div>
+                  </div>
+                  <div class="col-md-3">
+                      <div class="input-group mb-3" id="">
+                        <div class="input-group-prepend" id="">
+                          <span class="input-group-text">Código IBGE</span>
+                        </div>
+                        <input type="text" class="form-control" name="codigo_ibge_municipio_autoctone" value="" id="" readonly>
+                      </div>
+                  </div>
+                  <div class="col-md-4">
+                      <div class="input-group mb-3" id="">
+                        <div class="input-group-prepend" id="">
+                          <span class="input-group-text">Distrito</span>
+                        </div>
+                        <input type="text" class="form-control" name="distrito_autoctone" value="" id="" readonly>
+                      </div>
+                  </div>
+                </div>
+                <br>
+                <div class="row">
+                  <div class="col-md-1"></div>
+                  <div class="col-md-4">
+                      <div class="input-group mb-3" id="">
+                        <div class="input-group-prepend" id="">
+                          <span class="input-group-text">Bairro</span>
+                        </div>
+                        <input type="text" class="form-control" name="bairro_autoctone" value="" id="" disabled>
+                      </div>
+                  </div>
+                  <div class="col-md-4">
+                      <div class="input-group mb-3" id="">
+                        <div class="input-group-prepend" id="">
+                          <span class="input-group-text">Área Provável de Infecção</span>
+                        </div>
+                        <select class="form-control" name="area_provavel_infeccao" id="" disabled>
+                          <option value=""></option>
+                          <option value="Periurbano">Periurbano</option>
+                          <option value="Rural">Rural</option>
+                          <option value="Urbana">Urbana</option>
+                          <option value="Ignorado">Ignorado</option>
+                        </select>
+                      </div>
+                  </div>
+                  
+                </div>
+                <br>
+                <div class="row">
+                  <div class="col-md-1"></div>
+                  <div class="col-md-4">
+                      <div class="input-group mb-3" id="">
+                        <div class="input-group-prepend" id="">
+                          <span class="input-group-text">Ambiente da Infecção</span>
+                        </div>
+                        <select class="form-control" name="ambiente_infeccao_autoctone" id="" disabled>
+                          <option value=""></option>
+                          <option value="Domiciliar">Domiciliar</option>
+                          <option value="Trabalho">Trabalho</option>
+                          <option value="Lazer">Lazer</option>
+                          <option value="Outro">Outro</option>
+                          <option value="Ignorado">Ignorado</option>
+                        </select>
+                      </div>
+                  </div>
+                  <div class="col-md-5">
+                      <div class="input-group mb-3" id="">
+                        <div class="input-group-prepend" id="">
+                          <span class="input-group-text">Doença Relacionada ao Trabalho</span>
+                        </div>
+                        <select class="form-control" name="doenca_rel_trabalho_autoctone" id="" disabled>
+                          <option value=""></option>
+                          <option value="Sim">Sim</option>
+                          <option value="Não">Não</option>
+                          <option value="Ignorado">Ignorado</option>
+                        </select>
+                      </div>
+                  </div>
+                  
+                </div>
+                
+                <br><br>
+                <div class="row">
+                  <div class="col-sm-12">
+                    <div class="alert alert-success" style="text-align: center;">
+                      <strong style="align-items: center;">Evolução do Caso</strong>
+                    </div>
+                  </div>
+                </div><br>
+                <script>
+                  function activeDataEvoCaso(){
+                    if (document.getElementById("sel_evo_caso").value == "Obito pelo AGRAVO"){
+                      //$("#data_obito_evolucao_id").show();
+                      $("#data_obito_evo_id").show();
+                      $("#div_input_data_ob").show();
+                    }
+                    if (document.getElementById("sel_evo_caso").value == "Obito Outras Causas"){
+                      //$("#data_obito_evolucao_id").show();
+                      $("#data_obito_evo_id").show();
+                      $("#div_input_data_ob").show();
+                    }
+                    if (document.getElementById("sel_evo_caso").value == "Cura"){
+                      $("#div_input_data_ob").hide();
+                      $("#data_obito_evo_id").hide();
+                      $("#data_obito_evo_id").val("");
+                    }
+                    if (document.getElementById("sel_evo_caso").value == "Ignorado"){
+                      $("#div_input_data_ob").hide();
+                      $("#data_obito_evo_id").hide();
+                      $("#data_obito_evo_id").val("");
+                    }
+                  }
+                </script>
+                <style>
+                  #div_input_data_ob,
+                  #data_obito_evo_id {
+                    display: none;
+                  }
+                </style>
+                <div class="row">
+                  
+                  <div class="col-md-4">
+                      <div class="input-group mb-3" id="">
+                        <div class="input-group-prepend" id="">
+                          <span class="input-group-text">Evolução do Caso</span>
+                        </div>
+                        <select class="form-control" name="evolucao_caso_autoctone" id="sel_evo_caso" onclick="activeDataEvoCaso()" disabled>
+                          <option value=""></option>
+                          <option value="Cura">Cura</option>
+                          <option value="Obito pelo AGRAVO">Obito pelo AGRAVO</option>
+                          <option value="Obito Outras Causas">Obito Outras Causas</option>
+                          <option value="Ignorado">Ignorado</option>
+                        </select>
+                      </div>
+                  </div>
+                  <div class="col-md-4">
+                      <div class="input-group mb-3" id="">
+                        <div class="input-group-prepend" id="div_input_data_ob">
+                          <span class="input-group-text">Data do Óbito</span>
+                        </div>
+                        <input type="date" class="form-control" name="data_obito" value="" id="data_obito_evo_id" readonly>
+                      </div>
+                  </div>
+                  <div class="col-md-4">
+                      <div class="input-group mb-4" id="">
+                        <div class="input-group-prepend" id="">
+                          <span class="input-group-text">Data Encerramento</span>
+                        </div>
+                        <input type="date" class="form-control" name="data_encerramento" value="" id="" readonly>
+                      </div>
+                  </div>
+                  
+                  
+                </div>
+
+              </div>
+              <div id="menu7" class="container tab-pane fade"><br>
+                <div class="row">
+                  <div class="col-md-3"></div>
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label for="comment">Comentário, observações e/ou anotações:</label>
+                      <textarea class="form-control" rows="5" id="comment" name="observacao" readonly></textarea>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div id="menu8" class="container tab-pane fade"><br>
+                <div class="row">
+                  <div class="col-md-1"></div>
+                  <div class="col-md-9">
+                      <div class="input-group mb-3" id="">
+                        <div class="input-group-prepend" id="">
+                          <span class="input-group-text">Nome</span>
+                        </div>
+                        <input type="text" class="form-control" name="nome_investigador" value="" id="" readonly>
+                      </div>
+                  </div>
+                                 
+                  
+                </div>
+                <div class="row">
+                  <div class="col-md-1"></div>
+                  
+                  <div class="col-md-4">
+                      <div class="input-group mb-3" id="">
+                        <div class="input-group-prepend" id="">
+                          <span class="input-group-text">Função</span>
+                        </div>
+                        <input type="text" class="form-control" name="funcao_investigador" value="" id="" readonly>
+                      </div>
+                  </div>
+                  <div class="col-md-5">
+                      <div class="input-group mb-3" id="">
+                        <div class="input-group-prepend" id="">
+                          <span class="input-group-text">Email</span>
+                        </div>
+                        <input type="text" class="form-control" name="email_investigador" value="" id="" readonly>
+                      </div>
+                  </div>                 
+                  
+                </div>
+                <div class="row">
+                  <div class="col-md-1"></div>
+                  
+                  <div class="col-md-4">
+                      <div class="input-group mb-3" id="">
+                        <div class="input-group-prepend" id="">
+                          <span class="input-group-text">Telefone</span>
+                        </div>
+                        <input type="text" class="form-control" id="telefone_investigador_id" name="telefone_investigador" placeholder="apenas números" readonly>
+                        
+                      </div>
+                  </div>
+                  <div class="col-md-5">
+                      <div class="input-group mb-3" id="">
+                        <div class="input-group-prepend" id="">
+                          <span class="input-group-text">Conselho Classe</span>
+                        </div>
+                        <input type="text" class="form-control" name="conselho_classe_investigador" value="" id="" readonly>
+                      </div>
+                  </div>                                 
+                  
+                </div>
+              </div>
+            
+            </div>
+
+            <hr>
+
+            <div class="container-fluid" style="text-align: center;">
+              <button type="submit" class="btn btn-primary" style="align-items: center;" id="" disabled>Atualizar</button>  
+            </div>
+          </form>
+
+                    
+
+        </div>
+
+
+      </article>
+
+
+    </section>
+
+    <br><br>
+
+
+    <div class="jumbotron text-center" style="margin-bottom:0">
+      <p>Footer</p>
+      <i class="fa">&#xf1f9;</i>
+    </div>
+    <br>
+    <script src="{% static '_esporotricose_humana/js/funcao_user.js' %}"></script>
+  </body>
+  </html>

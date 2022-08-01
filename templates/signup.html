@@ -13,7 +13,7 @@
         <div class="alert alert-primary text-center">
             <h1 class="fs-2">Autocadastro para notificar doenças e agravos</h1>
         </div>
-        <div class="container text-center my-4">
+        <div class="container my-auto">
             <form method="post">
                 {% csrf_token %}
                 {% if messages %}
@@ -24,48 +24,63 @@
                     </div>
                 {% endif %}
                 <div class="row justify-content-center">
-                    <div class="col-md-5 mt-3">
-                        <label for="username">Nome:</label>
+                    <div class="col mt-3">
+                        <label for="username"><strong>Nome:</strong></label>
                         <input type="text" class="form-control" id="nome" name="nome" required>
                     </div>
-                    <div class="col-md-4 mt-3">
-                        <label for="login">Login:</label>
-                        <input type="text" class="form-control" id="login" name="login" required>
-                    </div>
                 </div>
-                <div class="row justify-content-center">
-                    <div class="col-md-3 mt-3">
-                        <label for="cpf">CPF:</label>
+                <div class="row">                    
+                    <div class="col mt-3">
+                        <label for="cpf"><strong>CPF:</strong></label>
                         <input type="text" class="form-control cpf" id="cpf" name="cpf" required>
                     </div>
+                    <div class="col mt-3">
+                        <label for="telefone"><strong>Telefone:</strong></label>
+                        <input type="text" class="form-control telefone" id="telefone" name="telefone" required>
+                    </div>                    
                     <div class="col-md-3 mt-3">
-                        <label for="municipio">Município:</label>
+                        <label for="municipio"><strong>Município:</strong></label>
                         <select name="municipio" id="municipio" class="form-select" required>
                             {% for municipio in municipios %}
                             <option value="{{municipio.id}}">{{municipio.nome}}</option>
                             {% endfor %}
                         </select>
                     </div>
-                    <div class="col-md-3 mt-3">
-                        <label for="telefone">Telefone:</label>
-                        <input type="text" class="form-control telefone" id="telefone" name="telefone" required>
-                    </div>
                 </div>
                 <div class="row justify-content-center">
-                    <div class="col-md-3 mt-3">
-                        <label for="password1">Digite a senha:</label>
+                    <div class="col mt-3">
+                        <label for="login"><strong>Login:</strong></label>
+                        <input type="text" class="form-control" id="login" name="login" required>
+                    </div>
+                
+                    <div class="col mt-3">
+                        <label for="password1"><strong>Digite a senha:</strong></label>
                         <input type="password" class="form-control" id="password1" name="password1" required>
                     </div>
-                    <div class="col-md-5 mt-3">
-                        <label for="password2">Confirme a senha:</label>
+                    <div class="col-md-3 mt-3">
+                        <label for="password2"><strong>Confirme a senha:</strong></label>
                         <input type="password" class="form-control" id="password2" name="password2" required>
+
+                        <input type="checkbox" class="form-check-input" id="mostrar-senha" onclick="return mostrarSenha(this)">
+                        <label for="mostrar-senha" class="form-check-label">Mostrar senha</label>
+                    </div>                    
+                </div>
+                
+                <div class="row justify-content-center align-middle text-center mt-3">
+                    <div class="row"><span class="alert alert-info"><strong>Escolha os agravos que deseja notificar</strong></span></div>
+                    <hr>
+                    <div class="col mt-3">
+                        <input type="checkbox" class="form-check-input" name="esp-hum" value="esp-hum">
+                        <label for="mostrar-senha" class="form-check-label">Esporotricose Humana</label>
                     </div>
+                    <div class="col mt-3 mb-3">
+                        <input type="checkbox" class="form-check-input" name="act" value="act">
+                        <label for="mostrar-senha" class="form-check-label">Acidentes de Trânsito</label>
+                    </div>
+                    
                 </div>
-                <div class="mt-2">
-                    <input type="checkbox" id="mostrar-senha" onclick="return mostrarSenha(this)">
-                    <label for="mostrar-senha">Mostrar senha</label>
-                </div>
-                <div class="mt-4">
+                <hr>
+                <div class="mt-4 text-center">
                     <div class="d-grid gap-2 d-md-block">
                         <button class="btn btn-success"><i class="bi bi-check2 me-1"></i>Criar</button>
                     </div>

@@ -19,6 +19,8 @@ from django.contrib import admin
 from django.urls import path, include
 from core import views
 
+from core import base_views
+
 from django.conf.urls.static import static, settings
 
 
@@ -28,15 +30,13 @@ urlpatterns = [
     path('account/', include('account.urls')),
     path('account/', include('django.contrib.auth.urls')),
     path('accounts/', include('django.contrib.auth.urls')),
-    #path('', views.index_aberto, name='index_aberto'),
-    #path('',views.principal, name='index'),
-    #path('login/',views.login_page, name='login_page'),
+    path('act/', include('_acidente_transito.urls', namespace='act')),
+    path('esp-hum/', include('_esporotricose_humana.urls', namespace='esp')),
+    
+    path('change_password/', views.change_password, name='change_password'),
+    path('login/',views.login_page, name='login_page'),
     path('login/submit', views.login_submit),
     path('logout/', views.logout_user, name='logout'),
-    path('index/', views.index, name='index'),
-    path('index/ajax_index_aberto', views.ajax_index_aberto, name='ajax_index_aberto'),
-    path('index/ajax_filtrar_index_aberto', views.ajax_filtrar_index_aberto, name='ajax_filtrar_index_aberto'),
-    path('index/submit', views.ajax_exportar_index_fechado, name='ajax_exportar_index_fechado'),
 
     path('main/', views.main, name='main'),
 
@@ -106,6 +106,11 @@ urlpatterns = [
     path('gerenciar-dados/', views.gerenciar_dados_get, name="gerenciar-dados-get"),
     path('gerenciar-dados/set', views.gerenciar_dados_set, name="gerenciar-dados-set"),
     path('gerenciar-dados/del', views.gerenciar_dados_del, name="gerenciar-dados-del"),
+
+    path('', base_views.principal, name='redirecionamento'),
+    path('dados_user/', base_views.dados_user, name='dados_user'),
+    path('all_forms/', base_views.all_forms, name='all_forms'),
+    path('usuarios/', base_views.usuarios, name='usuarios'),
     
 ]
 

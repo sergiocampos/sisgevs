@@ -2,14 +2,9 @@
 #from asyncio.windows_events import NULL
 import csv
 from http import HTTPStatus
+
 import json
-import os
-import string
 import urllib
-from datetime import datetime
-from inspect import Attribute
-from io import BytesIO
-from random import choice
 
 import pandas as pd
 from django.conf import settings
@@ -18,21 +13,12 @@ from django.contrib.auth import (authenticate, get_user_model, login, logout,
                                  update_session_auth_hash)
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import PasswordChangeForm, UserCreationForm
-from django.contrib.auth.hashers import check_password, make_password
-from django.contrib.auth.models import User
-from django.core.exceptions import PermissionDenied
-from django.core.paginator import Paginator
-from django.db.models import Q
-from django.db.models.expressions import OrderBy, Value
-from django.http import HttpResponse, HttpResponseRedirect
-from django.http.response import JsonResponse
+
 from django.shortcuts import redirect, render
-from django.utils.functional import empty
+
 from django.utils.translation import gettext as _
 from django.views.decorators.csrf import csrf_protect
-from genericpath import exists
-from openpyxl import Workbook
-from pandas.core.frame import DataFrame
+
 
 from sqlalchemy import create_engine
 
@@ -74,7 +60,7 @@ def login_submit(request):
 			if user is not None:
 				login(request, user)
 				#return redirect('/all_forms/')
-				return redirect('principal')
+				return redirect('/')
 			else:
 				messages.error(request, 'Senha ou usuário inválidos.')
 				return render(request, 'login_page.html')
@@ -115,12 +101,9 @@ def change_password(request):
 def set_login_page(request):
 	return redirect('index')
 
-
-
 @login_required(login_url='/login/')
-def index(request):
-	return render(request, 'index.html')
-
+def pagina_redirecionamento(request):
+	return render(request, 'redirecionamento.html')
 
 
 @login_required(login_url='/login/')

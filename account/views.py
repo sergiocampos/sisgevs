@@ -19,6 +19,16 @@ def signup(request, template_name='signup.html'):
 		cpf = request.POST.get('cpf').replace('.', '').replace('-', '')
 		telefone = request.POST.get('telefone').replace('(', '').replace(')', '').replace('-', '')
 		municipio_id = int(request.POST.get('municipio'))
+		
+		# Solicitaçao de agravos.
+		agravo_act = request.POST.get('act')
+		agravo_esp = request.POST.get('esp-hum')
+		lista_agravos_possivel = []
+		if agravo_act:
+			lista_agravos_possivel.append(agravo_act)
+		if agravo_esp:
+			lista_agravos_possivel.append(agravo_esp)
+
 		try:
 			if User.objects.filter(login=login).exists():
 				raise Exception('Este Login já está sendo utilizado')
@@ -43,7 +53,9 @@ def signup(request, template_name='signup.html'):
 				telefone = telefone,
 				#gerencia_operacional = request.POST.get('gerenciaOp'),
 				#nucleo = request.POST.get('nucleo'),
-				municipio = Municipio.objects.get(id=municipio_id)
+				municipio = Municipio.objects.get(id=municipio_id),
+				lista_agravos_possivel=lista_agravos_possivel,
+				lista_agravos_permite=[],
 			)
 			storage = messages.get_messages(request)
 			storage.used = True
