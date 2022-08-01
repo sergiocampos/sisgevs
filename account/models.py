@@ -9,6 +9,7 @@ from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, Permis
 from django.conf import settings
 from django.contrib.auth.models import AbstractUser
 from core.models import Municipio
+from django.contrib.postgres.fields import ArrayField
 
 
 class UserManager(BaseUserManager):
@@ -74,7 +75,11 @@ class User(AbstractBaseUser, PermissionsMixin):
 	area_tecnica = models.CharField(max_length=100, blank=True, null=True)
 	gerencia_regional = models.CharField(max_length=100, blank=True, null=True)
 	municipio_nome = models.CharField(max_length=100, blank=True, null=True)
-	
+
+	lista_agravos_possivel = ArrayField(models.CharField(max_length=50), null=True, blank=True)
+	lista_agravos_permite = ArrayField(models.CharField(max_length=50), null=True, blank=True)
+
+	numero_hierarquia = models.IntegerField(null=True, blank=True)	
 	
 	USERNAME_FIELD = 'login'
 	CPF_FIELD = 'login'

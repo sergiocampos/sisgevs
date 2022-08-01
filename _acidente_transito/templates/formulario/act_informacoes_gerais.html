@@ -1,0 +1,259 @@
+<div class="row">
+    <div class="col-sm-12">
+        <div class="alert alert-success" style="text-align: center;">
+            <strong style="align-items: center;">Data do Acidente</strong>
+            <strong style="color:red">*</strong></i>
+        </div>
+    </div>
+    <div class="col-2 mx-auto">
+        <div action="/action_page.php">
+                <label for="date"></label>
+            <input type="date" class= form-control id="date" name="date_acidente"required>
+            <div class="valid-feedback text-center"></div>
+            <div class="invalid-feedback text-center"></div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-sm-12">
+        <div class="alert alert-success" style="text-align: center;">
+            <strong style="align-items: center;">Período do dia</strong>
+            <strong style="color:red">*</strong></i>
+        </div>
+    </div>
+</div>
+<div class="row text-center">
+    <div class="radio col">
+        <input type="radio" id="p_acidente" name="p_acidente" value="Manha">
+        <label for="p_acidente">Mãnha</label>
+    </div>
+
+    <div class="radio col">
+        <input type="radio" id="p_acidente" name="p_acidente" value="tarde">
+        <label for="p_acidente">Tarde</label>
+    </div>
+    <div class="radio col disable">
+        <input type="radio" id="p_acidente" name="p_acidente" value="noite">
+        <label for="p_acidente">Noite</label>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-sm-12">
+        <div class="alert alert-success" style="text-align: center;">
+            <strong style="align-items: center;">Em que dia da semana ocorreu o acidente</strong>
+            <strong style="color:red">*</strong></i>
+        </div>
+    </div>
+</div>
+<div class="row mb-3 text-center">
+    <div class="radio col">
+        <input type="radio" id="dia_semana" name="dia_semana" value="Segunda">
+        <label for="dia_semana">Segunda</label>
+    </div>
+    <div class="radio col">
+        <input type="radio" id="dia_semana" name="dia_semana" value="Terça">
+        <label for="dia_semana">Terça</label>
+    </div>
+    <div class="radio col">
+        <input type="radio" id="dia_semana" name="dia_semana" value="Quarta">
+        <label for="dia_semana">Quarta</label>
+    </div>
+        <div class="radio col">
+            <input type="radio" id="dia_semana" name="dia_semana" value="Quinta">
+            <label for="dia_semana">Quinta</label>
+    </div>
+    <div class="radio col">
+        <input type="radio" id="Sexta" name="act_dia_semana" value="Sexta">
+        <label for="Sexta">Sexta</label>
+    </div>
+    <div class="radio col">
+        <input type="radio" id="dia_semana" name="dia_semana" value="Sábado">
+        <label for="dia_semana">Sábado</label>
+    </div>
+    <div class="radio col disable">
+        <input type="radio" id="dia_semana" name="dia_semana" value="Domingo">
+        <label for="dia_semana">Domingo</label>
+    </div>
+</div>
+    
+<div class="row m-0 mt-3">
+    <div class="alert col-sm-12 alert-success" style="text-align: center;">
+        <strong style="align-items: center;">O Acidente ocorreu em dia de feriado</strong>
+        <strong style="color:red">*</strong></i>
+    </div>
+</div>
+<div class="mb-3 row text-center">
+    <div class="radio col">
+        <input type="radio" id="dia_feriado" name="dia_feriado" value="Sim">
+        <label for="dia_feriado">Sim</label>
+    </div>
+    <div class="radio col">
+        <input type="radio" id="dia_feriado" name="dia_feriado" value="Não">
+        <label for="dia_feriado">Não</label>
+    </div>
+</div>
+
+
+<!-------------------------------Municipio de Ocorrência do Acidente----------------------------->
+
+<div class="row m-0">
+    <div class="alert col-sm-12 alert-success" style="text-align: center;">
+    <strong style="align-items: center;">Município de Ocorrência do Acidente</strong>
+        <strong style="color:red">*</strong></i>
+    </div>
+</div>
+<div class="row m-0">
+    <div class="col-4 mb-4 mx-auto">
+        <label for="munic_ocorrencia"></label>
+        <select name="munic_ocorrencia" id="munic_ocorrencia" class="form-control" placeholder="" required>
+            <option value=""></option>
+            <option value="João Pessoa">João Pessoa</option>
+            <option value="Santa Rita">Santa Rita</option>
+            <option value="Bayeux">Bayeux</option>
+            <option value="Cabedelo">Cabedelo</option>
+            <option value="Conde">Conde</option>
+                <option value="Rio Tinto">Rio Tinto</option>
+        <div class="valid-feedback"></div>
+        <div class="invalid-feedback"></div>
+            </select>
+    </div>
+</div>
+
+<div class="row m-0">
+    <div class="alert col-sm-12 alert-success" style="text-align: center;">
+        <strong style="align-items: center;">Endereço do local do Acidente:</strong>
+        <strong style="color:red">*</strong></i>
+    </div>
+</div>
+<div class="col-4 mb-4 mx-auto">
+    <label for="endereco_acidente"></label>
+    <input type="text" class="form-control" id="endereco_acidente" placeholder="Digite seu endereço, por favor" name="endereco_acidente" required>
+    <div class="valid-feedback"></div>
+    <div class="invalid-feedback"></div>
+</div>
+    <!------------------------------------------Bloco: Tipo de Acidente:---------------------------------------------->
+
+<div class="row m-0">
+    <div class="alert col-sm-12 alert-success" style="text-align: center;">
+        <strong style="align-items: center;">Tipo de Acidente:</strong>
+        <strong style="color:red">*</strong></i>
+    </div>
+</div>
+<div class= "row mb-3 text-center">
+    <div class="radio col">
+        <input type="radio" id="tipoAcidente" name="tipoAcidente" value="">
+        <label for="tipoAcidente">Abalroamento</label>
+    </div>
+        <div class="radio col">
+            <input type="radio" id="tipoAcidente" name="tipoAcidente" value="">
+            <label for="tipoAcidente">Atropelamento</label>
+    </div>
+    <div class="radio col">
+        <input type="radio" id="tipoAcidente" name="tipoAcidente" value="">
+        <label for="tipoAcidente">Capotamento</label>
+    </div>
+    <div class="radio col">
+        <input type="radio" id="tipoAcidente" name="tipoAcidente" value="">
+        <label for="tipoAcidente">Queda de Moto</label>
+    </div>
+    <div class="radio col">
+        <input type="radio" id="tipoAcidente" name="tipoAcidente" value="">
+        <label for="tipoAcidente">Colisão/Choque</label>
+    </div>
+    <div class="radio col">
+        <input type="radio" id="tipoAcidente" name="tipoAcidente" value="">
+        <label for="tipoAcidente">Outros</label>
+    </div>
+</div>
+
+
+
+<!------------------------------------HOME: Tipo de Veiculos Envolvidos no Acidente:------------------------------------------------->
+
+<div class="row row m-0">
+    <div class="alert col-sm-12 alert-success" style="text-align: center;">
+        <strong style="align-items: center;">Tipo de veiculos envolvidos no acidente:</strong>
+        <strong style="color:red">*</strong>
+    </div>
+</div>
+
+<div class="row mb-3 text-center">
+<div class="radio col-1">
+    <input type="radio" id="Tipo_Veiculos_Envolvidos_Acidente" name="Tipo_Veiculos_Envolvidos_Acidente" value="">
+    <label for="Tipo_Veiculos_Envolvidos_Acidente">Carro</label>
+</div>
+<div class="radio col">
+    <input type="radio" id="Tipo_Veiculos_Envolvidos_Acidente" name="Tipo_Veiculos_Envolvidos_Acidente" value="">
+    <label for="Tipo_Veiculos_Envolvidos_Acidente">Caminhão</label>
+</div>
+<div class="radio col">
+    <input type="radio" id="Tipo_Veiculos_Envolvidos_Acidente" name="Tipo_Veiculos_Envolvidos_Acidente" value="">
+    <label for="Tipo_Veiculos_Envolvidos_Acidente">Motocicleta</label>
+</div>
+<div class="radio col">
+    <input type="radio" id="Tipo_Veiculos_Envolvidos_Acidente" name="Tipo_Veiculos_Envolvidos_Acidente" value="">
+    <label for="Tipo_Veiculos_Envolvidos_Acidente">Motonetas(50cc)</label>
+</div>
+<div class="radio col">
+    <input type="radio" id="Tipo_Veiculos_Envolvidos_Acidente" name="Tipo_Veiculos_Envolvidos_Acidente" value="">
+    <label for="Tipo_Veiculos_Envolvidos_Acidente">Bicicletas</label>
+</div>
+<div class="radio col">
+    <input type="radio" id="Tipo_Veiculos_Envolvidos_Acidente" name="Tipo_Veiculos_Envolvidos_Acidente" value="">
+    <label for="Tipo_Veiculos_Envolvidos_Acidente">Ônibus</label>
+</div>
+<div class="radio col">
+    <input type="radio" id="Tipo_Veiculos_Envolvidos_Acidente" name="Tipo_Veiculos_Envolvidos_Acidente" value="">
+    <label for="Tipo_Veiculos_Envolvidos_Acidente">Vans</label>
+</div>
+<div class="radio col">
+    <input type="radio" id="Tipo_Veiculos_Envolvidos_Acidente" name="Tipo_Veiculos_Envolvidos_Acidente" value="">
+    <label for="Tipo_Veiculos_Envolvidos_Acidente">Outros</label>
+</div>
+</div>
+
+
+<!-----------------------------------------------home:O Paciente envolvido no acidente era------------------------------------------------>
+
+<div class="row m-0">
+    <div class="alert col-sm-12 alert-success" style="text-align: center;">
+        <strong style="align-items: center;">O Paciente envolvido no acidente era:</strong>
+        <strong style="color:red">*</strong></i>
+    </div>
+</div>
+<div class="row mb-3 text-center">
+    <div class="radio col">
+        <input type="radio" id="paciente_envolvido" name="paciente_envolvido" value="">
+        <label for="paciente_envolvido">Pedestre</label>
+    </div>
+
+    <div class="radio col">
+        <input type="radio" id="paciente_envolvido" name="paciente_envolvido" value="">
+        <label for="paciente_envolvido">Condutor</label>
+    </div>
+    <div class="radio col disable">
+        <input type="radio" id="paciente_envolvido" name="paciente_envolvido" value="">
+        <label for="paciente_envolvido">Passageiro</label>
+    </div>
+</div>
+
+<!--home:A vítima apresenta sinais de embriagues e/ou cosumo de bebidas alcoolicas-->
+
+<div class="row m-0">
+        <div class="alert col-sm-12 alert-success" style="text-align: center;">
+            <strong style="align-items: center;"> A vítima apresenta sinais de embriagues e/ou cosumo de bebidas alcoolicas:</strong>
+            <strong style="color:red">*</strong></i>
+        </div>
+</div>
+<div class="row mb-3 text-center">
+    <div class="radio col">
+        <input type="radio" id="sinais_embriagues" name="sinais_embriagues" value="">
+        <label for="sinais_embriagues">Sim</label>
+    </div>
+    <div class="radio col disable">
+        <input type="radio" id="sinais_embriagues" name="sinais_embriagues" value="">
+        <label for="sinais_embriagues">Não</label>
+    </div>
+</div>

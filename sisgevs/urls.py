@@ -19,6 +19,8 @@ from django.contrib import admin
 from django.urls import path, include
 from core import views
 
+from core import base_views
+
 from django.conf.urls.static import static, settings
 
 
@@ -36,7 +38,10 @@ urlpatterns = [
     path('login/submit', views.login_submit),
     path('logout/', views.logout_user, name='logout'),
 
-    path('', views.pagina_redirecionamento, name='redirecionamento')    
+    path('', base_views.principal, name='redirecionamento'),
+    path('dados_user/', base_views.dados_user, name='dados_user'),
+    path('all_forms/', base_views.all_forms, name='all_forms'),
+    path('usuarios/', base_views.usuarios, name='usuarios'),
     
 ]
 

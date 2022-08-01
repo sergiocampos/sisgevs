@@ -1,0 +1,121 @@
+<div class="row">
+    <div class="alert alert-success" style="text-align: center;">
+        <strong style="align-items: center;">Nome do Paciente</strong>
+        <strong style="color:red">*</strong><br>
+        <strong style="font-size:0.7em">(Sem Abreviações)</strong>
+    </div>
+</div>
+<div class="row">
+    <div class=" input-group">
+        <div class="col-4 mx-auto">
+            <action class="was-validated">
+                <label for="nome_paciente"></label>
+                <input type="text" class="form-control" id="nome_paciente" placeholder="Digite o nome do paciente, por favor." name="nome_paciente" pattern="^[a-zA-Z]{4,}(?: [a-zA-Z]+){0,6}$" required>
+                <div class="valid-feedback" style="text-align: center;font-size: 0.7em">Correto</div>
+                <div class="invalid-feedback" style="font-size: 0.7em; text-align: center">Digite o nome ou sobrenome (Apenas letras sem acentos)</div>
+            </action>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-12 pt-3">
+        <div class="alert alert-success" style="text-align: center;">
+            <strong style="align-items: center;">Data de Nascimento:</strong>
+            <strong style="color:red"></strong>
+            <p></p>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-2 mx-auto">
+        <action class="was-validated">
+            <label for="date"></label>
+            <input type="date" id="date" class= form-control pattern="" name="date"required>
+            <div class="valid-feedback text-center"></div>
+            <div class="invalid-feedback text-center"></div>
+        </action>
+    </div>
+</div>
+<div class="row">    
+    <div class="alert alert-success" style="text-align: center;">
+        <strong style="align-items: center;">Idade do Paciente:</strong>
+        <strong style="color:red">*</strong>                    
+    </div>
+</div>
+<div class="row pt-3 text-center">
+    <div class="col-1 mx-auto">
+        <input type="number" class="form-control form-control-sm"min="0"max="100" style="border-color: red" name="idade">
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-sm-12 pt-3">
+        <div class="alert alert-success" style="text-align: center;">
+            <strong style="align-items: center;">Sexo:</strong>
+            <strong style="color:red">*</strong>                    
+        </div>
+    </div>
+</div>
+<div class="row col-sm-12 pt-3 text-center">
+    <div class="radio col">
+        <input type="radio" id="radioA" name="Informacoes do paciente" value="Feminino">
+        <label for="radioA">Feminino</label>
+    </div>
+    <div class="radio col">
+        <input type="radio" id="radioB" name="Informacoes do paciente" value="Masculino">
+        <label for="radioB">Masculino</label>
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-12 pt-3">
+        <div class="alert alert-success" style="text-align: center;">
+            <strong style="align-items: center;">Nome da Mãe:</strong>
+            <strong style="color:red">*</strong>                            
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-4 mx-auto">
+        <action class="was-validated">
+            <label for="nome_mae"></label>
+            <input type="text" class="form-control" id="nome_mae" placeholder="Digite o nome da mãe, por favor." name="nome_mae" pattern="^[a-zA-Z]{4,}(?: [a-zA-Z]+){0,6}$" required>
+            <div class="valid-feedback" style="text-align: center;font-size: 0.7em">Correto</div>
+            <div class="invalid-feedback" style="font-size: 0.7em; text-align: center">Digite o nome ou sobrenome (Apenas letras sem acentos)</div>
+        </action>
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-12 pt-3">
+        <div class="alert alert-success" style="text-align: center;">
+            <strong style=" align-items: center;">Endereço do Paciente:</strong>
+            <strong style="color:red">*</strong>
+            <strong style="font-size:0.7em"><br>Av/Rua; Nº; Município</strong>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-4 mx-auto">
+        <action class="was-validated">
+            <label for="endereco_paciente"></label>
+            <input type="text" class="form-control" id="endereco_paciente" placeholder="Digite o endereço, por favor." name="endereco_paciente" required>
+            <div class="valid-feedback" style="text-align: center;"></div>
+            <div class="invalid-feedback"></div>
+        </action>
+    </div>
+</div>
+<div class="row">
+    <div class="alert alert-success" style="text-align: center;">
+        <strong style="align-items: center;">Contato Telefônico:</strong>
+        <strong style="color:red">*</strong>
+        <p></p>
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-2  mx-auto">
+        <action class="was-validated">
+            <label for="telefone"></label><br>
+            <input id="telefone" class="form-control"  type="tel" pattern="^\d{3}-\d{4}-\d{4}$"placeholder="Formato: 000-0000-0000" required >
+            <div class=" col row-1"></div>
+        </action>
+    </div>
+</div>
