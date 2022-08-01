@@ -1,91 +1,95 @@
 <div class="row m-0 mt-3">
     <div class="alert col-sm-12 alert-success" style="text-align: center;">
         <strong style="align-items: center;">Houve Vítimas Fatais:</strong>
-        <strong style="color:red">*</strong></i>
+        <strong id="alert_houve_vitimas_fatais" style="color:red">*</strong></i>
     </div>
 </div>
 
-<div class="mb-3 row text-center">
+<div class="mb-3 mt-4 row text-center">
     <div class="radio col">
-        <input type="radio" id="houve_vitimas_fatais" name="houve_vitimas_fatais" value="">
-        <label for="houve_vitimas_fatais">Sim</label>
+        <input onchange="verificaVitimaFatal()" type="radio" id="houve_vitima_sim" name="houvevitimaFatal" value="">
+        <label for="houve_vitima_sim">Sim</label>
     </div>
     <div class="radio col">
-        <input type="radio" id="houve_vitimas_fatais" name="houve_vitimas_fatais" value="">
-        <label for="houve_vitimas_fatais">Não</label>
+        <input onchange="verificaVitimaFatal()" type="radio" id="houve_vitima_nao" name="houvevitimaFatal" value="">
+        <label for="houve_vitima_nao">Não</label>
     </div>
 </div>
 
 <!-----------------------------Número de Vítimas Fatais envolvidas no Acidente------------------------------------------>
 
-<div class="row m-0 mt-3">
+<div class="row m-0 mt-4">
     <div class="alert col-sm-12 alert-success" style="text-align: center;">
         <strong style="align-items: center;">Número de Vítimas Fatais envolvidas no Acidente:</strong>
-        <strong style="color:red">*</strong>
+        <strong  id="alert_qtd_vitima_fatal" style="color:red">*</strong>
     </div>
-    <div class="col-1 mx-auto">
-        <input type="number" class="form-control form-control-sm" min="0"max="100" name="numero_vitima_fatais">
+    <div class="col-1 mt-3 mx-auto">
+        <input type="number" onchange="verificaNumeros(this, 'vitimasFatais')" class="form-control form-control-sm" min="0" max="100" name="numero_vitima">
     </div>
 </div>
 
 <!---------------------------------------------------Número de Feridos envolvidos no Acidente----------------------------->
 
 <div class="row m-0 mt-3">
-    <div class="alert col-sm-12 alert-success" style="text-align: center;">
+    <div class="alert col-sm-12 mt-3 alert-success" style="text-align: center;">
         <strong style="align-items: center;">Número de Feridos envolvidos no Acidente:</strong>
-        <strong style="color:red">*</strong>
+        <strong id="alert_envolvidos_feridos" style="color:red">*</strong>
     </div>
 </div>
 
-<div class="row text-center">
+<div class="row mt-3 text-center">
     <div class="col-1 mx-auto">
-        <input type="number" class="form-control form-control-sm" min="0"max="200" name="numero_feridos_envolvidos">
+        <input type="number" onchange="verificaNumeros(this, 'vitimasFeridas')" class="form-control form-control-sm" min="0" max="100" name="numero_ferido">
     </div>
 </div>
 
 <!--------------------------------------------Quadro de lesões:--------------------------------------------------->
 
-<div class="row m-0 mt-3">
+<div class="row m-0 mt-4">
     <div class="alert col-sm-12 alert-success" style="text-align: center;">
         <strong style="align-items: center;">Quadro de lesões:</strong>
+        <strong id="quadroLesoes" style="color:red">*</strong>
     </div>
 </div>
-<div class="mb-3 row text-center">
+<div class="mb-3 row mt-3 text-center">
     <div class="radio col">
-        <input type="radio" id="quadro_lesoes" name="quadro_lesoes" value="">
-        <label for="quadro_lesoes">Leves</label>
+        <input onchange ="verificalesoes()" type="radio" id="lesao_leve" name="lesoes_radio" value="">
+        <label for="lesao_leve">Leves</label>
     </div>
     <div class="radio col">
-        <input type="radio" id="quadro_lesoes" name="quadro_lesoes" value="">
-        <label for="quadro_lesoes">Graves</label>
+        <input onchange ="verificalesoes()" type="radio" id="lesao_grave" name="lesoes_radio" value="">
+        <label for="lesao_grave">Graves</label>
     </div>
     <div class="radio col">
-        <input type="radio" id="quadro_lesoes" name="quadro_lesoes" value="">
-        <label for="quadro_lesoes">Gravíssimas</label>
+        <input onchange ="verificalesoes()" type="radio" id="lesao_gravissima" name="lesoes_radio" value="">
+        <label for="lesao_gravissima">Gravíssimas</label>
     </div>
     <div class="radio col">
-        <input type="radio" id="quadro_lesoes" name="quadro_lesoes" value="">
-        <label for="quadro_lesoes">Lesão Seguida de Morte</label>
+        <input onchange ="verificalesoes()" type="radio" id="le_seg_morte" name="lesoes_radio" value="">
+        <label for="le_seg_morte">Lesão Seguida de Morte</label>
     </div>
 </div>
 
 <!--------------------------------------------Em Caso de Obito:--------------------------------------------------->
-<div class="row m-0 mt-3">
+<div class="row m-0 mt-4">
     <div class="alert col-sm-12 alert-success" style="text-align: center;">
-        <strong style="align-items: center;">Em caso de Óbito:</strong>
+        <strong  style="align-items: center;">Em caso de Óbito:</strong>
+        <strong id="alert_obito" style="color:red">*</strong>
     </div>
 </div>
-<div class="mb-3 row text-center">
+<div class="mb-3 row mt-4 text-center">
     <div class="radio col">
-        <input type="radio" id="em_caso_obito" name="em_caso_obito" value="">
-        <label for="em_caso_obito">Óbito Local</label>
+
+        <input onchange="verificaObito()" type="radio" id="radioObito" name="caso_obito" value="">
+        <label for="radioObito">Óbito Local</label>
     </div>
     <div class="radio col">
-        <input type="radio" id="em_caso_obito" name="em_caso_obito" value="">
-        <label for="em_caso_obito">Óbito no Encaminhamento</label>
+        <input onchange="verificaObito()" type="radio" id="radioObito" name="caso_obito" value="">
+        <label for="radioObito">Óbito no Encaminhamento</label>
     </div>
     <div class="radio col">
-        <input type="radio" id="em_caso_obito" name="em_caso_obito" value="">
-        <label for="em_caso_obito">Obito no Hospital</label>
+        <input onchange="verificaObito()" type="radio" id="radioObito" name="caso_obito" value="">
+        <label for="radioObito">Obito no Hospital</label>
+
     </div>
 </div>

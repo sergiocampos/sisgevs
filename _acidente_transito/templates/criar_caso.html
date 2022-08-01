@@ -3,7 +3,7 @@
 
 {% block head %}
 
-
+<script src="{% static '_act/js/validacoes_form.js' %}" defer></script>
 {% endblock head %}
 
 {% block content %}
@@ -12,42 +12,47 @@
     <!-- Navegador do formulário -->
     <ul class="nav nav-tabs mt-3 mb-3" id="myTab" role="tablist">
 
-        <!-- [NAV-TAB] Dados Gerais -->
+        <!-- [NAV-TAB] Informações Gerais -->
         <li class="nav-item" role="presentation">
             <a class="nav-link active" id="menu1-tab" data-bs-toggle="tab" data-bs-target="#menu1" href="#menu1" aria-selected="true">Informações Gerais
-                <i id="alert_dados_gerais" style="color:red">*</i>
+                <i id="alert_informacoes_gerais" style="color:red">*</i>
             </a>
         </li>
 
-        <!-- [NAV-TAB] Notificação Individual -->
+        <!-- [NAV-TAB] Severidade do Acidente e Quantidade-->
         <li class="nav-item" role="presentation">
             <a class="nav-link" id="menu2-tab" data-bs-toggle="tab" data-bs-target="#menu2" href="#menu2" aria-selected="false">Severidade do Acidente e Quantidade de Vítimas
-                <i id="alert_notificacao_individual" style="color:red">*</i>
+                <i id="alert_severidade" style="color:red">*</i>
             </a>
         </li>
 
-        <!-- [NAV-TAB] Dados de Residência -->
+        <!-- [NAV-TAB] Equipe Acionada para o local do Acidente -->
         <li class="nav-item" role="presentation">
             <a class="nav-link" id="menu3-tab" data-bs-toggle="tab" data-bs-target="#menu3" href="#menu3" aria-selected="false">Equipe Acionada para o Local do Acidente
-                <i id="alert_dados_residencia" style="color:red">*</i>
+                <i id="equipe-acionada" style="color:red">*</i>
             </a>
         </li>
 
-        <!-- [NAV-TAB] Antecedentes Epidemiológicos -->
+        <!-- [NAV-TAB] Informações do Paciente -->
         <li class="nav-item" role="presentation">
             <a class="nav-link" id="menu4-tab" data-bs-toggle="tab" data-bs-target="#menu4" href="#menu4" aria-selected="false">Informações do Paciente
-                <i id="alert_anteced_epid" style="color: red;">*</i>
+                <i id="alert_informacoes_paciente" style="color: red;">*</i>
             </a>
         </li>
 
-        <!-- [NAV-TAB] Dados Clínicos -->
+        <!-- [NAV-TAB] Outras Informações Sobre o Paciente -->
         <li class="nav-item" role="presentation">
-            <a class="nav-link" id="menu5-tab" data-bs-toggle="tab" data-bs-target="#menu5" href="#menu5" aria-selected="false">Outras Informações Sobre o Paciente</a>
+            <a class="nav-link" id="menu5-tab" data-bs-toggle="tab" data-bs-target="#menu5" href="#menu5" aria-selected="false">Outras Informações Sobre o Paciente
+                <i id="alert_outros_paciente" style="color: red;">*</i>
+            </a>
         </li>
 
-        <!-- [NAV-TAB] Dados Laboratoriais -->
+        <!-- [NAV-TAB] Unidade Notificadora -->
+
         <li class="nav-item" role="presentation">
-            <a class="nav-link" id="menu6-tab" data-bs-toggle="tab" data-bs-target="#menu6" href="#menu6" aria-selected="false">Unidade Notificadora</a>
+            <a class="nav-link" id="menu6-tab" data-bs-toggle="tab" data-bs-target="#menu6" href="#menu6" aria-selected="false">Unidade Notificadora
+                <i id="alert_unidade_notificadora" style="color: red;">*</i>
+            </a>
         </li>
 
     </ul>
@@ -55,53 +60,46 @@
     <!-- Paineis do formulário -->
     <div class="tab-content mb-5">
 
-        <!-- [FORM] Dados Gerais -->
+        <!-- [FORM] Informações  Gerais -->
         <div id="menu1" class="container tab-pane fade show active" role="tabpanel" aria-labelledby="menu1-tab">
         {% include 'formulario/act_informacoes_gerais.html' %}    
         </div>
 
-        <!-- [FORM] Notificação Individual -->
+        <!-- [FORM] Severidade do acidente -->
         <div id="menu2" class="container tab-pane fade" role="tabpanel" aria-labelledby="menu2-tab">
         {% include 'formulario/act_severidade_acidente_vitimas.html' %}    
         </div>
 
-        <!-- [FORM] Dados de Residência -->
+        <!-- [FORM] Equipe Acionada -->
         <div id="menu3" class="container tab-pane fade" role="tabpanel" aria-labelledby="menu3-tab">
         {% include 'formulario/act_equipe_acionada_local-acidente.html' %}
         </div>        
 
-        <!-- [FORM] Antecedentes Epidemiológicos -->
+        <!-- [FORM] informações do paciente -->
         <div id="menu4" class="container tab-pane fade" role="tabpanel" aria-labelledby="menu4-tab">
         {% include 'formulario/act_informacoes_paciente.html' %}    
         </div>
 
-        <!-- [FORM] Dados Clínicos -->
+        <!-- [FORM] Outras informações -->
         <div id="menu5" class="container tab-pane fade" role="tabpanel" aria-labelledby="menu5-tab">
         {% include 'formulario/act_outras_informacoes_paciente.html' %}    
         </div>
 
-        <!-- [FORM] Dados Laboratoriais -->
+        <!-- [FORM] unidade notificadora -->
         <div id="menu6" class="container tab-pane fade" role="tabpanel" aria-labelledby="menu6-tab">
-        {% include 'formulario/act_unidade_notificadora.html' %}
-        </div>
 
+        {% include 'formulario/act_unidade_notificadora.html' %}
+
+            <div align="center" >
+                <button class="btn btn-primary">enviar</button>
+
+            </div>
+        </div>
     </div>
+
+
 
 </form>
 
 {% endblock content %}
-{% block endbody %}
-<script>
-    function active_hospital(){
-        var opt=document.getElementById('hospital_transferencia');
-        var radio_sim = document.getElementById("radio_sim");
 
-        if (radio_sim.checked) {
-            opt.removeAttribute("class","d-none");
-
-        } else{
-            opt.setAttribute("class","d-none")
-        }
-    }
-</script>
-{% endblock endbody %}

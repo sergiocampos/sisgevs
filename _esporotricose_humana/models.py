@@ -155,7 +155,10 @@ class CasoEsporotricose(models.Model):
 	responsavel_municipio = models.CharField(max_length = 100, null=True, blank=True)
 
 	def __str__(self):
-		return self.tipo_notificacao
+		if not self.tipo_notificacao:
+			return ""
+		else:
+			return self.tipo_notificacao
 
 
 	class Meta:

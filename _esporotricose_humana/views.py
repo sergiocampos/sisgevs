@@ -1,3 +1,4 @@
+from http import HTTPStatus
 import json
 import os
 import string
@@ -22,17 +23,18 @@ from django.db.models import Q
 from django.db.models.expressions import OrderBy, Value
 from django.http import HttpResponse, HttpResponseRedirect
 from django.http.response import JsonResponse
-from django.shortcuts import redirect, render
+from django.shortcuts import redirect, render, reverse
 from django.utils.functional import empty
 from django.utils.translation import gettext as _
 from django.views.decorators.csrf import csrf_protect
 from genericpath import exists
 from openpyxl import Workbook
 from pandas.core.frame import DataFrame
+from sqlalchemy import create_engine
 
 from .models import *
 from core.models import *
-from core.base_views import my_datas as base_notificacoes
+from core.base_views import my_data as base_notificacoes
 
 # Create your views here.
 
@@ -283,7 +285,7 @@ def casos_cancelados(request):
 
 
 @login_required(login_url='/login/')
-def my_datas(request):	
+def my_datas(request):
 	return render(request, 'my_datas.html', base_notificacoes(request))
 	
 
@@ -1019,148 +1021,155 @@ def ajax_exportar_index_aberto(request):
 
 @login_required(login_url='/login/')
 def caso_esporotricose_edit(request, id):
+
 	caso = CasoEsporotricose.objects.get(id=id)
-	estados = Estado.objects.all().order_by('nome')
-	print('UF = ', caso.uf_residencia)
-	try:
-		estado_caso_str = int(caso.uf_residencia)
-	except Exception as e:
-		estado_caso = None
-	else:
-		estado_caso = Estado.objects.get(id=estado_caso_str)
-			
-	cidade_caso_ = caso.municipio_residencia
-	
-	print("municipio do caso:", cidade_caso_, type(cidade_caso_))
 
-	cidade_caso_registro = Municipio.objects.filter(nome=cidade_caso_)
+	if tem_permissao(request, caso):
 
-	print("cidade_caso_registro:", cidade_caso_registro)
-
-	municipio_residencia_br = Municipios.objects.filter(nome=cidade_caso_)
-
-
-	#cidade_caso = int(caso.municipio_residencia)
-	cidade_caso = municipio_residencia_br
-	codigo_ibge_residencia = caso.codigo_ibge_residencia
-	
-	if caso.municipio_residencia != None or caso.municipio_residencia != '':
-		#municipio_residencia = (caso.municipio_residencia).title()
-		municipio_residencia = caso.municipio_residencia
-	else:
-		municipio_residencia = None
-	
-	
-	cidade_caso_id = cidade_caso
-
-	#cidade_caso = Municipios.objects.get(id=cidade_caso_id)
-
-	print("residencia do caso:", estado_caso)
-
-	municipios = Municipio.objects.all().order_by('nome')
-	unidades_saude = []
-	codigos_ibge = []
-	#print(caso.codigo_ibge_caso_autoctone)
-
-	if caso.municipio:
-		municipio_caso = caso.municipio
-		codigo_ibge = CodigoIbge.objects.get(municipio=municipio_caso)
-		unidade_saude_caso = UnidadeSaude.objects.filter(municipio=municipio_caso)
-		unidade_saude_caso = caso.unidade_saude
-	else:
-		codigo_ibge = None
-		unidade_saude_caso = None
-
-	
-	if caso.data_notificacao != None:
-		caso.data_notificacao = datetime.strftime(caso.data_notificacao, '%Y-%m-%d')
-	else:
-		caso.data_notificacao = ""
-	
-	if caso.data_primeiros_sintomas != None:
-		caso.data_primeiros_sintomas = datetime.strftime(caso.data_primeiros_sintomas, '%Y-%m-%d')
-	else:
-		caso.data_primeiros_sintomas = ""
-	
-	if caso.data_nascimento_paciente != None:
-		caso.data_nascimento_paciente = datetime.strftime(caso.data_nascimento_paciente, '%Y-%m-%d')
-	else:
-		caso.data_nascimento_paciente = ""
-
-	if caso.data_resultado_exame1 != None:
-		caso.data_resultado_exame1 = datetime.strftime(caso.data_resultado_exame1, '%Y-%m-%d')
-	else:
-		caso.data_resultado_exame1 = ""
-
-	if caso.data_resultado_exame2 != None:
-		caso.data_resultado_exame2 = datetime.strftime(caso.data_resultado_exame2, '%Y-%m-%d')
-	else:
-		caso.data_resultado_exame2 = ""
-
-	if caso.data_resultado_exame3 != None:
-		caso.data_resultado_exame3 = datetime.strftime(caso.data_resultado_exame3, '%Y-%m-%d')
-	else:
-		caso.data_resultado_exame3 = ""
-
-	if caso.data_coleta1 != None:
-		caso.data_coleta1 = datetime.strftime(caso.data_coleta1, '%Y-%m-%d')
-	else:
-		caso.data_coleta1 = ""
-
-	if caso.data_coleta2 != None:
-		caso.data_coleta2 = datetime.strftime(caso.data_coleta2, '%Y-%m-%d')
-	else:
-		caso.data_coleta2 = ""
-
-	if caso.data_coleta3 != None:
-		caso.data_coleta3 = datetime.strftime(caso.data_coleta3, '%Y-%m-%d')
-	else:
-		caso.data_coleta3 = ""
-
-	if caso.data_investigacao != None:
-		caso.data_investigacao = datetime.strftime(caso.data_investigacao, '%Y-%m-%d')
-	else:
-		caso.data_investigacao = ""
-
-	if caso.data_inicio_tratamento1 != None:
-		caso.data_inicio_tratamento1 = datetime.strftime(caso.data_inicio_tratamento1, '%Y-%m-%d')
-	else:
-		caso.data_inicio_tratamento1 = ""
-
-	if caso.data_inicio_tratamento2 != None:
-		caso.data_inicio_tratamento2 = datetime.strftime(caso.data_inicio_tratamento2, '%Y-%m-%d')
-	else:
-		caso.data_inicio_tratamento2 = ""
-
-	if caso.data_inicio_tratamento3 != None:
-		caso.data_inicio_tratamento3 = datetime.strftime(caso.data_inicio_tratamento3, '%Y-%m-%d')
-	else:
-		caso.data_inicio_tratamento3 = ""
-
-	if caso.data_internacao != None:
-		caso.data_internacao = datetime.strftime(caso.data_internacao, '%Y-%m-%d')
-	else:
-		caso.data_internacao = ""
-
-	if caso.data_da_alta != None:
-		caso.data_da_alta = datetime.strftime(caso.data_da_alta, '%Y-%m-%d')
-	else:
-		caso.data_da_alta = ""
-
-	if caso.data_obito != None:
-		caso.data_obito = datetime.strftime(caso.data_obito, '%Y-%m-%d')
-	else:
-		caso.data_obito = ""
-
-	if caso.data_encerramento != None:
-		caso.data_encerramento = datetime.strftime(caso.data_encerramento, '%Y-%m-%d')
-	else:
-		caso.data_encerramento = ""
+		estados = Estado.objects.all().order_by('nome')
+		print('UF = ', caso.uf_residencia)
+		try:
+			estado_caso_str = int(caso.uf_residencia)
+		except Exception as e:
+			estado_caso = None
+		else:
+			estado_caso = Estado.objects.get(id=estado_caso_str)
+				
+		cidade_caso_ = caso.municipio_residencia
 		
-	return render(request, 'caso_esporotricose_edit.html', {'form':caso, 'municipios':municipios, 'unidades_saude':unidades_saude, 
-		'codigos_ibge':codigos_ibge, 'estados':estados, 'codigo_ibge':codigo_ibge, 'unidade_saude_caso':unidade_saude_caso,
-		'estado_caso':estado_caso, 'cidade_caso':cidade_caso, 'codigo_ibge_residencia': codigo_ibge_residencia, 
-		'municipio_residencia': municipio_residencia})
+		print("municipio do caso:", cidade_caso_, type(cidade_caso_))
+
+		cidade_caso_registro = Municipio.objects.filter(nome=cidade_caso_)
+
+		print("cidade_caso_registro:", cidade_caso_registro)
+
+		municipio_residencia_br = Municipios.objects.filter(nome=cidade_caso_)
+
+
+		#cidade_caso = int(caso.municipio_residencia)
+		cidade_caso = municipio_residencia_br
+		codigo_ibge_residencia = caso.codigo_ibge_residencia
+		
+		if caso.municipio_residencia != None or caso.municipio_residencia != '':
+			#municipio_residencia = (caso.municipio_residencia).title()
+			municipio_residencia = caso.municipio_residencia
+		else:
+			municipio_residencia = None
+		
+		
+		cidade_caso_id = cidade_caso
+
+		#cidade_caso = Municipios.objects.get(id=cidade_caso_id)
+
+		print("residencia do caso:", estado_caso)
+
+		municipios = Municipio.objects.all().order_by('nome')
+		unidades_saude = []
+		codigos_ibge = []
+		#print(caso.codigo_ibge_caso_autoctone)
+
+		if caso.municipio:
+			municipio_caso = caso.municipio
+			codigo_ibge = CodigoIbge.objects.get(municipio=municipio_caso)
+			unidade_saude_caso = UnidadeSaude.objects.filter(municipio=municipio_caso)
+			unidade_saude_caso = caso.unidade_saude
+		else:
+			codigo_ibge = None
+			unidade_saude_caso = None
+
+		
+		if caso.data_notificacao != None:
+			caso.data_notificacao = datetime.strftime(caso.data_notificacao, '%Y-%m-%d')
+		else:
+			caso.data_notificacao = ""
+		
+		if caso.data_primeiros_sintomas != None:
+			caso.data_primeiros_sintomas = datetime.strftime(caso.data_primeiros_sintomas, '%Y-%m-%d')
+		else:
+			caso.data_primeiros_sintomas = ""
+		
+		if caso.data_nascimento_paciente != None:
+			caso.data_nascimento_paciente = datetime.strftime(caso.data_nascimento_paciente, '%Y-%m-%d')
+		else:
+			caso.data_nascimento_paciente = ""
+
+		if caso.data_resultado_exame1 != None:
+			caso.data_resultado_exame1 = datetime.strftime(caso.data_resultado_exame1, '%Y-%m-%d')
+		else:
+			caso.data_resultado_exame1 = ""
+
+		if caso.data_resultado_exame2 != None:
+			caso.data_resultado_exame2 = datetime.strftime(caso.data_resultado_exame2, '%Y-%m-%d')
+		else:
+			caso.data_resultado_exame2 = ""
+
+		if caso.data_resultado_exame3 != None:
+			caso.data_resultado_exame3 = datetime.strftime(caso.data_resultado_exame3, '%Y-%m-%d')
+		else:
+			caso.data_resultado_exame3 = ""
+
+		if caso.data_coleta1 != None:
+			caso.data_coleta1 = datetime.strftime(caso.data_coleta1, '%Y-%m-%d')
+		else:
+			caso.data_coleta1 = ""
+
+		if caso.data_coleta2 != None:
+			caso.data_coleta2 = datetime.strftime(caso.data_coleta2, '%Y-%m-%d')
+		else:
+			caso.data_coleta2 = ""
+
+		if caso.data_coleta3 != None:
+			caso.data_coleta3 = datetime.strftime(caso.data_coleta3, '%Y-%m-%d')
+		else:
+			caso.data_coleta3 = ""
+
+		if caso.data_investigacao != None:
+			caso.data_investigacao = datetime.strftime(caso.data_investigacao, '%Y-%m-%d')
+		else:
+			caso.data_investigacao = ""
+
+		if caso.data_inicio_tratamento1 != None:
+			caso.data_inicio_tratamento1 = datetime.strftime(caso.data_inicio_tratamento1, '%Y-%m-%d')
+		else:
+			caso.data_inicio_tratamento1 = ""
+
+		if caso.data_inicio_tratamento2 != None:
+			caso.data_inicio_tratamento2 = datetime.strftime(caso.data_inicio_tratamento2, '%Y-%m-%d')
+		else:
+			caso.data_inicio_tratamento2 = ""
+
+		if caso.data_inicio_tratamento3 != None:
+			caso.data_inicio_tratamento3 = datetime.strftime(caso.data_inicio_tratamento3, '%Y-%m-%d')
+		else:
+			caso.data_inicio_tratamento3 = ""
+
+		if caso.data_internacao != None:
+			caso.data_internacao = datetime.strftime(caso.data_internacao, '%Y-%m-%d')
+		else:
+			caso.data_internacao = ""
+
+		if caso.data_da_alta != None:
+			caso.data_da_alta = datetime.strftime(caso.data_da_alta, '%Y-%m-%d')
+		else:
+			caso.data_da_alta = ""
+
+		if caso.data_obito != None:
+			caso.data_obito = datetime.strftime(caso.data_obito, '%Y-%m-%d')
+		else:
+			caso.data_obito = ""
+
+		if caso.data_encerramento != None:
+			caso.data_encerramento = datetime.strftime(caso.data_encerramento, '%Y-%m-%d')
+		else:
+			caso.data_encerramento = ""
+			
+		return render(request, 'caso_esporotricose_edit.html', {'form':caso, 'municipios':municipios, 'unidades_saude':unidades_saude, 
+			'codigos_ibge':codigos_ibge, 'estados':estados, 'codigo_ibge':codigo_ibge, 'unidade_saude_caso':unidade_saude_caso,
+			'estado_caso':estado_caso, 'cidade_caso':cidade_caso, 'codigo_ibge_residencia': codigo_ibge_residencia, 
+			'municipio_residencia': municipio_residencia})
+	
+	else:
+		return redirect("/my_datas", messages = messages.error(request, 'Você não tem permissão para editar este caso.'))
 
 @login_required(login_url='/login/')
 def set_caso_esporotricose_edit(request, id):
@@ -1222,7 +1231,7 @@ def set_caso_esporotricose_edit(request, id):
 	sexo_paciente = request.POST.get('sexo')
 	
 	idade_paciente_cap = request.POST.get('result')
-	if idade_paciente_cap == '' or idade_paciente_cap == None:
+	if idade_paciente_cap == '' or idade_paciente_cap == None or idade_paciente_cap == "None":
 		idade_paciente = None
 	else:
 		idade_paciente = int(idade_paciente_cap)
@@ -1648,3 +1657,98 @@ def export_users(request):
 	else:
 		redirect('principal')
 
+
+@login_required(login_url="/login/")
+def gerenciar_dados_get(request):
+	
+	# Renderiza a pagina.
+	if request.user.is_superuser and request.user.funcao == 'admin':
+		if request.method == "GET":
+			return render(request, 'gerenciar_dados.html')		
+
+	# Caso não seja super usuario.
+	else:
+		return redirect('principal')
+
+
+@login_required(login_url='/login/')
+def gerenciar_dados_set(request):
+	
+	# Adiciona à entidade casos_esporotricose os novos dados.
+	if request.user.is_superuser and request.user.funcao == 'admin':
+
+		if request.method == "POST":
+
+			# CSV FILE
+			if request.FILES['arquivo'].content_type == 'text/csv':
+				arquivo = pd.read_csv(request.FILES['arquivo'])               
+			
+			# XLS FILE
+			elif request.FILES['arquivo'].content_type == 'application/vnd.ms-excel':
+				arquivo = pd.read_excel(request.FILES['arquivo'])
+
+			# XLSX FILE
+			elif request.FILES['arquivo'].content_type == 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet':
+				arquivo = pd.read_excel(request.FILES['arquivo'])
+
+			else:
+				return JsonResponse({"msg":"error"}, status=HTTPStatus.NOT_ACCEPTABLE)
+
+			# Inserindo os dados.
+			engine = create_engine('postgresql+psycopg2://postgres:postgres@db:5432/postgres')
+			try:
+				arquivo.to_sql('_esporotricose_humana_casoesporotricose', engine, if_exists='append', index=False)				
+			except:
+				return JsonResponse({"msg":"Algo deu errado, verifique as colunas e tente novamente."}, status=HTTPStatus.NOT_ACCEPTABLE)	
+			else:
+				return JsonResponse({"msg":"Dados adicionados com sucesso!"}, status=HTTPStatus.OK)
+
+	# Caso não seja super usuario.
+	else:
+		return redirect('principal')
+
+
+
+@login_required(login_url='/login/')
+def gerenciar_dados_del(request):
+	
+	# Deleta toda a entidade casos_esporotricose.
+	if request.user.is_superuser and request.user.funcao == 'admin':
+
+		if request.method == "DELETE":
+			body = json.loads(request.body)
+			if request.user.check_password(body['password']):
+				CasoEsporotricose.objects.all().delete()
+				return JsonResponse({"msg":"Tabela deletada com sucesso!"}, status=HTTPStatus.OK)
+
+			else:
+				return JsonResponse({"msg":"Senha inválida!"}, status=HTTPStatus.UNAUTHORIZED)
+			
+	# Caso não seja super usuario.
+	else:
+		return redirect('principal')
+		
+
+# Funçao que verifica se o usuário tem permissao para editar um caso especifico.
+@login_required(login_url='/login/')
+def tem_permissao(request, caso):
+
+	# TODO: Implementar verificação por agravo.
+
+	# Usuários SES.
+	if request.user.funcao != 'gerencia_regional' and request.user.funcao != 'autocadastro' and request.user.funcao != 'municipal':
+		return True
+
+	# Usuário municipal.
+	elif request.user.funcao == 'municipal':
+		if request.user.municipio.nome.upper() == caso.municipio_residencia.upper() or request.user.id == caso.responsavel_pelas_informacoes_id:
+			return True
+		return False
+
+	# Usuário autocadastro.
+	elif request.user.funcao == 'autocadastro' and request.user.id == caso.responsavel_pelas_informacoes_id:
+		return True
+
+	# Qualquer outro.
+	else:
+		return False

@@ -2,169 +2,173 @@
     <div class="col-sm-12">
         <div class="alert alert-success" style="text-align: center;">
             <strong style="align-items: center;">Data do Acidente</strong>
-            <strong style="color:red">*</strong></i>
+            <strong id= "alert_data_acidente" style="color:red">*</strong></i>
         </div>
     </div>
+</div>
+<div class="row">
     <div class="col-2 mx-auto">
-        <div action="/action_page.php">
-                <label for="date"></label>
-            <input type="date" class= form-control id="date" name="date_acidente"required>
+        <div action="/action_page.php" class="was-validated">
+            <label for="date_acidente"></label>
+            <input type="date" class= form-control id="date_acidente" name="date_acidente" required>
             <div class="valid-feedback text-center"></div>
             <div class="invalid-feedback text-center"></div>
         </div>
     </div>
 </div>
-
 <div class="row">
-    <div class="col-sm-12">
-        <div class="alert alert-success" style="text-align: center;">
-            <strong style="align-items: center;">Período do dia</strong>
-            <strong style="color:red">*</strong></i>
+       <div class="col-sm-12 mt-5">
+            <div class="alert alert-success" style="text-align: center;">
+                <strong style="align-items: center;">Período do dia</strong>
+                <strong id="alert_periodo_dia" style="color:red">*</strong></i>
+            </div>
         </div>
-    </div>
-</div>
-<div class="row text-center">
-    <div class="radio col">
-        <input type="radio" id="p_acidente" name="p_acidente" value="Manha">
-        <label for="p_acidente">Mãnha</label>
-    </div>
-
-    <div class="radio col">
-        <input type="radio" id="p_acidente" name="p_acidente" value="tarde">
-        <label for="p_acidente">Tarde</label>
-    </div>
-    <div class="radio col disable">
-        <input type="radio" id="p_acidente" name="p_acidente" value="noite">
-        <label for="p_acidente">Noite</label>
-    </div>
 </div>
 
-<div class="row">
-    <div class="col-sm-12">
+<div class="row mt-4 text-center">
+    <div class="radio col">
+        <input onchange="verificaPeriodoDia()" type="radio" id="periodo_manha" name="periodo_dia" value="manha">
+        <label for="periodo_manha">Mãnha</label>
+    </div>
+    <div class="radio col">
+        <input onchange="verificaPeriodoDia()"  type="radio" id="periodo_tarde" name="periodo_dia" value="tarde">
+        <label for="periodo_tarde">Tarde</label>
+    </div>
+    <div class="radio col">
+        <input onchange="verificaPeriodoDia()" type="radio" id="periodo_noite" name="periodo_dia" value="noite">
+        <label for="periodo_noite">Noite</label>
+    </div>
+</div>
+
+<div class="row col-sm mt-3">
+    <div class="col-sm-12 mt-4">
         <div class="alert alert-success" style="text-align: center;">
             <strong style="align-items: center;">Em que dia da semana ocorreu o acidente</strong>
-            <strong style="color:red">*</strong></i>
+            <strong id= alert_dia_semana style="color:red">*</strong></i>
         </div>
     </div>
 </div>
-<div class="row mb-3 text-center">
+<div class="row mb-3 mt-4 text-center">
     <div class="radio col">
-        <input type="radio" id="dia_semana" name="dia_semana" value="Segunda">
-        <label for="dia_semana">Segunda</label>
-    </div>
-    <div class="radio col">
-        <input type="radio" id="dia_semana" name="dia_semana" value="Terça">
-        <label for="dia_semana">Terça</label>
+        <input onchange="verificadiaSemana()" type="radio" id="segunda" name="dia_semana" value="segunda">
+        <label for="segunda">Segunda</label>
     </div>
     <div class="radio col">
-        <input type="radio" id="dia_semana" name="dia_semana" value="Quarta">
-        <label for="dia_semana">Quarta</label>
-    </div>
-        <div class="radio col">
-            <input type="radio" id="dia_semana" name="dia_semana" value="Quinta">
-            <label for="dia_semana">Quinta</label>
+        <input onchange="verificadiaSemana()" type="radio" id="terca" name="dia_semana" value="terca">
+        <label for="terca">Terça</label>
     </div>
     <div class="radio col">
-        <input type="radio" id="Sexta" name="act_dia_semana" value="Sexta">
-        <label for="Sexta">Sexta</label>
+        <input onchange="verificadiaSemana()" type="radio" id="quarta" name="dia_semana" value="quarta">
+        <label for="quarta">Quarta</label>
     </div>
     <div class="radio col">
-        <input type="radio" id="dia_semana" name="dia_semana" value="Sábado">
-        <label for="dia_semana">Sábado</label>
+        <input onchange="verificadiaSemana()" type="radio" id="quinta" name="dia_semana" value="quinta">
+        <label for="quinta">Quinta</label>
     </div>
-    <div class="radio col disable">
-        <input type="radio" id="dia_semana" name="dia_semana" value="Domingo">
-        <label for="dia_semana">Domingo</label>
+    <div class="radio col">
+        <input onchange="verificadiaSemana()" type="radio" id="sexta" name="dia_semana" value="sexta">
+        <label for="sexta">Sexta</label>
+    </div>
+    <div class="radio col">
+        <input onchange="verificadiaSemana()" type="radio" id="sabado" name="dia_semana" value="sabado">
+        <label for="sabado">Sábado</label>
+    </div>
+    <div class="radio col">
+        <input onchange="verificadiaSemana()" type="radio" id="domingo" name="dia_semana" value="domingo">
+        <label for="domingo">Domingo</label>
     </div>
 </div>
     
-<div class="row m-0 mt-3">
+<div class="row m-0 mt-5">
     <div class="alert col-sm-12 alert-success" style="text-align: center;">
         <strong style="align-items: center;">O Acidente ocorreu em dia de feriado</strong>
-        <strong style="color:red">*</strong></i>
+        <strong id="alert_acidente_dia_feriado" style="color:red">*</strong></i>
     </div>
 </div>
-<div class="mb-3 row text-center">
+<div class="mb-3 row mt-4 text-center">
     <div class="radio col">
-        <input type="radio" id="dia_feriado" name="dia_feriado" value="Sim">
-        <label for="dia_feriado">Sim</label>
+        <input onchange="verificaAcidenteDiaFeriado()" type="radio" id="f_sim" name="dia_feriado" value="">
+        <label for="f_sim">Sim</label>
     </div>
     <div class="radio col">
-        <input type="radio" id="dia_feriado" name="dia_feriado" value="Não">
-        <label for="dia_feriado">Não</label>
+        <input onchange="verificaAcidenteDiaFeriado()" type="radio" id="f_nao" name="dia_feriado" value="">
+        <label for="f_nao">Não</label>
     </div>
 </div>
-
 
 <!-------------------------------Municipio de Ocorrência do Acidente----------------------------->
 
-<div class="row m-0">
+<div class="row mt-4 m-0">
     <div class="alert col-sm-12 alert-success" style="text-align: center;">
     <strong style="align-items: center;">Município de Ocorrência do Acidente</strong>
-        <strong style="color:red">*</strong></i>
+        <strong id="alert_municipio"style="color:red">*</strong></i>
     </div>
 </div>
-<div class="row m-0">
+<div class="row mt-3">
     <div class="col-4 mb-4 mx-auto">
+        <action class="was-validated">
         <label for="munic_ocorrencia"></label>
-        <select name="munic_ocorrencia" id="munic_ocorrencia" class="form-control" placeholder="" required>
-            <option value=""></option>
+        <select onchange="validarMunicipio(this.value)" name="munic_ocorrencia" id="munic_ocorrencia" class="form-control" placeholder="" required>
+            <option value="" selected>Selecione</option>
             <option value="João Pessoa">João Pessoa</option>
             <option value="Santa Rita">Santa Rita</option>
             <option value="Bayeux">Bayeux</option>
             <option value="Cabedelo">Cabedelo</option>
             <option value="Conde">Conde</option>
-                <option value="Rio Tinto">Rio Tinto</option>
+            <option value="Rio Tinto">Rio Tinto</option>
         <div class="valid-feedback"></div>
         <div class="invalid-feedback"></div>
+        </action>
             </select>
     </div>
 </div>
 
-<div class="row m-0">
+<div class="row mt-4 m-0">
     <div class="alert col-sm-12 alert-success" style="text-align: center;">
         <strong style="align-items: center;">Endereço do local do Acidente:</strong>
-        <strong style="color:red">*</strong></i>
+        <strong id="alert_endereco_acidente" style="color:red">*</strong></i>
     </div>
 </div>
 <div class="col-4 mb-4 mx-auto">
+    <action class="was-validated">
     <label for="endereco_acidente"></label>
-    <input type="text" class="form-control" id="endereco_acidente" placeholder="Digite seu endereço, por favor" name="endereco_acidente" required>
+    <input onkeyup="verificaEndrecoLocalAcidente(this.value)" type="text" class="form-control" id="endereco_acidente" placeholder="Digite seu endereço, por favor" name="endereco_acidente" pattern="^[a-z .*,A-Z0-9\u00C0-\u00FF]{15,}$" required>
     <div class="valid-feedback"></div>
     <div class="invalid-feedback"></div>
+    </action>
 </div>
     <!------------------------------------------Bloco: Tipo de Acidente:---------------------------------------------->
 
-<div class="row m-0">
+<div class="row mt-5 m-0">
     <div class="alert col-sm-12 alert-success" style="text-align: center;">
         <strong style="align-items: center;">Tipo de Acidente:</strong>
-        <strong style="color:red">*</strong></i>
+        <strong id="alert_tipo_acidente"style="color:red">*</strong></i>
     </div>
 </div>
-<div class= "row mb-3 text-center">
+<div class= "row mb-3 mt-4 text-center">
     <div class="radio col">
-        <input type="radio" id="tipoAcidente" name="tipoAcidente" value="">
-        <label for="tipoAcidente">Abalroamento</label>
+        <input onchange="verificatipoAcidente()" type="radio" id="abalroamento" name="tipo_acidente" value="">
+        <label for="abalroamento">Abalroamento</label>
     </div>
         <div class="radio col">
-            <input type="radio" id="tipoAcidente" name="tipoAcidente" value="">
-            <label for="tipoAcidente">Atropelamento</label>
+            <input onchange="verificatipoAcidente()" type="radio" id="atropelamento" name="tipo_acidente" value="">
+            <label for="atropelamento">Atropelamento</label>
     </div>
     <div class="radio col">
-        <input type="radio" id="tipoAcidente" name="tipoAcidente" value="">
-        <label for="tipoAcidente">Capotamento</label>
+        <input onchange="verificatipoAcidente()" type="radio" id="capotamento" name="tipo_acidente" value="">
+        <label for="capotamento">Capotamento</label>
     </div>
     <div class="radio col">
-        <input type="radio" id="tipoAcidente" name="tipoAcidente" value="">
-        <label for="tipoAcidente">Queda de Moto</label>
+        <input onchange="verificatipoAcidente()" type="radio" id="queda_moto" name="tipo_acidente" value="">
+        <label for="queda_moto">Queda de Moto</label>
     </div>
     <div class="radio col">
-        <input type="radio" id="tipoAcidente" name="tipoAcidente" value="">
-        <label for="tipoAcidente">Colisão/Choque</label>
+        <input onchange="verificatipoAcidente()" type="radio" id="colisao_choque" name="tipo_acidente" value="">
+        <label for="colisao_choque">Colisão/Choque</label>
     </div>
     <div class="radio col">
-        <input type="radio" id="tipoAcidente" name="tipoAcidente" value="">
-        <label for="tipoAcidente">Outros</label>
+        <input onchange="verificatipoAcidente()" type="radio" id="outros" name="tipo_acidente" value="">
+        <label for="outros">Outros</label>
     </div>
 </div>
 
@@ -172,88 +176,88 @@
 
 <!------------------------------------HOME: Tipo de Veiculos Envolvidos no Acidente:------------------------------------------------->
 
-<div class="row row m-0">
+<div class="row row m-0 mt-5">
     <div class="alert col-sm-12 alert-success" style="text-align: center;">
         <strong style="align-items: center;">Tipo de veiculos envolvidos no acidente:</strong>
-        <strong style="color:red">*</strong>
+        <strong id="alert_tipo_veiculo"style="color:red">*</strong>
     </div>
 </div>
 
-<div class="row mb-3 text-center">
-<div class="radio col-1">
-    <input type="radio" id="Tipo_Veiculos_Envolvidos_Acidente" name="Tipo_Veiculos_Envolvidos_Acidente" value="">
-    <label for="Tipo_Veiculos_Envolvidos_Acidente">Carro</label>
-</div>
-<div class="radio col">
-    <input type="radio" id="Tipo_Veiculos_Envolvidos_Acidente" name="Tipo_Veiculos_Envolvidos_Acidente" value="">
-    <label for="Tipo_Veiculos_Envolvidos_Acidente">Caminhão</label>
-</div>
-<div class="radio col">
-    <input type="radio" id="Tipo_Veiculos_Envolvidos_Acidente" name="Tipo_Veiculos_Envolvidos_Acidente" value="">
-    <label for="Tipo_Veiculos_Envolvidos_Acidente">Motocicleta</label>
-</div>
-<div class="radio col">
-    <input type="radio" id="Tipo_Veiculos_Envolvidos_Acidente" name="Tipo_Veiculos_Envolvidos_Acidente" value="">
-    <label for="Tipo_Veiculos_Envolvidos_Acidente">Motonetas(50cc)</label>
-</div>
-<div class="radio col">
-    <input type="radio" id="Tipo_Veiculos_Envolvidos_Acidente" name="Tipo_Veiculos_Envolvidos_Acidente" value="">
-    <label for="Tipo_Veiculos_Envolvidos_Acidente">Bicicletas</label>
-</div>
-<div class="radio col">
-    <input type="radio" id="Tipo_Veiculos_Envolvidos_Acidente" name="Tipo_Veiculos_Envolvidos_Acidente" value="">
-    <label for="Tipo_Veiculos_Envolvidos_Acidente">Ônibus</label>
-</div>
-<div class="radio col">
-    <input type="radio" id="Tipo_Veiculos_Envolvidos_Acidente" name="Tipo_Veiculos_Envolvidos_Acidente" value="">
-    <label for="Tipo_Veiculos_Envolvidos_Acidente">Vans</label>
-</div>
-<div class="radio col">
-    <input type="radio" id="Tipo_Veiculos_Envolvidos_Acidente" name="Tipo_Veiculos_Envolvidos_Acidente" value="">
-    <label for="Tipo_Veiculos_Envolvidos_Acidente">Outros</label>
-</div>
+<div class="row mb-3 text-center mt-5">
+    <div class="radio col-1">
+        <input onc onchange="verificatipoVeiculo()"hange="verificatipoVeiculo()" type="radio" id="carro" name="tipo_veiculo" value="">
+        <label for="carro">Carro</label>
+    </div>
+    <div class="radio col">
+        <input onchange="verificatipoVeiculo()" type="radio" id="caminhao" name="tipo_veiculo" value="">
+        <label for="caminhao">Caminhão</label>
+    </div>
+    <div class="radio col">
+        <input onchange="verificatipoVeiculo()" type="radio" id="motocicleta" name="tipo_veiculo" value="">
+        <label for="motocicleta">Motocicleta</label>
+    </div>
+    <div class="radio col">
+        <input onchange="verificatipoVeiculo()" type="radio" id="motonetas" name="tipo_veiculo" value="">
+        <label for="motonetas">Motonetas(50cc)</label>
+    </div>
+    <div class="radio col">
+        <input onchange="verificatipoVeiculo()" type="radio" id="bicicleta" name="tipo_veiculo" value="">
+        <label for="bicicleta">Bicicleta</label>
+    </div>
+    <div class="radio col">
+        <input onchange="verificatipoVeiculo()" type="radio" id="onibus" name="tipo_veiculo" value="">
+        <label for="onibus">Ônibus</label>
+    </div>
+    <div class="radio col">
+        <input onchange="verificatipoVeiculo()" type="radio" id="vans" name="tipo_veiculo" value="">
+        <label for="vans">Vans</label>
+    </div>
+    <div class="radio col">
+        <input onchange="verificatipoVeiculo()" type="radio" id="v_outros" name="tipo_veiculo" value="">
+        <label for="v_outros">Outros</label>
+    </div>
 </div>
 
 
 <!-----------------------------------------------home:O Paciente envolvido no acidente era------------------------------------------------>
 
-<div class="row m-0">
+<div class="row m-0 mt-5">
     <div class="alert col-sm-12 alert-success" style="text-align: center;">
         <strong style="align-items: center;">O Paciente envolvido no acidente era:</strong>
-        <strong style="color:red">*</strong></i>
+        <strong id="alert_paciente_envolvido" style="color:red">*</strong></i>
     </div>
 </div>
-<div class="row mb-3 text-center">
+<div class="row mb-3 mt-4 text-center">
     <div class="radio col">
-        <input type="radio" id="paciente_envolvido" name="paciente_envolvido" value="">
-        <label for="paciente_envolvido">Pedestre</label>
+        <input onchange="verificatipoPaciente()" type="radio" id="pedestre" name="tipo_paciente" value="">
+        <label for="pedestre">Pedestre</label>
     </div>
 
     <div class="radio col">
-        <input type="radio" id="paciente_envolvido" name="paciente_envolvido" value="">
-        <label for="paciente_envolvido">Condutor</label>
+        <input onchange="verificatipoPaciente()" type="radio" id="condutor" name="tipo_paciente" value="">
+        <label for="condutor">Condutor</label>
     </div>
     <div class="radio col disable">
-        <input type="radio" id="paciente_envolvido" name="paciente_envolvido" value="">
-        <label for="paciente_envolvido">Passageiro</label>
+        <input onchange="verificatipoPaciente()" type="radio" id="passageiro" name="tipo_paciente" value="">
+        <label for="passageiro">Passageiro</label>
     </div>
 </div>
 
 <!--home:A vítima apresenta sinais de embriagues e/ou cosumo de bebidas alcoolicas-->
 
-<div class="row m-0">
+<div class="row m-0 mt-4">
         <div class="alert col-sm-12 alert-success" style="text-align: center;">
             <strong style="align-items: center;"> A vítima apresenta sinais de embriagues e/ou cosumo de bebidas alcoolicas:</strong>
-            <strong style="color:red">*</strong></i>
+            <strong id="alert_sinal_alcoolico"style="color:red">*</strong></i>
         </div>
 </div>
-<div class="row mb-3 text-center">
+<div class="row mb-3 mt-4 text-center">
     <div class="radio col">
-        <input type="radio" id="sinais_embriagues" name="sinais_embriagues" value="">
-        <label for="sinais_embriagues">Sim</label>
+        <input onchange="verificatipoEmbriagues()" type ="radio" id="embriadado_sim" name="embriagado" value="">
+        <label for="embriadado_sim">Sim</label>
     </div>
     <div class="radio col disable">
-        <input type="radio" id="sinais_embriagues" name="sinais_embriagues" value="">
-        <label for="sinais_embriagues">Não</label>
+        <input onchange="verificatipoEmbriagues()" type="radio" id="embriagado_nao" name="embriagado" value="">
+        <label for="embriagado_nao">Não</label>
     </div>
 </div>
