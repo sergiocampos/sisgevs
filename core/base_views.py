@@ -280,11 +280,18 @@ def usuarios(request, id=None):
             }
             
             # Gravando a hierarquia em usuarios que ainda nao a tem.
-            usuarios_sem_hierarquia = get_user_model().objects.all().filter(numero_hierarquia=None)
-            if usuarios_sem_hierarquia:
-                for user in usuarios_sem_hierarquia:        
-                    user.numero_hierarquia = hierarquia[user.funcao]
-                    user.save()
+            usuarios = get_user_model().objects.all()
+            has_change = False
+            if usuarios:
+                for user in usuarios:       
+                    if user.numero_hierarquia != hierarquia[user.funcao]:
+                        user.numero_hierarquia = hierarquia[user.funcao]
+                        user.save()
+                        has_change = True
+
+                if has_change:
+                    print("# # # -> HAS_CHANGE")
+                    return redirect("/usuarios")
             
             # Gravando os agravos no admin.
             admin_sem_agravos = get_user_model().objects.all().filter(funcao="admin", lista_agravos_permite=None)
@@ -300,7 +307,7 @@ def usuarios(request, id=None):
                     
             # Separando os usuários com nivel hierarquico menor que o user.
             usuarios_lista = get_user_model().objects.all().filter(numero_hierarquia__gt=user_hierarquia).order_by('id')
-
+            print(len(usuarios_lista))
             # Filtrando usuários que tem acesso ao agravo que o user gerencia.
             usuarios = []
             for usuario in usuarios_lista:
@@ -315,7 +322,15 @@ def usuarios(request, id=None):
                     'act_solicit':False,
                     'esp_hum_solicit':False,
                 }
-
+                
+                if not usuario.lista_agravos_permite:
+                    usuario.lista_agravos_permite = []
+                    usuario.save()
+                    
+                if not usuario.lista_agravos_possivel:
+                    usuario.lista_agravos_possivel = []
+                    usuario.save()
+                
                 # Adicionando marcador para o checkbox de agravos permite
                 for agravo in usuario.lista_agravos_permite:
                     if agravo in user_agravos:

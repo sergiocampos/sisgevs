@@ -22,6 +22,8 @@ class UserManager(BaseUserManager):
 		email = self.normalize_email(email)
 		user = self.model(login=login, is_staff=is_staff, is_active=True, is_superuser=is_superuser, last_login=now, date_joined=now, **extra_fields)
 		user.set_password(password)
+		user.lista_agravos_possivel = []
+		user.lista_agravos_permite = []
 		user.save(using=self._db)
 		return user
 
