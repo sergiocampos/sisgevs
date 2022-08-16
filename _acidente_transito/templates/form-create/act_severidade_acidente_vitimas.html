@@ -7,11 +7,11 @@
 
 <div class="mb-3 mt-4 row text-center">
     <div class="radio col">
-        <input onchange="verificaVitimaFatal()" type="radio" id="houve_vitima_sim" name="houvevitimaFatal" value="">
+        <input onchange="verificaVitimaFatal()" type="radio" id="houve_vitima_sim" name="houve_vitimas_fatais" value="Sim">
         <label for="houve_vitima_sim">Sim</label>
     </div>
     <div class="radio col">
-        <input onchange="verificaVitimaFatal()" type="radio" id="houve_vitima_nao" name="houvevitimaFatal" value="">
+        <input onchange="verificaVitimaFatal()" type="radio" id="houve_vitima_nao" name="houve_vitimas_fatais" value="Não">
         <label for="houve_vitima_nao">Não</label>
     </div>
 </div>
@@ -24,7 +24,7 @@
         <strong  id="alert_qtd_vitima_fatal" style="color:red">*</strong>
     </div>
     <div class="col-1 mt-3 mx-auto">
-        <input type="number" onchange="verificaNumeros(this, 'vitimasFatais')" class="form-control form-control-sm" min="0" max="100" name="numero_vitima">
+        <input type="number" onchange="verificaNumeros(this, 'vitimasFatais')" class="form-control form-control-sm" min="0" max="100" name="numero_vitimas_fatais">
     </div>
 </div>
 
@@ -39,7 +39,7 @@
 
 <div class="row mt-3 text-center">
     <div class="col-1 mx-auto">
-        <input type="number" onchange="verificaNumeros(this, 'vitimasFeridas')" class="form-control form-control-sm" min="0" max="100" name="numero_ferido">
+        <input type="number" onchange="verificaNumeros(this, 'vitimasFeridas')" class="form-control form-control-sm" min="0" max="100" name="numero_feridos_envolvidos">
     </div>
 </div>
 
@@ -53,19 +53,19 @@
 </div>
 <div class="mb-3 row mt-3 text-center">
     <div class="radio col">
-        <input onchange ="verificalesoes()" type="radio" id="lesao_leve" name="lesoes_radio" value="">
+        <input onchange ="verificalesoes()" type="radio" id="lesao_leve" name="quadro_lesoes" value="Leves">
         <label for="lesao_leve">Leves</label>
     </div>
     <div class="radio col">
-        <input onchange ="verificalesoes()" type="radio" id="lesao_grave" name="lesoes_radio" value="">
+        <input onchange ="verificalesoes()" type="radio" id="lesao_grave" name="quadro_lesoes" value="Graves">
         <label for="lesao_grave">Graves</label>
     </div>
     <div class="radio col">
-        <input onchange ="verificalesoes()" type="radio" id="lesao_gravissima" name="lesoes_radio" value="">
+        <input onchange ="verificalesoes()" type="radio" id="lesao_gravissima" name="quadro_lesoes" value="Gravíssimas">
         <label for="lesao_gravissima">Gravíssimas</label>
     </div>
     <div class="radio col">
-        <input onchange ="verificalesoes()" type="radio" id="le_seg_morte" name="lesoes_radio" value="">
+        <input onchange ="verificalesoes()" type="radio" id="le_seg_morte" name="quadro_lesoes" value="Lesão Seguida de Morte">
         <label for="le_seg_morte">Lesão Seguida de Morte</label>
     </div>
 </div>
@@ -80,16 +80,16 @@
 <div class="mb-3 row mt-4 text-center">
     <div class="radio col">
 
-        <input onchange="verificaObito()" type="radio" id="radioObito" name="caso_obito" value="">
+        <input onchange="verificaObito()" type="radio" id="radioObito" name="em_caso_obito" value="Óbito Local">
         <label for="radioObito">Óbito Local</label>
     </div>
     <div class="radio col">
-        <input onchange="verificaObito()" type="radio" id="radioObito" name="caso_obito" value="">
+        <input onchange="verificaObito()" type="radio" id="radioObito" name="em_caso_obito" value="Óbito no Encaminhamento">
         <label for="radioObito">Óbito no Encaminhamento</label>
     </div>
     <div class="radio col">
-        <input onchange="verificaObito()" type="radio" id="radioObito" name="caso_obito" value="">
-        <label for="radioObito">Obito no Hospital</label>
+        <input onchange="verificaObito()" type="radio" id="radioObito" name="em_caso_obito" value="Óbito no Hospital">
+        <label for="radioObito">Óbito no Hospital</label>
 
     </div>
 </div>

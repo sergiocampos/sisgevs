@@ -28,7 +28,7 @@
     <div class="col-2 mx-auto">
         <action class="was-validated">
             <label for="dn"></label><!--dn: data de nascimento-->
-            <input type="date" id="dn" class= form-control pattern="" name="dn"required>
+            <input type="date" id="dn" class= form-control pattern="" name="data_nasc_paciente" required>
             <div class="valid-feedback text-center">Correto</div>
             <div class="invalid-feedback" style="font-size: 0.7em; text-align: center">Digite ou use o mouse para informa o campo</div>
     </div>
@@ -41,7 +41,7 @@
 
 <div class="row pt-3 text-center">
     <div class="col-1 mx-auto">
-        <input type="number" id="idade" class="form-control form-control-sm"min="0"max="100" style="border-color: green" name="idade" readonly>
+        <input type="number" id="idade" class="form-control form-control-sm"min="0"max="100" style="border-color: green" name="idade_paciente" readonly>
     </div>
 </div>
 <div class="row">
@@ -54,16 +54,16 @@
 </div>
 <div class="row col-sm-12 pt-3 text-center">
     <div class="radio col">
-        <input onchange="verificasexo()" type="radio" id="feminino" name="radio_sexo" value="">
+        <input onchange="verificasexo()" type="radio" id="feminino" name="sexo_paciente" value="Feminino">
         <label for="feminino">Feminino</label>
     </div>
 
     <div class="radio col">
-        <input onchange="verificasexo()" type="radio" id="masculino" name="radio_sexo" value="">
+        <input onchange="verificasexo()" type="radio" id="masculino" name="sexo_paciente" value="Masculino">
         <label for="masculino">Masculino</label>
     </div>
     <div class="radio col">
-        <input onchange="verificasexo()" type="radio" id="sexo_outros" name="radio_sexo" value="">
+        <input onchange="verificasexo()" type="radio" id="sexo_outros" name="sexo_paciente" value="Outros">
         <label for="sexo_outros">Outros</label>
     </div>
 </div>
@@ -79,7 +79,7 @@
     <div class="col-4 mx-auto">
         <action class="was-validated">
             <label for="nome_mae"></label>
-            <input type="text" class="form-control" id="nome_mae" placeholder="Digite o nome da mãe, por favor." name="nome_mae" pattern="^[a-z .*,A-Z.*\u00C0-\u00FF]{10,}$" required>
+            <input type="text" class="form-control" id="nome_mae" placeholder="Digite o nome da mãe, por favor." name="filiacao" pattern="^[a-z .*,A-Z.*\u00C0-\u00FF]{10,}$" required>
             <div class="valid-feedback" style="text-align: center;font-size: 0.7em">Correto</div>
             <div class="invalid-feedback" style="font-size: 0.7em; text-align: center">Digite o nome com sobrenome</div>
         </action>
@@ -115,7 +115,7 @@
             <div class="col-sm-3  mx-auto">
                 <action class="was-validated">
                     <label for="tel"></label><br>
-                    <input id="tel" class="form-control" name="tel" type="tel" pattern="^[0-9 ()-]{15}$"placeholder="(00) 00000-0000" required >
+                    <input id="tel" class="form-control" name="contato_telefonico" type="tel" pattern="^[0-9 ()-]{15}$"placeholder="(00) 00000-0000" required >
                     <div class=" col row-1"></div>
                     <div class="valid-feedback" style="text-align: center;font-size: 0.7em">Correto</div>
                     <div class="invalid-feedback" style="font-size: 0.7em; text-align: center">Digite um telefone para contato</div>

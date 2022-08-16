@@ -17,7 +17,6 @@ class Acidente(models.Model):
 	presenca_sinais_embriagues = models.CharField(max_length = 100, null=True, blank=True)
 
 	#Severidade do acidente e quantidade de vitimas
-
 	houve_vitimas_fatais = models.CharField(max_length = 100, null=True, blank=True)
 	numero_vitimas_fatais = models.IntegerField(blank=True, null=True)
 	numero_feridos_envolvidos = models.IntegerField(blank=True, null=True)
@@ -25,11 +24,10 @@ class Acidente(models.Model):
 	em_caso_obito = models.CharField(max_length = 200, null=True, blank=True)
 
 	#Equipe acionada para o local do acidente
-
 	responsavel_prestar_apoio_local = models.CharField(max_length = 200, null=True, blank=True)
+	responsavel_comentario = models.CharField(max_length = 200, null=True, blank=True)
 
 	#Informações do paciente
-
 	nome_paciente = models.CharField(max_length = 200, null=True, blank=True)
 	data_nasc_paciente = models.DateField(blank=True, null=True)
 	idade_paciente = models.IntegerField(blank=True, null=True)

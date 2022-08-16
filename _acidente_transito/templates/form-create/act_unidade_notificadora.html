@@ -7,7 +7,7 @@
 <div class="col-4 sm-0 mb-4 mx-auto">
     <action class="was-validated">
         <label for="nome_instituicao"></label>
-        <input type="text" class="form-control" id="nome_instituicao" placeholder="Digite o nome da instituicao, por favor." name="nome_instituicao" pattern="^[a-zA-Z\u00C0-\u00FF]{4,}(?: [a-zA-Z]+){0,6}$" required>
+        <input type="text" class="form-control" id="nome_instituicao" placeholder="Digite o nome da instituicao, por favor." name="nome_hospital_ou_instituicao" pattern="^[a-zA-Z\u00C0-\u00FF]{4,}(?: [a-zA-Z]+){0,6}$" required>
         <div class="valid-feedback" style="text-align: center;font-size: 0.7em">Correto</div>
         <div class="invalid-feedback" style="font-size: 0.7em; text-align: center">inválido</div>
     </action>
@@ -22,7 +22,7 @@
 <div class="col-4 sm-0 mb-4 mx-auto">
     <action class="was-validated">
         <label for="nome_secretario"></label>
-        <input type="text" class="form-control" id="nome_secretario" placeholder="Digite o nome do Secretario, por favor." name="nome_secretario" pattern="^[a-z .*,A-Z.*\u00C0-\u00FF]{10,}$" required>
+        <input type="text" class="form-control" id="nome_secretario" placeholder="Digite o nome do Secretario, por favor." name="nome_secretario_municipal_saude" pattern="^[a-z .*,A-Z.*\u00C0-\u00FF]{10,}$" required>
         <div class="valid-feedback" style="text-align: center;font-size: 0.7em">Correto</div>
         <div class="invalid-feedback" style="font-size: 0.7em; text-align: center">inválido</div>
     </action>
@@ -36,7 +36,7 @@
 <div class="col-4 sm-0 mb-4 mx-auto">
     <action class="was-validated">
         <label for="funcao_notificador"></label>
-        <input type="text" class="form-control" id="funcao_notificador" placeholder="Digite o cargo ou função do notificador, por favor." name="funcao_notificador" pattern="^[a-zA-Z]{4,}(?: [a-zA-Z]+){0,6}$" required>
+        <input type="text" class="form-control" id="funcao_notificador" placeholder="Digite o cargo ou função do notificador, por favor." name="cargo_funcao_notificador" pattern="^[a-zA-Z]{4,}(?: [a-zA-Z]+){0,6}$" required>
         <div class="valid-feedback" style="text-align: center;font-size: 0.7em">Correto</div>
         <div class="invalid-feedback" style="font-size: 0.7em; text-align: center">inválido</div>
     </action>
@@ -50,7 +50,7 @@
 <div class="col-sm-3  mx-auto">
     <action class="was-validated">
         <label for="contato_notificador"></label><br/>
-        <input    id="contato_notificador" class="form-control" type="tel" name= "contato_notificador" pattern= "^[0-9 ()-]{15}$" placeholder="Formato: (00) 0 0000-0000" required >
+        <input    id="contato_notificador" class="form-control" type="tel" name="contato_notificador" pattern= "^[0-9 ()-]{15}$" placeholder="Formato: (00) 0 0000-0000" required >
         <div class="valid-feedback" style="text-align: center;font-size: 0.7em">Correto</div>
         <div class="invalid-feedback" style="font-size: 0.7em; text-align: center">inválido</div>
     </action>
