@@ -10,15 +10,27 @@
     </div>
         <div class="mb-3 row pt-1 text-center">
             <div class="radio col">
-                <input type="radio" name="act_outras_informacoes_acidente" id="radio_sim" value="Sim" onchange="active_hospital()">
+                {% if caso.paciente_referenciado_regulado_para_hospital == "Sim" %}
+                <input type="radio" name="paciente_referenciado_regulado_para_hospital" id="radio_sim" value="Sim" onchange="active_hospital()" checked>
+                {% else %}
+                <input type="radio" name="paciente_referenciado_regulado_para_hospital" id="radio_sim" value="Sim" onchange="active_hospital()">
+                {% endif %}
                 <label for="radio_sim">Sim</label>
             </div>
             <div class="radio col">
-                <input type="radio" name="act_outras_informacoes_acidente" value="Nao" id="radio_nao" onchange="active_hospital()">
+                {% if caso.paciente_referenciado_regulado_para_hospital == "Não" %}
+                <input type="radio" name="paciente_referenciado_regulado_para_hospital" value="Não" id="radio_nao" onchange="active_hospital()" checked>
+                {% else %}
+                <input type="radio" name="paciente_referenciado_regulado_para_hospital" value="Não" id="radio_nao" onchange="active_hospital()">
+                {% endif %}
                 <label for="radio_nao">Não</label>
             </div>
         </div>
+        {% if caso.paciente_referenciado_regulado_para_hospital == "Sim" %}
+        <div class="m-0 mt-3" id="hospital_transferencia">
+        {% else %}
         <div class="m-0 mt-3 d-none" id="hospital_transferencia">
+        {% endif %}
             <div class="row">
                 <div class="alert col-sm-12 alert-success" style="text-align: center;">
                     <strong style="align-items: center;">Hospital de Transferência</strong>
@@ -30,8 +42,13 @@
                     <action class="was-validated">
                         <label for="hospital"></label>
                         <select  onchange="verificaHospital(this)"  name="hospital" id="hospital" class="form-control" placeholder="" required>
-                            <option value=""></option>
-                            <option value="Joao Pessoa">Hospital Metropolitano</option>
+                        {% for hospital in hospitais %}
+                            {% if caso.hospital == hospital.nome %}
+                            <option value="{{hospital.nome}}" selected>{{hospital.nome}}</option>
+                            {% else %}
+                            <option value="{{hospital.nome}}">{{hospital.nome}}</option>
+                            {% endif %}
+                        {% endfor %}
                         </select>
                         <div class="valid-feedback text-center">Correto</div>
                         <div class="invalid-feedback text-center">Invalido</div>
@@ -50,7 +67,7 @@
             <action ="/action_page.php">
                 <div class="col-sm-4  mx-auto">
                     <label for="comment">Comentários:</label>
-                    <textarea class="form-control" rows="3" id="comment" name="text"></textarea>
+                    <textarea class="form-control" rows="3" id="comment" name="informacoes_complementares">{{caso.informacoes_complementares}}</textarea>
                 </div>
             </action>
         </div>

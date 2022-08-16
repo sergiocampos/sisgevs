@@ -31,13 +31,11 @@ def principal(request):
 	print(request.user.funcao)
 	return render(request, 'principal.html')
 
+
 # Função responsável por retornar a pagina dos dados do usuário.
 @login_required(login_url='/login/')
 def dados_user(request):
 	return render(request, 'dados_user.html')
-
-
-# TODO: Função responsável por retornar a pagina sub-admin.
 
 
 # Função responsável por retornar as notificações referente a pesquisa.
@@ -53,34 +51,10 @@ def my_data(dados):
     municipios = Municipio.objects.all()
 	
     # Filtrando dados por função do usuário.
-    if dados.user.funcao == 'admin':
-
-        registros = registros.order_by('-data_notificacao').exclude(status_caso='Cancelado')
-        
-    
-    elif dados.user.funcao == 'gerencia_executiva':
-
-        registros = registros.order_by('-data_notificacao').exclude(status_caso='Cancelado')
-        
-        
-    elif dados.user.funcao == 'gerencia_operacional':
-        registros = registros.order_by('-data_notificacao').exclude(status_caso='Cancelado')
-        
-    
-    elif dados.user.funcao == 'chefia_nucleo':
-        registros = registros.order_by('-data_notificacao').exclude(status_caso='Cancelado')
-        
-
-    elif dados.user.funcao == 'area_tecnica':    
-        registros = registros.order_by('-data_notificacao').exclude(status_caso='Cancelado')
-        
-    
-    elif dados.user.funcao == 'gerencia_regional':
-        
+    if dados.user.funcao == 'gerencia_regional':        
         user_gerencia_regional = Municipio.objects.get(id=dados.user.municipio_id).gerencia_id
-        registros = registros.filter(gerencia_id=user_gerencia_regional).order_by('-data_notificacao').exclude(status_caso='Cancelado')
+        registros = registros.filter(gerencia_id=user_gerencia_regional)
 
-    
     elif dados.user.funcao == 'municipal':
         
         user_municipio_id = dados.user.municipio_id
@@ -93,19 +67,18 @@ def my_data(dados):
 			Q(municipio_residencia=user_municipio_nome) | 
 			Q(municipio_residencia=user_municipio_nome_upper) | 
 			Q(responsavel_pelas_informacoes_id=user_id)
-			).order_by('-data_notificacao').exclude(status_caso='Cancelado')
+			)
         
-    
     elif dados.user.funcao == 'autocadastro':
-
-        autocadastro_id = dados.user.id        
-
-        registros = registros.filter(responsavel_pelas_informacoes_id=autocadastro_id).order_by('-data_notificacao').exclude(status_caso='Cancelado')
-        #registros = CasoEsporotricose.objects.filter(municipio_residencia=municipio_user).order_by('-data_notificacao')
-
+        autocadastro_id = dados.user.id
+        registros = registros.filter(responsavel_pelas_informacoes_id=autocadastro_id)
         
-    # Criando paginação (DESABILITADO)
+    if agravo_url == 'esp-hum':
+        registros = registros.order_by('-data_notificacao').exclude(status_caso='Cancelado')
+    else:
+        registros = registros.order_by('id').exclude(status_caso='Cancelado')
 
+    # Criando paginação (DESABILITADO) #
     # paginator = Paginator(registros, 6)
     # page = request.GET.get('page')
     # regs = paginator.get_page(page)    
@@ -294,7 +267,14 @@ def usuarios(request, id=None):
                     return redirect("/usuarios")
             
             # Gravando os agravos no admin.
-            admin_sem_agravos = get_user_model().objects.all().filter(funcao="admin", lista_agravos_permite=None)
+            admin_sem_agravos = get_user_model().objects.all(
+                ).filter(
+                    funcao="admin"
+                ).filter(
+                    Q(lista_agravos_permite=None) | 
+                    Q(lista_agravos_permite=[])
+                )
+            
             if admin_sem_agravos:
                 for user in admin_sem_agravos:        
                     user.lista_agravos_permite = ["esp-hum", "act"]
@@ -368,6 +348,3 @@ def usuarios(request, id=None):
             obj_user.save()                
             
             return JsonResponse({"response":203})
-
-
-

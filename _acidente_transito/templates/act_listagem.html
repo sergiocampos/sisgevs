@@ -1,25 +1,13 @@
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>act_listagem</title>
+{% extends 'base1.html' %}
+{% load static %}
 
-  <!--bootstrap-->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous" defer></script>
-
-
-</head>
-
-
+{% block head %}
 <style>
   thead {color: black;}
 </style>
-<body>
+{% endblock head %}
 
-<div class="container">
+{% block content %}
   <div class="row">
     <div class="mt-3">
       <div class="alert alert-success" style="text-align: center;">
@@ -58,36 +46,46 @@
         <div class="table-responsive">
           <table class="table table-hover table-bordered">
             <thead class="table-active">
-            <th>Seleção</th>
-            <th>Data do Acidente</th>
-            <th>Nome Paciente</th>
-            <th class="th-data">Data Nasc.</th>
-            <th>Nome da Mãe</th>
-            <th>Município de Ocorrência</th>
-            <th>Hospital que foi transferido</th>
-            <th>Contato</th>
-            <th>Ações</th>
-
+              <th>Seleção</th>
+              <th>Data do Acidente</th>
+              <th>Nome Paciente</th>
+              <th class="th-data">Data Nasc.</th>
+              <th>Nome da Mãe</th>
+              <th>Município de Ocorrência</th>
+              <th>Hospital que foi transferido</th>
+              <th>Contato</th>
+              <th>Ações</th>
             </thead>
             <tbody id="table-registros">
-            <tr style="cursor:pointer;">
-              <td><div class="form-check" >
-                <input class="form-check-input"  type="checkbox" id="check1" name="option1" value="something" checked>
-                <label class="form-check-label"></label>
-              </div></td>
-              <td>02/06/2025</td>
-              <td>julio</td>
-              <td>02/02/2000</td>
-              <td>Elisa Santos</td>
-              <td>Joao Pessoa</td>
-              <td>Metropolitano</td>
-              <td>83-98888-8888</td>
-              <td><button type="button" class="btn btn-outline-primary btn-sm">Editar</button></td>
+            {% if acidentes.count > 0 %}
+              {% for caso in acidentes %}
+              <tr style="cursor:pointer;">
+                <td>
+                  <div class="form-check" >
+                    <input class="form-check-input"  type="checkbox" id="check1" name="option1" value="something" checked>
+                    <label class="form-check-label"></label>
+                  </div>
+                </td>
+                <td>{{caso.data_acidente}}</td>
+                <td>{{caso.nome_paciente}}</td>
+                <td>{{caso.data_nasc_paciente}}</td>
+                <td>{{caso.filiacao}}</td>
+                <td>{{caso.municipio_ocorrencia_acidente}}</td>
+                <td>{{caso.hospital}}</td>
+                <td>{{caso.contato_telefonico}}</td>
+                <td>
+                  <a href="/act/editar-caso/{{caso.id}}">
+                    <button type="button" class="btn btn-outline-primary btn-sm">Editar</button>
+                  </a>
+                </td>
+              </tr>
+              {% endfor %}
+            {% else %}
+            <tr class="text-center">
+              <td colspan="9"> Nenhum registro de acidentes de trânsito. </td>
             </tr>
-
-
+            {% endif %}
             </tbody>
-
           </table>
         </div>
       </div>
@@ -96,22 +94,16 @@
   </div>
       <div class="row">
         <div class="col ">
-
-
        </div>
        <div class="col ">
-            <ul class="pagination justify-content-end">
+          <ul class="pagination justify-content-end">
             <li class="page-item"><a class="page-link" href="#">Antes</a></li>
             <li class="page-item"><a class="page-link" href="#">1</a></li>
             <li class="page-item active"><a class="page-link" href="#">2</a></li>
             <li class="page-item"><a class="page-link" href="#">3</a></li>
             <li class="page-item"><a class="page-link" href="#">Depois</a></li>
-            </ul>
-          </div>
+          </ul>
+        </div>
 
     </div>
-  </body>
-
-
-
-</html>
+{% endblock content %}

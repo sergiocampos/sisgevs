@@ -1,4 +1,7 @@
 from django.db import models
+from django.contrib.postgres.fields import ArrayField
+
+from core.models import *
 
 # Create your models here.
 
@@ -24,7 +27,7 @@ class Acidente(models.Model):
 	em_caso_obito = models.CharField(max_length = 200, null=True, blank=True)
 
 	#Equipe acionada para o local do acidente
-	responsavel_prestar_apoio_local = models.CharField(max_length = 200, null=True, blank=True)
+	responsavel_prestar_apoio_local = ArrayField(models.CharField(max_length = 200, null=True, blank=True))
 	responsavel_comentario = models.CharField(max_length = 200, null=True, blank=True)
 
 	#Informações do paciente
@@ -33,7 +36,7 @@ class Acidente(models.Model):
 	idade_paciente = models.IntegerField(blank=True, null=True)
 	sexo_paciente = models.CharField(max_length = 50, null=True, blank=True)
 	filiacao = models.CharField(max_length = 200, null=True, blank=True)
-	municipio_residencia_paciente = models.CharField(max_length = 200, null=True, blank=True)
+	municipio_residencia = models.CharField(max_length = 200, null=True, blank=True)
 	endereco_paciente = models.CharField(max_length = 200, null=True, blank=True)
 	contato_telefonico = models.CharField(max_length = 200, null=True, blank=True)
 
@@ -47,6 +50,12 @@ class Acidente(models.Model):
 	nome_secretario_municipal_saude = models.CharField(max_length = 200, null=True, blank=True)
 	cargo_funcao_notificador = models.CharField(max_length = 200, null=True, blank=True)
 	contato_notificador = models.CharField(max_length = 200, null=True, blank=True)
+
+	#Outros
+	responsavel_pelas_informacoes = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, null=True)
+	responsavel_edicao = models.IntegerField(blank=True, null=True)
+	gerencia = models.ForeignKey(Gerencia, on_delete=models.CASCADE, null=True)
+	status_caso = models.CharField(max_length=50, null=True, blank=True)
 
 	def __str__(self):
 		return self.responsavel_prestar_apoio_local

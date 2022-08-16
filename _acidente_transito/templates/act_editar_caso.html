@@ -7,7 +7,7 @@
 {% endblock head %}
 
 {% block content %}
-<form class="mb-3" name="form" id="form" enctype="multipart/form-data" action="criar-caso/submit" method="POST">{% csrf_token %}
+<form class="mb-3" name="form" id="form" enctype="multipart/form-data" action="submit/{{caso.id}}" method="POST">{% csrf_token %}
 
     <!-- Navegador do formulário -->
     <ul class="nav nav-tabs mt-3 mb-3" id="myTab" role="tablist">
@@ -62,37 +62,37 @@
 
         <!-- [FORM] Informações  Gerais -->
         <div id="menu1" class="container tab-pane fade show active" role="tabpanel" aria-labelledby="menu1-tab">
-        {% include 'form-create/act_informacoes_gerais.html' %}    
+        {% include 'form-edit/act_informacoes_gerais_edicao.html' %}    
         </div>
 
         <!-- [FORM] Severidade do acidente -->
         <div id="menu2" class="container tab-pane fade" role="tabpanel" aria-labelledby="menu2-tab">
-        {% include 'form-create/act_severidade_acidente_vitimas.html' %}    
+        {% include 'form-edit/act_severidade_acidente_vitimas_edicao.html' %}    
         </div>
 
         <!-- [FORM] Equipe Acionada -->
         <div id="menu3" class="container tab-pane fade" role="tabpanel" aria-labelledby="menu3-tab">
-        {% include 'form-create/act_equipe_acionada_local-acidente.html' %}
+        {% include 'form-edit/act_equipe_acionada_local-acidente_edicao.html' %}
         </div>        
 
         <!-- [FORM] informações do paciente -->
         <div id="menu4" class="container tab-pane fade" role="tabpanel" aria-labelledby="menu4-tab">
-        {% include 'form-create/act_informacoes_paciente.html' %}    
+        {% include 'form-edit/act_informacoes_paciente_edicao.html' %}    
         </div>
 
         <!-- [FORM] Outras informações -->
         <div id="menu5" class="container tab-pane fade" role="tabpanel" aria-labelledby="menu5-tab">
-        {% include 'form-create/act_outras_informacoes_paciente.html' %}    
+        {% include 'form-edit/act_outras_informacoes_paciente_edicao.html' %}    
         </div>
 
         <!-- [FORM] unidade notificadora -->
         <div id="menu6" class="container tab-pane fade" role="tabpanel" aria-labelledby="menu6-tab">
-        {% include 'form-create/act_unidade_notificadora.html' %}            
+        {% include 'form-edit/act_unidade_notificadora_edicao.html' %}            
         </div>
     </div>
 
     <div class="text-center" >
-        <button  type="submit" id="btn_submit_id" class="btn btn-primary" disabled>Enviar</button>
+        <button  type="submit" id="btn_submit_id" class="btn btn-primary">Salvar</button>
     </div>
 
 </form>

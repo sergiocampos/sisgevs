@@ -103,22 +103,35 @@
             <div class="invalid-feedback" style="font-size: 0.7em; text-align: center">Digite o endereço</div>
         </action>
     </div>
-</div>
-    <div class="row m-0 pt-4">
-        <div class="alert alert-success" style="text-align: center;">
-            <strong style="align-items: center;">Contato Telefônico:</strong>
-            <strong id="alert_tel"style="color:red">*</strong>
-
-        </div>
+    <div class="col-4 mb-4 mx-auto">
+        <action class="was-validated">
+        <label for="municipio_residencia"></label>
+        <select onchange="validarMunicipio(this.value)" name="municipio_residencia" id="municipio_residencia" class="form-control" placeholder="" required>
+            <option value="" disabled selected>Selecione o Município</option>
+            {% for municipio in municipios %}
+            <option value="{{municipio.nome}}">{{municipio.nome}}</option>            
+            {% endfor %}
+        <div class="valid-feedback"></div>
+        <div class="invalid-feedback"></div>
+        </action>
+        </select>
     </div>
-        <div class="row ">
-            <div class="col-sm-3  mx-auto">
-                <action class="was-validated">
-                    <label for="tel"></label><br>
-                    <input id="tel" class="form-control" name="contato_telefonico" type="tel" pattern="^[0-9 ()-]{15}$"placeholder="(00) 00000-0000" required >
-                    <div class=" col row-1"></div>
-                    <div class="valid-feedback" style="text-align: center;font-size: 0.7em">Correto</div>
-                    <div class="invalid-feedback" style="font-size: 0.7em; text-align: center">Digite um telefone para contato</div>
-                </action>
-            </div>
-        </div>
+</div>
+<div class="row m-0 pt-4">
+    <div class="alert alert-success" style="text-align: center;">
+        <strong style="align-items: center;">Contato Telefônico:</strong>
+        <strong id="alert_tel"style="color:red">*</strong>
+
+    </div>
+</div>
+<div class="row ">
+    <div class="col-sm-3  mx-auto">
+        <action class="was-validated">
+            <label for="tel"></label><br>
+            <input id="tel" class="form-control" name="contato_telefonico" type="tel" pattern="^[0-9 ()-]{15}$"placeholder="(00) 00000-0000" required >
+            <div class=" col row-1"></div>
+            <div class="valid-feedback" style="text-align: center;font-size: 0.7em">Correto</div>
+            <div class="invalid-feedback" style="font-size: 0.7em; text-align: center">Digite um telefone para contato</div>
+        </action>
+    </div>
+</div>
