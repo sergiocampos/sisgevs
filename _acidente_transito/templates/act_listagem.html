@@ -17,8 +17,8 @@
         <div class="col-md-4 mb-3">
           <input class="form-control" type="text" id="pesquisar-registros" placeholder="digite algo para pesquisar">
         </div>
-        <form class="col" enctype="multipart/form-data" action="/esp-hum/export_data_csv/" method="get">
-          <input type="hidden" name="csrfmiddlewaretoken" value="jDoNL7JdcYx75Vclr3EaqJdF1r2w83GeZx9FgaAaJi3ciz600fGW7MByeFNnjDVO">
+        <form class="col" enctype="multipart/form-data" action="/act/export-data-xlsx/" method="get">
+          {% csrf_token %}
           <div class="row">
             <div class="col mb-3">
               <div class="input-group">
@@ -57,8 +57,8 @@
               <th>Ações</th>
             </thead>
             <tbody id="table-registros">
-            {% if acidentes.count > 0 %}
-              {% for caso in acidentes %}
+            {% if regs.count > 0 %}
+              {% for caso in regs %}
               <tr style="cursor:pointer;">
                 <td>
                   <div class="form-check" >

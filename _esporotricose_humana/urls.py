@@ -61,6 +61,7 @@ urlpatterns = [
     path('ajax_gal', views.ajax_gal, name='ajax_gal'),
 
     path('export_data_csv/', base_views.export_data_excel, name='export_data_csv'),
+    path('export-data-xlsx/', base_views.export_data_excel, name='export_data_xlsx'),
 
     path('export_users/', views.export_users, name='export_users'),
     path('organograma/', views.organograma, name='organograma'),

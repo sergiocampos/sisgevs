@@ -10,17 +10,7 @@
 <div class="mt-3">
     <div class="alert alert-primary text-center">
         <h1 class="fs-3">Doenças e Agravos</h1>
-    </div>
-    <!-- <div class="row">
-        <div class="col-md-4">
-            <label for="select_agravo_inicio_id">Selecione agravo:</label>
-            <select class="form-select" id="select_agravo_inicio_id" name="select_agravo_inicio"
-                onclick="exibeConteudo(this.value)">
-                <option value="" selected>selecione...</option>
-                <option value="Esporotricose Humana">Esporotricose Humana</option>
-            </select>
-        </div>
-    </div> -->
+    </div>   
     <div class="text-center mt-5" id="options">
     {% if user.lista_agravos_permite %}
     {% for agravo in user.lista_agravos_permite %}
@@ -62,7 +52,15 @@
         </div>
 
         {% endif %}
-    {% endfor %}        
+    {% endfor %}
+    {% elif not user.lista_agravos_permite and user.lista_agravos_possivel %}
+    <spam id="no_perm" class="text-center p-5 pt-2 pb-2">
+        Aguardando liberação do responsável técnico.
+    </spam>
+    {% elif not user.lista_agravos_permite and not user.lista_agravos_possivel %} 
+    <spam id="no_perm" class="text-center p-5 pt-2 pb-2">
+        Solicite ao responsável técnico a liberação. | Email: sisgevs@ses.pb.gov.br
+    </spam>
     {% endif %}
     </div>
 </div>

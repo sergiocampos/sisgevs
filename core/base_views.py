@@ -28,7 +28,6 @@ FUNCOES_SES = ["admin", "gerencia_executiva", "gerencia_operacional","chefia_nuc
 # Função responsável por retornar a pagina principal.
 @login_required(login_url='/login/')
 def principal(request):	
-	print(request.user.funcao)
 	return render(request, 'principal.html')
 
 
@@ -76,7 +75,7 @@ def my_data(dados):
     if agravo_url == 'esp-hum':
         registros = registros.order_by('-data_notificacao').exclude(status_caso='Cancelado')
     else:
-        registros = registros.order_by('id').exclude(status_caso='Cancelado')
+        registros = registros.order_by('-id').exclude(status_caso='Cancelado')
 
     # Criando paginação (DESABILITADO) #
     # paginator = Paginator(registros, 6)
@@ -132,11 +131,11 @@ def export_data_excel(request):
     elif agravo_url == 'act':
         
         if len(filtros_data) == 2:
-            casos_filtrados = casos.filter(data_notificacao__range=[filtro_data_inicio,filtro_data_fim]).order_by('-id')
+            casos_filtrados = casos.filter(data_acidente__range=[filtro_data_inicio,filtro_data_fim]).order_by('-id')
 
         elif len(filtros_data) == 1 and filtros_data[0] != '':
             filtro_unico_dia = filtros_data[0]
-            casos_filtrados = casos.filter(data_notificacao=filtro_unico_dia).order_by('-id')
+            casos_filtrados = casos.filter(data_acidente=filtro_unico_dia).order_by('-id')
 
         else:
             casos_filtrados = casos.order_by('-id')
@@ -165,19 +164,20 @@ def export_data_excel(request):
         
     # Convertendo em dataframe e alterando o campo município.
     try:
-        df = pd.DataFrame(list(casos_response.order_by('-id')))
-        for i in df.municipio:
-            
-            try: # Checando se o valor é diferente de NaN
-                i = int(i)
-            except:
-                continue
-            else: # Buscando no modelo municipio o nome de municipio pelo id e alterando o dataframe
-                municipio = Municipio.objects.get(id=i)
-                df.municipio = df.municipio.replace([i], municipio.nome)
+        data = list(casos_response.order_by('-id').values())
+        df = pd.DataFrame(data)
+        if agravo_url == 'esp-hum':
+            for i in df['municipio']:            
+                try: # Checando se o valor é diferente de NaN
+                    i = int(i)
+                except:
+                    continue
+                else: # Buscando no modelo municipio o nome de municipio pelo id e alterando o dataframe
+                    municipio = Municipio.objects.get(id=i)
+                    df['municipio'] = df['municipio'].replace([i], municipio.nome)
 
-    except:
-        return redirect(request.path)
+    except Exception as e:
+        raise e
 
     else:
         # Escrevendo o excel e enviando o response.
@@ -263,7 +263,6 @@ def usuarios(request, id=None):
                         has_change = True
 
                 if has_change:
-                    print("# # # -> HAS_CHANGE")
                     return redirect("/usuarios")
             
             # Gravando os agravos no admin.
@@ -287,13 +286,13 @@ def usuarios(request, id=None):
                     
             # Separando os usuários com nivel hierarquico menor que o user.
             usuarios_lista = get_user_model().objects.all().filter(numero_hierarquia__gt=user_hierarquia).order_by('id')
-            print(len(usuarios_lista))
+            
             # Filtrando usuários que tem acesso ao agravo que o user gerencia.
             usuarios = []
             for usuario in usuarios_lista:
                 user_dict = {
                     'id':usuario.id,
-                    'email':usuario.email,
+                    'nome':usuario.username,
                     'municipio':usuario.municipio,
                     'funcao':usuario.funcao,
                     'telefone':usuario.telefone,

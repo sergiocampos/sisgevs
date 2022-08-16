@@ -22,19 +22,16 @@
         <div class="table-responsive">
             <table class="table table-bordered">
                 <thead>
-                    <th scope="col">ID</th>
-                    <th scope="col">FUNÇÃO</th>
-                    <th scope="col">EMAIL</th>
+                    <th scope="col">NOME</th>
                     <th scope="col">TELEFONE</th>
                     <th scope="col">MUNICIPIO</th>
                     <th scope="col" class="text-center" colspan="{{request.user.lista_agravos_permite|length}}">AGRAVOS</th>
+                    <th scope="col">FUNÇÃO</th>
                 </thead>
                 <tbody id="table-registros">
                     {% for usuario in usuarios %}
                     <tr>
-                        <td>{{usuario.id}}</td>
-                        <td>{{usuario.funcao}}</td>
-                        <td>{{usuario.email}}</td>
+                        <td>{{usuario.nome}}</td>
                         <td>{{usuario.telefone}}</td>
                         <td>{{usuario.municipio}}</td>
 
@@ -69,6 +66,7 @@
                         </td>
 
                         {% endfor %}
+                        <td>{{usuario.funcao}}</td>
                     </tr>
                     {% endfor %}
                 </tbody>

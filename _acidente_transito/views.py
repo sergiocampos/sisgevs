@@ -2,19 +2,15 @@ from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render, redirect
 
-from core.base_views import my_data
+from core.base_views import my_data as base_notificacoes
 from core.models import Gerencia, Municipio, UnidadeSaude
 from .models import Acidente
 
 
 
 @login_required(login_url='/login')
-def my_datas(request):
-    data = my_data(request)
-    for dado in data['regs'].values():
-        print(dado)
-    acidentes = Acidente.objects.all()
-    return render(request, "act_listagem.html", {"acidentes":acidentes})
+def my_datas(request):    
+    return render(request, "act_listagem.html", base_notificacoes(request))
 
 
 # Renderiza a pagina de formulário para criar um novo caso
