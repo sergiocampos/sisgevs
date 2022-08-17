@@ -7,7 +7,7 @@ from core.base_views import my_data as base_notificacoes
 from .models import Acidente
 
 
-
+# Função de listagem de casos.
 @login_required(login_url='/login')
 def my_datas(request):    
     return render(request, "act_listagem.html", base_notificacoes(request))
@@ -83,5 +83,7 @@ def set_editar_caso(request, id):
 # Renderiza pagina apenas para visualização de um caso.
 @login_required(login_url='/login')
 def visualizar_caso(request, id):
-    # TODO: Renderizar pagina com os dados captados no id
-    pass
+    caso = Acidente.objects.get(id=id)
+    municipios = Municipio.objects.all()
+    hospitais = UnidadeSaude.objects.all()
+    return render(request, 'act_visualizar_caso.html', {"caso":caso, "municipios":municipios, "hospitais":hospitais})

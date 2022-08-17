@@ -1,0 +1,73 @@
+<div class="row mt-3">
+    <div class="alert col-12 alert-success" style="text-align: center;">
+        <strong style="align-items: center;">O Paciente Envolvido no Acidente</strong>
+        <strong  id="alert_pac_envolvido"style="color:red">*</strong>
+    </div>
+    <p class="text-uppercase" style="font-size: 100%; background-color: #e6e6e6;">
+        <b> Atenção:</b> Foi transferido para um hospital de referência?
+    </p>
+
+    </div>
+        <div class="mb-3 row pt-1 text-center">
+            <div class="radio col">
+                {% if caso.paciente_referenciado_regulado_para_hospital == "Sim" %}
+                <input type="radio" name="paciente_referenciado_regulado_para_hospital" id="radio_sim" value="Sim" onchange="active_hospital()" checked>
+                {% else %}
+                <input type="radio" name="paciente_referenciado_regulado_para_hospital" id="radio_sim" value="Sim" onchange="active_hospital()">
+                {% endif %}
+                <label for="radio_sim">Sim</label>
+            </div>
+            <div class="radio col">
+                {% if caso.paciente_referenciado_regulado_para_hospital == "Não" %}
+                <input type="radio" name="paciente_referenciado_regulado_para_hospital" value="Não" id="radio_nao" onchange="active_hospital()" checked>
+                {% else %}
+                <input type="radio" name="paciente_referenciado_regulado_para_hospital" value="Não" id="radio_nao" onchange="active_hospital()">
+                {% endif %}
+                <label for="radio_nao">Não</label>
+            </div>
+        </div>
+        {% if caso.paciente_referenciado_regulado_para_hospital == "Sim" %}
+        <div class="m-0 mt-3" id="hospital_transferencia">
+        {% else %}
+        <div class="m-0 mt-3 d-none" id="hospital_transferencia">
+        {% endif %}
+            <div class="row">
+                <div class="alert col-sm-12 alert-success" style="text-align: center;">
+                    <strong style="align-items: center;">Hospital de Transferência</strong>
+                    <strong id="alert_hospital_transferencia" style = color:red>*</strong>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-4 mx-auto">
+                    <action class="was-validated">
+                        <label for="hospital"></label>
+                        <select  onchange="verificaHospital(this)"  name="hospital" id="hospital" class="form-control" placeholder="" required>
+                        {% for hospital in hospitais %}
+                            {% if caso.hospital == hospital.nome %}
+                            <option value="{{hospital.nome}}" selected>{{hospital.nome}}</option>
+                            {% else %}
+                            <option value="{{hospital.nome}}">{{hospital.nome}}</option>
+                            {% endif %}
+                        {% endfor %}
+                        </select>
+                        <div class="valid-feedback text-center">Correto</div>
+                        <div class="invalid-feedback text-center">Invalido</div>
+                    </action>
+                </div>
+            </div>
+        </div>
+
+        <div class="row sm-0 mt-3">
+            <div class="alert col-sm-12 alert-success" style="text-align: center;">
+                <strong style="align-items: center;">Informações Complementares:</strong>
+                <strong style="color:red"></strong>
+            </div>
+        </div>
+        <div class="row">
+            <action ="/action_page.php">
+                <div class="col-sm-4  mx-auto">
+                    <label for="comment">Comentários:</label>
+                    <textarea class="form-control" rows="3" id="comment" name="informacoes_complementares">{{caso.informacoes_complementares}}</textarea>
+                </div>
+            </action>
+        </div>
