@@ -57,7 +57,7 @@
                         <li class="nav-item">
                             <a href="/" class="nav-link">Principal</a>
                         </li>
-                        {% if user.funcao == 'municipal' or user.funcao == 'autocadastro' or user.funcao == 'admin' and user.lista_agravos_permite %}
+                        {% if user.funcao != 'gerencia_regional' and user.lista_agravos_permite %}
                         <li class="nav-item">
                             <a href="/all_forms" class="nav-link">Notificar</a>
                         </li>

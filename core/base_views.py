@@ -15,8 +15,12 @@ from _acidente_transito.models import Acidente
 from .models import *
 
 
+
+# Lista de todos os agravos.
+AGRAVOS = ['esp-hum', 'act']
+
 # KEY: AGRAVO URL | VALUE: DADOS DO AGRAVO
-AGRAVOS = {
+AGRAVOS_DADOS = {
     'esp-hum':CasoEsporotricose.objects.all(),
     'act':Acidente.objects.all(),
 }
@@ -44,7 +48,7 @@ def my_data(dados):
     agravo_url = str(dados.path).split('/')[1]
     
     # Registros da doença escolhida.
-    registros =  AGRAVOS[agravo_url]
+    registros =  AGRAVOS_DADOS[agravo_url]
     
 	# Pegando os dados de municipio.
     municipios = Municipio.objects.all()
@@ -97,7 +101,7 @@ def export_data_excel(request):
     file_name = f'notificacoes_{agravo_url}.xlsx'
 
     # Pegando todos os casos registrados
-    casos = AGRAVOS[agravo_url]
+    casos = AGRAVOS_DADOS[agravo_url]
 
     # Se for para exportar apenas casos cancelados.
     if filtro_url == 'export_casos_cancelados':
@@ -205,7 +209,7 @@ def cancelar_caso(request, id):
     redirect_url = f'/{agravo_url}/casos_cancelados/'
     
     # Pegando todos os dados.
-    agravo = AGRAVOS[agravo_url]
+    agravo = AGRAVOS_DADOS[agravo_url]
     
     # Filtrando pelo id
     registro = agravo.filter(id=id).values()
@@ -241,47 +245,10 @@ def usuarios(request, id=None):
         # Renderizando a pagina.
         if request.method == "GET":
 
-            hierarquia = {
-                'admin':1,
-                'gerencia_executiva':2,
-                'gerencia_operacional':3,
-                'chefia_nucleo':4,
-                'area_tecnica':5,
-                'gerencia_regional':6,
-                'municipal':7,
-                'autocadastro':8,
-            }
-            
-            # Gravando a hierarquia em usuarios que ainda nao a tem.
-            usuarios = get_user_model().objects.all()
-            has_change = False
-            if usuarios:
-                for user in usuarios:       
-                    if user.numero_hierarquia != hierarquia[user.funcao]:
-                        user.numero_hierarquia = hierarquia[user.funcao]
-                        user.save()
-                        has_change = True
+            if hierarchy_has_change() or admin_has_change():
+                return redirect("/usuarios")            
 
-                if has_change:
-                    return redirect("/usuarios")
-            
-            # Gravando os agravos no admin.
-            admin_sem_agravos = get_user_model().objects.all(
-                ).filter(
-                    funcao="admin"
-                ).filter(
-                    Q(lista_agravos_permite=None) | 
-                    Q(lista_agravos_permite=[])
-                )
-            
-            if admin_sem_agravos:
-                for user in admin_sem_agravos:        
-                    user.lista_agravos_permite = ["esp-hum", "act"]
-                    user.save()
-                    return redirect("/usuarios")
-
-
-            user_agravos = request.user.lista_agravos_permite
+            agravos = request.user.lista_agravos_permite
             user_hierarquia = request.user.numero_hierarquia
                     
             # Separando os usuários com nivel hierarquico menor que o user.
@@ -290,40 +257,27 @@ def usuarios(request, id=None):
             # Filtrando usuários que tem acesso ao agravo que o user gerencia.
             usuarios = []
             for usuario in usuarios_lista:
-                user_dict = {
-                    'id':usuario.id,
-                    'nome':usuario.username,
-                    'municipio':usuario.municipio,
-                    'funcao':usuario.funcao,
-                    'telefone':usuario.telefone,
-                    'esp_hum':False,
-                    'act':False,
-                    'act_solicit':False,
-                    'esp_hum_solicit':False,
-                }
                 
-                if not usuario.lista_agravos_permite:
-                    usuario.lista_agravos_permite = []
-                    usuario.save()
-                    
-                if not usuario.lista_agravos_possivel:
-                    usuario.lista_agravos_possivel = []
-                    usuario.save()
+                user_dict = usuario.__dict__
+                user_dict['municipio'] = usuario.municipio
                 
-                # Adicionando marcador para o checkbox de agravos permite
+                # Removendo informações sensíveis.
+                del user_dict['password'], user_dict['cpf']
+
+                # Adicionando marcador para o checkbox de agravos permitidos.
                 for agravo in usuario.lista_agravos_permite:
-                    if agravo in user_agravos:
+                    if agravo in agravos:
                         if agravo == 'esp-hum':
                             user_dict['esp_hum'] = True
                         elif agravo == 'act':
                             user_dict['act'] = True
                 
-                # Adicionando marcador para o checkbox de solicitaçao de agravos
-                for agravo_solicit in usuario.lista_agravos_possivel:
-                    if agravo_solicit in user_agravos:
-                        if agravo_solicit == 'esp-hum':
+                # Adicionando marcador para o checkbox de solicitaçao de agravos.
+                for agravo in usuario.lista_agravos_possivel:
+                    if agravo in agravos:
+                        if agravo == 'esp-hum':
                             user_dict['esp_hum_solicit'] = True
-                        elif agravo_solicit == 'act':
+                        elif agravo == 'act':
                             user_dict['act_solicit'] = True                        
                 
                 usuarios.append(user_dict)
@@ -333,17 +287,72 @@ def usuarios(request, id=None):
         # Alterando no banco.
         elif request.method == "POST":
             data = json.loads(request.POST.get('data'))
-            obj_user = get_user_model().objects.get(id=data['id'])
-
-            if data['checked']:
-                if data['agravo'] in obj_user.lista_agravos_possivel:
-                    obj_user.lista_agravos_possivel.remove(data['agravo'])
-                
-                obj_user.lista_agravos_permite.append(data['agravo'])
+            return alter_user(data)
             
-            elif not data['checked']:
-                obj_user.lista_agravos_permite.remove(data['agravo'])
 
-            obj_user.save()                
+
+## FUNCOES AUXILIARES PARA A FUNCAO USUARIOS ##
+
+# Função para alterar função ou agravos permitidos de um usuário listado.
+def alter_user(data):
+    
+    obj_user = get_user_model().objects.get(id=data['id'])
+    
+    # Alterar permissão de agravos.
+    if data['alterar_agravo']:
+        if data['checked']:
+            if data['agravo'] in obj_user.lista_agravos_possivel:
+                obj_user.lista_agravos_possivel.remove(data['agravo'])
             
-            return JsonResponse({"response":203})
+            obj_user.lista_agravos_permite.append(data['agravo'])
+        
+        elif not data['checked']:
+            obj_user.lista_agravos_permite.remove(data['agravo'])
+
+        obj_user.save()
+
+    # Alterar função.
+    elif data['alterar_funcao']:
+        obj_user.funcao = data['funcao']
+        obj_user.save()
+    
+    return JsonResponse({"response":203})
+
+
+# Funçao para organizar a hierarquia dos usuários.
+def hierarchy_has_change():
+    hierarquia = {
+        'admin':1,
+        'gerencia_executiva':2,
+        'gerencia_operacional':3,
+        'chefia_nucleo':4,
+        'area_tecnica':5,
+        'gerencia_regional':6,
+        'municipal':7,
+        'autocadastro':8,
+    }
+    
+    # Gravando a hierarquia em usuarios que ainda nao a tem.
+    usuarios = get_user_model().objects.all()
+    has_change = False
+    if usuarios:
+        for user in usuarios:       
+            if user.numero_hierarquia != hierarquia[user.funcao]:
+                user.numero_hierarquia = hierarquia[user.funcao]
+                user.save()
+                has_change = True
+    
+    return has_change
+
+
+# Função para permitir todos os agravos ao admin caso ainda nao tenha.
+def admin_has_change():
+    admin_sem_agravos = get_user_model().objects.all().filter(funcao="admin").filter(Q(lista_agravos_permite=None) | Q(lista_agravos_permite=[]))
+    has_change = False
+    if admin_sem_agravos:
+        for user in admin_sem_agravos:        
+            user.lista_agravos_permite = AGRAVOS
+            user.save()
+            has_change = True
+    
+    return has_change
