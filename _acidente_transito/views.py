@@ -1,9 +1,9 @@
 from django.contrib.auth.decorators import login_required
-from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render, redirect
+from django.contrib import messages
 
-from core.base_views import my_data as base_notificacoes
 from core.models import Gerencia, Municipio, UnidadeSaude
+from core.base_views import my_data as base_notificacoes
 from .models import Acidente
 
 
@@ -27,26 +27,25 @@ def set_criar_caso(request):
     
     dados = request.POST.dict()
     
-    responsavel_prestar_apoio_local = request.POST.getlist('responsavel_prestar_apoio_local')
-    dados['responsavel_prestar_apoio_local'] = responsavel_prestar_apoio_local
-    dados['responsavel_pelas_informacoes'] = request.user
+    # Captando a lista de checkbox.
+    dados['responsavel_prestar_apoio_local'] = request.POST.getlist('responsavel_prestar_apoio_local')
+
+    # Captando os dados da gerencia.
     gerencia_id = Municipio.objects.get(nome=dados['municipio_ocorrencia_acidente']).gerencia_id
     dados['gerencia'] = Gerencia.objects.get(id=gerencia_id)
-
-    del dados['csrfmiddlewaretoken']
+    
+    dados['responsavel_pelas_informacoes'] = request.user
+        
+    del dados['csrfmiddlewaretoken'] # Excluindo o token csrf.
 
     try:
         Acidente.objects.create(**dados)
     except Exception as e:
-
-        # TODO: Retornar uma mensagem de erro.
-
-        raise e
+        message = messages.error(request, "Algo deu errado, tente novamente.")
+        return redirect("/act/my-datas", messages=message)
     else:
-        
-        # TODO: Retornar uma mensagem de sucesso.
-
-        return redirect("/")
+        message = messages.success(request, "Acidente cadastrado com sucesso!")
+        return redirect("/act/my-datas", messages=message)
 
 
 
@@ -65,25 +64,20 @@ def set_editar_caso(request, id):
 
     dados = request.POST.dict()
     
-    responsavel_prestar_apoio_local = request.POST.getlist('responsavel_prestar_apoio_local')
-    dados['responsavel_prestar_apoio_local'] = responsavel_prestar_apoio_local
-    dados['responsavel_edicao'] = request.user.id
-
-    del dados['csrfmiddlewaretoken']
+    # Captando a lista de checkbox.
+    dados['responsavel_prestar_apoio_local'] = request.POST.getlist('responsavel_prestar_apoio_local')
+        
+    dados['responsavel_edicao'] = request.user.id   # Adicionando o responsável pela edição.    
+    del dados['csrfmiddlewaretoken']                # Deletando o token csrf
 
     try:
         Acidente.objects.filter(id=id).update(**dados)
-
     except Exception as e:
-
-        # TODO: Retornar uma mensagem de erro.
-
-        raise e
+        message = messages.error(request, "Algo deu errado, tente novamente.")
+        return redirect("/act/my-datas", messages=message)
     else:
-        
-        # TODO: Retornar uma mensagem de sucesso.
-
-        return redirect("/")
+        message = messages.success(request, "Acidente editado com sucesso!")
+        return redirect("/act/my-datas", messages=message)
 
 
 # Renderiza pagina apenas para visualização de um caso.

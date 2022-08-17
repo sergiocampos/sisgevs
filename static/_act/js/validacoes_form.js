@@ -53,8 +53,8 @@ function validInforGerais (){
         sinalAcoolicoValid == true
     ){
         $('#alert_informacoes_gerais').attr('hidden',true)
+        window.scrollTo({ top: 0, behavior: 'smooth' });    
         infogeral = true
-
 
     } else{
         $('#alert_informacoes_gerais').attr('hidden',false)
@@ -256,7 +256,9 @@ function validSeverAcident (){
 
     ){
         $('#alert_severidade').attr('hidden',true)
+        window.scrollTo({ top: 0, behavior: 'smooth' });
         servAcidente = true
+
     } else{
         $('#alert_severidade').attr('hidden',false)
         servAcidente = false
@@ -401,6 +403,7 @@ function validinfoPaciente() {
 
     ){
         $('#alert_informacoes_paciente').attr('hidden',true)
+        window.scrollTo({ top: 0, behavior: 'smooth' });
         infPaciente = true
 
     } else{
