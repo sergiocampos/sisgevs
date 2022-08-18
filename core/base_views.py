@@ -291,7 +291,29 @@ def usuarios(request, id=None):
             
 
 
-## FUNCOES AUXILIARES PARA A FUNCAO USUARIOS ##
+## FUNCOES AUXILIARES ##
+
+# Funçao que verifica se o usuário tem permissao para editar um caso especifico.
+def tem_permissao(request, caso):
+
+	# Usuários SES.
+	if request.user.funcao != 'gerencia_regional' and request.user.funcao != 'autocadastro' and request.user.funcao != 'municipal':
+		return True
+
+	# Usuário municipal.
+	elif request.user.funcao == 'municipal':
+		if request.user.municipio.nome.upper() == caso.municipio_residencia.upper() or request.user.id == caso.responsavel_pelas_informacoes_id:
+			return True
+		return False
+
+	# Usuário autocadastro.
+	elif request.user.funcao == 'autocadastro' and request.user.id == caso.responsavel_pelas_informacoes_id:
+		return True
+
+	# Qualquer outro.
+	else:
+		return False
+
 
 # Função para alterar função ou agravos permitidos de um usuário listado.
 def alter_user(data):

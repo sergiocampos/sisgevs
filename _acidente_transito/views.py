@@ -3,7 +3,7 @@ from django.shortcuts import render, redirect
 from django.contrib import messages
 
 from core.models import Gerencia, Municipio, UnidadeSaude
-from core.base_views import my_data as base_notificacoes
+from core.base_views import tem_permissao, my_data as base_notificacoes
 from .models import Acidente
 
 
@@ -24,7 +24,7 @@ def criar_caso(request):
 # Capta o submit do formulario de criar caso.
 @login_required(login_url='/login')
 def set_criar_caso(request):
-    
+        
     dados = request.POST.dict()
     
     # Captando a lista de checkbox.
@@ -51,39 +51,56 @@ def set_criar_caso(request):
 
 # Renderiza a pagina de edição de caso.
 @login_required(login_url='/login')
-def editar_caso(request, id): 
+def editar_caso(request, id):
+
     caso = Acidente.objects.get(id=id)
-    municipios = Municipio.objects.all()
-    hospitais = UnidadeSaude.objects.all()
-    return render(request, 'act_editar_caso.html', {"caso":caso, "municipios":municipios, "hospitais":hospitais})
+
+    if tem_permissao(request, caso):
+        municipios = Municipio.objects.all()
+        hospitais = UnidadeSaude.objects.all()
+        return render(request, 'act_editar_caso.html', {"caso":caso, "municipios":municipios, "hospitais":hospitais})
+    else:
+        message = messages.error(request, "Vocẽ não tem permissão para editar este caso.")
+        return redirect("/act/my-datas", messages=message)
 
 
 # Salva as alterações de caso.
 @login_required(login_url='/login')
 def set_editar_caso(request, id):
 
-    dados = request.POST.dict()
-    
-    # Captando a lista de checkbox.
-    dados['responsavel_prestar_apoio_local'] = request.POST.getlist('responsavel_prestar_apoio_local')
+    caso = Acidente.objects.get(id=id)
+
+    if tem_permissao(request, caso):
+        dados = request.POST.dict()
         
-    dados['responsavel_edicao'] = request.user.id   # Adicionando o responsável pela edição.    
-    del dados['csrfmiddlewaretoken']                # Deletando o token csrf
+        # Captando a lista de checkbox.
+        dados['responsavel_prestar_apoio_local'] = request.POST.getlist('responsavel_prestar_apoio_local')
+            
+        dados['responsavel_edicao'] = request.user.id   # Adicionando o responsável pela edição.    
+        del dados['csrfmiddlewaretoken']                # Deletando o token csrf
 
-    try:
-        Acidente.objects.filter(id=id).update(**dados)
-    except Exception as e:
-        message = messages.error(request, "Algo deu errado, tente novamente.")
-        return redirect("/act/my-datas", messages=message)
+        try:
+            Acidente.objects.filter(id=id).update(**dados)
+        except Exception as e:
+            message = messages.error(request, "Algo deu errado, tente novamente.")
+            return redirect("/act/my-datas", messages=message)
+        else:
+            message = messages.success(request, "Acidente editado com sucesso!")
+            return redirect("/act/my-datas", messages=message)
     else:
-        message = messages.success(request, "Acidente editado com sucesso!")
+        message = messages.error(request, "Vocẽ não tem permissão para editar este caso.")
         return redirect("/act/my-datas", messages=message)
-
 
 # Renderiza pagina apenas para visualização de um caso.
 @login_required(login_url='/login')
 def visualizar_caso(request, id):
+    
     caso = Acidente.objects.get(id=id)
-    municipios = Municipio.objects.all()
-    hospitais = UnidadeSaude.objects.all()
-    return render(request, 'act_visualizar_caso.html', {"caso":caso, "municipios":municipios, "hospitais":hospitais})
+
+    if tem_permissao(request, caso):
+        municipios = Municipio.objects.all()
+        hospitais = UnidadeSaude.objects.all()
+        return render(request, 'act_visualizar_caso.html', {"caso":caso, "municipios":municipios, "hospitais":hospitais})
+    else:
+        message = messages.error(request, "Vocẽ não tem permissão para visualizar este caso.")
+        return redirect("/act/my-datas", messages=message)

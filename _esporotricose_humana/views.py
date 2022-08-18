@@ -34,7 +34,7 @@ from sqlalchemy import create_engine
 
 from .models import *
 from core.models import *
-from core.base_views import my_data as base_notificacoes
+from core.base_views import tem_permissao, my_data as base_notificacoes
 
 # Create your views here.
 
@@ -1728,27 +1728,3 @@ def gerenciar_dados_del(request):
 	else:
 		return redirect('principal')
 		
-
-# Funçao que verifica se o usuário tem permissao para editar um caso especifico.
-@login_required(login_url='/login/')
-def tem_permissao(request, caso):
-
-	# TODO: Implementar verificação por agravo.
-
-	# Usuários SES.
-	if request.user.funcao != 'gerencia_regional' and request.user.funcao != 'autocadastro' and request.user.funcao != 'municipal':
-		return True
-
-	# Usuário municipal.
-	elif request.user.funcao == 'municipal':
-		if request.user.municipio.nome.upper() == caso.municipio_residencia.upper() or request.user.id == caso.responsavel_pelas_informacoes_id:
-			return True
-		return False
-
-	# Usuário autocadastro.
-	elif request.user.funcao == 'autocadastro' and request.user.id == caso.responsavel_pelas_informacoes_id:
-		return True
-
-	# Qualquer outro.
-	else:
-		return False
