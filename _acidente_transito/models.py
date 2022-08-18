@@ -13,9 +13,12 @@ class Acidente(models.Model):
 	dia_da_semana_ocorreu = models.CharField(max_length = 200, null=True, blank=True)
 	ocorreu_dia_feriado = models.CharField(max_length = 100, null=True, blank=True)
 	municipio_ocorrencia_acidente = models.CharField(max_length = 200, null=True, blank=True)
+	bairro_ocorrencia_acidente = models.CharField(max_length = 200, null=True, blank=True)
 	endereco_local_acidente = models.TextField(blank=True, default='', null=True)
 	tipo_acidente = models.CharField(max_length = 100, null=True, blank=True)
+	tipo_acidente_outros = models.CharField(max_length = 100, null=True, blank=True)
 	tipos_veiculos_envolvidos = models.CharField(max_length = 100, null=True, blank=True)
+	tipos_veiculos_envolvidos_outros = models.CharField(max_length = 100, null=True, blank=True)
 	paciente_envolvido_acidente = models.CharField(max_length = 100, null=True, blank=True)
 	presenca_sinais_embriagues = models.CharField(max_length = 100, null=True, blank=True)
 
@@ -36,9 +39,10 @@ class Acidente(models.Model):
 	idade_paciente = models.IntegerField(blank=True, null=True)
 	sexo_paciente = models.CharField(max_length = 50, null=True, blank=True)
 	filiacao = models.CharField(max_length = 200, null=True, blank=True)
-	municipio_residencia = models.CharField(max_length = 200, null=True, blank=True)
 	endereco_paciente = models.CharField(max_length = 200, null=True, blank=True)
 	contato_telefonico = models.CharField(max_length = 200, null=True, blank=True)
+	cpf_paciente = models.CharField(max_length = 50, null=True, blank=True)
+	cns_paciente = models.CharField(max_length = 50, null=True, blank=True)
 
 	#Outras informações sobre o acidente
 	paciente_referenciado_regulado_para_hospital = models.CharField(max_length = 20, null=True, blank=True)

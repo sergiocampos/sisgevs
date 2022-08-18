@@ -2,12 +2,31 @@
 {% load static %}
 
 {% block head %}
+<style>
+    #scrollUp::before{
+        position: fixed;
+        color: #fff;
+        background-color: #203d89;
+        box-sizing: border-box;
+        z-index: 1;
+        right: 2%;
+        bottom: 20vh;
+        font-size: 35px;
+        border-radius: 50%;        
+        box-shadow: 0 .2rem .4rem rgba(0,0,0,0.6);        
+        cursor: pointer;   
+        opacity: .7;             
+    }
+    
+</style>
 
 <script src="{% static '_act/js/validacoes_form.js' %}" defer></script>
 {% endblock head %}
 
 {% block content %}
-<form class="mb-3" name="form" id="form" enctype="multipart/form-data" action="submit/{{caso.id}}" method="POST">{% csrf_token %}
+<i id="scrollUp" onclick="return window.scrollTo({top:0})" class="bi bi-arrow-up-circle d-none"></i>
+
+<form class="mb-3" enctype="multipart/form-data" action="editar-caso/submit" method="POST">{% csrf_token %}
 
     <!-- Navegador do formulário -->
     <ul class="nav nav-tabs mt-3 mb-3" id="myTab" role="tablist">
@@ -58,43 +77,43 @@
     </ul>
 
     <!-- Paineis do formulário -->
-    <div class="tab-content mb-5">
+    <div id="scroll" class="tab-content mb-5">
 
         <!-- [FORM] Informações  Gerais -->
         <div id="menu1" class="container tab-pane fade show active" role="tabpanel" aria-labelledby="menu1-tab">
-        {% include 'form-edit/act_informacoes_gerais_edicao.html' %}    
+        {% include 'form-edit/act_informacoes_gerais.html' %}    
         </div>
 
         <!-- [FORM] Severidade do acidente -->
         <div id="menu2" class="container tab-pane fade" role="tabpanel" aria-labelledby="menu2-tab">
-        {% include 'form-edit/act_severidade_acidente_vitimas_edicao.html' %}    
+        {% include 'form-edit/act_severidade_acidente_vitimas.html' %}    
         </div>
 
         <!-- [FORM] Equipe Acionada -->
         <div id="menu3" class="container tab-pane fade" role="tabpanel" aria-labelledby="menu3-tab">
-        {% include 'form-edit/act_equipe_acionada_local-acidente_edicao.html' %}
+        {% include 'form-edit/act_equipe_acionada_local-acidente.html' %}
         </div>        
 
         <!-- [FORM] informações do paciente -->
         <div id="menu4" class="container tab-pane fade" role="tabpanel" aria-labelledby="menu4-tab">
-        {% include 'form-edit/act_informacoes_paciente_edicao.html' %}    
+        {% include 'form-edit/act_informacoes_paciente.html' %}    
         </div>
 
         <!-- [FORM] Outras informações -->
         <div id="menu5" class="container tab-pane fade" role="tabpanel" aria-labelledby="menu5-tab">
-        {% include 'form-edit/act_outras_informacoes_paciente_edicao.html' %}    
+        {% include 'form-edit/act_outras_informacoes_paciente.html' %}    
         </div>
 
         <!-- [FORM] unidade notificadora -->
         <div id="menu6" class="container tab-pane fade" role="tabpanel" aria-labelledby="menu6-tab">
-        {% include 'form-edit/act_unidade_notificadora_edicao.html' %}            
+        {% include 'form-edit/act_unidade_notificadora.html' %}
         </div>
-    </div>
 
-    <div class="text-center" >
-        <button  type="submit" id="btn_submit_id" class="btn btn-primary">Salvar</button>
     </div>
-
+    <div class="text-center m-5" >
+        <button  type="submit" id="btn_submit_id" disabled="" class="btn btn-primary">Enviar</button>
+    </div>
 </form>
 
 {% endblock content %}
+

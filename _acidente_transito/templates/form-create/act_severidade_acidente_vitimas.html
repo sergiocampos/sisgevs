@@ -48,7 +48,8 @@
 <div class="row m-0 mt-4">
     <div class="alert col-sm-12 alert-success" style="text-align: center;">
         <strong style="align-items: center;">Quadro de lesões:</strong>
-        <strong id="quadroLesoes" style="color:red">*</strong>
+        <strong id="quadroLesoes" style="color:red"></strong>
+        <strong style="font-size:0.8em">(Opcional)</strong>
     </div>
 </div>
 <div class="mb-3 row mt-3 text-center">
@@ -80,16 +81,15 @@
 <div class="mb-3 row mt-4 text-center">
     <div class="radio col">
 
-        <input onchange="verificaObito()" type="radio" id="radioObito" name="em_caso_obito" value="Óbito Local">
-        <label for="radioObito">Óbito Local</label>
+        <input onchange="verificaObito()" type="radio" id="radioObito_local" name="em_caso_obito" value="Óbito Local">
+        <label for="radioObito_local">Óbito Local</label>
     </div>
     <div class="radio col">
-        <input onchange="verificaObito()" type="radio" id="radioObito" name="em_caso_obito" value="Óbito no Encaminhamento">
-        <label for="radioObito">Óbito no Encaminhamento</label>
+        <input onchange="verificaObito()" type="radio" id="radioObito_encaminhamento" name="em_caso_obito" value="Óbito no Encaminhamento">
+        <label for="radioObito_encaminhamento">Óbito no Encaminhamento</label>
     </div>
     <div class="radio col">
-        <input onchange="verificaObito()" type="radio" id="radioObito" name="em_caso_obito" value="Óbito no Hospital">
-        <label for="radioObito">Óbito no Hospital</label>
-
+        <input onchange="verificaObito()" type="radio" id="radioObito_hospital" name="em_caso_obito" value="Obito no Hospital">
+        <label for="radioObito_hospital">Obito no Hospital</label>
     </div>
 </div>

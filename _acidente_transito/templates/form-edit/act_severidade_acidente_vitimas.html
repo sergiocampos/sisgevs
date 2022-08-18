@@ -56,7 +56,8 @@
 <div class="row m-0 mt-4">
     <div class="alert col-sm-12 alert-success" style="text-align: center;">
         <strong style="align-items: center;">Quadro de lesões:</strong>
-        <strong id="quadroLesoes" style="color:red">*</strong>
+        <strong id="quadroLesoes" style="color:red"></strong>
+        <strong style="font-size:0.8em">(Opcional)</strong>
     </div>
 </div>
 <div class="mb-3 row mt-3 text-center">
@@ -104,27 +105,26 @@
 <div class="mb-3 row mt-4 text-center">
     <div class="radio col">
         {% if caso.em_caso_obito == "Óbito Local" %}
-        <input onchange="verificaObito()" type="radio" id="radioObito" name="em_caso_obito" value="Óbito Local" checked>
+        <input onchange="verificaObito()" type="radio" id="radioObito_local" name="em_caso_obito" value="Óbito Local" checked>
         {% else %}
-        <input onchange="verificaObito()" type="radio" id="radioObito" name="em_caso_obito" value="Óbito Local">
+        <input onchange="verificaObito()" type="radio" id="radioObito_local" name="em_caso_obito" value="Óbito Local">
         {% endif %}
-        <label for="radioObito">Óbito Local</label>
+        <label for="radioObito_local">Óbito Local</label>
     </div>
     <div class="radio col">
         {% if caso.em_caso_obito == "Óbito no Encaminhamento" %}
-        <input onchange="verificaObito()" type="radio" id="radioObito" name="em_caso_obito" value="Óbito no Encaminhamento" checked>
+        <input onchange="verificaObito()" type="radio" id="radioObito_encaminhamento" name="em_caso_obito" value="Óbito no Encaminhamento" checked>
         {% else %}
-        <input onchange="verificaObito()" type="radio" id="radioObito" name="em_caso_obito" value="Óbito no Encaminhamento">
+        <input onchange="verificaObito()" type="radio" id="radioObito_encaminhamento" name="em_caso_obito" value="Óbito no Encaminhamento">
         {% endif %}
-        <label for="radioObito">Óbito no Encaminhamento</label>
+        <label for="radioObito_encaminhamento">Óbito no Encaminhamento</label>
     </div>
     <div class="radio col">
-        {% if caso.em_caso_obito == "Óbito no Hospital" %}
-        <input onchange="verificaObito()" type="radio" id="radioObito" name="em_caso_obito" value="Óbito no Hospital" checked>
+        {% if caso.em_caso_obito == "Obito no Hospital" %}
+        <input onchange="verificaObito()" type="radio" id="radioObito_hospital" name="em_caso_obito" value="Obito no Hospital" checked>
         {% else %}
-        <input onchange="verificaObito()" type="radio" id="radioObito" name="em_caso_obito" value="Óbito no Hospital">
+        <input onchange="verificaObito()" type="radio" id="radioObito_hospital" name="em_caso_obito" value="Obito no Hospital">
         {% endif %}
-        <label for="radioObito">Óbito no Hospital</label>
-
+        <label for="radioObito_hospital">Obito no Hospital</label>
     </div>
 </div>

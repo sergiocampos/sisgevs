@@ -14,7 +14,7 @@
 
 <div class="row text-center">
     <div class="col-3 checkbox mx-auto">
-        {% if "Órgãos Municipais de Trânsitos" in caso.responsavel_prestar_apoio_local %}
+        {% if 'Órgãos Municipais de Trânsitos' in caso.responsavel_prestar_apoio_local %}
         <input class="reponsaveis-prestar-socorro" type="checkbox" id="orgao_transito" name="responsavel_prestar_apoio_local" value="Órgãos Municipais de Trânsitos" checked>
         {% else %}
         <input class="reponsaveis-prestar-socorro" type="checkbox" id="orgao_transito" name="responsavel_prestar_apoio_local" value="Órgãos Municipais de Trânsitos">
@@ -23,16 +23,16 @@
     </div>
 
     <div class="col-2">
-        {% if "Corpo de Bombeiros" in caso.responsavel_prestar_apoio_local %}
-        <input class="reponsaveis-prestar-socorro" type="checkbox" id="bombeiro" name="responsavel_prestar_apoio_local" value="Corpo de Bombeiros"  checked>
+        {% if 'Corpo de Bombeiros' in caso.responsavel_prestar_apoio_local %}
+        <input class="reponsaveis-prestar-socorro" type="checkbox" id="bombeiro" name="responsavel_prestar_apoio_local" value="Corpo de Bombeiros" checked>
         {% else %}
-        <input class="reponsaveis-prestar-socorro" type="checkbox" id="bombeiro" name="responsavel_prestar_apoio_local" value="Corpo de Bombeiros" >
+        <input class="reponsaveis-prestar-socorro" type="checkbox" id="bombeiro" name="responsavel_prestar_apoio_local" value="Corpo de Bombeiros">
         {% endif %}
         <label for="bombeiro">Corpo de Bombeiros </label>
     </div>
 
     <div class="col-1">
-        {% if "PRF" in caso.responsavel_prestar_apoio_local %}
+        {% if 'PRF' in caso.responsavel_prestar_apoio_local %}
         <input class="reponsaveis-prestar-socorro" type="checkbox" id="prf" name="responsavel_prestar_apoio_local" value="PRF" checked>
         {% else %}
         <input class="reponsaveis-prestar-socorro" type="checkbox" id="prf" name="responsavel_prestar_apoio_local" value="PRF">
@@ -41,7 +41,7 @@
     </div>
 
     <div class="col-2">
-        {% if "SAMU" in caso.responsavel_prestar_apoio_local %}
+        {% if 'SAMU' in caso.responsavel_prestar_apoio_local %}
         <input class="reponsaveis-prestar-socorro" type="checkbox" id="samu" name="responsavel_prestar_apoio_local" value="SAMU" checked>
         {% else %}
         <input class="reponsaveis-prestar-socorro" type="checkbox" id="samu" name="responsavel_prestar_apoio_local" value="SAMU">
@@ -50,7 +50,7 @@
     </div>
 
     <div class="col-2">
-        {% if "Socorrido por terceiros" in caso.responsavel_prestar_apoio_local %}
+        {% if 'Socorrido por terceiros' in caso.responsavel_prestar_apoio_local %}
         <input class="reponsaveis-prestar-socorro" type="checkbox" id="s_terceiro" name="responsavel_prestar_apoio_local" value="Socorrido por terceiros" checked>
         {% else %}
         <input class="reponsaveis-prestar-socorro" type="checkbox" id="s_terceiro" name="responsavel_prestar_apoio_local" value="Socorrido por terceiros">
@@ -59,7 +59,7 @@
     </div>
 
     <div class="col-2">
-        {% if "Outros" in caso.responsavel_prestar_apoio_local %}
+        {% if 'Outros' in caso.responsavel_prestar_apoio_local %}
         <input class="reponsaveis-prestar-socorro" type="checkbox" id="outros" name="responsavel_prestar_apoio_local" value="Outros" checked>
         {% else %}
         <input class="reponsaveis-prestar-socorro" type="checkbox" id="outros" name="responsavel_prestar_apoio_local" value="Outros">
@@ -67,10 +67,21 @@
         <label for="outros">Outros</label>
     </div>
 </div>
+    <div class="row sm-0 mt-3">
+        <div class="alert col-sm-12 alert-success" style="text-align: center;">
+            <strong id = alert_outros style="align-items: center;">Informações Complementares:</strong>
+            <strong style="color:red"></strong>
+        </div>
+    </div>
 
-<div class="text-area">
-    <div class="mb-3 mt-3">
-        <label for="comment">Comentário:</label>
-        <textarea class="form-control" rows="5" id="comment" name="responsavel_comentario">{{caso.responsavel_comentario}}</textarea>
+<div class="row  d-none" id="outros_row">
+    <div class="col-sm-4 mx-auto">
+        <label for="select_outro">Comentários:</label>
+        <textarea onkeyup="toLimit(this)" class="form-control" id="select_outro" name="responsavel_comentario" placeholder=""  pattern="" required>{{caso.responsavel_comentario}}</textarea>
+        <div class="valid-feedback text-center">Correto</div>
+        <div class="invalid-feedback text-center">Invalido</div>
     </div>
 </div>
+
+
+

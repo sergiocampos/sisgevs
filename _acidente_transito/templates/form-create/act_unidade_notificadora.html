@@ -15,14 +15,14 @@
 
 <div class="row">
     <div class="alert col-sm-12 mb-0 alert-success" style="text-align: center;">
-        <strong style="align-items: center;">Nome do Secretário(a) Municipal de Saúde</strong>
+        <strong style="align-items: center;">Nome do Responsável pela Digitação</strong>
         <strong id="alert_nome_secretario"style="color:red">*</strong>
     </div>
 </div>
 <div class="col-4 sm-0 mb-4 mx-auto">
     <action class="was-validated">
         <label for="nome_secretario"></label>
-        <input type="text" class="form-control" id="nome_secretario" placeholder="Digite o nome do Secretario, por favor." name="nome_secretario_municipal_saude" pattern="^[a-z .*,A-Z.*\u00C0-\u00FF]{10,}$" required>
+        <input type="text" class="form-control" id="nome_secretario" placeholder="Digite nome do Responsável." name="nome_secretario_municipal_saude" pattern="^[a-z .*,A-Z.*\u00C0-\u00FF]{10,}$" required>
         <div class="valid-feedback" style="text-align: center;font-size: 0.7em">Correto</div>
         <div class="invalid-feedback" style="font-size: 0.7em; text-align: center">inválido</div>
     </action>
@@ -50,7 +50,7 @@
 <div class="col-sm-3  mx-auto">
     <action class="was-validated">
         <label for="contato_notificador"></label><br/>
-        <input    id="contato_notificador" class="form-control" type="tel" name="contato_notificador" pattern= "^[0-9 ()-]{15}$" placeholder="Formato: (00) 0 0000-0000" required >
+        <input    id="contato_notificador" class="form-control" type="tel" name= "contato_notificador" pattern= "^[0-9 ()-]{15}$" placeholder="Formato: (00) 0 0000-0000" required >
         <div class="valid-feedback" style="text-align: center;font-size: 0.7em">Correto</div>
         <div class="invalid-feedback" style="font-size: 0.7em; text-align: center">inválido</div>
     </action>

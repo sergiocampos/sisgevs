@@ -1,6 +1,10 @@
-//FUNÇÃO GERAL DE ATIVAÇÃO DO BOTAO
+// Scroll UP Button
+window.addEventListener('scroll', function() {
+    scrollBtn = $('#scrollUp')
+    return window.scrollY > 300 ? scrollBtn.removeClass('d-none') : scrollBtn.addClass('d-none')  
+})
 
-
+//FUNÇÃO GERAL DE ATIVAÇÃO DO BOTAO DE ENVIO DE DADOS
 
 function ativarButtonUnidadeNotificadora() {
     if(
@@ -12,7 +16,7 @@ function ativarButtonUnidadeNotificadora() {
         hospitalTransferencia == true &&
         validPacientEnvolvido == true
 
-
+   // console.log('enviar')
     ){
         $('#btn_submit_id').prop('disabled',false)
 
@@ -36,25 +40,22 @@ function ativarButtonUnidadeNotificadora() {
 // --------------------------------------------- INFORMAÇÕES GERAIS ------------------------------------------- //
 
 //Validação da pagina informções gerais
-
-
-
 function validInforGerais (){
     if(
         dataacidenteValid == true &&
         valide_periodo == true &&
-        diaSemanaValid == true &&
         acidenteDiaFeriado == true &&
         valorMunicipioValid == true &&
         enderecoAcidenteValid == true &&
-        tipoAcidente == true &&
+        valorTipAcidente == true &&
         tipoVeiculoValid == true &&
-        tipoCondutorValid == true &&
-        sinalAcoolicoValid == true
+        tipoCondutorValid == true
+        // valorBairroValid == true
+
     ){
         $('#alert_informacoes_gerais').attr('hidden',true)
-        window.scrollTo({ top: 0, behavior: 'smooth' });    
         infogeral = true
+
 
     } else{
         $('#alert_informacoes_gerais').attr('hidden',false)
@@ -64,16 +65,49 @@ function validInforGerais (){
     }ativarButtonUnidadeNotificadora()
 }
 
+//FUNÇÃO PARA ATIVAR RADIO OUTROS
+
+
+
+function activeOutros(){
+
+    var tipoAcident = document.getElementById('outros');
+    var radioOutro = document.getElementById("radio_outros");
+
+    if (radioOutro.checked) {
+        tipoAcident.removeAttribute("class","d-none");
+
+       descrevaOutro = false;
+
+    } else{
+        descrevaOutro = true;
+
+        radioOutro.setAttribute("class","d-none");
+
+
+    }verificatipoAcidente()
+}
+
+
 // Data do Acidente
 var dataacidenteValid = false;
 
 $('#date_acidente').on('change', function () {
+    var arraySemana = ['Domingo','Segunda-feira','Terça-feira','Quarta-feira','Quinta-feira','Sexta-feira','Sábado']
+    var data = this.value.split('-')
+    var diaSemana = new Date(data[2],data[1],data[0]).getDay()
+
+
+    $('#dia_semana').val(arraySemana[diaSemana])
+
     if(this.value != ''){
         dataacidenteValid=true
         $('#alert_data_acidente').attr('hidden',true)
+        $('#alert_dia_semana').attr('hidden',true)
     }else{
         dataacidenteValid=false
         $('#alert_data_acidente').attr('hidden',false)
+        $('#alert_dia_semana').attr('hidden',false)
     }
     validInforGerais()
 })
@@ -110,9 +144,8 @@ function verificadiaSemana(){
     } else {
         diaSemanaValid = false;
 
-        alert_dia_semana.setAttribute('hidden', false)
-    }
-    validInforGerais()
+        alert_dia_semana.removeAttribute('hidden')
+    }validInforGerais()
 }
 
 // O Acidente ocorreu em dia de feriado *
@@ -134,17 +167,18 @@ function verificaAcidenteDiaFeriado(){
 
 
 // Município de Ocorrência do Acidente *
+
 var valorMunicipioValid = false
 function validarMunicipio(valorMunicipio){
 
-    var alert_municipio = document.getElementById("alert_municipio");
+    var alertMunicipio = document.getElementById("alert_municipio");
 
     if (valorMunicipio != ""){
         valorMunicipioValid=true
-        alert_municipio.setAttribute('hidden', true)
+        alertMunicipio.setAttribute('hidden', true)
     } else {
         valorMunicipioValid=false
-        alert_municipio.removeAttribute('hidden')
+        alertMunicipio.removeAttribute('hidden')
     }
     validInforGerais()
 }
@@ -170,41 +204,113 @@ function verificaEndrecoLocalAcidente(valor_campo_endereco){
     validInforGerais()
 }
 
-// Tipo de Acidente: *
+// BAIRRO *
 
-var tipoAcidente = false;
-var alert_tipo_acidente = document.getElementById('alert_tipo_acidente');
-function verificatipoAcidente(){
-    tipoAcidente = true
+var valorBairroValid = false
+function validarBairro(valorBairro){
 
-    if (tipoAcidente) {
-        tipoAcidente = true
-        alert_tipo_acidente.setAttribute('hidden', true)
+   var alertBairro = document.getElementById("");
+
+    if (valorBairro != ""){
+        valorBairroValid=true
+
     } else {
-        tipoAcidente = false
+        valorBairroValid=false
+
+    }
+    validInforGerais()
+}
+
+
+
+
+
+// Tipo de Acidente: select
+
+var valorTipAcidente = false
+
+function verificatipoAcidente(tipAcidente){
+
+    var alertTipAcidente = document.getElementById("alert_tipo_acidente");
+    var textAcidente = document.getElementById("text-acidente");
+    var inputAcidentOutro = document.getElementById("select_outro").value;
+
+    if (tipAcidente != "" && tipAcidente != "Outros"){
+        if(!$(textAcidente).hasClass('d-none')){
+            $(textAcidente).addClass('d-none')
+        }
+        valorTipAcidente=true
+        alert_tipo_acidente.setAttribute('hidden', true)
+    } else if (tipAcidente == "Outros"){
+        textAcidente.removeAttribute('class','d-none')
+        var re = /^[a-z \u00C0-\u00FFA-Z]{1,30}$/
+
+        valorTipAcidente
+        if(re.test(inputAcidentOutro)){
+            valorTipAcidente=true
+
+
+            alert_tipo_acidente.setAttribute('hidden', true)
+
+        } else {
+
+            valorTipAcidente=false
+            alert_tipo_acidente.removeAttribute('hidden')
+        }
+
+    }else {
+        valorTipAcidente=false
         alert_tipo_acidente.removeAttribute('hidden')
     }
     validInforGerais()
 }
 
 
-// Tipo de veiculos envolvidos no acidente: *
 
+// Tipo de veiculos envolvidos: 2
 
 var tipoVeiculoValid = false
-var alert_tipo_veiculo = document.getElementById('alert_tipo_veiculo');
-function verificatipoVeiculo(){
-    tipoVeiculoValid = true;
 
-    if (tipoVeiculoValid) {
-        tipoVeiculoValid = true
+function verificatipoVeiculo(tipVeiculo){
+
+    var alert_tipo_veiculo = document.getElementById("alert_tipo_veiculo");
+    var textVeiculo = document.getElementById("text-veiculo");
+    var inputOutrosVeiculos = document.getElementById("comment").value;
+
+    if (tipVeiculo != "" && tipVeiculo != "Outros"){
+        if(!$(textVeiculo).hasClass('d-none')){
+            $(textVeiculo).addClass('d-none')
+        }
+        tipoVeiculoValid=true
         alert_tipo_veiculo.setAttribute('hidden', true)
-    } else {
-        tipoVeiculoValid = false
+    } else if (tipVeiculo == "Outros"){
+        textVeiculo.removeAttribute('class','d-none')
+        var re = /^[a-z \u00C0-\u00FFA-Z]{1,30}$/
+
+
+        if(re.test(inputOutrosVeiculos)){
+            tipoVeiculoValid=true
+
+            alert_tipo_veiculo.setAttribute('hidden', true)
+
+        } else {
+
+            tipoVeiculoValid=false
+            alert_tipo_veiculo.removeAttribute('hidden')
+        }
+
+    }else {
+        tipoVeiculoValid=false
         alert_tipo_veiculo.removeAttribute('hidden')
     }
     validInforGerais()
 }
+
+
+
+
+
+
 
 
 
@@ -251,14 +357,12 @@ function validSeverAcident (){
         vitimaFatal == true &&
         envolvidoFeridos == true &&
         envolvidoFatal == true &&
-        lesoes == true &&
+        //lesoes == true &&
         casoObito == true
 
     ){
         $('#alert_severidade').attr('hidden',true)
-        window.scrollTo({ top: 0, behavior: 'smooth' });
         servAcidente = true
-
     } else{
         $('#alert_severidade').attr('hidden',false)
         servAcidente = false
@@ -329,10 +433,10 @@ function verificalesoes(){
     lesoes = true;
     if (lesoes) {
         lesoes = true;
-        quadroLesoes.setAttribute('hidden', true)
+      //  quadroLesoes.setAttribute('hidden', true)
     } else {
         lesoes = false;
-        quadroLesoes.removeAttribute('hidden')
+      //  quadroLesoes.removeAttribute('hidden')
     }
     validSeverAcident ()
 }
@@ -368,12 +472,19 @@ var alert_responsavel_apoio = document.getElementById('alert_responsavel_apoio')
 var equipe_acionada = document.getElementById('equipe-acionada')
 $('.reponsaveis-prestar-socorro').on('change',function () {
     var cbx = document.getElementsByClassName('reponsaveis-prestar-socorro')
+
     for (var i in cbx){
         if (cbx[i].checked){
+            if(cbx[i].value == "outros"){
+                $('#outros_row').removeClass('d-none')
+            }else{
+                $('#outros_row').addClass('d-none')
+            }
             responsavelApoio = true
             break
         }
         var responsavelApoio = false
+
     }
 
     if(responsavelApoio){
@@ -389,6 +500,20 @@ $('.reponsaveis-prestar-socorro').on('change',function () {
     }ativarButtonUnidadeNotificadora()
 })
 
+
+
+// Quem foi responsável por prestar apoio no local: *(opção outros)
+
+function toLimit(string = ""){
+    string.value = string.value.substring(0,300);
+}
+
+
+
+
+
+
+
 // ------------------------------------------- INFORMACÕES DO PACIENTE ---------------------------------------- //
 //Validação da pagina Informacoes do Paciente
 function validinfoPaciente() {
@@ -403,7 +528,6 @@ function validinfoPaciente() {
 
     ){
         $('#alert_informacoes_paciente').attr('hidden',true)
-        window.scrollTo({ top: 0, behavior: 'smooth' });
         infPaciente = true
 
     } else{
@@ -526,8 +650,6 @@ $('#endereco_paciente').on('keyup', function () {
 
 // Contato Telefônico: *
 
-
-
 var contatoTel = false
 $('#tel').mask('(00) 00000-0000')
 $('#tel').on ('keyup', function () {
@@ -541,7 +663,53 @@ $('#tel').on ('keyup', function () {
         contatoTel = false
         $('#alert_tel').attr('hidden', false)
     }
+    validinfoPaciente()
 })
+
+// CPF:
+
+var infoPacienteCpf = false
+$('#cpf').mask('000.000.000-00')
+$('#cpf').on ('keyup', function () {
+
+    var re = /^\d{3}.\d{3}.\d{3}-?\d{2}$/
+
+    if(re.test(this.value)) {
+        infoPacienteCpf = true
+
+    }else{
+        infoPacienteCpf = false
+
+    }
+
+})
+
+// CNS:
+
+var infoPacienteCns = false
+$('#cns').mask('000.0000.0000-0000')
+$('#cns').on ('keyup', function () {
+
+    var re = /^\d{3}.\d{4}.\d{4}-?\d{4}$/
+
+    if(re.test(this.value)) {
+        infoPacienteCns = true
+
+    }else{
+        infoPacienteCns = false
+
+    }
+
+})
+
+
+
+
+
+
+
+
+
 
 // ------------------------------------- OUTRAS INFORMAÇÕES SOBRE O PACIENTE ---------------------------------- //
 
@@ -608,7 +776,7 @@ function active_hospital(){
 //Validação da pagina Unidade Notificadora, alert
 
 
-
+var uniNotifi = false;
 function validinfoUnidadeNotificadora() {
     if(
         nomeInstituicao == true &&

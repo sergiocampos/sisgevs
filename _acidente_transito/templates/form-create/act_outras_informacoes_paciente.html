@@ -22,7 +22,7 @@
             <div class="row">
                 <div class="alert col-sm-12 alert-success" style="text-align: center;">
                     <strong style="align-items: center;">Hospital de Transferência</strong>
-                    <strong id="alert_hospital_transferencia" style = color:red>*</strong>
+                    <strong id="alert_hospital_transferencia" style="color:red;">*</strong>
                 </div>
             </div>
             <div class="row">
@@ -30,7 +30,7 @@
                     <action class="was-validated">
                         <label for="hospital"></label>
                         <select  onchange="verificaHospital(this)"  name="hospital" id="hospital" class="form-control" placeholder="" required>
-                            <option value="" disabled selected">Selecione</option>
+                            <option value=""selected disabled>Selecione o Hospital</option>
                             {% for hospital in hospitais %}
                             <option value="{{hospital.nome}}">{{hospital.nome}}</option>
                             {% endfor %}
@@ -49,10 +49,9 @@
             </div>
         </div>
         <div class="row">
-            <action ="/action_page.php">
+
                 <div class="col-sm-4  mx-auto">
                     <label for="comment">Comentários:</label>
                     <textarea class="form-control" rows="3" id="comment" name="informacoes_complementares"></textarea>
                 </div>
-            </action>
         </div>

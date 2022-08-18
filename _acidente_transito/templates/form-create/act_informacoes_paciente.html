@@ -28,7 +28,7 @@
     <div class="col-2 mx-auto">
         <action class="was-validated">
             <label for="dn"></label><!--dn: data de nascimento-->
-            <input type="date" id="dn" class= form-control pattern="" name="data_nasc_paciente" required>
+            <input type="date" id="dn" class= form-control pattern="" name="data_nasc_paciente"required>
             <div class="valid-feedback text-center">Correto</div>
             <div class="invalid-feedback" style="font-size: 0.7em; text-align: center">Digite ou use o mouse para informa o campo</div>
     </div>
@@ -90,7 +90,7 @@
         <div class="alert alert-success" style="text-align: center;">
             <strong style=" align-items: center;">Endereço do Paciente:</strong>
             <strong id="alert_endereco_paciente"style="color:red">*</strong>
-            <strong style="font-size:0.7em"><br>Av/Rua; Nº; Município</strong>
+            <strong style="font-size:0.7em"><br>Av/Rua; Nº; Bairro</strong>
         </div>
     </div>
 </div>
@@ -103,35 +103,57 @@
             <div class="invalid-feedback" style="font-size: 0.7em; text-align: center">Digite o endereço</div>
         </action>
     </div>
-    <div class="col-4 mb-4 mx-auto">
+</div>
+    <div class="row m-0 pt-4">
+        <div class="alert alert-success" style="text-align: center;">
+            <strong style="align-items: center;">Contato Telefônico:</strong>
+            <strong id="alert_tel"style="color:red">*</strong>
+
+        </div>
+    </div>
+        <div class="row ">
+            <div class="col-sm-3  mx-auto">
+                <action class="was-validated">
+                    <label for="tel"></label><br>
+                    <input id="tel" class="form-control" name="contato_telefonico" type="tel" pattern="^[0-9 ()-]{15}$"placeholder="(00) 00000-0000" required >
+                    <div class=" col row-1"></div>
+                    <div class="valid-feedback" style="text-align: center;font-size: 0.7em">Correto</div>
+                    <div class="invalid-feedback" style="font-size: 0.7em; text-align: center">Digite um telefone para contato</div>
+                </action>
+            </div>
+        </div>
+<div class="row m-0 pt-4">
+    <div class="alert alert-success" style="text-align: center;">
+        <strong style="align-items: center;">CPF:</strong>
+        <strong id="alert_cpf"style="color:red"></strong>
+    </div>
+</div>
+<div class="row ">
+    <div class="col-sm-3  mx-auto">
         <action class="was-validated">
-        <label for="municipio_residencia"></label>
-        <select onchange="validarMunicipio(this.value)" name="municipio_residencia" id="municipio_residencia" class="form-control" placeholder="" required>
-            <option value="" disabled selected>Selecione o Município</option>
-            {% for municipio in municipios %}
-            <option value="{{municipio.nome}}">{{municipio.nome}}</option>            
-            {% endfor %}
-        <div class="valid-feedback"></div>
-        <div class="invalid-feedback"></div>
+            <label for="cpf"></label><br>
+            <input id="cpf" class="form-control" name="cpf_paciente" type="cpf" pattern="^\d{3}.\d{3}.\d{3}-?\d{2}$"  placeholder="000.000.000-00" required >
+            <div class=" col row-1"></div>
+            <div class="valid-feedback" style="text-align: center;font-size: 0.7em">Correto</div>
+            <div class="invalid-feedback" style="font-size: 0.7em; text-align: center">CPF (OPCIONAL)</div>
         </action>
-        </select>
     </div>
 </div>
 <div class="row m-0 pt-4">
     <div class="alert alert-success" style="text-align: center;">
-        <strong style="align-items: center;">Contato Telefônico:</strong>
-        <strong id="alert_tel"style="color:red">*</strong>
+        <strong style="align-items: center;">CNS:</strong>
+        <strong id="alert_cns"style="color:red"></strong>
 
     </div>
 </div>
 <div class="row ">
     <div class="col-sm-3  mx-auto">
         <action class="was-validated">
-            <label for="tel"></label><br>
-            <input id="tel" class="form-control" name="contato_telefonico" type="tel" pattern="^[0-9 ()-]{15}$"placeholder="(00) 00000-0000" required >
+            <label for="cns"></label><br>
+            <input id="cns" class="form-control" name="cns_paciente" type="cns" pattern="^\d{3}.\d{4}.\d{4}-?\d{4}$" placeholder="000.0000.0000-0000" required >
             <div class=" col row-1"></div>
             <div class="valid-feedback" style="text-align: center;font-size: 0.7em">Correto</div>
-            <div class="invalid-feedback" style="font-size: 0.7em; text-align: center">Digite um telefone para contato</div>
+            <div class="invalid-feedback" style="font-size: 0.7em; text-align: center"> CNS (OPCIONAL)</div>
         </action>
     </div>
 </div>

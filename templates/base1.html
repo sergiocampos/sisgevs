@@ -57,7 +57,7 @@
                         <li class="nav-item">
                             <a href="/" class="nav-link">Principal</a>
                         </li>
-                        {% if user.funcao != 'gerencia_regional' and user.lista_agravos_permite %}
+                        {% if user.funcao != 'gerencia_regional' %}
                         <li class="nav-item">
                             <a href="/all_forms" class="nav-link">Notificar</a>
                         </li>
