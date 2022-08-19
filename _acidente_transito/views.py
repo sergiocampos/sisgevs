@@ -112,7 +112,3 @@ def casos_cancelados(request):
     casosCancelados = Acidente.objects.all().filter(status_caso="Cancelado")
     return render(request, 'act_casos_cancelados.html', {'regs':casosCancelados})
 
-# Cancela ou valida um caso.
-@login_required(login_url='/login')
-def cancelar_validar_caso(request, id):
-    pass

@@ -6,7 +6,9 @@
 <script src="{% static 'base/js/usuarios.js' %}" defer></script>
 
 <link rel="stylesheet" href="{% static 'base/css/virtual-select.min.css' %}" />
-
+<style>
+    
+</style>
 {% endblock head %}
 
 {% block content %}
@@ -22,58 +24,92 @@
     
     {% include 'messages/message.html' %}
     <div class="mt-3">
-        <div class="table-responsive">
-            <table class="table table-bordered">
-                <thead>
-                    <th scope="col">NOME</th>
-                    <th scope="col">TELEFONE</th>
-                    <th scope="col">MUNICIPIO</th>
-                    <th scope="col" class="text-center" colspan="{{request.user.lista_agravos_permite|length}}">AGRAVOS</th>
-                    <th scope="col">FUNÇÃO</th>
-                </thead>
-                <tbody id="table-registros">
-                    {% for usuario in usuarios %}
-                    <tr>
-                        <td>{{usuario.username}}</td>
-                        <td>{{usuario.telefone}}</td>
-                        <td>{{usuario.municipio}}</td>                        
-                        {% for agravo in request.user.lista_agravos_permite %}
+        <table class="table table-bordered">
+            <thead>
+                <th scope="col">NOME</th>
+                <th scope="col">TELEFONE</th>
+                <th scope="col">MUNICIPIO</th>
+                <th scope="col">AGRAVOS (** Solicitação)</th>
+                <th scope="col">FUNÇÃO</th>
+            </thead>
+            <tbody id="table-registros">
+                {% for usuario in usuarios %}
+                <tr class="align-middle">
+                    <td>{{usuario.username}}</td>
+                    <td>{{usuario.telefone}}</td>
+                    <td>{{usuario.municipio}}</td>                        
+                    <td class="text-center">
                         
-                        <td class="">
-                            {% if agravo == 'esp-hum' %}
-                                
-                                {% if usuario.esp_hum %}
-                                <input type="checkbox" class="form-check-input checkAgravo" name="esp-hum" id="{{usuario.id}}" value="esp-hum" checked>
-                                {% else %}
-                                <input type="checkbox" class="form-check-input checkAgravo" name="esp-hum" id="{{usuario.id}}" value="esp-hum">
-                                {% endif %}
-                                <label class="form-check-label" for="{{usuario.id}}">Esporotricose Humana</label>
+                        <select class="agravos-select" id="{{usuario.id}}" multiple name="native-select" placeholder="Selecione os Agravos" data-search="true" data-silent-initial-value-set="true">
+                        {% for agravo in request.user.lista_agravos_permite %}        
+                        {% if agravo == 'esp-hum' %}
+                        
+                            {% if usuario.esp_hum %}
+                            <option value="esp-hum" selected>Esporotricose Humana</option>
+                            {% else %}
+                            <option value="esp-hum">
                                 {% if usuario.esp_hum_solicit %}
-                                <span class="badge bg-danger">Solicitação</span>
-                                {% endif %}                                
-
-                            {% elif agravo == 'act' %}
-                                
-                                {% if usuario.act %}
-                                <input type="checkbox" class="form-check-input checkAgravo" name="act" id="{{usuario.id}}" value="act" checked>
-                                {% else %}
-                                <input type="checkbox" class="form-check-input checkAgravo" name="act" id="{{usuario.id}}" value="act">
-                                {% endif %}
-                                <label class="form-check-label" for="{{usuario.id}}">Acidentes de Trânsito</label>
-                                {% if usuario.act_solicit %}
-                                <span class="badge bg-danger">Solicitação</span>
-                                {% endif %}                                
-
+                                <strong style="color: red !important">**</strong>
+                                {% endif %} 
+                                Esporotricose Humana
+                            </option>
                             {% endif %}
-                        </td>
-
+                            
+                        {% elif agravo == 'act' %}
+                            
+                            {% if usuario.act %}
+                            <option value="act" selected>Acidentes de Transito</option>
+                            {% else %}
+                            <option value="act">
+                                {% if usuario.act_solicit %}
+                                <strong style="color: red !important">**</strong>
+                                {% endif %}
+                                Acidentes de Transito
+                            </option>                                                           
+                            {% endif %} 
+                            
+                        {% endif %}
                         {% endfor %}
-                        <td>{{usuario.funcao}}</td>
-                    </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-        </div>
+                        </select>    
+                    </td>
+                    
+                    
+                    <!-- 
+                    {% for agravo in request.user.lista_agravos_permite %}
+                    <td class="">
+                        {% if agravo == 'esp-hum' %}
+                            
+                            {% if usuario.esp_hum %}
+                            <input type="checkbox" class="form-check-input checkAgravo" name="esp-hum" id="{{usuario.id}}" value="esp-hum" checked>
+                            {% else %}
+                            <input type="checkbox" class="form-check-input checkAgravo" name="esp-hum" id="{{usuario.id}}" value="esp-hum">
+                            {% endif %}
+                            <label class="form-check-label" for="{{usuario.id}}">Esporotricose Humana</label>
+                            {% if usuario.esp_hum_solicit %}
+                            <span class="badge bg-danger">Solicitação</span>
+                            {% endif %}                                
+
+                        {% elif agravo == 'act' %}
+                            
+                            {% if usuario.act %}
+                            <input type="checkbox" class="form-check-input checkAgravo" name="act" id="{{usuario.id}}" value="act" checked>
+                            {% else %}
+                            <input type="checkbox" class="form-check-input checkAgravo" name="act" id="{{usuario.id}}" value="act">
+                            {% endif %}
+                            <label class="form-check-label" for="{{usuario.id}}">Acidentes de Trânsito</label>
+                            {% if usuario.act_solicit %}
+                            <span class="badge bg-danger">Solicitação</span>
+                            {% endif %}                                
+
+                        {% endif %}
+                    </td>
+                    {% endfor %} -->
+                    <td>{{usuario.funcao}}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
     </div>    
 </div>
 {% endblock content %}
@@ -82,7 +118,7 @@
 <script src="{% static 'base/js/virtual-select.min.js' %}"></script>
 <script>
     VirtualSelect.init({
-        ele: '#agravos-select'
+        ele: '.agravos-select'
     });
 </script>
 {% endblock endbody %}

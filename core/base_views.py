@@ -322,21 +322,16 @@ def alter_user(data):
     
     # Alterar permissão de agravos.
     if data['alterar_agravo']:
-        if data['checked']:
-            if data['agravo'] in obj_user.lista_agravos_possivel:
-                obj_user.lista_agravos_possivel.remove(data['agravo'])
-            
-            obj_user.lista_agravos_permite.append(data['agravo'])
+        obj_user.lista_agravos_permite = data['agravos']
+        for agravo in obj_user.lista_agravos_permite:
+            if agravo in obj_user.lista_agravos_possivel:
+                obj_user.lista_agravos_possivel.remove(agravo)
         
-        elif not data['checked']:
-            obj_user.lista_agravos_permite.remove(data['agravo'])
-
-        obj_user.save()
-
     # Alterar função.
     elif data['alterar_funcao']:
         obj_user.funcao = data['funcao']
-        obj_user.save()
+        
+    obj_user.save()
     
     return JsonResponse({"response":203})
 

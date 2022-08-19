@@ -10,12 +10,12 @@ const sendRequest = (data) => {
         }
     })
 }
+
 // Altera os agravos permitidos de um usuário.
-$('.checkAgravo').on('change', function(){
+$('.agravos-select').on('change', function(){
     var id = this.id;
-    var agravo = this.value;
-    var checked = this.checked;
-    data = {'alterar_agravo':true, 'id':id, 'agravo':agravo, 'checked':checked}
+    var agravos = this.value;
+    data = {'alterar_agravo':true, 'id':id, 'agravos':agravos}
     sendRequest(data)
 })
 
