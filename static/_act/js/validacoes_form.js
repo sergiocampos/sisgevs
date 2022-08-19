@@ -93,11 +93,9 @@ function activeOutros(){
 var dataacidenteValid = false;
 
 $('#date_acidente').on('change', function () {
-    var arraySemana = ['Domingo','Segunda-feira','Terça-feira','Quarta-feira','Quinta-feira','Sexta-feira','Sábado']
-    var data = this.value.split('-')
-    var diaSemana = new Date(data[2],data[1],data[0]).getDay()
-
-
+    var arraySemana = ['Segunda-feira','Terça-feira','Quarta-feira','Quinta-feira','Sexta-feira','Sábado','Domingo']
+    var diaSemana = new Date(this.value).getDay()    
+    
     $('#dia_semana').val(arraySemana[diaSemana])
 
     if(this.value != ''){

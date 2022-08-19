@@ -11,13 +11,13 @@
   <div class="row">
     <div class="mt-3">
       <div class="alert alert-primary" style="text-align: center;">
-        <h1 class="fs-4">Notificações-ACT</h1>
+        <h1 class="fs-4">Notificações Canceladas | ACT</h1>
       </div>
       <div class="row">
         <div class="col-md-4 mb-3">
           <input class="form-control" type="text" id="pesquisar-registros" placeholder="digite algo para pesquisar">
         </div>
-        <form class="col" enctype="multipart/form-data" action="/act/export-data-xlsx/" method="get">
+        <form class="col" enctype="multipart/form-data" action="/act/export_casos_cancelados/" method="get">
           {% csrf_token %}
           <div class="row">
             <div class="col mb-3">
@@ -73,21 +73,15 @@
                 <td>{{caso.hospital}}</td>
                 <td>{{caso.contato_telefonico}}</td>
                 <td>
-                  <a href="/act/editar-caso/{{caso.id}}">
-                    <button type="button" class="btn btn-outline-primary btn-sm">Editar</button>
-                  </a>
-                  <a href="/act/visualizar-caso/{{caso.id}}">
-                    <button type="button" class="btn btn-outline-secondary btn-sm">Visualizar</button>
-                  </a>
                   <a href="/act/casos-cancelados/{{caso.id}}">
-                    <button type="button" class="btn btn-outline-warning btn-sm">Cancelar</button>
+                    <button type="button" class="btn btn-outline-success btn-sm">Validar</button>
                   </a>
                 </td>
               </tr>
               {% endfor %}
             {% else %}
             <tr class="text-center">
-              <td colspan="9"> Nenhum registro de acidentes de trânsito. </td>
+              <td colspan="9"> Nenhum registro de acidentes de trânsito cancelado. </td>
             </tr>
             {% endif %}
             </tbody>

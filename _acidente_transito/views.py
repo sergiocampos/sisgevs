@@ -104,3 +104,15 @@ def visualizar_caso(request, id):
     else:
         message = messages.error(request, "Vocẽ não tem permissão para visualizar este caso.")
         return redirect("/act/my-datas", messages=message)
+
+
+# Renderiza pagina de casos cancelados
+@login_required(login_url='/login')
+def casos_cancelados(request):
+    casosCancelados = Acidente.objects.all().filter(status_caso="Cancelado")
+    return render(request, 'act_casos_cancelados.html', {'regs':casosCancelados})
+
+# Cancela ou valida um caso.
+@login_required(login_url='/login')
+def cancelar_validar_caso(request, id):
+    pass

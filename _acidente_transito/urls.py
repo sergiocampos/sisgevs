@@ -13,6 +13,7 @@ urlpatterns = [
     path('editar-caso/submit/<int:id>', views.set_editar_caso, name="set_editar_caso"),
     path('export-data-xlsx/', base_views.export_data_excel, name='export_data_xlsx'),
     path("visualizar-caso/<int:id>", views.visualizar_caso, name="visualizar_caso"),
-    # TODO: visualizar-caso
-    # TODO: casos-cancelados
+    path('casos_cancelados/', views.casos_cancelados, name='casos_cancelados'),
+    path('casos-cancelados/<int:id>', base_views.cancelar_caso, name='cancelar_validar_caso'),
+    path('export_casos_cancelados/', base_views.export_data_excel, name="export_casos_cancelados"),
 ]
