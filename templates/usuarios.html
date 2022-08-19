@@ -4,6 +4,9 @@
 {% block head %}
 <link rel="stylesheet" href="{% static '_esporotricose_humana/css/registros.css' %}">
 <script src="{% static 'base/js/usuarios.js' %}" defer></script>
+
+<link rel="stylesheet" href="{% static 'base/css/virtual-select.min.css' %}" />
+
 {% endblock head %}
 
 {% block content %}
@@ -33,11 +36,10 @@
                     <tr>
                         <td>{{usuario.username}}</td>
                         <td>{{usuario.telefone}}</td>
-                        <td>{{usuario.municipio}}</td>
-
+                        <td>{{usuario.municipio}}</td>                        
                         {% for agravo in request.user.lista_agravos_permite %}
                         
-                        <td class="">                            
+                        <td class="">
                             {% if agravo == 'esp-hum' %}
                                 
                                 {% if usuario.esp_hum %}
@@ -72,6 +74,15 @@
                 </tbody>
             </table>
         </div>
-    </div>
+    </div>    
 </div>
 {% endblock content %}
+
+{% block endbody %}
+<script src="{% static 'base/js/virtual-select.min.js' %}"></script>
+<script>
+    VirtualSelect.init({
+        ele: '#agravos-select'
+    });
+</script>
+{% endblock endbody %}
