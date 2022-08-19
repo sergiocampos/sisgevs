@@ -287,7 +287,7 @@ def usuarios(request, id=None):
         
         # Alterando no banco.
         elif request.method == "POST":
-            data = json.loads(request.POST.get('data'))
+            data = json.loads(request.POST.get('data'))            
             return alter_user(data)
             
 
@@ -323,7 +323,15 @@ def alter_user(data):
     
     # Alterar permissão de agravos.
     if data['alterar_agravo']:
-        obj_user.lista_agravos_permite = data['agravos']
+
+        print(data['agravos'])
+        if data['agravos'] == []:
+            for agravo in data['req_user_agravos']:
+                try: obj_user.lista_agravos_permite.remove(agravo)
+                except: continue
+        else:
+            obj_user.lista_agravos_permite = data['agravos']
+
         for agravo in obj_user.lista_agravos_permite:
             if agravo in obj_user.lista_agravos_possivel:
                 obj_user.lista_agravos_possivel.remove(agravo)

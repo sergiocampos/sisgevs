@@ -15,8 +15,10 @@ const sendRequest = (data) => {
 $('.agravos-select').on('change', function(){
     var id = this.id;
     var agravos = this.value;
-    data = {'alterar_agravo':true, 'id':id, 'agravos':agravos}
-    sendRequest(data)
+    var req_user_agravos = document.getElementById('req_user_agravos').value;
+    req_user_agravos = req_user_agravos.replace("[", '').replace("]",'').replaceAll("'","").replaceAll(' ','').split(',')
+    data = {'alterar_agravo':true, 'id':id, 'agravos':agravos, 'req_user_agravos':req_user_agravos};
+    sendRequest(data);
 })
 
 // Altera a função de um usuário. 

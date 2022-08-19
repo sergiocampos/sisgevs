@@ -7,7 +7,7 @@
 
 <link rel="stylesheet" href="{% static 'base/css/virtual-select.min.css' %}" />
 <style>
-    
+    .vscomp-clear-button{display: none !important;}
 </style>
 {% endblock head %}
 
@@ -23,6 +23,7 @@
     </div>
     
     {% include 'messages/message.html' %}
+    <input type="hidden" id="req_user_agravos" value="{{user.lista_agravos_permite}}">
     <div class="mt-3">
         <table class="table table-bordered">
             <thead>
@@ -73,15 +74,21 @@
                         </select>    
                     </td>                 
                     <td>
-                        <select class="funcoes-select form-select" id="{{usuario.id}}">
-                        {% for funcao in funcoes %}
+                        <select class="funcoes-select" id="{{usuario.id}}" name="native-select" placeholder="Selecione a Função" data-search="true" data-silent-initial-value-set="true">                        
+                        {% for funcao in funcoes %}                        
+                        {% if user.lista_agravos_permite %}
                             {% if funcao.value == usuario.funcao %}
                             <option value="{{funcao.value}}" selected>{{funcao.name}}</option>
                             {% else %}
                             <option value="{{funcao.value}}">{{funcao.name}}</option>
                             {% endif %}
+                        {% else %}
+                            {% if funcao.value == usuario.funcao %}
+                            <option value="{{funcao.value}}" selected>{{funcao.name}}</option>
+                            {% endif %}                        
+                        {% endif %}
                         {% endfor %}
-                        </select>
+                        </select>                        
                     </td>
                 </tr>
                 {% endfor %}
@@ -95,8 +102,14 @@
 {% block endbody %}
 <script src="{% static 'base/js/virtual-select.min.js' %}"></script>
 <script>
+    // Select de agravos
     VirtualSelect.init({
         ele: '.agravos-select'
     });
+    // Select de funções
+    VirtualSelect.init({
+        ele: '.funcoes-select',
+        delete: false
+    });        
 </script>
 {% endblock endbody %}
