@@ -354,9 +354,9 @@ function validSeverAcident (){
     if(
         vitimaFatal == true &&
         envolvidoFeridos == true &&
-        envolvidoFatal == true &&
+        envolvidoFatal == true
         //lesoes == true &&
-        casoObito == true
+       // casoObito == true
 
     ){
         $('#alert_severidade').attr('hidden',true)
@@ -752,6 +752,7 @@ function active_hospital(){
         alert_pac_envolvido.removeAttribute('hidden');        
         alert_outros_paciente.removeAttribute('hidden')
         validPacientEnvolvido = false;
+        hospitalTransferencia = false;
 
     } else{
         validPacientEnvolvido = true;
@@ -759,6 +760,7 @@ function active_hospital(){
         document.getElementById('hospital').value=''
         alert_hospital_transferencia.removeAttribute('hidden')
         alert_outros_paciente.setAttribute('hidden', true)
+        hospitalTransferencia = true;
     }
 }
 
