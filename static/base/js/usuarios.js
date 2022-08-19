@@ -21,9 +21,9 @@ $('.agravos-select').on('change', function(){
 
 // Altera a função de um usuário. 
 // TODO: ESCREVER O HTML.
-$('.listaFuncoes').on('change', function(){
+$('.funcoes-select').on('change', function(){
     var id = this.id;
     var funcao = this.value;
-    data = {'alterar_funcao':true, "id":id, "funcao":funcao}
-    sendRequest(data)
+    data = {'alterar_agravo':false, 'alterar_funcao':true, "id":id, "funcao":funcao}
+    sendRequest(data)    
 })

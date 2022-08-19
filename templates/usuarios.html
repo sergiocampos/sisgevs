@@ -71,40 +71,18 @@
                         {% endif %}
                         {% endfor %}
                         </select>    
-                    </td>
-                    
-                    
-                    <!-- 
-                    {% for agravo in request.user.lista_agravos_permite %}
-                    <td class="">
-                        {% if agravo == 'esp-hum' %}
-                            
-                            {% if usuario.esp_hum %}
-                            <input type="checkbox" class="form-check-input checkAgravo" name="esp-hum" id="{{usuario.id}}" value="esp-hum" checked>
+                    </td>                 
+                    <td>
+                        <select class="funcoes-select form-select" id="{{usuario.id}}">
+                        {% for funcao in funcoes %}
+                            {% if funcao.value == usuario.funcao %}
+                            <option value="{{funcao.value}}" selected>{{funcao.name}}</option>
                             {% else %}
-                            <input type="checkbox" class="form-check-input checkAgravo" name="esp-hum" id="{{usuario.id}}" value="esp-hum">
+                            <option value="{{funcao.value}}">{{funcao.name}}</option>
                             {% endif %}
-                            <label class="form-check-label" for="{{usuario.id}}">Esporotricose Humana</label>
-                            {% if usuario.esp_hum_solicit %}
-                            <span class="badge bg-danger">Solicitação</span>
-                            {% endif %}                                
-
-                        {% elif agravo == 'act' %}
-                            
-                            {% if usuario.act %}
-                            <input type="checkbox" class="form-check-input checkAgravo" name="act" id="{{usuario.id}}" value="act" checked>
-                            {% else %}
-                            <input type="checkbox" class="form-check-input checkAgravo" name="act" id="{{usuario.id}}" value="act">
-                            {% endif %}
-                            <label class="form-check-label" for="{{usuario.id}}">Acidentes de Trânsito</label>
-                            {% if usuario.act_solicit %}
-                            <span class="badge bg-danger">Solicitação</span>
-                            {% endif %}                                
-
-                        {% endif %}
+                        {% endfor %}
+                        </select>
                     </td>
-                    {% endfor %} -->
-                    <td>{{usuario.funcao}}</td>
                 </tr>
                 {% endfor %}
             </tbody>

@@ -253,6 +253,7 @@ def usuarios(request, id=None):
                     
             # Separando os usuários com nivel hierarquico menor que o user.
             usuarios_lista = get_user_model().objects.all().filter(numero_hierarquia__gt=user_hierarquia).order_by('id')
+            funcoes = lista_funcoes(user_hierarquia)
             
             # Filtrando usuários que tem acesso ao agravo que o user gerencia.
             usuarios = []
@@ -282,7 +283,7 @@ def usuarios(request, id=None):
                 
                 usuarios.append(user_dict)
 
-            return render(request, 'usuarios.html', {'usuarios':usuarios})
+            return render(request, 'usuarios.html', {'usuarios':usuarios, 'funcoes':funcoes})
         
         # Alterando no banco.
         elif request.method == "POST":
@@ -361,6 +362,21 @@ def hierarchy_has_change():
     
     return has_change
 
+# Função que retorna uma lista de funcoes abaixo da hierarquia enviada.
+def lista_funcoes(n):
+    hierarquia = {
+        1:{'value':'admin', "name":"Admin"},
+        2:{'value':'gerencia_executiva', "name":"Gerência Executiva"},
+        3:{'value':'gerencia_operacional', "name":"Gerência Operacional"},
+        4:{'value':'chefia_nucleo', "name":"Chefia de Núcleo"},
+        5:{'value':'area_tecnica', "name":"Área Técnica"},
+        6:{'value':'gerencia_regional', "name":"Gerência Regional"},
+        7:{'value':'municipal', "name":"Municipal"},
+        8:{'value':'autocadastro', "name":"Autocadastro"},
+    }
+    
+    return [hierarquia[i] for i in range(n, 9)]        
+    
 
 # Função para permitir todos os agravos ao admin caso ainda nao tenha.
 def admin_has_change():
