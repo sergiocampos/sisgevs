@@ -1,7 +1,7 @@
 from django.urls import path
 
-from . import views
 from core import base_views
+from . import views
 
 app_name = '_acidente_transito'
 

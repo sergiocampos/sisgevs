@@ -1,14 +1,19 @@
-from django.forms import ValidationError
-from django.shortcuts import redirect, render
-from django.urls import reverse_lazy
-from django.views.generic.edit import CreateView
-from .forms import CustomUserCreationForm
+
+from django.contrib.auth import (authenticate, login, logout, update_session_auth_hash)
 from django.contrib.auth.password_validation import validate_password
-from core.models import Municipio
-from django.contrib import messages
-from .models import User
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth.hashers import make_password
+from django.views.decorators.csrf import csrf_protect
 from core.base_views import AGRAVOS as agravos
+from django.shortcuts import redirect, render
+from django.forms import ValidationError
+from django.contrib import messages
+from core.models import Municipio
+from django.conf import settings
+from .models import User
+import urllib
+import json
 
 # Create your views here.
 
@@ -61,3 +66,72 @@ def signup(request, template_name='signup.html'):
 		
 	municipios = Municipio.objects.all()
 	return render(request, template_name, {'municipios': municipios, 'agravos':agravos})
+
+
+def login_page(request):
+	storage = messages.get_messages(request)
+	storage.used = True
+	return render(request, 'login_page.html')
+
+
+@csrf_protect
+def login_submit(request):
+	if request.POST:
+		username = request.POST.get('username')
+		password = request.POST.get('password')
+
+		user = authenticate(username = username, password = password)
+
+		
+		''' Begin reCAPTCHA validation '''
+		recaptcha_response = request.POST.get('g-recaptcha-response')
+		url = 'https://www.google.com/recaptcha/api/siteverify'
+		values = {
+				'secret': settings.GOOGLE_RECAPTCHA_SECRET_KEY,
+				'response': recaptcha_response
+			}
+		data = urllib.parse.urlencode(values).encode()
+		req =  urllib.request.Request(url, data=data)
+		response = urllib.request.urlopen(req)
+		result = json.loads(response.read().decode())
+		''' End reCAPTCHA validation '''
+		if result['success']:
+			if user is not None:
+				login(request, user)
+				#return redirect('/all_forms/')
+				return redirect('/')
+			else:
+				messages.error(request, 'Senha ou usuário inválidos.')
+				return render(request, 'login_page.html')
+
+			#form.save()
+			messages.success(request, 'New comment added with success!')
+
+		else:
+			messages.error(request, 'CAPTCHA inválido. Tente novamente.')
+		
+			#messages.error(request, 'Usuário e/ou senha inválido!')
+	return redirect('/login/')
+
+
+@login_required(login_url='/login/')
+def logout_user(request):
+    logout(request)
+    return redirect('/')
+
+
+@login_required
+def change_password(request):
+	if request.method == 'POST':
+		form = PasswordChangeForm(request.user, request.POST)
+		if form.is_valid():
+			user = form.save()
+			update_session_auth_hash(request, user)
+			messages.success(request, ('Your password was successfully updated!'))
+			return redirect('/all_forms/')
+		else:
+			messages.error(request, ('Please correct the error below.'))
+	else:
+		form = PasswordChangeForm(request.user)
+	return render(request, 'change_password.html', {'form': form})
+	

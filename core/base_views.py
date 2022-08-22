@@ -1,11 +1,10 @@
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.csrf import csrf_exempt
+from django.http import HttpResponse, JsonResponse
 from django.contrib.auth import get_user_model
 from django.shortcuts import redirect, render
 from django.core.paginator import Paginator
-from django.http import HttpResponse, JsonResponse
 from django.db.models import Q
-
 from io import BytesIO
 import pandas as pd
 import json
@@ -221,8 +220,7 @@ def cancelar_caso(request, id):
     if registro[0]['status_caso'] == 'Cancelado':
         agravo.filter(id=id).update(status_caso=None)
     
-    # Caso esteja habilitado, cancela o caso.
-    else:		
+    else: # Caso esteja habilitado, cancela o caso.
         agravo.filter(id=id).update(status_caso='Cancelado')
 
     return redirect(redirect_url)
