@@ -1,4 +1,12 @@
 {% extends 'base1.html' %}
+{% load static %}
+
+{% block head %}
+<link rel="stylesheet" href="{% static 'base/css/virtual-select.min.css' %}" />
+<style>
+    .vscomp-ele{max-width: 350px;}
+</style>
+{% endblock head %}
 
 {% block nav %}
 <ul class="navbar-nav">
@@ -66,19 +74,29 @@
                     </div>                    
                 </div>
                 
-                <div class="row justify-content-center align-middle text-center mt-3">
+                <div class="row text-center mt-5"><span class="alert alert-info"><strong>Escolha os agravos que deseja notificar</strong></span></div>
+                <hr>
+                <div align="center">
+                    <select id="agravos-select" multiple name="agravos-select" placeholder="Selecione os Agravos" data-search="true" data-silent-initial-value-set="true">
+                        {% for agravo in agravos %}
+                        <option value="{{agravo.value}}">{{agravo.name}}</option>
+                        {% endfor %}
+                    </select>
+                </div>  
+
+                <!-- <div class="row justify-content-center align-middle text-center mt-3">
                     <div class="row"><span class="alert alert-info"><strong>Escolha os agravos que deseja notificar</strong></span></div>
                     <hr>
                     <div class="col mt-3">
-                        <input type="checkbox" class="form-check-input" name="esp-hum" value="esp-hum">
-                        <label for="mostrar-senha" class="form-check-label">Esporotricose Humana</label>
+                        <input type="checkbox" class="form-check-input" id="esp-hum" name="esp-hum" value="esp-hum">
+                        <label for="esp-hum" class="form-check-label">Esporotricose Humana</label>
                     </div>
                     <div class="col mt-3 mb-3">
-                        <input type="checkbox" class="form-check-input" name="act" value="act">
-                        <label for="mostrar-senha" class="form-check-label">Acidentes de Trânsito</label>
+                        <input type="checkbox" class="form-check-input" id="act" name="act" value="act">
+                        <label for="act" class="form-check-label">Acidentes de Trânsito</label>
                     </div>
-                    
-                </div>
+                </div>-->
+
                 <hr>
                 <div class="mt-4 text-center">
                     <div class="d-grid gap-2 d-md-block">
@@ -88,7 +106,16 @@
             </form>
         </div>
 </div>
+
+{% endblock content %}
+{% block endbody %}
+<script src="{% static 'base/js/virtual-select.min.js' %}"></script>
 <script>
+    // Select de agravos
+    VirtualSelect.init({
+        ele: '#agravos-select'
+    });
+
     function mostrarSenha(input){
         if (input.checked == true) {
             document.getElementById('password1').type = "text";
@@ -99,4 +126,4 @@
         };
     };
 </script>
-{% endblock content %}
+{% endblock endbody %}

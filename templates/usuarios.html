@@ -39,9 +39,13 @@
                     <td>{{usuario.username}}</td>
                     <td>{{usuario.telefone}}</td>
                     <td>{{usuario.municipio}}</td>                        
-                    <td class="text-center">
-                        
+                    <td>
+                        {% if usuario.esp_hum_solicit or usuario.act_solicit %}
+                        <select class="agravos-select" id="{{usuario.id}}" multiple name="native-select" placeholder="** Selecione os Agravos" data-search="true" data-silent-initial-value-set="true">
+                        {% else %}
                         <select class="agravos-select" id="{{usuario.id}}" multiple name="native-select" placeholder="Selecione os Agravos" data-search="true" data-silent-initial-value-set="true">
+                        {% endif %}
+
                         {% for agravo in request.user.lista_agravos_permite %}        
                         {% if agravo == 'esp-hum' %}
                         

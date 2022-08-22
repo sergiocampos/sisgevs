@@ -111,4 +111,3 @@ def visualizar_caso(request, id):
 def casos_cancelados(request):
     casosCancelados = Acidente.objects.all().filter(status_caso="Cancelado")
     return render(request, 'act_casos_cancelados.html', {'regs':casosCancelados})
-

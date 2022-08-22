@@ -17,7 +17,10 @@ from .models import *
 
 
 # Lista de todos os agravos.
-AGRAVOS = ['esp-hum', 'act']
+AGRAVOS = [
+    {"name":"Esporotricose Humana", "value": "esp-hum" },
+    {"name":"Acidentes de Trânsito", "value":"act"},
+]
 
 # KEY: AGRAVO URL | VALUE: DADOS DO AGRAVO
 AGRAVOS_DADOS = {
@@ -392,7 +395,7 @@ def admin_has_change():
     has_change = False
     if admin_sem_agravos:
         for user in admin_sem_agravos:        
-            user.lista_agravos_permite = AGRAVOS
+            user.lista_agravos_permite = [agravo['value'] for agravo in AGRAVOS]
             user.save()
             has_change = True
     
