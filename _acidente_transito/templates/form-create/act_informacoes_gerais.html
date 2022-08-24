@@ -3,6 +3,7 @@
         <div class="alert alert-success" style="text-align: center;">
             <strong style="align-items: center;">Data do Acidente</strong>
             <strong id= "alert_data_acidente" style="color:red">*</strong></i>
+
         </div>
     </div>
 </div>
@@ -161,12 +162,12 @@
 </div>
 <div class="row d-none" id="text-acidente">
     <div class="col-sm-4 mx-auto ">
-        <action class="was-validated">
+
         <div class="callout"></div>
         <label for="select_outro"></label>
         <input class="form-control" onkeyup="verificatipoAcidente('Outros')" style="text-align: center;font-size: 0.9em" placeholder="Digite aqui, por favor" id="select_outro"  pattern="^[a-z \u00C0-\u00FFA-Z]{1,30}$" name="tipo_acidente_outros">
-        <div class="invalid-feedback" style="font-size: 0.8em; text-align: center">Especifique neste campo o tipo de acidente, por favor.</div><div class="valid-feedback" style="text-align: center;font-size: 0.7em">Obrigado</div>
-        </action>
+        <div class="invalid-feedback" style="font-size: 0.8em; text-align: center">Especifique neste campo o tipo de acidente, por favor.</div><div class="valid-feedback" style="text-align: center;font-size: 0.7em"></div>
+
     </div>
 
 </div>
@@ -179,6 +180,7 @@
     <div class="alert col-sm-12 alert-success" style="text-align: center;">
         <strong style="align-items: center;">Tipo de veiculos envolvidos no acidente:</strong>
         <strong id="alert_tipo_veiculo"style="color:red">*</strong>
+        <span hidden></span>
     </div>
 </div>
 
@@ -210,12 +212,12 @@
 </div>
 <div class="row d-none" id="text-veiculo" >
     <div class="col-sm-4 mx-auto ">
-        <action class="was-validated">
+
             <div class="callout"></div>
             <label for="comment"></label>
             <input class="form-control" onkeyup="verificatipoVeiculo('Outros')" style="text-align: center;font-size: 0.8em" placeholder="Digite aqui, por favor" rows="3" id="comment" name="tipos_veiculos_envolvidos_outros"  pattern="[a-z \u00C0-\u00FFA-Z]{0,30}$" />
-            <div class="invalid-feedback" style="font-size: 0.8em; text-align: center">Especifique neste campo o tipo de veículo, por favor.</div><div class="valid-feedback" style="text-align: center;font-size: 0.7em">Obrigado</div>
-        </action>
+            <div class="invalid-feedback" style="font-size: 0.8em; text-align: center">Especifique neste campo o tipo de veículo, por favor.</div><div class="valid-feedback" style="text-align: center;font-size: 0.7em"></div>
+
     </div>
 
 </div>

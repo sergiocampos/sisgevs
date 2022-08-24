@@ -2,6 +2,7 @@
     <div class="alert col-sm-12 alert-success" style="text-align: center;">
         <strong style="align-items: center;">Houve Vítimas Fatais:</strong>
         <strong id="alert_houve_vitimas_fatais" style="color:red">*</strong></i>
+        <span hidden></span>
     </div>
 </div>
 
@@ -30,6 +31,7 @@
     <div class="alert col-sm-12 alert-success" style="text-align: center;">
         <strong style="align-items: center;">Número de Vítimas Fatais envolvidas no Acidente:</strong>
         <strong  id="alert_qtd_vitima_fatal" style="color:red">*</strong>
+        <span hidden></span>
     </div>
     <div class="col-1 mt-3 mx-auto">
         <input type="number" onchange="verificaNumeros(this, 'vitimasFatais')" class="form-control form-control-sm" min="0" max="100" name="numero_vitimas_fatais" value="{{caso.numero_vitimas_fatais}}">
@@ -42,6 +44,7 @@
     <div class="alert col-sm-12 mt-3 alert-success" style="text-align: center;">
         <strong style="align-items: center;">Número de Feridos envolvidos no Acidente:</strong>
         <strong id="alert_envolvidos_feridos" style="color:red">*</strong>
+        <span hidden></span>
     </div>
 </div>
 
@@ -58,6 +61,7 @@
         <strong style="align-items: center;">Quadro de lesões:</strong>
         <strong id="quadroLesoes" style="color:red"></strong>
         <strong style="font-size:0.8em">(Opcional)</strong>
+
     </div>
 </div>
 <div class="mb-3 row mt-3 text-center">
@@ -100,6 +104,7 @@
     <div class="alert col-sm-12 alert-success" style="text-align: center;">
         <strong  style="align-items: center;">Em caso de Óbito:</strong>
         <strong style="font-size:0.8em">(Opcional)</strong>
+
     </div>
 </div>
 <div class="mb-3 row mt-4 text-center">

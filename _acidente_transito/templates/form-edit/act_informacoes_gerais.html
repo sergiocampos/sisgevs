@@ -3,6 +3,7 @@
         <div class="alert alert-success" style="text-align: center;">
             <strong style="align-items: center;">Data do Acidente</strong>
             <strong id= "alert_data_acidente" style="color:red">*</strong></i>
+            <span hidden></span>
         </div>
     </div>
 </div>
@@ -21,6 +22,7 @@
             <div class="alert alert-success" style="text-align: center;">
                 <strong style="align-items: center;">Período do dia</strong>
                 <strong id="alert_periodo_dia" style="color:red">*</strong></i>
+                <span hidden></span>
             </div>
         </div>
 </div>
@@ -57,6 +59,7 @@
         <div class="alert alert-success" style="text-align: center;">
             <strong style="align-items: center;">Em que dia da semana ocorreu o acidente</strong>
             <strong id= alert_dia_semana style="color:red">*</strong></i>
+            <span hidden></span>
         </div>
     </div>
 </div>
@@ -73,6 +76,7 @@
     <div class="alert col-sm-12 alert-success" style="text-align: center;">
         <strong style="align-items: center;">O Acidente ocorreu em dia de feriado</strong>
         <strong id="alert_acidente_dia_feriado" style="color:red">*</strong></i>
+        <span hidden></span>
     </div>
 </div>
 <div class="mb-3 row mt-4 text-center">
@@ -100,6 +104,7 @@
     <div class="alert col-sm-12 alert-success" style="text-align: center;">
     <strong style="align-items: center;">Município de Ocorrência do Acidente</strong>
         <strong id="alert_municipio"style="color:red">*</strong></i>
+        <span hidden></span>
     </div>
 </div>
 <div class="row mt-3">
@@ -124,6 +129,7 @@
     <div class="alert col-sm-12 alert-success" style="text-align: center;">
         <strong style="align-items: center;">Endereço do local do Acidente:</strong>
         <strong id="alert_endereco_acidente" style="color:red">*</strong></i>
+        <span hidden></span>
     </div>
     <div class="col-3 mb-4 mx-auto">
         <action class="was-validated">
@@ -157,6 +163,7 @@
     <div class="alert col-sm-12 alert-success" style="text-align: center;">
         <strong style="align-items: center;">Tipo de Acidente:</strong>
         <strong id="alert_tipo_acidente"style="color:red">*</strong></i>
+        <span hidden></span>
     </div>
 </div>
 <div class="row mt-3">
@@ -204,7 +211,7 @@
 <div class="row sm-0 mt-1">
     <div class="" style="text-align: center;">
         <strong style="align-items: center;"></strong>
-        <strong id="alert_tipoOutros" style="color:r"></strong>
+        <strong id="alert_tipoOutros" style="color:""></strong>
     </div>
 </div>
 {% if caso.tipo_acidente == 'Outros' %}
@@ -213,12 +220,12 @@
 <div class="row d-none" id="text-acidente">
 {% endif %}
     <div class="col-sm-4 mx-auto ">
-        <action class="was-validated">
+
         <div class="callout"></div>
         <label for="select_outro"></label>
         <input class="form-control" onkeyup="verificatipoAcidente('Outros')" style="text-align: center;font-size: 0.9em" placeholder="Digite aqui, por favor" id="select_outro"  pattern="^[a-z \u00C0-\u00FFA-Z]{1,30}$" name="tipo_acidente_outros" value="{{caso.tipo_acidente_outros}}">
-        <div class="invalid-feedback" style="font-size: 0.8em; text-align: center">Especifique neste campo o tipo de acidente, por favor.</div><div class="valid-feedback" style="text-align: center;font-size: 0.7em">Obrigado</div>
-        </action>
+        <div class="invalid-feedback" style="font-size: 0.8em; text-align: center"></div><div class="valid-feedback" style="text-align: center;font-size: 0.7em">Obrigado</div>
+
     </div>
 
 </div>
@@ -231,6 +238,7 @@
     <div class="alert col-sm-12 alert-success" style="text-align: center;">
         <strong style="align-items: center;">Tipo de veiculos envolvidos no acidente:</strong>
         <strong id="alert_tipo_veiculo"style="color:red">*</strong>
+        <span hidden></span>
     </div>
 </div>
 
@@ -311,6 +319,7 @@
     <div class="alert col-sm-12 alert-success" style="text-align: center;">
         <strong style="align-items: center;">O Paciente envolvido no acidente era:</strong>
         <strong id="alert_paciente_envolvido" style="color:red">*</strong></i>
+        <span hidden></span>
     </div>
 </div>
 <div class="row mb-3 mt-4 text-center">
