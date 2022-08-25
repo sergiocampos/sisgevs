@@ -1,4 +1,4 @@
-/ Deixando todos as variáveis de validação como TRUE.
+// Deixando todos as variáveis de validação como TRUE.
 // Caso algum valor do formulário seja alterado, ele passa a verificar no outro script 'validacoes_form.js'.
 $(window).on('load', function(){
     valorMunicipioValid = true;

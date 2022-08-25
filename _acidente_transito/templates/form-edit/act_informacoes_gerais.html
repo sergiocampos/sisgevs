@@ -2,8 +2,7 @@
     <div class="col-sm-12">
         <div class="alert alert-success" style="text-align: center;">
             <strong style="align-items: center;">Data do Acidente</strong>
-            <strong id= "alert_data_acidente" style="color:red">*</strong></i>
-            <span hidden></span>
+            <strong hidden id= "alert_data_acidente" style="color:red">*</strong></i>            
         </div>
     </div>
 </div>
@@ -21,8 +20,7 @@
        <div class="col-sm-12 mt-5">
             <div class="alert alert-success" style="text-align: center;">
                 <strong style="align-items: center;">Período do dia</strong>
-                <strong id="alert_periodo_dia" style="color:red">*</strong></i>
-                <span hidden></span>
+                <strong hidden id="alert_periodo_dia" style="color:red">*</strong></i>                
             </div>
         </div>
 </div>
@@ -58,8 +56,7 @@
     <div class="col-sm-12 mt-4">
         <div class="alert alert-success" style="text-align: center;">
             <strong style="align-items: center;">Em que dia da semana ocorreu o acidente</strong>
-            <strong id= alert_dia_semana style="color:red">*</strong></i>
-            <span hidden></span>
+            <strong hidden id= alert_dia_semana style="color:red">*</strong></i>            
         </div>
     </div>
 </div>
@@ -75,8 +72,7 @@
 <div class="row m-0 mt-5">
     <div class="alert col-sm-12 alert-success" style="text-align: center;">
         <strong style="align-items: center;">O Acidente ocorreu em dia de feriado</strong>
-        <strong id="alert_acidente_dia_feriado" style="color:red">*</strong></i>
-        <span hidden></span>
+        <strong hidden id="alert_acidente_dia_feriado" style="color:red">*</strong></i>        
     </div>
 </div>
 <div class="mb-3 row mt-4 text-center">
@@ -103,8 +99,7 @@
 <div class="row mt-4 m-0">
     <div class="alert col-sm-12 alert-success" style="text-align: center;">
     <strong style="align-items: center;">Município de Ocorrência do Acidente</strong>
-        <strong id="alert_municipio"style="color:red">*</strong></i>
-        <span hidden></span>
+        <strong hidden id="alert_municipio"style="color:red">*</strong></i>        
     </div>
 </div>
 <div class="row mt-3">
@@ -113,7 +108,7 @@
         <label for="munic_ocorrencia"></label>
         <select onchange="validarMunicipio(this.value)" name="municipio_ocorrencia_acidente" id="munic_ocorrencia" class="form-control" placeholder="" required>
         {% for municipio in municipios %}
-            {% if caso.municipio_ocorrencia_acidente == municipio %}
+            {% if caso.municipio_ocorrencia_acidente == municipio.nome %}
             <option value="{{municipio.nome}}" selected>{{municipio.nome}}</option>
             {% else %}
             <option value="{{municipio.nome}}">{{municipio.nome}}</option>
@@ -128,13 +123,12 @@
 <div class="row mt-4 m-0">
     <div class="alert col-sm-12 alert-success" style="text-align: center;">
         <strong style="align-items: center;">Endereço do local do Acidente:</strong>
-        <strong id="alert_endereco_acidente" style="color:red">*</strong></i>
-        <span hidden></span>
+        <strong hidden id="alert_endereco_acidente" style="color:red">*</strong></i>        
     </div>
     <div class="col-3 mb-4 mx-auto">
         <action class="was-validated">
             <label for="bairro"></label>
-            <select onchange="validarBairro(this.value)" name="bairro_ocorrencia_acidente" id="bairro" class="form-control" placeholder="" required>
+            <select onchange="validarBairro(this.value)" name="bairro_ocorrencia_acidente" id="bairro" class="form-control" placeholder="">
             {% for bairro in bairros %}
                 {% if caso.bairro_ocorrencia_acidente == bairro %}
                 <option value="{{bairro.nome}}" selected>{{bairro.nome}}</option>
@@ -162,8 +156,7 @@
 <div class="row mt-5 m-0">
     <div class="alert col-sm-12 alert-success" style="text-align: center;">
         <strong style="align-items: center;">Tipo de Acidente:</strong>
-        <strong id="alert_tipo_acidente"style="color:red">*</strong></i>
-        <span hidden></span>
+        <strong hidden id="alert_tipo_acidente"style="color:red">*</strong></i>        
     </div>
 </div>
 <div class="row mt-3">
@@ -211,7 +204,7 @@
 <div class="row sm-0 mt-1">
     <div class="" style="text-align: center;">
         <strong style="align-items: center;"></strong>
-        <strong id="alert_tipoOutros" style="color:""></strong>
+        <strong hidden id="alert_tipoOutros" style="color: red"></strong>
     </div>
 </div>
 {% if caso.tipo_acidente == 'Outros' %}
@@ -237,8 +230,7 @@
 <div class="row row m-0 mt-5">
     <div class="alert col-sm-12 alert-success" style="text-align: center;">
         <strong style="align-items: center;">Tipo de veiculos envolvidos no acidente:</strong>
-        <strong id="alert_tipo_veiculo"style="color:red">*</strong>
-        <span hidden></span>
+        <strong hidden id="alert_tipo_veiculo"style="color:red">*</strong>        
     </div>
 </div>
 
@@ -318,8 +310,7 @@
 <div class="row m-0 mt-5">
     <div class="alert col-sm-12 alert-success" style="text-align: center;">
         <strong style="align-items: center;">O Paciente envolvido no acidente era:</strong>
-        <strong id="alert_paciente_envolvido" style="color:red">*</strong></i>
-        <span hidden></span>
+        <strong hidden id="alert_paciente_envolvido" style="color:red">*</strong></i>        
     </div>
 </div>
 <div class="row mb-3 mt-4 text-center">
@@ -355,7 +346,7 @@
 <div class="row m-0 mt-4">
         <div class="alert col-sm-12 alert-success" style="text-align: center;">
             <strong style="align-items: center;"> A vítima apresenta sinais de embriagues e/ou cosumo de bebidas alcoolicas:</strong>
-            <strong id="alert_sinal_alcoolico"style="color:red"></strong></i>
+            <strong hidden id="alert_sinal_alcoolico"style="color:red"></strong></i>
             <strong style="font-size:0.8em">(Opcional)</strong>
 
         </div>
