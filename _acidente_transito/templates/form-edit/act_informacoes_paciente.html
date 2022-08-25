@@ -1,7 +1,7 @@
 <div class="row m-0">
     <div class= "alert alert-success col-sm" style="text-align: center;">
         <strong style="align-items: center;">Nome do Paciente</strong>
-        <strong id="alert_nome_paciente"style="color:red">*</strong><br>
+        <strong hidden id="alert_nome_paciente"style="color:red">*</strong><br>
         <strong style="font-size:0.7em">(Sem Abreviações)</strong>
     </div>
 </div>
@@ -19,8 +19,7 @@
     <div class="col pt-4">
         <div class="alert alert-success" style="text-align: center;">
             <strong style="align-items: center;">Data de Nascimento:</strong>
-            <strong id="alert_data_nascimento" style="color:red">*</strong>
-            <p></p>
+            <strong hidden id="alert_data_nascimento" style="color:red">*</strong>
         </div>
     </div>
 </div>
@@ -48,7 +47,7 @@
     <div class="col-sm-12 pt-3 mt-4">
         <div class="alert alert-success" style="text-align: center;">
             <strong style="align-items: center;">Sexo:</strong>
-            <strong id="alert_sexo"style="color:red">*</strong>
+            <strong hidden id="alert_sexo"style="color:red">*</strong>
         </div>
     </div>
 </div>
@@ -83,7 +82,7 @@
     <div class="col-sm-12 pt-4">
         <div class="alert alert-success" style="text-align: center;">
             <strong style="align-items: center;">Nome da Mãe:</strong>
-            <strong id="alert_nome_mae"style="color:red">*</strong>
+            <strong hidden id="alert_nome_mae"style="color:red">*</strong>
         </div>
     </div>
 </div>
@@ -101,7 +100,7 @@
     <div class="col-sm-12 pt-3">
         <div class="alert alert-success" style="text-align: center;">
             <strong style=" align-items: center;">Endereço do Paciente:</strong>
-            <strong id="alert_endereco_paciente"style="color:red">*</strong>
+            <strong hidden id="alert_endereco_paciente"style="color:red">*</strong>
             <strong style="font-size:0.7em"><br>Av/Rua; Nº; Bairro</strong>
         </div>
     </div>
@@ -119,7 +118,7 @@
     <div class="row m-0 pt-4">
         <div class="alert alert-success" style="text-align: center;">
             <strong style="align-items: center;">Contato Telefônico:</strong>
-            <strong id="alert_tel"style="color:red">*</strong>
+            <strong hidden id="alert_tel"style="color:red">*</strong>
 
         </div>
     </div>
@@ -137,14 +136,14 @@
 <div class="row m-0 pt-4">
     <div class="alert alert-success" style="text-align: center;">
         <strong style="align-items: center;">CPF:</strong>
-        <strong id="alert_cpf"style="color:red"></strong>
+        <strong hidden id="alert_cpf"style="color:red"></strong>
     </div>
 </div>
 <div class="row ">
     <div class="col-sm-3  mx-auto">
         <action class="was-validated">
             <label for="cpf"></label><br>
-            <input id="cpf" class="form-control" name="cpf_paciente" value="{{caso.cpf_paciente}}" type="cpf" pattern="^\d{3}.\d{3}.\d{3}-?\d{2}$"  placeholder="000.000.000-00" required >
+            <input id="cpf" class="form-control" name="cpf_paciente" value="{{caso.cpf_paciente}}" type="cpf"  placeholder="000.000.000-00">
             <div class=" col row-1"></div>
             <div class="valid-feedback" style="text-align: center;font-size: 0.7em">Correto</div>
             <div class="invalid-feedback" style="font-size: 0.7em; text-align: center">CPF (OPCIONAL)</div>
@@ -154,7 +153,7 @@
 <div class="row m-0 pt-4">
     <div class="alert alert-success" style="text-align: center;">
         <strong style="align-items: center;">CNS:</strong>
-        <strong id="alert_cns"style="color:red"></strong>
+        <strong hidden id="alert_cns"style="color:red"></strong>
 
     </div>
 </div>
@@ -162,7 +161,7 @@
     <div class="col-sm-3  mx-auto">
         <action class="was-validated">
             <label for="cns"></label><br>
-            <input id="cns" class="form-control" name="cns_paciente" value="{{caso.cns_paciente}}" type="cns" pattern="^\d{3}.\d{4}.\d{4}-?\d{4}$" placeholder="000.0000.0000-0000" required >
+            <input id="cns" class="form-control" name="cns_paciente" value="{{caso.cns_paciente}}" type="cns" placeholder="000.0000.0000-0000" >
             <div class=" col row-1"></div>
             <div class="valid-feedback" style="text-align: center;font-size: 0.7em">Correto</div>
             <div class="invalid-feedback" style="font-size: 0.7em; text-align: center"> CNS (OPCIONAL)</div>

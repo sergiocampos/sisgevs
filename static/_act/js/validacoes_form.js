@@ -16,8 +16,7 @@ function ativarButtonUnidadeNotificadora() {
         hospitalTransferencia == true &&
         validPacientEnvolvido == true
 
-   // console.log('enviar')
-    ){
+       ){
         $('#btn_submit_id').prop('disabled',false)
 
         return false
@@ -354,9 +353,8 @@ function validSeverAcident (){
     if(
         vitimaFatal == true &&
         envolvidoFeridos == true &&
-        envolvidoFatal == true &&
-        //lesoes == true &&
-        casoObito == true
+        envolvidoFatal == true
+
 
     ){
         $('#alert_severidade').attr('hidden',true)
@@ -752,14 +750,18 @@ function active_hospital(){
         alert_pac_envolvido.removeAttribute('hidden');        
         alert_outros_paciente.removeAttribute('hidden')
         validPacientEnvolvido = false;
+        hospitalTransferencia = false;
 
     } else{
+        hospitalTransferencia = true;
         validPacientEnvolvido = true;
         opt.setAttribute("class","d-none");
         document.getElementById('hospital').value=''
         alert_hospital_transferencia.removeAttribute('hidden')
         alert_outros_paciente.setAttribute('hidden', true)
+
     }
+    ativarButtonUnidadeNotificadora()
 }
 
 // informações complementares(texto area)
@@ -893,9 +895,5 @@ $('#contato_notificador').on ('keyup', function () {
 
 
 })
-
-
-
-
 
 

@@ -27,17 +27,17 @@
             </div>
             <div class="row">
                 <div class="col-4 mx-auto">
-                    <action class="was-validated">
+
                         <label for="hospital"></label>
-                        <select  onchange="verificaHospital(this)"  name="hospital" id="hospital" class="form-control" placeholder="" required>
-                            <option value=""selected disabled>Selecione o Hospital</option>
+                        <select  onchange="verificaHospital(this)"  name="hospital" id="hospital" placeholder="" class="form-control" >
+                            <option value=""  selected disabled>Selecione</option>
                             {% for hospital in hospitais %}
                             <option value="{{hospital.nome}}">{{hospital.nome}}</option>
                             {% endfor %}
                         </select>
                         <div class="valid-feedback text-center">Correto</div>
                         <div class="invalid-feedback text-center">Invalido</div>
-                    </action>
+
                 </div>
             </div>
         </div>
