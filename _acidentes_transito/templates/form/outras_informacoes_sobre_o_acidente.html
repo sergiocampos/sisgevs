@@ -1,0 +1,33 @@
+
+<div class="row">
+      
+  <div class="col">      
+    <label for="paciente_foi_referenciado_para_outro_hospital" class="form-label m-0"><spam style="color:red;">*</spam><small>Paciente Foi Referenciado Para Outro Hospital </small></label>
+    <div class="radio-container" id="paciente_foi_referenciado_para_outro_hospital" required >
+      <input type="radio" name="paciente_foi_referenciado_para_outro_hospital" id="paciente_foi_referenciado_para_outro_hospital-sim_" value="Sim">
+      <label class="radio-label" for="paciente_foi_referenciado_para_outro_hospital-sim_">Sim</label>
+      <input type="radio" name="paciente_foi_referenciado_para_outro_hospital" id="paciente_foi_referenciado_para_outro_hospital-nao" value="Nao">
+      <label class="radio-label" for="paciente_foi_referenciado_para_outro_hospital-nao">Nao </label>
+    </div>            
+  </div>
+      
+  <div class="col">
+      
+    <label for="informacoes_complementares" class="form-label m-0"><small>Informacoes Complementares </small></label>
+    <input type="text" class="form-control form-control-sm" id="informacoes_complementares" name="informacoes_complementares" pattern="^[a-z A-Z0-9]{10,250}$"  >
+      
+  </div>
+      
+</div>
+<div class="row">
+  <div class="col">      
+    <label for="qual_hospital" class="form-label m-0"><small>Qual o Hospital</small></label>
+    <select class="select-model" id="qual_hospital" name="qual_hospital" placeholder="Selecione um ítem" data-search="true" data-silent-initial-value-set="true" disabled>
+      <option value="" disabled selected>Selecione um ítem</option>
+      <option value="outro">Outro</option>
+      {% for hospital in hospitais %}
+      <option value="{{hospital.nome}}">{{hospital.nome}}</option>
+      {% endfor %}
+    </select>  
+</div>
+</div>

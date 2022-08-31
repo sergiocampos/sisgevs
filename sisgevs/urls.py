@@ -13,8 +13,8 @@ urlpatterns = [
     path('account/', include('account.urls')),
     path('account/', include('django.contrib.auth.urls')),
     path('accounts/', include('django.contrib.auth.urls')),
-    path('act/', include('_acidente_transito.urls', namespace='act')),
-    path('esp-hum/', include('_esporotricose_humana.urls', namespace='esp')),
+    path('aci/', include('_acidentes_transito.urls', namespace='aci')),
+    path('esp-hum/', include('_esporotricose_humana.urls', namespace='esp')),    
     
     path('change_password/', account_views.change_password, name='change_password'),
     path('login/',account_views.login_page, name='login_page'),

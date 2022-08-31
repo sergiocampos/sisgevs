@@ -1,0 +1,47 @@
+// Mascáras
+$('#contato_telefonico').mask('(00)00000-0000')
+$('#contato_notificador').mask('(00)00000-0000')
+$('#cpf_paciente').mask('000.000.000-00')
+$('#cns_paciente').mask('000.0000.0000.0000')
+
+// Limitando datas max e min
+$('input[type="date"]').attr('max', new Date().toISOString().split("T")[0]).attr('min', '1850-12-01').on('focusout', function(){
+   if ((this.value > new Date().toISOString().split("T")[0]) || (this.value < '1850-12-01')){
+    return this.value = ''
+   }   
+})
+
+// Alterando o dia da semana 
+$('#data_acidente').on('change', function(){
+  let arraySemana = ['Segunda-feira','Terça-feira','Quarta-feira','Quinta-feira','Sexta-feira','Sábado','Domingo']
+  let diaSemana = new Date(this.value).getDay()
+  $('#que_dia_semana_ocorreu_acidente').val(arraySemana[diaSemana])
+})
+
+// Checando se houve vitima fatal
+$('input[name="houve_vitimas_fatais"]').on('click', function(){
+  let alerta = $('label[for="numeros_vitimas_fatais_envolvidas_acidente"]').children('spam')
+  if(this.value == 'Sim'){
+    $('#numeros_vitimas_fatais_envolvidas_acidente').attr('disabled', false).attr('required', true)
+    alerta.text('*')
+  } else {
+    $('#numeros_vitimas_fatais_envolvidas_acidente').attr('disabled', true).attr('required', false)
+    alerta.text('')
+  }
+})
+
+// Calculando idade
+$('#data_nascimento').on('change', function(){
+  let ano_nascimento = this.value.split('-')[0]
+  let ano_atual = new Date().toISOString().split("T")[0].split('-')[0]
+  $('#idade_paciente').val(ano_atual-ano_nascimento)
+})
+
+// Checando se o paciente foi transferido para outro hospital
+$('input[name="paciente_foi_referenciado_para_outro_hospital"]').on('click', function(){
+  if(this.value == 'Sim'){
+    $('#qual_hospital').attr('disabled', false)
+  } else {
+    $('#qual_hospital').attr('disabled', true)
+  }
+})

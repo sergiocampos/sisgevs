@@ -10,7 +10,7 @@ import pandas as pd
 import json
 
 from _esporotricose_humana.models import CasoEsporotricose
-from _acidente_transito.models import Acidente
+from _acidentes_transito.models import AcidentesTransito
 from .models import *
 
 
@@ -18,13 +18,13 @@ from .models import *
 # Lista de todos os agravos.
 AGRAVOS = [
     {"name":"Esporotricose Humana", "value": "esp-hum" },
-    {"name":"Acidentes de Trânsito", "value":"act"},
+    {"name":"Acidentes de Trânsito", "value":"aci"},
 ]
 
 # KEY: AGRAVO URL | VALUE: DADOS DO AGRAVO
 AGRAVOS_DADOS = {
     'esp-hum':CasoEsporotricose.objects.all(),
-    'act':Acidente.objects.all(),
+    'aci':AcidentesTransito.objects.all(),
 }
 
 # Funcoes SES
@@ -134,7 +134,7 @@ def export_data_excel(request):
             casos_filtrados = casos.order_by('-id')
 
     # Se o agravo for acidente de transito filtrar por data de notificacao.
-    elif agravo_url == 'act':
+    elif agravo_url == 'aci':
         
         if len(filtros_data) == 2:
             casos_filtrados = casos.filter(data_acidente__range=[filtro_data_inicio,filtro_data_fim]).order_by('-id')
@@ -271,16 +271,16 @@ def usuarios(request, id=None):
                     if agravo in agravos:
                         if agravo == 'esp-hum':
                             user_dict['esp_hum'] = True
-                        elif agravo == 'act':
-                            user_dict['act'] = True
+                        elif agravo == 'aci':
+                            user_dict['aci'] = True
                 
                 # Adicionando marcador para o checkbox de solicitaçao de agravos.
                 for agravo in usuario.lista_agravos_possivel:
                     if agravo in agravos:
                         if agravo == 'esp-hum':
                             user_dict['esp_hum_solicit'] = True
-                        elif agravo == 'act':
-                            user_dict['act_solicit'] = True                        
+                        elif agravo == 'aci':
+                            user_dict['aci_solicit'] = True                        
                 
                 usuarios.append(user_dict)
 

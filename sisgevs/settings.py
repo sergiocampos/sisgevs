@@ -42,7 +42,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'account.templatetags.myfilters',
     '_esporotricose_humana',
-    '_acidente_transito',
+    '_acidentes_transito',
     'crispy_forms',
     'account',
     'core',
