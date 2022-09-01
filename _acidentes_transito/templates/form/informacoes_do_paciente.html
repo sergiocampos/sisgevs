@@ -29,11 +29,11 @@
       
       <label for="sexo" class="form-label m-0"><spam style="color:red;">*</spam><small>Sexo </small></label>
       <div class="radio-container" id="sexo" required >
-        <input type="radio" name="sexo" id="sexo-feminino" value="Feminino ">
+        <input type="radio" name="sexo" id="sexo-feminino" value="Feminino " required>
         <label class="radio-label" for="sexo-feminino">Feminino </label>
-        <input type="radio" name="sexo" id="sexo-masculino" value="Masculino ">
+        <input type="radio" name="sexo" id="sexo-masculino" value="Masculino " required>
         <label class="radio-label" for="sexo-masculino">Masculino </label>
-        <input type="radio" name="sexo" id="sexo-outros_" value="Outros   ">
+        <input type="radio" name="sexo" id="sexo-outros_" value="Outros   " required>
         <label class="radio-label" for="sexo-outros_">Outros   </label>
       </div>      
       
@@ -76,11 +76,8 @@
 </div>
 <div class="row">
       
-  <div class="col">
-      
-        <label for="cns_paciente" class="form-label m-0"><small>CNS</small></label>
-        <input type="text" class="form-control form-control-sm" id="cns_paciente" placeholder="000.0000.0000.0000" name="cns_paciente" >
-      
-  </div>
-      
+  <div class="col">      
+      <label for="cns_paciente" class="form-label m-0"><small>CNS</small></label>
+      <input type="text" class="form-control form-control-sm" id="cns_paciente" placeholder="000.0000.0000.0000" name="cns_paciente" >      
+  </div>      
 </div>

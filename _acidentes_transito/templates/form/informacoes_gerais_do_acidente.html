@@ -10,11 +10,11 @@
   <div class="col">      
       <label for="periodo_dia" class="form-label m-0"><spam style="color:red;">*</spam><small>Periodo do Dia </small></label>
       <div class="radio-container" id="periodo_dia" required >
-        <input type="radio" name="periodo_dia" id="periodo_dia-manha" value="Manha ">
+        <input type="radio" name="periodo_dia" id="periodo_dia-manha" value="Manha " required>
         <label class="radio-label" for="periodo_dia-manha">Manha </label>
-        <input type="radio" name="periodo_dia" id="periodo_dia-tarde" value="Tarde ">
+        <input type="radio" name="periodo_dia" id="periodo_dia-tarde" value="Tarde " required>
         <label class="radio-label" for="periodo_dia-tarde">Tarde </label>
-        <input type="radio" name="periodo_dia" id="periodo_dia-noite" value="Noite ">
+        <input type="radio" name="periodo_dia" id="periodo_dia-noite" value="Noite " required>
         <label class="radio-label" for="periodo_dia-noite">Noite </label>
       </div>      
       
@@ -28,10 +28,10 @@
   <div class="col">
       
       <label for="acidente_ocorreu_dia_feriado" class="form-label m-0"><spam style="color:red;">*</spam><small>o Acidente Ocorreu em Dia de Feriado </small></label>
-      <div class="radio-container" id="acidente_ocorreu_dia_feriado" required >
-        <input type="radio" name="acidente_ocorreu_dia_feriado" id="acidente_ocorreu_dia_feriado-sim" value="Sim ">
+      <div class="radio-container" id="acidente_ocorreu_dia_feriado">
+        <input type="radio" name="acidente_ocorreu_dia_feriado" id="acidente_ocorreu_dia_feriado-sim" value="Sim " required>
         <label class="radio-label" for="acidente_ocorreu_dia_feriado-sim">Sim </label>
-        <input type="radio" name="acidente_ocorreu_dia_feriado" id="acidente_ocorreu_dia_feriado-não" value="Não ">
+        <input type="radio" name="acidente_ocorreu_dia_feriado" id="acidente_ocorreu_dia_feriado-não" value="Não " required>
         <label class="radio-label" for="acidente_ocorreu_dia_feriado-não">Não </label>
       </div>      
       
@@ -43,7 +43,7 @@
   <div class="col">
       
       <label for="municipio_ocorrencia_acidente" class="form-label m-0"><spam style="color:red;">*</spam><small>Municipio de Ocorrencia do Acidente </small></label>
-      <select class="select-model" id="municipio_ocorrencia_acidente" name="municipio_ocorrencia_acidente" placeholder="Selecione um ítem" data-search="true" data-silent-initial-value-set="true">
+      <select class="select-model" id="municipio_ocorrencia_acidente" name="municipio_ocorrencia_acidente" placeholder="Selecione um ítem" data-search="true" data-silent-initial-value-set="true" required>
         <option value="" disabled selected>Selecione um ítem</option>
         {% for municipio in municipios %}
         <option value="{{municipio.nome}}">{{municipio.nome}}</option>
@@ -101,11 +101,11 @@
       
       <label for="paciente_envolvido_acidente_era" class="form-label m-0"><spam style="color:red;">*</spam><small>o Paciente Envolvido no Acidente Era </small></label>
       <div class="radio-container" id="paciente_envolvido_acidente_era" required >
-        <input type="radio" name="paciente_envolvido_acidente_era" id="paciente_envolvido_acidente_era-pedestre_" value="Pedestre  ">
+        <input type="radio" name="paciente_envolvido_acidente_era" id="paciente_envolvido_acidente_era-pedestre_" value="Pedestre  " required>
         <label class="radio-label" for="paciente_envolvido_acidente_era-pedestre_">Pedestre  </label>
-        <input type="radio" name="paciente_envolvido_acidente_era" id="paciente_envolvido_acidente_era-condutor" value="Condutor ">
+        <input type="radio" name="paciente_envolvido_acidente_era" id="paciente_envolvido_acidente_era-condutor" value="Condutor " required>
         <label class="radio-label" for="paciente_envolvido_acidente_era-condutor">Condutor </label>
-        <input type="radio" name="paciente_envolvido_acidente_era" id="paciente_envolvido_acidente_era-passageiro" value="Passageiro ">
+        <input type="radio" name="paciente_envolvido_acidente_era" id="paciente_envolvido_acidente_era-passageiro" value="Passageiro " required>
         <label class="radio-label" for="paciente_envolvido_acidente_era-passageiro">Passageiro </label>
       </div>      
       
@@ -116,9 +116,9 @@
       
       <label for="vitima_apresenta_sinais_embriaguez_consumo_bebidas_alcoolicas" class="form-label m-0"><spam style="color:red;">*</spam><small>a Vitima Apresenta Sinais de Embriaguez e ou Consumo de Bebidas Alcoolicas </small></label>
       <div class="radio-container" id="vitima_apresenta_sinais_embriaguez_consumo_bebidas_alcoolicas" required >
-        <input type="radio" name="vitima_apresenta_sinais_embriaguez_consumo_bebidas_alcoolicas" id="vitima_apresenta_sinais_embriaguez_consumo_bebidas_alcoolicas-sim" value="Sim ">
+        <input type="radio" name="vitima_apresenta_sinais_embriaguez_consumo_bebidas_alcoolicas" id="vitima_apresenta_sinais_embriaguez_consumo_bebidas_alcoolicas-sim" value="Sim " required>
         <label class="radio-label" for="vitima_apresenta_sinais_embriaguez_consumo_bebidas_alcoolicas-sim">Sim </label>
-        <input type="radio" name="vitima_apresenta_sinais_embriaguez_consumo_bebidas_alcoolicas" id="vitima_apresenta_sinais_embriaguez_consumo_bebidas_alcoolicas-nao_" value="Nao  ">
+        <input type="radio" name="vitima_apresenta_sinais_embriaguez_consumo_bebidas_alcoolicas" id="vitima_apresenta_sinais_embriaguez_consumo_bebidas_alcoolicas-nao_" value="Nao  " required>
         <label class="radio-label" for="vitima_apresenta_sinais_embriaguez_consumo_bebidas_alcoolicas-nao_">Nao  </label>
       </div>      
       

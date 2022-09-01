@@ -30,21 +30,21 @@
       <label for="sexo" class="form-label m-0"><spam style="color:red;">*</spam><small>Sexo </small></label>
       <div class="radio-container" id="sexo" required >
         {% if caso.sexo == 'Feminino ' %}                  
-        <input type="radio" name="sexo" id="sexo-feminino" value="Feminino " checked>
+        <input type="radio" name="sexo" id="sexo-feminino" value="Feminino " checked required>
         {% else %}
-        <input type="radio" name="sexo" id="sexo-feminino" value="Feminino ">
+        <input type="radio" name="sexo" id="sexo-feminino" value="Feminino " required>
         {% endif %}
         <label class="radio-label" for="sexo-feminino">Feminino </label>
         {% if caso.sexo == 'Masculino ' %}            
-        <input type="radio" name="sexo" id="sexo-masculino" value="Masculino " checked>
+        <input type="radio" name="sexo" id="sexo-masculino" value="Masculino " checked required>
         {% else %}
-        <input type="radio" name="sexo" id="sexo-masculino" value="Masculino ">
+        <input type="radio" name="sexo" id="sexo-masculino" value="Masculino " required>
         {% endif %}
         <label class="radio-label" for="sexo-masculino">Masculino </label>
         {% if caso.sexo == 'Outros   ' %}            
-        <input type="radio" name="sexo" id="sexo-outros_" value="Outros   " checked>
+        <input type="radio" name="sexo" id="sexo-outros_" value="Outros   " checked required>
         {% else %}
-        <input type="radio" name="sexo" id="sexo-outros_" value="Outros   ">
+        <input type="radio" name="sexo" id="sexo-outros_" value="Outros   " required>
         {% endif %}
         <label class="radio-label" for="sexo-outros_">Outros   </label>
       </div>      
