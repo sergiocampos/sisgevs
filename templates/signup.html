@@ -113,7 +113,10 @@
 <script>
     // Select de agravos
     VirtualSelect.init({
-        ele: '#agravos-select'
+        ele: '#agravos-select',
+        searchPlaceholderText: "Procurar",
+        noSearchResultsText: "Nenhum item encontrado",
+        allOptionsSelectedText: "Todos os itens selecionados"
     });
 
     function mostrarSenha(input){

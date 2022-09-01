@@ -40,7 +40,7 @@
                     <td>{{usuario.telefone}}</td>
                     <td>{{usuario.municipio}}</td>                        
                     <td>
-                        {% if usuario.esp_hum_solicit or usuario.act_solicit %}
+                        {% if usuario.esp_hum_solicit or usuario.aci_solicit %}
                         <select class="agravos-select" id="{{usuario.id}}" multiple name="native-select" placeholder="** Selecione os Agravos" data-search="true" data-silent-initial-value-set="true">
                         {% else %}
                         <select class="agravos-select" id="{{usuario.id}}" multiple name="native-select" placeholder="Selecione os Agravos" data-search="true" data-silent-initial-value-set="true">
@@ -60,13 +60,13 @@
                             </option>
                             {% endif %}
                             
-                        {% elif agravo == 'act' %}
+                        {% elif agravo == 'aci' %}
                             
-                            {% if usuario.act %}
-                            <option value="act" selected>Acidentes de Transito</option>
+                            {% if usuario.aci %}
+                            <option value="aci" selected>Acidentes de Transito</option>
                             {% else %}
-                            <option value="act">
-                                {% if usuario.act_solicit %}
+                            <option value="aci">
+                                {% if usuario.aci_solicit %}
                                 <strong style="color: red !important">**</strong>
                                 {% endif %}
                                 Acidentes de Transito
@@ -108,11 +108,17 @@
 <script>
     // Select de agravos
     VirtualSelect.init({
-        ele: '.agravos-select'
+        ele: '.agravos-select',
+        searchPlaceholderText: "Procurar",
+        noSearchResultsText: "Nenhum item encontrado",
+        allOptionsSelectedText: "Todos os itens selecionados"
     });
     // Select de funções
     VirtualSelect.init({
         ele: '.funcoes-select',
+        searchPlaceholderText: "Procurar",
+        noSearchResultsText: "Nenhum item encontrado",
+        allOptionsSelectedText: "Todos os itens selecionados"
     });        
 </script>
 {% endblock endbody %}
