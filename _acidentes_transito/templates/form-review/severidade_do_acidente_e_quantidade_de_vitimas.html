@@ -1,0 +1,149 @@
+
+<div class="row">
+      
+  <div class="col">
+      
+      <label for="houve_vitimas_fatais" class="form-label m-0"><spam style="color:red;">*</spam><small>Houve Vitimas Fatais </small></label>
+      <div class="radio-container" id="houve_vitimas_fatais" required >
+        {% if caso.houve_vitimas_fatais == 'Sim' %}
+        <input type="radio" name="houve_vitimas_fatais" id="houve_vitimas_fatais-sim" value="Sim" checked disabled>
+        {% else %}
+        <input type="radio" name="houve_vitimas_fatais" id="houve_vitimas_fatais-sim" value="Sim" disabled>
+        {% endif %}
+        <label class="radio-label" for="houve_vitimas_fatais-sim">Sim </label>
+        {% if caso.houve_vitimas_fatais == 'Não' %}
+        <input type="radio" name="houve_vitimas_fatais" id="houve_vitimas_fatais-não" value="Não" checked disabled>
+        {% else %}
+        <input type="radio" name="houve_vitimas_fatais" id="houve_vitimas_fatais-não" value="Não" disabled>
+        {% endif %}
+        <label class="radio-label" for="houve_vitimas_fatais-não">Não </label>
+      </div>      
+      
+  </div>
+      
+      
+  <div class="col">      
+      <label for="numeros_vitimas_fatais_envolvidas_acidente" class="form-label m-0"><spam style="color:red;"></spam><small>Numeros de Vitimas Fatais Envolvidas no Acidente </small></label>
+      {% if caso.houve_vitimas_fatais == 'Sim' %}
+      <select class="select-model" id="numeros_vitimas_fatais_envolvidas_acidente" name="numeros_vitimas_fatais_envolvidas_acidente" placeholder="Selecione um ítem" data-search="true" data-silent-initial-value-set="true" disabled>
+      {% else %}
+      <select class="select-model" id="numeros_vitimas_fatais_envolvidas_acidente" name="numeros_vitimas_fatais_envolvidas_acidente" placeholder="Selecione um ítem" data-search="true" data-silent-initial-value-set="true" disabled>
+        <option value="" disabled selected>Selecione um ítem</option>
+      {% endif %}        
+        {% if caso. == '1' %}
+        <option value="1" selected>1</option>
+        {% else %}
+        <option value="1">1</option>
+        {% endif %}
+        {% if caso. == '2' %}
+        <option value="2" selected>2</option>
+        {% else %}
+        <option value="2">2</option>
+        {% endif %}
+        {% if caso. == '3' %}
+        <option value="3" selected>3</option>
+        {% else %}
+        <option value="3">3</option>
+        {% endif %}
+        {% if caso. == 'mais' %}
+        <option value="mais" selected>Mais</option>
+        {% else %}
+        <option value="mais">Mais</option>
+        {% endif %}
+      </select>      
+  </div>
+      
+      
+  <div class="col">
+      
+      <label for="numero_feridos_envolvidos_acidente" class="form-label m-0"><spam style="color:red;">*</spam><small>Numero de Feridos Envolvidos no Acidente </small></label>
+      <select class="select-model" id="numero_feridos_envolvidos_acidente" name="numero_feridos_envolvidos_acidente" placeholder="Selecione um ítem" data-search="true" data-silent-initial-value-set="true" required disabled>
+        {% if caso.numero_feridos_envolvidos_acidente == '1' %}
+        <option value="1" selected>1</option>
+        {% else %}
+        <option value="1">1</option>
+        {% endif %}
+        {% if caso.numero_feridos_envolvidos_acidente == '2' %}
+        <option value="2" selected>2</option>
+        {% else %}
+        <option value="2">2</option>
+        {% endif %}
+        {% if caso.numero_feridos_envolvidos_acidente == '3' %}
+        <option value="3" selected>3</option>
+        {% else %}
+        <option value="3">3</option>
+        {% endif %}
+        {% if caso.numero_feridos_envolvidos_acidente == 'mais' %}
+        <option value="mais" selected>Mais</option>
+        {% else %}
+        <option value="mais">Mais</option>
+        {% endif %}
+      </select>        
+      
+  </div>
+      
+      
+  <div class="col">
+      
+      <label for="quadro_lesoes" class="form-label m-0"><small>Quadro de Lesoes </small></label>
+      <select class="select-model" id="quadro_lesoes" name="quadro_lesoes" placeholder="Selecione um ítem" data-search="true" data-silent-initial-value-set="true" disabled>
+        
+        {% if caso.quadro_lesoes == '' %}
+        <option selected value="">Selecione um ítem</option>
+        {% else %}
+        <option value="">Selecione um ítem</option>
+        {% endif %}
+        {% if caso.quadro_lesoes == 'leves' %}
+        <option selected value="leves">Leves </option>
+        {% else %}
+        <option value="leves">Leves </option>
+        {% endif %}
+        {% if caso.quadro_lesoes == 'graves' %}
+        <option selected value="graves">Graves </option>
+        {% else %}
+        <option value="graves">Graves </option>
+        {% endif %}
+        {% if caso.quadro_lesoes == 'gravissimas_' %}
+        <option selected value="gravissimas_">Gravissimas  </option>
+        {% else %}
+        <option value="gravissimas_">Gravissimas  </option>
+        {% endif %}
+        {% if caso.quadro_lesoes == 'lesao_seguida_morte_' %}
+        <option selected value="lesao_seguida_morte_">Lesao Seguida de Morte  </option>
+        {% else %}
+        <option value="lesao_seguida_morte_">Lesao Seguida de Morte  </option>
+        {% endif %}
+      </select>  
+      
+  </div>
+      
+</div>
+<div class="row">
+      
+  <div class="col">
+      
+        <label for="caso_obito" class="form-label m-0"><small>em Caso de Obito </small></label>
+      <div class="radio-container" id="caso_obito">
+        {% if caso.caso_obito == 'Obito no Local ' %}
+        <input type="radio" name="caso_obito" id="caso_obito-obito_local" value="Obito no Local " checked disabled>
+        {% else %}
+        <input type="radio" name="caso_obito" id="caso_obito-obito_local" value="Obito no Local " disabled>
+        {% endif %}
+        <label class="radio-label" for="caso_obito-obito_local">Obito no Local </label>
+        {% if caso.caso_obito == 'Obito no Encaminhamento ' %}
+        <input type="radio" name="caso_obito" id="caso_obito-obito_encaminhamento" value="Obito no Encaminhamento " checked disabled>
+        {% else %}
+        <input type="radio" name="caso_obito" id="caso_obito-obito_encaminhamento" value="Obito no Encaminhamento " disabled>
+        {% endif %}
+        <label class="radio-label" for="caso_obito-obito_encaminhamento">Obito no Encaminhamento </label>
+        {% if caso.caso_obito == 'Obito no Hospital ' %}
+        <input type="radio" name="caso_obito" id="caso_obito-obito_hospital" value="Obito no Hospital " checked disabled>
+        {% else %}
+        <input type="radio" name="caso_obito" id="caso_obito-obito_hospital" value="Obito no Hospital " disabled>
+        {% endif %}
+        <label class="radio-label" for="caso_obito-obito_hospital">Obito no Hospital </label>
+      </div>
+      
+  </div>
+      
+</div>

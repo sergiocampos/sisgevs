@@ -1,0 +1,191 @@
+{% extends "base1.html" %}
+{% load static %}
+
+{% block head %}
+
+<link rel="stylesheet" href="{% static 'base/css/virtual-select.min.css' %}" />
+<style>
+    .vscomp-clear-button{display: none !important;}
+    .vscomp-ele{max-width:none;}
+    .card{
+      border-radius: .5rem !important;
+      box-shadow: .15rem .15rem .3rem rgba(0,0,0,0.3);
+    }
+    .card-header{background-color: #153d89; color:#fff;}
+    #scrollUp::before{
+      color: #fff;
+      background-color: #203d89;
+      box-sizing: border-box;
+      font-size: 35px;
+      border-radius: 50%;        
+      box-shadow: 0 .2rem .4rem rgba(0,0,0,0.6);        
+      cursor: pointer;         
+    }
+    #textScrollUp{
+      color: #203d89;                  
+      font-weight: 800;
+      z-index: 1;      
+    }
+    .backTop{
+      position: fixed;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      bottom: 11vh;
+      left: 50px;
+      z-index: 1;
+    }
+    .radio-container{
+      display:flex;
+      justify-content: space-around;
+      align-items:center;
+      background-color:#fff;
+      min-height:30px;
+      box-sizing:border-box;
+      box-shadow:0 0 .1rem rgba(0,0,0,0.9)
+    }
+    input[type="radio"]{
+      appearance:none;
+      display:none;    
+    }
+    .radio-label{
+      font-size:11px;
+      font-weight: 500;
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      background-color:none;
+      text-align:center;
+      overflow:hidden;
+      transition: linear .15s;
+      color:#444;
+      width:100%;
+      height:100%;
+      min-height:30px;
+      cursor:not-allowed;      
+    }    
+    input[type="radio"]:checked + label {
+      background-color: #203e89d2;
+      color:#fff;
+      min-height:30px;
+      font-weight:700;
+      transition: .3s;
+      border-radius:.25rem;
+    }
+
+    @media screen and (max-width: 1050px) {
+      .row{display:block !important;}
+    }
+    @media screen and (max-width: 950px) {
+      .container{padding: 0 !important; width: 100% !important;}
+      .col{margin-bottom: .5rem !important;}
+    }
+    
+</style>
+<script src="{% static '/_aci/js/formCreateValidation.js' %}" defer></script>
+{% endblock head %}
+
+{% block content %}
+
+<div class="backTop d-none">
+  <span id="textScrollUp">Voltar ao Topo</span>
+  <i id="scrollUp" onclick="return window.scrollTo({top:0})" class="bi bi-arrow-up-circle "></i>
+</div>
+
+<!-- Paineis do formulário -->
+<div class="container p-3 card mb-5">
+  <!-- [FORM] INFORMACOES GERAIS DO ACIDENTE -->
+  <div id="menu1" class="container mb-4">
+    <div class="card">
+    
+      <div class="card-header">INFORMACOES GERAIS DO ACIDENTE</div>
+    
+      <div class="card-body">      
+    
+        {% include 'form-review/informacoes_gerais_do_acidente.html'%}
+      </div>
+    </div>
+  </div>
+  <!-- [FORM] SEVERIDADE DO ACIDENTE E QUANTIDADE DE VITIMAS -->
+  <div id="menu2" class="container mb-4">
+    <div class="card">
+    
+      <div class="card-header">SEVERIDADE DO ACIDENTE E QUANTIDADE DE VITIMAS</div>
+    
+      <div class="card-body">      
+    
+        {% include 'form-review/severidade_do_acidente_e_quantidade_de_vitimas.html'%}
+      </div>
+    </div>
+  </div>
+  <!-- [FORM] EQUIPE ACIONADA PARA O LOCAL DO ACIDENTE -->
+  <div id="menu3" class="container mb-4">
+    <div class="card">
+    
+      <div class="card-header">EQUIPE ACIONADA PARA O LOCAL DO ACIDENTE</div>
+    
+      <div class="card-body">      
+    
+        {% include 'form-review/equipe_acionada_para_o_local_do_acidente.html'%}
+      </div>
+    </div>
+  </div>
+  <!-- [FORM] INFORMACOES DO PACIENTE -->
+  <div id="menu4" class="container mb-4">
+    <div class="card">
+    
+      <div class="card-header">INFORMACOES DO PACIENTE</div>
+    
+      <div class="card-body">      
+    
+        {% include 'form-review/informacoes_do_paciente.html'%}
+      </div>
+    </div>
+  </div>
+  <!-- [FORM] OUTRAS INFORMACOES SOBRE O ACIDENTE -->
+  <div id="menu5" class="container mb-4">
+    <div class="card">
+    
+      <div class="card-header">OUTRAS INFORMACOES SOBRE O ACIDENTE</div>
+    
+      <div class="card-body">      
+    
+        {% include 'form-review/outras_informacoes_sobre_o_acidente.html'%}
+      </div>
+    </div>
+  </div>
+  <!-- [FORM] UNIDADE NOTIFICADORA -->
+  <div id="menu6" class="container mb-4">
+    <div class="card">
+    
+      <div class="card-header">UNIDADE NOTIFICADORA</div>
+    
+      <div class="card-body">      
+    
+        {% include 'form-review/unidade_notificadora.html'%}
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock content %}
+{% block endbody %}
+
+<script src="{% static 'base/js/virtual-select.min.js' %}"></script>
+
+<script>
+  // Select de funções
+  VirtualSelect.init({
+    ele: '.select-model',
+    searchPlaceholderText: "Procurar",
+    noSearchResultsText: "Nenhum item encontrado",
+    allOptionsSelectedText: "Todos os itens selecionados"
+  });
+  // Scroll UP Button
+  window.addEventListener('scroll', function() {
+    scrollBtn = $('.backTop')
+    return window.scrollY > 300 ? scrollBtn.removeClass('d-none') : scrollBtn.addClass('d-none')  
+  })
+</script>
+
+{% endblock endbody %}

@@ -73,7 +73,7 @@ def editar_caso(request, id):
     
     hospitais = UnidadeSaude.objects.all()
     
-    return render(request, 'aci_editar_caso.html')
+    return render(request, 'aci_editar_caso.html', {'caso':caso, 'municipios':municipios, 'hospitais':hospitais})
     
   else:
     
@@ -97,7 +97,8 @@ def set_editar_caso(request, id):
     # gerencia_id = Municipio.objects.get(nome=dados['# FILTRAR DADOS DE MUNICIPIO #']).gerencia_id
     
     # dados['gerencia'] = Gerencia.objects.get(id=gerencia_id)    
-    
+    dados['quem_foi_responsavel_por_prestar_apoio_local'] = dados['quem_foi_responsavel_por_prestar_apoio_local'].split(',')
+    dados['tipos_veiculos_envolvidos_acidente'] = dados['tipos_veiculos_envolvidos_acidente'].split(',')
     dados['responsavel_pelas_informacoes'] = request.user        
     
     del dados['csrfmiddlewaretoken'] # Excluindo o token csrf.
@@ -137,7 +138,7 @@ def visualizar_caso(request, id):
     
     hospitais = UnidadeSaude.objects.all()
     
-    return render(request, 'aci_visualizar_caso.html')
+    return render(request, 'aci_visualizar_caso.html', {'caso':caso, 'municipios':municipios, 'hospitais':hospitais})
     
   else:
     
