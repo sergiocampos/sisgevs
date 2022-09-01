@@ -2,11 +2,11 @@
 <div class="row">      
   <div class="col">      
     <label for="nome_instituicao" class="form-label m-0"><spam style="color:red;">*</spam><small>Nome da Instituição </small></label>
-    <input type="text" class="form-control form-control-sm" id="nome_instituicao" name="nome_instituicao" pattern="^[a-z A-Z]{10,90}$"  required  >            
+    <input type="text" class="form-control form-control-sm" id="nome_instituicao" name="nome_instituicao" pattern="^[a-z A-Z\\u00C0-\\u00FF]{10,90}$"  required  >            
   </div>      
   <div class="col">      
     <label for="nome_responsavel_pela_digitacao" class="form-label m-0"><spam style="color:red;">*</spam><small>Nome do Responsável Pela Digitação </small></label>
-    <input type="text" class="form-control form-control-sm" id="nome_responsavel_pela_digitacao" name="nome_responsavel_pela_digitacao" pattern="^[a-z A-Z]{10,90}$"  required  >            
+    <input type="text" class="form-control form-control-sm" id="nome_responsavel_pela_digitacao" name="nome_responsavel_pela_digitacao" pattern="^[a-z A-Z\\u00C0-\\u00FF]{10,90}$"  required  >            
   </div>
   <div class="col">      
     <label for="cargo_funcao_notificador" class="form-label m-0"><spam style="color:red;">*</spam><small>Cargo/Função do Notificador </small></label>
@@ -15,7 +15,7 @@
       
   <div class="col">      
     <label for="contato_notificador" class="form-label m-0"><spam style="color:red;">*</spam><small>Contato do Notificador </small></label>
-    <input type="text" class="form-control form-control-sm" id="contato_notificador" name="contato_notificador" required  >          
+    <input type="text" class="form-control form-control-sm" id="contato_notificador" name="contato_notificador" placeholder="(00)00000-0000" required  >          
   </div>
       
 </div>
