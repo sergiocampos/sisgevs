@@ -8,38 +8,38 @@
       
   </div>
   <div class="col">      
-      <label for="periodo_dia" class="form-label m-0"><spam style="color:red;">*</spam><small>Periodo do Dia </small></label>
+      <label for="periodo_dia" class="form-label m-0"><spam style="color:red;">*</spam><small>Período do Dia </small></label>
       <div class="radio-container" id="periodo_dia" required >
         {% if caso.periodo_dia == 'Manha ' %}
-        <input type="radio" name="periodo_dia" id="periodo_dia-manha" value="Manha " checked disabled>
+        <input type="radio" name="periodo_dia" id="periodo_dia-manha" value="Manha " checked required disabled>
         {% else %}
-        <input type="radio" name="periodo_dia" id="periodo_dia-manha" value="Manha " disabled>
+        <input type="radio" name="periodo_dia" id="periodo_dia-manha" value="Manha " required disabled>
         {% endif %}
-        <label class="radio-label" for="periodo_dia-manha">Manha </label>
+        <label class="radio-label" for="periodo_dia-manha">Manhã </label>
         {% if caso.periodo_dia == 'Tarde ' %}
-        <input type="radio" name="periodo_dia" id="periodo_dia-tarde" value="Tarde " checked disabled>
+        <input type="radio" name="periodo_dia" id="periodo_dia-tarde" value="Tarde " checked required disabled>
         {% else %}
-        <input type="radio" name="periodo_dia" id="periodo_dia-tarde" value="Tarde " disabled>
+        <input type="radio" name="periodo_dia" id="periodo_dia-tarde" value="Tarde " required disabled>
         {% endif %}
         <label class="radio-label" for="periodo_dia-tarde">Tarde </label>
         {% if caso.periodo_dia == 'Noite ' %}
-        <input type="radio" name="periodo_dia" id="periodo_dia-noite" value="Noite " checked disabled>
+        <input type="radio" name="periodo_dia" id="periodo_dia-noite" value="Noite " checked required disabled>
         {% else %}
-        <input type="radio" name="periodo_dia" id="periodo_dia-noite" value="Noite " disabled>
+        <input type="radio" name="periodo_dia" id="periodo_dia-noite" value="Noite " required disabled>
         {% endif %}
         <label class="radio-label" for="periodo_dia-noite">Noite </label>
       </div>      
       
   </div>
   <div class="col">
-    <label for="que_dia_semana_ocorreu_acidente" class="form-label m-0"><small>em Que Dia da Semana Ocorreu o Acidente </small></label>
-    <input value="{{caso.que_dia_semana_ocorreu_acidente}}" class="form-control form-control-sm" id="que_dia_semana_ocorreu_acidente" name="que_dia_semana_ocorreu_acidente" value="" readonly disabled>            
+    <label for="que_dia_semana_ocorreu_acidente" class="form-label m-0"><small>Em Que Dia da Semana Ocorreu o Acidente </small></label>
+    <input value="{{caso.que_dia_semana_ocorreu_acidente}}" class="form-control form-control-sm" id="que_dia_semana_ocorreu_acidente" name="que_dia_semana_ocorreu_acidente" value="" disabled readonly>            
   </div>
       
       
   <div class="col">
       
-      <label for="acidente_ocorreu_dia_feriado" class="form-label m-0"><spam style="color:red;">*</spam><small>o Acidente Ocorreu em Dia de Feriado </small></label>
+      <label for="acidente_ocorreu_dia_feriado" class="form-label m-0"><spam style="color:red;">*</spam><small>O Acidente Ocorreu em Dia de Feriado </small></label>
       <div class="radio-container" id="acidente_ocorreu_dia_feriado" required >
         {% if caso.acidente_ocorreu_dia_feriado == 'Sim ' %}
         <input type="radio" name="acidente_ocorreu_dia_feriado" id="acidente_ocorreu_dia_feriado-sim" value="Sim " checked disabled>
@@ -62,8 +62,8 @@
       
   <div class="col">
       
-      <label for="municipio_ocorrencia_acidente" class="form-label m-0"><spam style="color:red;">*</spam><small>Municipio de Ocorrencia do Acidente </small></label>
-      <select class="select-model" id="municipio_ocorrencia_acidente" name="municipio_ocorrencia_acidente" placeholder="Selecione um ítem" data-search="true" data-silent-initial-value-set="true" disabled>
+      <label for="municipio_ocorrencia_acidente" class="form-label m-0"><spam style="color:red;">*</spam><small>Município de Ocorrência do Acidente </small></label>
+      <select class="select-model" id="municipio_ocorrencia_acidente" name="municipio_ocorrencia_acidente" placeholder="Selecione um ítem" data-search="true" data-silent-initial-value-set="true" required disabled>
         {% for municipio in municipios %}
         {% if municipio.nome == caso.municipio_ocorrencia_acidente %}
         <option value="{{municipio.nome}}" selected>{{municipio.nome}}</option>
@@ -77,8 +77,8 @@
       
       
   <div class="col">
-    <label for="endereco_local_acidente" class="form-label m-0"><small>Endereco do Local do Acidente </small></label>
-    <input type="text" value="{{caso.endereco_local_acidente}}" class="form-control form-control-sm" id="endereco_local_acidente" name="endereco_local_acidente" pattern="^[a-z A-Z0-9]{10,90}$"  disabled>
+    <label for="endereco_local_acidente" class="form-label m-0"><small>Endereço do Local do Acidente </small></label>
+    <input type="text" value="{{caso.endereco_local_acidente}}" class="form-control form-control-sm" id="endereco_local_acidente" name="endereco_local_acidente" pattern="^[a-z A-Z0-9]{10,90}$" disabled >
   </div>
       
       
@@ -107,9 +107,9 @@
         <option value="queda_moto">Queda de Moto </option>
         {% endif %}
         {% if caso.tipo_acidente == 'colisao_choque_' %}
-        <option value="colisao_choque_" selected>Colisao Choque   </option>
+        <option value="colisao_choque_" selected>Colisão/Choque</option>
         {% else %}
-        <option value="colisao_choque_">Colisao Choque   </option>
+        <option value="colisao_choque_">Colisão/Choque</option>
         {% endif %}
         {% if caso.tipo_acidente == 'outros' %}
         <option value="outros" selected>Outros </option>
@@ -123,7 +123,7 @@
       
   <div class="col">
       
-      <label for="tipos_veiculos_envolvidos_acidente" class="form-label m-0"><spam style="color:red;">*</spam><small>Tipos de Veiculos Envolvidos no Acidente </small></label>
+      <label for="tipos_veiculos_envolvidos_acidente" class="form-label m-0"><spam style="color:red;">*</spam><small>Tipos de Veículos Envolvidos no Acidente</small></label>
       <select multiple class="select-model" id="tipos_veiculos_envolvidos_acidente" name="tipos_veiculos_envolvidos_acidente" placeholder="Selecione um ítem" data-search="true" data-silent-initial-value-set="true" required disabled>
         
         {% if 'carro' in caso.tipos_veiculos_envolvidos_acidente %}
@@ -132,9 +132,9 @@
         <option value="carro">Carro </option>
         {% endif %}
         {% if 'caminhao' in caso.tipos_veiculos_envolvidos_acidente %}
-        <option value="caminhao" selected>Caminhao </option>
+        <option value="caminhao" selected>Caminhão</option>
         {% else %}
-        <option value="caminhao">Caminhao </option>
+        <option value="caminhao">Caminhão</option>
         {% endif %}
         {% if 'motocicleta' in caso.tipos_veiculos_envolvidos_acidente %}
         <option value="motocicleta" selected>Motocicleta </option>
@@ -152,9 +152,9 @@
         <option value="bicicletas">Bicicletas </option>
         {% endif %}
         {% if 'onibus_' in caso.tipos_veiculos_envolvidos_acidente %}
-        <option value="onibus_" selected>Onibus  </option>
+        <option value="onibus_" selected>Ônibus  </option>
         {% else %}
-        <option value="onibus_">Onibus  </option>
+        <option value="onibus_">Ônibus  </option>
         {% endif %}
         {% if 'vans' in caso.tipos_veiculos_envolvidos_acidente %}
         <option value="vans" selected>Vans </option>
@@ -175,7 +175,7 @@
       
   <div class="col">
       
-      <label for="paciente_envolvido_acidente_era" class="form-label m-0"><spam style="color:red;">*</spam><small>o Paciente Envolvido no Acidente Era </small></label>
+      <label for="paciente_envolvido_acidente_era" class="form-label m-0"><spam style="color:red;">*</spam><small>O Paciente Envolvido no Acidente Era </small></label>
       <div class="radio-container" id="paciente_envolvido_acidente_era" required >
         {% if caso.paciente_envolvido_acidente_era == 'Pedestre  ' %}
         <input type="radio" name="paciente_envolvido_acidente_era" id="paciente_envolvido_acidente_era-pedestre_" value="Pedestre  " checked disabled>
@@ -202,7 +202,7 @@
       
   <div class="col">
       
-      <label for="vitima_apresenta_sinais_embriaguez_consumo_bebidas_alcoolicas" class="form-label m-0"><spam style="color:red;">*</spam><small>a Vitima Apresenta Sinais de Embriaguez e ou Consumo de Bebidas Alcoolicas </small></label>
+      <label for="vitima_apresenta_sinais_embriaguez_consumo_bebidas_alcoolicas" class="form-label m-0"><spam style="color:red;">*</spam><small>A Vitima Apresenta Sinais de Embriaguez e/ou Consumo de Bebidas Alcoólicas </small></label>
       <div class="radio-container" id="vitima_apresenta_sinais_embriaguez_consumo_bebidas_alcoolicas" required >
         {% if caso.vitima_apresenta_sinais_embriaguez_consumo_bebidas_alcoolicas  == 'Sim ' %}
         <input type="radio" name="vitima_apresenta_sinais_embriaguez_consumo_bebidas_alcoolicas" id="vitima_apresenta_sinais_embriaguez_consumo_bebidas_alcoolicas-sim" value="Sim " checked disabled>
@@ -215,7 +215,7 @@
         {% else %}
         <input type="radio" name="vitima_apresenta_sinais_embriaguez_consumo_bebidas_alcoolicas" id="vitima_apresenta_sinais_embriaguez_consumo_bebidas_alcoolicas-nao_" value="Nao  " disabled>
         {% endif %}
-        <label class="radio-label" for="vitima_apresenta_sinais_embriaguez_consumo_bebidas_alcoolicas-nao_">Nao  </label>
+        <label class="radio-label" for="vitima_apresenta_sinais_embriaguez_consumo_bebidas_alcoolicas-nao_">Não  </label>
       </div>      
       
   </div>

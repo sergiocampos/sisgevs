@@ -26,7 +26,7 @@
   align-items: center;
   justify-content: center;
   bottom: 11vh;
-  left: 50px;
+  right: 50px;
   z-index: 1;
 }
 .radio-container{

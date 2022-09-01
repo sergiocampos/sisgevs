@@ -3,12 +3,12 @@
       
   <div class="col">
       
-      <label for="quem_foi_responsavel_por_prestar_apoio_local" class="form-label m-0"><spam style="color:red;">*</spam><small>Quem Foi Responsavel Por Prestar Apoio no Local </small></label>
+      <label for="quem_foi_responsavel_por_prestar_apoio_local" class="form-label m-0"><spam style="color:red;">*</spam><small>Quem Foi Responsável Por Prestar Apoio no Local </small></label>
       <select multiple class="select-model" id="quem_foi_responsavel_por_prestar_apoio_local" name="quem_foi_responsavel_por_prestar_apoio_local" placeholder="Selecione um ítem" data-search="true" data-silent-initial-value-set="true" required >
         {% if 'orgaos_municipais_transito' in caso.quem_foi_responsavel_por_prestar_apoio_local %}
-        <option value="orgaos_municipais_transito" selected>Orgaos Municipais de Transito </option>
+        <option value="orgaos_municipais_transito" selected>Órgãos Municipais de Trânsito </option>
         {% else %}
-        <option value="orgaos_municipais_transito">Orgaos Municipais de Transito </option>
+        <option value="orgaos_municipais_transito">Órgãos Municipais de Trânsito </option>
         {% endif %}
         {% if 'corpo_bombeiros' in caso.quem_foi_responsavel_por_prestar_apoio_local %}
         <option value="corpo_bombeiros" selected>Corpo de Bombeiros </option>
@@ -16,14 +16,14 @@
         <option value="corpo_bombeiros">Corpo de Bombeiros </option>
         {% endif %}
         {% if 'prf' in caso.quem_foi_responsavel_por_prestar_apoio_local %}
-        <option value="prf" selected>Prf </option>
+        <option value="prf" selected>PRF </option>
         {% else %}
-        <option value="prf">Prf </option>
+        <option value="prf">PRF </option>
         {% endif %}
         {% if 'samu' in caso.quem_foi_responsavel_por_prestar_apoio_local %}
-        <option value="samu" selected>Samu </option>
+        <option value="samu" selected>SAMU </option>
         {% else %}
-        <option value="samu">Samu </option>
+        <option value="samu">SAMU </option>
         {% endif %}
         {% if 'socorrido_por_terceiros' in caso.quem_foi_responsavel_por_prestar_apoio_local %}
         <option value="socorrido_por_terceiros" selected>Socorrido Por Terceiros </option>
