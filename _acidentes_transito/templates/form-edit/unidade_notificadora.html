@@ -10,6 +10,8 @@
     <input value="{{caso.nome_responsavel_pela_digitacao}}" type="text" class="form-control form-control-sm" id="nome_responsavel_pela_digitacao" name="nome_responsavel_pela_digitacao" pattern="^[a-z A-Z\\u00C0-\\u00FF]{10,90}$" onkeypress="return limitcarc(event,'letr_acent')" required  > 
     <div style="font-size:10px;" class="invalid-feedback text-center">Min 10, Max 90 Caracteres.</div>           
   </div>
+</div>
+<div class="row">  
   <div class="col">      
     <label for="cargo_funcao_notificador" class="form-label m-0"><spam style="color:red;">*</spam><small>Cargo/Função do Notificador</small></label>
     <input value="{{caso.cargo_funcao_notificador}}" type="text" class="form-control form-control-sm" id="cargo_funcao_notificador" name="cargo_funcao_notificador" required  >      

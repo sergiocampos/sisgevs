@@ -23,7 +23,7 @@
       
       
   <div class="col">      
-      <label for="numeros_vitimas_fatais_envolvidas_acidente" class="form-label m-0"><spam style="color:red;"></spam><small>Número de Vítimas Fatais Envolvidas no Acidente</small></label>
+      <label for="numeros_vitimas_fatais_envolvidas_acidente" class="form-label m-0"><spam style="color:red;"></spam><small>Número de Vítimas Fatais</small></label>
       {% if caso.houve_vitimas_fatais == 'Sim' %}
       <select class="select-model" id="numeros_vitimas_fatais_envolvidas_acidente" name="numeros_vitimas_fatais_envolvidas_acidente" placeholder="Selecione um ítem" data-search="false" data-silent-initial-value-set="true" >
       {% else %}
@@ -56,7 +56,7 @@
       
   <div class="col">
       
-      <label for="numero_feridos_envolvidos_acidente" class="form-label m-0"><spam style="color:red;">*</spam><small>Número de Feridos Envolvidos no Acidente </small></label>
+      <label for="numero_feridos_envolvidos_acidente" class="form-label m-0"><spam style="color:red;">*</spam><small>Número de Feridos</small></label>
       <select class="select-model" id="numero_feridos_envolvidos_acidente" name="numero_feridos_envolvidos_acidente" placeholder="Selecione um ítem" data-search="false" data-silent-initial-value-set="true" required >
         {% if caso.numero_feridos_envolvidos_acidente == '0' %}
         <option value="0" selected>0</option>
@@ -87,7 +87,8 @@
       
   </div>
       
-      
+</div>
+<div class="row">      
   <div class="col">
       
       <label for="quadro_lesoes" class="form-label m-0"><small>Quadro de Lesões </small></label>
@@ -121,9 +122,6 @@
       </select>  
       
   </div>
-      
-</div>
-<div class="row">
       
   <div class="col">
       
