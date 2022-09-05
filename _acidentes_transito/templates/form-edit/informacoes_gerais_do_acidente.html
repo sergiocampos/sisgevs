@@ -78,7 +78,8 @@
       
   <div class="col">
     <label for="endereco_local_acidente" class="form-label m-0"><small>Endereço do Local do Acidente </small></label>
-    <input type="text" value="{{caso.endereco_local_acidente}}" class="form-control form-control-sm" id="endereco_local_acidente" name="endereco_local_acidente" pattern="^[a-z A-Z0-9\\u00C0-\\u00FF]{10,90}$"  >
+    <input type="text" value="{{caso.endereco_local_acidente}}" class="form-control form-control-sm" id="endereco_local_acidente" name="endereco_local_acidente" pattern="^[a-z A-Z0-9\\u00C0-\\u00FF]{10,90}$" onkeypress="return limitcarc(event, 'letr_acent_num')" >
+    <div style="font-size:10px;" class="invalid-feedback text-center">Min 10, Max 90 Caracteres.</div>
   </div>
       
       

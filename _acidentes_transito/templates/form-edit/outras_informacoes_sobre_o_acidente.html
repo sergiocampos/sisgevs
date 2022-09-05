@@ -22,8 +22,8 @@
   <div class="col">
       
     <label for="informacoes_complementares" class="form-label m-0"><small>Informações Complementares </small></label>
-    <input type="text" value="{{caso.informacoes_complementares}}" class="form-control form-control-sm" id="informacoes_complementares" name="informacoes_complementares" pattern="^[a-z A-Z0-9\\u00C0-\\u00FF]{10,250}$"  >
-      
+    <input type="text" value="{{caso.informacoes_complementares}}" class="form-control form-control-sm" id="informacoes_complementares" name="informacoes_complementares"  onkeypress="return limitcarc(event, 'letr_acent_num')"  pattern="^[a-z A-Z0-9\\u00C0-\\u00FF]{10,250}$"  >
+    <div style="font-size:10px;" class="invalid-feedback text-center">Min 10, Max 250 Caracteres.</div>  
   </div>
       
 </div>

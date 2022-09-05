@@ -1,17 +1,16 @@
-/*
- 
-  Função para limitar os caracteres pelo PATTERN do html
-  Procura dentro do form todos os inputs do tipo texto que possuem o atributo "pattern"
-  Em seguida ele valida a tecla que está sendo pressionada e só libera se estiver de acordo 
-
-*/
-$('form').find('input[type="text"]').filter('.form-control').each(function(){
-  $(this).on('keydown', function(e){
-    if (this.pattern){
-      let re = new RegExp(this.pattern.split('{')[0]+'{0,}$')
-      if(!re.test(e.key)){
+function limitcarc(e, tipo) {
+  var chr = String.fromCharCode(e.which);
+  if (tipo == 'letr_acent'){
+      if ("áéíóúâêîôûãõ qwertyuioplkjhgfdsazxcvbnmQWERTYUIOPLKJHGFDSAZXCVBNM".indexOf(chr) < 0)
         return false;
-      }    
-    }        
-  })
-})
+  }else if (tipo == 'num') {
+      if ("0123456789".indexOf(chr) < 0)
+        return false;
+  }else if (tipo == 'letr'){
+      if ("qwertyuioplkjhgfdsazxcvbnmQWERTYUIOPLKJHGFDSAZXCVBNM".indexOf(chr) < 0)
+        return false;
+  } else if (tipo == 'letr_acent_num'){
+      if ("áéíóúâêîôûãõ qwertyuioplkjhgfdsazxcvbnmQWERTYUIOPLKJHGFDSAZXCVBNM0123456789-,:;/|".indexOf(chr) < 0)
+        return false;
+  }
+}

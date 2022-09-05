@@ -1,10 +1,6 @@
-$('form').on('submit', function(e){
-  e.preventDefault();
+$('#btn-submit').on('click', function(){
 
-  var validInputs = true;
-  var validRadios = true;
-  var validSelects = true;
-
+  var validForm = true;
   var cols = $('form').find('.col')
 
   cols.each(function(){  
@@ -12,20 +8,24 @@ $('form').on('submit', function(e){
       let field = $(this).children()[1]
       if ($(field).hasClass('form-control-sm')){
         if (!field.value){
-          validInputs = false;
+          validForm = false;
         }        
       } else if ($(field).hasClass('select-model')){
         if (!field.value){
-          validSelects = false;
+          validForm = false;
         }        
       } else if ($(field).hasClass('radio-container')){
         if (!$(field).find('input:checked').val()){
-          validRadios = false
+          validForm = false
         }
       }
     }    
   })
-  if (validInputs && validRadios && validSelects){
-    this.submit()
-  }
+
+  let form = document.getElementsByTagName('form')[0]
+  $(form).addClass('was-validated')
+  
+  if (validForm && form.checkValidity()){
+    form.submit()
+  }  
 })
