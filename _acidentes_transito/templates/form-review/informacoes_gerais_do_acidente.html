@@ -3,12 +3,12 @@
       
   <div class="col">
       
-        <label for="data_acidente" class="form-label m-0"><spam style="color:red;">*</spam><small>Data do Acidente </small></label>
-        <input type="date" value="{{caso.data_acidente|date:'Y-m-d'}}" class="form-control form-control-sm" id="data_acidente" name="data_acidente" required  disabled>      
+        <label for="data_acidente" class="form-label m-0"><spam style="color:red;"></spam><small><b>Data do Acidente </b></small></label>
+        <input type="date" value="{{caso.data_acidente|date:'Y-m-d'}}" class="form-control form-control-sm" id="data_acidente" name="data_acidente" required  disabled>       
       
   </div>
   <div class="col">      
-      <label for="periodo_dia" class="form-label m-0"><spam style="color:red;">*</spam><small>Período do Dia </small></label>
+      <label for="periodo_dia" class="form-label m-0"><spam style="color:red;"></spam><small><b>Período do Dia </b></small></label>
       <div class="radio-container" id="periodo_dia" required >
         {% if caso.periodo_dia == 'Manha ' %}
         <input type="radio" name="periodo_dia" id="periodo_dia-manha" value="Manha " checked required disabled>
@@ -32,14 +32,15 @@
       
   </div>
   <div class="col">
-    <label for="que_dia_semana_ocorreu_acidente" class="form-label m-0"><small>Em Que Dia da Semana Ocorreu o Acidente </small></label>
-    <input value="{{caso.que_dia_semana_ocorreu_acidente}}" class="form-control form-control-sm" id="que_dia_semana_ocorreu_acidente" name="que_dia_semana_ocorreu_acidente" value="" disabled readonly>            
+    <label for="que_dia_semana_ocorreu_acidente" class="form-label m-0"><small><b>Em Que Dia da Semana Ocorreu o Acidente </b></small></label>
+    <input value="{{caso.que_dia_semana_ocorreu_acidente}}" class="form-control form-control-sm" id="que_dia_semana_ocorreu_acidente" name="que_dia_semana_ocorreu_acidente" value="" readonly disabled>             
   </div>
-      
+</div>
+<div class="row">      
       
   <div class="col">
       
-      <label for="acidente_ocorreu_dia_feriado" class="form-label m-0"><spam style="color:red;">*</spam><small>O Acidente Ocorreu em Dia de Feriado </small></label>
+      <label for="acidente_ocorreu_dia_feriado" class="form-label m-0"><spam style="color:red;"></spam><small><b>O Acidente Ocorreu em Dia de Feriado </b></small></label>
       <div class="radio-container" id="acidente_ocorreu_dia_feriado" required >
         {% if caso.acidente_ocorreu_dia_feriado == 'Sim ' %}
         <input type="radio" name="acidente_ocorreu_dia_feriado" id="acidente_ocorreu_dia_feriado-sim" value="Sim " checked disabled>
@@ -57,13 +58,12 @@
       
   </div>
       
-</div>
-<div class="row">
+
       
   <div class="col">
       
-      <label for="municipio_ocorrencia_acidente" class="form-label m-0"><spam style="color:red;">*</spam><small>Município de Ocorrência do Acidente </small></label>
-      <select class="select-model" id="municipio_ocorrencia_acidente" name="municipio_ocorrencia_acidente" placeholder="Selecione um ítem" data-search="true" data-silent-initial-value-set="true" required disabled>
+      <label for="municipio_ocorrencia_acidente" class="form-label m-0"><spam style="color:red;"></spam><small><b>Município de Ocorrência do Acidente </b></small></label>
+      <select class="select-model" id="municipio_ocorrencia_acidente" name="municipio_ocorrencia_acidente" placeholder="Selecione um item" data-search="true" data-silent-initial-value-set="true" required disabled>
         {% for municipio in municipios %}
         {% if municipio.nome == caso.municipio_ocorrencia_acidente %}
         <option value="{{municipio.nome}}" selected>{{municipio.nome}}</option>
@@ -77,15 +77,17 @@
       
       
   <div class="col">
-    <label for="endereco_local_acidente" class="form-label m-0"><small>Endereço do Local do Acidente </small></label>
-    <input type="text" value="{{caso.endereco_local_acidente}}" class="form-control form-control-sm" id="endereco_local_acidente" name="endereco_local_acidente" pattern="^[a-z A-Z0-9]{10,90}$" disabled >
+    <label for="endereco_local_acidente" class="form-label m-0"><small><b>Endereço do Local do Acidente </b></small></label>
+    <input type="text" value="{{caso.endereco_local_acidente}}" class="form-control form-control-sm" id="endereco_local_acidente" name="endereco_local_acidente" pattern="^[a-z A-Z0-9\\u00C0-\\u00FF]{10,90}$" onkeypress="return limitcarc(event, 'letr_acent_num')"  disabled>
+    <div style="font-size:10px;" class="invalid-feedback text-center">Min 10, Max 90 Caracteres.</div>
   </div>
-      
+</div>
+<div class="row">    
       
   <div class="col">
       
-      <label for="tipo_acidente" class="form-label m-0"><spam style="color:red;">*</spam><small>Tipo do Acidente </small></label>
-      <select class="select-model" id="tipo_acidente" name="tipo_acidente" placeholder="Selecione um ítem" data-search="true" data-silent-initial-value-set="true" required disabled>
+      <label for="tipo_acidente" class="form-label m-0"><spam style="color:red;"></spam><small><b>Tipo do Acidente </b></small></label>
+      <select class="select-model" id="tipo_acidente" name="tipo_acidente" placeholder="Selecione um item" data-search="true" data-silent-initial-value-set="true" required  disabled>
         {% if caso.tipo_acidente == 'abalroamento' %}
         <option value="abalroamento" selected>Abalroamento </option>
         {% else %}
@@ -123,8 +125,8 @@
       
   <div class="col">
       
-      <label for="tipos_veiculos_envolvidos_acidente" class="form-label m-0"><spam style="color:red;">*</spam><small>Tipos de Veículos Envolvidos no Acidente</small></label>
-      <select multiple class="select-model" id="tipos_veiculos_envolvidos_acidente" name="tipos_veiculos_envolvidos_acidente" placeholder="Selecione um ítem" data-search="true" data-silent-initial-value-set="true" required disabled>
+      <label for="tipos_veiculos_envolvidos_acidente" class="form-label m-0"><spam style="color:red;"></spam><small><b>Tipos de Veículos Envolvidos no Acidente</b></small></label>
+      <select multiple class="select-model" id="tipos_veiculos_envolvidos_acidente" name="tipos_veiculos_envolvidos_acidente" placeholder="Selecione um item" data-search="true" data-silent-initial-value-set="true" required  disabled>
         
         {% if 'carro' in caso.tipos_veiculos_envolvidos_acidente %}
         <option value="carro" selected>Carro </option>
@@ -169,13 +171,11 @@
       </select>        
       
   </div>
-      
-</div>
-<div class="row">
+
       
   <div class="col">
       
-      <label for="paciente_envolvido_acidente_era" class="form-label m-0"><spam style="color:red;">*</spam><small>O Paciente Envolvido no Acidente Era </small></label>
+      <label for="paciente_envolvido_acidente_era" class="form-label m-0"><spam style="color:red;"></spam><small><b>O Paciente Envolvido no Acidente Era </b></small></label>
       <div class="radio-container" id="paciente_envolvido_acidente_era" required >
         {% if caso.paciente_envolvido_acidente_era == 'Pedestre  ' %}
         <input type="radio" name="paciente_envolvido_acidente_era" id="paciente_envolvido_acidente_era-pedestre_" value="Pedestre  " checked disabled>
@@ -199,10 +199,11 @@
       
   </div>
       
+</div>
+<div class="row">     
+  <div class="col-md-6">
       
-  <div class="col">
-      
-      <label for="vitima_apresenta_sinais_embriaguez_consumo_bebidas_alcoolicas" class="form-label m-0"><spam style="color:red;">*</spam><small>A Vitima Apresenta Sinais de Embriaguez e/ou Consumo de Bebidas Alcoólicas </small></label>
+      <label for="vitima_apresenta_sinais_embriaguez_consumo_bebidas_alcoolicas" class="form-label m-0"><spam style="color:red;"></spam><small><b>A Vítima Apresenta Sinais de Embriaguez e/ou Consumo de Bebidas Alcoólicas </b></small></label>
       <div class="radio-container" id="vitima_apresenta_sinais_embriaguez_consumo_bebidas_alcoolicas" required >
         {% if caso.vitima_apresenta_sinais_embriaguez_consumo_bebidas_alcoolicas  == 'Sim ' %}
         <input type="radio" name="vitima_apresenta_sinais_embriaguez_consumo_bebidas_alcoolicas" id="vitima_apresenta_sinais_embriaguez_consumo_bebidas_alcoolicas-sim" value="Sim " checked disabled>

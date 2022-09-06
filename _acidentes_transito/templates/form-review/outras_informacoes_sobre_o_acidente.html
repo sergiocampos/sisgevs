@@ -2,7 +2,7 @@
 <div class="row">
       
   <div class="col">      
-    <label for="paciente_foi_referenciado_para_outro_hospital" class="form-label m-0"><spam style="color:red;">*</spam><small>Paciente Foi Referenciado Para Outro Hospital </small></label>
+    <label for="paciente_foi_referenciado_para_outro_hospital" class="form-label m-0"><spam style="color:red;"></spam><small><b>Paciente Foi Referenciado Para Outro Hospital </b></small></label>
     <div class="radio-container" id="paciente_foi_referenciado_para_outro_hospital" required >
       {% if caso.paciente_foi_referenciado_para_outro_hospital == 'Sim' %}
       <input type="radio" name="paciente_foi_referenciado_para_outro_hospital" id="paciente_foi_referenciado_para_outro_hospital-sim_" value="Sim" checked required disabled>
@@ -21,23 +21,27 @@
       
   <div class="col">
       
-    <label for="informacoes_complementares" class="form-label m-0"><small>Informações Complementares </small></label>
-    <input type="text" value="{{caso.informacoes_complementares}}" class="form-control form-control-sm" id="informacoes_complementares" name="informacoes_complementares" pattern="^[a-z A-Z0-9]{10,250}$"   disabled>
-      
+    <label for="informacoes_complementares" class="form-label m-0"><small><b>Informações Complementares </b></small></label>
+    <input type="text" value="{{caso.informacoes_complementares}}" class="form-control form-control-sm" id="informacoes_complementares" name="informacoes_complementares"  onkeypress="return limitcarc(event, 'letr_acent_num')"  pattern="^[a-z A-Z0-9\\u00C0-\\u00FF]{10,250}$"   disabled>
+    <div style="font-size:10px;" class="invalid-feedback text-center">Min 10, Max 250 Caracteres.</div>  
   </div>
       
 </div>
 <div class="row">
   <div class="col">      
-    <label for="qual_hospital" class="form-label m-0"><small>Qual o Hospital</small></label>
+    <label for="qual_hospital" class="form-label m-0"><small><b>Qual o Hospital</b></small></label>
     {% if caso.paciente_foi_referenciado_para_outro_hospital == 'Sim' %}
-    <select class="select-model" id="qual_hospital" name="qual_hospital" placeholder="Selecione um ítem" data-search="true" data-silent-initial-value-set="true" disabled>
+    <select class="select-model" id="qual_hospital" name="qual_hospital" placeholder="Selecione um item" data-search="true" data-silent-initial-value-set="true" disabled>
     {% else %}
-    <select class="select-model" id="qual_hospital" name="qual_hospital" placeholder="Selecione um ítem" data-search="true" data-silent-initial-value-set="true" disabled>
-      <option value="" disabled selected>Selecione um ítem</option>
+    <select class="select-model" id="qual_hospital" name="qual_hospital" placeholder="Selecione um item" data-search="true" data-silent-initial-value-set="true" disabled>
+      <option value="" disabled>Selecione um item</option>
     {% endif %}
 
-      <option value="outro">Outro</option>
+      {% if caso.qual_hospital == 'Outro' %}
+      <option value="Outro" selected>Outro</option>
+      {% else %}
+      <option value="Outro">Outro</option>
+      {% endif %}
       {% for hospital in hospitais %}
       {% if hospital.nome == caso.qual_hospital %}
       <option value="{{hospital.nome}}" selected>{{hospital.nome}}</option>

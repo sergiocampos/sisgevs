@@ -1,34 +1,34 @@
 
 <div class="row">      
   <div class="col">      
-    <label for="nome_instituicao" class="form-label m-0"><spam style="color:red;">*</spam><small>Nome da Instituição </small></label>
-    <input type="text" class="form-control form-control-sm" id="nome_instituicao" name="nome_instituicao" pattern="^[a-z A-Z\\u00C0-\\u00FF]{10,90}$" onkeypress="return limitcarc(event,'letr_acent')" required  > 
+    <label for="nome_instituicao" class="form-label m-0"><spam style="color:red;">*</spam><small><b>Nome da Instituição </b></small></label>
+    <input type="text" class="form-control form-control-sm" id="nome_instituicao" name="nome_instituicao" pattern="^[a-z A-Z\u00C0-\u00FF]{10,90}$" onkeypress="return limitcarc(event,'letr_acent')" required  > 
     <div style="font-size:10px;" class="invalid-feedback text-center">Min 10, Max 90 Caracteres.</div>           
   </div>        
   <div class="col">      
-    <label for="cargo_funcao_notificador" class="form-label m-0"><spam style="color:red;">*</spam><small>Cargo/Função do Notificador </small></label>
+    <label for="cargo_funcao_notificador" class="form-label m-0"><spam style="color:red;">*</spam><small><b>Cargo/Função do Notificador </b></small></label>
     <input type="text" class="form-control form-control-sm" id="cargo_funcao_notificador" name="cargo_funcao_notificador" required  >      
   </div>      
         
 </div>
 <div class="row">
   <div class="col">      
-    <label for="nome_responsavel_pela_digitacao" class="form-label m-0"><spam style="color:red;">*</spam><small>Nome do Responsável Pela Digitação </small></label>
-    <input type="text" class="form-control form-control-sm" id="nome_responsavel_pela_digitacao" name="nome_responsavel_pela_digitacao" pattern="^[a-z A-Z\\u00C0-\\u00FF]{10,90}$" onkeypress="return limitcarc(event,'letr_acent')" required  >            
+    <label for="nome_responsavel_pela_digitacao" class="form-label m-0"><spam style="color:red;">*</spam><small><b>Nome do Responsável Pela Digitação </b></small></label>
+    <input type="text" class="form-control form-control-sm" id="nome_responsavel_pela_digitacao" name="nome_responsavel_pela_digitacao" pattern="^[a-z A-Z\u00C0-\u00FF]{10,90}$" onkeypress="return limitcarc(event,'letr_acent')" required  >            
     <div style="font-size:10px;" class="invalid-feedback text-center">Min 10, Max 90 Caracteres.</div>
   </div>
   <div class="col">      
-    <label for="contato_notificador" class="form-label m-0"><spam style="color:red;">*</spam><small>Contato do Notificador </small></label>
+    <label for="contato_notificador" class="form-label m-0"><spam style="color:red;">*</spam><small><b>Contato do Notificador </b></small></label>
     <input type="text" class="form-control form-control-sm" id="contato_notificador" name="contato_notificador" placeholder="(00)00000-0000" required  >          
   </div>
 </div>
 <div class="row">  
   
   <div class="col">      
-    <label for="nome_instituicao_hospital" class="form-label m-0"><small>Nome da Instituição/Hospital </small></label>
-    <select class="select-model" id="nome_instituicao_hospital" name="nome_instituicao_hospital" placeholder="Selecione um ítem" data-search="true" data-silent-initial-value-set="true">
+    <label for="nome_instituicao_hospital" class="form-label m-0"><small><b>Nome da Instituição/Hospital </b></small></label>
+    <select class="select-model" id="nome_instituicao_hospital" name="nome_instituicao_hospital" placeholder="Selecione um item" data-search="true" data-silent-initial-value-set="true">
       <option value="" selected disabled>Selecione um item</option>
-      <option value="outro">Outro</option>
+      <option value="Outro">Outro</option>
       {% for hospital in hospitais %}
       <option value="{{hospital.nome}}">{{hospital.nome}}</option>
       {% endfor %}      

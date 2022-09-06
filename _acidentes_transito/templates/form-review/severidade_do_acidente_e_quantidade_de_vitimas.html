@@ -3,7 +3,7 @@
       
   <div class="col">
       
-      <label for="houve_vitimas_fatais" class="form-label m-0"><spam style="color:red;">*</spam><small>Houve Vítimas Fatais </small></label>
+      <label for="houve_vitimas_fatais" class="form-label m-0"><spam style="color:red;"></spam><small><b>Houve Vítimas Fatais </b></small></label>
       <div class="radio-container" id="houve_vitimas_fatais" required >
         {% if caso.houve_vitimas_fatais == 'Sim' %}
         <input type="radio" name="houve_vitimas_fatais" id="houve_vitimas_fatais-sim" value="Sim" checked required disabled>
@@ -23,12 +23,12 @@
       
       
   <div class="col">      
-      <label for="numeros_vitimas_fatais_envolvidas_acidente" class="form-label m-0"><spam style="color:red;"></spam><small>Número de Vítimas Fatais Envolvidas no Acidente</small></label>
+      <label for="numeros_vitimas_fatais_envolvidas_acidente" class="form-label m-0"><spam style="color:red;"></spam><small><b>Número de Vítimas Fatais</b></small></label>
       {% if caso.houve_vitimas_fatais == 'Sim' %}
-      <select class="select-model" id="numeros_vitimas_fatais_envolvidas_acidente" name="numeros_vitimas_fatais_envolvidas_acidente" placeholder="Selecione um ítem" data-search="false" data-silent-initial-value-set="true" disabled>
+      <select class="select-model" id="numeros_vitimas_fatais_envolvidas_acidente" name="numeros_vitimas_fatais_envolvidas_acidente" placeholder="Selecione um item" data-search="false" data-silent-initial-value-set="true" disabled>
       {% else %}
-      <select class="select-model" id="numeros_vitimas_fatais_envolvidas_acidente" name="numeros_vitimas_fatais_envolvidas_acidente" placeholder="Selecione um ítem" data-search="false" data-silent-initial-value-set="true" disabled>
-        <option value="" disabled selected>Selecione um ítem</option>
+      <select class="select-model" id="numeros_vitimas_fatais_envolvidas_acidente" name="numeros_vitimas_fatais_envolvidas_acidente" placeholder="Selecione um item" data-search="false" data-silent-initial-value-set="true" disabled>
+        <option value="" disabled selected>Selecione um item</option>
       {% endif %}        
         {% if caso. == '1' %}
         <option value="1" selected>1</option>
@@ -56,8 +56,8 @@
       
   <div class="col">
       
-      <label for="numero_feridos_envolvidos_acidente" class="form-label m-0"><spam style="color:red;">*</spam><small>Número de Feridos Envolvidos no Acidente </small></label>
-      <select class="select-model" id="numero_feridos_envolvidos_acidente" name="numero_feridos_envolvidos_acidente" placeholder="Selecione um ítem" data-search="false" data-silent-initial-value-set="true" required disabled>
+      <label for="numero_feridos_envolvidos_acidente" class="form-label m-0"><spam style="color:red;"></spam><small><b>Número de Feridos</b></small></label>
+      <select class="select-model" id="numero_feridos_envolvidos_acidente" name="numero_feridos_envolvidos_acidente" placeholder="Selecione um item" data-search="false" data-silent-initial-value-set="true" required  disabled>
         {% if caso.numero_feridos_envolvidos_acidente == '0' %}
         <option value="0" selected>0</option>
         {% else %}
@@ -87,16 +87,17 @@
       
   </div>
       
-      
+</div>
+<div class="row">      
   <div class="col">
       
-      <label for="quadro_lesoes" class="form-label m-0"><small>Quadro de Lesões </small></label>
-      <select class="select-model" id="quadro_lesoes" name="quadro_lesoes" placeholder="Selecione um ítem" data-search="true" data-silent-initial-value-set="true" disabled>
+      <label for="quadro_lesoes" class="form-label m-0"><small><b>Quadro de Lesões </b></small></label>
+      <select class="select-model" id="quadro_lesoes" name="quadro_lesoes" placeholder="Selecione um item" data-search="true" data-silent-initial-value-set="true" disabled>
         
         {% if caso.quadro_lesoes == '' %}
-        <option selected value="">Selecione um ítem</option>
+        <option selected value="">Selecione um item</option>
         {% else %}
-        <option value="">Selecione um ítem</option>
+        <option value="">Selecione um item</option>
         {% endif %}
         {% if caso.quadro_lesoes == 'leves' %}
         <option selected value="leves">Leves </option>
@@ -122,12 +123,9 @@
       
   </div>
       
-</div>
-<div class="row">
-      
   <div class="col">
       
-        <label for="caso_obito" class="form-label m-0"><small>Em Caso de Óbito</small></label>
+        <label for="caso_obito" class="form-label m-0"><small><b>Em Caso de Óbito</b></small></label>
       <div class="radio-container" id="caso_obito">
         {% if caso.caso_obito == 'Obito no Local ' %}
         <input type="radio" name="caso_obito" id="caso_obito-obito_local" value="Obito no Local " checked disabled>

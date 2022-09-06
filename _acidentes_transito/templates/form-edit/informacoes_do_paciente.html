@@ -3,15 +3,15 @@
       
   <div class="col">
       
-      <label for="nome_paciente_sem_abreviacoes" class="form-label m-0"><spam style="color:red;">*</spam><small>Nome do Paciente</small></label>
-      <input value="{{caso.nome_paciente_sem_abreviacoes}}" type="text" class="form-control form-control-sm" id="nome_paciente_sem_abreviacoes" name="nome_paciente_sem_abreviacoes" onkeypress="return limitcarc(event, 'letr_acent')" pattern="^[a-z A-Z\\u00C0-\\u00FF]{10,90}$" required  >      
+      <label for="nome_paciente_sem_abreviacoes" class="form-label m-0"><spam style="color:red;"></spam><small><b>Nome do Paciente</b></small></label>
+      <input value="{{caso.nome_paciente_sem_abreviacoes}}" type="text" class="form-control form-control-sm" id="nome_paciente_sem_abreviacoes" name="nome_paciente_sem_abreviacoes" onkeypress="return limitcarc(event, 'letr_acent')" pattern="^[a-z A-Z\u00C0-\u00FF]{10,90}$" required  >      
       <div style="font-size:10px;" class="invalid-feedback text-center">Min 10, Max 90 Caracteres.</div>
   </div>
       
       
   <div class="col">
       
-        <label for="data_nascimento" class="form-label m-0"><spam style="color:red;">*</spam><small>Data de Nascimento </small></label>
+        <label for="data_nascimento" class="form-label m-0"><spam style="color:red;"></spam><small><b>Data de Nascimento </b></small></label>
         <input value="{{caso.data_nascimento|date:'Y-m-d'}}" type="date" class="form-control form-control-sm" id="data_nascimento" name="data_nascimento" required  >      
       
   </div>
@@ -19,7 +19,7 @@
       
   <div class="col">
       
-        <label for="idade_paciente" class="form-label m-0"><spam style="color:red;"></spam><small>Idade do Paciente </small></label>
+        <label for="idade_paciente" class="form-label m-0"><spam style="color:red;"></spam><small><b>Idade do Paciente </b></small></label>
         <input value="{{caso.idade_paciente}}" type="number" class="form-control form-control-sm" id="idade_paciente" name="idade_paciente" readonly>      
       
   </div>
@@ -28,7 +28,7 @@
 <div class="row">     
   <div class="col">
       
-      <label for="sexo" class="form-label m-0"><spam style="color:red;">*</spam><small>Sexo </small></label>
+      <label for="sexo" class="form-label m-0"><spam style="color:red;"></spam><small><b>Sexo </b></small></label>
       <div class="radio-container" id="sexo" required >
         {% if caso.sexo == 'Feminino ' %}                  
         <input type="radio" name="sexo" id="sexo-feminino" value="Feminino " checked required>
@@ -54,16 +54,16 @@
 
   <div class="col">
       
-      <label for="nome_mae" class="form-label m-0"><spam style="color:red;">*</spam><small>Nome da Mãe </small></label>
-      <input value="{{caso.nome_mae}}" type="text" class="form-control form-control-sm" id="nome_mae" name="nome_mae" pattern="^[a-z A-Z\\u00C0-\\u00FF]{10,90}$" onkeypress="return limitcarc(event, 'letr_acent')" required  >      
+      <label for="nome_mae" class="form-label m-0"><spam style="color:red;"></spam><small><b>Nome da Mãe </b></small></label>
+      <input value="{{caso.nome_mae}}" type="text" class="form-control form-control-sm" id="nome_mae" name="nome_mae" pattern="^[a-z A-Z\u00C0-\u00FF]{10,90}$" onkeypress="return limitcarc(event, 'letr_acent')" required  >      
       <div style="font-size:10px;" class="invalid-feedback text-center">Min 10, Max 90 Caracteres.</div>
   </div>
       
       
   <div class="col">
       
-      <label for="endereco_paciente" class="form-label m-0"><small>Endereço do Paciente</small></label>
-      <input value="{{caso.endereco_paciente}}" type="text" class="form-control form-control-sm" id="endereco_paciente" name="endereco_paciente" pattern="^[a-z A-Z0-9\\u00C0-\\u00FF,-.|:;/]{10,90}$" onkeypress="return limitcarc(event, 'letr_acent_num')"  >
+      <label for="endereco_paciente" class="form-label m-0"><small><b>Endereço do Paciente</b></small></label>
+      <input value="{{caso.endereco_paciente}}" type="text" class="form-control form-control-sm" id="endereco_paciente" name="endereco_paciente" pattern="^[a-z A-Z0-9\u00C0-\u00FF,-.|:;/]{10,90}$" onkeypress="return limitcarc(event, 'letr_acent_num')"  >
       <div style="font-size:10px;" class="invalid-feedback text-center">Min 10, Max 90 Caracteres.</div>
   </div>
       
@@ -72,7 +72,7 @@
 
   <div class="col">
       
-        <label for="contato_telefonico" class="form-label m-0"><small>Contato Telefônico </small></label>
+        <label for="contato_telefonico" class="form-label m-0"><small><b>Contato Telefônico </b></small></label>
         <input value="{{caso.contato_telefonico}}" type="text" class="form-control form-control-sm" id="contato_telefonico" placeholder="(00)00000-0000" name="contato_telefonico" >
       
   </div>
@@ -80,14 +80,14 @@
       
   <div class="col">
       
-        <label for="cpf_paciente" class="form-label m-0"><small>CPF</small></label>
+        <label for="cpf_paciente" class="form-label m-0"><small><b>CPF</b></small></label>
         <input value="{{caso.cpf_paciente}}" type="text" class="form-control form-control-sm" id="cpf_paciente" placeholder="000.000.000-00" name="cpf_paciente" >
       
   </div>
       
   <div class="col">
       
-        <label for="cns_paciente" class="form-label m-0"><small>CNS</small></label>
+        <label for="cns_paciente" class="form-label m-0"><small><b>CNS</b></small></label>
         <input value="{{caso.cns_paciente}}" type="text" class="form-control form-control-sm" id="cns_paciente" placeholder="000.0000.0000.0000" name="cns_paciente" >
       
   </div>

@@ -3,12 +3,12 @@
       
   <div class="col">
       
-        <label for="data_acidente" class="form-label m-0"><spam style="color:red;">*</spam><small>Data do Acidente </small></label>
+        <label for="data_acidente" class="form-label m-0"><spam style="color:red;">*</spam><small><b>Data do Acidente </b></small></label>
         <input type="date" class="form-control form-control-sm" id="data_acidente" name="data_acidente" required  >      
       
   </div>
   <div class="col">      
-      <label for="periodo_dia" class="form-label m-0"><spam style="color:red;">*</spam><small>Período do Dia </small></label>
+      <label for="periodo_dia" class="form-label m-0"><spam style="color:red;">*</spam><small><b>Período do Dia </b></small></label>
       <div class="radio-container" id="periodo_dia" required >
         <input type="radio" name="periodo_dia" id="periodo_dia-manha" value="Manha " required>
         <label class="radio-label" for="periodo_dia-manha">Manhã </label>
@@ -20,7 +20,7 @@
       
   </div>
   <div class="col">
-    <label for="que_dia_semana_ocorreu_acidente" class="form-label m-0"><small>Em que Dia da Semana Ocorreu o Acidente </small></label>
+    <label for="que_dia_semana_ocorreu_acidente" class="form-label m-0"><small><b>Em que Dia da Semana Ocorreu o Acidente </b></small></label>
     <input class="form-control form-control-sm" id="que_dia_semana_ocorreu_acidente" name="que_dia_semana_ocorreu_acidente" value="" readonly>            
   </div>
 
@@ -29,7 +29,7 @@
       
   <div class="col">
       
-      <label for="acidente_ocorreu_dia_feriado" class="form-label m-0"><spam style="color:red;">*</spam><small>O Acidente Ocorreu em Dia de Feriado </small></label>
+      <label for="acidente_ocorreu_dia_feriado" class="form-label m-0"><spam style="color:red;">*</spam><small><b>O Acidente Ocorreu em Dia de Feriado </b></small></label>
       <div class="radio-container" id="acidente_ocorreu_dia_feriado">
         <input type="radio" name="acidente_ocorreu_dia_feriado" id="acidente_ocorreu_dia_feriado-sim" value="Sim " required>
         <label class="radio-label" for="acidente_ocorreu_dia_feriado-sim">Sim </label>
@@ -43,9 +43,9 @@
       
   <div class="col">
       
-      <label for="municipio_ocorrencia_acidente" class="form-label m-0"><spam style="color:red;">*</spam><small>Município de Ocorrência do Acidente </small></label>
-      <select class="select-model" id="municipio_ocorrencia_acidente" name="municipio_ocorrencia_acidente" placeholder="Selecione um ítem" data-search="true" data-silent-initial-value-set="true" required>
-        <option value="" disabled selected>Selecione um ítem</option>
+      <label for="municipio_ocorrencia_acidente" class="form-label m-0"><spam style="color:red;">*</spam><small><b>Município de Ocorrência do Acidente </b></small></label>
+      <select class="select-model" id="municipio_ocorrencia_acidente" name="municipio_ocorrencia_acidente" placeholder="Selecione um item" data-search="true" data-silent-initial-value-set="true" required>
+        <option value="" disabled selected>Selecione um item</option>
         {% for municipio in municipios %}
         <option value="{{municipio.nome}}">{{municipio.nome}}</option>
         {% endfor %}
@@ -56,7 +56,7 @@
       
   <div class="col">
       
-      <label for="endereco_local_acidente" class="form-label m-0"><small>Endereço do Local do Acidente </small></label>
+      <label for="endereco_local_acidente" class="form-label m-0"><small><b>Endereço do Local do Acidente </b></small></label>
       <input type="text" class="form-control form-control-sm" id="endereco_local_acidente" name="endereco_local_acidente" pattern="^[a-z A-Z0-9\\u00C0-\\u00FF]{10,90}$" onkeypress="return limitcarc(event, 'letr_acent_num')" >
       <div style="font-size:10px;" class="invalid-feedback text-center">Min 10, Max 90 Caracteres.</div>
   </div>
@@ -66,9 +66,9 @@
       
   <div class="col">
       
-      <label for="tipo_acidente" class="form-label m-0"><spam style="color:red;">*</spam><small>Tipo do Acidente </small></label>
-      <select class="select-model" id="tipo_acidente" name="tipo_acidente" placeholder="Selecione um ítem" data-search="true" data-silent-initial-value-set="true" required >
-        <option value="" disabled selected>Selecione um ítem</option>
+      <label for="tipo_acidente" class="form-label m-0"><spam style="color:red;">*</spam><small><b>Tipo do Acidente </b></small></label>
+      <select class="select-model" id="tipo_acidente" name="tipo_acidente" placeholder="Selecione um item" data-search="true" data-silent-initial-value-set="true" required >
+        <option value="" disabled selected>Selecione um item</option>
         <option value="abalroamento">Abalroamento </option>
         <option value="atropelamento">Atropelamento </option>
         <option value="capotamento">Capotamento </option>
@@ -82,9 +82,9 @@
       
   <div class="col">
       
-      <label for="tipos_veiculos_envolvidos_acidente" class="form-label m-0"><spam style="color:red;">*</spam><small>Tipos de Veículos Envolvidos no Acidente </small></label>
-      <select multiple class="select-model" id="tipos_veiculos_envolvidos_acidente" name="tipos_veiculos_envolvidos_acidente" placeholder="Selecione um ítem" data-search="true" data-silent-initial-value-set="true" required >
-        <option value="" disabled selected>Selecione um ítem</option>
+      <label for="tipos_veiculos_envolvidos_acidente" class="form-label m-0"><spam style="color:red;">*</spam><small><b>Tipos de Veículos Envolvidos no Acidente </b></small></label>
+      <select multiple class="select-model" id="tipos_veiculos_envolvidos_acidente" name="tipos_veiculos_envolvidos_acidente" placeholder="Selecione um item" data-search="true" data-silent-initial-value-set="true" required >
+        <option value="" disabled selected>Selecione um item</option>
         <option value="carro">Carro </option>
         <option value="caminhao">Caminhão </option>
         <option value="motocicleta">Motocicleta </option>
@@ -101,7 +101,7 @@
       
   <div class="col">
       
-      <label for="paciente_envolvido_acidente_era" class="form-label m-0"><spam style="color:red;">*</spam><small>O Paciente Envolvido no Acidente Era </small></label>
+      <label for="paciente_envolvido_acidente_era" class="form-label m-0"><spam style="color:red;">*</spam><small><b>O Paciente Envolvido no Acidente Era </b></small></label>
       <div class="radio-container" id="paciente_envolvido_acidente_era" required >
         <input type="radio" name="paciente_envolvido_acidente_era" id="paciente_envolvido_acidente_era-pedestre_" value="Pedestre  " required>
         <label class="radio-label" for="paciente_envolvido_acidente_era-pedestre_">Pedestre  </label>
@@ -116,9 +116,9 @@
 </div>
 <div class="row">
 
-  <div class="col-md-6">
+  <div class="col col-md-6">
       
-      <label for="vitima_apresenta_sinais_embriaguez_consumo_bebidas_alcoolicas" class="form-label m-0"><spam style="color:red;">*</spam><small>A Vitima Apresenta Sinais de Embriaguez e/ou Consumo de Bebidas Alcoólicas </small></label>
+      <label for="vitima_apresenta_sinais_embriaguez_consumo_bebidas_alcoolicas" class="form-label m-0"><spam style="color:red;">*</spam><small><b>A Vitima Apresenta Sinais de Embriaguez e/ou Consumo de Bebidas Alcoólicas </b></small></label>
       <div class="radio-container" id="vitima_apresenta_sinais_embriaguez_consumo_bebidas_alcoolicas" required >
         <input type="radio" name="vitima_apresenta_sinais_embriaguez_consumo_bebidas_alcoolicas" id="vitima_apresenta_sinais_embriaguez_consumo_bebidas_alcoolicas-sim" value="Sim " required>
         <label class="radio-label" for="vitima_apresenta_sinais_embriaguez_consumo_bebidas_alcoolicas-sim">Sim </label>

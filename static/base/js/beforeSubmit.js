@@ -1,3 +1,12 @@
+/*
+
+    Validando todos os campos antes de enviar o formulário,
+    caso esteja tudo ok, envia o formulário.
+
+    Caso contrário ativa a classe 'was-validated' 
+    para indicar ao usuário onde está a falha.
+
+*/
 $('#btn-submit').on('click', function(){
 
   var validForm = true;
@@ -28,4 +37,64 @@ $('#btn-submit').on('click', function(){
   if (validForm && form.checkValidity()){
     form.submit()
   }  
+})
+
+
+/* 
+
+    Adicionando um eventlistener em todos
+    os campos para remover ou adicionar
+    os asteriscos " * " de alerta.
+
+*/
+$(window).ready(function(){
+  $('form').find('.col').each(function(){
+    let label = $(this).children('label')
+    let target = $(this).children()[1]
+        
+    if ($(target).hasClass('form-control-sm')){ // Tipo Input
+      let alert = label.find('spam')
+      $(target).on('change', function(e){
+
+        if (e.target.value && alert){
+          alert.text('')
+        } else if (!e.target.value && alert) {
+          alert.text('*')
+        }
+      })
+
+    } else if ($(target).hasClass('select-model')){ // Tipo Select
+      let alert = label.find('spam')
+      $(target).on('change', function(e){
+        
+        if (typeof(e.target.value) == "string"){
+          if (e.target.value && alert){
+            alert.text('')
+          } else if (!e.target.value && alert && e.target.id != "numeros_vitimas_fatais_envolvidas_acidente") {
+            alert.text('*')
+          }
+        } else {
+          if (this.value.length && alert.text() == "*"){
+            alert.text('')
+          } else if (!this.value.length && alert.text() == "") {
+            alert.text('*')
+          }
+        }
+      })
+
+
+    } else if ($(target).hasClass('radio-container')){ // Tipo Box      
+      let alert = label.find('spam')
+      let radioBoxs = $(target).find('input')
+      $(radioBoxs).on('change', function(e){        
+        if($(`input[name="${this.name}"]:checked`)){
+          alert.text('')
+        } else {
+          alert.text('*')
+        }
+      })
+
+    }
+    
+  })
 })
