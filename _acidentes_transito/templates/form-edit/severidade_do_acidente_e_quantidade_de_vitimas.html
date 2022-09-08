@@ -125,8 +125,19 @@
       
   <div class="col">
       
-        <label for="caso_obito" class="form-label m-0"><small><b>Em Caso de Óbito</b></small></label>
+      <label for="caso_obito" class="form-label m-0"><small><b>Em Caso de Óbito</b></small></label>
       <div class="radio-container" id="caso_obito">
+      {% if caso.houve_vitimas_fatais == 'Não' %}        
+        <input type="radio" name="caso_obito" id="caso_obito-obito_local" value="Obito no Local " disabled>        
+        <label class="radio-label" for="caso_obito-obito_local">Óbito no Local </label>        
+        
+        <input type="radio" name="caso_obito" id="caso_obito-obito_encaminhamento" value="Obito no Encaminhamento " disabled>        
+        <label class="radio-label" for="caso_obito-obito_encaminhamento">Óbito no Encaminhamento </label>
+        
+        <input type="radio" name="caso_obito" id="caso_obito-obito_hospital" value="Obito no Hospital " disabled>        
+        <label class="radio-label" for="caso_obito-obito_hospital">Óbito no Hospital </label>
+
+      {% else %}
         {% if caso.caso_obito == 'Obito no Local ' %}
         <input type="radio" name="caso_obito" id="caso_obito-obito_local" value="Obito no Local " checked>
         {% else %}
@@ -145,6 +156,7 @@
         <input type="radio" name="caso_obito" id="caso_obito-obito_hospital" value="Obito no Hospital ">
         {% endif %}
         <label class="radio-label" for="caso_obito-obito_hospital">Óbito no Hospital </label>
+      {% endif %}
       </div>
       
   </div>

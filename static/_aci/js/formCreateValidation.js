@@ -7,6 +7,8 @@ $('#cns_paciente').mask('000.0000.0000.0000')
 // Limitando datas max e min
 $('input[type="date"]').attr('max', new Date().toISOString().split("T")[0]).attr('min', '1850-12-01').on('focusout', function(){
    if ((this.value > new Date().toISOString().split("T")[0]) || (this.value < '1850-12-01')){
+    $(this).parent().find('spam').text('*')
+    $('#que_dia_semana_ocorreu_acidente').val('')
     return this.value = ''
    }   
 })
@@ -46,5 +48,23 @@ $('input[name="paciente_foi_referenciado_para_outro_hospital"]').on('click', fun
     $('#qual_hospital').attr('disabled', false)
   } else {
     $('#qual_hospital').attr('disabled', true)
+  }
+})
+
+
+// Função que ativa e desativa o campo outros na aba "Unidade Notirificadora"
+$('#nome_instituicao_hospital').on('change', function(){
+  let row_outros = $('#outros-un')
+  let outros_input = row_outros.find('input')
+  let outros_alert = row_outros.find('spam')
+
+  if(this.value == 'Outro'){
+    row_outros.removeClass('d-none')
+    outros_input.attr('required', true).val('')
+    outros_alert.text('*')
+  } else {
+    row_outros.addClass('d-none')
+    outros_input.attr('required', false).val('')
+    outros_alert.text('')
   }
 })

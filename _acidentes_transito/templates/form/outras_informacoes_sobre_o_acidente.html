@@ -11,8 +11,7 @@
     </div>            
   </div>
       
-  <div class="col">
-      
+  <div class="col">      
     <label for="informacoes_complementares" class="form-label m-0"><small><b>Informações Complementares </b></small></label>
     <input type="text" class="form-control form-control-sm" id="informacoes_complementares" name="informacoes_complementares" onkeypress="return limitcarc(event, 'letr_acent_num')"  pattern="^[a-z A-Z0-9\\u00C0-\\u00FF]{10,250}$"  >
     <div style="font-size:10px;" class="invalid-feedback text-center">Min 10, Max 250 Caracteres.</div>  
@@ -23,11 +22,11 @@
   <div class="col">      
     <label for="qual_hospital" class="form-label m-0"><small><b>Qual o Hospital</b></small></label>
     <select class="select-model" id="qual_hospital" name="qual_hospital" placeholder="Selecione um item" data-search="true" data-silent-initial-value-set="true" disabled>
-      <option value="" disabled>Selecione um item</option>
+      <option value="" selected>Selecione um item</option>
       <option value="Outro">Outro</option>
       {% for hospital in hospitais %}
       <option value="{{hospital.nome}}">{{hospital.nome}}</option>
       {% endfor %}
     </select>  
-</div>
+  </div>  
 </div>

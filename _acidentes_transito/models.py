@@ -35,7 +35,7 @@ class AcidentesTransito(models.Model):
   qual_hospital = models.CharField(max_length=255, null=True, blank=True, unique=False)
   informacoes_complementares = models.CharField(max_length=255, null=True, blank=True, unique=False)
   nome_instituicao_hospital = models.CharField(max_length=255, null=True, blank=True, unique=False)
-  nome_instituicao = models.CharField(max_length=255, null=True, blank=True, unique=False)
+  nome_instituicao_outro = models.CharField(max_length=255, null=True, blank=True, unique=False)
   nome_responsavel_pela_digitacao = models.CharField(max_length=255, null=True, blank=True, unique=False)
   cargo_funcao_notificador = models.CharField(max_length=255, null=True, blank=True, unique=False)
   contato_notificador = models.CharField(max_length=50, null=True, blank=True, unique=False)
