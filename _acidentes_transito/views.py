@@ -90,17 +90,18 @@ def set_editar_caso(request, id):
     
   if tem_permissao(request, caso):
     
+    print(request.POST)
     dados = request.POST.dict()    
     
-    # Captando os dados da gerencia.
-    
-    # gerencia_id = Municipio.objects.get(nome=dados['# FILTRAR DADOS DE MUNICIPIO #']).gerencia_id
-    
+    # Captando os dados da gerencia.    
+    # gerencia_id = Municipio.objects.get(nome=dados['# FILTRAR DADOS DE MUNICIPIO #']).gerencia_id    
     # dados['gerencia'] = Gerencia.objects.get(id=gerencia_id)    
+
     dados['quem_foi_responsavel_por_prestar_apoio_local'] = dados['quem_foi_responsavel_por_prestar_apoio_local'].split(',')
     dados['tipos_veiculos_envolvidos_acidente'] = dados['tipos_veiculos_envolvidos_acidente'].split(',')
-    dados['responsavel_pelas_informacoes'] = request.user        
-    
+    dados['responsavel_pelas_informacoes'] = request.user
+
+        
     del dados['csrfmiddlewaretoken'] # Excluindo o token csrf.
     
     try:

@@ -28,5 +28,10 @@
       <option value="{{hospital.nome}}">{{hospital.nome}}</option>
       {% endfor %}
     </select>  
+  </div>
+  <div class="col d-none" id="outros-info-acid">      
+    <label for="qual_hospital_outro" class="form-label m-0"><spam style="color:red;">*</spam><small><b>Nome do Hospital</b></small></label>
+    <input type="text" class="form-control form-control-sm" id="qual_hospital_outro" name="qual_hospital_outro" onkeypress="return limitcarc(event, 'letr_acent_num')"  pattern="^[a-z A-Z0-9\\u00C0-\\u00FF]{10,90}$"  >
+    <div style="font-size:10px;" class="invalid-feedback text-center">Min 10, Max 90 Caracteres.</div>  
   </div>  
 </div>

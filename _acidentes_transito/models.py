@@ -33,6 +33,7 @@ class AcidentesTransito(models.Model):
   cns_paciente = models.CharField(max_length=50, null=True, blank=True, unique=False)
   paciente_foi_referenciado_para_outro_hospital = models.CharField(max_length=255, null=True, blank=True, unique=False)
   qual_hospital = models.CharField(max_length=255, null=True, blank=True, unique=False)
+  qual_hospital_outro = models.CharField(max_length=255, null=True, blank=True, unique=False)
   informacoes_complementares = models.CharField(max_length=255, null=True, blank=True, unique=False)
   nome_instituicao_hospital = models.CharField(max_length=255, null=True, blank=True, unique=False)
   nome_instituicao_outro = models.CharField(max_length=255, null=True, blank=True, unique=False)

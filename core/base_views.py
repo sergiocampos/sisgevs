@@ -124,55 +124,76 @@ def export_data_excel(request):
     # Se o agravo for esporotricose humana filtrar por data de primeiros sintomas.
     if agravo_url == 'esp-hum':
         if len(filtros_data) == 2:
-            casos_filtrados = casos.filter(data_primeiros_sintomas__range=[filtro_data_inicio,filtro_data_fim]).order_by('-id')
+            casos_filtrados = casos.filter(data_primeiros_sintomas__range=[filtro_data_inicio,filtro_data_fim])
 
         elif len(filtros_data) == 1 and filtros_data[0] != '':
             filtro_unico_dia = filtros_data[0]
-            casos_filtrados = casos.filter(data_primeiros_sintomas=filtro_unico_dia).order_by('-id')
+            casos_filtrados = casos.filter(data_primeiros_sintomas=filtro_unico_dia)
 
         else:
-            casos_filtrados = casos.order_by('-id')
+            casos_filtrados = casos
 
     # Se o agravo for acidente de transito filtrar por data de notificacao.
     elif agravo_url == 'aci':
         
         if len(filtros_data) == 2:
-            casos_filtrados = casos.filter(data_acidente__range=[filtro_data_inicio,filtro_data_fim]).order_by('-id')
+            casos_filtrados = casos.filter(data_acidente__range=[filtro_data_inicio,filtro_data_fim])
 
         elif len(filtros_data) == 1 and filtros_data[0] != '':
             filtro_unico_dia = filtros_data[0]
-            casos_filtrados = casos.filter(data_acidente=filtro_unico_dia).order_by('-id')
+            casos_filtrados = casos.filter(data_acidente=filtro_unico_dia)
 
         else:
-            casos_filtrados = casos.order_by('-id')
+            casos_filtrados = casos
         
 
     # Filtrando o tipo de perfil para limitar os casos.
     if request.user.funcao == 'autocadastro':
         # Perfil Auto-Cadastro
         auto_cadastro_id = request.user.id
-        casos_response = casos_filtrados.filter(responsavel_pelas_informacoes_id=auto_cadastro_id).order_by('-id')
+        casos_response = casos_filtrados.filter(responsavel_pelas_informacoes_id=auto_cadastro_id)
 
     elif request.user.funcao == 'municipal':
         # Perfil Municipal
         user_municipio_id = request.user.municipio_id
         user_municipio_nome = str(Municipio.objects.filter(id=user_municipio_id)[0]).upper()
         casos_response = casos_filtrados.filter(Q(municipio_residencia=user_municipio_id) | 
-            Q(municipio_residencia=user_municipio_nome) | Q(responsavel_pelas_informacoes_id=user_municipio_id)).order_by('-id')
+            Q(municipio_residencia=user_municipio_nome) | Q(responsavel_pelas_informacoes_id=user_municipio_id))
 
     elif request.user.funcao == 'gerencia_regional':
         # Perfil Gerencia Regional
         user_gerencia_regional = Municipio.objects.get(id=request.user.municipio_id).gerencia_id
-        casos_response = casos_filtrados.filter(gerencia_id=user_gerencia_regional).order_by('-id')
+        casos_response = casos_filtrados.filter(gerencia_id=user_gerencia_regional)
 
     else: # Qualquer outro tipo de perfil
         casos_response = casos_filtrados
-        
+
+    casos = []
+    for a in casos_response.order_by('-id').values():
+        caso = {}
+        for b in a:
+            if type(a[b]) == list:
+                val = ''
+                for i, c in enumerate(a[b]):
+                    if i != len(a[b])-1:
+                        val += str(c).strip("'")+','
+                    else:
+                        val += str(c).strip("'")
+
+                caso[b] = val
+
+            else:
+                caso[b] = a[b]
+        casos.append(caso)
+    
     # Convertendo em dataframe e alterando o campo município.
     try:
-        data = list(casos_response.order_by('-id').values())
+        #data = list(casos_response.order_by('-id').values())
+        data = casos
         df = pd.DataFrame(data)
+
         if agravo_url == 'esp-hum':
+            
             for i in df['municipio']:            
                 try: # Checando se o valor é diferente de NaN
                     i = int(i)

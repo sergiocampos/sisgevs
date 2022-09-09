@@ -47,7 +47,7 @@ $('input[name="paciente_foi_referenciado_para_outro_hospital"]').on('click', fun
   if(this.value == 'Sim'){
     $('#qual_hospital').attr('disabled', false)
   } else {
-    $('#qual_hospital').attr('disabled', true)
+    $('#qual_hospital').attr('disabled', true)[0].reset()
   }
 })
 
@@ -64,6 +64,22 @@ $('#nome_instituicao_hospital').on('change', function(){
     outros_alert.text('*')
   } else {
     row_outros.addClass('d-none')
+    outros_input.attr('required', false).val('')
+    outros_alert.text('')
+  }
+})
+
+// Função que ativa e desativa o campo outros na aba "Outras Informações Sobre o Acidente"
+$('#qual_hospital').on('change', function(){
+  let col_outros = $('#outros-info-acid')
+  let outros_input = col_outros.find('input')
+  let outros_alert = col_outros.find('spam')
+  if (this.value == 'Outro'){
+    col_outros.removeClass('d-none')
+    outros_input.attr('required', true).val('')
+    outros_alert.text('*')
+  } else {
+    col_outros.addClass('d-none')
     outros_input.attr('required', false).val('')
     outros_alert.text('')
   }
