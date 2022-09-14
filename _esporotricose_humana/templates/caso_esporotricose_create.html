@@ -18,7 +18,7 @@
     
     <div class="container card p-3 mb-5">
       <div class="card-header">
-        <h1 class="fs-2">Ficha de Investigação de Esporotricose Humana</h1>
+        <h1 class="fs-2">Ficha de Notificação de Esporotricose Humana</h1>
       </div>
     
       <div class="row">
@@ -276,7 +276,7 @@
                 <div class="row">
                   <div class="col"><b>Paciente</b><i id="alert_paciente" style="color:red">**</i>
                     <div class="form-group">
-                      <input class="form-control" type="text" name="nome_paciente" value="" id="nome_paciente_id" required style="text-transform: uppercase;" onkeydown="verificarNotifGeral()" onkeypress="return limitcarc(event, 'letr')">
+                      <input class="form-control" type="text" placeholder="Sem abreviações" name="nome_paciente" value="" id="nome_paciente_id" required style="text-transform: uppercase;" onkeydown="verificarNotifGeral()" onkeypress="return limitcarc(event, 'letr')">
 
                     </div><div id="msg-error"></div>
                   </div>
@@ -386,18 +386,18 @@
 
               <div class="col">
                 <div class="form-group"><b>Cartão SUS</b>
-                  <input class="form-control" type="text" name="cartao_sus" onkeypress="return limitcarc(event, 'num')" placeholder="" value="">
+                  <input class="form-control" placeholder="000.0000.0000.0000" type="text" id="cartao_sus" name="cartao_sus" onkeypress="return limitcarc(event, 'num')" placeholder="" value="">
                 </div>              
               </div>
               <div class="col">
                 <div class="form-group"><b>Nome da Mãe</b><i id="alert_nome_mae" style="color:red">**</i>
-                  <input class="form-control" type="text" name="nome_mae" placeholder="" value="" id="nome_mae_id" required onkeydown="verificarNotifGeral()" onkeypress="return limitcarc(event, 'letr')" style="text-transform: uppercase;">
+                  <input class="form-control" type="text" name="nome_mae" placeholder="Sem abreviações" value="" id="nome_mae_id" required onkeydown="verificarNotifGeral()" onkeypress="return limitcarc(event, 'letr')" style="text-transform: uppercase;">
                 </div>              
               </div>
             </div>
 
             <script>
-              
+              $('#cartao_sus').mask("000.0000.0000.0000")
               function verificarNotifGeral(){
                 var nome_paciente = document.getElementById('nome_paciente_id').value.length;
                 var nome_mae = document.getElementById('nome_mae_id').value.length;
@@ -489,7 +489,7 @@
     
               <div class="col">
                 <div class="form-group"><b>CEP</b>
-                  <input class="form-control" type="text" onkeypress="return limitcarc(event, 'num')" name="cep_residencia" id="cep" placeholder="" value="" onkeydown="verificarNotifGeral()">
+                  <input class="form-control" type="text" onkeypress="return limitcarc(event, 'num')" name="cep_residencia" id="cep" placeholder="00000-000" value="" onkeydown="verificarNotifGeral()">
                 </div>
               </div>
               <div class="col">
@@ -580,7 +580,7 @@
             <div class="row">
               <div class="col">
                 <div class="form-group"><b>Telefone</b><i id="alert_telefone_paciente" style="color:red">**</i>
-                  <input type="text" class="form-control" id="telefone_residencia_id" name="telefone_residencia" required onkeyup="verificarNotifGeral()">
+                  <input type="text" placeholder="(00)00000-0000" class="form-control" id="telefone_residencia_id" name="telefone_residencia" required onkeyup="verificarNotifGeral()">
                 </div>
               </div>
               <div class="col">
@@ -1556,7 +1556,7 @@
               <div class="col">
                 <div class="input-group mb-3" id="">
                   <div class="input-group-prepend" id="">
-                    <span class="input-group-text">Descricao</span>
+                    <span class="input-group-text">Descrição</span>
                   </div>
                   <select class="form-select" id="select_descricao_1">
                     <option value="micologico">Micológico</option>
@@ -1586,7 +1586,7 @@
               <div class="col">
                 <div class="input-group mb-3" id="">
                   <div class="input-group-prepend" id="">
-                    <span class="input-group-text">Descricao</span>
+                    <span class="input-group-text">Descrição</span>
                   </div>
                   <select class="form-select" id="select_descricao_2">
                     <option value="micologico">Micológico</option>
@@ -1618,7 +1618,7 @@
               <div class="col">
                 <div class="input-group mb-3" id="">
                   <div class="input-group-prepend" id="">
-                    <span class="input-group-text">Descricao</span>
+                    <span class="input-group-text">Descrição</span>
                   </div>
                   <select class="form-select" id="select_descricao_3">
                     <option value="micologico">Micológico</option>
@@ -1672,7 +1672,7 @@
               <div class="col">
                 <div class="input-group mb-3" id="">
                   <div class="input-group-prepend" id="">
-                    <span class="input-group-text">Esquema Terapeutico</span>
+                    <span class="input-group-text">Esquema Terapêutico</span>
                   </div>
                   <input type="text" onkeypress="return limitcarc(event, 'letr_num')" class="form-control" name="esquema_terapeutico" value="" id="">
                 </div>
@@ -1698,7 +1698,7 @@
               <div class="col">
                 <div class="input-group mb-3" id="">
                   <div class="input-group-prepend" id="">
-                    <span class="input-group-text">Esquema Terapeutico</span>
+                    <span class="input-group-text">Esquema Terapêutico</span>
                   </div>
                   <input type="text" onkeypress="return limitcarc(event, 'letr_num')" class="form-control" name="esquema_terapeutico2" value="" id="">
                 </div>
@@ -1724,7 +1724,7 @@
               <div class="col">
                 <div class="input-group mb-3" id="">
                   <div class="input-group-prepend" id="">
-                    <span class="input-group-text">Esquema Terapeutico</span>
+                    <span class="input-group-text">Esquema Terapêutico</span>
                   </div>
                   <input type="text" onkeypress="return limitcarc(event, 'letr_num')" class="form-control" name="esquema_terapeutico3" value="" id="">
                 </div>
@@ -2155,9 +2155,9 @@
                   </select>
                 </div>
               </div>
-              <div class="col">
+              <div class="col" id="div_input_data_ob">
                 <div class="input-group mb-3" id="">
-                  <div class="input-group-prepend" id="div_input_data_ob">
+                  <div class="input-group-prepend">
                     <span class="input-group-text">Data do Óbito<span class="required-evolucao" style="color: red;">**</span></span>
                   </div>
                   <input type="date" class="form-control" name="data_obito" value="" id="data_obito_evo_id">
@@ -2320,7 +2320,7 @@
                       <i id="alert_investigador_nome" style="color:red">**</i>
                     </span>
                   </div>
-                  <input type="text" class="form-control" name="nome_investigador" value="" id="nome_investigador_id" onkeydown="verificarInvestigador()" onkeypress="return limitcarc(event, 'letr')" onkeyup="maiuscula(event)">
+                  <input type="text" class="form-control" placeholder="Sem abreviações" name="nome_investigador" value="" id="nome_investigador_id" onkeydown="verificarInvestigador()" onkeypress="return limitcarc(event, 'letr')" onkeyup="maiuscula(event)">
                 </div>
               </div>
     
@@ -2344,7 +2344,7 @@
                       <i id="alert_investigador_email" style="color:red">**</i>
                     </span>
                   </div>
-                  <input type="text" class="form-control" name="email_investigador" value="" id="email_investigador_id" onkeyup="verificarInvestigador()">
+                  <input type="text" class="form-control" placeholder="exemplo@exemplo.com.br" name="email_investigador" value="" id="email_investigador_id" onkeyup="verificarInvestigador()">
                 </div>
               </div>                 
               
@@ -2359,7 +2359,7 @@
                       <i id="alert_investigador_telefone" style="color:red">**</i>
                     </span>
                   </div>
-                  <input type="text" class="form-control" id="telefone_investigador_id" name="telefone_investigador" placeholder="apenas números" onkeyup="verificarInvestigador()">
+                  <input type="text" class="form-control" id="telefone_investigador_id" name="telefone_investigador" placeholder="(00)00000-0000" onkeyup="verificarInvestigador()">
     
                 </div>
               </div>
