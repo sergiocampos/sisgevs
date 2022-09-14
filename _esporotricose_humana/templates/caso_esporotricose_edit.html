@@ -3,6 +3,7 @@
 
 {% block head %}
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="{% static 'base/css/virtual-select.min.css' %}" />
 <link rel="stylesheet" href="{% static 'base/css/novo-form.css'%}">
 {% endblock head %}
 
@@ -888,7 +889,7 @@
                         </div>
         
         
-                        <div class="row">
+                        <div class="row text-center">
                             <div class="col">
                                 <div class="custom-control custom-checkbox mb-3">
                                     <input type="checkbox" class="custom-control-input" id="mata_id" name="ambientes_frequentados" value="Mata">
@@ -935,10 +936,10 @@
                                 }
                             </script>
                         </div>
-                        <div class="row">
-                            
-                            <div class="col"><input hidden disabled placeholder="Outros:" name="ambientes_frequentados_outros" type="text" class="form-control outros_id" value="{{form.ambientes_frequentados_outros}}"></div>
-                            
+                        <div class="row mb-2">                            
+                            <div class="col">
+                                <input hidden disabled placeholder="Outros..." name="ambientes_frequentados_outros" type="text" class="form-control outros_id" value="{{form.ambientes_frequentados_outros}}">
+                            </div>                            
                         </div>
                         
                         <div class="row">
@@ -950,7 +951,7 @@
                         </div>
         
         
-                        <div class="row">
+                        <div class="row text-center">
                             
                             <div class="col">
                                 <div class="custom-control custom-checkbox mb-3">
@@ -973,7 +974,7 @@
                             <div class="col">
                                 <div class="custom-control custom-checkbox mb-3">
                                     <input type="checkbox" class="custom-control-input" id="outros_animais_id" onclick="verificarOutros()" name="animais_que_teve_contato" value="Outros Animais">
-                                    <label class="custom-control-label" for="outros_animais_id">Outros Animais</label>
+                                    <label class="custom-control-label" for="outros_animais_id">Outros</label>
                                 </div>
                             </div>
                             <script>
@@ -984,9 +985,11 @@
                                 }
                             </script>
                         </div>
-                        <div class="row">
+                        <div class="row mb-2">
                             
-                            <div class="col"><input hidden disabled placeholder="Outros:" name="animais_que_teve_contato_outros" type="text" class="form-control outros_animais_id" value="{{form.animais_que_teve_contato_outros}}"></div>
+                            <div class="col">
+                                <input hidden disabled placeholder="Outros..." name="animais_que_teve_contato_outros" type="text" class="form-control outros_animais_id" value="{{form.animais_que_teve_contato_outros}}">
+                            </div>
                             
                         </div>
                         
@@ -999,7 +1002,7 @@
                             </div>
                         </div>
         
-                        <div class="row">
+                        <div class="row text-center">
                             <div class="col">
                                 <div class="custom-control custom-checkbox mb-3">
                                     <input type="checkbox" class="custom-control-input" id="mordida_id" name="natureza_contato_animais" value="Mordedura">
@@ -1014,14 +1017,17 @@
                             </div>
                             <div class="col">
                                 <div class="custom-control custom-checkbox mb-3">
-                                    <input type="checkbox" class="custom-control-input" id="lesoes_cutaneas_id" name="natureza_contato_animais" value="Lesões Cutâneas (Úlceras) do animal">
-                                    <label class="custom-control-label" for="lesoes_cutaneas_id">Lesões Cutâneas (Úlceras) do animal</label>
-                                </div>
-                            </div>
-                            <div class="col">
-                                <div class="custom-control custom-checkbox mb-3">
                                     <input type="checkbox" class="custom-control-input" id="lesoes_mucosas_id" name="natureza_contato_animais" value="Lesões Mucosas do Animal">
                                     <label class="custom-control-label" for="lesoes_mucosas_id">Lesões Mucosas do Animal</label>
+                                </div>
+                            </div>
+                            
+                        </div>
+                        <div class="row text-center">
+                            <div class="col">
+                                <div class="custom-control custom-checkbox mb-3">
+                                    <input type="checkbox" class="custom-control-input" id="lesoes_cutaneas_id" name="natureza_contato_animais" value="Lesões Cutâneas (Úlceras) do animal">
+                                    <label class="custom-control-label" for="lesoes_cutaneas_id">Lesões Cutâneas (Úlceras) do animal</label>
                                 </div>
                             </div>
                             <div class="col">
@@ -1038,9 +1044,10 @@
                                 }
                             </script>
                         </div>
-                        <div class="row">
-                            
-                            <div class="col"><input hidden disabled placeholder="Outros:" name="natureza_contato_animais_outros" type="text" class="form-control outros_a_id" value="{{form.natureza_contato_animais_outros}}"></div>
+                        <div class="row mb-2">                            
+                            <div class="col">
+                                <input hidden disabled placeholder="Outros..." name="natureza_contato_animais_outros" type="text" class="form-control outros_a_id" value="{{form.natureza_contato_animais_outros}}">
+                            </div>
                             
                         </div>
                         
@@ -1054,7 +1061,7 @@
                         </div>
         
         
-                        <div class="row">
+                        <div class="row text-center">
                             
                             <div class="col">
                                 <div class="custom-control custom-checkbox mb-3">
@@ -1066,11 +1073,12 @@
                                 <div class="custom-control custom-checkbox mb-3">
                                     <input type="checkbox" class="custom-control-input" id="prof_saude_id" name="relacao_animal_doente" value="Profissional de Saúde">
                                     <label class="custom-control-label" for="prof_saude_id">Profissional de Saúde
-                        <a href="#" data-toggle="tooltip" data-placement="right" title="Veterinário, Enfermeiro, Tratador de Animal em Clínicas!">(*)</a>
-                      </label>
+                                        <a href="#" data-toggle="tooltip" data-placement="right" title="Veterinário, Enfermeiro, Tratador de Animal em Clínicas!">(*)</a>
+                                    </label>
                                 </div>
                             </div>
-        
+                        </div>
+                        <div class="row text-center">
                             <div class="col">
                                 <div class="custom-control custom-checkbox mb-3">
                                     <input type="checkbox" class="custom-control-input" id="abrigo_id" name="relacao_animal_doente" value="Abrigo/ONG">
@@ -1092,10 +1100,10 @@
                                 }
                             </script>
                         </div>
-                        <div class="row">
-                            
-                            <div class="col"><input hidden disabled placeholder="Outros:" name="relacao_animal_doente_outros" type="text" class="form-control outros_p_id" value="{{form.relacao_animal_doente_outros}}"></div>
-                            
+                        <div class="row mb-2">
+                            <div class="col">
+                                <input hidden disabled placeholder="Outros..." name="relacao_animal_doente_outros" type="text" class="form-control outros_p_id" value="{{form.relacao_animal_doente_outros}}">
+                            </div>                            
                         </div>
                         
         
@@ -1402,7 +1410,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="row">
+                        <div class="row text-center">
                             
                             <div class="col">
                                 <div class="custom-control custom-checkbox mb-3">
@@ -1420,22 +1428,13 @@
                             <div class="col">
                                 <div class="custom-control custom-checkbox mb-3">
                                     <input type="checkbox" class="custom-control-input" id="linfonodos_id" name="natureza_lesao" value="Linfonodos">
-                                    <label class="custom-control-label" for="linfonodos_id">Linfonodos
-        
-                      </label>
+                                    <label class="custom-control-label" for="linfonodos_id">Linfonodos</label>
                                 </div>
                             </div>
                             <div class="col">
                                 <div class="custom-control custom-checkbox mb-3">
                                     <input type="checkbox" class="custom-control-input" id="natureza_lesao_outros_id" name="natureza_lesao" value="Outros">
-                                    <label class="custom-control-label" for="natureza_lesao_outros_id">Outros
-        
-                      </label>
-                                </div>
-                            </div>
-                            <div class="col">
-                                <div class="form-group">
-                                    <input class="form-control" type="text" id="nat_lesao_outros_id" name="natureza_lesao_outros" value="{{form.natureza_lesao_outro}}">
+                                    <label class="custom-control-label" for="natureza_lesao_outros_id">Outros</label>
                                 </div>
                             </div>
                             <script>
@@ -1446,7 +1445,13 @@
                                 }
                             </script>
                         </div>
-        
+                        <div class="row mb-2">
+                            <div class="col">
+                                <div class="form-group">
+                                    <input class="form-control" placeholder="Outros..." type="text" id="nat_lesao_outros_id" name="natureza_lesao_outros" value="{{form.natureza_lesao_outro}}">
+                                </div>
+                            </div>
+                        </div>        
                         <div class="row">
                             <div class="col">
                                 <div class="alert alert-secondary" style="text-align: center;">
@@ -1455,7 +1460,7 @@
                             </div>
                         </div>
         
-                        <div class="row">
+                        <div class="row text-center">
                             
                             <div class="col">
                                 <div class="custom-control custom-checkbox mb-3">
@@ -1473,77 +1478,56 @@
                             <div class="col">
                                 <div class="custom-control custom-checkbox mb-2">
                                     <input type="checkbox" class="custom-control-input" id="cabeca_id" name="local_lesao" value="Cabeça">
-                                    <label class="custom-control-label" for="cabeca_id">Cabeça
-        
-                      </label>
+                                    <label class="custom-control-label" for="cabeca_id">Cabeça</label>
                                 </div>
                             </div>
                             <div class="col">
                                 <div class="custom-control custom-checkbox mb-3">
                                     <input type="checkbox" class="custom-control-input" id="pescoco_id" name="local_lesao" value="Pescoço">
-                                    <label class="custom-control-label" for="pescoco_id">Pescoço
-        
-                      </label>
+                                    <label class="custom-control-label" for="pescoco_id">Pescoço</label>
                                 </div>
                             </div>
                             <div class="col">
                                 <div class="custom-control custom-checkbox mb-3">
                                     <input type="checkbox" class="custom-control-input" id="torax_id" name="local_lesao" value="Tórax">
-                                    <label class="custom-control-label" for="torax_id">Tórax
-        
-                      </label>
+                                    <label class="custom-control-label" for="torax_id">Tórax</label>
                                 </div>
                             </div>
                         </div>
         
         
-                        <div class="row">
+                        <div class="row text-center">
                             
                             <div class="col">
                                 <div class="custom-control custom-checkbox mb-3">
                                     <input type="checkbox" class="custom-control-input" id="abdome_id" name="local_lesao" value="Abdome">
-                                    <label class="custom-control-label" for="abdome_id">Abdome
-        
-                      </label>
+                                    <label class="custom-control-label" for="abdome_id">Abdome</label>
                                 </div>
                             </div>
                             <div class="col">
                                 <div class="custom-control custom-checkbox mb-3">
                                     <input type="checkbox" class="custom-control-input" id="pe_id" name="local_lesao" value="Pé">
-                                    <label class="custom-control-label" for="pe_id">Pé
-        
-                      </label>
+                                    <label class="custom-control-label" for="pe_id">Pé</label>
                                 </div>
                             </div>
                             <div class="col">
                                 <div class="custom-control custom-checkbox mb-3">
                                     <input type="checkbox" class="custom-control-input" id="membro_inferior_id" name="local_lesao" value="Membro Inferior">
-                                    <label class="custom-control-label" for="membro_inferior_id">Membro Inferior
-        
-                      </label>
+                                    <label class="custom-control-label" for="membro_inferior_id">Membro Inferior</label>
                                 </div>
                             </div>
                             <div class="col">
                                 <div class="custom-control custom-checkbox mb-3">
                                     <input type="checkbox" class="custom-control-input" id="todo_corpo_id" name="local_lesao" value="Todo Corpo">
-                                    <label class="custom-control-label" for="todo_corpo_id">Todo Corpo
-        
-                      </label>
+                                    <label class="custom-control-label" for="todo_corpo_id">Todo Corpo</label>
                                 </div>
                             </div>
                             <div class="col">
                                 <div class="custom-control custom-checkbox mb-3">
                                     <input type="checkbox" class="custom-control-input" id="local_lesao_outros_id" name="local_lesao" value="Outros">
-                                    <label class="custom-control-label" for="local_lesao_outros_id">Outros
-        
-                      </label>
+                                    <label class="custom-control-label" for="local_lesao_outros_id">Outros</label>
                                 </div>
-                            </div>
-                            <div class="col">
-                                <div class="form-group">
-                                    <input class="form-control" type="text" id="loc_lesao_outros_id" name="local_lesao_outros" value="{{form.local_lesao_outro}}">
-                                </div>
-                            </div>
+                            </div>                            
                             <script>
                                 { %
                                     for local in form.local_lesao %
@@ -1552,8 +1536,13 @@
                                 }
                             </script>
                         </div>
-                        
-                        
+                        <div class="row mb-2">
+                            <div class="col">
+                                <div class="form-group">
+                                    <input class="form-control" placeholder="Outros..." type="text" id="loc_lesao_outros_id" name="local_lesao_outros" value="{{form.local_lesao_outro}}">
+                                </div>
+                            </div>
+                        </div>                        
                         <div class="row">
                             
                             <div class="col">

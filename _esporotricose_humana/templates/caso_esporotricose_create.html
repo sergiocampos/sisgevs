@@ -643,7 +643,7 @@
             </div>
     
     
-            <div class="row">
+            <div class="row text-center">
               <div class="col">
                 <div class="custom-control custom-checkbox mb-3">
                   <input type="checkbox" class="custom-control-input" id="mata_id" name="ambientes_frequentados" value="Mata">
@@ -681,10 +681,10 @@
                 </div>
               </div>
             </div>
-            <div class="row">
-              
-              <div class="col-sm-6"><input hidden disabled placeholder="Outros:" name="ambientes_frequentados_outros" type="text" class="form-control outros_id"></div>
-              
+            <div class="row mb-2">              
+              <div class="col">
+                <input hidden disabled placeholder="Outros..." name="ambientes_frequentados_outros" type="text" class="form-control outros_id">
+              </div>              
             </div>
             
     
@@ -697,7 +697,7 @@
             </div>
     
     
-            <div class="row">
+            <div class="row text-center">
               
               <div class="col">
                 <div class="custom-control custom-checkbox mb-3">
@@ -720,14 +720,16 @@
               <div class="col">
                 <div class="custom-control custom-checkbox mb-3">
                   <input type="checkbox" class="custom-control-input" id="outros_animais_id" onclick="verificarOutros(this)" name="animais_que_teve_contato" value="Outros Animais">
-                  <label class="custom-control-label" for="outros_animais_id">Outros Animais</label>
+                  <label class="custom-control-label" for="outros_animais_id">Outros</label>
                 </div>
               </div>
     
             </div>
-            <div class="row">
+            <div class="row mb-2">
               
-              <div class="col-sm-6"><input hidden disabled placeholder="Outros:" name="animais_que_teve_contato_outros" type="text" class="form-control outros_animais_id"></div>
+              <div class="col">
+                <input hidden disabled placeholder="Outros..." name="animais_que_teve_contato_outros" type="text" class="form-control outros_animais_id">
+              </div>
               
             </div>
             
@@ -740,7 +742,7 @@
               </div>
             </div>
     
-            <div class="row">
+            <div class="row text-center">
               <div class="col">
                 <div class="custom-control custom-checkbox mb-3">
                   <input type="checkbox" class="custom-control-input" id="mordida_id" name="natureza_contato_animais" value="Mordedura">
@@ -755,28 +757,29 @@
               </div>
               <div class="col">
                 <div class="custom-control custom-checkbox mb-3">
-                  <input type="checkbox" class="custom-control-input" id="lesoes_cutaneas_id" name="natureza_contato_animais" value="Lesões Cutâneas (Úlceras) do animal">
-                  <label class="custom-control-label" for="lesoes_cutaneas_id">Lesões Cutâneas (Úlceras) do animal</label>
-                </div>
-              </div>
-              <div class="col">
-                <div class="custom-control custom-checkbox mb-3">
                   <input type="checkbox" class="custom-control-input" id="lesoes_mucosas_id" name="natureza_contato_animais" value="Lesões Mucosas do Animal">
                   <label class="custom-control-label" for="lesoes_mucosas_id">Lesões Mucosas do Animal</label>
                 </div>
               </div>
+            </div>
+            <div class="row text-center">
+              <div class="col">
+                <div class="custom-control custom-checkbox mb-3">
+                  <input type="checkbox" class="custom-control-input" id="lesoes_cutaneas_id" name="natureza_contato_animais" value="Lesões Cutâneas (Úlceras) do animal">
+                  <label class="custom-control-label" for="lesoes_cutaneas_id">Lesões Cutâneas (Úlceras) do animal</label>
+                </div>
+              </div>                  
               <div class="col">
                 <div class="custom-control custom-checkbox mb-3">
                   <input type="checkbox" class="custom-control-input" id="outros_a_id" onclick="verificarOutros(this)" name="natureza_contato_animais" value="Outros">
                   <label class="custom-control-label" for="outros_a_id">Outros</label>
                 </div>
               </div>
-    
             </div>
-            <div class="row">
-              
-              <div class="col-sm-6"><input hidden disabled placeholder="Outros:" name="natureza_contato_animais_outros" type="text" class="form-control outros_a_id"></div>
-              
+            <div class="row mb-2">              
+              <div class="col">
+                <input hidden disabled placeholder="Outros..." name="natureza_contato_animais_outros" type="text" class="form-control outros_a_id">
+              </div>              
             </div>
             
     
@@ -789,7 +792,7 @@
             </div>
     
     
-            <div class="row">
+            <div class="row text-center">
               
               <div class="col">
                 <div class="custom-control custom-checkbox mb-3">
@@ -815,7 +818,8 @@
                   $("#coleta_gal_3").hide();
                 });
               </script>
-    
+            </div>
+            <div class="row text-center">
               <div class="col">
                 <div class="custom-control custom-checkbox mb-3">
                   <input type="checkbox" class="custom-control-input" id="abrigo_id" name="relacao_animal_doente" value="Abrigo/ONG">
@@ -830,10 +834,10 @@
                 </div>
               </div>
             </div>
-            <div class="row">
-              
-              <div class="col-sm-6"><input hidden disabled placeholder="Outros:" name="relacao_animal_doente_outros" type="text" class="form-control outros_p_id"></div>
-              
+            <div class="row mb-2">
+              <div class="col">
+                <input hidden disabled placeholder="Outros:" name="relacao_animal_doente_outros" type="text" class="form-control outros_p_id">
+              </div>              
             </div>
             
             <script>
@@ -1110,7 +1114,7 @@
                 </div>
               </div>
             </div>
-            <div class="row">
+            <div class="row text-center">
               
               <div class="col">
                 <div class="custom-control custom-checkbox mb-3">
@@ -1139,9 +1143,11 @@
                   <label class="custom-control-label" for="natureza_lesao_outros_id">Outros</label>
                 </div>
               </div>
+            </div>
+            <div class="row mb-2">
               <div class="col">
                 <div class="form-group">
-                  <input class="form-control" type="text" id="nat_lesao_outros_id" name="natureza_lesao_outros" value="">
+                  <input class="form-control" type="text" placeholder="Outros..." id="nat_lesao_outros_id" name="natureza_lesao_outros" value="">
                 </div>
               </div>
             </div>
@@ -1154,7 +1160,7 @@
               </div>
             </div>
     
-            <div class="row text-center mx-auto">
+            <div class="row text-center">
               
               <div class="col">
                 <div class="custom-control custom-checkbox mb-3">
@@ -1196,7 +1202,7 @@
             </div>
     
     
-            <div class="row text-center mx-auto">
+            <div class="row text-center">
               <div class="col">
                 <div class="custom-control custom-checkbox mb-3">
                   <input type="checkbox" class="custom-control-input" id="abdome_id" name="local_lesao" value="Abdome">
@@ -1237,9 +1243,11 @@
                   </label>
                 </div>
               </div>
+            </div>
+            <div class="row mb-2">
               <div class="col">
                 <div class="form-group">
-                  <input class="form-control" type="text" id="loc_lesao_outros_id" name="local_lesao_outros" value="">
+                  <input class="form-control" placeholder="Outros..." type="text" id="loc_lesao_outros_id" name="local_lesao_outros" value="">
                 </div>
               </div>
     
