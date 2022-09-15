@@ -36,9 +36,10 @@ $(document).ready(function () {
 
                     if (!("erro" in dados)) {
                         //Atualiza os campos com os valores da consulta.
+                        
                         $("#rua").val(dados.logradouro);
                         $("#bairro").val(dados.bairro);
-                        $("#cidade").val(dados.localidade);
+                        $("#cidade").val(dados.localidade);                        
                         $("#uf").val(dados.uf);
                         $("#ibge").val(dados.ibge);
                     } //end if.

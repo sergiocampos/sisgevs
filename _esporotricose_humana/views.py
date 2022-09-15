@@ -165,7 +165,7 @@ def caso_view_detail(request, id):
 def caso_esporotricose_create(request):
 	estados = Estado.objects.all().order_by('nome')
 	municipios = Municipio.objects.all().order_by('nome')
-	unidades_saude_municipio = UnidadeSaude.objects.filter(municipio=request.user.municipio)
+	unidades_saude_municipio = UnidadeSaude.objects.filter(municipio=request.user.municipio).order_by('nome')
 	unidades_saude = []
 	codigos_ibge = []
 	return render(request, 'caso_esporotricose_create.html', {'municipios':municipios, 'unidades_saude':unidades_saude, 

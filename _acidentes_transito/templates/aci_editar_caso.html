@@ -19,6 +19,13 @@
 <form class="mb-3 p-3" name="" id="" enctype="multipart/form-data" action="submit/{{caso.id}}" method="POST">{% csrf_token %}
   <!-- Paineis do formulário -->
   <div class="container p-3 card mb-5">
+    <div class="card-header">
+      <h1 class="fs-2">Ficha de Notificação de Acidentes de Trânsito</h1>
+    </div>  
+    
+    <div class="px-2 m-3">
+      <p class="m-0">(<a style="color: red;">*</a>) Campo obrigatório.</p>
+    </div>
     <!-- [FORM] INFORMACOES GERAIS DO ACIDENTE -->
     <div id="menu1" class="container mb-4">
       <div class="card">
