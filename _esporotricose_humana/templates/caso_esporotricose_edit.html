@@ -265,20 +265,20 @@
                                     <select class="select-model" name="municipio_notificacao" id="municipio_id" placeholder="Selecionar" data-search="true" data-silent-initial-value-set="true" required>                                    
         
                                         {% if form.municipio == None or form.municipio == '' %}                        
-                        
-                                        <option value="" selected>...</option>
-                                        {% for municipio in municipios %}
-                                        <option value="{{municipio.id}}" >{{municipio.nome}}</option>
-                                        {% endfor %}
+                                            
+                                            <option value="" selected>...</option>
+                                            {% for municipio in municipios %}
+                                            <option value="{{municipio.id}}" >{{municipio.nome}}</option>
+                                            {% endfor %}
                                         
                                         {% else %}
-                                        {% for municipio in municipios %}
-                                        {% if form.municipio == municipio.id %}
-                                        <option value="{{municipio.id}}" selected>{{municipio.nome}}</option>
-                                        {% else %}
-                                        <option value="{{municipio.id}}">{{municipio.nome}}</option>
-                                        {% endif %}
-                                        {% endfor %}                        
+                                            {% for municipio in municipios %}
+                                                {% if form.municipio == municipio.id %}
+                                                <option value="{{municipio.id}}" selected>{{municipio.nome}}</option>
+                                                {% else %}
+                                                <option value="{{municipio.id}}">{{municipio.nome}}</option>
+                                                {% endif %}
+                                            {% endfor %}                        
                                         {% endif %}
                         
                                     </select>
@@ -325,13 +325,18 @@
         
                         <div class="row">
                             <div class="col">
-                                <div class="form-group"><b>Unidade de Saúde  </b><i></i> {% if form.unidade_saude != None or form.unidade_saude != '' %}
+                                <div class="form-group"><b>Unidade de Saúde  </b><i></i> 
+                                    {% if form.unidade_saude != None and form.unidade_saude != ''  %}
                                     <select class="select-model" name="unidade_saude" id="unidade_saude_id" placeholder="Selecionar" data-search="true" data-silent-initial-value-set="true">
-                                    
-                        <option value="{{unidade_saude_caso}}">{{unidade_saude_caso}}</option>
-                      </select> {%else%}
+                                        <option value="{{unidade_saude_caso}}">{{unidade_saude_caso}}</option>
+                                    </select> 
+                                    {%else%}                                    
                                     <select class="select-model" name="unidade_saude" id="unidade_saude_id" placeholder="Selecionar" data-search="true" data-silent-initial-value-set="true">
-                      </select> {% endif %}
+                                        {% for unidade in unidades_saude %}
+                                        <option value="{{unidade.id}}">{{unidade.nome}}</option>
+                                        {% endfor %}
+                                    </select> 
+                                    {% endif %}
                                 </div>
                             </div>
         
@@ -595,31 +600,22 @@
                             </div>
                             <div class="col">
                                 <div class="form-group"><b>UF</b>
-                                    <select class="select-model" name="uf_residencia" id="uf_edit_endereco_id" placeholder="Selecionar" data-search="true" data-silent-initial-value-set="true" >                                    
+                                    <select class="select-model" name="uf_residencia" id="uf_edit_endereco_id" placeholder="Selecionar" data-search="true" data-silent-initial-value-set="false" >                                    
                                         {% if estado_caso != None %}
-                                        <option value="{{estado_caso.id}}" selected>{{estado_caso.nome}}</option>
-                                        {% for estado_caso in estados %}
-                                        <option value="{{estado_caso.id}}">{{estado_caso.nome}}</option>
-                                        {% endfor %}
+                                            {% for estado in estados %}
+                                                {% if estado.id == estado_caso.id %}
+                                                <option value="{{estado_caso.id}}" selected>{{estado_caso.nome}}</option>
+                                                {% else %}
+                                                <option value="{{estado.id}}">{{estado.nome}}</option>
+                                                {% endif %}
+                                            {% endfor %}
                                         {%else%}
-                                        <option value="" selected>escolha...</option>
-                                        {% for estado_caso in estados %}
-                                        <option value="{{estado_caso.id}}">{{estado_caso.nome}}</option>
-                                        {% endfor %}
-                                        {%endif%}
-                        
-                                        <!--
-                                        {% for e in estados %}
-                                        {% if e.id == estado_caso.id %}
-                                        <option value="{{estado_caso.id}}" selected>{{estado_caso.nome}}</option>
-                                        {% else %}
-                                        <option value="{{e.id}}">{{e.nome}}</option>
-                                        {% endif %}
-                                        {% endfor %}
-                                        -->
+                                        <option value="">ELSE</option>
+                                            {% for estado in estados %}
+                                                <option value="{{estado.id}}">{{estado.nome}}</option>
+                                            {% endfor %}
+                                        {%endif%}                        
                                     </select>
-                                    <!--<input class="form-control form-control-sm" type="text" onkeypress="return limitcarc(event, 'letr')" name="uf_residencia" id="uf" placeholder="" value="{{form.uf_residencia}}" style="text-transform:uppercase">
-                    -->
                                 </div>
                             </div>
                             <div class="col">
@@ -1938,35 +1934,35 @@
                                         <span class="input-group-text">UF</span>
                                     </div>
                                     <select class="form-control form-control-sm" name="uf_internacao" id="sel_uf_t" disabled onclick="activeOutroHospital()">
-                        <option value=""></option>
-                        <option value="AC">Acre</option>
-                        <option value="AL">Alagoas</option>
-                        <option value="AP">Amapá</option>
-                        <option value="AM">Amazonas</option>
-                        <option value="BA">Bahia</option>
-                        <option value="CE">Ceará</option>
-                        <option value="DF">Distrito Federal</option>
-                        <option value="ES">Espírito Santo</option>
-                        <option value="GO">Goiás</option>
-                        <option value="MA">Maranhão</option>
-                        <option value="MT">Mato Grosso</option>
-                        <option value="MS">Mato Grosso do Sul</option>
-                        <option value="MG">Minas Gerais</option>
-                        <option value="PA">Pará</option>
-                        <option value="PB" selected>Paraíba</option>
-                        <option value="PR">Paraná</option>
-                        <option value="PE">Pernambuco</option>
-                        <option value="PI">Piauí</option>
-                        <option value="RJ">Rio de Janeiro</option>
-                        <option value="RN">Rio Grande do Norte</option>
-                        <option value="RS">Rio Grande do Sul</option>
-                        <option value="RO">Rondônia</option>
-                        <option value="RR">Roraima</option>
-                        <option value="SC">Santa Catarina</option>
-                        <option value="SP">São Paulo</option>
-                        <option value="SE">Sergipe</option>
-                        <option value="TO">Tocantins</option>
-                      </select>
+                                        <option value=""></option>
+                                        <option value="AC">Acre</option>
+                                        <option value="AL">Alagoas</option>
+                                        <option value="AP">Amapá</option>
+                                        <option value="AM">Amazonas</option>
+                                        <option value="BA">Bahia</option>
+                                        <option value="CE">Ceará</option>
+                                        <option value="DF">Distrito Federal</option>
+                                        <option value="ES">Espírito Santo</option>
+                                        <option value="GO">Goiás</option>
+                                        <option value="MA">Maranhão</option>
+                                        <option value="MT">Mato Grosso</option>
+                                        <option value="MS">Mato Grosso do Sul</option>
+                                        <option value="MG">Minas Gerais</option>
+                                        <option value="PA">Pará</option>
+                                        <option value="PB" selected>Paraíba</option>
+                                        <option value="PR">Paraná</option>
+                                        <option value="PE">Pernambuco</option>
+                                        <option value="PI">Piauí</option>
+                                        <option value="RJ">Rio de Janeiro</option>
+                                        <option value="RN">Rio Grande do Norte</option>
+                                        <option value="RS">Rio Grande do Sul</option>
+                                        <option value="RO">Rondônia</option>
+                                        <option value="RR">Roraima</option>
+                                        <option value="SC">Santa Catarina</option>
+                                        <option value="SP">São Paulo</option>
+                                        <option value="SE">Sergipe</option>
+                                        <option value="TO">Tocantins</option>
+                                    </select>
                                 </div>
                             </div>
                             <script>
@@ -1993,7 +1989,7 @@
                                 </div>
                             </div>
                             <script>
-                                $('#mun_hosp_id').find('option[value="{{form.municipio_hospitalizacao}}"]').attr("selected", "selected")
+                                $('#mun_hosp_id').find("option[value='{{form.sexo_paciente}}']").attr("selected", "selected");
                             </script>
                             <div class="col">
                                 <div class="input-group mb-3" id="">
@@ -2526,309 +2522,51 @@
 
 <script>
   //ajax para endereço: estado e cidades
-
-      $("#uf_edit_endereco_id").change(function(){
-        //const url = $('#Form').attr("data-autoctone-distrito-url");
-        municipioId = $(this).val();
-
-        $.ajax({
-          url : '/esp-hum/ajax_edicao_uf_cidades',
-          data: { 'uf_edit_endereco_id': municipioId},
-          success: function(data){
-            
-            $("#municipios_estado_id").html(data);
-          }
-        });
-
+    $(document).ready(function(){
         
-      });
-
-      //Ajax para autoprencher o código ibge se alterar município
-      $("#municipios_estado_id").change(function(){
-        municipioId = $(this).val();
-        uf_id = $('#uf_edit_endereco_id').val();
-        $.ajax({
-          url : '/esp-hum/ajax_ibge_municipio_residencia',
-          data: { 'municipios_estado_id': municipioId, 'uf_estado_id':uf_id},
-          success: function(data){
-            $("#ibge_municipio_residencia_id").val(data);
-          }
-        });        
-      }); 
-
-
+        $("#uf_edit_endereco_id").change(function(){
+          //const url = $('#Form').attr("data-autoctone-distrito-url");
+          municipioId = $(this).val();          
+          $.ajax({
+            url : '/esp-hum/ajax_edicao_uf_cidades',
+            data: { 'uf_edit_endereco_id': municipioId},
+            success: function(data){
+            let municipioOptions = []
+              let dt = data.split('</option>')
+              for (i=0; i<dt.length; i++){
+                let value = dt[i].split('>')[0].split('=')[1]
+                let label = dt[i].split('>')[1]
+                
+                if (value && value != '"" disabled selected'){
+                  value = JSON.parse(value)
+                  municipioOptions.push({"label":label, "value":value})                                
+                }
+                
+              }
+              $("#municipios_estado_id")[0].setOptions(municipioOptions)              
+            }
+          });  
+          verificarNotifGeral()
+        });
+  
+        //Ajax para autoprencher o código ibge se alterar município
+        $("#municipios_estado_id").change(function(){
+          municipioId = $(this).val();
+          uf_id = $('#uf_edit_endereco_id').val();
+          $.ajax({
+            url : '/esp-hum/ajax_ibge_municipio_residencia',
+            data: { 'municipios_estado_id': municipioId, 'uf_estado_id':uf_id},
+            success: function(data){
+              $("#ibge_municipio_residencia_id").val(data);
+            }
+          });   
+          verificarNotifGeral()     
+        }); 
+    })
     //end
 </script>
 
-  <script type="text/javascript">   
-
-
-    
-    $("#municipio_id").change(function(){
-        //const url = $('#Form').attr("data-unidadesaude-url");
-        municipioId = $(this).val();
-        
-        $.ajax({
-          url : '/esp-hum/ajax_load_unidadesaude',
-          data: { 'municipio_id': municipioId},
-          success: function(data){
-            $("#unidade_saude_id").html(data);
-          }
-        })
-      });
-
-      $("#unidade_saude_id").ready(function(){
-        //const url = $('#Form').attr("data-unidadesaude-url");
-        municipioId = $("#municipio_id").val();
-        unid = {{form.unidade_saude}}        
-        $.ajax({
-          url : '/esp-hum/ajax_load_unidadesaude',
-          data: { 'municipio_id': municipioId},
-          success: function(data){
-            $("#unidade_saude_id").html(data);
-            $('#unidade_saude_id').find('option[value='+unid+']').attr("selected", "selected");
-          }
-        })
-      });
-
-    $("#municipio_id").change(function(){
-          //const url = $('#Form').attr("data-ibge-url");
-          const municipioId = $(this).val();
-          
-          $.ajax({
-            url : '/esp-hum/ajax_load_ibge',
-            data: { 'municipio_id': municipioId},
-            success: function(data){
-              $("#ibge_cod_id").val(data);
-            }
-          });
-
-        });
-    
-      $("#ibge_cod_id").ready(function(){
-        //const url = $('#Form').attr("data-ibge-url");
-        const municipioId = $("#municipio_id").val();
-        $.ajax({
-          url : '/esp-hum/ajax_load_ibge',
-          data: { 'municipio_id': municipioId},
-          success: function(data){
-            $("#ibge_cod_id").val(data);
-          }
-        });
-
-      });
-
-      //ajax para selects de hospitalização:
-      //mun_hosp_id
-      //cod_ibge_id
-      //nome_hosp_id
-
-      //data-hospitalizacao-url
-      //data-hospitalizacaoibge-url
-
-      $("#mun_hosp_id").change(function(){
-        //const url = $('#Form').attr("data-hospitalizacao-url");
-        municipioId = $(this).val();
-
-        $.ajax({
-          url : '/esp-hum/ajax_hospitalizacao',
-          data: { 'municipio_id': municipioId},
-          success: function(data){
-            $("#nome_hosp_id").html(data);
-          }
-        });
-
-        
-      });
-      if (document.getElementById("sel_uf_t").value == "PB") {
-        $("#nome_hosp_id").ready(function(){
-          //const url = $('#Form').attr("data-hospitalizacao-url");
-          municipioId = $("#mun_hosp_id").val();
   
-          $.ajax({
-            url : '/esp-hum/ajax_hospitalizacao',
-            data: { 'municipio_id': municipioId},
-            success: function(data){
-              $("#nome_hosp_id").html(data);
-              $('#nome_hosp_id').find('option[value="{{form.nome_hospital_hospitalizacao}}"]').attr("selected", "selected")
-            }
-          });
-        })
-
-        
-      };
-
-      $("#mun_hosp_id").change(function(){
-          //const url = $('#Form').attr("data-hospitalizacaoibge-url");
-          const municipioId = $(this).val();
-          $.ajax({
-            url : '/esp-hum/ajax_hospitalizacao_ibge',
-            data: { 'municipio_id': municipioId},
-            success: function(data){
-              $("#cod_ibge_id").val(data);
-            }
-          });
-
-        });
-
-      //Ajax para caso autoctone: Estado, Municipio, Cód IBGE e Distrito.
-      $("#uf_caso_autoctone_id").change(function(){
-        //const url = $('#Form').attr("data-autoctone-uf-url");
-        municipioId = $(this).val();
-
-        $.ajax({
-          url : '/esp-hum/ajax_autoctone_uf',
-          data: { 'municipio_id': municipioId},
-          success: function(data){
-            $("#municipio_autoctone_id").html(data);
-          }
-        });
-
-        
-      });
-
-      $("#municipio_autoctone_id").ready(function(){
-        //const url = $('#Form').attr("data-autoctone-uf-url");
-        municipioId = $("#uf_caso_autoctone_id").val();
-
-        $.ajax({
-          url : '/esp-hum/ajax_autoctone_uf',
-          data: { 'municipio_id': municipioId},
-          success: function(data){
-            $("#municipio_autoctone_id").html(data);
-            $('#municipio_autoctone_id').find('option[value="{{form.municipio_caso_autoctone}}"]').attr("selected", "selected")
-            municipioId = $('#municipio_autoctone_id').val();
-
-            $.ajax({
-              url : '/esp-hum/ajax_autoctone_distrito',
-              data: { 'municipio_id': municipioId},
-              success: function(data){
-                
-                $("#distrito_autoctone_id").html(data);
-                $('#distrito_autoctone_id').find('option[value="{{form.distrito_caso_autoctone}}"]').attr("selected", "selected")
-              }
-            });
-          }
-        });
-        
-      });
-
-      $("#municipio_autoctone_id").change(function(){
-        //const url = $('#Form').attr("data-autoctone-municipio-url");
-        municipioId = $(this).val();
-        
-
-        $.ajax({
-          url : '/esp-hum/ajax_autoctone_municipio',
-          data: { 'municipio_id': municipioId},
-          success: function(data){
-            
-            $("#ibge_autoctone_id").val(data);
-          }
-        });
-
-        
-      });
-
-      $("#municipio_autoctone_id").change(function(){
-        //const url = $('#Form').attr("data-autoctone-distrito-url");
-        municipioId = $(this).val();
-
-        $.ajax({
-          url : '/esp-hum/ajax_autoctone_distrito',
-          data: { 'municipio_id': municipioId},
-          success: function(data){
-            
-            $("#distrito_autoctone_id").html(data);
-          }
-        });
-
-        
-      });
-
-      var nome_paciente = document.getElementById('nome_paciente_id').value.length;
-      var nome_mae = document.getElementById('nome_mae_id').value.length;
-      var date2 = document.getElementById('date2').value;
-      var data_1_s = document.getElementById('dt_primeiros_s').value;
-      var municipio = document.getElementById('municipio_id').value.length;
-      var telefone = document.getElementById('telefone_residencia_id').value.length;
-      
-      if (municipio != 0) {$('#alert_municipio').hide();} else {$('#alert_municipio').show();}
-      
-      if (data_1_s != "") {$('#alert_dt_ps').hide();} else {$('#alert_dt_ps').show();}
-      
-      if (nome_paciente >= 10) {$('#alert_paciente').hide();} else {$('#alert_paciente').show();}
-      
-      if (date2 != "") {$('#alert_data_nasc').hide();} else {$('#alert_data_nasc').show();}
-      
-      if (nome_mae >= 10) {$('#alert_nome_mae').hide();} else {$('#alert_nome_mae').show();}
-      
-      if ((nome_paciente >= 10) && (nome_mae >= 10) && (date2 != "") ){
-        $("#alert_notificacao_individual").hide();
-      } else {$("#alert_notificacao_individual").show();}
-
-      if ((data_1_s != "") && (municipio != 0)){
-        $('#alert_dados_gerais').hide();
-      }
-      if (telefone < 13){
-        $("#alert_dados_residencia").show();
-        $('#alert_telefone_paciente').show();
-      } else {
-        $("#alert_dados_residencia").hide();
-        $('#alert_telefone_paciente').hide();
-      }
-                        
-      if ((nome_paciente >= 10) && (nome_mae >= 10) && (date2 != "") 
-          && (data_1_s != "") && (municipio != 0) && (telefone >= 13)){
-        $("#btn_submit_id").prop("disabled", false);
-      } else {$("#btn_submit_id").prop("disabled", true);}
-
-      var data = document.getElementById('date2');
-      var idade = calcula(data);
-      idade = String(idade);
-      document.getElementById('result').value = idade;
-      activeGestante();
-      if ($("#customRadio22").is(':checked')){
-        $("#local_diag_extracutaneo").prop("disabled", false);
-      }
-      if ($("#local_lesao_outros_id").is(":checked")) {
-        $("#loc_lesao_outros_id").show();
-      }
-      if ($("#natureza_lesao_outros_id").is(":checked")) {
-        $("#nat_lesao_outros_id").show();
-      }
-      if ($("#coleta_exame_labo_sim_id").is(":checked")) {
-        
-        $("#coleta_gal_1").show();
-        $("#coleta_gal_2").show();
-        $("#coleta_gal_3").show();
-      }
-      if ($("#customRadio1").is(":checked")) {
-        $("#agente_id").prop("disabled", false);
-      }
-      if (document.getElementById("customRadio11").checked == true){
-        //$("#row_dados_hospitalizacao_id").show();
-        $("#div_g").show();
-        $("#div_lb").show();
-        
-        $("#input_internacao").prop("disabled", false);
-        $("#input_d_a").prop("disabled", false);
-        $("#sel_uf_t").prop("disabled", false);
-        $("#mun_hosp_id").prop("disabled", false);
-        $("#cod_ibge_id").prop("disabled", false);
-        $("#nome_hosp_id").prop("disabled", false);
-        $("#cod_hosp_id").prop("disabled", false);
-
-        
-        $("#div_g_da").show();
-        $("#div_lb_da").show();
-        $("#input_d_a").show();
-
-        $("#div_sel_uf").show();
-        $("#div_ls_sel").show();
-        $("#sel_uf_t").show();
-      }
-</script>
 <script src="{% static 'base/js/virtual-select.min.js' %}"></script>
 
 <script>
@@ -2980,16 +2718,323 @@
         $("#outra_unidade_id").prop("disabled", false);
         $("#btn_desfaz_outra_unidade_id").prop("disabled", false);
 
-        $("#unidade_saude_id").prop("disabled", true);
-        $("#unidade_saude_id").val("");
+        $("#unidade_saude_id").attr("disabled", true);
+        $("#unidade_saude_id")[0].reset();
     }
 
     function desactiveOutraUnidade() {
         $("#outra_unidade_id").prop("disabled", true);
         $("#outra_unidade_id").val("");
 
-        $("#unidade_saude_id").prop("disabled", false);
+        $("#unidade_saude_id").attr("disabled", false);
     }
+</script>
+<script type="text/javascript">   
+
+
+    
+    $("#municipio_id").change(function(){
+        //const url = $('#Form').attr("data-unidadesaude-url");
+        
+        municipioId = $(this).val();
+        if (municipioId){
+            $.ajax({
+              url : '/esp-hum/ajax_load_unidadesaude',
+              data: { 'municipio_id': municipioId},
+              success: function(data){
+                let unidadesOptions = []
+                let dt = data.split('</option>')
+                
+                for (i=0; i<dt.length; i++){
+                    let value = dt[i].split('>')[0].split('=')[1]
+                    let label = dt[i].split('>')[1]
+                    
+                    if (value && value != '"" disabled selected'){
+                        value = JSON.parse(value)
+                        unidadesOptions.push({"label":label, "value":value})
+                    }
+                    
+                }
+                $("#unidade_saude_id")[0].setOptions(unidadesOptions)
+                $("#unidade_saude_id")[0].setValue(unid)     
+              }
+            })
+        }
+      });
+
+      $("#unidade_saude_id").ready(function(){
+        //const url = $('#Form').attr("data-unidadesaude-url");
+        municipioId = $("#municipio_id").val();
+        unid = {{form.unidade_saude}}
+        console.log('')
+        if(municipioId){
+            $.ajax({
+              url : '/esp-hum/ajax_load_unidadesaude',
+              data: { 'municipio_id': municipioId},
+              success: function(data){
+                let unidadesOptions = []
+                let dt = data.split('</option>')
+                
+                for (i=0; i<dt.length; i++){
+                    let value = dt[i].split('>')[0].split('=')[1]
+                    let label = dt[i].split('>')[1]
+                    
+                    if (value && value != '"" disabled selected'){
+                        value = JSON.parse(value)
+                        unidadesOptions.push({"label":label, "value":value})
+                    }
+                    
+                }
+                $("#unidade_saude_id")[0].setOptions(unidadesOptions)
+                $("#unidade_saude_id")[0].setValue(unid)                
+              }
+            })
+        }
+      });
+
+    $("#municipio_id").change(function(){
+          //const url = $('#Form').attr("data-ibge-url");
+          const municipioId = $(this).val();
+          if (municipioId){
+              $.ajax({
+                url : '/esp-hum/ajax_load_ibge',
+                data: { 'municipio_id': municipioId},
+                success: function(data){
+                  $("#ibge_cod_id").val(data);
+                }
+              });
+          }
+
+        });
+    
+      $("#ibge_cod_id").ready(function(){
+        //const url = $('#Form').attr("data-ibge-url");
+        const municipioId = $("#municipio_id").val();
+        if (municipioId){
+            $.ajax({
+              url : '/esp-hum/ajax_load_ibge',
+              data: { 'municipio_id': municipioId},
+              success: function(data){
+                $("#ibge_cod_id").val(data);
+              }
+            });
+        }
+
+      });
+
+      //ajax para selects de hospitalização:
+      //mun_hosp_id
+      //cod_ibge_id
+      //nome_hosp_id
+
+      //data-hospitalizacao-url
+      //data-hospitalizacaoibge-url
+
+      $("#mun_hosp_id").change(function(){
+        //const url = $('#Form').attr("data-hospitalizacao-url");
+        console.log('AQUI1')
+        municipioId = $(this).val();
+        if (municipioId){
+            $.ajax({
+              url : '/esp-hum/ajax_hospitalizacao',
+              data: { 'municipio_id': municipioId},
+              success: function(data){
+                $("#nome_hosp_id").html(data);
+              }
+            });
+        }
+
+        
+      });
+      if (document.getElementById("sel_uf_t").value == "PB") {
+        $("#nome_hosp_id").ready(function(){
+          //const url = $('#Form').attr("data-hospitalizacao-url");
+          municipioId = $("#mun_hosp_id").val();
+          if (municipioId){
+              $.ajax({
+                url : '/esp-hum/ajax_hospitalizacao',
+                data: { 'municipio_id': municipioId},
+                success: function(data){
+                  $("#nome_hosp_id").html(data);
+                  $('#nome_hosp_id').find('option[value="{{form.nome_hospital_hospitalizacao}}"]').attr("selected", "selected")
+                }
+              });
+
+          }
+        })
+
+        
+      };
+
+      $("#mun_hosp_id").change(function(){
+          //const url = $('#Form').attr("data-hospitalizacaoibge-url");
+          console.log('aqyu3')
+          const municipioId = $(this).val();
+          if (municipioId){
+              $.ajax({
+                url : '/esp-hum/ajax_hospitalizacao_ibge',
+                data: { 'municipio_id': municipioId},
+                success: function(data){
+                  $("#cod_ibge_id").val(data);
+                }
+              });
+          }
+
+        });
+
+      //Ajax para caso autoctone: Estado, Municipio, Cód IBGE e Distrito.
+      $("#uf_caso_autoctone_id").change(function(){
+        //const url = $('#Form').attr("data-autoctone-uf-url");
+        municipioId = $(this).val();
+        if (municipioId){
+            $.ajax({
+              url : '/esp-hum/ajax_autoctone_uf',
+              data: { 'municipio_id': municipioId},
+              success: function(data){
+                $("#municipio_autoctone_id").html(data);
+              }
+            });
+        }
+      });
+
+      $("#municipio_autoctone_id").ready(function(){
+        //const url = $('#Form').attr("data-autoctone-uf-url");
+        municipioId = $("#uf_caso_autoctone_id").val();
+        if(municipioId){
+            $.ajax({
+              url : '/esp-hum/ajax_autoctone_uf',
+              data: { 'municipio_id': municipioId},
+              success: function(data){
+                $("#municipio_autoctone_id").html(data);
+                $('#municipio_autoctone_id').find('option[value="{{form.municipio_caso_autoctone}}"]').attr("selected", "selected")
+                municipioId = $('#municipio_autoctone_id').val();
+    
+                $.ajax({
+                  url : '/esp-hum/ajax_autoctone_distrito',
+                  data: { 'municipio_id': municipioId},
+                  success: function(data){
+                    
+                    $("#distrito_autoctone_id").html(data);
+                    $('#distrito_autoctone_id').find('option[value="{{form.distrito_caso_autoctone}}"]').attr("selected", "selected")
+                  }
+                });
+              }
+            });
+        }
+      });
+
+      $("#municipio_autoctone_id").change(function(){
+        //const url = $('#Form').attr("data-autoctone-municipio-url");
+        municipioId = $(this).val();
+        if (municipioId){
+            $.ajax({
+              url : '/esp-hum/ajax_autoctone_municipio',
+              data: { 'municipio_id': municipioId},
+              success: function(data){
+                
+                $("#ibge_autoctone_id").val(data);
+              }
+            });
+        }        
+      });
+
+      $("#municipio_autoctone_id").change(function(){
+        //const url = $('#Form').attr("data-autoctone-distrito-url");
+        municipioId = $(this).val();
+        if (municipioId){
+            $.ajax({
+              url : '/esp-hum/ajax_autoctone_distrito',
+              data: { 'municipio_id': municipioId},
+              success: function(data){
+                
+                $("#distrito_autoctone_id").html(data);
+              }
+            });
+        }        
+      });
+
+      var nome_paciente = document.getElementById('nome_paciente_id').value.length;
+      var nome_mae = document.getElementById('nome_mae_id').value.length;
+      var date2 = document.getElementById('date2').value;
+      var data_1_s = document.getElementById('dt_primeiros_s').value;
+      var municipio = document.getElementById('municipio_id').value.length;
+      var telefone = document.getElementById('telefone_residencia_id').value.length;
+      
+      if (municipio != 0) {$('#alert_municipio').hide();} else {$('#alert_municipio').show();}
+      
+      if (data_1_s != "") {$('#alert_dt_ps').hide();} else {$('#alert_dt_ps').show();}
+      
+      if (nome_paciente >= 10) {$('#alert_paciente').hide();} else {$('#alert_paciente').show();}
+      
+      if (date2 != "") {$('#alert_data_nasc').hide();} else {$('#alert_data_nasc').show();}
+      
+      if (nome_mae >= 10) {$('#alert_nome_mae').hide();} else {$('#alert_nome_mae').show();}
+      
+      if ((nome_paciente >= 10) && (nome_mae >= 10) && (date2 != "") ){
+        $("#alert_notificacao_individual").hide();
+      } else {$("#alert_notificacao_individual").show();}
+
+      if ((data_1_s != "") && (municipio != 0)){
+        $('#alert_dados_gerais').hide();
+      }
+      if (telefone < 13){
+        $("#alert_dados_residencia").show();
+        $('#alert_telefone_paciente').show();
+      } else {
+        $("#alert_dados_residencia").hide();
+        $('#alert_telefone_paciente').hide();
+      }
+                        
+      if ((nome_paciente >= 10) && (nome_mae >= 10) && (date2 != "") 
+          && (data_1_s != "") && (municipio != 0) && (telefone >= 13)){
+        $("#btn_submit_id").prop("disabled", false);
+      } else {$("#btn_submit_id").prop("disabled", true);}
+
+      var data = document.getElementById('date2');
+      var idade = calcula(data);
+      idade = String(idade);
+      document.getElementById('result').value = idade;
+      activeGestante();
+      if ($("#customRadio22").is(':checked')){
+        $("#local_diag_extracutaneo").prop("disabled", false);
+      }
+      if ($("#local_lesao_outros_id").is(":checked")) {
+        $("#loc_lesao_outros_id").show();
+      }
+      if ($("#natureza_lesao_outros_id").is(":checked")) {
+        $("#nat_lesao_outros_id").show();
+      }
+      if ($("#coleta_exame_labo_sim_id").is(":checked")) {
+        
+        $("#coleta_gal_1").show();
+        $("#coleta_gal_2").show();
+        $("#coleta_gal_3").show();
+      }
+      if ($("#customRadio1").is(":checked")) {
+        $("#agente_id").prop("disabled", false);
+      }
+      if (document.getElementById("customRadio11").checked == true){
+        //$("#row_dados_hospitalizacao_id").show();
+        $("#div_g").show();
+        $("#div_lb").show();
+        
+        $("#input_internacao").prop("disabled", false);
+        $("#input_d_a").prop("disabled", false);
+        $("#sel_uf_t").prop("disabled", false);
+        $("#mun_hosp_id").prop("disabled", false);
+        $("#cod_ibge_id").prop("disabled", false);
+        $("#nome_hosp_id").prop("disabled", false);
+        $("#cod_hosp_id").prop("disabled", false);
+
+        
+        $("#div_g_da").show();
+        $("#div_lb_da").show();
+        $("#input_d_a").show();
+
+        $("#div_sel_uf").show();
+        $("#div_ls_sel").show();
+        $("#sel_uf_t").show();
+      }
 </script>
 <script>
     $('#cartao_sus').mask('000.0000.0000.0000')
@@ -2998,6 +3043,7 @@
     $('#escolaridade_paciente')[0].setValue('{{form.escolaridade_paciente}}')   
     $('#gestante_id')[0].setValue('{{form.paciente_gestante}}')
     $('#uf_edit_endereco_id').on('click', activeMunicipio)
+    
     document.getElementById('raca_paciente').addEventListener('change', function(){
         this.value ? $('#alert_raca_paciente').hide() : $('#alert_raca_paciente').show()
         return verificarNotifGeral()

@@ -158,7 +158,7 @@
                   <select class="select-model" name="unidade_saude" id="unidade_saude_id" placeholder="Escolha unidade" data-search="true" data-silent-initial-value-set="true">
                     <option value="" disabled selected>Escolha unidade</option>
                     {% for unid_saude in unidades_saude_municipio %}
-                    <option value="{{unid_saude.id}}">{{unid_saude.nome}}</option>
+                      <option value="{{unid_saude.id}}">{{unid_saude.nome}}</option>
                     {% endfor %}
                   </select>
                 </div>
@@ -2581,11 +2581,14 @@ function activeGestante() {
 function activeOutraUnidade() {
     $("#outra_unidade_id").prop("disabled", false);
     $("#btn_desfaz_outra_unidade_id").prop("disabled", false);
+    $("#unidade_saude_id").attr("disabled", true);
+    $("#unidade_saude_id")[0].reset();
 }
 
 function desactiveOutraUnidade() {
     $("#outra_unidade_id").prop("disabled", true);
     $("#outra_unidade_id").val("");
+    $("#unidade_saude_id").attr("disabled", false);
 }
 
 $("#municipio_id").change(function() {
@@ -2717,7 +2720,7 @@ $(document).ready(function(){
                 let value = dt[i].split('>')[0].split('=')[1]
                 let label = dt[i].split('>')[1]
                 
-                if (value){
+                if (value && value != '"" disabled selected'){
                   value = JSON.parse(value)
                   municipioOptions.push({"label":label, "value":value})                                
                 }
