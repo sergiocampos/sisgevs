@@ -2546,7 +2546,7 @@ function desactiveInputsAutoctone() {
 }
 
 function validaDtPrimeirosSintomas() {
-    if (document.Form.dt_primeiros_s.value == "") {
+    if (document.getElementById('dt_primeiros_s').value == "") {
         document.getElementById('alert_dt_ps').style.display = "inline";
         document.getElementById('alert_dados_gerais').style.display = "inline";
         document.getElementById('alert_notificacao_individual').style.display = "inline";
