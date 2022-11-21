@@ -66,13 +66,21 @@ def my_data(dados):
         user_id = dados.user.id
         user_municipio_nome = str(Municipio.objects.filter(id=user_municipio_id)[0])
         user_municipio_nome_upper = str(Municipio.objects.filter(id=user_municipio_id)[0]).upper()
-        
-        registros = registros.filter(
-			Q(municipio_residencia=user_municipio_id) | 
-			Q(municipio_residencia=user_municipio_nome) | 
-			Q(municipio_residencia=user_municipio_nome_upper) | 
-			Q(responsavel_pelas_informacoes_id=user_id)
-			)
+        if agravo_url == 'aci':
+            registros = registros.filter(
+                Q(municipio_ocorrencia_acidente=user_municipio_id) | 
+                Q(municipio_ocorrencia_acidente=user_municipio_nome) | 
+                Q(municipio_ocorrencia_acidente=user_municipio_nome_upper) | 
+                Q(responsavel_pelas_informacoes_id=user_id)
+                )
+
+        if agravo_url == 'esp-hum':
+            registros = registros.filter(
+                Q(municipio_residencia=user_municipio_id) | 
+                Q(municipio_residencia=user_municipio_nome) | 
+                Q(municipio_residencia=user_municipio_nome_upper) | 
+                Q(responsavel_pelas_informacoes_id=user_id)
+                )
         
     elif dados.user.funcao == 'autocadastro':
         autocadastro_id = dados.user.id
