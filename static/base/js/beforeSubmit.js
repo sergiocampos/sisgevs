@@ -7,7 +7,8 @@
     para indicar ao usuário onde está a falha.
 
 */
-$('#btn-submit').on('click', function(){
+$('#btn-submit').on('click', function(e){
+  e.preventDefault();
 
   var validForm = true;
   var cols = $('form').find('.col')
@@ -20,7 +21,7 @@ $('#btn-submit').on('click', function(){
           validForm = false;
         }        
       } else if ($(field).hasClass('select-model')){
-        if (!field.value){
+        if (!field.value || field.value == ''){
           validForm = false;
         }        
       } else if ($(field).hasClass('radio-container')){
@@ -36,7 +37,14 @@ $('#btn-submit').on('click', function(){
   
   if (validForm && form.checkValidity()){
     form.submit()
-  }  
+  } else {
+    window.scrollTo(0,0);
+    $('#incomplete_form_alert').removeClass('d-none');
+    setTimeout(() => {
+      $('#incomplete_form_alert').addClass('d-none');
+    }, 10000)
+
+  }
 })
 
 
@@ -70,7 +78,7 @@ $(window).ready(function(){
         if (typeof(e.target.value) == "string"){
           if (e.target.value && alert){
             alert.text('')
-          } else if (!e.target.value && alert && e.target.id != "numeros_vitimas_fatais_envolvidas_acidente") {
+          } else if (!e.target.value && alert && e.target.id != "numeros_vitimas_fatais_envolvidas_acidente" && e.target.id != 'qual_hospital') {
             alert.text('*')
           }
         } else {

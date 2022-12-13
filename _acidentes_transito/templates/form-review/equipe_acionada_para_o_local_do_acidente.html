@@ -3,7 +3,7 @@
       
   <div class="col">
       
-      <label for="quem_foi_responsavel_por_prestar_apoio_local" class="form-label m-0"><spam style="color:red;"></spam><small><b>Quem Foi Responsável Por Prestar Apoio no Local </b></small></label>
+      <label for="quem_foi_responsavel_por_prestar_apoio_local" class="form-label m-0"><spam style="color:red;"></spam><small><b>30-Responsáveis em Prestar Apoio no Local</b></small></label>
       <select multiple class="select-model" id="quem_foi_responsavel_por_prestar_apoio_local" name="quem_foi_responsavel_por_prestar_apoio_local" placeholder="Selecione um item" data-search="true" data-silent-initial-value-set="true" required disabled>
         
         {% if 'Órgãos Municipais de Trânsito' in caso.quem_foi_responsavel_por_prestar_apoio_local %}
@@ -49,6 +49,15 @@
         {% endif %}
 
       </select>        
+  </div>
+  {% if 'Outros' in caso.quem_foi_responsavel_por_prestar_apoio_local %}
+  <div class="col">
+  {% else %}
+  <div class="col d-none">        
+  {% endif %}  
+    <label for="responsavel_prestar_apoio_outro" class="form-label m-0"><spam style="color:red;"></spam><small><b>Outro: </b></small></label>
+    <input type="text" class="form-control form-control-sm" id="responsavel_prestar_apoio_outro" name="responsavel_prestar_apoio_outro" pattern="^[a-z A-Z0-9\\u00C0-\\u00FF]{10,90}$" value="{{caso.responsavel_prestar_apoio_outro}}" onkeypress="return limitcarc(event, 'letr_acent_num')" disabled>
+    <div style="font-size:10px;" class="invalid-feedback text-center">Min 10, Max 90 Caracteres.</div>
   </div>
       
 </div>

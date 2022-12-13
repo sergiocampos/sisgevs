@@ -13,49 +13,15 @@
   <span id="textScrollUp">Voltar ao Topo</span>
   <i id="scrollUp" onclick="return window.scrollTo({top:0})" class="bi bi-arrow-up-circle "></i>
 </div>
-
-<!-- Paineis do formulário -->
 <div class="mb-3 p-3">
+  <!-- Paineis do formulário -->
   <div class="container p-3 card mb-5">
-    <div class="card-header mb-4">
+    <div class="card-header">
       <h1 class="fs-2">Ficha de Notificação de Acidentes de Trânsito</h1>
     </div>  
     
-    <!-- [FORM] INFORMACOES GERAIS DO ACIDENTE -->
-    <div id="menu1" class="container mb-4">
-      <div class="card">
-      
-        <div class="card-header">INFORMAÇÕES GERAIS DO ACIDENTE</div>
-      
-        <div class="card-body">      
-      
-          {% include 'form-review/informacoes_gerais_do_acidente.html'%}
-        </div>
-      </div>
-    </div>
-    <!-- [FORM] SEVERIDADE DO ACIDENTE E QUANTIDADE DE VITIMAS -->
-    <div id="menu2" class="container mb-4">
-      <div class="card">
-      
-        <div class="card-header">SEVERIDADE DO ACIDENTE E QUANTIDADE DE VÍTIMAS</div>
-      
-        <div class="card-body">      
-      
-          {% include 'form-review/severidade_do_acidente_e_quantidade_de_vitimas.html'%}
-        </div>
-      </div>
-    </div>
-    <!-- [FORM] EQUIPE ACIONADA PARA O LOCAL DO ACIDENTE -->
-    <div id="menu3" class="container mb-4">
-      <div class="card">
-      
-        <div class="card-header">EQUIPE ACIONADA PARA O LOCAL DO ACIDENTE</div>
-      
-        <div class="card-body">      
-      
-          {% include 'form-review/equipe_acionada_para_o_local_do_acidente.html'%}
-        </div>
-      </div>
+    <div class="px-2 m-3">
+      <p class="m-0">(<a style="color: red;">*</a>) Campo obrigatório.</p>
     </div>
     <!-- [FORM] INFORMACOES DO PACIENTE -->
     <div id="menu4" class="container mb-4">
@@ -64,23 +30,35 @@
         <div class="card-header">INFORMAÇÕES DO PACIENTE</div>
       
         <div class="card-body">      
-      
           {% include 'form-review/informacoes_do_paciente.html'%}
-        </div>
-      </div>
-    </div>
-    <!-- [FORM] OUTRAS INFORMACOES SOBRE O ACIDENTE -->
-    <div id="menu5" class="container mb-4">
-      <div class="card">
-      
-        <div class="card-header">OUTRAS INFORMAÇÕES SOBRE O ACIDENTE</div>
-      
-        <div class="card-body">      
-      
           {% include 'form-review/outras_informacoes_sobre_o_acidente.html'%}
         </div>
       </div>
     </div>
+
+    <!-- [FORM] INFORMACOES GERAIS DO ACIDENTE -->
+    <div id="menu1" class="container mb-4">
+      <div class="card">
+      
+        <div class="card-header">INFORMAÇÕES GERAIS DO ACIDENTE</div>
+      
+        <div class="card-body">      
+          {% include 'form-review/informacoes_gerais_do_acidente.html'%}
+          {% include 'form-review/severidade_do_acidente_e_quantidade_de_vitimas.html'%}
+        </div>
+    </div>        
+    <!-- [FORM] EQUIPE ACIONADA PARA O LOCAL DO ACIDENTE -->
+    <div id="menu3" class="container mb-4">
+      <div class="card">
+      
+        <div class="card-header">EQUIPE ACIONADA PARA O LOCAL DO ACIDENTE</div>
+      
+        <div class="card-body">      
+          {% include 'form-review/equipe_acionada_para_o_local_do_acidente.html'%}
+        </div>
+      </div>
+    </div>
+
     <!-- [FORM] UNIDADE NOTIFICADORA -->
     <div id="menu6" class="container mb-4">
       <div class="card">
@@ -93,7 +71,7 @@
         </div>
       </div>
     </div>
-  </div>
+  </div>  
 </div>
 {% endblock content %}
 {% block endbody %}
@@ -104,6 +82,7 @@
   // Select de funções
   VirtualSelect.init({
     ele: '.select-model',
+    disableValidation: true,
     searchPlaceholderText: "Procurar",
     noSearchResultsText: "Nenhum item encontrado",
     allOptionsSelectedText: "Todos os itens selecionados"

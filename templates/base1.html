@@ -103,7 +103,7 @@
                             </li>
                             {% endif %}
 
-                            {% if user.lista_agravos_permite %}
+                            {% if user.lista_agravos_permite and user.funcao in 'admin, gerencia_executiva, gerencia_operacional, chefia_nucleo, area_tecnica' %}
                             <li class="nav-item">
                                 <a class="nav-link" data-bs-toggle="collapse" href="#collapseCancelados" role="button" aria-expanded="false" aria-controls="collapseCancelados">Casos Cancelados</a>
                                 <ul class="collapse" id="collapseCancelados">
