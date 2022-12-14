@@ -18,7 +18,7 @@ from .models import *
 # Lista de todos os agravos.
 AGRAVOS = [
     {"name":"Esporotricose Humana", "value": "esp-hum" },
-    {"name":"Acidentes de Trânsito", "value":"aci"},
+    #{"name":"Acidentes de Trânsito", "value":"aci"},
 ]
 
 # KEY: AGRAVO URL | VALUE: DADOS DO AGRAVO
