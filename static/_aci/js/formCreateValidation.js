@@ -23,17 +23,26 @@ $('#data_acidente').on('change', function(){
 
 // Checando se houve vitima fatal e ativando ou desativando os campos
 $('input[name="houve_vitimas_fatais"]').on('click', function(){
-  let alerta = $('label[for="numeros_vitimas_fatais_envolvidas_acidente"]').find('spam')
+
+  let alerta_numero_vitimas_fatais = $('label[for="numeros_vitimas_fatais_envolvidas_acidente"]').find('spam')
+  let alert_caso_obito = $('label[for="caso_obito"]').find('spam')
+  
   if(this.value == 'Sim'){
     $('#numeros_vitimas_fatais_envolvidas_acidente').parent().removeClass('d-none')
     $('#numeros_vitimas_fatais_envolvidas_acidente').attr('disabled', false).attr('required', true)
+    $('input[name="caso_obito"]').parent().parent().removeClass('d-none')
     $('input[name="caso_obito"]').attr('disabled', false)
-    alerta.text('*')
+    alert_caso_obito.text('*')
+    alerta_numero_vitimas_fatais.text('*')
+
   } else {
-    alerta.text('')
+    alert_caso_obito.text('')
+    alerta_numero_vitimas_fatais.text('')
     $('#numeros_vitimas_fatais_envolvidas_acidente').parent().addClass('d-none')
     $('#numeros_vitimas_fatais_envolvidas_acidente').attr('disabled', true).attr('required', false)[0].reset()
+    $('input[name="caso_obito"]').parent().parent().addClass('d-none')
     $('input[name="caso_obito"]').attr('disabled', true)
+
     if($('input[name="caso_obito"]:checked')[0]){$('input[name="caso_obito"]:checked')[0].checked = false;}
   }
 })

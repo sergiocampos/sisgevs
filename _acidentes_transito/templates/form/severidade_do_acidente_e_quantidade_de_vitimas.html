@@ -1,7 +1,7 @@
 
 <div class="row">
       
-  <div class="col">
+  <div class="col w-50">
       
       <label for="houve_vitimas_fatais" class="form-label m-0"><spam style="color:red;">*</spam><small><b>25-Houve Óbitos </b></small></label>
       <div class="radio-container" id="houve_vitimas_fatais" required >
@@ -12,10 +12,19 @@
       </div>      
       
   </div>
-      
+
+  <div class="col d-none">  
+    <label for="caso_obito" class="form-label m-0"><spam style="color:red;"></spam><small><b>26-O Óbito ocorreu</b></small></label>
+    <div class="radio-container" id="caso_obito">
+      <input type="radio" name="caso_obito" id="caso_obito-obito_encaminhamento" value="Obito no Encaminhamento ">
+      <label class="radio-label" for="caso_obito-obito_encaminhamento">No Encaminhamento </label>
+      <input type="radio" name="caso_obito" id="caso_obito-obito_hospital" value="Obito no Hospital ">
+      <label class="radio-label" for="caso_obito-obito_hospital">No Hospital </label>
+    </div>  
+  </div>
       
   <div class="col d-none">
-      <label for="numeros_vitimas_fatais_envolvidas_acidente" class="form-label m-0"><spam style="color:red;"></spam><small><b>26-Número de Óbitos</b></small></label>
+      <label for="numeros_vitimas_fatais_envolvidas_acidente" class="form-label m-0"><spam style="color:red;"></spam><small><b>27-Número de Óbitos</b></small></label>
       <select class="select-model" id="numeros_vitimas_fatais_envolvidas_acidente" name="numeros_vitimas_fatais_envolvidas_acidente" placeholder="Selecione um item" data-search="false" data-silent-initial-value-set="true" disabled>
         <option value="" disabled selected>Selecione um item</option>
         <option value="1">1</option>
@@ -23,22 +32,7 @@
         <option value="3">3</option>
         <option value="mais">Mais</option>
       </select>      
-  </div>
-      
-      
-  <div class="col">
-      
-      <label for="numero_feridos_envolvidos_acidente" class="form-label m-0"><spam style="color:red;"></spam><small><b>27-Número de Feridos</b></small></label>
-      <select class="select-model" id="numero_feridos_envolvidos_acidente" name="numero_feridos_envolvidos_acidente" placeholder="Selecione um item" data-search="false" data-silent-initial-value-set="true" required >
-        <option value="" disabled selected>Selecione um item</option>
-        <option value="0">0</option>
-        <option value="1">1</option>
-        <option value="2">2</option>
-        <option value="3">3</option>
-        <option value="mais">Mais</option>
-      </select>        
-      
-  </div>
+  </div> 
       
 </div>
 <div class="row">      
@@ -55,18 +49,18 @@
       
   </div>
       
-
       
   <div class="col">
       
-      <label for="caso_obito" class="form-label m-0"><small><b>29-Em Caso de Óbito da Vítima</b></small></label>
-      <div class="radio-container" id="caso_obito">
-        <input type="radio" name="caso_obito" id="caso_obito-obito_encaminhamento" value="Obito no Encaminhamento ">
-        <label class="radio-label" for="caso_obito-obito_encaminhamento">Óbito no Encaminhamento </label>
-        <input type="radio" name="caso_obito" id="caso_obito-obito_hospital" value="Obito no Hospital ">
-        <label class="radio-label" for="caso_obito-obito_hospital">Óbito no Hospital </label>
-      </div>
-      
-  </div>
-      
+    <label for="numero_feridos_envolvidos_acidente" class="form-label m-0"><spam style="color:red;"></spam><small><b>29-Número de Feridos</b></small></label>
+    <select class="select-model" id="numero_feridos_envolvidos_acidente" name="numero_feridos_envolvidos_acidente" placeholder="Selecione um item" data-search="false" data-silent-initial-value-set="true" required >
+      <option value="" disabled selected>Selecione um item</option>
+      <option value="0">0</option>
+      <option value="1">1</option>
+      <option value="2">2</option>
+      <option value="3">3</option>
+      <option value="mais">Mais</option>
+    </select>        
+    
+</div>      
 </div>
