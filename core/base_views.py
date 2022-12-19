@@ -194,14 +194,17 @@ def export_data_excel(request):
 
         if agravo_url == 'esp-hum':
             
-            for i in df['municipio']:            
-                try: # Checando se o valor é diferente de NaN
-                    i = int(i)
-                except:
-                    continue
-                else: # Buscando no modelo municipio o nome de municipio pelo id e alterando o dataframe
-                    municipio = Municipio.objects.get(id=i)
-                    df['municipio'] = df['municipio'].replace([i], municipio.nome)
+            try: df['municipio']
+            except: pass
+            else:
+                for i in df['municipio']:            
+                    try: # Checando se o valor é diferente de NaN
+                        i = int(i)
+                    except:
+                        continue
+                    else: # Buscando no modelo municipio o nome de municipio pelo id e alterando o dataframe
+                        municipio = Municipio.objects.get(id=i)
+                        df['municipio'] = df['municipio'].replace([i], municipio.nome)
 
     except Exception as e:
         raise e
