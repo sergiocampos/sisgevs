@@ -4,6 +4,7 @@ from django.http import HttpResponse, JsonResponse
 from django.contrib.auth import get_user_model
 from django.shortcuts import redirect, render
 from django.core.paginator import Paginator
+from django.contrib import messages
 from django.db.models import Q
 from io import BytesIO
 import pandas as pd
@@ -18,13 +19,13 @@ from .models import *
 # Lista de todos os agravos.
 AGRAVOS = [
     {"name":"Esporotricose Humana", "value": "esp-hum" },
-    {"name":"Acidentes de Trânsito", "value":"aci"},
+    #{"name":"Acidentes de Trânsito", "value":"aci"},
 ]
 
 # KEY: AGRAVO URL | VALUE: DADOS DO AGRAVO
 AGRAVOS_DADOS = {
     'esp-hum':CasoEsporotricose.objects.all(),
-    'aci':AcidentesTransito.objects.all(),
+    #'aci':AcidentesTransito.objects.all(),
 }
 
 # Funcoes SES
@@ -194,6 +195,15 @@ def export_data_excel(request):
                 caso[b] = a[b]
         casos.append(caso)
     
+    # Se não houver dados retorna uma mensagem de alerta.
+    has_data = len(casos) > 0
+    if not has_data:
+        if filtro_url == 'export_casos_cancelados':
+            return redirect(f'/{agravo_url}/casos_cancelados', messages = messages.error(request, 'Não existem casos para esta data, tente novamente.'))
+        else:
+            return redirect(f'/{agravo_url}/my_datas', messages = messages.error(request, 'Não existem casos para esta data, tente novamente.'))
+
+
     # Convertendo em dataframe e alterando o campo município.
     try:
         #data = list(casos_response.order_by('-id').values())
