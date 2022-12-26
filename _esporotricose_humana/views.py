@@ -277,7 +277,7 @@ def ajax_edicao_uf_cidades(request):
 @login_required(login_url='/login/')
 def casos_cancelados(request):
 	municipios = Municipio.objects.all()
-	if request.user.funcao == 'admin':
+	if request.user.funcao == 'admin' or request.user.funcao == 'gerencia_operacional' or request.user.funcao == 'gerencia_executiva' or request.user.funcao == 'chefia_nucleo' or request.user.funcao == 'area_tecnica':
 		registros = CasoEsporotricose.objects.filter(status_caso='Cancelado').order_by('-data_notificacao')
 		return render(request, 'casos_cancelados.html', {'regs':registros, 'municipios':municipios})
 	else:

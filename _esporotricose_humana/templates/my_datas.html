@@ -39,17 +39,20 @@
     </div>
     
     {% include 'messages/message.html' %}
-    <div class="mt-4">
-        <div class="table-responsive">
-            <table class="table table-bordered">
-                <thead>
+    <div class="row">
+        <div class="mt-lg-5">
+            <div class="table">
+                <table class="table table-bordered table-hover table-responsive">
+                <thead class="">
+                    <tr>
                     <th>Data Notificação</th>
-                    <th>Nome Paciente</th>
-                    <th class="th-data">Data Nasc.</th>
-                    <th>Nome da Mãe</th>
+                    <th class="text-center">Nome Paciente</th>
+                    <th class="th-data">Data Nascimento</th>
+                    <th class="text-center">Nome da Mãe</th>
                     <th>Município de Residência</th>
                     <th>Município Notificador</th>
-                    <th>Ações</th>
+                    <th class="text-center">Ações</th>
+                    </tr>
                 </thead>
                 <tbody id="table-registros">
     
@@ -139,7 +142,7 @@
                         <td></td>
                         {% endif %}
     
-                        <td class="d-grid gap-2 d-md-block">
+                        <td class="d-grid gap-2 d-md-inline-flex">
                             
                             {% if user.funcao != 'gerencia_regional' and user.funcao != 'autocadastro' and user.funcao != 'municipal' %}
 
@@ -164,7 +167,7 @@
                             <a href="/esp-hum/cancelar_caso_esporotricose/{{registro.id}}/" class="btn btn-warning btn-sm">Cancelar</a>                            
                             {% endif %}
                         </td>
-                    </tr>
+                
                     {% endif %}
                     {% endfor %}
                 </tbody>
