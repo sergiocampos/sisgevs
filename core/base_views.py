@@ -74,6 +74,15 @@ def my_data(dados):
 			Q(responsavel_pelas_informacoes_id=user_id)
 			)
         
+    elif dados.user.funcao == 'coordenacao_vigilancia_epidemiologica_hospitalar':
+        user_id = dados.user.id
+        unidade_saude_user = UnidadeSaude.objects.get(id=dados.user.unidade_saude)
+        registros_unidade_saude = registros.filter(responsavel_pelas_informacoes_id=user_id)
+        registros = registros_unidade_saude.filter(unidade_saude=unidade_saude_user)
+        print("registros:", registros.count())
+        for r in registros:
+            print("registro:", r.unidade_saude)
+    
     elif dados.user.funcao == 'autocadastro':
         autocadastro_id = dados.user.id
         registros = registros.filter(responsavel_pelas_informacoes_id=autocadastro_id)
