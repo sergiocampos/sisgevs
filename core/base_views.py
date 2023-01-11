@@ -76,12 +76,12 @@ def my_data(dados):
         
     elif dados.user.funcao == 'coordenacao_vigilancia_epidemiologica_hospitalar':
         user_id = dados.user.id
-        unidade_saude_user = UnidadeSaude.objects.get(id=dados.user.unidade_saude)
+        unidade_saude_user = int(dados.user.unidade_saude)
+        unidade_saude = UnidadeSaude.objects.get(id=unidade_saude_user)
+        print("unidade de saude do usuário:", unidade_saude)
         registros_unidade_saude = registros.filter(responsavel_pelas_informacoes_id=user_id)
         registros = registros_unidade_saude.filter(unidade_saude=unidade_saude_user)
-        print("registros:", registros.count())
-        for r in registros:
-            print("registro:", r.unidade_saude)
+
     
     elif dados.user.funcao == 'autocadastro':
         autocadastro_id = dados.user.id
@@ -389,7 +389,8 @@ def hierarchy_has_change():
         'area_tecnica':5,
         'gerencia_regional':6,
         'municipal':7,
-        'autocadastro':8,
+        'coordenacao_vigilancia_epidemiologica_hospitalar':8,
+        'autocadastro':9,
     }
     
     # Gravando a hierarquia em usuarios que ainda nao a tem.
