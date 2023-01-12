@@ -77,8 +77,6 @@ def my_data(dados):
     elif dados.user.funcao == 'coordenacao_vigilancia_epidemiologica_hospitalar':
         user_id = dados.user.id
         unidade_saude_user = int(dados.user.unidade_saude)
-        unidade_saude = UnidadeSaude.objects.get(id=unidade_saude_user)
-        print("unidade de saude do usuário:", unidade_saude)
         registros_unidade_saude = registros.filter(responsavel_pelas_informacoes_id=user_id)
         registros = registros_unidade_saude.filter(unidade_saude=unidade_saude_user)
 
@@ -161,6 +159,11 @@ def export_data_excel(request):
         # Perfil Auto-Cadastro
         auto_cadastro_id = request.user.id
         casos_response = casos_filtrados.filter(responsavel_pelas_informacoes_id=auto_cadastro_id)
+    
+    elif request.user.funcao == 'coordenacao_vigilancia_epidemiologica_hospitalar':
+        #Perfil Coordenação de Vigilância Epidemiológica Hospitalar
+        user_cveh_id = request.user.id
+        casos_response = casos_filtrados.filter(responsavel_pelas_informacoes_id=user_cveh_id)
 
     elif request.user.funcao == 'municipal':
         # Perfil Municipal
