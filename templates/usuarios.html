@@ -32,6 +32,7 @@
                 <th scope="col">MUNICIPIO</th>
                 <th scope="col">AGRAVOS (** Solicitação)</th>
                 <th scope="col">FUNÇÃO</th>
+                <th scope="col" class="d-none unidade-hospitalar">Unidade Hospitalar</th>
             </thead>
             <tbody id="table-registros">
                 {% for usuario in usuarios %}
@@ -78,7 +79,7 @@
                         </select>    
                     </td>                 
                     <td>
-                        <select class="funcoes-select" id="{{usuario.id}}" name="native-select" placeholder="Selecione a Função" data-search="true" data-silent-initial-value-set="true">                        
+                        <select class="funcoes-select w-100" id="{{usuario.id}}" name="native-select" placeholder="Selecione a Função" data-search="true" data-silent-initial-value-set="true">                        
                         {% for funcao in funcoes %}                        
                         {% if user.lista_agravos_permite %}
                             {% if funcao.value == usuario.funcao %}
@@ -94,6 +95,21 @@
                         {% endfor %}
                         </select>                        
                     </td>
+                    {% if usuario.funcao == 'coord_vig_epid_hosp' %}
+                    <td>
+                        <select class="hospital-select" id="{{usuario.id}}" name="native-select" placeholder="Selecione a Unidade" data-search="true" data-silent-initial-value-set="true">
+                            <option value="" selected disabled>Selecione</option>
+                            <option value="desabilitado">Desabilitar</option>
+                            {% for hosp in usuario.hosp_list %}
+                                {% if usuario.unidade_saude == hosp.nome %}
+                                <option value="{{hosp.nome}}" selected>{{hosp.nome}}</option>
+                                {% else %}
+                                <option value="{{hosp.nome}}">{{hosp.nome}}</option>
+                                {% endif %}
+                            {% endfor %}
+                        </select>
+                    </td>
+                    {% endif %}
                 </tr>
                 {% endfor %}
             </tbody>
@@ -106,6 +122,12 @@
 {% block endbody %}
 <script src="{% static 'base/js/virtual-select.min.js' %}"></script>
 <script>
+
+    $(window).ready( 
+        document.getElementsByClassName('hospital-select').length 
+            ? $('.unidade-hospitalar').removeClass('d-none') 
+            : $('.unidade-hospitalar').addClass('d-none')
+    )
     // Select de agravos
     VirtualSelect.init({
         ele: '.agravos-select',
@@ -116,6 +138,13 @@
     // Select de funções
     VirtualSelect.init({
         ele: '.funcoes-select',
+        searchPlaceholderText: "Procurar",
+        noSearchResultsText: "Nenhum item encontrado",
+        allOptionsSelectedText: "Todos os itens selecionados"
+    });        
+    // Select da unidade hospitalar
+    VirtualSelect.init({
+        ele: '.hospital-select',
         searchPlaceholderText: "Procurar",
         noSearchResultsText: "Nenhum item encontrado",
         allOptionsSelectedText: "Todos os itens selecionados"

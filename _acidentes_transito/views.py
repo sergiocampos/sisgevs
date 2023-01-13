@@ -25,7 +25,7 @@ def my_datas(request):
 @login_required(login_url='/login/')
 def criar_caso(request):
   municipios = Municipio.objects.all()    
-  hospitais = UnidadeSaude.objects.all().order_by('nome')
+  hospitais = UnidadeSaude.objects.all().filter(municipio_id=request.user.municipio.id).order_by('nome')
   return render(request, 'aci_criar_caso.html', {'municipios':municipios, 'hospitais':hospitais})
 
     

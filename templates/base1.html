@@ -82,7 +82,7 @@
                             </li>
                             {% endif %}
             
-                            {% if user.funcao != 'gerencia_regional' and user.funcao != 'municipal' and user.funcao != 'autocadastro' %}
+                            {% if user.funcao != 'gerencia_regional' and user.funcao != 'municipal' and user.funcao != 'autocadastro' and user.funcao != 'coord_vig_epid_hosp' %}
                             <li class="nav-item">
                                 <a href="/esp-hum/criar_perfil_municipal" class="nav-link">Criar Perfil Municipal</a>
                             </li>
@@ -146,13 +146,13 @@
                 </li>
                 {% endif %}
 
-                {% if user.funcao != "gerencia_regional" and user.funcao != "autocadastro" and user.funcao != "municipal" %}
+                {% if user.funcao != "gerencia_regional" and user.funcao != "autocadastro" and user.funcao != "municipal" and user.funcao != 'coord_vig_epid_hosp' %}
                 <li class="nav-item">
                     <a href="/usuarios" class="nav-link">Usuários</a>
                 </li>
                 {% endif %}
 
-                {% if user.funcao != 'gerencia_regional' and user.funcao != 'municipal' and user.funcao != 'autocadastro' %}
+                {% if user.funcao != 'gerencia_regional' and user.funcao != 'municipal' and user.funcao != 'autocadastro' and user.funcao != 'coord_vig_epid_hosp' %}
                 <li class="nav-item">
                     <a href="/esp-hum/criar_perfil_municipal" class="nav-link">Criar Perfil Municipal</a>
                 </li>
@@ -173,7 +173,7 @@
                 </li>
                 {% endif %}
                 
-                {% if user.lista_agravos_permite and user.funcao != 'gerencia_regional' and user.funcao != 'municipal' and user.funcao != 'autocadastro' %}
+                {% if user.lista_agravos_permite and user.funcao != 'gerencia_regional' and user.funcao != 'municipal' and user.funcao != 'autocadastro' and user.funcao != 'coord_vig_epid_hosp' %}
                 <li class="nav-item">
                     <a class="nav-link" data-bs-toggle="collapse" href="#collapseCancelados" role="button" aria-expanded="false" aria-controls="collapseCancelados">Casos Cancelados</a>
                     <ul class="collapse" id="collapseCancelados">

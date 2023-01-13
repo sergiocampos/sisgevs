@@ -158,7 +158,11 @@
                   <select class="select-model" name="unidade_saude" id="unidade_saude_id" placeholder="Escolha unidade" data-search="true" data-silent-initial-value-set="true">
                     <option value="" disabled selected>Escolha unidade</option>
                     {% for unid_saude in unidades_saude_municipio %}
+                    {% if unid_saude.nome == user.unidade_saude %}
+                    <option value="{{unid_saude.id}}" selected>{{unid_saude.nome}}</option>
+                    {% else %}
                     <option value="{{unid_saude.id}}">{{unid_saude.nome}}</option>
+                    {% endif %}
                     {% endfor %}
                   </select>
                 </div>

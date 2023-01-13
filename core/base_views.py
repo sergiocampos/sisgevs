@@ -4,6 +4,7 @@ from django.http import HttpResponse, JsonResponse
 from django.contrib.auth import get_user_model
 from django.shortcuts import redirect, render
 from django.core.paginator import Paginator
+from .models import UnidadeSaude
 from django.db.models import Q
 from io import BytesIO
 import pandas as pd
@@ -155,10 +156,15 @@ def export_data_excel(request):
 
     elif request.user.funcao == 'municipal':
         # Perfil Municipal
+        user_id = request.user.id
         user_municipio_id = request.user.municipio_id
-        user_municipio_nome = str(Municipio.objects.filter(id=user_municipio_id)[0]).upper()
-        casos_response = casos_filtrados.filter(Q(municipio_residencia=user_municipio_id) | 
-            Q(municipio_residencia=user_municipio_nome) | Q(responsavel_pelas_informacoes_id=user_municipio_id))
+        user_municipio_nome = str(Municipio.objects.filter(id=user_municipio_id)[0])
+        casos_response = casos_filtrados.filter(
+            Q(municipio_residencia=user_municipio_id) | 
+            Q(municipio_residencia=user_municipio_nome) | 
+            Q(municipio_residencia=user_municipio_nome.upper()) | 
+            Q(responsavel_pelas_informacoes_id=user_municipio_id)
+        )
 
     elif request.user.funcao == 'gerencia_regional':
         # Perfil Gerencia Regional
@@ -304,8 +310,11 @@ def usuarios(request, id=None):
                         if agravo == 'esp-hum':
                             user_dict['esp_hum_solicit'] = True
                         elif agravo == 'aci':
-                            user_dict['aci_solicit'] = True                        
-                
+                            user_dict['aci_solicit'] = True
+
+                # Separando unidades hospitalares do município do usuário
+                user_dict['hosp_list'] = UnidadeSaude.objects.all().filter(municipio_id=usuario.municipio_id)
+
                 usuarios.append(user_dict)
 
             return render(request, 'usuarios.html', {'usuarios':usuarios, 'funcoes':funcoes})
@@ -323,7 +332,7 @@ def usuarios(request, id=None):
 def tem_permissao(request, caso):
 
 	# Usuários SES.
-	if request.user.funcao != 'gerencia_regional' and request.user.funcao != 'autocadastro' and request.user.funcao != 'municipal':
+	if request.user.funcao not in ['gerencia_regional', 'autocadastro', 'municipal', 'coord_vig_epid_hosp']:
 		return True
 
 	# Usuário municipal.
@@ -348,8 +357,6 @@ def alter_user(data):
     
     # Alterar permissão de agravos.
     if data['alterar_agravo']:
-
-        print(data['agravos'])
         if data['agravos'] == []:
             for agravo in data['req_user_agravos']:
                 try: obj_user.lista_agravos_permite.remove(agravo)
@@ -364,6 +371,11 @@ def alter_user(data):
     # Alterar função.
     elif data['alterar_funcao']:
         obj_user.funcao = data['funcao']
+        obj_user.unidade_saude = None
+
+    # Alterar unidade de saúde.
+    elif data['alterar_hosp']:
+        obj_user.unidade_saude = data['hosp'] if data['hosp'] != 'desabilitado' else None
         
     obj_user.save()
     
@@ -405,10 +417,11 @@ def lista_funcoes(n):
         5:{'value':'area_tecnica', "name":"Área Técnica"},
         6:{'value':'gerencia_regional', "name":"Gerência Regional"},
         7:{'value':'municipal', "name":"Municipal"},
-        8:{'value':'autocadastro', "name":"Autocadastro"},
+        8:{'value':'coord_vig_epid_hosp', "name":"Coordenação de Vigilância Epidemiológica Hospitalar"},
+        9:{'value':'autocadastro', "name":"Autocadastro"},
     }
     
-    return [hierarquia[i] for i in range(n, 9)]        
+    return [hierarquia[i] for i in range(n, 10)]
     
 
 # Função para permitir todos os agravos ao admin caso ainda nao tenha.

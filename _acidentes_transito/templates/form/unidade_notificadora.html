@@ -5,9 +5,13 @@
     <select class="select-model" id="nome_instituicao_hospital" name="nome_instituicao_hospital" placeholder="Selecione um item" data-search="true" data-silent-initial-value-set="true">
       <option value="" selected disabled>Selecione um item</option>
       <option value="Outro">Outro</option>
+      {% if user.unidade_saude != '' and user.unidade_saude != None %}
+      <option value="{{user.unidade_saude}}">{{user.unidade_saude}}</option>
+      {% else %}
       {% for hospital in hospitais %}
       <option value="{{hospital.nome}}">{{hospital.nome}}</option>
       {% endfor %}      
+      {% endif %}
     </select>    
   </div>      
           

@@ -22,10 +22,17 @@ $('.agravos-select').on('change', function(){
 })
 
 // Altera a função de um usuário. 
-// TODO: ESCREVER O HTML.
 $('.funcoes-select').on('change', function(){
     var id = this.id;
     var funcao = this.value;
     data = {'alterar_agravo':false, 'alterar_funcao':true, "id":id, "funcao":funcao}
     sendRequest(data)    
+})
+
+// Altera a unidade de saúde de um usuário.
+$('.hospital-select').on('change', function(){
+    const id = this.id;
+    const hosp = this.value;
+    data = {'alterar_agravo':false, 'alterar_funcao':false, 'alterar_hosp': true, "id":id, "hosp":hosp}
+    sendRequest(data)
 })
