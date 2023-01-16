@@ -332,7 +332,7 @@ def usuarios(request, id=None):
 def tem_permissao(request, caso):
 
 	# Usuários SES.
-	if request.user.funcao not in ['gerencia_regional', 'autocadastro', 'municipal', 'coord_vig_epid_hosp']:
+	if request.user.funcao not in ['gerencia_regional', 'autocadastro', 'municipal', 'coordenacao_vigilancia_epidemiologica_hospitalar']:
 		return True
 
 	# Usuário municipal.
@@ -417,7 +417,7 @@ def lista_funcoes(n):
         5:{'value':'area_tecnica', "name":"Área Técnica"},
         6:{'value':'gerencia_regional', "name":"Gerência Regional"},
         7:{'value':'municipal', "name":"Municipal"},
-        8:{'value':'coord_vig_epid_hosp', "name":"Coordenação de Vigilância Epidemiológica Hospitalar"},
+        8:{'value':'coordenacao_vigilancia_epidemiologica_hospitalar', "name":"Coordenação de Vigilância Epidemiológica Hospitalar"},
         9:{'value':'autocadastro', "name":"Autocadastro"},
     }
     
