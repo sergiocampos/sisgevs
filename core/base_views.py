@@ -75,6 +75,13 @@ def my_data(dados):
 			Q(responsavel_pelas_informacoes_id=user_id)
 			)
         
+    elif dados.user.funcao == 'coordenacao_vigilancia_epidemiologica_hospitalar':
+        user_id = dados.user.id
+        unidade_saude_user = int(dados.user.unidade_saude)
+        registros_unidade_saude = registros.filter(responsavel_pelas_informacoes_id=user_id)
+        registros = registros_unidade_saude.filter(unidade_saude=unidade_saude_user)
+
+    
     elif dados.user.funcao == 'autocadastro':
         autocadastro_id = dados.user.id
         registros = registros.filter(responsavel_pelas_informacoes_id=autocadastro_id)
@@ -153,6 +160,11 @@ def export_data_excel(request):
         # Perfil Auto-Cadastro
         auto_cadastro_id = request.user.id
         casos_response = casos_filtrados.filter(responsavel_pelas_informacoes_id=auto_cadastro_id)
+    
+    elif request.user.funcao == 'coordenacao_vigilancia_epidemiologica_hospitalar':
+        #Perfil Coordenação de Vigilância Epidemiológica Hospitalar
+        user_cveh_id = request.user.id
+        casos_response = casos_filtrados.filter(responsavel_pelas_informacoes_id=user_cveh_id)
 
     elif request.user.funcao == 'municipal':
         # Perfil Municipal
@@ -392,7 +404,8 @@ def hierarchy_has_change():
         'area_tecnica':5,
         'gerencia_regional':6,
         'municipal':7,
-        'autocadastro':8,
+        'coordenacao_vigilancia_epidemiologica_hospitalar':8,
+        'autocadastro':9,
     }
     
     # Gravando a hierarquia em usuarios que ainda nao a tem.
