@@ -353,7 +353,11 @@ def tem_permissao(request, caso):
 			return True
 		return False
 
-	# Usuário autocadastro.
+	# Usuário coordenacao_vigilancia_epidemiologica_hospitalar.
+	elif request.user.funcao == 'coordenacao_vigilancia_epidemiologica_hospitalar' and request.user.id == caso.responsavel_pelas_informacoes_id:
+		return True
+
+    # Usuário autocadastro.
 	elif request.user.funcao == 'autocadastro' and request.user.id == caso.responsavel_pelas_informacoes_id:
 		return True
 

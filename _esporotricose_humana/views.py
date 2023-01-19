@@ -1027,7 +1027,6 @@ def caso_esporotricose_edit(request, id):
 	if tem_permissao(request, caso):
 
 		estados = Estado.objects.all().order_by('nome')
-		print('UF = ', caso.uf_residencia)
 		try:
 			estado_caso_str = int(caso.uf_residencia)
 		except Exception as e:
@@ -1036,12 +1035,9 @@ def caso_esporotricose_edit(request, id):
 			estado_caso = Estado.objects.get(id=estado_caso_str)
 				
 		cidade_caso_ = caso.municipio_residencia
-		
-		print("municipio do caso:", cidade_caso_, type(cidade_caso_))
 
 		cidade_caso_registro = Municipio.objects.filter(nome=cidade_caso_)
 
-		print("cidade_caso_registro:", cidade_caso_registro)
 
 		municipio_residencia_br = Municipios.objects.filter(nome=cidade_caso_)
 
@@ -1061,12 +1057,11 @@ def caso_esporotricose_edit(request, id):
 
 		#cidade_caso = Municipios.objects.get(id=cidade_caso_id)
 
-		print("residencia do caso:", estado_caso)
 
 		municipios = Municipio.objects.all().order_by('nome')
 		unidades_saude = []
 		codigos_ibge = []
-		#print(caso.codigo_ibge_caso_autoctone)
+
 
 		if caso.municipio:
 			municipio_caso = caso.municipio
@@ -1077,7 +1072,7 @@ def caso_esporotricose_edit(request, id):
 			codigo_ibge = None
 			unidade_saude_caso = None
 
-		
+		print("unidade de saúde do caso agora: ", unidade_saude_caso)
 		if caso.data_notificacao != None:
 			caso.data_notificacao = datetime.strftime(caso.data_notificacao, '%Y-%m-%d')
 		else:
