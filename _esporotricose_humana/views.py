@@ -168,8 +168,15 @@ def caso_esporotricose_create(request):
 	unidades_saude_municipio = UnidadeSaude.objects.filter(municipio=request.user.municipio).order_by('nome')
 	unidades_saude = []
 	codigos_ibge = []
+	#unidade de saude do usuário
+	if request.user.unidade_saude:
+		unidade_saude_user_id = int(request.user.unidade_saude)
+		unidade_saude_user = UnidadeSaude.objects.get(id=unidade_saude_user_id)
+	else:
+		unidade_saude_user = None
 	return render(request, 'caso_esporotricose_create.html', {'municipios':municipios, 'unidades_saude':unidades_saude, 
-		'codigos_ibge':codigos_ibge, 'estados':estados, 'unidades_saude_municipio':unidades_saude_municipio, 'estados':estados})
+		'codigos_ibge':codigos_ibge, 'estados':estados, 'unidades_saude_municipio':unidades_saude_municipio, 'estados':estados, 'unidade_saude_user':
+		unidade_saude_user})
 
 #############################views ajax dados gerais#####################################
 
@@ -441,8 +448,15 @@ def set_caso_esporotricose_create(request):
 		data_primeiros_sintomas = datetime.strptime(data_primeiros_sintomas_cap, '%Y-%m-%d').date()
 
 	
-	unidade_saude = request.POST.get('unidade_saude')
-	unidade_saude_outro = request.POST.get('unidade_saude_outro')
+	unidade_saude_cap = request.POST.get('unidade_saude')
+	unidade_saude_outro_cap = request.POST.get('unidade_saude_outro')
+	if unidade_saude_cap != '' or unidade_saude_cap != None:
+		unidade_saude_caso = UnidadeSaude.objects.get(nome=unidade_saude_cap)
+		unidade_saude = unidade_saude_caso.id
+	elif unidade_saude_outro_cap != '' or unidade_saude_outro_cap != None:
+		unidade_saude_outro = unidade_saude_outro_cap
+
+	
 	
 	#notificação individual
 	nome_paciente = request.POST.get('nome_paciente').upper()
@@ -691,7 +705,6 @@ def set_caso_esporotricose_create(request):
 			codigo = "000000000000"
 		else:
 			codigo = ultimo_registro_caso.numero_unico
-			print("codigo:", codigo)
 	else:
 		codigo = "000000000000"
 	ano_codigo_anterior = codigo[4]+codigo[5]+codigo[6]+codigo[7] # Pegando o ano do codigo vindo do banco.
@@ -1072,7 +1085,9 @@ def caso_esporotricose_edit(request, id):
 			codigo_ibge = None
 			unidade_saude_caso = None
 
-		print("unidade de saúde do caso agora: ", unidade_saude_caso)
+		unidade_saude_caso_id = caso.unidade_saude
+		nome_unidade_saude_caso = UnidadeSaude.objects.get(id=unidade_saude_caso_id)
+
 		if caso.data_notificacao != None:
 			caso.data_notificacao = datetime.strftime(caso.data_notificacao, '%Y-%m-%d')
 		else:
@@ -1161,7 +1176,7 @@ def caso_esporotricose_edit(request, id):
 		return render(request, 'caso_esporotricose_edit.html', {'form':caso, 'municipios':municipios, 'unidades_saude':unidades_saude, 
 			'codigos_ibge':codigos_ibge, 'estados':estados, 'codigo_ibge':codigo_ibge, 'unidade_saude_caso':unidade_saude_caso,
 			'estado_caso':estado_caso, 'cidade_caso':cidade_caso, 'codigo_ibge_residencia': codigo_ibge_residencia, 
-			'municipio_residencia': municipio_residencia})
+			'municipio_residencia': municipio_residencia, 'nome_unidade_saude_caso': nome_unidade_saude_caso})
 	
 	else:
 		return redirect("/my_datas", messages = messages.error(request, 'Você não tem permissão para editar este caso.'))
