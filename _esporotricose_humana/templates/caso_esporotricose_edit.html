@@ -322,28 +322,23 @@
                             </script>
         
                         </div>
-                                
+        
                         <div class="row">
                             <div class="col">
                                 <div class="form-group"><b>Unidade de Saúde  </b><i></i>
                                 {% if user.funcao == 'coordenacao_vigilancia_epidemiologica_hospitalar' %}
-                                <input class="form-control form-control-sm" type="text" name="unidade_saude" id="" placeholder="" value="{{ nome_unidade_saude_caso }}" readonly>
-                                {% elif nome_unidade_saude_caso %}
-                                <input class="form-control form-control-sm" type="text" name="unidade_saude" id="unidade_saude_cveh_id" placeholder="" value="{{ nome_unidade_saude_caso }}" readonly>
-                                
-                                <div id="select_outra_unidade" style="display: none;">
-                                    <select class="select-model" name="unidade_saude" id="unidade_saude_id" placeholder="Selecionar" data-search="true" data-silent-initial-value-set="true">
-                                        <option value="" disabled selected></option>
-                                    </select>
-                                </div>
-                                
+                                <input class="form-control form-control-sm" type="text" name="unidade_saude" placeholder="" value="{{ nome_unidade_saude_caso }}" readonly>
                                 {% else %}
+                                    {% if form.unidade_saude != None or form.unidade_saude != '' %}
                                         <select class="select-model" name="unidade_saude" id="unidade_saude_id" placeholder="Selecionar" data-search="true" data-silent-initial-value-set="true">
                                             <option value="" disabled selected>Escolha unidade</option>
+                                            <option value="{{unidade_saude_caso}}">{{unidade_saude_caso}}</option>
                                         </select>
-                                     
+                                    {%else%}
+                                        <select class="select-model" name="unidade_saude" id="unidade_saude_id" placeholder="Selecionar" data-search="true" data-silent-initial-value-set="true">
+                                        </select> 
+                                    {% endif %}
                                 {% endif %}
-                                
                                 </div>
                             </div>
         
@@ -2994,13 +2989,6 @@
 
         $("#unidade_saude_id").prop("disabled", true);
         $("#unidade_saude_id").val("");
-
-        $("#unidade_saude_cveh_id").val("");
-        $("#unidade_saude_cveh_id").remove();
-
-        document.getElementById("select_outra_unidade").style.display = "block";
-
-
     }
 
     function desactiveOutraUnidade() {
