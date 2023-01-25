@@ -207,38 +207,32 @@ def export_data_excel(request):
     try:
         #data = list(casos_response.order_by('-id').values())
         data = casos
-        df = pd.DataFrame(data)
-
-        # Convertendo em dataframe e alterando os campos município e unidade_saude.
+        
+        # Convertendo em dataframe e alterando os campos que contém ID.
         if agravo_url == 'esp-hum':
+            for row in data:
+                # Trocando o ID pelo NOME do dado.
+                unidade_saude = replace_id_for_name('unidade_saude', row['unidade_saude'])
+                gerencia_id = replace_id_for_name('gerencia_id', row['gerencia_id'])
+                uf_residencia = replace_id_for_name('uf_residencia', row['uf_residencia'])
+                municipio_hospitalizacao = replace_id_for_name('municipio_hospitalizacao', row['municipio_hospitalizacao'])
+                nome_hospital_hospitalizacao = replace_id_for_name('nome_hospital_hospitalizacao', row['nome_hospital_hospitalizacao'])
+                uf_caso_autoctone = replace_id_for_name('uf_caso_autoctone', row['uf_caso_autoctone'])
+                municipio_caso_autoctone = replace_id_for_name('municipio_caso_autoctone', row['municipio_caso_autoctone'])
+                municipio = replace_id_for_name('municipio', row['municipio'])
+
+                # Se houve troca de ID faz a troca na lista. Caso contrário permanece o que já estava.
+                row['unidade_saude'] = unidade_saude if unidade_saude else row['unidade_saude']
+                row['gerencia_id'] = gerencia_id if gerencia_id else row['gerencia_id']
+                row['uf_residencia'] = uf_residencia if uf_residencia else row['uf_residencia']
+                row['municipio_hospitalizacao'] = municipio_hospitalizacao if municipio_hospitalizacao else row['municipio_hospitalizacao']
+                row['nome_hospital_hospitalizacao'] = nome_hospital_hospitalizacao if nome_hospital_hospitalizacao else row['nome_hospital_hospitalizacao']
+                row['uf_caso_autoctone'] = uf_caso_autoctone if uf_caso_autoctone else row['uf_caso_autoctone']
+                row['municipio_caso_autoctone'] = municipio_caso_autoctone if municipio_caso_autoctone else row['municipio_caso_autoctone']
+                row['municipio'] = municipio if municipio else row['municipio']
             
-            # [UNIDADE SAUDE] Trocando onde houver CNES ou ID pelo nome da unidade.
-            for i in df['unidade_saude']:
-                try: int(i) # Se for um numero faz o tratamento
-                except: continue # Caso não seja um número vai para o próximo item
-                else:
-                    unid_saude = None
-                    # Se o tamanho da str for maior igual a 5 se refere ao cnes
-                    if len(i) >= 5:
-                        unid_saude = UnidadeSaude.objects.filter(cnes=i)
-                    
-                    # Se for menor que 5 se refere ao id da unidade.
-                    else:
-                        unid_saude = UnidadeSaude.objects.filter(id=i)
-                    
-                    # Se há dados
-                    if unid_saude:
-                        df['unidade_saude'] = df['unidade_saude'].replace([i], unid_saude[0].nome)
-            
-            
-            for i in df['municipio']:            
-                try: # Checando se o valor é diferente de NaN
-                    i = int(i)
-                except:
-                    continue
-                else: # Buscando no modelo municipio o nome de municipio pelo id e alterando o dataframe
-                    municipio = Municipio.objects.get(id=i)
-                    df['municipio'] = df['municipio'].replace([i], municipio.nome)
+        
+        df = pd.DataFrame(data)
 
     except Exception as e:
         raise e
@@ -352,6 +346,27 @@ def usuarios(request, id=None):
 
 
 ## FUNCOES AUXILIARES ##
+
+def replace_id_for_name(key, value):
+    # Recebe chave e valor
+    # Chave serve pra buscar o model adequado
+    # Verifica se o valor é inteiro e tenta achar no banco o nome para aquele id.
+    model = {
+        'unidade_saude': UnidadeSaude,
+        'gerencia_id': Gerencia,
+        'uf_residencia': Estado,
+        'municipio_hospitalizacao': Municipio,
+        'nome_hospital_hospitalizacao': UnidadeSaude,
+        'uf_caso_autoctone': Estado,
+        'municipio_caso_autoctone': Municipios,
+        'municipio': Municipio
+    }
+    try: int(value)
+    except: return None
+    else: 
+        data = model[key].objects.filter(id=value)
+        return data[0].nome if data else None
+
 
 # Funçao que verifica se o usuário tem permissao para editar um caso especifico.
 def tem_permissao(request, caso):
