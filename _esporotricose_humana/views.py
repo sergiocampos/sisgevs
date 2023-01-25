@@ -1091,13 +1091,10 @@ def caso_esporotricose_edit(request, id):
 		para solucionar o problema de haver no banco os dois tipos de dados para o atributo unidade_saude.
 		'''
 		if type(unidade_saude_caso_id) is int:
-			print("unidade de saúde é inteiro: ", unidade_saude_caso_id)
 			nome_unidade_saude_caso = UnidadeSaude.objects.get(id=unidade_saude_caso_id)
 		elif type(unidade_saude_caso_id) is str:
-			print("unidade de saúde é uma String: ", unidade_saude_caso_id)
 			nome_unidade_saude_caso = unidade_saude_caso_id
 		else:
-			print("unidade de saúde é Nulo: ", unidade_saude_caso_id)
 			nome_unidade_saude_caso = None
 
 		if caso.data_notificacao != None:
