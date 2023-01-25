@@ -204,13 +204,32 @@ def export_data_excel(request):
             return redirect(f'/{agravo_url}/my_datas', messages = messages.error(request, 'Não existem casos para esta data, tente novamente.'))
 
 
-    # Convertendo em dataframe e alterando o campo município.
     try:
         #data = list(casos_response.order_by('-id').values())
         data = casos
         df = pd.DataFrame(data)
 
+        # Convertendo em dataframe e alterando os campos município e unidade_saude.
         if agravo_url == 'esp-hum':
+            
+            # [UNIDADE SAUDE] Trocando onde houver CNES ou ID pelo nome da unidade.
+            for i in df['unidade_saude']:
+                try: int(i) # Se for um numero faz o tratamento
+                except: continue # Caso não seja um número vai para o próximo item
+                else:
+                    unid_saude = None
+                    # Se o tamanho da str for maior igual a 5 se refere ao cnes
+                    if len(i) >= 5:
+                        unid_saude = UnidadeSaude.objects.filter(cnes=i)
+                    
+                    # Se for menor que 5 se refere ao id da unidade.
+                    else:
+                        unid_saude = UnidadeSaude.objects.filter(id=i)
+                    
+                    # Se há dados
+                    if unid_saude:
+                        df['unidade_saude'] = df['unidade_saude'].replace([i], unid_saude[0].nome)
+            
             
             for i in df['municipio']:            
                 try: # Checando se o valor é diferente de NaN
