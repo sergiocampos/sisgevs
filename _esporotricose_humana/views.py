@@ -137,7 +137,7 @@ def caso_view(request, id):
 		municipio = Municipio.objects.get(id=municipio_id)
 		ibge = municipio.ibge
 		return render(request, 'caso_view.html', {'registro':registro, 'municipio':municipio, 'ibge':ibge})
-		
+
 
 
 @login_required(login_url='/login/')
@@ -184,9 +184,9 @@ def caso_esporotricose_create(request):
 def ajax_load_unidadesaude(request):
 	municipio_id = request.GET.get('municipio_id')
 	#cod_ibge = JoinMunicipioIbgeUnidadeSaude.objects.filter(municipio=municipio).all()
-	cod_ibge = UnidadeSaude.objects.filter(municipio_id=municipio_id).all().order_by('nome')
-	
-	return render(request, 'unidades_saude_ajax.html', {'cod_ibge':cod_ibge})
+	data = UnidadeSaude.objects.filter(municipio_id=municipio_id).all().order_by('nome')
+	unidade_saude = [{'label': i.nome, 'value':i.nome} for i in data]
+	return JsonResponse({'unidade_saude':unidade_saude})
 
 
 @login_required(login_url='/login/')
@@ -1046,7 +1046,8 @@ def caso_esporotricose_edit(request, id):
 			estado_caso = None
 		else:
 			estado_caso = Estado.objects.get(id=estado_caso_str)
-				
+			caso.uf_residencia = int(caso.uf_residencia)
+
 		cidade_caso_ = caso.municipio_residencia
 
 		cidade_caso_registro = Municipio.objects.filter(nome=cidade_caso_)
@@ -1461,8 +1462,8 @@ def set_caso_esporotricose_edit(request, id):
 		data_encerramento = None		
 	else:
 		data_encerramento = datetime.strptime(data_encerramento_cap, '%Y-%m-%d').date()
-	
-	
+
+
 	#observação
 	observacao = request.POST.get('observacao')
 	
