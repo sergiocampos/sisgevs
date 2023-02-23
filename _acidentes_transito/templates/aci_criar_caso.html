@@ -22,9 +22,22 @@
     <div class="card-header">
       <h1 class="fs-2">Ficha de Notificação de Acidentes de Trânsito</h1>
     </div>  
+    <span class="d-none alert alert-danger m-0 text-center" id="incomplete_form_alert">Formulário incompleto, verifique todos os campos obrigatórios e tente novamente.</span>
     
     <div class="px-2 m-3">
       <p class="m-0">(<a style="color: red;">*</a>) Campo obrigatório.</p>
+    </div>
+    <!-- [FORM] INFORMACOES DO PACIENTE -->
+    <div id="menu4" class="container mb-4">
+      <div class="card">
+      
+        <div class="card-header">INFORMAÇÕES DO PACIENTE</div>
+      
+        <div class="card-body">      
+          {% include 'form/informacoes_do_paciente.html'%}
+          {% include 'form/outras_informacoes_sobre_o_acidente.html'%}
+        </div>
+      </div>
     </div>
 
     <!-- [FORM] INFORMACOES GERAIS DO ACIDENTE -->
@@ -34,23 +47,12 @@
         <div class="card-header">INFORMAÇÕES GERAIS DO ACIDENTE</div>
       
         <div class="card-body">      
-      
           {% include 'form/informacoes_gerais_do_acidente.html'%}
-        </div>
-      </div>
-    </div>
-    <!-- [FORM] SEVERIDADE DO ACIDENTE E QUANTIDADE DE VITIMAS -->
-    <div id="menu2" class="container mb-4">
-      <div class="card">
-      
-        <div class="card-header">SEVERIDADE DO ACIDENTE E QUANTIDADE DE VÍTIMAS</div>
-      
-        <div class="card-body">      
-      
           {% include 'form/severidade_do_acidente_e_quantidade_de_vitimas.html'%}
         </div>
       </div>
     </div>
+
     <!-- [FORM] EQUIPE ACIONADA PARA O LOCAL DO ACIDENTE -->
     <div id="menu3" class="container mb-4">
       <div class="card">
@@ -58,35 +60,11 @@
         <div class="card-header">EQUIPE ACIONADA PARA O LOCAL DO ACIDENTE</div>
       
         <div class="card-body">      
-      
           {% include 'form/equipe_acionada_para_o_local_do_acidente.html'%}
         </div>
       </div>
     </div>
-    <!-- [FORM] INFORMACOES DO PACIENTE -->
-    <div id="menu4" class="container mb-4">
-      <div class="card">
-      
-        <div class="card-header">INFORMAÇÕES DO PACIENTE</div>
-      
-        <div class="card-body">      
-      
-          {% include 'form/informacoes_do_paciente.html'%}
-        </div>
-      </div>
-    </div>
-    <!-- [FORM] OUTRAS INFORMACOES SOBRE O ACIDENTE -->
-    <div id="menu5" class="container mb-4">
-      <div class="card">
-      
-        <div class="card-header">OUTRAS INFORMAÇÕES SOBRE O ACIDENTE</div>
-      
-        <div class="card-body">      
-      
-          {% include 'form/outras_informacoes_sobre_o_acidente.html'%}
-        </div>
-      </div>
-    </div>
+
     <!-- [FORM] UNIDADE NOTIFICADORA -->
     <div id="menu6" class="container mb-4">
       <div class="card">

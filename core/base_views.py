@@ -5,6 +5,7 @@ from django.contrib.auth import get_user_model
 from django.shortcuts import redirect, render
 from django.core.paginator import Paginator
 from django.contrib import messages
+from .models import UnidadeSaude
 from django.db.models import Q
 from io import BytesIO
 import pandas as pd
@@ -67,22 +68,21 @@ def my_data(dados):
         user_id = dados.user.id
         user_municipio_nome = str(Municipio.objects.filter(id=user_municipio_id)[0])
         user_municipio_nome_upper = str(Municipio.objects.filter(id=user_municipio_id)[0]).upper()
-        if agravo_url == 'aci':
-            registros = registros.filter(
-                Q(municipio_ocorrencia_acidente=user_municipio_id) | 
-                Q(municipio_ocorrencia_acidente=user_municipio_nome) | 
-                Q(municipio_ocorrencia_acidente=user_municipio_nome_upper) | 
-                Q(responsavel_pelas_informacoes_id=user_id)
-                )
-
-        if agravo_url == 'esp-hum':
-            registros = registros.filter(
-                Q(municipio_residencia=user_municipio_id) | 
-                Q(municipio_residencia=user_municipio_nome) | 
-                Q(municipio_residencia=user_municipio_nome_upper) | 
-                Q(responsavel_pelas_informacoes_id=user_id)
-                )
         
+        registros = registros.filter(
+			Q(municipio_residencia=user_municipio_id) | 
+			Q(municipio_residencia=user_municipio_nome) | 
+			Q(municipio_residencia=user_municipio_nome_upper) | 
+			Q(responsavel_pelas_informacoes_id=user_id)
+			)
+        
+    elif dados.user.funcao == 'coordenacao_vigilancia_epidemiologica_hospitalar':
+        user_id = dados.user.id
+        unidade_saude_user = int(dados.user.unidade_saude)
+        registros_unidade_saude = registros.filter(responsavel_pelas_informacoes_id=user_id)
+        registros = registros_unidade_saude.filter(unidade_saude=unidade_saude_user)
+
+    
     elif dados.user.funcao == 'autocadastro':
         autocadastro_id = dados.user.id
         registros = registros.filter(responsavel_pelas_informacoes_id=autocadastro_id)
@@ -161,13 +161,23 @@ def export_data_excel(request):
         # Perfil Auto-Cadastro
         auto_cadastro_id = request.user.id
         casos_response = casos_filtrados.filter(responsavel_pelas_informacoes_id=auto_cadastro_id)
+    
+    elif request.user.funcao == 'coordenacao_vigilancia_epidemiologica_hospitalar':
+        #Perfil Coordenação de Vigilância Epidemiológica Hospitalar
+        user_cveh_id = request.user.id
+        casos_response = casos_filtrados.filter(responsavel_pelas_informacoes_id=user_cveh_id)
 
     elif request.user.funcao == 'municipal':
         # Perfil Municipal
+        user_id = request.user.id
         user_municipio_id = request.user.municipio_id
-        user_municipio_nome = str(Municipio.objects.filter(id=user_municipio_id)[0]).upper()
-        casos_response = casos_filtrados.filter(Q(municipio_residencia=user_municipio_id) | 
-            Q(municipio_residencia=user_municipio_nome) | Q(responsavel_pelas_informacoes_id=user_municipio_id))
+        user_municipio_nome = str(Municipio.objects.filter(id=user_municipio_id)[0])
+        casos_response = casos_filtrados.filter(
+            Q(municipio_residencia=user_municipio_id) | 
+            Q(municipio_residencia=user_municipio_nome) | 
+            Q(municipio_residencia=user_municipio_nome.upper()) | 
+            Q(responsavel_pelas_informacoes_id=user_municipio_id)
+        )
 
     elif request.user.funcao == 'gerencia_regional':
         # Perfil Gerencia Regional
@@ -232,7 +242,18 @@ def export_data_excel(request):
                 row['municipio'] = municipio if municipio else row['municipio']
             
         
-        df = pd.DataFrame(data)
+            df = pd.DataFrame(data)
+            try: df['municipio']
+            except: pass
+            else:
+                for i in df['municipio']:            
+                    try: # Checando se o valor é diferente de NaN
+                        i = int(i)
+                    except:
+                        continue
+                    else: # Buscando no modelo municipio o nome de municipio pelo id e alterando o dataframe
+                        municipio = Municipio.objects.get(id=i)
+                        df['municipio'] = df['municipio'].replace([i], municipio.nome)
 
     except Exception as e:
         raise e
@@ -332,8 +353,11 @@ def usuarios(request, id=None):
                         if agravo == 'esp-hum':
                             user_dict['esp_hum_solicit'] = True
                         elif agravo == 'aci':
-                            user_dict['aci_solicit'] = True                        
-                
+                            user_dict['aci_solicit'] = True
+
+                # Separando unidades hospitalares do município do usuário
+                user_dict['hosp_list'] = UnidadeSaude.objects.all().filter(municipio_id=usuario.municipio_id)
+
                 usuarios.append(user_dict)
 
             return render(request, 'usuarios.html', {'usuarios':usuarios, 'funcoes':funcoes})
@@ -372,7 +396,7 @@ def replace_id_for_name(key, value):
 def tem_permissao(request, caso):
 
 	# Usuários SES.
-	if request.user.funcao != 'gerencia_regional' and request.user.funcao != 'autocadastro' and request.user.funcao != 'municipal':
+	if request.user.funcao not in ['gerencia_regional', 'autocadastro', 'municipal', 'coordenacao_vigilancia_epidemiologica_hospitalar']:
 		return True
 
 	# Usuário municipal.
@@ -381,7 +405,11 @@ def tem_permissao(request, caso):
 			return True
 		return False
 
-	# Usuário autocadastro.
+	# Usuário coordenacao_vigilancia_epidemiologica_hospitalar.
+	elif request.user.funcao == 'coordenacao_vigilancia_epidemiologica_hospitalar' and request.user.id == caso.responsavel_pelas_informacoes_id:
+		return True
+
+    # Usuário autocadastro.
 	elif request.user.funcao == 'autocadastro' and request.user.id == caso.responsavel_pelas_informacoes_id:
 		return True
 
@@ -397,8 +425,6 @@ def alter_user(data):
     
     # Alterar permissão de agravos.
     if data['alterar_agravo']:
-
-        print(data['agravos'])
         if data['agravos'] == []:
             for agravo in data['req_user_agravos']:
                 try: obj_user.lista_agravos_permite.remove(agravo)
@@ -413,6 +439,11 @@ def alter_user(data):
     # Alterar função.
     elif data['alterar_funcao']:
         obj_user.funcao = data['funcao']
+        obj_user.unidade_saude = None
+
+    # Alterar unidade de saúde.
+    elif data['alterar_hosp']:
+        obj_user.unidade_saude = data['hosp'] if data['hosp'] != 'desabilitado' else None
         
     obj_user.save()
     
@@ -429,7 +460,8 @@ def hierarchy_has_change():
         'area_tecnica':5,
         'gerencia_regional':6,
         'municipal':7,
-        'autocadastro':8,
+        'coordenacao_vigilancia_epidemiologica_hospitalar':8,
+        'autocadastro':9,
     }
     
     # Gravando a hierarquia em usuarios que ainda nao a tem.
@@ -454,10 +486,11 @@ def lista_funcoes(n):
         5:{'value':'area_tecnica', "name":"Área Técnica"},
         6:{'value':'gerencia_regional', "name":"Gerência Regional"},
         7:{'value':'municipal', "name":"Municipal"},
-        8:{'value':'autocadastro', "name":"Autocadastro"},
+        8:{'value':'coordenacao_vigilancia_epidemiologica_hospitalar', "name":"Coordenação de Vigilância Epidemiológica Hospitalar"},
+        9:{'value':'autocadastro', "name":"Autocadastro"},
     }
     
-    return [hierarquia[i] for i in range(n, 9)]        
+    return [hierarquia[i] for i in range(n, 10)]
     
 
 # Função para permitir todos os agravos ao admin caso ainda nao tenha.

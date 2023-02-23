@@ -1,13 +1,15 @@
 
+import os
 from django.contrib.auth.decorators import login_required
     
-from django.shortcuts import render, redirect
+from django.shortcuts import HttpResponse, render, redirect
     
 from django.contrib import messages
     
 from core.models import Gerencia, Municipio, UnidadeSaude
     
 from core.base_views import tem_permissao, my_data as base_notificacoes
+from sisgevs import settings
     
 from .models import AcidentesTransito
 
@@ -23,7 +25,7 @@ def my_datas(request):
 @login_required(login_url='/login/')
 def criar_caso(request):
   municipios = Municipio.objects.all()    
-  hospitais = UnidadeSaude.objects.all().order_by('nome')
+  hospitais = UnidadeSaude.objects.all().filter(municipio_id=request.user.municipio.id).order_by('nome')
   return render(request, 'aci_criar_caso.html', {'municipios':municipios, 'hospitais':hospitais})
 
     
@@ -32,7 +34,6 @@ def criar_caso(request):
 def set_criar_caso(request):
     
   dados = request.POST.dict()    
-    
   # Captando os dados da gerencia.
     
   # gerencia_id = Municipio.objects.get(nome=dados['# FILTRAR DADOS DE MUNICIPIO #']).gerencia_id
@@ -40,7 +41,8 @@ def set_criar_caso(request):
   # dados['gerencia'] = Gerencia.objects.get(id=gerencia_id)    
   dados['quem_foi_responsavel_por_prestar_apoio_local'] = dados['quem_foi_responsavel_por_prestar_apoio_local'].split(',')
   dados['tipos_veiculos_envolvidos_acidente'] = dados['tipos_veiculos_envolvidos_acidente'].split(',')
-  dados['responsavel_pelas_informacoes'] = request.user        
+  dados['responsavel_pelas_informacoes'] = request.user     
+  dados['qual_hospital'] = request.POST['qual_hospital']
     
   del dados['csrfmiddlewaretoken'] # Excluindo o token csrf.
     
@@ -90,7 +92,6 @@ def set_editar_caso(request, id):
     
   if tem_permissao(request, caso):
     
-    print(request.POST)
     dados = request.POST.dict()    
     
     # Captando os dados da gerencia.    
@@ -100,10 +101,11 @@ def set_editar_caso(request, id):
     dados['quem_foi_responsavel_por_prestar_apoio_local'] = dados['quem_foi_responsavel_por_prestar_apoio_local'].split(',')
     dados['tipos_veiculos_envolvidos_acidente'] = dados['tipos_veiculos_envolvidos_acidente'].split(',')
     dados['responsavel_pelas_informacoes'] = request.user
+    dados['qual_hospital'] = request.POST['qual_hospital']
 
         
     del dados['csrfmiddlewaretoken'] # Excluindo o token csrf.
-    
+
     try:
     
       AcidentesTransito.objects.filter(id=id).update(**dados)
@@ -151,8 +153,20 @@ def visualizar_caso(request, id):
 # Renderiza uma lista de casos cancelados
 @login_required(login_url='/login')
 def casos_cancelados(request):
-    
-  casosCancelados = AcidentesTransito.objects.all().filter(status_caso="Cancelado")
-    
-  return render(request, 'aci_casos_cancelados.html', {'regs':casosCancelados})
-    
+  if request.user.funcao in ["admin", "gerencia_executiva", "gerencia_operacional","chefia_nucleo", "area_tecnica"]:
+    casosCancelados = AcidentesTransito.objects.all().filter(status_caso="Cancelado")
+    return render(request, 'aci_casos_cancelados.html', {'regs':casosCancelados})
+
+  else:
+    return redirect("/")
+  
+
+
+@login_required(login_url='/login')
+def download_ficha(request):
+  file_path = os.path.join(settings.MEDIA_ROOT, 'ficha-acidente-transito.pdf')
+  if os.path.exists(file_path):
+    with open(file_path, 'rb') as fh:
+      response = HttpResponse(fh.read(), content_type="application/pdf")
+      response['Content-Disposition'] = 'inline; filename' + os.path.basename(file_path)
+      return response

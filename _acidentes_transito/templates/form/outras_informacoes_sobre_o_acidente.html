@@ -2,7 +2,7 @@
 <div class="row">
       
   <div class="col">      
-    <label for="paciente_foi_referenciado_para_outro_hospital" class="form-label m-0"><spam style="color:red;">*</spam><small><b>Paciente Foi Referenciado Para Outro Hospital </b></small></label>
+    <label for="paciente_foi_referenciado_para_outro_hospital" class="form-label m-0"><spam style="color:red;">*</spam><small><b>10-Paciente Foi Referenciado Para Outro Hospital </b></small></label>
     <div class="radio-container" id="paciente_foi_referenciado_para_outro_hospital" required >
       <input type="radio" name="paciente_foi_referenciado_para_outro_hospital" id="paciente_foi_referenciado_para_outro_hospital-sim_" value="Sim" required>
       <label class="radio-label" for="paciente_foi_referenciado_para_outro_hospital-sim_">Sim</label>
@@ -12,16 +12,16 @@
   </div>
       
   <div class="col">      
-    <label for="informacoes_complementares" class="form-label m-0"><small><b>Informações Complementares </b></small></label>
+    <label for="informacoes_complementares" class="form-label m-0"><small><b>11-Informações Complementares </b></small></label>
     <input type="text" class="form-control form-control-sm" id="informacoes_complementares" name="informacoes_complementares" onkeypress="return limitcarc(event, 'letr_acent_num')"  pattern="^[a-z A-Z0-9\\u00C0-\\u00FF]{10,250}$"  >
     <div style="font-size:10px;" class="invalid-feedback text-center">Min 10, Max 250 Caracteres.</div>  
   </div>
       
 </div>
 <div class="row">
-  <div class="col">      
-    <label for="qual_hospital" class="form-label m-0"><small><b>Qual o Hospital</b></small></label>
-    <select class="select-model" id="qual_hospital" name="qual_hospital" placeholder="Selecione um item" data-search="true" data-silent-initial-value-set="true" disabled>
+  <div class="col d-none" id="col_qual_hospital">      
+    <label for="qual_hospital" id="qual_hosp_label" class="form-label m-0"><spam style="color:red;"></spam><small><b>12-Qual o Hospital</b></small></label>
+    <select class="select-model" id="qual_hospital" name="qual_hospital" placeholder="Selecione um item" data-search="true" data-silent-initial-value-set="true">
       <option value="" selected>Selecione um item</option>
       <option value="Outro">Outro</option>
       {% for hospital in hospitais %}

@@ -3,12 +3,12 @@
       
   <div class="col">
       
-        <label for="data_acidente" class="form-label m-0"><spam style="color:red;">*</spam><small><b>Data do Acidente </b></small></label>
+        <label for="data_acidente" class="form-label m-0"><spam style="color:red;">*</spam><small><b>14-Data do Acidente </b></small></label>
         <input type="date" class="form-control form-control-sm" id="data_acidente" name="data_acidente" required  >      
       
   </div>
   <div class="col">      
-      <label for="periodo_dia" class="form-label m-0"><spam style="color:red;">*</spam><small><b>Período do Dia </b></small></label>
+      <label for="periodo_dia" class="form-label m-0"><spam style="color:red;">*</spam><small><b>16-Período do Dia </b></small></label>
       <div class="radio-container" id="periodo_dia" required >
         <input type="radio" name="periodo_dia" id="periodo_dia-manha" value="Manha " required>
         <label class="radio-label" for="periodo_dia-manha">Manhã </label>
@@ -20,7 +20,7 @@
       
   </div>
   <div class="col">
-    <label for="que_dia_semana_ocorreu_acidente" class="form-label m-0"><small><b>Em que Dia da Semana Ocorreu o Acidente </b></small></label>
+    <label for="que_dia_semana_ocorreu_acidente" class="form-label m-0"><small><b>17-Em que Dia da Semana Ocorreu o Acidente </b></small></label>
     <input class="form-control form-control-sm" id="que_dia_semana_ocorreu_acidente" name="que_dia_semana_ocorreu_acidente" value="" readonly>            
   </div>
 
@@ -29,7 +29,7 @@
       
   <div class="col">
       
-      <label for="acidente_ocorreu_dia_feriado" class="form-label m-0"><spam style="color:red;">*</spam><small><b>O Acidente Ocorreu em Dia de Feriado </b></small></label>
+      <label for="acidente_ocorreu_dia_feriado" class="form-label m-0"><spam style="color:red;">*</spam><small><b>15-O Acidente Ocorreu em Dia de Feriado </b></small></label>
       <div class="radio-container" id="acidente_ocorreu_dia_feriado">
         <input type="radio" name="acidente_ocorreu_dia_feriado" id="acidente_ocorreu_dia_feriado-sim" value="Sim " required>
         <label class="radio-label" for="acidente_ocorreu_dia_feriado-sim">Sim </label>
@@ -41,7 +41,7 @@
        
   <div class="col">
       
-      <label for="municipio_ocorrencia_acidente" class="form-label m-0"><spam style="color:red;">*</spam><small><b>Município de Ocorrência do Acidente </b></small></label>
+      <label for="municipio_ocorrencia_acidente" class="form-label m-0"><spam style="color:red;">*</spam><small><b>13-Município de Ocorrência do Acidente </b></small></label>
       <select class="select-model" id="municipio_ocorrencia_acidente" name="municipio_ocorrencia_acidente" placeholder="Selecione um item" data-search="true" data-silent-initial-value-set="true" required>
         <option value="" disabled selected>Selecione um item</option>
         {% for municipio in municipios %}
@@ -50,21 +50,30 @@
       </select>  
       
   </div>
-      
-      
-  <div class="col">
-      
-      <label for="endereco_local_acidente" class="form-label m-0"><small><b>Endereço do Local do Acidente </b></small></label>
-      <input type="text" class="form-control form-control-sm" id="endereco_local_acidente" name="endereco_local_acidente" pattern="^[a-z A-Z0-9\\u00C0-\\u00FF]{10,90}$" onkeypress="return limitcarc(event, 'letr_acent_num')" >
-      <div style="font-size:10px;" class="invalid-feedback text-center">Min 10, Max 90 Caracteres.</div>
+</div>
+<div class="row mt-2">
+  
+  <div class="col">      
+    <label for="bairro_local_acidente" class="form-label d-flex align-items-center m-0">
+      <small><spam style="color:red;">*</spam><b>24-Bairro do Local do Acidente </b></small>
+      <input style="max-width: 150px !important;" placeholder="Buscar CEP" type="text" class="form-control form-control-sm m-2 mt-0" name="" id="busca_cep_local_acidente">
+    </label>
+    <input type="text" class="form-control form-control-sm" id="bairro_local_acidente" name="bairro_local_acidente" pattern="^[a-z A-Z0-9\u00C0-\u00FF]{3,90}$" onkeypress="return limitcarc(event, 'letr_acent_num')" required>
+    <div style="font-size:10px;" class="invalid-feedback text-center"></div>
   </div>
 
- </div>
+  <div class="col">      
+    <label for="endereco_local_acidente" class="form-label m-0 mt-3"><small><b>23-Endereço do Local do Acidente </b></small></label>
+    <input type="text" class="form-control form-control-sm" id="endereco_local_acidente" name="endereco_local_acidente" pattern="^[a-z A-Z0-9\u00C0-\u00FF]{10,90}$" onkeypress="return limitcarc(event, 'letr_acent_num')" >
+    <div style="font-size:10px;" class="invalid-feedback text-center">Min 10, Max 90 Caracteres.</div>
+  </div>
+
+</div>
 <div class="row">     
       
   <div class="col">
       
-      <label for="tipo_acidente" class="form-label m-0"><spam style="color:red;">*</spam><small><b>Tipo do Acidente </b></small></label>
+      <label for="tipo_acidente" class="form-label m-0"><spam style="color:red;">*</spam><small><b>19-Tipo do Acidente </b></small></label>
       <select class="select-model" id="tipo_acidente" name="tipo_acidente" placeholder="Selecione um item" data-search="true" data-silent-initial-value-set="true" required >
         <option value="" disabled selected>Selecione um item</option>
         <option value="abalroamento">Abalroamento </option>
@@ -80,7 +89,7 @@
       
   <div class="col">
       
-      <label for="tipos_veiculos_envolvidos_acidente" class="form-label m-0"><spam style="color:red;">*</spam><small><b>Tipos de Veículos Envolvidos no Acidente </b></small></label>
+      <label for="tipos_veiculos_envolvidos_acidente" class="form-label m-0"><spam style="color:red;">*</spam><small><b>18-Tipos de Veículos Envolvidos no Acidente </b></small></label>
       <select multiple class="select-model" id="tipos_veiculos_envolvidos_acidente" name="tipos_veiculos_envolvidos_acidente" placeholder="Selecione um item" data-search="true" data-silent-initial-value-set="true" required >
         <option value="" disabled selected>Selecione um item</option>
         <option value="carro">Carro </option>
@@ -95,28 +104,29 @@
       
   </div>
       
-
-      
-  <div class="col">
-      
-      <label for="paciente_envolvido_acidente_era" class="form-label m-0"><spam style="color:red;">*</spam><small><b>O Paciente Envolvido no Acidente Era </b></small></label>
-      <div class="radio-container" id="paciente_envolvido_acidente_era" required >
-        <input type="radio" name="paciente_envolvido_acidente_era" id="paciente_envolvido_acidente_era-pedestre_" value="Pedestre  " required>
-        <label class="radio-label" for="paciente_envolvido_acidente_era-pedestre_">Pedestre  </label>
-        <input type="radio" name="paciente_envolvido_acidente_era" id="paciente_envolvido_acidente_era-condutor" value="Condutor " required>
-        <label class="radio-label" for="paciente_envolvido_acidente_era-condutor">Condutor </label>
-        <input type="radio" name="paciente_envolvido_acidente_era" id="paciente_envolvido_acidente_era-passageiro" value="Passageiro " required>
-        <label class="radio-label" for="paciente_envolvido_acidente_era-passageiro">Passageiro </label>
-      </div>      
-      
-  </div>
-      
 </div>
+
+<div class="row">
+
+  <div class="col d-none">      
+    <label for="tipo_sinistro_outro" class="form-label m-0"><spam style="color:red;"></spam><small><b>Tipo do Acidente: Outro </b></small></label>
+    <input type="text" class="form-control form-control-sm" id="tipo_sinistro_outro" name="tipo_sinistro_outro" pattern="^[a-z A-Z0-9\\u00C0-\\u00FF]{10,90}$" onkeypress="return limitcarc(event, 'letr_acent_num')" >
+    <div style="font-size:10px;" class="invalid-feedback text-center">Min 10, Max 90 Caracteres.</div>
+  </div>
+
+  <div class="col d-none">      
+    <label for="tipo_veiculo_outro" class="form-label m-0"><spam style="color:red;"></spam><small><b>Tipo de Veículo: Outro </b></small></label>
+    <input type="text" class="form-control form-control-sm" id="tipo_veiculo_outro" name="tipo_veiculo_outro" pattern="^[a-z A-Z0-9\\u00C0-\\u00FF]{10,90}$" onkeypress="return limitcarc(event, 'letr_acent_num')" >
+    <div style="font-size:10px;" class="invalid-feedback text-center">Min 10, Max 90 Caracteres.</div>
+  </div>
+
+</div>
+
 <div class="row">
 
   <div class="col col-md-6">
       
-      <label for="vitima_apresenta_sinais_embriaguez_consumo_bebidas_alcoolicas" class="form-label m-0"><spam style="color:red;">*</spam><small><b>A Vitima Apresenta Sinais de Embriaguez e/ou Consumo de Bebidas Alcoólicas </b></small></label>
+      <label for="vitima_apresenta_sinais_embriaguez_consumo_bebidas_alcoolicas" class="form-label m-0"><spam style="color:red;">*</spam><small><b>22-A Vitima Apresenta Sinais de Embriaguez e/ou Consumo de Bebida Alcoólica </b></small></label>
       <div class="radio-container" id="vitima_apresenta_sinais_embriaguez_consumo_bebidas_alcoolicas" required >
         <input type="radio" name="vitima_apresenta_sinais_embriaguez_consumo_bebidas_alcoolicas" id="vitima_apresenta_sinais_embriaguez_consumo_bebidas_alcoolicas-sim" value="Sim " required>
         <label class="radio-label" for="vitima_apresenta_sinais_embriaguez_consumo_bebidas_alcoolicas-sim">Sim </label>
@@ -124,6 +134,21 @@
         <label class="radio-label" for="vitima_apresenta_sinais_embriaguez_consumo_bebidas_alcoolicas-nao_">Não  </label>
       </div>      
       
+  </div>
+
+      
+  <div class="col">
+      
+    <label for="paciente_envolvido_acidente_era" class="form-label m-0"><spam style="color:red;">*</spam><small><b>21-O Paciente Envolvido no Acidente</b></small></label>
+    <div class="radio-container" id="paciente_envolvido_acidente_era" required >
+      <input type="radio" name="paciente_envolvido_acidente_era" id="paciente_envolvido_acidente_era-pedestre_" value="Pedestre  " required>
+      <label class="radio-label" for="paciente_envolvido_acidente_era-pedestre_">Pedestre  </label>
+      <input type="radio" name="paciente_envolvido_acidente_era" id="paciente_envolvido_acidente_era-condutor" value="Condutor " required>
+      <label class="radio-label" for="paciente_envolvido_acidente_era-condutor">Condutor </label>
+      <input type="radio" name="paciente_envolvido_acidente_era" id="paciente_envolvido_acidente_era-passageiro" value="Passageiro " required>
+      <label class="radio-label" for="paciente_envolvido_acidente_era-passageiro">Passageiro </label>
+    </div>      
+    
   </div>
       
 </div>

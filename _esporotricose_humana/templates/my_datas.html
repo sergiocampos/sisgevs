@@ -144,7 +144,7 @@
     
                         <td class="d-grid gap-2 d-md-inline-flex">
                             
-                            {% if user.funcao != 'gerencia_regional' and user.funcao != 'autocadastro' and user.funcao != 'municipal' %}
+                            {% if user.funcao != 'gerencia_regional' and user.funcao != 'autocadastro' and user.funcao != 'municipal' and user.funcao != 'coordenacao_vigilancia_epidemiologica_hospitalar' %}
 
                                 <a href="/esp-hum/caso_esporotricose_edit/{{registro.id}}" class="btn btn-info btn-sm">Editar</a>
 
@@ -159,6 +159,10 @@
 
                                 <a href="/esp-hum/caso_esporotricose_edit/{{registro.id}}" class="btn btn-info btn-sm">Editar</a>
 
+                            {% elif user.funcao == 'coordenacao_vigilancia_epidemiologica_hospitalar' %}
+
+                                <a href="/esp-hum/caso_esporotricose_edit/{{registro.id}}" class="btn btn-info btn-sm">Editar</a>
+                            
                             {% endif %}
                                                         
                             <a href="/esp-hum/caso_view_detail/{{registro.id}}/" target="_blank" class="btn btn-secondary btn-sm">Ver</a>

@@ -45,6 +45,7 @@ class User(AbstractBaseUser, PermissionsMixin):
 		('area_tecnica', 'Área Técnica'),
 		('gerencia_regional', 'Gerência Regional de Saúde'),
 		('municipal', 'Municipal'),
+		('coordenacao_vigilancia_epidemiologica_hospitalar', 'Coordenação de Vigilância Epidemiológica Hospitalar'),
 		('autocadastro', 'Autocadastro'),
 	]
 

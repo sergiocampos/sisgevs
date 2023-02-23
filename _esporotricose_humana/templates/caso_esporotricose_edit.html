@@ -11,8 +11,7 @@
 <!-- JS viacep -->
 <script>
     $(document).ready(function() {
-        $('#municipio_id').change(verificarNotifGeral())
-
+        
         function limpa_formulário_cep() {
             // Limpa valores do formulário de cep.
             $("#rua").val("");
@@ -262,7 +261,7 @@
                             </div>
                             <div class="col">
                                 <div class="form-group"><b>Município Notificador</b><i id="alert_municipio" style="color:red">**</i>
-                                    <select class="select-model" name="municipio_notificacao" id="municipio_id" placeholder="Selecionar" data-search="true" data-silent-initial-value-set="true" required>                                    
+                                    <select class="select-model" name="municipio_notificacao" id="municipio_id" placeholder="Selecionar" data-search="true" data-silent-initial-value-set="true" onchange="municipioChange()" required>                                    
         
                                         {% if form.municipio == None or form.municipio == '' %}                        
                                             
@@ -325,18 +324,19 @@
         
                         <div class="row">
                             <div class="col">
-                                <div class="form-group"><b>Unidade de Saúde  </b><i></i> 
-                                    {% if form.unidade_saude != None and form.unidade_saude != ''  %}
+                                <input type="hidden" id="unidade_saude_hidden" class="" value="{{form.unidade_saude}}">
+                                <div class="form-group"><b>Unidade de Saúde  </b><i></i>
+                                {% if user.funcao == 'coordenacao_vigilancia_epidemiologica_hospitalar' %}
+                                <input class="form-control form-control-sm" type="text" name="unidade_saude" placeholder="" value="{{ nome_unidade_saude_caso }}" readonly>
+                                {% else %}
                                     <select class="select-model" name="unidade_saude" id="unidade_saude_id" placeholder="Selecionar" data-search="true" data-silent-initial-value-set="true">
-                                        <option value="{{unidade_saude_caso}}">{{unidade_saude_caso}}</option>
-                                    </select> 
-                                    {%else%}                                    
-                                    <select class="select-model" name="unidade_saude" id="unidade_saude_id" placeholder="Selecionar" data-search="true" data-silent-initial-value-set="true">
-                                        {% for unidade in unidades_saude %}
-                                        <option value="{{unidade.id}}">{{unidade.nome}}</option>
+                                        {% for us in unidade_saude %}
+                                        {us }
                                         {% endfor %}
-                                    </select> 
-                                    {% endif %}
+                                    </select>                                     
+                                        </select>
+                                    </select>                                     
+                                {% endif %}
                                 </div>
                             </div>
         
@@ -472,6 +472,91 @@
                         </div>
 
                         <script>
+                            function activeGestante() {
+                                verificarNotifGeral()
+                                
+                                const genero = document.getElementById('genero_paciente').value;    
+                                const idade = document.getElementById('result').value;
+                                const escolaridade = document.getElementById('escolaridade_paciente').value;
+                                const gestacao_paciente = document.getElementById('gestante_id').value;
+                                
+                                let optionsGestante = [
+                                    "",
+                                    "1º Trimestre",
+                                    "2º Trimestre",
+                                    "3º Trimestre",
+                                    "Idade Gestacional Ignorada",
+                                    "Ignorado",
+                                    "Não"
+                                ]
+                                if ((idade <= 10 || idade >= 50) && (genero != "M") && (genero != "")) {
+                                    
+                                    $('#gestante_id')[0].setDisabledOptions(optionsGestante)
+                                    $('#gestante_id')[0].setValue('Não se aplica')
+
+                                } else if ((idade > 10 && idade < 50) || (genero != "M")) {
+                                    $('#gestante_id')[0].setDisabledOptions(false)
+                                    if ('{{form.paciente_gestante}}' == '' || '{{form.paciente_gestante}}' == 'None') {
+                                        $('#gestante_id')[0].reset()
+                                    } else {
+                                        $('#gestante_id')[0].setValue('{{form.paciente_gestante}}')
+                                    } 
+                                }
+
+                                let optionsEscolaridade = [
+                                    '', 
+                                    'Analfabeto', 
+                                    '1ª a 4ª serie incompleto',
+                                    '4ª serie completa',
+                                    '5ª a 8ª serie incompleto',
+                                    'Ensido Fundamental Completo',
+                                    'Ensino Medio incompleto',
+                                    'Ensino Medio Completo',
+                                    'Superior Incompleto',
+                                    'Superior completo'
+                                ]
+                                
+                                if (idade <= 3) {
+                                
+                                    $('#escolaridade_paciente')[0].setDisabledOptions(optionsEscolaridade)
+                                    $('#escolaridade_paciente')[0].setValue('Nao se aplica')        
+
+                                } else if (idade > 3) {
+                                    $('#escolaridade_paciente')[0].setDisabledOptions(false)
+                                    if ('{{form.escolaridade_paciente}}' == '' || '{{form.escolaridade_paciente}}' == 'None') {
+                                        $('#escolaridade_paciente')[0].reset()
+                                    } else {
+                                        $('#escolaridade_paciente')[0].setValue('{{form.escolaridade_paciente}}')
+                                    }
+                                    
+                                }
+
+                                if (genero == "F") {
+                                    $("#gestante_id").attr("disabled", false);
+                                }
+                                if (genero == "Ignorado") {
+                                    $("#gestante_id").attr("disabled", false);
+                                }
+                                if (genero == "M") {
+                                    $("#gestante_id").attr("disabled", true);
+                                    $('#gestante_id')[0].reset();
+                                }
+                            }
+
+                            function activeOutraUnidade() {
+                                $("#outra_unidade_id").prop("disabled", false);
+                                $("#btn_desfaz_outra_unidade_id").prop("disabled", false);
+
+                                $("#unidade_saude_id").prop("disabled", true);
+                                $("#unidade_saude_id").val("");
+                            }
+
+                            function desactiveOutraUnidade() {
+                                $("#outra_unidade_id").prop("disabled", true);
+                                $("#outra_unidade_id").val("");
+
+                                $("#unidade_saude_id").prop("disabled", false);
+                            }
                             $(document).ready(function(){
                                 // Calculando IDADE
                                 let data = document.getElementById('date2');
@@ -479,7 +564,13 @@
                                 document.getElementById('result').value = idade;
 
                                 // Chamando a função activeGestante na mudança de genero.
-                                document.getElementById('genero_paciente').addEventListener('change', activeGestante)
+                                $('#genero_paciente').on('change', activeGestante)
+                                $('#uf_edit_endereco_id').on('click', activeMunicipio)  
+
+                                document.querySelector('#raca_paciente').setValue('{{form.raca_paciente}}')   
+                                document.querySelector('#genero_paciente').setValue('{{form.sexo_paciente}}') 
+                                document.querySelector('#escolaridade_paciente').setValue('{{form.escolaridade_paciente}}')   
+                                document.querySelector('#gestante_id').setValue('{{form.paciente_gestante}}')
                             })
 
                             $('#date2').on('change', function() {
@@ -525,7 +616,7 @@
                                 <div class="form-group"><b>Gestante</b>
                                     
                                     
-                                    <select class="select-model" name="gestacao" id="gestante_id" placeholder="Selecionar" data-search="false" data-silent-initial-value-set="true" disabled>
+                                    <select class="select-model" name="gestacao" id="gestante_id" placeholder="Selecionar" data-search="false" data-silent-initial-value-set="true">
                                         <option value="" disaled selected>Selecionar</option>
                                         <option value="1º Trimestre">1º Trimestre</option>
                                         <option value="2º Trimestre">2º Trimestre</option>
@@ -979,7 +1070,6 @@
                         
         
                         <div class="row">
-                            
                             <div class="col">
                                 <label class="form-label m-0" for="exerc_ativ_contato_plantas"><small><b>Exerce atividade que Resulte em CONTATO CONSTANTE COM PLANTAS? <a href="#" data-toggle="tooltip" data-placement="right" title="Jardineiros, Agricultores, Horticultores, Exploradores de Madeira, Trabalhadores Rurais!">(*)</a></b></small></label>
                                 <div id="exerc_ativ_contato_plantas" class="radio-container mb-4">
@@ -2390,7 +2480,6 @@
                     </div>
                 </div>
             </div>
-
             <script>
             </script>
 
@@ -2514,24 +2603,24 @@
 <!-- Mascaras dos Inputs -->
 <script>
     $(document).ready(function($){
-      $("#telefone_residencia_id").mask("(00)00000-0000");
-      $("#telefone_investigador_id").mask("(00)00000-0000");
-      $("#outro_ibge_hospitalizacao").mask("00000000000000");
-      $("#cep").mask("00000-000");
-      $("#uf").mask("AA");
-      verificarNotifGeral()
+        $("#telefone_residencia_id").mask("(00)00000-0000");
+        $("#telefone_investigador_id").mask("(00)00000-0000");
+        $("#outro_ibge_hospitalizacao").mask("00000000000000");
+        $("#cep").mask("00000-000");
+        $('#cartao_sus').mask('000.0000.0000.0000')
+        $("#uf").mask("AA");
+        verificarNotifGeral()        
     });
 </script>
 <!-- Ao alterar a data dos primeiros sintomas, limpa o campo de data notificacao e data investigacao. -->
 <script>
+    
     $('#dt_primeiros_s').on('click', function(){
         $('#datanotificacao').val("");
         $('#data_investigacao_id').val("");
     });
     verificarNotifGeral();
-</script>
 
-<script>
   //ajax para endereço: estado e cidades
     $(document).ready(function(){
         
@@ -2816,9 +2905,8 @@
               });
           }
 
-        });
     
-      $("#ibge_cod_id").ready(function(){
+    $("#ibge_cod_id").ready(function(){
         //const url = $('#Form').attr("data-ibge-url");
         const municipioId = $("#municipio_id").val();
         if (municipioId){
@@ -2831,7 +2919,7 @@
             });
         }
 
-      });
+    });
 
       //ajax para selects de hospitalização:
       //mun_hosp_id
@@ -2841,7 +2929,7 @@
       //data-hospitalizacao-url
       //data-hospitalizacaoibge-url
 
-      $("#mun_hosp_id").change(function(){
+    $("#mun_hosp_id").change(function(){
         //const url = $('#Form').attr("data-hospitalizacao-url");
         console.log('AQUI1')
         municipioId = $(this).val();
@@ -2894,137 +2982,145 @@
         });
 
       //Ajax para caso autoctone: Estado, Municipio, Cód IBGE e Distrito.
-      $("#uf_caso_autoctone_id").change(function(){
+    $("#uf_caso_autoctone_id").change(function(){
         //const url = $('#Form').attr("data-autoctone-uf-url");
         municipioId = $(this).val();
-        if (municipioId){
-            $.ajax({
-              url : '/esp-hum/ajax_autoctone_uf',
-              data: { 'municipio_id': municipioId},
-              success: function(data){
-                $("#municipio_autoctone_id").html(data);
-              }
-            });
-        }
+
+        $.ajax({
+          url : '/esp-hum/ajax_autoctone_uf',
+          data: { 'municipio_id': municipioId},
+          success: function(data){
+            $("#municipio_autoctone_id").html(data);
+          }
+        });
+
+        
       });
 
-      $("#municipio_autoctone_id").ready(function(){
+    $("#municipio_autoctone_id").ready(function(){
         //const url = $('#Form').attr("data-autoctone-uf-url");
         municipioId = $("#uf_caso_autoctone_id").val();
-        if(municipioId){
-            $.ajax({
-              url : '/esp-hum/ajax_autoctone_uf',
-              data: { 'municipio_id': municipioId},
-              success: function(data){
-                $("#municipio_autoctone_id").html(data);
-                $('#municipio_autoctone_id').find('option[value="{{form.municipio_caso_autoctone}}"]').attr("selected", "selected")
-                municipioId = $('#municipio_autoctone_id').val();
-    
-                $.ajax({
-                  url : '/esp-hum/ajax_autoctone_distrito',
-                  data: { 'municipio_id': municipioId},
-                  success: function(data){
-                    
-                    $("#distrito_autoctone_id").html(data);
-                    $('#distrito_autoctone_id').find('option[value="{{form.distrito_caso_autoctone}}"]').attr("selected", "selected")
-                  }
-                });
-              }
-            });
-        }
-      });
 
-      $("#municipio_autoctone_id").change(function(){
-        //const url = $('#Form').attr("data-autoctone-municipio-url");
-        municipioId = $(this).val();
-        if (municipioId){
-            $.ajax({
-              url : '/esp-hum/ajax_autoctone_municipio',
-              data: { 'municipio_id': municipioId},
-              success: function(data){
-                
-                $("#ibge_autoctone_id").val(data);
-              }
-            });
-        }        
-      });
+        $.ajax({
+          url : '/esp-hum/ajax_autoctone_uf',
+          data: { 'municipio_id': municipioId},
+          success: function(data){
+            $("#municipio_autoctone_id").html(data);
+            $('#municipio_autoctone_id').find('option[value="{{form.municipio_caso_autoctone}}"]').attr("selected", "selected")
+            municipioId = $('#municipio_autoctone_id').val();
 
-      $("#municipio_autoctone_id").change(function(){
-        //const url = $('#Form').attr("data-autoctone-distrito-url");
-        municipioId = $(this).val();
-        if (municipioId){
             $.ajax({
               url : '/esp-hum/ajax_autoctone_distrito',
               data: { 'municipio_id': municipioId},
               success: function(data){
                 
                 $("#distrito_autoctone_id").html(data);
+                $('#distrito_autoctone_id').find('option[value="{{form.distrito_caso_autoctone}}"]').attr("selected", "selected")
               }
             });
-        }        
+          }
+        });
+        
       });
 
-      var nome_paciente = document.getElementById('nome_paciente_id').value.length;
-      var nome_mae = document.getElementById('nome_mae_id').value.length;
-      var date2 = document.getElementById('date2').value;
-      var data_1_s = document.getElementById('dt_primeiros_s').value;
-      var municipio = document.getElementById('municipio_id').value.length;
-      var telefone = document.getElementById('telefone_residencia_id').value.length;
-      
-      if (municipio != 0) {$('#alert_municipio').hide();} else {$('#alert_municipio').show();}
-      
-      if (data_1_s != "") {$('#alert_dt_ps').hide();} else {$('#alert_dt_ps').show();}
-      
-      if (nome_paciente >= 10) {$('#alert_paciente').hide();} else {$('#alert_paciente').show();}
-      
-      if (date2 != "") {$('#alert_data_nasc').hide();} else {$('#alert_data_nasc').show();}
-      
-      if (nome_mae >= 10) {$('#alert_nome_mae').hide();} else {$('#alert_nome_mae').show();}
-      
-      if ((nome_paciente >= 10) && (nome_mae >= 10) && (date2 != "") ){
-        $("#alert_notificacao_individual").hide();
-      } else {$("#alert_notificacao_individual").show();}
+    $("#municipio_autoctone_id").change(function(){
+        //const url = $('#Form').attr("data-autoctone-municipio-url");
+        municipioId = $(this).val();
+        
 
-      if ((data_1_s != "") && (municipio != 0)){
-        $('#alert_dados_gerais').hide();
-      }
-      if (telefone < 13){
+        $.ajax({
+          url : '/esp-hum/ajax_autoctone_municipio',
+          data: { 'municipio_id': municipioId},
+          success: function(data){
+            
+            $("#ibge_autoctone_id").val(data);
+          }
+        });
+
+        
+      });
+
+    $("#municipio_autoctone_id").change(function(){
+        //const url = $('#Form').attr("data-autoctone-distrito-url");
+        municipioId = $(this).val();
+
+        $.ajax({
+          url : '/esp-hum/ajax_autoctone_distrito',
+          data: { 'municipio_id': municipioId},
+          success: function(data){
+            
+            $("#distrito_autoctone_id").html(data);
+          }
+        });
+
+        
+      });
+
+    var nome_paciente = document.getElementById('nome_paciente_id').value.length;
+    var nome_mae = document.getElementById('nome_mae_id').value.length;
+    var date2 = document.getElementById('date2').value;
+    var data_1_s = document.getElementById('dt_primeiros_s').value;
+    var municipio = document.getElementById('municipio_id').value.length;
+    var telefone = document.getElementById('telefone_residencia_id').value.length;
+    
+    municipio != 0 ? $('#alert_municipio').hide() : $('#alert_municipio').show()    
+    data_1_s != "" ? $('#alert_dt_ps').hide() : $('#alert_dt_ps').show()    
+    nome_paciente >= 1 ?  $('#alert_paciente').hide() : $('#alert_paciente').show()    
+    date2 != "" ? $('#alert_data_nasc').hide() : $('#alert_data_nasc').show()    
+    nome_mae >= 1 ?  $('#alert_nome_mae').hide() : $('#alert_nome_mae').show()
+    
+    if ((nome_paciente >= 10) && (nome_mae >= 10) && (date2 != "") ){
+        $("#alert_notificacao_individual").hide();
+
+    } else {$("#alert_notificacao_individual").show()}
+
+    if ((data_1_s != "") && (municipio != 0)){
+        $('#alert_dados_gerais').hide()
+    }
+    if (telefone < 13){
         $("#alert_dados_residencia").show();
         $('#alert_telefone_paciente').show();
-      } else {
+    } else {
         $("#alert_dados_residencia").hide();
         $('#alert_telefone_paciente').hide();
-      }
-                        
-      if ((nome_paciente >= 10) && (nome_mae >= 10) && (date2 != "") 
-          && (data_1_s != "") && (municipio != 0) && (telefone >= 13)){
+    }
+                    
+    if (
+        (nome_paciente >= 10) && 
+        (nome_mae >= 10) && 
+        (date2 != "") && 
+        (data_1_s != "") && 
+        (municipio != 0) && 
+        (telefone >= 13)
+       ) {
         $("#btn_submit_id").prop("disabled", false);
-      } else {$("#btn_submit_id").prop("disabled", true);}
 
-      var data = document.getElementById('date2');
-      var idade = calcula(data);
-      idade = String(idade);
-      document.getElementById('result').value = idade;
-      activeGestante();
-      if ($("#customRadio22").is(':checked')){
+      } else {$("#btn_submit_id").prop("disabled", true)}
+
+    var data = document.getElementById('date2');
+    var idade = calcula(data);
+    idade = String(idade);
+    document.getElementById('result').value = idade;
+    activeGestante();
+    if ($("#customRadio22").is(':checked')){
         $("#local_diag_extracutaneo").prop("disabled", false);
-      }
-      if ($("#local_lesao_outros_id").is(":checked")) {
+    }
+    if ($("#local_lesao_outros_id").is(":checked")) {
         $("#loc_lesao_outros_id").show();
-      }
-      if ($("#natureza_lesao_outros_id").is(":checked")) {
+    }
+    if ($("#natureza_lesao_outros_id").is(":checked")) {
         $("#nat_lesao_outros_id").show();
-      }
-      if ($("#coleta_exame_labo_sim_id").is(":checked")) {
+    }
+    if ($("#coleta_exame_labo_sim_id").is(":checked")) {
         
         $("#coleta_gal_1").show();
         $("#coleta_gal_2").show();
         $("#coleta_gal_3").show();
-      }
-      if ($("#customRadio1").is(":checked")) {
+    }
+    if ($("#customRadio1").is(":checked")) {
         $("#agente_id").prop("disabled", false);
-      }
-      if (document.getElementById("customRadio11").checked == true){
+    }
+    if (document.getElementById("customRadio11").checked == true){
         //$("#row_dados_hospitalizacao_id").show();
         $("#div_g").show();
         $("#div_lb").show();
@@ -3045,7 +3141,168 @@
         $("#div_sel_uf").show();
         $("#div_ls_sel").show();
         $("#sel_uf_t").show();
-      }
+    }
+    
+</script>
+<script>
+  // Select de funções
+  VirtualSelect.init({
+    ele: '.select-model',
+    disableValidation: true,
+    searchPlaceholderText: "Procurar",
+    noSearchResultsText: "Nenhum item encontrado",
+    allOptionsSelectedText: "Todos os itens selecionados"
+  });
+  // Scroll UP Button
+  window.addEventListener('scroll', function() {
+    scrollBtn = $('.backTop')
+    return window.scrollY > 300 ? scrollBtn.removeClass('d-none') : scrollBtn.addClass('d-none')  
+  })
+</script>
+<script>
+    
+    function clear_select_uc() {
+        $("#select_uc_id").val("");
+    }
+
+    $(function() {
+        $("#select_uc_id option").hide();
+        $("#select_municipio_uc_id").on("change", function() {
+            let municipio_uc = $("#select_municipio_uc_id").val();
+            $("#select_uc_id option").hide();
+            $("#select_uc_id option[data-uc=" + municipio_uc + "]").show();
+        });
+    });
+
+    function activeInputsAutoctone() {
+        $("#uf_caso_autoctone_id").prop("disabled", false);
+        $("#pais_autoctone_id").prop("disabled", false);
+        $("#municipio_autoctone_id").prop("disabled", false);
+        $("#ibge_autoctone_id").prop("disabled", false);
+        $("#distrito_autoctone_id").prop("disabled", false);
+        $("#bairro_autoctone_id").prop("disabled", false);
+        $("#area_provavel_infeccao_autoctone_id").prop("disabled", false);
+        $("#ambiente_infeccao_autoctone_id").prop("disabled", false);
+        $("#doenca_rel_trabalho_autoctone_id").prop("disabled", false);
+
+    }
+
+    function desactiveInputsAutoctone() {
+        $("#uf_caso_autoctone_id").prop("disabled", true);
+        $("#pais_autoctone_id").prop("disabled", true);
+        $("#municipio_autoctone_id").prop("disabled", true);
+        $("#ibge_autoctone_id").prop("disabled", true);
+        $("#distrito_autoctone_id").prop("disabled", true);
+        $("#bairro_autoctone_id").prop("disabled", true);
+        $("#area_provavel_infeccao_autoctone_id").prop("disabled", true);
+        $("#ambiente_infeccao_autoctone_id").prop("disabled", true);
+        $("#doenca_rel_trabalho_autoctone_id").prop("disabled", true);
+
+        $("#uf_caso_autoctone_id").val("");
+        $("#pais_autoctone_id").val("");
+        $("#municipio_autoctone_id").val("");
+        $("#ibge_autoctone_id").val("");
+        $("#distrito_autoctone_id").val("");
+        $("#bairro_autoctone_id").val("");
+        $("#area_provavel_infeccao_autoctone_id").val("");
+        $("#ambiente_infeccao_autoctone_id").val("");
+        $("#doenca_rel_trabalho_autoctone_id").val("");
+
+    }
+</script>
+<script>
+    function validaDtPrimeirosSintomas() {
+        if (document.Form.dt_primeiros_s.value == "") {
+            document.getElementById('alert_dt_ps').style.display = "inline";
+            document.getElementById('alert_dados_gerais').style.display = "inline";
+            document.getElementById('alert_notificacao_individual').style.display = "inline";
+            //document.getElementById('alert_nome_paciente').style.display="inline";
+            document.getElementById('alert_data_nasc').style.display = "inline";
+            document.getElementById('alert_nome_mae').style.display = "inline";
+            document.getElementById('alert_dados_residencia').style.display = "inline";
+            document.getElementById('alert_telefone_paciente').style.display = "inline";
+
+
+            alert("Campo obrigatorio!");
+            return false;
+        } else {
+            document.getElementById('alert_dt_ps').style.display = "none";
+            return true;
+        }
+    } // FIM AJAX CEP
+
+    function activeGestante() {
+        verificarNotifGeral()
+        var genero = document.getElementById('genero_paciente').value;    
+        let idade = document.getElementById('result').value;
+
+        let optionsGestante = [
+            "",
+            "1º Trimestre",
+            "2º Trimestre",
+            "3º Trimestre",
+            "Idade Gestacional Ignorada",
+            "Ignorado",
+            "Não"
+        ]
+        if ((idade <= 10 || idade >= 50) && (genero != "M") && (genero != "")) {
+            
+            $('#gestante_id')[0].setDisabledOptions(optionsGestante)
+            $('#gestante_id')[0].setValue('Não se aplica')
+
+        } else if ((idade > 10 && idade < 50) || (genero != "M")) {
+            $('#gestante_id')[0].setDisabledOptions(false)
+            $('#gestante_id')[0].reset()  
+        }
+
+        let optionsEscolaridade = [
+            '', 
+            'Analfabeto', 
+            '1ª a 4ª serie incompleto',
+            '4ª serie completa',
+            '5ª a 8ª serie incompleto',
+            'Ensido Fundamental Completo',
+            'Ensino Medio incompleto',
+            'Ensino Medio Completo',
+            'Superior Incompleto',
+            'Superior completo'
+        ]
+        if (idade <= 3) {
+        
+            $('#escolaridade_paciente')[0].setDisabledOptions(optionsEscolaridade)
+            $('#escolaridade_paciente')[0].setValue('Nao se aplica')        
+
+        } else if (idade > 3) {
+            $('#escolaridade_paciente')[0].setDisabledOptions(false)
+            $('#escolaridade_paciente')[0].reset()        
+        }
+
+        if (genero == "F") {
+            $("#gestante_id").attr("disabled", false);
+        }
+        if (genero == "Ignorado") {
+            $("#gestante_id").attr("disabled", false);
+        }
+        if (genero == "M") {
+            $("#gestante_id").attr("disabled", true);
+            $("#gestante_id")[0].reset();
+        }
+    }
+
+    function activeOutraUnidade() {
+        $("#outra_unidade_id").prop("disabled", false);
+        $("#btn_desfaz_outra_unidade_id").prop("disabled", false);
+
+        $("#unidade_saude_id").prop("disabled", true);
+        $("#unidade_saude_id").val("");
+    }
+
+    function desactiveOutraUnidade() {
+        $("#outra_unidade_id").prop("disabled", true);
+        $("#outra_unidade_id").val("");
+
+        $("#unidade_saude_id").prop("disabled", false);
+    }
 </script>
 <script>
     $('#cartao_sus').mask('000.0000.0000.0000')
@@ -3054,11 +3311,11 @@
     $('#escolaridade_paciente')[0].setValue('{{form.escolaridade_paciente}}')   
     $('#gestante_id')[0].setValue('{{form.paciente_gestante}}')
     $('#uf_edit_endereco_id').on('click', activeMunicipio)
-    
     document.getElementById('raca_paciente').addEventListener('change', function(){
         this.value ? $('#alert_raca_paciente').hide() : $('#alert_raca_paciente').show()
         return verificarNotifGeral()
-    })    
+    })
+    $('#municipio_id').on('change', municipioChange)
 </script>
 
 {% endblock endbody %}
