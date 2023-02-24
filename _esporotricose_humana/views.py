@@ -450,12 +450,6 @@ def set_caso_esporotricose_create(request):
 	
 	unidade_saude_cap = request.POST.get('unidade_saude')
 	unidade_saude_outro_cap = request.POST.get('unidade_saude_outro')
-	if unidade_saude_cap != '' or unidade_saude_cap != None:
-		unidade_saude_caso = UnidadeSaude.objects.get(nome=unidade_saude_cap)
-		unidade_saude = unidade_saude_caso.id
-	elif unidade_saude_outro_cap != '' or unidade_saude_outro_cap != None:
-		unidade_saude_outro = unidade_saude_outro_cap
-
 	
 	
 	#notificação individual
@@ -476,6 +470,7 @@ def set_caso_esporotricose_create(request):
 		idade_paciente = int(idade_paciente_cap)
 
 	paciente_gestante = request.POST.get('gestacao')
+	print('===> PACIENTE GESTANTE: ', paciente_gestante)
 	raca_paciente = request.POST.get('raca')
 	escolaridade_paciente = request.POST.get('escolaridade')
 	cartao_sus_paciente = request.POST.get('cartao_sus')
@@ -739,8 +734,8 @@ def set_caso_esporotricose_create(request):
 		gerencia = gerencia,
 		codigo_ibge = codigo_ibge,
 		data_primeiros_sintomas = data_primeiros_sintomas,
-		unidade_saude = unidade_saude,
-		unidade_saude_outro = unidade_saude_outro,
+		unidade_saude = unidade_saude_cap,
+		unidade_saude_outro = unidade_saude_outro_cap,
 		nome_paciente = nome_paciente,
 		data_nascimento_paciente = data_nascimento_paciente,
 		sexo_paciente = sexo_paciente,
@@ -1189,7 +1184,7 @@ def caso_esporotricose_edit(request, id):
 			'municipio_residencia': municipio_residencia, 'nome_unidade_saude_caso': nome_unidade_saude_caso})
 	
 	else:
-		return redirect("/my_datas", messages = messages.error(request, 'Você não tem permissão para editar este caso.'))
+		return redirect("/esp-hum/my_datas", messages = messages.error(request, 'Você não tem permissão para editar este caso.'))
 
 @login_required(login_url='/login/')
 def set_caso_esporotricose_edit(request, id):

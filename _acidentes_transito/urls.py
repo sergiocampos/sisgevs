@@ -24,7 +24,7 @@ urlpatterns = [
       
   path('casos_cancelados/', views.casos_cancelados, name='casos_cancelados'),
       
-  path('casos-cancelados/<int:id>', base_views.cancelar_caso, name='cancelar_validar_caso'),
+  path('casos_cancelados/<int:id>', base_views.cancelar_caso, name='cancelar_validar_caso'),
       
   path('export_casos_cancelados/', base_views.export_data_excel, name="export_casos_cancelados"),      
 

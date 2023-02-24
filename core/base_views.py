@@ -20,13 +20,13 @@ from .models import *
 # Lista de todos os agravos.
 AGRAVOS = [
     {"name":"Esporotricose Humana", "value": "esp-hum" },
-    #{"name":"Acidentes de Trânsito", "value":"aci"},
+    {"name":"Acidentes de Trânsito", "value":"aci"},
 ]
 
 # KEY: AGRAVO URL | VALUE: DADOS DO AGRAVO
 AGRAVOS_DADOS = {
     'esp-hum':CasoEsporotricose.objects.all(),
-    #'aci':AcidentesTransito.objects.all(),
+    'aci':AcidentesTransito.objects.all(),
 }
 
 # Funcoes SES
@@ -217,7 +217,8 @@ def export_data_excel(request):
     try:
         #data = list(casos_response.order_by('-id').values())
         data = casos
-        
+        df = pd.DataFrame(data)
+
         # Convertendo em dataframe e alterando os campos que contém ID.
         if agravo_url == 'esp-hum':
             for row in data:
