@@ -17,7 +17,7 @@
           
   <div class="col">      
     <label for="cargo_funcao_notificador" class="form-label m-0"><spam style="color:red;">*</spam><small><b>32-Cargo/Função do Notificador </b></small></label>
-    <input type="text" class="form-control form-control-sm" id="cargo_funcao_notificador" name="cargo_funcao_notificador" required  >      
+    <input type="text" class="form-control form-control-sm" id="cargo_funcao_notificador" name="cargo_funcao_notificador" pattern="^[a-z A-Z\u00C0-\u00FF]{10,90}$" onkeypress="return limitcarc(event,'letr_acent')" required  >      
   </div>
         
 </div>

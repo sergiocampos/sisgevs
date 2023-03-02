@@ -29,7 +29,7 @@
             <a href="/aci/criar-caso" class="btn btn-success mx-3">
                 <span class="legenda-botao">Clique aqui para notificar</span><br><span>Acidentes de Trânsito</span>
             </a>
-            <a href="/aci/download_dicionario_dados/" class="btn btn-outline-secondary mx-3" style="padding: 19px 12px 19px;" target="_blank"><p style="margin: 0px;">Dicionário de Dados</p></a>
+            <a href="" class="btn btn-outline-secondary mx-3" style="padding: 19px 12px 19px;"><p style="margin: 0px;" onclick="window.alert('Não Disponível no momento!')">Dicionário de Dados</p></a>
             <a href="/aci/download_ficha/" class="btn btn-outline-secondary mx-3" style="padding: 19px 12px 19px;" download><p style="margin: 0;">Download Ficha</p></a>
         </div>
 
@@ -59,7 +59,7 @@
     </spam>
     {% elif not user.lista_agravos_permite and not user.lista_agravos_possivel %} 
     <spam id="no_perm" class="text-center p-5 pt-2 pb-2">
-        Solicite ao responsável técnico a liberação. | Email: sisgevs@ses.pb.gov.br
+        Solicite ao responsável técnico pelo agravo, a liberação do acesso. | Email: sisgevs@ses.pb.gov.br
     </spam>
     {% endif %}
     </div>

@@ -4,8 +4,8 @@
   <div class="col">
       
         <label for="nome_paciente_sem_abreviacoes" class="form-label m-0"><spam style="color:red;">*</spam><small><b>1-Nome do Paciente</b></small></label>
-        <input type="text" class="form-control form-control-sm" id="nome_paciente_sem_abreviacoes" name="nome_paciente_sem_abreviacoes" placeholder="Sem Abreviações" onkeypress="return limitcarc(event, 'letr_acent')" pattern="^[a-z A-Z\u00C0-\u00FF]{10,90}$"  required  >      
-        <div style="font-size:10px;" class="invalid-feedback text-center">Min 10, Max 90 Caracteres.</div>
+        <input type="text" class="form-control form-control-sm" id="nome_paciente_sem_abreviacoes" name="nome_paciente_sem_abreviacoes" placeholder="Sem Abreviações" onkeypress="return limitcarc(event, 'letr_acent')" pattern="^[a-z A-Z]{10,90}$"  required  >      
+        <div style="font-size:10px;" class="invalid-feedback text-center">Min 10, Max 90 Caracteres. Somente Letras.</div>
       
   </div>
       
@@ -45,15 +45,15 @@
   <div class="col">
       
       <label for="nome_mae" class="form-label m-0"><spam style="color:red;">*</spam><small><b>2-Nome da Mãe </b></small></label>
-      <input type="text" class="form-control form-control-sm" id="nome_mae" name="nome_mae" pattern="^[a-z A-Z\u00C0-\u00FF]{10,90}$" placeholder="Sem Abreviações" onkeypress="return limitcarc(event, 'letr_acent')" required  >      
-      <div style="font-size:10px;" class="invalid-feedback text-center">Min 10, Max 90 Caracteres.</div>
+      <input type="text" class="form-control form-control-sm" id="nome_mae" name="nome_mae" pattern="^[a-z A-Z]{10,90}$" placeholder="Sem Abreviações" onkeypress="return limitcarc(event, 'letr_acent')" required  >      
+      <div style="font-size:10px;" class="invalid-feedback text-center">Min 10, Max 90 Caracteres. Somente letras.</div>
   </div>
       
       
   <div class="col">
       
       <label for="endereco_paciente" class="form-label m-0"><small><b>3-Endereço do Paciente</b></small></label>
-      <input type="text" class="form-control form-control-sm" id="endereco_paciente" name="endereco_paciente" pattern="^[a-z A-Z0-9\u00C0-\u00FF,-.|:;/]{10,90}$" onkeypress="return limitcarc(event, 'letr_acent_num')" >
+      <input type="text" class="form-control form-control-sm" id="endereco_paciente" name="endereco_paciente" pattern="^[a-z A-Z0-9,-.|:;/]{10,90}$" onkeypress="return limitcarc(event, 'letr_acent_num')" >
       <div style="font-size:10px;" class="invalid-feedback text-center">Min 10, Max 90 Caracteres.</div>
   </div>
       
