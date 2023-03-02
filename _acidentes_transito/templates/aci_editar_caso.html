@@ -24,9 +24,22 @@
     </div>  
     <span class="d-none alert alert-danger m-0 text-center" id="incomplete_form_alert">Formulário incompleto, verifique todos os campos obrigatórios e tente novamente.</span>
     
-    <div class="px-2 m-3">
-      <p class="m-0">(<a style="color: red;">*</a>) Campo obrigatório.</p>      
+    <script>
+      function goBack() {
+          window.history.back();
+      }
+    </script>
+    <hr>
+    <div class="d-flex m-3 mt-0 align-middle">        
+      <div class="m-2 mb-0 mt-0">
+          <button type="button" class="btn btn-primary btn-sm" onclick="goBack()">Voltar lista</button>
+      </div>
+      <div class="m-2 m-0 mt-0">
+          <p style="margin: 0;">(<a style="color: red;">*</a>) Campo obrigatório.</p>
+      </div>
+
     </div>    
+
     <!-- [FORM] INFORMACOES DO PACIENTE -->
     <div id="menu4" class="container mb-4">
       <div class="card">

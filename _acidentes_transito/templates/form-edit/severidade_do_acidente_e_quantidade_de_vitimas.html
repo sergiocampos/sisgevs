@@ -58,32 +58,10 @@
   {% endif %}
     <label for="numeros_vitimas_fatais_envolvidas_acidente" class="form-label m-0"><spam style="color:red;"></spam><small><b>27-Número de Óbitos</b></small></label>
       {% if caso.houve_vitimas_fatais == 'Sim' %}
-      <select class="select-model" id="numeros_vitimas_fatais_envolvidas_acidente" name="numeros_vitimas_fatais_envolvidas_acidente" placeholder="Selecione um item" data-search="false" data-silent-initial-value-set="true" >
+      <input type="number" class="form-control form-control-sm" id="numeros_vitimas_fatais_envolvidas_acidente" name="numeros_vitimas_fatais_envolvidas_acidente" min="0" value="{{caso.numeros_vitimas_fatais_envolvidas_acidente}}">
       {% else %}
-      <select class="select-model" id="numeros_vitimas_fatais_envolvidas_acidente" name="numeros_vitimas_fatais_envolvidas_acidente" placeholder="Selecione um item" data-search="false" data-silent-initial-value-set="true" disabled>
-        <option value="" disabled selected>Selecione um item</option>
-      {% endif %}        
-        {% if caso.numeros_vitimas_fatais_envolvidas_acidente == '1' %}
-        <option value="1" selected>1</option>
-        {% else %}
-        <option value="1">1</option>
-        {% endif %}
-        {% if caso.numeros_vitimas_fatais_envolvidas_acidente == '2' %}
-        <option value="2" selected>2</option>
-        {% else %}
-        <option value="2">2</option>
-        {% endif %}
-        {% if caso.numeros_vitimas_fatais_envolvidas_acidente == '3' %}
-        <option value="3" selected>3</option>
-        {% else %}
-        <option value="3">3</option>
-        {% endif %}
-        {% if caso.numeros_vitimas_fatais_envolvidas_acidente == 'mais' %}
-        <option value="mais" selected>Mais</option>
-        {% else %}
-        <option value="mais">Mais</option>
-        {% endif %}
-      </select>      
+      <input type="number" class="form-control form-control-sm" id="numeros_vitimas_fatais_envolvidas_acidente" name="numeros_vitimas_fatais_envolvidas_acidente" min="0">
+      {% endif %}
   </div>
 </div>
 
@@ -125,34 +103,8 @@
   <div class="col">
       
     <label for="numero_feridos_envolvidos_acidente" class="form-label m-0"><spam style="color:red;"></spam><small><b>29-Número de Feridos</b></small></label>
-      <select class="select-model" id="numero_feridos_envolvidos_acidente" name="numero_feridos_envolvidos_acidente" placeholder="Selecione um item" data-search="false" data-silent-initial-value-set="true" required >
-        {% if caso.numero_feridos_envolvidos_acidente == '0' %}
-        <option value="0" selected>0</option>
-        {% else %}
-        <option value="0">0</option>
-        {% endif %}
-        {% if caso.numero_feridos_envolvidos_acidente == '1' %}
-        <option value="1" selected>1</option>
-        {% else %}
-        <option value="1">1</option>
-        {% endif %}
-        {% if caso.numero_feridos_envolvidos_acidente == '2' %}
-        <option value="2" selected>2</option>
-        {% else %}
-        <option value="2">2</option>
-        {% endif %}
-        {% if caso.numero_feridos_envolvidos_acidente == '3' %}
-        <option value="3" selected>3</option>
-        {% else %}
-        <option value="3">3</option>
-        {% endif %}
-        {% if caso.numero_feridos_envolvidos_acidente == 'mais' %}
-        <option value="mais" selected>Mais</option>
-        {% else %}
-        <option value="mais">Mais</option>
-        {% endif %}
-      </select>        
-      
+    <input type="number" class="form-control form-control-sm" id="numero_feridos_envolvidos_acidente" name="numero_feridos_envolvidos_acidente" min="0" value="{{caso.numero_feridos_envolvidos_acidente}}">
+
   </div>
       
 </div>

@@ -39,7 +39,7 @@ $('input[name="houve_vitimas_fatais"]').on('click', function(){
     alert_caso_obito.text('')
     alerta_numero_vitimas_fatais.text('')
     $('#numeros_vitimas_fatais_envolvidas_acidente').parent().addClass('d-none')
-    $('#numeros_vitimas_fatais_envolvidas_acidente').attr('disabled', true).attr('required', false)[0].reset()
+    $('#numeros_vitimas_fatais_envolvidas_acidente').attr('disabled', true).attr('required', false)[0].value=""
     $('input[name="caso_obito"]').parent().parent().addClass('d-none')
     $('input[name="caso_obito"]').attr('disabled', true)
 
