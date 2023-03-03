@@ -53,8 +53,8 @@
   <div class="col">
       
       <label for="endereco_paciente" class="form-label m-0"><small><b>3-Endereço do Paciente</b></small></label>
-      <input type="text" class="form-control form-control-sm" id="endereco_paciente" name="endereco_paciente" pattern="^[a-z A-Z0-9,-.|:;/]{10,90}$" onkeypress="return limitcarc(event, 'letr_acent_num')" >
-      <div style="font-size:10px;" class="invalid-feedback text-center">Min 10, Max 90 Caracteres.</div>
+      <input type="text" class="form-control form-control-sm" id="endereco_paciente" name="endereco_paciente" pattern="^[a-z A-Z0-9/]{10,90}$" onkeypress="return limitcarc(event, 'letr_acent_num')" >
+      <div style="font-size:10px;" class="invalid-feedback text-center">Min 10, Max 90 Caracteres. Somente Letras e/ou Números.</div>
   </div>
       
 </div>

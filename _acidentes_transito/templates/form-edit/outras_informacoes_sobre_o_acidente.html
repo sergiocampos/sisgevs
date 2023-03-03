@@ -22,8 +22,8 @@
   <div class="col">
       
     <label for="informacoes_complementares" class="form-label m-0"><small><b>11-Informações Complementares </b></small></label>
-    <input type="text" value="{{caso.informacoes_complementares}}" class="form-control form-control-sm" id="informacoes_complementares" name="informacoes_complementares"  onkeypress="return limitcarc(event, 'letr_acent_num')"  pattern="^[a-z A-Z0-9\\u00C0-\\u00FF]{10,250}$"  >
-    <div style="font-size:10px;" class="invalid-feedback text-center">Min 10, Max 250 Caracteres.</div>  
+    <input type="text" value="{{caso.informacoes_complementares}}" class="form-control form-control-sm" id="informacoes_complementares" name="informacoes_complementares"  onkeypress="return limitcarc(event, 'letr_acent_num')"  pattern="^[a-z A-Z0-9]{10,250}$"  >
+    <div style="font-size:10px;" class="invalid-feedback text-center">Min 10, Max 250 Caracteres. Somente Letras e/ou números.</div>  
   </div>
       
 </div>
@@ -59,7 +59,7 @@
   <div class="col d-none" id="outros-info-acid">      
   {% endif %}
     <label for="qual_hospital_outro" class="form-label m-0"><spam style="color:red;"></spam><small><b>Nome do Hospital</b></small></label>
-    <input type="text" value="{{caso.qual_hospital_outro}}" class="form-control form-control-sm" id="qual_hospital_outro" name="qual_hospital_outro" onkeypress="return limitcarc(event, 'letr_acent_num')"  pattern="^[a-z A-Z0-9\\u00C0-\\u00FF]{10,90}$"  >
-    <div style="font-size:10px;" class="invalid-feedback text-center">Min 10, Max 90 Caracteres.</div>  
+    <input type="text" value="{{caso.qual_hospital_outro}}" class="form-control form-control-sm" id="qual_hospital_outro" name="qual_hospital_outro" onkeypress="return limitcarc(event, 'letr_acent_num')"  pattern="^[a-z A-Z0-9]{10,90}$"  >
+    <div style="font-size:10px;" class="invalid-feedback text-center">Min 10, Max 90 Caracteres. Somente letras e/ou números.</div>  
   </div>  
 </div>
