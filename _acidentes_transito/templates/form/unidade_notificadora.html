@@ -16,16 +16,17 @@
   </div>      
           
   <div class="col">      
-    <label for="cargo_funcao_notificador" class="form-label m-0"><spam style="color:red;">*</spam><small><b>32-Cargo/Função do Notificador </b></small></label>
-    <input type="text" class="form-control form-control-sm" id="cargo_funcao_notificador" name="cargo_funcao_notificador" pattern="^[a-z A-Z\u00C0-\u00FF]{10,90}$" onkeypress="return limitcarc(event,'letr_acent')" required  >      
+    <label for="cargo_funcao_notificador" class="form-label m-0"><spam style="color:red;">*</spam><small><b>32-Cargo/Função do Notificador</b></small></label>
+    <input type="text" class="form-control form-control-sm" id="cargo_funcao_notificador" name="cargo_funcao_notificador" pattern="^[a-z A-Z]{10,90}$" onkeypress="return limitcarc(event,'letr_acent')" required  >
+    <div style="font-size:10px;" class="invalid-feedback text-center">Min 10, Max 90 Caracteres. Somente letras sem acentos.</div>
   </div>
         
 </div>
 <div class="row">
   <div class="col">      
     <label for="nome_responsavel_pela_digitacao" class="form-label m-0"><spam style="color:red;">*</spam><small><b>33-Nome do Responsável Pela Digitação </b></small></label>
-    <input type="text" class="form-control form-control-sm" id="nome_responsavel_pela_digitacao" name="nome_responsavel_pela_digitacao" pattern="^[a-z A-Z\u00C0-\u00FF]{10,90}$" onkeypress="return limitcarc(event,'letr_acent')" required  >            
-    <div style="font-size:10px;" class="invalid-feedback text-center">Min 10, Max 90 Caracteres.</div>
+    <input type="text" class="form-control form-control-sm" id="nome_responsavel_pela_digitacao" name="nome_responsavel_pela_digitacao" pattern="^[a-z A-Z]{10,90}$" onkeypress="return limitcarc(event,'letr_acent')" required  >            
+    <div style="font-size:10px;" class="invalid-feedback text-center">Min 10, Max 90 Caracteres. Somente letras sem acentos.</div>
   </div>
   <div class="col">      
     <label for="contato_notificador" class="form-label m-0"><spam style="color:red;">*</spam><small><b>34-Telefone da Instituição/Hospital</b></small></label>
@@ -35,7 +36,7 @@
 <div class="row d-none" id="outros-un">
   <div class="col">
     <label for="nome_instituicao_outro" class="form-label m-0"><spam style="color:red;"></spam><small><b>Outra Instituição/Hospital</b></small></label>
-    <input type="text" class="form-control form-control-sm" id="nome_instituicao_outro" name="nome_instituicao_outro" pattern="^[a-z A-Z\u00C0-\u00FF]{10,90}$" onkeypress="return limitcarc(event,'letr_acent')" > 
+    <input type="text" class="form-control form-control-sm" id="nome_instituicao_outro" name="nome_instituicao_outro" pattern="^[a-z A-Z0-9]{10,90}$" onkeypress="return limitcarc(event,'letr_acent_num')" > 
     <div style="font-size:10px;" class="invalid-feedback text-center">Min 10, Max 90 Caracteres.</div>
   </div>
 </div>
