@@ -85,14 +85,14 @@
       <small><spam style="color:red;"></spam><b>24-Bairro do Local do Acidente </b></small>
       <input style="max-width: 150px !important;" placeholder="Buscar CEP" type="text" class="form-control form-control-sm m-2 mt-0" name="" id="busca_cep_local_acidente">
     </label>
-    <input type="text" class="form-control form-control-sm" id="bairro_local_acidente" name="bairro_local_acidente" pattern="^[a-z A-Z0-9\u00C0-\u00FF]{3,90}$" onkeypress="return limitcarc(event, 'letr_acent_num')" value="{{caso.bairro_local_acidente}}" required>
-    <div style="font-size:10px;" class="invalid-feedback text-center"></div>
+    <input type="text" class="form-control form-control-sm" id="bairro_local_acidente" name="bairro_local_acidente" pattern="^[a-z A-Z0-9]{3,90}$" onkeypress="return limitcarc(event, 'letr_acent_num')" value="{{caso.bairro_local_acidente}}" required>
+    <div style="font-size:10px;" class="invalid-feedback text-center">Somente letras e/ou números.</div>
   </div>
 
   <div class="col">
     <label for="endereco_local_acidente" class="form-label m-0 mt-3"><small><b>23-Endereço do Local do Acidente </b></small></label>
-    <input type="text" value="{{caso.endereco_local_acidente}}" class="form-control form-control-sm" id="endereco_local_acidente" name="endereco_local_acidente" pattern="^[a-z A-Z0-9\u00C0-\u00FF]{10,90}$" onkeypress="return limitcarc(event, 'letr_acent_num')" >
-    <div style="font-size:10px;" class="invalid-feedback text-center">Min 10, Max 90 Caracteres.</div>
+    <input type="text" value="{{caso.endereco_local_acidente}}" class="form-control form-control-sm" id="endereco_local_acidente" name="endereco_local_acidente" pattern="^[a-z A-Z0-9]{10,90}$" onkeypress="return limitcarc(event, 'letr_acent_num')" >
+    <div style="font-size:10px;" class="invalid-feedback text-center">Min 10, Max 90 Caracteres. Somente letras e/ou números.</div>
   </div>
 
 </div>
