@@ -6,7 +6,7 @@ from django.shortcuts import HttpResponse, render, redirect
     
 from django.contrib import messages
     
-from core.models import Gerencia, Municipio, UnidadeSaude
+from core.models import Gerencia, Municipio, UnidadeSaude, HospitaisUpas
     
 from core.base_views import tem_permissao, my_data as base_notificacoes
 from sisgevs import settings
@@ -25,7 +25,8 @@ def my_datas(request):
 @login_required(login_url='/login/')
 def criar_caso(request):
   municipios = Municipio.objects.all()    
-  hospitais = UnidadeSaude.objects.all().filter(municipio_id=request.user.municipio.id).order_by('nome')
+  #hospitais = UnidadeSaude.objects.all().filter(municipio_id=request.user.municipio.id).order_by('nome')
+  hospitais = HospitaisUpas.objects.all().order_by('nome')
   return render(request, 'aci_criar_caso.html', {'municipios':municipios, 'hospitais':hospitais})
 
     

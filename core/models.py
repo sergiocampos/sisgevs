@@ -88,6 +88,11 @@ class UnidadeSaude(models.Model):
 		verbose_name_plural = 'Unidades de Saúde'
 
 
+class HospitaisUpas(models.Model):
+	nome = models.CharField(max_length=200, null=True)
+	municipio = models.ForeignKey(Municipio, on_delete=models.CASCADE, null=True)
+	cnes = models.CharField(max_length=200, null=True)
+
 class Estado(models.Model):
 	uf = models.IntegerField(blank=True, null=True)
 	nome = models.CharField(max_length=200, null=True)

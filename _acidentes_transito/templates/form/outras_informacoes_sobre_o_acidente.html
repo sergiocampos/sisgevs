@@ -23,7 +23,9 @@
     <label for="qual_hospital" id="qual_hosp_label" class="form-label m-0"><spam style="color:red;"></spam><small><b>12-Qual o Hospital</b></small></label>
     <select class="select-model" id="qual_hospital" name="qual_hospital" placeholder="Selecione um item" data-search="true" data-silent-initial-value-set="true">
       <option value="" selected>Selecione um item</option>
+      <!--
       <option value="Outro">Outro</option>
+    -->
       {% for hospital in hospitais %}
       <option value="{{hospital.nome}}">{{hospital.nome}}</option>
       {% endfor %}

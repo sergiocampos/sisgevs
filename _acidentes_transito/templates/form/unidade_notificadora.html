@@ -4,7 +4,9 @@
     <label for="nome_instituicao_hospital" class="form-label m-0"><spam style="color:red;">*</spam><small><b>31-Nome da Instituição/Hospital </b></small></label>
     <select class="select-model" id="nome_instituicao_hospital" name="nome_instituicao_hospital" placeholder="Selecione um item" data-search="true" data-silent-initial-value-set="true">
       <option value="" selected disabled>Selecione um item</option>
+      <!--
       <option value="Outro">Outro</option>
+    -->
       {% if user.unidade_saude != '' and user.unidade_saude != None %}
       <option value="{{user.unidade_saude}}">{{user.unidade_saude}}</option>
       {% else %}
