@@ -5,9 +5,9 @@
     <select class="select-model" id="nome_instituicao_hospital" name="nome_instituicao_hospital" placeholder="Selecione um item" data-search="true" data-silent-initial-value-set="true">
       <option value="" disabled>Selecione um item</option>
       {% if caso.nome_instituicao_hospital == 'Outro' %}
-      <option value="Outro" selected>Outro</option>
+      <!--<option value="Outro" selected>Outro</option>-->
       {% else %}
-      <option value="Outro">Outro</option>
+      <!--<option value="Outro">Outro</option>-->
       {% endif %}
       {% for hospital in hospitais %}
       {% if hospital.nome == caso.nome_instituicao_hospital %}

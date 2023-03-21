@@ -74,7 +74,8 @@ def editar_caso(request, id):
     
     municipios = Municipio.objects.all()
     
-    hospitais = UnidadeSaude.objects.all()
+    #hospitais = UnidadeSaude.objects.all()
+    hospitais = HospitaisUpas.objects.all().order_by('nome')
     
     return render(request, 'aci_editar_caso.html', {'caso':caso, 'municipios':municipios, 'hospitais':hospitais})
     
