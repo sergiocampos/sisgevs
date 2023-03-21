@@ -64,8 +64,8 @@
 
   <div class="col">      
     <label for="endereco_local_acidente" class="form-label m-0 mt-3"><small><b>23-Endereço do Local do Acidente </b></small></label>
-    <input type="text" class="form-control form-control-sm" id="endereco_local_acidente" name="endereco_local_acidente" pattern="^[a-z A-Z0-9]{10,90}$" onkeypress="return limitcarc(event, 'letr_acent_num')" >
-    <div style="font-size:10px;" class="invalid-feedback text-center">Min 10, Max 90 Caracteres.</div>
+    <input type="text" class="form-control form-control-sm" id="endereco_local_acidente" name="endereco_local_acidente" pattern="^[a-z A-Z0-9]{0,100}$" onkeypress="return limitcarc(event, 'letr_acent_num')" >
+    <!--<div style="font-size:10px;" class="invalid-feedback text-center">Min 10, Max 90 Caracteres.</div>-->
   </div>
 
 </div>
@@ -140,7 +140,7 @@
   <div class="col">
       
     <label for="paciente_envolvido_acidente_era" class="form-label m-0"><spam style="color:red;">*</spam><small><b>21-O Paciente Envolvido no Acidente</b></small></label>
-    <div class="radio-container" id="paciente_envolvido_acidente_era" required style="margin-top: 5%;">
+    <div class="radio-container" id="paciente_envolvido_acidente_era" required style="margin-top: ;">
       <input type="radio" name="paciente_envolvido_acidente_era" id="paciente_envolvido_acidente_era-pedestre_" value="Pedestre  " required>
       <label class="radio-label" for="paciente_envolvido_acidente_era-pedestre_">Pedestre  </label>
       <input type="radio" name="paciente_envolvido_acidente_era" id="paciente_envolvido_acidente_era-condutor" value="Condutor " required>
