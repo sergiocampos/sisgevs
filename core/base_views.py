@@ -70,9 +70,9 @@ def my_data(dados):
         user_municipio_nome_upper = str(Municipio.objects.filter(id=user_municipio_id)[0]).upper()
         
         registros = registros.filter(
-			Q(municipio_residencia=user_municipio_id) | 
-			Q(municipio_residencia=user_municipio_nome) | 
-			Q(municipio_residencia=user_municipio_nome_upper) | 
+			Q(municipio_ocorrencia_acidente=user_municipio_id) | 
+			Q(municipio_ocorrencia_acidente=user_municipio_nome) | 
+			Q(municipio_ocorrencia_acidente=user_municipio_nome_upper) | 
 			Q(responsavel_pelas_informacoes_id=user_id)
 			)
         
@@ -402,7 +402,7 @@ def tem_permissao(request, caso):
 
 	# Usuário municipal.
 	elif request.user.funcao == 'municipal':
-		if request.user.municipio.nome.upper() == caso.municipio_residencia.upper() or request.user.id == caso.responsavel_pelas_informacoes_id:
+		if request.user.municipio.nome.upper() == caso.municipio_ocorrencia_acidente.upper() or request.user.id == caso.responsavel_pelas_informacoes_id:
 			return True
 		return False
 

@@ -11,7 +11,7 @@
       
   <div class="col">
       
-        <label for="data_nascimento" class="form-label m-0"><spam style="color:red;"></spam><small><b>4-Data de Nascimento </b></small></label>
+        <label for="data_nascimento" class="form-label m-0"><spam style="color:red;"></spam><small><b>2-Data de Nascimento </b></small></label>
         <input value="{{caso.data_nascimento|date:'Y-m-d'}}" type="date" class="form-control form-control-sm" id="data_nascimento" name="data_nascimento" required  disabled>      
       
   </div>
@@ -19,7 +19,7 @@
       
   <div class="col">
       
-        <label for="idade_paciente" class="form-label m-0"><spam style="color:red;"></spam><small><b>5-Idade do Paciente </b></small></label>
+        <label for="idade_paciente" class="form-label m-0"><spam style="color:red;"></spam><small><b>3-Idade do Paciente </b></small></label>
         <input value="{{caso.idade_paciente}}" type="number" class="form-control form-control-sm" id="idade_paciente" name="idade_paciente" disabled readonly>      
       
   </div>
@@ -28,7 +28,7 @@
 <div class="row">     
   <div class="col">
       
-      <label for="sexo" class="form-label m-0"><spam style="color:red;"></spam><small><b>6-Sexo </b></small></label>
+      <label for="sexo" class="form-label m-0"><spam style="color:red;"></spam><small><b>4-Sexo </b></small></label>
       <div class="radio-container" id="sexo" required >
         {% if caso.sexo == 'Feminino ' %}                  
         <input type="radio" name="sexo" id="sexo-feminino" value="Feminino " checked disabled required>
@@ -54,7 +54,7 @@
 
   <div class="col">
       
-      <label for="nome_mae" class="form-label m-0"><spam style="color:red;"></spam><small><b>2-Nome da Mãe </b></small></label>
+      <label for="nome_mae" class="form-label m-0"><spam style="color:red;"></spam><small><b>5-Nome da Mãe </b></small></label>
       <input value="{{caso.nome_mae}}" type="text" class="form-control form-control-sm" id="nome_mae" name="nome_mae" pattern="^[a-z A-Z\u00C0-\u00FF]{10,90}$" onkeypress="return limitcarc(event, 'letr_acent')" required  disabled>      
       <div style="font-size:10px;" class="invalid-feedback text-center">Min 10, Max 90 Caracteres.</div>
   </div>
@@ -62,7 +62,7 @@
       
   <div class="col">
       
-      <label for="endereco_paciente" class="form-label m-0"><small><b>3-Endereço do Paciente</b></small></label>
+      <label for="endereco_paciente" class="form-label m-0"><small><b>6-Endereço do Paciente</b></small></label>
       <input value="{{caso.endereco_paciente}}" type="text" class="form-control form-control-sm" id="endereco_paciente" name="endereco_paciente" pattern="^[a-z A-Z0-9\u00C0-\u00FF,-.|:;/]{10,90}$" onkeypress="return limitcarc(event, 'letr_acent_num')"  disabled>
       <div style="font-size:10px;" class="invalid-feedback text-center">Min 10, Max 90 Caracteres.</div>
   </div>
