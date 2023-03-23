@@ -133,7 +133,14 @@
         <div class="d-flex flex-column flex-shrink-0 menu-lateral p-3">
             <div class="user-name fs-6 mx-3">
                 <p class="mb-1"> Usuário: {{user.login}}</p>
-                <p class="mb-0">Função: <span id="user_funcao">{{user.funcao}}</span></p>
+                <p class="mb-0">
+                    Função: <span id="user_funcao">
+                    {% if user.funcao != 'coordenacao_vigilancia_epidemiologica_hospitalar' %}{{user.funcao}}
+                    {% else %}
+                    Coordenação Hospitalar
+                    {% endif %}
+                    </span>
+                </p>
             </div>
             <hr>
             <ul class="nav nav-pills flex-column mb-auto">

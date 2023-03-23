@@ -78,9 +78,12 @@ def my_data(dados):
         
     elif dados.user.funcao == 'coordenacao_vigilancia_epidemiologica_hospitalar':
         user_id = dados.user.id
-        unidade_saude_user = int(dados.user.unidade_saude)
+        
+        unidade_saude = dados.user.unidade_saude
+        hospital_upa_user_id = HospitaisUpas.objects.get(nome=unidade_saude).id
+        #unidade_saude_user = int(dados.user.unidade_saude)
         registros_unidade_saude = registros.filter(responsavel_pelas_informacoes_id=user_id)
-        registros = registros_unidade_saude.filter(unidade_saude=unidade_saude_user)
+        registros = registros_unidade_saude.filter(id=hospital_upa_user_id)
 
     
     elif dados.user.funcao == 'autocadastro':
@@ -328,7 +331,7 @@ def usuarios(request, id=None):
                     
             # Separando os usuários com nivel hierarquico menor que o user.
             usuarios_lista = get_user_model().objects.all().filter(numero_hierarquia__gt=user_hierarquia).order_by('id')
-            funcoes = lista_funcoes(user_hierarquia)
+            funcoes = lista_funcoes(user_hierarquia + 1)
             
             # Filtrando usuários que tem acesso ao agravo que o user gerencia.
             usuarios = []
@@ -357,7 +360,8 @@ def usuarios(request, id=None):
                             user_dict['aci_solicit'] = True
 
                 # Separando unidades hospitalares do município do usuário
-                user_dict['hosp_list'] = UnidadeSaude.objects.all().filter(municipio_id=usuario.municipio_id)
+                #user_dict['hosp_list'] = UnidadeSaude.objects.all().filter(municipio_id=usuario.municipio_id)
+                user_dict['hosp_list'] = HospitaisUpas.objects.all().filter(municipio_id=usuario.municipio_id)
 
                 usuarios.append(user_dict)
 
