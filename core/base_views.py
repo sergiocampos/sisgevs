@@ -68,13 +68,21 @@ def my_data(dados):
         user_id = dados.user.id
         user_municipio_nome = str(Municipio.objects.filter(id=user_municipio_id)[0])
         user_municipio_nome_upper = str(Municipio.objects.filter(id=user_municipio_id)[0]).upper()
-        
-        registros = registros.filter(
-			Q(municipio_ocorrencia_acidente=user_municipio_id) | 
-			Q(municipio_ocorrencia_acidente=user_municipio_nome) | 
-			Q(municipio_ocorrencia_acidente=user_municipio_nome_upper) | 
-			Q(responsavel_pelas_informacoes_id=user_id)
-			)
+        #Renderizando as notificações de acordo com o agravo
+        if agravo_url != 'esp-hum':
+             registros = registros.filter(
+                  Q(municipio_ocorrencia_acidente=user_municipio_id) | 
+                  Q(municipio_ocorrencia_acidente=user_municipio_nome) | 
+                  Q(municipio_ocorrencia_acidente=user_municipio_nome_upper) | 
+                  Q(responsavel_pelas_informacoes_id=user_id)
+                  )
+        else:
+             registros = registros.filter(
+                  Q(municipio_residencia=user_municipio_id) | 
+                  Q(municipio_residencia=user_municipio_nome) | 
+                  Q(municipio_residencia=user_municipio_nome_upper) | 
+                  Q(responsavel_pelas_informacoes_id=user_id)
+                  )
         
     elif dados.user.funcao == 'coordenacao_vigilancia_epidemiologica_hospitalar':
         user_id = dados.user.id
@@ -175,12 +183,21 @@ def export_data_excel(request):
         user_id = request.user.id
         user_municipio_id = request.user.municipio_id
         user_municipio_nome = str(Municipio.objects.filter(id=user_municipio_id)[0])
-        casos_response = casos_filtrados.filter(
-            Q(municipio_residencia=user_municipio_id) | 
-            Q(municipio_residencia=user_municipio_nome) | 
-            Q(municipio_residencia=user_municipio_nome.upper()) | 
-            Q(responsavel_pelas_informacoes_id=user_municipio_id)
-        )
+        
+        if agravo_url != 'esp-hum':
+             casos_response = casos_filtrados.filter(
+                  Q(municipio_ocorrencia_acidente=user_municipio_id) | 
+                  Q(municipio_ocorrencia_acidente=user_municipio_nome) | 
+                  Q(municipio_ocorrencia_acidente=user_municipio_nome.upper()) | 
+                  Q(responsavel_pelas_informacoes_id=user_municipio_id)
+                  )
+        else:
+             casos_response = casos_filtrados.filter(
+                  Q(municipio_residencia=user_municipio_id) | 
+                  Q(municipio_residencia=user_municipio_nome) | 
+                  Q(municipio_residencia=user_municipio_nome.upper()) | 
+                  Q(responsavel_pelas_informacoes_id=user_municipio_id)
+                  )
 
     elif request.user.funcao == 'gerencia_regional':
         # Perfil Gerencia Regional
