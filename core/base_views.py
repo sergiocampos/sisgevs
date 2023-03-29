@@ -302,7 +302,8 @@ def cancelar_caso(request, id):
     agravo_url = str(request.path).split('/')[1]
     
     # Redirecionamento url.
-    redirect_url = f'/{agravo_url}/casos_cancelados/'
+    #redirect_url = f'/{agravo_url}/casos_cancelados/'
+    redirect_url = f'/aci/my-datas/'
     
     # Pegando todos os dados.
     agravo = AGRAVOS_DADOS[agravo_url]
