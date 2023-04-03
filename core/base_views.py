@@ -59,8 +59,12 @@ def my_data(dados):
 	
     # Filtrando dados por função do usuário.
     if dados.user.funcao == 'gerencia_regional':        
-        user_gerencia_regional = Municipio.objects.get(id=dados.user.municipio_id).gerencia_id
-        registros = registros.filter(gerencia_id=user_gerencia_regional)
+        #user_gerencia_regional = Municipio.objects.get(id=dados.user.municipio_id).gerencia_id
+        
+        user_municipio_gerencia_regional = Municipio.objects.get(id=dados.user.municipio_id)
+        #municipio_gerencia_regional = Municipio.objects.get(nome=user_municipio_gerencia_regional).id
+        
+        registros = registros.filter(municipio_ocorrencia_acidente=user_municipio_gerencia_regional)
 
     elif dados.user.funcao == 'municipal':
         
