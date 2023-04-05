@@ -92,10 +92,11 @@ def my_data(dados):
         user_id = dados.user.id
         
         unidade_saude = dados.user.unidade_saude
-        hospital_upa_user_id = HospitaisUpas.objects.get(nome=unidade_saude).id
+        #hospital_upa_user_id = HospitaisUpas.objects.get(nome=unidade_saude).id
         #unidade_saude_user = int(dados.user.unidade_saude)
         registros_unidade_saude = registros.filter(responsavel_pelas_informacoes_id=user_id)
-        registros = registros_unidade_saude.filter(id=hospital_upa_user_id)
+        #registros = registros_unidade_saude.filter(id=hospital_upa_user_id)
+        registros = registros_unidade_saude.filter(nome_instituicao_hospital=unidade_saude)
 
     
     elif dados.user.funcao == 'autocadastro':
