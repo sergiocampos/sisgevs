@@ -14,6 +14,7 @@ from sisgevs import settings
 from .models import AcidentesTransito
 
 import unidecode
+import re
 
     
 # Função de listagem de casos.
@@ -49,7 +50,10 @@ def set_criar_caso(request):
 
   #tratando endereço(removendo acentos) antes do storage.
   dados['bairro_local_acidente'] = unidecode.unidecode(dados['bairro_local_acidente'])
+  dados['bairro_local_acidente'] = re.sub('[-,.,!,/,&,",:,¨,;,~,^,´,`]', '', dados['bairro_local_acidente'])
+
   dados['endereco_local_acidente'] = unidecode.unidecode(dados['endereco_local_acidente'])
+  dados['endereco_local_acidente'] = re.sub('[-,.,!,/,&,",:,¨,;,~,^,´,`]', '', dados['endereco_local_acidente'])
     
   del dados['csrfmiddlewaretoken'] # Excluindo o token csrf.
     
@@ -113,7 +117,10 @@ def set_editar_caso(request, id):
 
     #tratando endereço(removendo acentos) antes do storage.
     dados['bairro_local_acidente'] = unidecode.unidecode(dados['bairro_local_acidente'])
+    dados['bairro_local_acidente'] = re.sub('[-,.,!,/,&,",:,¨,;,~,^,´,`]', '', dados['bairro_local_acidente'])
+
     dados['endereco_local_acidente'] = unidecode.unidecode(dados['endereco_local_acidente'])
+    dados['endereco_local_acidente'] = re.sub('[-,.,!,/,&,",:,¨,;,~,^,´,`]', '', dados['endereco_local_acidente'])
 
         
     del dados['csrfmiddlewaretoken'] # Excluindo o token csrf.
