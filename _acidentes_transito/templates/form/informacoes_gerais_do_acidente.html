@@ -58,13 +58,13 @@
       <small><spam style="color:red;">*</spam><b>17-Bairro do Local do Acidente </b></small>
       <input style="max-width: 150px !important;" placeholder="Buscar CEP" type="text" class="form-control form-control-sm m-2 mt-0" name="" id="busca_cep_local_acidente">
     </label>
-    <input type="text" class="form-control form-control-sm" id="bairro_local_acidente" name="bairro_local_acidente" pattern="^[a-z A-Z0-9]{3,90}$" onkeypress="return limitcarc(event, 'letr_acent_num')" required>
+    <input type="text" class="form-control form-control-sm" id="bairro_local_acidente" name="bairro_local_acidente" onkeypress="return limitcarc(event, 'letr_acent_num')" required>
     <div style="font-size:10px;" class="invalid-feedback text-center"></div>
   </div>
 
   <div class="col">      
     <label for="endereco_local_acidente" class="form-label m-0 mt-3"><small><b>18-Endereço do Local do Acidente </b></small></label>
-    <input type="text" class="form-control form-control-sm" id="endereco_local_acidente" name="endereco_local_acidente" pattern="^[a-z A-Z0-9]{0,100}$" onkeypress="return limitcarc(event, 'letr_acent_num')" >
+    <input type="text" class="form-control form-control-sm" id="endereco_local_acidente" name="endereco_local_acidente" onkeypress="return limitcarc(event, 'letr_acent_num')" >
     <!--<div style="font-size:10px;" class="invalid-feedback text-center">Min 10, Max 90 Caracteres.</div>-->
   </div>
 

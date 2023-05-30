@@ -13,6 +13,8 @@ from sisgevs import settings
     
 from .models import AcidentesTransito
 
+import unidecode
+
     
 # Função de listagem de casos.
 @login_required(login_url='/login/')
@@ -44,6 +46,10 @@ def set_criar_caso(request):
   dados['tipos_veiculos_envolvidos_acidente'] = dados['tipos_veiculos_envolvidos_acidente'].split(',')
   dados['responsavel_pelas_informacoes'] = request.user     
   dados['qual_hospital'] = request.POST['qual_hospital']
+
+  #tratando endereço(removendo acentos) antes do storage.
+  dados['bairro_local_acidente'] = unidecode.unidecode(dados['bairro_local_acidente'])
+  dados['endereco_local_acidente'] = unidecode.unidecode(dados['endereco_local_acidente'])
     
   del dados['csrfmiddlewaretoken'] # Excluindo o token csrf.
     
@@ -104,6 +110,10 @@ def set_editar_caso(request, id):
     dados['tipos_veiculos_envolvidos_acidente'] = dados['tipos_veiculos_envolvidos_acidente'].split(',')
     dados['responsavel_pelas_informacoes'] = request.user
     dados['qual_hospital'] = request.POST['qual_hospital']
+
+    #tratando endereço(removendo acentos) antes do storage.
+    dados['bairro_local_acidente'] = unidecode.unidecode(dados['bairro_local_acidente'])
+    dados['endereco_local_acidente'] = unidecode.unidecode(dados['endereco_local_acidente'])
 
         
     del dados['csrfmiddlewaretoken'] # Excluindo o token csrf.
