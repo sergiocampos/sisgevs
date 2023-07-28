@@ -422,29 +422,34 @@ def replace_id_for_name(key, value):
 
 # Funçao que verifica se o usuário tem permissao para editar um caso especifico.
 def tem_permissao(request, caso):
-
-	# Usuários SES.
-	if request.user.funcao not in ['gerencia_regional', 'autocadastro', 'municipal', 'coordenacao_vigilancia_epidemiologica_hospitalar']:
-		return True
-
-	# Usuário municipal.
-	elif request.user.funcao == 'municipal':
-		if request.user.municipio.nome.upper() == caso.municipio_ocorrencia_acidente.upper() or request.user.id == caso.responsavel_pelas_informacoes_id:
-			return True
-		return False
-
-	# Usuário coordenacao_vigilancia_epidemiologica_hospitalar.
-	elif request.user.funcao == 'coordenacao_vigilancia_epidemiologica_hospitalar' and request.user.id == caso.responsavel_pelas_informacoes_id:
-		return True
-
+    agravo_url = str(request.path).split('/')[1]
+    # Usuários SES.
+    if request.user.funcao not in ['gerencia_regional', 'autocadastro', 'municipal', 'coordenacao_vigilancia_epidemiologica_hospitalar']:
+        return True
+    
+    # Usuário municipal.
+    elif request.user.funcao == 'municipal':
+        if 'aci' in request.user.lista_agravos_permite and agravo_url == 'aci':
+            if request.user.municipio.nome.upper() == caso.municipio_ocorrencia_acidente.upper() or request.user.id == caso.responsavel_pelas_informacoes_id:
+                return True
+        elif 'esp-hum' in request.user.lista_agravos_permite:
+            municipio_id_caso = caso.municipio
+            municipio_caso = Municipio.objects.get(id=municipio_id_caso)
+            if request.user.municipio.nome.upper() == municipio_caso.nome.upper() or request.user.id == caso.responsavel_pelas_informacoes_id:
+                return True
+        return False
+    
+    # Usuário coordenacao_vigilancia_epidemiologica_hospitalar.
+    elif request.user.funcao == 'coordenacao_vigilancia_epidemiologica_hospitalar' and request.user.id == caso.responsavel_pelas_informacoes_id:
+        return True
+    
     # Usuário autocadastro.
-	elif request.user.funcao == 'autocadastro' and request.user.id == caso.responsavel_pelas_informacoes_id:
-		return True
-
-	# Qualquer outro.
-	else:
-		return False
-
+    elif request.user.funcao == 'autocadastro' and request.user.id == caso.responsavel_pelas_informacoes_id:
+        return True
+    
+    # Qualquer outro.
+    else:
+        return False
 
 # Função para alterar função ou agravos permitidos de um usuário listado.
 def alter_user(data):
