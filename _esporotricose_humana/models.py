@@ -52,26 +52,26 @@ class CasoEsporotricose(models.Model):
 
 	#antecedentes Epidemiologicos
 	data_investigacao = models.DateField(blank=True, null=True)
-	ocupacao = models.CharField(max_length = 100, null=True, blank=True)
+	ocupacao = models.CharField(max_length = 200, null=True, blank=True)
 	ambientes_frequentados = ArrayField(models.CharField(max_length=100), blank=True, null=True)
-	ambientes_frequentados_outros = models.CharField(max_length = 100, null=True, blank=True)
+	ambientes_frequentados_outros = models.TextField(blank=True, default='', null=True)
 	animais_que_teve_contato = ArrayField(models.CharField(max_length=100), blank=True, null=True)
-	animais_que_teve_contato_outros = models.CharField(max_length = 100, null=True, blank=True)
+	animais_que_teve_contato_outros = models.TextField(blank=True, default='', null=True)
 	natureza_contato_animais = ArrayField(models.CharField(max_length=200), blank=True, null=True)
-	natureza_contato_animais_outros = models.CharField(max_length = 100, null=True, blank=True)
+	natureza_contato_animais_outros = models.TextField(blank=True, default='', null=True)
 	relacao_animal_doente = ArrayField(models.CharField(max_length=200), blank=True, null=True)
-	relacao_animal_doente_outros = models.CharField(max_length = 100, null=True, blank=True)
+	relacao_animal_doente_outros = models.TextField(blank=True, default='', null=True)
 	exerce_atividade_contato_plantas = models.CharField(max_length = 100, null=True, blank=True)
 	historico_contato_material = models.CharField(max_length = 100, null=True, blank=True)
 
 	#Dados clínicos
 	presenca_lesao_pele = models.CharField(max_length = 100, null=True, blank=True)
 	natureza_lesao = ArrayField(models.CharField(max_length=200), blank=True, null=True)
-	natureza_lesao_outro = models.CharField(max_length = 100, null=True, blank=True)
+	natureza_lesao_outro = models.TextField(blank=True, default='', null=True)
 	local_lesao = ArrayField(models.CharField(max_length=200), blank=True, null=True)
-	local_lesao_outro = models.CharField(max_length = 100, null=True, blank=True)
+	local_lesao_outro = models.TextField(blank=True, default='', null=True)
 	diagnostico_forma_extrac_doenca = models.CharField(max_length = 100, null=True, blank=True)
-	localizacao_forma_extrac_doenca = models.CharField(max_length = 200, null=True, blank=True)
+	localizacao_forma_extrac_doenca = models.TextField(blank=True, default='', null=True)
 
 	#Dados Laboratoriais
 	houve_coleta_material = models.CharField(max_length = 10, null=True, blank=True)
@@ -82,7 +82,7 @@ class CasoEsporotricose(models.Model):
 	data_coleta3 = models.DateField(blank=True, null=True)
 	numero_gal3 = models.CharField(max_length = 200, null=True, blank=True)
 	resultado_isolamento = models.CharField(max_length = 200, null=True, blank=True)
-	agente = models.CharField(max_length = 200, null=True, blank=True)
+	agente = models.TextField(blank=True, default='', null=True)
 	histopatologia = models.CharField(max_length = 100, null=True, blank=True)
 
 	data_resultado_exame1 = models.DateField(blank=True, null=True)
