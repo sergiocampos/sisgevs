@@ -938,17 +938,19 @@
                                 </div>
                             </div>
                             <script>
-                                { %
-                                    for animais in form.animais_que_teve_contato %
-                                }
-                                $(`input[name='animais_que_teve_contato'][value='{{animais}}']`).prop("checked", true) { % endfor %
-                                }
+                                {% for animais in form.animais_que_teve_contato %}
+                                $(`input[name='animais_que_teve_contato'][value='{{animais}}']`).prop("checked", true) 
+                                {% endfor %}
                             </script>
                         </div>
                         <div class="row mb-2">
                             
                             <div class="col">
+                                {% if form.animais_que_teve_contato_outros == None or form.animais_que_teve_contato_outros == '' %}
+                                <input hidden disabled placeholder="Outros..." name="animais_que_teve_contato_outros" type="text" class="form-control form-control-sm outros_animais_id" value="">
+                                {% else %}
                                 <input hidden disabled placeholder="Outros..." name="animais_que_teve_contato_outros" type="text" class="form-control form-control-sm outros_animais_id" value="{{form.animais_que_teve_contato_outros}}">
+                                {% endif %}
                             </div>
                             
                         </div>
@@ -997,16 +999,18 @@
                                 </div>
                             </div>
                             <script>
-                                { %
-                                    for contato in form.natureza_contato_animais %
-                                }
-                                $(`input[name='natureza_contato_animais'][value='{{contato}}']`).prop("checked", true) { % endfor %
-                                }
+                                {% for contato in form.natureza_contato_animais %}
+                                $(`input[name='natureza_contato_animais'][value='{{contato}}']`).prop("checked", true) 
+                                {% endfor %}
                             </script>
                         </div>
                         <div class="row mb-2">                            
                             <div class="col">
+                                {% if form.natureza_contato_animais_outros == None or form.natureza_contato_animais_outros == '' %}
+                                <input hidden disabled placeholder="Outros..." name="natureza_contato_animais_outros" type="text" class="form-control form-control-sm outros_a_id" value="">
+                                {% else %}
                                 <input hidden disabled placeholder="Outros..." name="natureza_contato_animais_outros" type="text" class="form-control form-control-sm outros_a_id" value="{{form.natureza_contato_animais_outros}}">
+                                {% endif %}
                             </div>
                             
                         </div>
@@ -1053,16 +1057,18 @@
                                 </div>
                             </div>
                             <script>
-                                { %
-                                    for relacao in form.relacao_animal_doente %
-                                }
-                                $(`input[name='relacao_animal_doente'][value='{{relacao}}']`).prop("checked", true) { % endfor %
-                                }
+                                {% for relacao in form.relacao_animal_doente %}
+                                $(`input[name='relacao_animal_doente'][value='{{relacao}}']`).prop("checked", true) 
+                                {% endfor %}
                             </script>
                         </div>
                         <div class="row mb-2">
                             <div class="col">
+                                {% if form.relacao_animal_doente_outros == None or form.relacao_animal_doente_outros == '' %}
+                                <input hidden disabled placeholder="Outros..." name="relacao_animal_doente_outros" type="text" class="form-control form-control-sm outros_p_id" value="">
+                                {% else %}
                                 <input hidden disabled placeholder="Outros..." name="relacao_animal_doente_outros" type="text" class="form-control form-control-sm outros_p_id" value="{{form.relacao_animal_doente_outros}}">
+                                {% endif %}
                             </div>                            
                         </div>
                         
@@ -1193,6 +1199,9 @@
                               </div>
                             </div>              
                           </div>
+                          <script>
+                            $("input[name='presenca_lesao_pele'][value='{{form.presenca_lesao_pele}}']").prop("checked", true)
+                          </script>
         
                         <style>
                             #nat_lesao_outros_id,
@@ -1398,17 +1407,19 @@
                                 </div>
                             </div>
                             <script>
-                                { %
-                                    for natureza in form.natureza_lesao %
-                                }
-                                $(`input[name='natureza_lesao'][value='{{natureza}}']`).prop("checked", true) { % endfor %
-                                }
+                                {% for natureza in form.natureza_lesao %}
+                                $(`input[name='natureza_lesao'][value='{{natureza}}']`).prop("checked", true) 
+                                {% endfor %}
                             </script>
                         </div>
                         <div class="row mb-2">
                             <div class="col">
                                 <div class="form-group">
+                                    {% if form.natureza_lesao_outro == None or form.natureza_lesao_outro == '' %}
+                                    <input class="form-control form-control-sm" placeholder="Outros..." type="text" id="nat_lesao_outros_id" name="natureza_lesao_outros" value="">
+                                    {% else %}
                                     <input class="form-control form-control-sm" placeholder="Outros..." type="text" id="nat_lesao_outros_id" name="natureza_lesao_outros" value="{{form.natureza_lesao_outro}}">
+                                    {% endif %}
                                 </div>
                             </div>
                         </div>        

@@ -1300,10 +1300,14 @@ def set_caso_esporotricose_edit(request, id):
 	ambientes_frequentados = request.POST.getlist('ambientes_frequentados')
 	ambientes_frequentados_outros = request.POST.get('ambientes_frequentados_outros')
 	animais_que_teve_contato = request.POST.getlist('animais_que_teve_contato')
+	animais_que_teve_contato_outros = request.POST.get('animais_que_teve_contato_outros')
 	natureza_contato_animais = request.POST.getlist('natureza_contato_animais')
+	natureza_contato_animais_outros = request.POST.get('natureza_contato_animais_outros')
 	relacao_animal_doente = request.POST.getlist('relacao_animal_doente')
+	relacao_animal_doente_outros = request.POST.get('relacao_animal_doente_outros')
 	exerce_atividade_contato_plantas = request.POST.get('exerc_ativ_contato_plantas')
 	historico_contato_material = request.POST.get('lesao_manuseio')
+	print("animais escolhidos:", animais_que_teve_contato)
 	
 	#dados clínicos
 	presenca_lesao_pele = request.POST.get('presenca_lesao_pele')
@@ -1510,8 +1514,11 @@ def set_caso_esporotricose_edit(request, id):
 		ambientes_frequentados = ambientes_frequentados,
 		ambientes_frequentados_outros = ambientes_frequentados_outros,
 		animais_que_teve_contato = animais_que_teve_contato,
+		animais_que_teve_contato_outros = animais_que_teve_contato_outros,
 		natureza_contato_animais = natureza_contato_animais,
+		natureza_contato_animais_outros = natureza_contato_animais_outros,
 		relacao_animal_doente = relacao_animal_doente,
+		relacao_animal_doente_outros = relacao_animal_doente_outros,
 		exerce_atividade_contato_plantas = exerce_atividade_contato_plantas,
 		historico_contato_material = historico_contato_material,
 		presenca_lesao_pele = presenca_lesao_pele,
