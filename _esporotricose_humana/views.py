@@ -1298,6 +1298,7 @@ def set_caso_esporotricose_edit(request, id):
 
 	ocupacao = request.POST.get('ocupacao')
 	ambientes_frequentados = request.POST.getlist('ambientes_frequentados')
+	ambientes_frequentados_outros = request.POST.get('ambientes_frequentados_outros')
 	animais_que_teve_contato = request.POST.getlist('animais_que_teve_contato')
 	natureza_contato_animais = request.POST.getlist('natureza_contato_animais')
 	relacao_animal_doente = request.POST.getlist('relacao_animal_doente')
@@ -1507,6 +1508,7 @@ def set_caso_esporotricose_edit(request, id):
 		data_investigacao = data_investigacao,
 		ocupacao = ocupacao,
 		ambientes_frequentados = ambientes_frequentados,
+		ambientes_frequentados_outros = ambientes_frequentados_outros,
 		animais_que_teve_contato = animais_que_teve_contato,
 		natureza_contato_animais = natureza_contato_animais,
 		relacao_animal_doente = relacao_animal_doente,

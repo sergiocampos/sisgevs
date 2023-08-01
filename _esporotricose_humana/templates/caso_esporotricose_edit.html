@@ -876,23 +876,29 @@
                             </div>
                             <div class="col">
                                 <div class="custom-control custom-checkbox mb-3">
+                                    {% if form.ambientes_frequentados_outros == None or form.ambientes_frequentados_outros == '' %}
                                     <input type="checkbox" class="custom-control-input" id="outros_id" onclick="verificarOutros()" name="ambientes_frequentados" value="Outros">
+                                    
+                                    {% else %}
+                                    <input type="checkbox" class="custom-control-input" id="outros_id" onclick="verificarOutros()" name="ambientes_frequentados" value="Outros" checked>
+                                    {% endif %}
                                     <label class="custom-control-label" for="outros_id">Outros</label>
                                 </div>
                             </div>
                             <script>
-                                { %
-                                    for ambiente in form.ambientes_frequentados %
-                                }
+                                {% for ambiente in form.ambientes_frequentados %}
                                 $("input[name='ambientes_frequentados'][value='{{ambiente}}']").prop("checked", true)
         
-                                { % endfor %
-                                }
+                                {% endfor %}
                             </script>
                         </div>
                         <div class="row mb-2">                            
                             <div class="col">
+                                {% if form.ambientes_frequentados_outros != None or form.ambientes_frequentados_outros != '' %}
                                 <input hidden disabled placeholder="Outros..." name="ambientes_frequentados_outros" type="text" class="form-control form-control-sm outros_id" value="{{form.ambientes_frequentados_outros}}">
+                                {% else %}
+                                <input hidden disabled placeholder="Outros..." name="ambientes_frequentados_outros" type="text" class="form-control form-control-sm outros_id" value="">
+                                {% endif %}
                             </div>                            
                         </div>
                         
@@ -1099,6 +1105,7 @@
                                     } else {
                                         input_1.hidden = true;
                                         input_1.disabled = true;
+                                        input_1.value = '';
                                     }
                                     if (checkbox_2.checked) {
                                         input_2.hidden = false;
@@ -2197,7 +2204,7 @@
                                         <span class="input-group-text">UF</span>
                                     </div>
                                     <select class="form-control form-control-sm" name="uf_caso_autoctone_municipio" id="uf_caso_autoctone_id" disabled>
-                                        <option value="" selected></option>
+                                        <option value="{{estado_caso.id}}" selected>{{estado_caso}}</option>
                                         {% for e in estados %}
                                         <option value="{{e.id}}">{{e.nome}}</option>
                                         {% endfor %}
@@ -2267,12 +2274,12 @@
                                         <span class="input-group-text">Área Provável de Infecção</span>
                                     </div>
                                     <select class="form-control form-control-sm" name="area_provavel_infeccao" id="area_provavel_infeccao_autoctone_id" disabled>
-                        <option value=""></option>
-                        <option value="Periurbano">Periurbano</option>
-                        <option value="Rural">Rural</option>
-                        <option value="Urbana">Urbana</option>
-                        <option value="Ignorado">Ignorado</option>
-                      </select>
+                                        <option value="{{form.area_provavel_infeccao_caso_autoctone}}" selected>{{form.area_provavel_infeccao_caso_autoctone}}</option>
+                                        <option value="Periurbano">Periurbano</option>
+                                        <option value="Rural">Rural</option>
+                                        <option value="Urbana">Urbana</option>
+                                        <option value="Ignorado">Ignorado</option>
+                                    </select>
                                 </div>
                             </div>
         
@@ -2286,13 +2293,13 @@
                                         <span class="input-group-text">Ambiente da Infecção</span>
                                     </div>
                                     <select class="form-control form-control-sm" name="ambiente_infeccao_autoctone" id="ambiente_infeccao_autoctone_id" disabled>
-                        <option value=""></option>
-                        <option value="Domiciliar">Domiciliar</option>
-                        <option value="Trabalho">Trabalho</option>
-                        <option value="Lazer">Lazer</option>
-                        <option value="Outro">Outro</option>
-                        <option value="Ignorado">Ignorado</option>
-                      </select>
+                                        <option value="{{form.ambiente_infeccao_caso_autoctone}}" selected>{{form.ambiente_infeccao_caso_autoctone}}</option>
+                                        <option value="Domiciliar">Domiciliar</option>
+                                        <option value="Trabalho">Trabalho</option>
+                                        <option value="Lazer">Lazer</option>
+                                        <option value="Outro">Outro</option>
+                                        <option value="Ignorado">Ignorado</option>
+                                    </select>
                                 </div>
                             </div>
                             <div class="col">
@@ -2301,11 +2308,11 @@
                                         <span class="input-group-text">Doença Relacionada ao Trabalho</span>
                                     </div>
                                     <select class="form-control form-control-sm" name="doenca_rel_trabalho_autoctone" id="doenca_rel_trabalho_autoctone_id" disabled>
-                        <option value=""></option>
-                        <option value="Sim">Sim</option>
-                        <option value="Não">Não</option>
-                        <option value="Ignorado">Ignorado</option>
-                      </select>
+                                        <option value="{{form.doenca_rel_trabalho_caso_autoctone}}" selected>{{form.doenca_rel_trabalho_caso_autoctone}}</option>
+                                        <option value="Sim">Sim</option>
+                                        <option value="Não">Não</option>
+                                        <option value="Ignorado">Ignorado</option>
+                                    </select>
                                 </div>
                             </div>
         
@@ -2406,12 +2413,12 @@
                                         <span class="input-group-text">Evolução do Caso</span>
                                     </div>
                                     <select class="form-control form-control-sm" name="evolucao_caso_autoctone" id="sel_evo_caso" onclick="activeDataEvoCaso()">
-                        <option value=""></option>
-                        <option value="Cura">Cura</option>
-                        <option value="Óbito pelo AGRAVO">Óbito pelo AGRAVO</option>
-                        <option value="Óbito Outras Causas">Óbito Outras Causas</option>
-                        <option value="Ignorado">Ignorado</option>
-                      </select>
+                                        <option value=""></option>
+                                        <option value="Cura">Cura</option>
+                                        <option value="Óbito pelo AGRAVO">Óbito pelo AGRAVO</option>
+                                        <option value="Óbito Outras Causas">Óbito Outras Causas</option>
+                                        <option value="Ignorado">Ignorado</option>
+                                    </select>
                                 </div>
                             </div>
                             <script>
@@ -2454,13 +2461,13 @@
                                     <span class="input-group-text">Status do Caso</span>
                                 </div>
                                 <select class="form-control form-control-sm" name="status_caso" id="status_caso" onclick="activeDataEvoCaso()">
-                      <option value="" selected disabled>Selecionar</option>
-                      <option value="Notificado">Notificado</option>
-                      <option value="Em Análise">Em Análise</option>
-                      <option value="Evoluído">Evoluído</option>
-                      <option value="Confirmado">Confirmado</option>
-                      <option value="Concluído">Concluído</option>
-                    </select>
+                                <option value="{{form.status_caso}}" selected disabled>{{form.status_caso}}</option>
+                                <option value="Notificado">Notificado</option>
+                                <option value="Em Análise">Em Análise</option>
+                                <option value="Evoluído">Evoluído</option>
+                                <option value="Confirmado">Confirmado</option>
+                                <option value="Concluído">Concluído</option>
+                                </select>
                             </div>
                         </div>
 
