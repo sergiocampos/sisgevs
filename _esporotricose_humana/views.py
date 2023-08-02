@@ -1307,7 +1307,6 @@ def set_caso_esporotricose_edit(request, id):
 	relacao_animal_doente_outros = request.POST.get('relacao_animal_doente_outros')
 	exerce_atividade_contato_plantas = request.POST.get('exerc_ativ_contato_plantas')
 	historico_contato_material = request.POST.get('lesao_manuseio')
-	print("animais escolhidos:", animais_que_teve_contato)
 	
 	#dados clínicos
 	presenca_lesao_pele = request.POST.get('presenca_lesao_pele')
